@@ -29,6 +29,8 @@ var ele = new Ele();
  * 定义一个点类
  * @param {number} x 横坐标
  * @param {number} y 纵坐标
+ * @constructor
+ * @class {Point}
  */
 function Point(x, y) {
     this.x = x;
