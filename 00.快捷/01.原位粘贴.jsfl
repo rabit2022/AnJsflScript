@@ -1,0 +1,144 @@
+/**
+ * @file: 00.跨域剪切.jsfl
+ * @author: 穹的兔兔
+ * @email: 3101829204@qq.com
+ * @date: 2024/12/8 11:15
+ * @project: WindowSWF-master
+ * @description:
+ */
+
+
+function checkDom() {
+    if (doc == null) {
+        alert("请打开 [.fla] 文件");
+        return false;
+    }
+
+    // if (selection.length < 1) {
+    //     alert("请选择元件？");
+    //     return false;
+    // }
+    // if (selection.length > 1) {
+    //     alert("请选择单个元件");
+    //     return false;
+    // }
+    // if (selection.length === 1) {
+    //     alert("请选择至少两个元件");
+    //     return false;
+    // }
+    return true;
+}
+
+/**
+ * 定义一个点类
+ * @param {number} x 横坐标
+ * @param {number} y 纵坐标
+ */
+function Point(x, y) {
+    this.x = x;
+    this.y = y;
+}
+
+
+/**
+ * 加法，两个点的坐标的和
+ * @param {Point} point 另一个点
+ * @returns {Point}
+ */
+Point.prototype.add = function (point) {
+    return new Point(this.x + point.x, this.y + point.y);
+}
+
+/**
+ * 减法，两个点的坐标的差
+ * @param {Point} point 另一个点
+ * @returns {Point}
+ */
+Point.prototype.sub = function (point) {
+    return new Point(this.x - point.x, this.y - point.y);
+}
+
+// >
+/**
+ * 判断是否  在 另一个点 的右下方
+ * @param {Point} point 另一个点
+ * @returns {boolean}
+ */
+Point.prototype.greater = function (point) {
+    return this.x > point.x && this.y > point.y;
+}
+
+Point.prototype.toString = function () {
+    return "Point: " + this.x + " " + this.y;
+}
+
+/**
+ * 新建一个矩阵
+ * @returns {Matrix} 
+ */
+function createMatrix(a, b, c, d, tx, ty) {
+    var matrix = doc.viewMatrix;
+    matrix.a = a;
+    matrix.b = b;
+    matrix.c = c;
+    matrix.d = d;
+    matrix.tx = tx;
+    matrix.ty = ty;
+    return matrix;
+}
+
+function getNormalMatrix() {
+    var matrix = createMatrix(1, 0, 0, 1, 0, 0);
+    return matrix;
+}
+
+
+var doc=fl.getDocumentDOM();//文档
+var selection = doc.selection;//选择
+var library=doc.library;//库文件
+function Main() {
+    if (!checkDom()) {
+        return;
+    }
+
+    /**
+     * @type {Matrix}
+     */
+    var worldViewMatrixAnti = fl.tempWorldViewMatrixAnti;
+    // fl.trace("worldViewMatrixAnti: " + worldViewMatrixAnti.a+", "+worldViewMatrixAnti.b+", "+worldViewMatrixAnti.c+", "+worldViewMatrixAnti.d+", "+worldViewMatrixAnti.tx+", "+worldViewMatrixAnti.ty);
+    if (!worldViewMatrixAnti) {
+        fl.trace("未找到之前的观察矩阵。请先运行脚本：00.跨域剪切.jsfl");
+        return;
+    }
+    // if (worldViewMatrixAnti==null){
+    //     // 设置观察矩阵
+    //     worldViewMatrixAnti=getNormalMatrix();
+    // }
+    
+    doc.selectNone();
+    doc.clipPaste(true);
+
+    // 本地摄像机的逆矩阵
+    var localViewMatrixAnti = doc.viewMatrix;
+    
+    // 一个矩阵的逆可以用来撤销该矩阵所代表的变换。
+    // 例如，如果有一个变换矩阵（可能包含旋转、缩放、平移等），它的逆矩阵将包含相反的变换，可以用来恢复原始状态。
+    // 本地摄像机的矩阵
+    var localViewMatrix = fl.Math.invertMatrix(localViewMatrixAnti);//逆矩阵
+
+    var selection1 = doc.selection;
+    for (var i = 0; i < selection1.length; i++){
+        var element = selection1[i];
+        
+        // 从一种坐标系到另一种坐标系的转换，然后立即撤销这个转换。
+        // 计算一个点在不同坐标系之间的相对位置。
+        // 例如，如果你有一个在世界坐标系下的点，通过乘以观察矩阵，你可以得到这个点在相机坐标系下的位置。
+        // 然后，通过乘以逆观察矩阵，你可以将这个点转换回世界坐标系
+        var worldMatrix = fl.Math.concatMatrix(worldViewMatrixAnti, localViewMatrix);//矩阵相乘
+        var finalMatrix = fl.Math.concatMatrix(element.matrix, worldMatrix);
+    
+        element.matrix = finalMatrix;
+    }
+}
+Main();
+

@@ -1,0 +1,43 @@
+﻿Getting started
+1. Install "JSFL Support" plugin: File > Settings > Plugins > Marketplace > JSFL Support 
+2. Enable global JSFL library: 
+File > Settings > Libraries & Frameworks > JavaScript > Libraries > JSFL
+
+
+
+竹夭
+
+2024年11月1日 09:44
+git仓库地址（不稳定）：https://github.com/ningtl/WindowSWF/tree/master
+阿里云gitee仓库下载（稳定）：https://gitee.com/ninge/WindowSWF/tree/master/
+插件教程，b站 见水中月 插件相关合集
+小程序 eda家园， abode全家桶免费下载。
+国外jsfl论坛地址
+https://community.adobe.com/t5/animate-discussions/unparent-layers-with-jsfl/m-p/14851064
+ 素材链接(自己可拼图成新)：https://pan.baidu.com/s/1q9vZm-YwWwE0do1tDvpwoQ?pwd=1234
+提取码：1234
+@离歌 【腾讯文档】见水中月免费Animate动画插件安装教程 https://docs.qq.com/doc/DWUxKa1RxaUZTakF3 也可以看主页插件合集最新集。
+github 最新api
+https://github.com/AdobeDocs/developers-animatesdk-docs/blob/master/Layer_object/layer_summary.md
+
+
+
+// Obfuscator.io 进行混淆的
+// https://deobfuscate.io/
+// https://obf-io.deobfuscate.io/
+
+
+
+tl0
+tl1
+layers0
+layers1
+layer0
+layer1
+parentLayer
+parentLayerIndex
+
+layer1ParentLayer
+
+
+
