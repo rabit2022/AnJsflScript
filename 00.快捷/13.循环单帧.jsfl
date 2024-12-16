@@ -29,22 +29,6 @@ function checkDom() {
 }
 
 
-/**
- * 判断是否是元素
- * @class {Ele}
- */
-var Ele = function () {
-}
-
-// var p = IsElement.prototype = {};
-/**
- * 判断是否是 元件
- * @param {Element} element 元素
- * @returns {boolean}
- */
-Ele.prototype.IsSymbol = function (element) {
-    return element.elementType === "instance" && element.instanceType === "symbol";
-}
 var ele = new Ele();
 
 

@@ -39,33 +39,6 @@ function pathSplit(path) {
 }
 
 
-(function() {
-    /**
-     * 判断是否是元素
-     * @class {Ele}
-     */
-    var Ele = function () {
-    }
-
-    // var p = IsElement.prototype = {};
-    /**
-     * 判断是否是形状
-     * @param {Element} element 元素
-     * @returns {boolean}
-     */
-    Ele.prototype.IsSymbol = function (element) {
-        return element.elementType === "instance" && element.instanceType === "symbol";
-    }
-
-    // Ele.prototype.IsInstance = function (element) {
-    //     return element.elementType === "instance";
-    // }
-
-    // 将 Ele 构造函数赋值给全局变量或模块
-    fl.Ele = Ele;
-})();
-var ele = new fl.Ele();
-
 // 复制元件
 function CopySymbol() {
     // 1.清空选择

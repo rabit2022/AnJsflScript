@@ -28,38 +28,6 @@ function checkDom() {
     return true;
 }
 
-/**
- * 点类
- * @param {number} x
- * @param {number} y
- * @type {Point}
- */
-function Point(x, y) {
-    this.x = x;
-    this.y = y;
-}
-
-/**
- * 转换为对象
- * @return {{x:number,y:number}}
- */
-Point.prototype.toObj = function() {
-    return {x: this.x, y: this.y};
-}
-
-// +
-Point.prototype.add = function(point) {
-    return new Point(this.x + point.x, this.y + point.y);
-}
-
-// -
-Point.prototype.sub = function(point) {
-    return new Point(this.x - point.x, this.y - point.y);
-}
-
-
-
-
 function Main() {
     if (!checkDom()) {
         return;

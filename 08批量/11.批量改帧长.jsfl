@@ -178,10 +178,6 @@ function KeyframeDurationHandler(input){
 }
     
 
-// // 使用类
-// const keyframeHandler = new KeyframeDurationHandler();
-// var msg = prompt("请输入关键帧持续帧数（“+3”为增加，“-3”为减少，无符号“3”为统一）");
-// keyframeHandler.setDuration(msg);
 
 var doc = fl.getDocumentDOM();//文档
 var selection = doc.selection;//选择

@@ -30,57 +30,6 @@ function checkDom() {
 }
 
 
-/**
- * 定义一个点类
- * @param {number} x 横坐标
- * @param {number} y 纵坐标
- */
-function Point(x, y) {
-    this.x = x;
-    this.y = y;
-}
-
-
-/**
- * 加法，两个点的坐标的和
- * @param {Point} point 另一个点
- * @returns {Point}
- */
-Point.prototype.add = function (point) {
-    return new Point(this.x + point.x, this.y + point.y);
-}
-
-/**
- * 减法，两个点的坐标的差
- * @param {Point} point 另一个点
- * @returns {Point}
- */
-Point.prototype.sub = function (point) {
-    return new Point(this.x - point.x, this.y - point.y);
-}
-
-// >
-/**
- * 判断是否  在 另一个点 的右下方
- * @param {Point} point 另一个点
- * @returns {boolean}
- */
-Point.prototype.greater = function (point) {
-    return this.x > point.x && this.y > point.y;
-}
-
-Point.prototype.toString = function () {
-    return "Point: " + this.x + " " + this.y;
-}
-
-/**
- * 转换为对象
- * @return {{x:number,y:number}}
- */
-Point.prototype.toObj = function() {
-    return {x: this.x, y: this.y};
-}
-
 var doc=fl.getDocumentDOM();//文档
 var selection = doc.selection;//选择
 var library=doc.library;//库文件
