@@ -50,7 +50,8 @@ Rect.prototype.sub = function(rect){
  */
 function calculateSafeMoveVector(bigRect, smallRect, moveVector) {
     var maxOffsetRect = smallRect.sub(bigRect);
-    fl.trace("maxOffsetRect: " + maxOffsetRect.toString())
+    // fl.trace("maxOffsetRect: " + maxOffsetRect.toString())
+    // fl.trace("moveVector: " + moveVector.toString())
 
     var newMoveVector = new Point(moveVector.x, moveVector.y);
     if (moveVector.x <0){
@@ -63,6 +64,8 @@ function calculateSafeMoveVector(bigRect, smallRect, moveVector) {
     }else if(moveVector.y > 0){
         newMoveVector.y = Math.min(moveVector.y, maxOffsetRect.top);
     }
+    
+    // fl.trace("newMoveVector: " + newMoveVector.toString())
     return newMoveVector;
 }
 

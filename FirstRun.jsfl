@@ -7,15 +7,16 @@
  * @description:
  */
 
-
+// 绝对路径导入
 var p="F:/04_ps/沙雕动画/_素材库/WindowSWF-master/WindowSWF-master/mytest/Core/Importer.jsfl";
 var uri=FLfile.platformPathToURI(p);
 fl.runScript(uri);
 
-importMoudle("/Object/Curve.jsfl");
-importMoudle("/Object/Ele.jsfl");
-importMoudle("/Object/Matrix.jsfl");
-importMoudle("/Object/Point.jsfl");
-importMoudle("/Object/Rect.jsfl");
-importMoudle("/Object/Select.jsfl");
+// 导入模块,相对路径导入
+importMoudle("Core/Object/Curve.jsfl");
+importMoudle("Core/Object/Ele.jsfl");
+importMoudle("Core/Object/Matrix.jsfl");
+importMoudle("Core/Object/Point.jsfl");
+importMoudle("Core/Object/Rect.jsfl");
+importMoudle("Core/Object/Select.jsfl");
 

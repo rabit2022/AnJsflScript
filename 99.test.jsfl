@@ -37,6 +37,6 @@ function Main() {
     // importMoudle("Core/Object/Point.jsfl");
     
     // var point=new Point(100,100);
-    fl.trace(ele);
+    fl.trace(hsd);
 }
 Main();
