@@ -36,34 +36,6 @@ function checkDom() {
 }
 
 
-// 复制元件
-function CopySymbol() {
-    // 1.清空选择
-    library.selectNone();
-
-    // 2.直接复制元件
-    var origionName = selection[0].libraryItem.name;
-    library.duplicateItem(origionName);
-
-    // 3.获取新元件名称
-    var targetName = library.getSelectedItems()[0].name;
-    // var {_, file_name}=pathSplit(targetName);
-    //
-    // // 4.重新命名元件名称
-    // var input_file_name = prompt("请输入新元件名称：", file_name);
-    // if (input_file_name == null || input_file_name === "") {
-    //     alert("元件名称不能为空！");
-    //     library.deleteItem(targetName);
-    //     return;
-    // }
-
-    // 5.交换元件
-    doc.swapElement(targetName);
-
-    // // 6.更新元件名称
-    // selection[0].libraryItem.name = input_file_name;
-}
-
 function PackSymbol() {
     // 元件编辑模式
     doc.enterEditMode("inPlace");
@@ -73,10 +45,7 @@ function PackSymbol() {
         var item = selection[i];
         // symbol: 打散
         if (ele.IsSymbol(item)) {
-            // // 打散
-            // doc.breakApart();
-            // doc.group();
-            CopySymbol();
+            ele.CopySymbol("skip");
         } else {
             continue;
         }
@@ -95,7 +64,7 @@ function Main() {
         return;
     }
 
-    CopySymbol();
+    ele.CopySymbol("ask");
 
     PackSymbol();
 }

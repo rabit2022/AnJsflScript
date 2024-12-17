@@ -37,10 +37,7 @@ function Main() {
     if (!checkDom()) {
         return;
     }
-
-    // var element = doc.selection[0];
-    //
-    // element.firstFrame = 0;
+    
     for (var i = 0; i < selection.length; i++) {
         var element = selection[i];
         element.firstFrame = 0;

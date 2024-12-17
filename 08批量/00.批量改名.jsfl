@@ -8,8 +8,6 @@
  */
 
 
-
-
 function checkDom() {
     if (doc == null) {
         alert("请打开 [.fla] 文件");

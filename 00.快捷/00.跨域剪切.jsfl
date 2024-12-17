@@ -42,7 +42,7 @@ function Main() {
     var tempWorldViewMatrixAnti=doc.viewMatrix;
     fl.tempWorldViewMatrixAnti=tempWorldViewMatrixAnti;
 
-    LogMatrix(tempWorldViewMatrixAnti);
+    // LogMatrix(tempWorldViewMatrixAnti);
 
     // 复制元件
     // doc.clipCut();
@@ -50,6 +50,4 @@ function Main() {
 }
 Main();
 
-function LogMatrix(matrix) {
-    fl.trace("[" + matrix.a + ", " + matrix.b + ", " + matrix.c + ", " + matrix.d + "] [" + matrix.tx + ", " + matrix.ty +"]");
-}
+

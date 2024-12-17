@@ -7,7 +7,10 @@
  * @description:
  */
 
-
+/**
+ * 获取当前脚本文件的所在文件夹路径
+ * @returns {string}
+ */
 function getCurFolderURI() {
     // 获取当前脚本文件的完整路径
     var scriptURI = fl.scriptURI;
@@ -25,13 +28,18 @@ function getCurFolderURI() {
     return folderPath;
 }
 
+/**
+ * 导入指定脚本文件
+ * @param {string} relativeScriptPath 相对于当前脚本文件的相对路径
+ */
 function importMoudle(relativeScriptPath) {
     var curFolderURI = getCurFolderURI();
     var scriptURI = curFolderURI + "/" + relativeScriptPath;
-    fl.trace(scriptURI + " imported.");
     
     fl.runScript(scriptURI);
+    fl.trace(scriptURI + " imported.");
 }
+
 
 /**
  *

@@ -37,45 +37,19 @@ function Main() {
     if (!checkDom()) {
         return;
     }
-
-    // 找到最大的右下角
-    var maxRightBottom = new Point(0, 0);
-    /**
-     * 找到最大的元素
-     * @type {Element}
-     */
-    var maxElement;
-    for (var i = 0; i < selection.length; i++) {
-        // 只选中一个元素
-        // for (var j = 0; j < selection.length; j++) {
-        //     var element = selection[j];
-        //     element.selected = false;
-        // }
-        doc.selectNone();
-        var item = selection[i];
-        item.selected = true;
-
-        var trPoint = new Point(item.x, item.y);
-        var r = doc.getSelectionRect();
-        var rightBottom = new Point(r.right, r.bottom);
-
-        if (rightBottom.greater(maxRightBottom)) {
-            maxRightBottom = rightBottom;
-            maxElement = item;
-        }
-    }
+    
+    // 找到最右边的元素
+    var maxElement=ele.getMaxRight();
     
     // 获取 transformPoint 
-    var tr = maxElement.getTransformationPoint();
-    var transformPoint = new Point(tr.x, tr.y);
+    var trPoint = wrapPoint(maxElement.getTransformationPoint());
     
     // 把所有元素移动到中心点
     for (var i = 0; i < selection.length; i++) {
-        var item = selection[i];
-        // var current = new Point(item.x, item.y);
-        item.selected=true;
+        var element = selection[i];
+        element.selected=true;
 
-        item.setTransformationPoint(transformPoint.toObj());
+        element.setTransformationPoint(trPoint.toObj());
     }
 }
 Main();

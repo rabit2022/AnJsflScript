@@ -39,7 +39,6 @@ Point.prototype.sub = function (point) {
     return new Point(this.x - point.x, this.y - point.y);
 }
 
-// 除法
 /**
  * 除法，两个点的坐标的商
  * @param {number} num 除数
@@ -49,7 +48,6 @@ Point.prototype.div = function (num) {
     return new Point(this.x / num, this.y / num);
 }
 
-// round
 /**
  * 四舍五入
  * @returns {Point}
@@ -58,7 +56,6 @@ Point.prototype.toIntPonit = function () {
     return new Point(Math.round(this.x), Math.round(this.y));
 }
 
-// >
 /**
  * 判断是否  在 另一个点 的右下方
  * @param {Point} point 另一个点
@@ -68,9 +65,14 @@ Point.prototype.greater = function (point) {
     return this.x > point.x && this.y > point.y;
 }
 
+/**
+ * 字符串
+ * @returns {string}
+ */
 Point.prototype.toString = function () {
     return "Point: " + this.x + " " + this.y;
 }
+
 /**
  * 转换为对象
  * @return {{x:number,y:number}}
@@ -79,20 +81,26 @@ Point.prototype.toObj = function() {
     return {x: this.x, y: this.y};
 }
 
-// 负
+/**
+ * 取负   
+ * @returns {Point}
+ */
 Point.prototype.neg = function () {
     return new Point(-this.x, -this.y);
 }
 
 /**
- * 转换为对象
+ * 转换为Point对象
  * @param {{x:number,y:number}} obj 点对象
  * @return {Point}
  */
 function wrapPoint(obj) {
     return new Point(obj.x, obj.y);
 }
-
+/**
+ * 取零点
+ * @returns {Point}
+ */
 function getZeroPoint() {
     return new Point(0, 0);
 }

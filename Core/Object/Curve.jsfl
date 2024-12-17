@@ -8,7 +8,9 @@
  */
 
 
-
+/**
+ * 缓动曲线类型
+ */
 var EASE_TYPES = {
     "No Ease": [5,-2,0],
     "Classic Ease": [5,-1,0],
@@ -46,11 +48,13 @@ var EASE_TYPES = {
 
 /**
  * 设置缓动曲线
+ * @param {Timeline} timeline
  * @param {"No Ease"|"Classic Ease"|"Quad Ease-In"|"Cubic Ease-In"|"Quart Ease-In"|"Quint Ease-In"|"Sine Ease-In"|"Back Ease-In"|"Circ Ease-In"|"Bounce Ease-In"|"Elastic Ease-In"|"Quad Ease-Out"|"Cubic Ease-Out"|"Quart Ease-Out"|"Quint Ease-Out"|"Sine Ease-Out"|"Back Ease-Out"|"Circ Ease-Out"|"Bounce Ease-Out"|"Elastic Ease-Out"|"Quad Ease-In-Out"|"Cubic Ease-In-Out"|"Quart Ease-In-Out"|"Quint Ease-In-Out"|"Sine Ease-In-Out"|"Back Ease-In-Out"|"Circ Ease-In-Out"|"Bounce Ease-In-Out"|"Elastic Ease-In-Out"} easeType 缓动类型
  */
-function setEaseCurve(easeType){
+function setEaseCurve(timeline, easeType){
     var easeData = EASE_TYPES[easeType];
     if(!easeData){
+        alert("缓动类型不存在！");
         return;
     }
     timeline.setFrameProperty('easeType', easeData[0], easeData[1], easeData[2]);

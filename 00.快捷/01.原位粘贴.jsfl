@@ -41,7 +41,6 @@ function Main() {
      * @type {Matrix}
      */
     var worldViewMatrixAnti = fl.tempWorldViewMatrixAnti;
-    // fl.trace("worldViewMatrixAnti: " + worldViewMatrixAnti.a+", "+worldViewMatrixAnti.b+", "+worldViewMatrixAnti.c+", "+worldViewMatrixAnti.d+", "+worldViewMatrixAnti.tx+", "+worldViewMatrixAnti.ty);
     if (!worldViewMatrixAnti) {
         fl.trace("未找到之前的观察矩阵。请先运行脚本：00.跨域剪切.jsfl");
         return;

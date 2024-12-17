@@ -1,11 +1,12 @@
 /**
- * @file: 01.重置中心点.jsfl
+ * @file: 02.q弹.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
- * @date: 2024/12/7 20:16
+ * @date: 2024/12/17 14:11
  * @project: WindowSWF-master
  * @description:
  */
+
 
 
 function checkDom() {
@@ -13,10 +14,11 @@ function checkDom() {
         alert("请打开 [.fla] 文件");
         return false;
     }
-    if (selection.length < 1) {
-        alert("请选择元件？");
-        return false;
-    }
+
+    // if (selection.length < 1) {
+    //     alert("请选择元件？");
+    //     return false;
+    // }
     // if (selection.length > 1) {
     //     alert("请选择单个元件");
     //     return false;
@@ -27,7 +29,6 @@ function checkDom() {
     // }
     return true;
 }
-
 
 var doc=fl.getDocumentDOM();//文档
 var selection = doc.selection;//选择
@@ -41,26 +42,36 @@ function Main() {
     if (!checkDom()) {
         return;
     }
-
     
-    for (var i = 0; i < selection.length; i++) {
-        // 只选中一个元素
-        doc.selectNone();
-        var element = selection[i];
-        element.selected = true;
-        
-        
-        var current = wrapPoint(element);
-        var center =wrapRect(doc.getSelectionRect()).center();
-        
-        var offset = center.sub(current);
-        
-        element.setTransformationPoint(offset.toObj());
+    var heights = [];
+
+    var frames = layers[0].frames;
+    for (var i = 0; i < frames.length; i++) {
+        timeline.currentFrame = i;
+        var curFrame = frames[timeline.currentFrame];
+
+        SelectAll(curFrame.elements);
+        var s = doc.getSelectionRect();
+        var height = s.bottom - s.top;
+        // fl.trace(height);
+        heights.push(height);
     }
-    
-    // 还原选择
-    SelectStart();
-}
 
+    DebugArray(heights);
+
+}
 Main();
 
+
+function DebugArray(arr) {
+    var str = "[ ";
+    for (var i = 0; i < arr.length; i++) {
+        if (i === arr.length - 1) {
+            str += arr[i] + " ]";
+            break;
+        }
+        
+        str += arr[i] + ", ";
+    }
+    fl.trace(str);
+}

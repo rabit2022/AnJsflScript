@@ -1,10 +1,19 @@
-﻿
+/**
+ * @file: 04.裙带飘动.jsfl
+ * @author: 穹的兔兔
+ * @email: 3101829204@qq.com
+ * @date: 2024/12/17 21:31
+ * @project: WindowSWF-master
+ * @description:
+ */
+
+
 function checkDom() {
     if (doc == null) {
         alert("请打开 [.fla] 文件");
         return false;
     }
-    
+
     if (selection.length < 1) {
         alert("请选择元件？");
         return false;
@@ -33,7 +42,8 @@ function Main() {
         return;
     }
 
-    
-    
+
+
 }
 Main();
+

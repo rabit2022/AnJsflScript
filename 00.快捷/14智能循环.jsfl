@@ -34,11 +34,7 @@ function Main() {
     if (!checkDom()) {
         return;
     }
-
-    // /**
-    //  * 
-    //  * @type {SymbolInstance}
-    //  */
+    
     var element = doc.selection[0];
     element.loop = "loop";
     

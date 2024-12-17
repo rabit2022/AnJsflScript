@@ -26,46 +26,8 @@ function checkDom() {
     return true;
 }
 
-// 获取folder_name, file_name
-function pathSplit(path) {
-    // 首先，将所有反斜杠替换为正斜杠，以统一路径分隔符
-    var normalizedPath = path.replace(/\\/g, '/');
-
-    const pathArray= path.split("/");
-    var folder_name = pathArray.slice(0, -1).join("/");
-    var file_name = pathArray[pathArray.length - 1];
-    // alert(folder_name+" "+file_name);
-    return {folder_name: folder_name, file_name: file_name};
-}
 
 
-// 复制元件
-function CopySymbol() {
-    // 1.清空选择
-    library.selectNone();
-
-    // 2.直接复制元件
-    var origionName = selection[0].libraryItem.name;
-    library.duplicateItem(origionName);
-
-    // 3.获取新元件名称
-    var targetName = library.getSelectedItems()[0].name;
-    var {_, file_name}=pathSplit(targetName);
-
-    // 4.重新命名元件名称
-    var input_file_name = prompt("请输入新元件名称：", file_name);
-    if (input_file_name == null || input_file_name === "") {
-        alert("元件名称不能为空！");
-        library.deleteItem(targetName);
-        return;
-    }
-
-    // 5.交换元件
-    doc.swapElement(targetName);
-
-    // 6.更新元件名称
-    selection[0].libraryItem.name = input_file_name;
-}
 
 function PackSymbol() {
     // 元件编辑模式
@@ -94,7 +56,7 @@ function Main() {
         return;
     }
 
-    CopySymbol();
+    ele.CopySymbol("ask");
     
     PackSymbol();
 }

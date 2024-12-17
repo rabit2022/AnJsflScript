@@ -29,63 +29,6 @@ function checkDom() {
     return true;
 }
 
-/**
- * 定义一个元素类
- * @param {Element} element 元素对象
- */
-function Element_Rectangle(element) {
-    this.element = element;
-    this.rectangle = new Rectangle(element.x, element.y, element.width, element.height);
-}
-
-/**
- * 定义一个矩形类
- * @param {number} centerX 横坐标
- * @param {number} centerY 纵坐标
- * @param {number} width 宽度
- * @param {number} height 高度
- */
-function Rectangle(centerX, centerY, width, height) {
-    this.position = new Point(centerX, centerY);
-    this.size = new Size(width, height);
-}
-
-Rectangle.prototype.GetTopLeft=function() {
-    return new Point(this.position.x - this.size.width / 2, this.position.y - this.size.height / 2);
-}
-
-Rectangle.prototype.GetTopRight=function() {
-    return new Point(this.position.x + this.size.width / 2, this.position.y - this.size.height / 2);
-}
-
-Rectangle.prototype.GetBottomLeft=function() {
-    return new Point(this.position.x - this.size.width / 2, this.position.y + this.size.height / 2);
-}
-
-Rectangle.prototype.GetBottomRight=function() {
-    return new Point(this.position.x + this.size.width / 2, this.position.y + this.size.height / 2);
-}
-
-/**
- * 定义一个大小类
- * @param {number} width 宽度
- * @param {number} height 高度
- */
-function Size(width, height) {
-    this.width = width;
-    this.height = height;
-    this.ratio = this.width / this.height;
-}
-
-Size.prototype.GetHeightBy=function(width) {
-    return width / this.ratio;
-}
-
-Size.prototype.GetWidthBy=function(height) {
-    return height * this.ratio;
-}
-
-
 var doc = fl.getDocumentDOM();//文档
 var selection = doc.selection;//选择
 var library = doc.library;//库文件
@@ -95,42 +38,25 @@ function Main() {
     if (!checkDom()) {
         return;
     }
-    
-    /**
-     * 选中的元件
-     * @type {Element_Rectangle[]}
-     */
-    var selectedRect = [];
-    for (var i = 0; i < selection.length; i++) {
-        var rect = new Element_Rectangle(selection[i]);
-        selectedRect.push(rect);
-    }
 
-    //获取最右边的元件
-    var maxTopRight = selectedRect[0];
-    for (var i = 1; i < selectedRect.length; i++) {
-        var maxTopRightPoint = maxTopRight.rectangle.GetTopRight();
-        var selectedTopRightPoint = selectedRect[i].rectangle.GetTopRight();
-        if (selectedTopRightPoint.greater(maxTopRightPoint)) {
-            maxTopRight = selectedRect[i];
-        }
-    }
+    var maxElement = ele.getMaxRight();
 
     // 获取高度
-    var height = maxTopRight.rectangle.size.height;
-
-    // 设置其他元件的高度
-    for (var i = 0; i < selectedRect.length; i++) {
-        if (selectedRect[i] === maxTopRight) {
+    var height = maxElement.height;
+    
+    // 设置元件的高度
+    for (var i = 0; i < selection.length; i++) {
+        var element = selection[i];
+        if (element === maxElement) {
             continue;
         }
-        var width = selectedRect[i].rectangle.size.GetWidthBy(height);
-        // fl.trace(width);
-
-        selectedRect[i].element.height = height;
-        selectedRect[i].element.width = width;
-
+        var ratio = element.width / element.height;
+        
+        element.height = height;
+        element.width = height * ratio;
     }
+
+
     
 }
 Main();

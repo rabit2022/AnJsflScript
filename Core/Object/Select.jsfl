@@ -21,7 +21,10 @@ function onlySelectCurrent(element){
 function SelectStart() {
     SelectAll(selection);
 }
-
+/**
+ * 选中所有元件
+ * @param {Element[]} elements
+ */
 function SelectAll(elements) {
     // 选中所有元件
     for (var i = 0; i < elements.length; i++) {

@@ -65,8 +65,8 @@ Item = function () {
  * @param {string} commandLine - 命令行参数
  */
 FlashFile.prototype.runCommandLine = function (commandLine) {
-
 };
+
 /**
  * 帧选择器
  * 动画的结束帧,默认为-1,表示播放到最后一帧

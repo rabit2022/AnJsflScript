@@ -39,11 +39,8 @@ function Main() {
     var screenCenterPoint = new Point(screenWidth / 2, screenHeight / 2);
     
     // 获取选中内容的边界
-    var bounds = doc.getSelectionRect();
-    var centerX = (bounds.right + bounds.left) / 2;
-    var centerY = (bounds.bottom + bounds.top) / 2;
-    var boundsCenterPoint = new Point(centerX, centerY);
-
+    var boundsCenterPoint =wrapRect(doc.getSelectionRect()).center();
+    
     // 计算偏移量
     var offset=screenCenterPoint.sub(boundsCenterPoint);
     
@@ -51,12 +48,4 @@ function Main() {
     doc.moveSelectionBy(offset.toObj());
 }
 Main();
-
-/**
- * 打印矩阵
- * @param {Matrix} matrix
- */
-function LogMatrix(matrix) {
-    fl.trace("Matrix: " + matrix.a + ", " + matrix.b + ", " + matrix.c + ", " + matrix.d + ", " + matrix.tx + ", " + matrix.ty);
-}
 

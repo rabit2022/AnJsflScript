@@ -44,7 +44,7 @@ function Main() {
     }
     
     timeline.createMotionTween();
-    setEaseCurve("Quad Ease-In-Out");
+    setEaseCurve(timeline,"Quad Ease-In-Out");
 }
 Main();
 
