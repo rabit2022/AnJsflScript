@@ -27,17 +27,6 @@ SymbolInstance.prototype.loop = undefined;
 Element = function () {
 };
 
-// /**
-//  * 动画播放速度
-//  * @type {Item|SymbolItem} 
-//  */
-// Element.prototype.libraryItem=undefined;
-
-// /**
-//  * @typedef {Item} Item - 所有可视化对象
-//  */
-// Instance.prototype.libraryItem = undefined;
-
 /**
  * @typedef {Item|
  * BitmapItem|FolderItem|FontItem|SoundItem|SymbolItem|
@@ -46,15 +35,6 @@ Element = function () {
  */
 Item = function () {
 };
-
-
-
-
-
-
-
-
-
 
 
 

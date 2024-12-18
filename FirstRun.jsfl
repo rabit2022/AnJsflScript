@@ -7,10 +7,33 @@
  * @description:
  */
 
-// 绝对路径导入
-var p="F:/04_ps/沙雕动画/_素材库/WindowSWF-master/WindowSWF-master/mytest/Core/Importer.jsfl";
-var uri=FLfile.platformPathToURI(p);
-fl.runScript(uri);
+
+/**
+ * 获取当前脚本文件的所在文件夹路径
+ * @returns {string}
+ */
+function getCurFolderURI() {
+    // 获取当前脚本文件的完整路径
+    var scriptURI = fl.scriptURI;
+    // 获取路径中最后一个“/”的位置
+    var lastSlashIndex = scriptURI.lastIndexOf("/");
+    // 获取脚本文件所在的文件夹路径
+    var folderPath = scriptURI.substring(0, lastSlashIndex);
+    return folderPath;
+}
+
+/**
+ * 导入指定脚本文件
+ * @param {string} relativeScriptPath 相对于当前脚本文件的相对路径
+ */
+function importMoudle(relativeScriptPath) {
+    var curFolderURI = getCurFolderURI();
+    var scriptURI = curFolderURI + "/" + relativeScriptPath;
+
+    fl.runScript(scriptURI);
+    fl.trace(scriptURI + " imported.");
+}
+
 
 // 导入模块,相对路径导入
 importMoudle("Core/Object/Curve.jsfl");
