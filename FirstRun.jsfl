@@ -23,4 +23,6 @@ importMoudle("Core/Object/Select.jsfl");
 importMoudle("Core/Object/FrameRange.jsfl");
 importMoudle("Core/Object/Log.jsfl");
 importMoudle("Core/Object/path.jsfl");
+importMoudle("Core/Object/random.jsfl");
+importMoudle("Core/Object/string.jsfl");
 

@@ -41,21 +41,7 @@ MoreElement.prototype.Next = function (index) {
     var elementX=this.positioin.x+this.offsetX*index;
     return new Point(elementX,this.positioin.y);
 }
-/**
- * 选中当前元件
- * @param element
- */
-function onlySelectCurrent(element){
-    doc.selectNone();
-    element.selected = true;
-}
-function SelectStart() {
-    // 选中最开始的元件
-    for (var i = 0; i < selection.length; i++) {
-        var element = selection[i];
-        element.selected = true;
-    }
-}
+
 var doc=fl.getDocumentDOM();//文档
 var selection = doc.selection;//选择
 var library=doc.library;//库文件

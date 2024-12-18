@@ -1,5 +1,5 @@
 /**
- * @file: 03.q弹.jsfl
+ * @file: 09.一键q弹.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
  * @date: 2024/12/17 16:09
@@ -54,26 +54,11 @@ function checkDom() {
     return true;
 }
 
-var doc=fl.getDocumentDOM();//文档
-var selection = doc.selection;//选择
-var library=doc.library;//库文件
-
-var timeline=doc.getTimeline();//时间轴
-var layers=timeline.layers;//图层
-var curFrameIndex = timeline.currentFrame;//当前帧索引
-
-function getRandom3() {
-    return Math.floor(Math.random() * (999 - 100 + 1)) + 100;
-}
-function Main() {
-    if (!checkDom()) {
-        return;
-    }
-
-
+function checkXMLPanel() {
+    var success = true;
     var XML_PANAL = [
         "<dialog title='q弹' buttons='accept, cancel'>",
-        
+
         "<hbox ><label control='frameCount' value='请输入抖动帧数（越多越慢）:'/><textbox id='frameCount' value='10' width='80' /></hbox>",
         "<hbox><label control='amplitude' value='请输入抖动幅度（越大越狠）:'/><textbox id='amplitude' value='2' width='80' /></hbox>",
         "<separator />",
@@ -85,29 +70,56 @@ function Main() {
 
     // 如果点击的是“取消”按钮，直接返回，不执行后续代码，确保功能符合需求
     if (dialog.dismiss === "cancel") {
-
         alert("取消修改");
-        return;
+        // return;
+        success = false;
     }
-    
+
     var inputFrameCount = dialog.frameCount;
     var inputAmplitude = dialog.amplitude;
     // 检查输入抖动帧数是否为空
     if (inputFrameCount === null || isNaN(Number(inputFrameCount))) {
         alert("抖动帧数只能输入数字，请重新输入。");
-        return;
+        // return;
+        success = false;
     }
     // 检查输入抖动幅度是否为空
     if (inputAmplitude === null || isNaN(Number(inputAmplitude))) {
         alert("抖动幅度只能输入数字，请重新输入。");
-        return;
+        // return;
+        success = false;
     }
 
     var amplitude = Number(inputAmplitude);
     var frameCount = Number(inputFrameCount);
+    return {amplitude: amplitude, frameCount: frameCount, success: success};
+}
+
+var doc=fl.getDocumentDOM();//文档
+var selection = doc.selection;//选择
+var library=doc.library;//库文件
+
+var timeline=doc.getTimeline();//时间轴
+var layers=timeline.layers;//图层
+var curFrameIndex = timeline.currentFrame;//当前帧索引
+
+function Main() {
+    if (!checkDom()) {
+        return;
+    }
+
+    // 获取输入参数
+    var {amplitude, frameCount, success}=checkXMLPanel();
+    if(!success){
+        return;
+    }
     
     // 包装元件
-    var symbolName = "q弹_" + amplitude + "_" + frameCount+"_"+getRandom3();
+    var symbolName = ele.generateNameUntilUnique("一键q弹_静");
+    doc.convertToSymbol("graphic",symbolName,"center");
+    
+    // 包装元件
+    var symbolName = ele.generateNameUseLast("一键q弹_动");
     doc.convertToSymbol("graphic",symbolName,"center");
     
     doc.enterEditMode("inPlace");

@@ -33,8 +33,11 @@ function Main() {
         return;
     }
 
+    // var eleName = ele.generateNameUntilUnique("test");
+    // fl.trace(eleName);
     
-
+    var eleName2 = ele.generateNameUseLast("test");
+    fl.trace(eleName2);
 
 }
 Main();

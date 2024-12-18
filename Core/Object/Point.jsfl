@@ -13,7 +13,7 @@
  * @param {number} x 横坐标
  * @param {number} y 纵坐标
  * @constructor
- * @class {Point}
+ * @class {Point} Point
  */
 function Point(x, y) {
     this.x = x;
@@ -40,12 +40,21 @@ Point.prototype.sub = function (point) {
 }
 
 /**
- * 除法，两个点的坐标的商
+ * 除法
  * @param {number} num 除数
  * @returns {Point}
  */
 Point.prototype.div = function (num) {
     return new Point(this.x / num, this.y / num);
+}
+
+
+/**
+ * 取负
+ * @returns {Point}
+ */
+Point.prototype.neg = function () {
+    return new Point(-this.x, -this.y);
 }
 
 /**
@@ -57,13 +66,37 @@ Point.prototype.toIntPonit = function () {
 }
 
 /**
- * 判断是否  在 另一个点 的右下方
+ * 判断是否  在 另一个点 的 某个方向上
  * @param {Point} point 另一个点
+ * @param {"top right"|"top left"|"bottom right"|"bottom left"|"top center"|"right center"|"bottom center"|"left center"|"center"} whichCorner 方向
  * @returns {boolean}
  */
-Point.prototype.greater = function (point) {
-    return this.x > point.x && this.y > point.y;
+Point.prototype.IsAtDirection = function (point, whichCorner) {
+    switch (whichCorner) {
+        case "top right":
+            return this.x > point.x && this.y > point.y;
+        case "top left":    
+            return this.x < point.x && this.y > point.y;
+        case "bottom right":
+            return this.x > point.x && this.y < point.y;
+        case "bottom left":
+            return this.x < point.x && this.y < point.y;
+        case "top center":
+            return this.y > point.y;
+        case "right center":
+            return this.x > point.x;
+        case "bottom center":
+            return this.y < point.y;
+        case "left center":
+            return this.x < point.x;
+        case "center":
+            return this.x === point.x && this.y === point.y;
+        default:
+            // return false;
+            throw new Error("whichCorner is not valid!");
+    }
 }
+
 
 /**
  * 字符串
@@ -77,16 +110,8 @@ Point.prototype.toString = function () {
  * 转换为对象
  * @return {{x:number,y:number}}
  */
-Point.prototype.toObj = function() {
+Point.prototype.toObj = function () {
     return {x: this.x, y: this.y};
-}
-
-/**
- * 取负   
- * @returns {Point}
- */
-Point.prototype.neg = function () {
-    return new Point(-this.x, -this.y);
 }
 
 /**
@@ -97,6 +122,7 @@ Point.prototype.neg = function () {
 function wrapPoint(obj) {
     return new Point(obj.x, obj.y);
 }
+
 /**
  * 取零点
  * @returns {Point}

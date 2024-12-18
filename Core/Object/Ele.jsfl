@@ -14,6 +14,7 @@
  * @constructor
  */
 var Ele = function () {
+    this.lastCount = "000";
 }
 
 /**
@@ -31,7 +32,7 @@ Ele.prototype.IsSymbol = function (element) {
  * @param {string} baseName 元件名称
  * @returns {boolean} 是否有重复名称
  */
-Ele.prototype.findDuplicateNameInLib=function(baseName) {
+Ele.prototype.findDuplicateNameInLib = function (baseName) {
     var items = library.items;
     for (var i = 0; i < items.length; i++) {
         if (items[i].name === baseName) {
@@ -47,7 +48,7 @@ Ele.prototype.findDuplicateNameInLib=function(baseName) {
  * @param {"ask"|"skip"|"auto"} mode 复制模式，ask：弹出输入框，skip：直接复制，auto：自动生成名称
  * @constructor
  */
-Ele.prototype.CopySymbol=function (mode) {
+Ele.prototype.CopySymbol = function (mode) {
     // 1.清空选择
     library.selectNone();
 
@@ -57,33 +58,27 @@ Ele.prototype.CopySymbol=function (mode) {
 
     // 3.获取新元件名称
     var targetName = library.getSelectedItems()[0].name;
-    var {_, file_name}=pathSplit(targetName);
 
-    if (mode==="ask") {
+    if (mode === "ask") {
         // 4.重新命名元件名称
+        var {_, file_name} = pathSplit(targetName);
         var input_file_name = prompt("请输入新元件名称：", file_name);
         if (input_file_name == null || input_file_name === "") {
             alert("元件名称不能为空！");
             library.deleteItem(targetName);
             return;
         }
-        
+
         // 5.交换元件
         doc.swapElement(targetName);
 
         // 6.更新元件名称
         selection[0].libraryItem.name = input_file_name;
-    }else if (mode==="skip"){
+    } else if (mode === "skip") {
         // 5.交换元件
         doc.swapElement(targetName);
-    }else if (mode==="auto"){
-        var input_file_name = "复制" + count+" "+file_name;
-
-        // 4.判断是否有重复名称
-        while (this.findDuplicateNameInLib(input_file_name)) {
-            count++;
-            input_file_name = "复制" + count+" "+file_name;
-        }
+    } else if (mode === "auto") {
+        var input_file_name = this.generateNameUntilUnique(file_name+"复制");
 
         // 5.交换元件
         doc.swapElement(targetName);
@@ -93,12 +88,53 @@ Ele.prototype.CopySymbol=function (mode) {
     }
 }
 
+/**
+ * 生成一个唯一的名称，基于传入的基础名称，并确保其在 library 中是唯一的。
+ * 在 后面 加上 随机数，确保名称的唯一性。
+ * @param {string} baseName - 用于生成唯一名称的基础字符串。
+ * @returns {string} 返回一个唯一的名称。
+ */
+Ele.prototype.generateNameUntilUnique = function (baseName) {
+    this.lastCount = getRandom3();
+    var name = baseName + "_" + this.lastCount;
+
+    var count = 0;
+    while (this.findDuplicateNameInLib(name)) {
+        this.lastCount = getRandom3();
+        name = baseName + "_" + this.lastCount;
+
+        count++;
+        if (count > 10) {
+            throw new Error("已经尝试了 10 次，仍然无法生成唯一的名称！");
+        }
+    }
+    return name;
+}
+
+/**
+ * 生成一个唯一的名称，基于传入的基础名称，并确保其在 library 中是唯一的。
+ * 使用上一次生成的随机数，确保名称的唯一性。
+ * @param {string} baseName - 用于生成唯一名称的基础字符串。
+ * @returns {string} 返回一个唯一的名称。
+ */
+Ele.prototype.generateNameUseLast = function (baseName) {
+    var name = baseName + "_" + this.lastCount;
+    while (this.findDuplicateNameInLib(name)) {
+        var info0 = "lastCount:" + this.lastCount + " 重复了！";
+        this.lastCount = getRandom3()
+        var info1 = "已经重新生成了新的名称！" + " lastCount:" + this.lastCount;
+        name = baseName + "_" + this.lastCount;
+        fl.trace(info0 + info1);
+    }
+    return name;
+}
+
 
 /**
  * 获取最右边的元素
  * @returns {Element}
  */
-Ele.prototype.getMaxRight=function() {
+Ele.prototype.getMaxRight = function () {
     // 获取最右边的元素
     var maxElement = selection[0];
     var maxTopRight = new Point(0, 0);
@@ -107,9 +143,9 @@ Ele.prototype.getMaxRight=function() {
 
         onlySelectCurrent(element);
         var rect = wrapRect(doc.getSelectionRect());
-        var topRight = new Point(rect.right, rect.top);
+        var topRight = rect.getCorner("top right");
 
-        if (topRight.greater(maxTopRight)) {
+        if (topRight.IsAtDirection(maxTopRight,"top right")) {
             maxElement = element;
             maxTopRight = topRight;
         }
@@ -118,11 +154,11 @@ Ele.prototype.getMaxRight=function() {
 }
 
 /**
- * 重置注册点-editor 
+ * 重置注册点-editor
  * @param {Point} transformationPoint 形变点
  * @private
  */
-Ele.prototype.resetRegisterPointWrap=function(transformationPoint){
+Ele.prototype.resetRegisterPointWrap = function (transformationPoint) {
     doc.enterEditMode('inPlace');
     doc.selectAll();
 
@@ -146,7 +182,7 @@ Ele.prototype.resetRegisterPointWrap=function(transformationPoint){
  * 重置注册点
  * @param {Element} element 元素
  */
-Ele.prototype.resetRegisterPoint=function(element) {
+Ele.prototype.resetRegisterPoint = function (element) {
     var trPoint = wrapPoint(element.getTransformationPoint());
 
     onlySelectCurrent(element);
@@ -160,12 +196,30 @@ Ele.prototype.resetRegisterPoint=function(element) {
     element.setTransformationPoint(getZeroPoint().toObj());
     doc.moveSelectionBy(trPoint.toObj());
 
-    doc.selectNone();
+    // doc.selectNone();
 }
 
 
 /**
- * 
+ * 更改元件的变形点
+ * @param {Element} element
+ * @param {"top right"|"top left"|"bottom right"|"bottom left"|"top center"|"right center"|"bottom center"|"left center"} whichCorner
+ */
+Ele.prototype.alterTrPoint = function (element, whichCorner) {
+    // 变形点 到右上角
+    var registerPoint = wrapPoint(element);
+
+    onlySelectCurrent(element);
+    var rect = wrapRect(doc.getSelectionRect());
+    var topRight = rect.getCorner(whichCorner)
+
+    // 相对位置
+    var relativePoint = topRight.sub(registerPoint);
+    element.setTransformationPoint(relativePoint.toObj());
+}
+
+/**
+ *
  * @type {Ele}
  */
 var ele = new Ele();

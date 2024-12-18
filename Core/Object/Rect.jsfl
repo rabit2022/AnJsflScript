@@ -24,18 +24,18 @@ function Rect(left, top, right, bottom){
     this.right = right;
     this.bottom = bottom;
 }
-//+
 /**
- * 点
+ * 矩形 偏移后的 矩形
+ * 移动矩形的边界
  * @param {Point} offset 偏移量
  * @returns {Rect} 矩形
  */
 Rect.prototype.addOffset = function(offset){
     return new Rect(this.left+offset.x,this.top+offset.y,this.right+offset.x,this.bottom+offset.y);
 }
-// -
 /**
- * 偏移量
+ * 矩形 偏移前的 矩形
+ * 移动矩形的边界
  * @param {Point} offset 偏移量
  * @returns {Rect} 矩形
  */
@@ -44,6 +44,7 @@ Rect.prototype.subOffset = function(offset){
 }
 /**
  * 矩形相加
+ * 扩展  矩形的边界
  * @param {Rect} rect 矩形
  * @returns {Rect} 矩形
  */
@@ -53,6 +54,7 @@ Rect.prototype.add = function(rect){
 
 /**
  * 矩形相减
+ * 小矩形的边界   与   大矩形的边界  的距离 
  * @param {Rect} rect 矩形
  * @returns {Rect} 矩形   
  */
@@ -67,6 +69,7 @@ Rect.prototype.sub = function(rect){
 Rect.prototype.center = function(){
     return new Point((this.left+this.right)/2,(this.top+this.bottom)/2);
 }
+
 /**
  * 是否包含,当前矩形 是否 在 目标矩形 内部
  * @param {Rect} rect 矩形
@@ -77,13 +80,36 @@ Rect.prototype.contains = function(rect){
 }
 
 /**
- * 是否越界,当前矩形 是否 在 目标矩形 外部
- * @param {Rect} rect 矩形
- * @returns {boolean} 越界返回true，否则返回false
+ * 获取矩形的某个角点
+ * @param {"top right"|"top left"|"bottom right"|"bottom left"|"top center"|"right center"|"bottom center"|"left center"|"center"} whichCorner whichCorner 角点
+ * @returns {Point} 点
  */
-Rect.prototype.outOfBounds = function(rect){
-    return this.left >= rect.right || this.top >= rect.bottom || this.right <= rect.left || this.bottom <= rect.top;
+Rect.prototype.getCorner = function(whichCorner){
+    switch (whichCorner) {
+        case "top right":
+            return new Point(this.right, this.top);
+        case "top left":
+            return new Point(this.left, this.top);
+        case "bottom right":
+            return new Point(this.right, this.bottom);
+        case "bottom left":
+            return new Point(this.left, this.bottom);
+        case "top center":
+            return new Point((this.left+this.right)/2, this.top);
+        case "right center":
+            return new Point(this.right, (this.top+this.bottom)/2);
+        case "bottom center":
+            return new Point((this.left+this.right)/2, this.bottom);
+        case "left center":
+            return new Point(this.left, (this.top+this.bottom)/2);
+        case "center":
+            return new Point((this.left+this.right)/2, (this.top+this.bottom)/2);
+        default:
+            // return new Point(0,0);
+            throw new Error("whichCorner 参数错误");
+    }
 }
+
 /**
  * 字符串
  * @returns {string} 字符串
@@ -117,6 +143,7 @@ function wrapRect(obj){
  * @returns {Point} 新的向量
  */
 function calculateSafeMoveVector(bigRect, smallRect, moveVector) {
+    // 小矩形的边界   与   大矩形的边界  的距离 
     var maxOffsetRect = smallRect.sub(bigRect);
     // fl.trace("maxOffsetRect: " + maxOffsetRect.toString())
     // fl.trace("moveVector: " + moveVector.toString())
