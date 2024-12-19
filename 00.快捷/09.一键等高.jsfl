@@ -39,7 +39,7 @@ function Main() {
         return;
     }
 
-    var maxElement = ele.getMaxRight();
+    var maxElement = ele.getMaxRight(selection);
 
     // 获取高度
     var height = maxElement.height;

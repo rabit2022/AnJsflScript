@@ -18,10 +18,10 @@ function checkDom() {
         alert("请选择元件？");
         return false;
     }
-    // if (selection.length > 1) {
-    //     alert("请选择单个元件");
-    //     return false;
-    // }
+    if (selection.length > 1) {
+        alert("请选择单个元件");
+        return false;
+    }
     // if (selection.length === 1) {
     //     alert("请选择至少两个元件");
     //     return false;
@@ -157,11 +157,11 @@ function Main() {
     // 获取元件的变换点
     var element = doc.selection[0];
 
-    // 重置注册点
+    // 重置注册点,到中心
     ele.resetRegisterPoint(element);
 
     // 变形点 到右上角
-    ele.alterTrPoint(element, "top right");
+    ele.alterTransformationPoint(element, "top right");
 
     // 包装元件
     var symbolName1 = ele.generateNameUseLast("裙带飘动_动");

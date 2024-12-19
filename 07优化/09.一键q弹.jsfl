@@ -13,7 +13,7 @@
  * @param {number} amplitude 振幅
  * @param {number} frameCount 帧数
  * @param {number} initial 初始值
- * @param {number} x x坐标
+ * @param {number} x 当前帧索引
  * @return {number} y坐标
  */
 function sine_model(amplitude, frameCount, initial, x) {
@@ -113,17 +113,28 @@ function Main() {
     if(!success){
         return;
     }
+
+    // var symbolName = ele.generateNameUntilUnique("一键q弹");
+    // doc.convertToSymbol("graphic",symbolName,"center");
     
     // 包装元件
     var symbolName = ele.generateNameUntilUnique("一键q弹_静");
     doc.convertToSymbol("graphic",symbolName,"center");
+
+    // 获取元件的变换点
+    var element = doc.selection[0];
+
+    // 变形点 到右上角
+    ele.alterTransformationPoint(element, "top center");
+    
+    // 重置注册点，到右上角
+    ele.resetRegisterPoint(element);
     
     // 包装元件
-    var symbolName = ele.generateNameUseLast("一键q弹_动");
-    doc.convertToSymbol("graphic",symbolName,"center");
+    var symbolName1 = ele.generateNameUseLast("一键q弹_动");
+    doc.convertToSymbol("graphic",symbolName1,"center");
     
     doc.enterEditMode("inPlace");
-    
     doc.selectAll();
     
     // 获取初始值
@@ -157,6 +168,7 @@ function Main() {
         // 重置位置
         element.x = initialX;
         element.y = initialY;
+        
     }
     
     doc.exitEditMode();

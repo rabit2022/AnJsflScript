@@ -39,7 +39,7 @@ function Main() {
     }
     
     // 找到最右边的元素
-    var maxElement=ele.getMaxRight();
+    var maxElement=ele.getMaxRight(selection);
     
     // 获取 transformPoint 
     var trPoint = wrapPoint(maxElement.getTransformationPoint());

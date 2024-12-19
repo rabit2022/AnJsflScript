@@ -36,16 +36,18 @@ function importMoudle(relativeScriptPath) {
 
 
 // 导入模块,相对路径导入
+// Object
 importMoudle("Core/Object/Curve.jsfl");
 importMoudle("Core/Object/Ele.jsfl");
+importMoudle("Core/Object/FrameRange.jsfl");
 importMoudle("Core/Object/Matrix.jsfl");
 importMoudle("Core/Object/Point.jsfl");
 importMoudle("Core/Object/Rect.jsfl");
 importMoudle("Core/Object/Select.jsfl");
 
-importMoudle("Core/Object/FrameRange.jsfl");
-importMoudle("Core/Object/Log.jsfl");
-importMoudle("Core/Object/path.jsfl");
-importMoudle("Core/Object/random.jsfl");
-importMoudle("Core/Object/string.jsfl");
+// Utils
+importMoudle("Core/Utils/Log.jsfl");
+importMoudle("Core/Utils/path.jsfl");
+importMoudle("Core/Utils/random.jsfl");
+importMoudle("Core/Utils/string.jsfl");
 

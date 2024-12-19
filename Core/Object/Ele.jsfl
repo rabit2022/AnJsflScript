@@ -132,14 +132,15 @@ Ele.prototype.generateNameUseLast = function (baseName) {
 
 /**
  * 获取最右边的元素
+ * @param {Element[]} elements 元素数组
  * @returns {Element}
  */
-Ele.prototype.getMaxRight = function () {
+Ele.prototype.getMaxRight = function (elements) {
     // 获取最右边的元素
-    var maxElement = selection[0];
+    var maxElement = elements[0];
     var maxTopRight = new Point(0, 0);
-    for (var i = 0; i < selection.length; i++) {
-        var element = selection[i];
+    for (var i = 0; i < elements.length; i++) {
+        var element = elements[i];
 
         onlySelectCurrent(element);
         var rect = wrapRect(doc.getSelectionRect());
@@ -180,6 +181,9 @@ Ele.prototype.resetRegisterPointWrap = function (transformationPoint) {
 
 /**
  * 重置注册点
+ * 1，新的注册点 是 原来的 变形点 </br>
+ * 2，经常配合 {@link Ele.alterTransformationPoint} 使用 </br>
+ * 3，如果没有设置变形点，一般来说，元件的默认的变形点就是  中心点 </br>
  * @param {Element} element 元素
  */
 Ele.prototype.resetRegisterPoint = function (element) {
@@ -205,7 +209,7 @@ Ele.prototype.resetRegisterPoint = function (element) {
  * @param {Element} element
  * @param {"top right"|"top left"|"bottom right"|"bottom left"|"top center"|"right center"|"bottom center"|"left center"} whichCorner
  */
-Ele.prototype.alterTrPoint = function (element, whichCorner) {
+Ele.prototype.alterTransformationPoint = function (element, whichCorner) {
     // 变形点 到右上角
     var registerPoint = wrapPoint(element);
 
