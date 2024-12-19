@@ -71,6 +71,22 @@ Rect.prototype.center = function(){
 }
 
 /**
+ * 矩形的宽度
+ * @returns {number} 宽度
+ */
+Rect.prototype.width = function(){
+    return this.right - this.left;
+}
+
+/**
+ * 矩形的高度
+ * @returns {number} 高度
+ */
+Rect.prototype.height = function(){
+    return this.bottom - this.top;
+}
+
+/**
  * 是否包含,当前矩形 是否 在 目标矩形 内部
  * @param {Rect} rect 矩形
  * @returns {boolean} 包含返回true，否则返回false
@@ -144,23 +160,37 @@ function wrapRect(obj){
  */
 function calculateSafeMoveVector(bigRect, smallRect, moveVector) {
     // 小矩形的边界   与   大矩形的边界  的距离 
+    // <0  小矩形在大矩形的  外面
+    // >0  小矩形在大矩形的  里面
+    // =0  小矩形在大矩形的  边界上
     var maxOffsetRect = smallRect.sub(bigRect);
     // fl.trace("maxOffsetRect: " + maxOffsetRect.toString())
     // fl.trace("moveVector: " + moveVector.toString())
 
+    // moveVector=cameraOffset.sub(cameraPos);
+    // moveVector.x>0 摄像机在人物的右边
+    // moveVector.x<0 摄像机在人物的左边
+    // moveVector.y>0 摄像机在人物的下边
+    // moveVector.y<0 摄像机在人物的上边
+
+    // newMoveVector=cameraPos.add(cameraOffset);
+    // moveVector.x>0 向左移动
+    // moveVector.x<0 向右移动
+    // moveVector.y>0 向上移动
+    // moveVector.y<0 向下移动
+
     var newMoveVector = new Point(moveVector.x, moveVector.y);
-    if (moveVector.x <0){
+    if (moveVector.x <0){//向右移动
         newMoveVector.x = Math.max(moveVector.x, maxOffsetRect.right);
-    }else if(moveVector.x > 0){
+    }else if(moveVector.x > 0){//向左移动
         newMoveVector.x = Math.min(moveVector.x, maxOffsetRect.left);
     }
-    if (moveVector.y <0){
+    if (moveVector.y <0){//向下移动
         newMoveVector.y = Math.max(moveVector.y, maxOffsetRect.bottom);
-    }else if(moveVector.y > 0){
-        newMoveVector.y = Math.min(moveVector.y, maxOffsetRect.top);
+    }else if(moveVector.y > 0){//向上移动
+        newMoveVector.y = Math.min(moveVector.y, maxOffsetRect.top)
     }
 
     // fl.trace("newMoveVector: " + newMoveVector.toString())
     return newMoveVector;
 }
-

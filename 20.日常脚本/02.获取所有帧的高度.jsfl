@@ -51,27 +51,13 @@ function Main() {
         var curFrame = frames[timeline.currentFrame];
 
         SelectAll(curFrame.elements);
-        var s = doc.getSelectionRect();
-        var height = s.bottom - s.top;
-        // fl.trace(height);
-        heights.push(height);
+        
+        var eleHeight = wrapRect(doc.getSelectionRect()).height;
+        heights.push(eleHeight);
     }
 
-    DebugArray(heights);
+    LogNumbers(heights);
 
 }
 Main();
 
-
-function DebugArray(arr) {
-    var str = "[ ";
-    for (var i = 0; i < arr.length; i++) {
-        if (i === arr.length - 1) {
-            str += arr[i] + " ]";
-            break;
-        }
-        
-        str += arr[i] + ", ";
-    }
-    fl.trace(str);
-}

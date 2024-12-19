@@ -49,7 +49,15 @@ function padStart(sourceString, targetLength, padString) {
     return paddingStr + sourceString;
 }
 
-
+/**
+ * 判断字符串是否包含另一个字符串
+ * @param str1
+ * @param str2
+ * @returns {boolean}
+ */
+function Includes(str1, str2) {
+    return str1.indexOf(str2) !== -1;
+}
 
 
 

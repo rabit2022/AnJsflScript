@@ -14,10 +14,10 @@ function checkDom() {
         return false;
     }
 
-    // if (selection.length < 1) {
-    //     alert("请选择元件？");
-    //     return false;
-    // }
+    if (selection.length < 1) {
+        alert("请选择元件？");
+        return false;
+    }
     // if (selection.length > 1) {
     //     alert("请选择单个元件");
     //     return false;
@@ -37,15 +37,7 @@ var timeline=doc.getTimeline();//时间轴
 var layers=timeline.layers;//图层
 var curFrameIndex = timeline.currentFrame;
 
-/**
- * 判断字符串是否包含另一个字符串
- * @param str1
- * @param str2
- * @returns {boolean}
- */
-function Includes(str1, str2) {
-    return str1.indexOf(str2) !== -1;
-}
+
 function getBgLayer() {
     /**
      * 背景的边界
@@ -63,9 +55,7 @@ function getBgLayer() {
     return bgLayer;
 }
 
-function getCameraRect() {
-    // 摄像机位置,左上角坐标
-    var cameraPos = timeline.camera.getPosition(curFrameIndex);
+function getCameraRect(cameraPos) {
     // 摄像机缩放
     var cameraZoom = timeline.camera.getZoom(curFrameIndex) / 100;
     var stageWidth = doc.width;
@@ -78,13 +68,13 @@ function getBgRect() {
     // 背景的边界
     var bgLayer = getBgLayer();
     if (!bgLayer) {
-        alert("找不到背景图层");
+        alert("找不到背景图层,必须包含'背景'关键字");
         return;
     }
     // 获取当前帧的背景的边界
     var currentFrame=bgLayer.frames[curFrameIndex];
     var curElements=currentFrame.elements;
-    doc.selectNone();
+    
     SelectAll(curElements);
     var bgRect = wrapRect(doc.getSelectionRect());
     return bgRect;
@@ -92,12 +82,14 @@ function getBgRect() {
 
 function getPeopleCenter() {
     // 人物的中心点
-    doc.selectNone();
-    SelectAll(selection);
+    SelectStart();
+    
     var rect = wrapRect(doc.getSelectionRect());
     var peopleCenter = rect.center();
     return peopleCenter;
 }
+
+
 
 function Main() {
     if (!checkDom()) {
@@ -108,11 +100,16 @@ function Main() {
     timeline.camera.cameraEnabled = true;
 
     // 摄像机
-    var cameraRect = getCameraRect();
+    // 摄像机位置,左上角坐标
+    var cameraPos = wrapPoint(timeline.camera.getPosition(curFrameIndex));
+    var cameraRect = getCameraRect(cameraPos);
     var cameraCenter = cameraRect.center();
     
     // 背景
     var bgRect = getBgRect();
+    // if (!bgRect) {
+    //     return;
+    // }
     
     // 人物
     var peopleCenter = getPeopleCenter();
@@ -120,22 +117,30 @@ function Main() {
     // 计算摄像机的位置
     var cameraOffset=cameraCenter.sub(peopleCenter);
 
-    // 最大移动位置
-    cameraOffset=calculateSafeMoveVector(bgRect,cameraRect,cameraOffset);
-    
-    // 必须为非0的整数
-    cameraOffset=cameraOffset.toIntPonit();
-    if (cameraOffset.x===0){
-        cameraOffset.x=1;
+    if (bgRect) {
+        // 最大移动向量
+        cameraOffset = calculateSafeMoveVector(bgRect, cameraRect, cameraOffset);
+        // fl.trace(cameraOffset.toString());
+
+        // 必须为非0的整数
+        cameraOffset = cameraOffset.toIntPonit();
+        if (cameraOffset.x === 0) {
+            cameraOffset.x = 1;
+        }
+        if (cameraOffset.y === 0) {
+            cameraOffset.y = 1;
+        }
+        // fl.trace(cameraOffset.toString());
     }
-    if (cameraOffset.y===0){
-        cameraOffset.y=1;
-    }
     
+    var newCameraPos = cameraPos.add(cameraOffset);
+    // fl.trace(newCameraPos.toString());
+
     // 移动摄像机
-    timeline.camera.setPosition(curFrameIndex, cameraOffset.x, cameraOffset.y);
+    timeline.camera.setPosition(curFrameIndex, newCameraPos.x, newCameraPos.y);
     
     SelectStart();
 }
 Main();
+
 

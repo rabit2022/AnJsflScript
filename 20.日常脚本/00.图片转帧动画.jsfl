@@ -29,13 +29,76 @@ function checkDom() {
     return true;
 }
 
+function getPics() {
+    var selectedPics = library.getSelectedItems();
 
-var doc=fl.getDocumentDOM();//文档
+    // 按照图片名称中的数字进行排序
+    selectedPics.sort(function (a, b) {
+        // 使用正则表达式提取数字
+        var numA = parseInt(a.name.match(/\d+/)[0]);
+        var numB = parseInt(b.name.match(/\d+/)[0]);
+
+        // 比较数字并返回结果
+        return numA - numB;
+    });
+    return selectedPics;
+}
+
+function KFrames() {
+    doc.enterEditMode("inPlace");
+
+    // 把第一个作为参照
+    doc.selectAll();
+    var fr = doc.getSelectionRect()
+    var pos = wrapRect(fr).center();
+
+    // 转为关键帧
+    var timeline1 = doc.getTimeline();
+    timeline1.convertToKeyframes(0, selectedPics.length)
+
+    for (var i = 0; i < selectedPics.length; i++) {
+        timeline1.currentFrame = i;
+
+        // 删除参照
+        doc.selectAll();
+        doc.deleteSelection();
+
+        // 添加库里面的图片
+        var pic = selectedPics[i];
+        library.addItemToDocument(pos.toObj(), pic.name);
+    }
+
+    doc.exitEditMode();
+}
+
+
+function cleanFolders() {
+    // 整理库的文件
+    library.selectNone();
+    var FOLDER_NAME = NEW_SYMBOL_NAME + "_素材";
+    library.newFolder(FOLDER_NAME);
+
+    var ANIMATE_FOLDER = FOLDER_NAME + "/动画";
+    library.newFolder(ANIMATE_FOLDER)
+
+    for (var i = 0; i < selectedPics.length; i++) {
+        library.selectItem(selectedPics[i]);
+        // library.renameItem(ANIMATE_FOLDER + "/" + selectedPics[i].name);
+        library.moveToFolder(ANIMATE_FOLDER, selectedPics[i].name);
+    }
+    library.selectNone();
+    var index = library.findItemIndex(NEW_SYMBOL_NAME);
+    var newSymbol = library.items[index];
+    library.selectItem(newSymbol);
+    library.moveToFolder(FOLDER_NAME, newSymbol.name);
+}
+
+var doc = fl.getDocumentDOM();//文档
 var selection = doc.selection;//选择
-var library=doc.library;//库文件
+var library = doc.library;//库文件
 
-var timeline=doc.getTimeline();//时间轴
-var layers=timeline.layers;//图层
+var timeline = doc.getTimeline();//时间轴
+var layers = timeline.layers;//图层
 var curFrameIndex = timeline.currentFrame;
 
 function Main() {
@@ -43,82 +106,22 @@ function Main() {
         return;
     }
 
-    function getPics() {
-        var selectedPics = library.getSelectedItems();
-
-        // 按照图片名称中的数字进行排序
-        selectedPics.sort(function (a, b) {
-            // 使用正则表达式提取数字
-            var numA = parseInt(a.name.match(/\d+/)[0]);
-            var numB = parseInt(b.name.match(/\d+/)[0]);
-
-            // 比较数字并返回结果
-            return numA - numB;
-        });
-        return selectedPics;
-    }
 
     var selectedPics = getPics();
 
     // 去除数字的名字
-    var NEW_SYMBOL_NAME=selectedPics[0].name.replace(/_\d+.*/,"");
+    var NEW_SYMBOL_NAME = selectedPics[0].name.replace(/_\d+.*/, "");
     // fl.trace(NEW_SYMBOL_NAME);
-    
+
     // 转为元件
-    doc.convertToSymbol("graphic",NEW_SYMBOL_NAME,"center");
+    doc.convertToSymbol("graphic", NEW_SYMBOL_NAME, "center");
 
-    function KFrames() {
-        doc.enterEditMode("inPlace");
-
-        // 把第一个作为参照
-        doc.selectAll();
-        var fr = doc.getSelectionRect()
-        var pos = wrapRect(fr).center();
-
-        // 转为关键帧
-        var timeline1 = doc.getTimeline();
-        timeline1.convertToKeyframes(0, selectedPics.length)
-
-        for (var i = 0; i < selectedPics.length; i++) {
-            timeline1.currentFrame = i;
-
-            // 删除参照
-            doc.selectAll();
-            doc.deleteSelection();
-
-            // 添加库里面的图片
-            var pic = selectedPics[i];
-            library.addItemToDocument(pos.toObj(), pic.name);
-        }
-
-        doc.exitEditMode();
-    }
-
+    
     KFrames();
-
-    function cleanFolders() {
-        // 整理库的文件
-        library.selectNone();
-        var FOLDER_NAME = NEW_SYMBOL_NAME + "_素材";
-        library.newFolder(FOLDER_NAME);
-
-        var ANIMATE_FOLDER = FOLDER_NAME + "/动画";
-        library.newFolder(ANIMATE_FOLDER)
-
-        for (var i = 0; i < selectedPics.length; i++) {
-            library.selectItem(selectedPics[i]);
-            // library.renameItem(ANIMATE_FOLDER + "/" + selectedPics[i].name);
-            library.moveToFolder(ANIMATE_FOLDER, selectedPics[i].name);
-        }
-        library.selectNone();
-        var index = library.findItemIndex(NEW_SYMBOL_NAME);
-        var newSymbol = library.items[index];
-        library.selectItem(newSymbol);
-        library.moveToFolder(FOLDER_NAME, newSymbol.name);
-    }
 
     cleanFolders();
 }
+
 Main();
 
 function DebugNames(Pics) {

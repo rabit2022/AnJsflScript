@@ -116,11 +116,11 @@ Point.prototype.toObj = function () {
 
 /**
  * 转换为Point对象
- * @param {{x:number,y:number}} obj 点对象
+ * @param {{x:number,y:number}|Element} element 点对象
  * @return {Point}
  */
-function wrapPoint(obj) {
-    return new Point(obj.x, obj.y);
+function wrapPoint(element) {
+    return new Point(element.x, element.y);
 }
 
 /**

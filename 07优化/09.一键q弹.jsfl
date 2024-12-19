@@ -159,10 +159,14 @@ function Main() {
         var y = sine_model(amplitude, frameCount, initialHeight, i);
         // fl.trace("y=" + y);
 
-        var elements = timeline1.layers[0].frames[timeline1.currentFrame].elements;
-
+        // var elements = timeline1.layers[0].frames[timeline1.currentFrame].elements;
+        //
+        // // 找到元件
+        // var element = elements[0];
+        
+        doc.selectAll();
         // 找到元件
-        var element = elements[0];
+        var element = doc.selection[0];
         element.height = y;
 
         // 重置位置

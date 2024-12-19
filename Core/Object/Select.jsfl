@@ -26,6 +26,8 @@ function SelectStart() {
  * @param {Element[]} elements
  */
 function SelectAll(elements) {
+    // 先清空所有选中
+    doc.selectNone();
     // 选中所有元件
     for (var i = 0; i < elements.length; i++) {
         var element = elements[i];

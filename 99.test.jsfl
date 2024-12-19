@@ -33,11 +33,27 @@ function Main() {
         return;
     }
 
-    // var eleName = ele.generateNameUntilUnique("test");
-    // fl.trace(eleName);
     
-    var eleName2 = ele.generateNameUseLast("test");
-    fl.trace(eleName2);
+    // fl.trace("hello world");
 
+    
+    
+    
+    // // /**
+    // //  * 
+    // //  * @type {Element[]}
+    // //  */
+    // var seles=[];
+    // for(var i=0;i<selection.length;i++){
+    //     sels.push(selection[i]);
+    // }
+    //
+    // seles.forEach(function(sel){
+    // })
+    //
+    // for(var i=0;i<seles.length;i++) {
+    //     var sel = seles[i];
+    //     sel.name
+    // }
 }
 Main();

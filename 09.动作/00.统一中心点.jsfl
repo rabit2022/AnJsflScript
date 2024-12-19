@@ -44,10 +44,10 @@ function Main() {
     // 获取 transformPoint 
     var trPoint = wrapPoint(maxElement.getTransformationPoint());
     
-    // 把所有元素移动到中心点
+    // 把  所有元素的形变点   设置为   最右边的元素的形变点
     for (var i = 0; i < selection.length; i++) {
         var element = selection[i];
-        element.selected=true;
+        onlySelectCurrent(element);
 
         element.setTransformationPoint(trPoint.toObj());
     }

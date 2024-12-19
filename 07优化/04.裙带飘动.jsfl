@@ -110,9 +110,8 @@ function KFrames(angle, direction) {
 
     // 创建帧  30
     timeline1.currentFrame = 0;
-    var TOTAL_FRAME = 30;
-    var _15_frame = TOTAL_FRAME / 2 - 1;
-    var _30_frame = TOTAL_FRAME - 1;
+    var _30_frame = 31-1;
+    var _15_frame = _30_frame / 2 - 1;
     
     timeline1.insertFrames(_30_frame);
 
@@ -154,7 +153,7 @@ function Main() {
     var symbolName = ele.generateNameUntilUnique("裙带飘动_静");
     doc.convertToSymbol("graphic", symbolName, "center");
 
-    // 获取元件的变换点
+    // 获取元件
     var element = doc.selection[0];
 
     // 重置注册点,到中心

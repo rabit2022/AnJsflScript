@@ -44,16 +44,13 @@ function Main() {
 
     
     for (var i = 0; i < selection.length; i++) {
-        // 只选中一个元素
-        doc.selectNone();
         var element = selection[i];
-        element.selected = true;
+        onlySelectCurrent(element);
         
+        var elePos = wrapPoint(element);
+        var symbolCenter =wrapRect(doc.getSelectionRect()).center();
         
-        var current = wrapPoint(element);
-        var center =wrapRect(doc.getSelectionRect()).center();
-        
-        var offset = center.sub(current);
+        var offset = symbolCenter.sub(elePos);
         
         element.setTransformationPoint(offset.toObj());
     }

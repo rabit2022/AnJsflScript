@@ -20,9 +20,14 @@ function LogMatrix(matrix) {
  * @param {number[]}numbers 数组
  */
 function LogNumbers(numbers) {
-    var str = "";
+    var str = "[ ";
     for (var i = 0; i < numbers.length; i++) {
-        str += numbers[i] + " ";
+        if (i === numbers.length - 1) {
+            str += numbers[i] + " ]";
+            break;
+        }
+
+        str += numbers[i] + ", ";
     }
     fl.trace(str);
 }
