@@ -27,3 +27,10 @@ function pathJoin(folder_name, file_name) {
     }
     return folder_name + "/" + file_name;
 }
+
+
+// function OSPath() {}
+//
+// OSPath.prototype.abspath = function(path) {
+//     return path;
+// }

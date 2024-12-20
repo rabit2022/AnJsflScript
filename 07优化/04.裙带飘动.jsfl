@@ -156,8 +156,8 @@ function Main() {
     // 获取元件
     var element = doc.selection[0];
 
-    // 重置注册点,到中心
-    ele.resetRegisterPoint(element);
+    // // 重置注册点,到中心
+    // ele.resetRegisterPoint(element);
 
     // 变形点 到右上角
     ele.alterTransformationPoint(element, "top right");

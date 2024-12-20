@@ -1,5 +1,4 @@
-﻿
-function checkDom() {
+﻿function checkDom() {
     if (doc == null) {
         alert("请打开 [.fla] 文件");
         return false;
@@ -20,12 +19,13 @@ function checkDom() {
     return true;
 }
 
-var doc=fl.getDocumentDOM();//文档
+var doc = fl.getDocumentDOM();//文档
 var selection = doc.selection;//选择
-var library=doc.library;//库文件
+var library = doc.library;//库文件
 
-var timeline=doc.getTimeline();//时间轴
-var layers=timeline.layers;//图层
+var timeline = doc.getTimeline();//时间轴
+var layers = timeline.layers;//图层
+
 
 
 function Main() {
@@ -33,12 +33,10 @@ function Main() {
         return;
     }
 
-    
+
     // fl.trace("hello world");
 
-    
-    
-    
+
     // // /**
     // //  * 
     // //  * @type {Element[]}
@@ -55,5 +53,11 @@ function Main() {
     //     var sel = seles[i];
     //     sel.name
     // }
+
+    
+    // fl.trace(random.randrange(10));
+    // fl.trace(ele.generateNameUntilUnique("test"));
+
 }
+
 Main();

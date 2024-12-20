@@ -1,6 +1,6 @@
 /**
  * Created with JetBrains Rider.
- * User: admin
+ * User: 穹的兔兔
  * Date: 2024/12/8
  * Time: 14:58
  * To change this template use File | Settings | File Templates.
@@ -29,24 +29,24 @@ function checkDom() {
 }
 
 
-var doc=fl.getDocumentDOM();//文档
+var doc = fl.getDocumentDOM();//文档
 var selection = doc.selection;//选择
-var library=doc.library;//库文件
+var library = doc.library;//库文件
 
-var timeline=doc.getTimeline();//时间轴
-var layers=timeline.layers;//图层
+var timeline = doc.getTimeline();//时间轴
+var layers = timeline.layers;//图层
 
 function Main() {
     if (!checkDom()) {
         return;
     }
-    
-    var isClean = confirm("该操作会清理库中所有未使用的文件，是否继续？");
+
+    var isClean = confirm("该操作会清理库中所有未使用的文件，是否继续？\n" + "穹的兔兔  提醒您：请谨慎操作，避免误删重要文件！尽量有备份文件。");
     if (!isClean) {
         return;
     }
 
-    var unUsedItems =library.unusedItems;
+    var unUsedItems = library.unusedItems;
 
     for (var i = 0; i < unUsedItems.length; i++) {
         var item = unUsedItems[i];
@@ -55,6 +55,7 @@ function Main() {
     }
 
 }
+
 Main();
 
 

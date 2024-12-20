@@ -18,20 +18,24 @@
  * @constructor
  * @class {Rect}
  */
-function Rect(left, top, right, bottom){
+function Rect(left, top, right, bottom) {
     this.left = left;
     this.top = top;
     this.right = right;
     this.bottom = bottom;
+
+    this.width = this.right - this.left;
+    this.height = this.bottom - this.top;
 }
+
 /**
  * 矩形 偏移后的 矩形
  * 移动矩形的边界
  * @param {Point} offset 偏移量
  * @returns {Rect} 矩形
  */
-Rect.prototype.addOffset = function(offset){
-    return new Rect(this.left+offset.x,this.top+offset.y,this.right+offset.x,this.bottom+offset.y);
+Rect.prototype.addOffset = function (offset) {
+    return new Rect(this.left + offset.x, this.top + offset.y, this.right + offset.x, this.bottom + offset.y);
 }
 /**
  * 矩形 偏移前的 矩形
@@ -39,8 +43,8 @@ Rect.prototype.addOffset = function(offset){
  * @param {Point} offset 偏移量
  * @returns {Rect} 矩形
  */
-Rect.prototype.subOffset = function(offset){
-    return new Rect(this.left-offset.x,this.top-offset.y,this.right-offset.x,this.bottom-offset.y);
+Rect.prototype.subOffset = function (offset) {
+    return new Rect(this.left - offset.x, this.top - offset.y, this.right - offset.x, this.bottom - offset.y);
 }
 /**
  * 矩形相加
@@ -48,42 +52,26 @@ Rect.prototype.subOffset = function(offset){
  * @param {Rect} rect 矩形
  * @returns {Rect} 矩形
  */
-Rect.prototype.add = function(rect){
-    return new Rect(this.left+rect.left,this.top+rect.top,this.right+rect.right,this.bottom+rect.bottom);
+Rect.prototype.add = function (rect) {
+    return new Rect(this.left + rect.left, this.top + rect.top, this.right + rect.right, this.bottom + rect.bottom);
 }
 
 /**
  * 矩形相减
- * 小矩形的边界   与   大矩形的边界  的距离 
+ * 小矩形的边界   与   大矩形的边界  的距离
  * @param {Rect} rect 矩形
- * @returns {Rect} 矩形   
+ * @returns {Rect} 矩形
  */
-Rect.prototype.sub = function(rect){
-    return new Rect(this.left-rect.left,this.top-rect.top,this.right-rect.right,this.bottom-rect.bottom);
+Rect.prototype.sub = function (rect) {
+    return new Rect(this.left - rect.left, this.top - rect.top, this.right - rect.right, this.bottom - rect.bottom);
 }
 
 /**
  * 矩形中心点
  * @returns {Point} 点
  */
-Rect.prototype.center = function(){
-    return new Point((this.left+this.right)/2,(this.top+this.bottom)/2);
-}
-
-/**
- * 矩形的宽度
- * @returns {number} 宽度
- */
-Rect.prototype.width = function(){
-    return this.right - this.left;
-}
-
-/**
- * 矩形的高度
- * @returns {number} 高度
- */
-Rect.prototype.height = function(){
-    return this.bottom - this.top;
+Rect.prototype.center = function () {
+    return new Point((this.left + this.right) / 2, (this.top + this.bottom) / 2);
 }
 
 /**
@@ -91,7 +79,7 @@ Rect.prototype.height = function(){
  * @param {Rect} rect 矩形
  * @returns {boolean} 包含返回true，否则返回false
  */
-Rect.prototype.contains = function(rect){
+Rect.prototype.contains = function (rect) {
     return this.left <= rect.left && this.top <= rect.top && this.right >= rect.right && this.bottom >= rect.bottom;
 }
 
@@ -100,7 +88,7 @@ Rect.prototype.contains = function(rect){
  * @param {"top right"|"top left"|"bottom right"|"bottom left"|"top center"|"right center"|"bottom center"|"left center"|"center"} whichCorner whichCorner 角点
  * @returns {Point} 点
  */
-Rect.prototype.getCorner = function(whichCorner){
+Rect.prototype.getCorner = function (whichCorner) {
     switch (whichCorner) {
         case "top right":
             return new Point(this.right, this.top);
@@ -111,15 +99,15 @@ Rect.prototype.getCorner = function(whichCorner){
         case "bottom left":
             return new Point(this.left, this.bottom);
         case "top center":
-            return new Point((this.left+this.right)/2, this.top);
+            return new Point((this.left + this.right) / 2, this.top);
         case "right center":
-            return new Point(this.right, (this.top+this.bottom)/2);
+            return new Point(this.right, (this.top + this.bottom) / 2);
         case "bottom center":
-            return new Point((this.left+this.right)/2, this.bottom);
+            return new Point((this.left + this.right) / 2, this.bottom);
         case "left center":
-            return new Point(this.left, (this.top+this.bottom)/2);
+            return new Point(this.left, (this.top + this.bottom) / 2);
         case "center":
-            return new Point((this.left+this.right)/2, (this.top+this.bottom)/2);
+            return new Point((this.left + this.right) / 2, (this.top + this.bottom) / 2);
         default:
             // return new Point(0,0);
             throw new Error("whichCorner 参数错误");
@@ -130,29 +118,30 @@ Rect.prototype.getCorner = function(whichCorner){
  * 字符串
  * @returns {string} 字符串
  */
-Rect.prototype.toString = function(){
-    return "Rect: " + this.left + " " + this.top + " " + this.right + " " + this.bottom;
+Rect.prototype.toString = function () {
+    return "Rect: left=" + this.left + ", top=" + this.top + ", right=" + this.right + ", bottom=" + this.bottom;
 }
+
 /**
  * 转换为对象
  * @returns {{left:number,top:number,right:number,bottom:number}} 矩形对象
  */
-Rect.prototype.toObj = function() {
+Rect.prototype.toObj = function () {
     return {left: this.left, top: this.top, right: this.right, bottom: this.bottom};
 }
 
 /**
  * 转换为矩形对象
- * @param {{left:number,top:number,right:number,bottom:number}} obj 矩形对象
+ * @param {{left:number,top:number,right:number,bottom:number}|Rect} rect 矩形对象
  * @returns {Rect} 矩形
  */
-function wrapRect(obj){
-    return new Rect(obj.left, obj.top, obj.right, obj.bottom);
+function wrapRect(rect) {
+    return new Rect(rect.left, rect.top, rect.right, rect.bottom);
 }
 
 
 /**
- * 计算新的向量，确保小矩形不会超出大矩形的边界
+ * 计算新的向量，确保  小矩形的最终落点  不会超出  大矩形的边界
  * @param {Rect} bigRect 大矩形
  * @param {Rect} smallRect 小矩形
  * @param {Point} moveVector 原始向量
@@ -164,6 +153,9 @@ function calculateSafeMoveVector(bigRect, smallRect, moveVector) {
     // >0  小矩形在大矩形的  里面
     // =0  小矩形在大矩形的  边界上
     var maxOffsetRect = smallRect.sub(bigRect);
+    // fl.trace("bigrect:" + bigRect.toString())
+    // fl.trace("smallrect:" + smallRect.toString())
+    //
     // fl.trace("maxOffsetRect: " + maxOffsetRect.toString())
     // fl.trace("moveVector: " + moveVector.toString())
 
@@ -180,17 +172,31 @@ function calculateSafeMoveVector(bigRect, smallRect, moveVector) {
     // moveVector.y<0 向下移动
 
     var newMoveVector = new Point(moveVector.x, moveVector.y);
-    if (moveVector.x <0){//向右移动
+    if (moveVector.x < 0) {//向右移动
         newMoveVector.x = Math.max(moveVector.x, maxOffsetRect.right);
-    }else if(moveVector.x > 0){//向左移动
+        if (maxOffsetRect.left<0) {//small 在 big 的边界 左边
+            newMoveVector.x = Math.min(newMoveVector.x, maxOffsetRect.left);
+        }
+    } else if (moveVector.x > 0) {//向左移动
         newMoveVector.x = Math.min(moveVector.x, maxOffsetRect.left);
+        if (maxOffsetRect.right>0){//small 在 big 的边界 右边
+            newMoveVector.x = Math.max(newMoveVector.x, maxOffsetRect.right);
+        }
     }
-    if (moveVector.y <0){//向下移动
+    if (moveVector.y < 0) {//向下移动
         newMoveVector.y = Math.max(moveVector.y, maxOffsetRect.bottom);
-    }else if(moveVector.y > 0){//向上移动
+        if (maxOffsetRect.top<0) {//small 在 big 的边界上面
+            newMoveVector.y = Math.min(newMoveVector.y, maxOffsetRect.top);
+        }
+    } else if (moveVector.y > 0) {//向上移动
         newMoveVector.y = Math.min(moveVector.y, maxOffsetRect.top)
+        if (maxOffsetRect.bottom>0) {//small 在 big 的边界下面
+            newMoveVector.y = Math.max(newMoveVector.y, maxOffsetRect.bottom);
+        }
     }
 
     // fl.trace("newMoveVector: " + newMoveVector.toString())
     return newMoveVector;
 }
+
+

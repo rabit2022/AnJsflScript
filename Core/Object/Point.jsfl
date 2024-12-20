@@ -57,6 +57,10 @@ Point.prototype.neg = function () {
     return new Point(-this.x, -this.y);
 }
 
+Point.prototype.center = function () {
+    return new Point(this.x / 2, this.y / 2);
+}
+
 /**
  * 四舍五入
  * @returns {Point}
@@ -64,6 +68,23 @@ Point.prototype.neg = function () {
 Point.prototype.toIntPonit = function () {
     return new Point(Math.round(this.x), Math.round(this.y));
 }
+
+/**
+ * timeline.camera.setPosition(curFrameIndex, newCameraPos.x, newCameraPos.y);
+ * 要求x,y必须为非0的整数
+ * @returns {Point}
+ */
+Point.prototype.noZero = function () {
+    var point=wrapPoint(this);
+    if (point.x === 0) {
+        point.x = 1;
+    }
+    if (point.y === 0) {
+        point.y = 1;
+    }
+    return point;
+}
+
 
 /**
  * 判断是否  在 另一个点 的 某个方向上
@@ -116,7 +137,7 @@ Point.prototype.toObj = function () {
 
 /**
  * 转换为Point对象
- * @param {{x:number,y:number}|Element} element 点对象
+ * @param {{x:number,y:number}|Element|Point} element 点对象
  * @return {Point}
  */
 function wrapPoint(element) {
@@ -130,5 +151,3 @@ function wrapPoint(element) {
 function getZeroPoint() {
     return new Point(0, 0);
 }
-
-

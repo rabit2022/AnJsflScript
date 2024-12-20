@@ -89,18 +89,28 @@ Ele.prototype.CopySymbol = function (mode) {
 }
 
 /**
+ * 获取随机3位数字的字符串,不够的地方用0补齐
+ * @return {string} 随机3位数字
+ * @private
+ */
+Ele.prototype.getRandom3= function () {
+    var num = random.randint(1, 999);
+    return num.toString().padStart(3, '0');
+}
+
+/**
  * 生成一个唯一的名称，基于传入的基础名称，并确保其在 library 中是唯一的。
  * 在 后面 加上 随机数，确保名称的唯一性。
  * @param {string} baseName - 用于生成唯一名称的基础字符串。
  * @returns {string} 返回一个唯一的名称。
  */
 Ele.prototype.generateNameUntilUnique = function (baseName) {
-    this.lastCount = getRandom3();
+    this.lastCount = this.getRandom3();
     var name = baseName + "_" + this.lastCount;
 
     var count = 0;
     while (this.findDuplicateNameInLib(name)) {
-        this.lastCount = getRandom3();
+        this.lastCount = this.getRandom3();
         name = baseName + "_" + this.lastCount;
 
         count++;
@@ -121,7 +131,7 @@ Ele.prototype.generateNameUseLast = function (baseName) {
     var name = baseName + "_" + this.lastCount;
     while (this.findDuplicateNameInLib(name)) {
         var info0 = "lastCount:" + this.lastCount + " 重复了！";
-        this.lastCount = getRandom3()
+        this.lastCount = this.getRandom3()
         var info1 = "已经重新生成了新的名称！" + " lastCount:" + this.lastCount;
         name = baseName + "_" + this.lastCount;
         fl.trace(info0 + info1);
@@ -157,7 +167,7 @@ Ele.prototype.getMaxRight = function (elements) {
 /**
  * 重置注册点-editor
  * @param {Point} transformationPoint 形变点
- * @private
+ * @private 
  */
 Ele.prototype.resetRegisterPointWrap = function (transformationPoint) {
     doc.enterEditMode('inPlace');
@@ -185,6 +195,9 @@ Ele.prototype.resetRegisterPointWrap = function (transformationPoint) {
  * 2，经常配合 {@link Ele.alterTransformationPoint} 使用 </br>
  * 3，如果没有设置变形点，一般来说，元件的默认的变形点就是  中心点 </br>
  * @param {Element} element 元素
+ * @deprecated 请使用  doc.convertToSymbol("graphic", symbolName, "center"); 提前设置好元件的注册点</br>
+ *             请使用  element.setTransformationPoint(getZeroPoint().toObj());  把元件的变形点设置为 注册点 </br>
+ *             这个方法尽量不要使用，因为它会让 元件的注册点 发生变化，导致  设置位置时，出现偏差 </br>
  */
 Ele.prototype.resetRegisterPoint = function (element) {
     var trPoint = wrapPoint(element.getTransformationPoint());
@@ -202,7 +215,6 @@ Ele.prototype.resetRegisterPoint = function (element) {
 
     // doc.selectNone();
 }
-
 
 /**
  * 更改元件的变形点

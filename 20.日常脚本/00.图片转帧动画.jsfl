@@ -14,10 +14,10 @@ function checkDom() {
         return false;
     }
 
-    if (selection.length < 1) {
-        alert("请选择元件？");
-        return false;
-    }
+    // if (selection.length < 1) {
+    //     alert("请选择元件？");
+    //     return false;
+    // }
     // if (selection.length > 1) {
     //     alert("请选择单个元件");
     //     return false;
@@ -26,6 +26,11 @@ function checkDom() {
     //     alert("请选择至少两个元件");
     //     return false;
     // }
+    
+    if (library.getSelectedItems().length < 1) {
+        alert("请选择库里面的图片");
+        return false;
+    }
     return true;
 }
 
@@ -44,7 +49,7 @@ function getPics() {
     return selectedPics;
 }
 
-function KFrames() {
+function KFrames(selectedPics) {
     doc.enterEditMode("inPlace");
 
     // 把第一个作为参照
@@ -72,7 +77,7 @@ function KFrames() {
 }
 
 
-function cleanFolders() {
+function cleanFolders(NEW_SYMBOL_NAME,symbol_name, selectedPics) {
     // 整理库的文件
     library.selectNone();
     var FOLDER_NAME = NEW_SYMBOL_NAME + "_素材";
@@ -81,15 +86,18 @@ function cleanFolders() {
     var ANIMATE_FOLDER = FOLDER_NAME + "/动画";
     library.newFolder(ANIMATE_FOLDER)
 
+    // 移动图片到 动画文件夹
     for (var i = 0; i < selectedPics.length; i++) {
         library.selectItem(selectedPics[i]);
         // library.renameItem(ANIMATE_FOLDER + "/" + selectedPics[i].name);
         library.moveToFolder(ANIMATE_FOLDER, selectedPics[i].name);
     }
+    
+    // 移动元件到  素材文件夹
     library.selectNone();
-    var index = library.findItemIndex(NEW_SYMBOL_NAME);
+    var index = library.findItemIndex(symbol_name);
     var newSymbol = library.items[index];
-    library.selectItem(newSymbol);
+    library.selectItem(newSymbol.name);
     library.moveToFolder(FOLDER_NAME, newSymbol.name);
 }
 
@@ -111,15 +119,19 @@ function Main() {
 
     // 去除数字的名字
     var NEW_SYMBOL_NAME = selectedPics[0].name.replace(/_\d+.*/, "");
-    // fl.trace(NEW_SYMBOL_NAME);
 
+    // 把第一个图片 添加到  舞台中心
+    var stageCenter=new Point(doc.width/2,doc.height/2);
+    library.addItemToDocument(stageCenter.toObj(), selectedPics[0].name);
+    
     // 转为元件
-    doc.convertToSymbol("graphic", NEW_SYMBOL_NAME, "center");
+    var symbol_name = ele.generateNameUntilUnique(NEW_SYMBOL_NAME);
+    doc.convertToSymbol("graphic",symbol_name, "center");
 
     
-    KFrames();
+    KFrames(selectedPics);
 
-    cleanFolders();
+    cleanFolders(NEW_SYMBOL_NAME,symbol_name, selectedPics);
 }
 
 Main();

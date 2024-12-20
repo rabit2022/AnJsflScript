@@ -113,22 +113,14 @@ function Main() {
     if(!success){
         return;
     }
-
-    // var symbolName = ele.generateNameUntilUnique("一键q弹");
-    // doc.convertToSymbol("graphic",symbolName,"center");
     
     // 包装元件
     var symbolName = ele.generateNameUntilUnique("一键q弹_静");
-    doc.convertToSymbol("graphic",symbolName,"center");
+    doc.convertToSymbol("graphic",symbolName,"top center");
 
     // 获取元件的变换点
     var element = doc.selection[0];
-
-    // 变形点 到右上角
-    ele.alterTransformationPoint(element, "top center");
-    
-    // 重置注册点，到右上角
-    ele.resetRegisterPoint(element);
+    element.setTransformationPoint(getZeroPoint().toObj());
     
     // 包装元件
     var symbolName1 = ele.generateNameUseLast("一键q弹_动");
@@ -158,11 +150,6 @@ function Main() {
         timeline1.currentFrame = i;
         var y = sine_model(amplitude, frameCount, initialHeight, i);
         // fl.trace("y=" + y);
-
-        // var elements = timeline1.layers[0].frames[timeline1.currentFrame].elements;
-        //
-        // // 找到元件
-        // var element = elements[0];
         
         doc.selectAll();
         // 找到元件
