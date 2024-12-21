@@ -45,7 +45,7 @@ FrameRange.prototype.Contain = function (fr2) {
  * 判断 FrameRange 是否包含在 selectedFrameRanges 中
  * @param {FrameRange[]} frs 选中范围数组
  */
-FrameRange.prototype.Contains= function ( frs) {
+FrameRange.prototype.Contains = function (frs) {
     for (var i = 0; i < frs.length; i++) {
         if (this.Contain(frs[i])) {
             return frs[i];
@@ -57,7 +57,7 @@ FrameRange.prototype.Contains= function ( frs) {
 
 /**
  * 获取选中元件的帧范围
- * @param {number[]} selectedFrames 选中元件的帧范围 
+ * @param {number[]} selectedFrames 选中元件的帧范围
  * var selectedFrames = timeline.getSelectedFrames();
  * @return {FrameRange[]} 帧范围数组
  */

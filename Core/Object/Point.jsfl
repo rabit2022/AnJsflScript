@@ -75,7 +75,7 @@ Point.prototype.toIntPonit = function () {
  * @returns {Point}
  */
 Point.prototype.noZero = function () {
-    var point=wrapPoint(this);
+    var point = wrapPoint(this);
     if (point.x === 0) {
         point.x = 1;
     }
@@ -96,7 +96,7 @@ Point.prototype.IsAtDirection = function (point, whichCorner) {
     switch (whichCorner) {
         case "top right":
             return this.x > point.x && this.y > point.y;
-        case "top left":    
+        case "top left":
             return this.x < point.x && this.y > point.y;
         case "bottom right":
             return this.x > point.x && this.y < point.y;

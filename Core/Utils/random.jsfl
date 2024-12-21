@@ -46,7 +46,7 @@ Random.prototype.randint = function (a, b) {
 Random.prototype.choice = function (seq) {
     return seq[Math.floor(Math.random() * seq.length)];
 }
-Random.prototype.choices = function (population, weights, cum_weights , k ) {
+Random.prototype.choices = function (population, weights, cum_weights, k) {
     if (weights === null) {
         return this.sample(population, k);
     }

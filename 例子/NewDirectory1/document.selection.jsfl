@@ -8,7 +8,7 @@
 
 // The following example assigns all elements on Frame 11 to the current selection (remember that index values are different from frame number values):
 // 下面的例子将所有Frame 11上的元素分配给当前选择（请记住，索引值与帧号值不同）：
-fl.getDocumentDOM().getTimeline().currentFrame = 10; 
+fl.getDocumentDOM().getTimeline().currentFrame = 10;
 fl.getDocumentDOM().selection = fl.getDocumentDOM().getTimeline()
     .layers[0].frames[10].elements;
 
@@ -16,12 +16,13 @@ fl.getDocumentDOM().selection = fl.getDocumentDOM().getTimeline()
 // 下面的例子在舞台的左上角创建一个矩形，并在矩形下方创建一个文本字符串。
 // 然后使用[document.setSelectionRect()](../Document_object/docu9689.md)选择这两个对象，
 // 并将它们添加到document.selection数组中。最后，将document.selection的内容显示在输出面板中。
-fl.getDocumentDOM().addNewRectangle({left:0, top:0, right:99, bottom:99}, 0);
-fl.getDocumentDOM().addNewText({left:-1, top:117.3, right:9.2, bottom:134.6}); fl.getDocumentDOM().setTextString('Hello World');
-fl.getDocumentDOM().setSelectionRect({left:-28, top:-22, right:156.0, bottom:163});
+fl.getDocumentDOM().addNewRectangle({left: 0, top: 0, right: 99, bottom: 99}, 0);
+fl.getDocumentDOM().addNewText({left: -1, top: 117.3, right: 9.2, bottom: 134.6});
+fl.getDocumentDOM().setTextString('Hello World');
+fl.getDocumentDOM().setSelectionRect({left: -28, top: -22, right: 156.0, bottom: 163});
 var theSelectionArray = fl.getDocumentDOM().selection;
-for(var i=0;i<theSelectionArray.length;i++){
-    fl.trace("fl.getDocumentDOM().selection["+i+"] = " + theSelectionArray[i]);
+for (var i = 0; i < theSelectionArray.length; i++) {
+    fl.trace("fl.getDocumentDOM().selection[" + i + "] = " + theSelectionArray[i]);
 }
 
 // The following example is an advanced example. It shows how to loop through the layer array and elements array to locate instances of a particular symbol and select them. You could extend this example to include loops for multiple frames or scenes. This example assigns all instances of the movie clip myMovieClip in the first frame to the current selection:

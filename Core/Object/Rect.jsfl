@@ -174,23 +174,23 @@ function calculateSafeMoveVector(bigRect, smallRect, moveVector) {
     var newMoveVector = new Point(moveVector.x, moveVector.y);
     if (moveVector.x < 0) {//向右移动
         newMoveVector.x = Math.max(moveVector.x, maxOffsetRect.right);
-        if (maxOffsetRect.left<0) {//small 在 big 的边界 左边
+        if (maxOffsetRect.left < 0) {//small 在 big 的边界 左边
             newMoveVector.x = Math.min(newMoveVector.x, maxOffsetRect.left);
         }
     } else if (moveVector.x > 0) {//向左移动
         newMoveVector.x = Math.min(moveVector.x, maxOffsetRect.left);
-        if (maxOffsetRect.right>0){//small 在 big 的边界 右边
+        if (maxOffsetRect.right > 0) {//small 在 big 的边界 右边
             newMoveVector.x = Math.max(newMoveVector.x, maxOffsetRect.right);
         }
     }
     if (moveVector.y < 0) {//向下移动
         newMoveVector.y = Math.max(moveVector.y, maxOffsetRect.bottom);
-        if (maxOffsetRect.top<0) {//small 在 big 的边界上面
+        if (maxOffsetRect.top < 0) {//small 在 big 的边界上面
             newMoveVector.y = Math.min(newMoveVector.y, maxOffsetRect.top);
         }
     } else if (moveVector.y > 0) {//向上移动
         newMoveVector.y = Math.min(moveVector.y, maxOffsetRect.top)
-        if (maxOffsetRect.bottom>0) {//small 在 big 的边界下面
+        if (maxOffsetRect.bottom > 0) {//small 在 big 的边界下面
             newMoveVector.y = Math.max(newMoveVector.y, maxOffsetRect.bottom);
         }
     }

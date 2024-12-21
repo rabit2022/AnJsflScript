@@ -12,7 +12,7 @@
  * @param {Matrix} matrix 矩阵
  */
 function LogMatrix(matrix) {
-    fl.trace("[" + matrix.a + ", " + matrix.b + ", " + matrix.c + ", " + matrix.d + "] [" + matrix.tx + ", " + matrix.ty +"]");
+    fl.trace("[" + matrix.a + ", " + matrix.b + ", " + matrix.c + ", " + matrix.d + "] [" + matrix.tx + ", " + matrix.ty + "]");
 }
 
 /**

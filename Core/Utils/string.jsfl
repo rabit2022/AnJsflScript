@@ -8,7 +8,6 @@
  */
 
 
-
 // es2015
 String.prototype.codePointAt = function (pos) {
     if (pos < 0 || pos >= this.length) {
@@ -101,7 +100,7 @@ String.prototype.matchAll = function (regexp) {
 
 // es2021
 String.prototype.replaceAll = function (searchValue, replaceValue) {
-    return this.split(searchValue).join(replaceValue);  
+    return this.split(searchValue).join(replaceValue);
 }
 
 // es2022

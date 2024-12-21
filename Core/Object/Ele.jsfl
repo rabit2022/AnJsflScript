@@ -17,6 +17,9 @@ var Ele = function () {
     this.lastCount = "000";
 }
 
+
+
+
 /**
  * 判断是否是 元件
  * @param {Element} element 元素
@@ -33,6 +36,8 @@ Ele.prototype.IsSymbol = function (element) {
  * @returns {boolean} 是否有重复名称
  */
 Ele.prototype.findDuplicateNameInLib = function (baseName) {
+    var library = fl.getDocumentDOM().library;
+
     var items = library.items;
     for (var i = 0; i < items.length; i++) {
         if (items[i].name === baseName) {
@@ -49,6 +54,10 @@ Ele.prototype.findDuplicateNameInLib = function (baseName) {
  * @constructor
  */
 Ele.prototype.CopySymbol = function (mode) {
+    var doc = fl.getDocumentDOM();
+    var selection = doc.selection;//选中对象
+    var library = doc.library;//库文件
+
     // 1.清空选择
     library.selectNone();
 
@@ -78,7 +87,7 @@ Ele.prototype.CopySymbol = function (mode) {
         // 5.交换元件
         doc.swapElement(targetName);
     } else if (mode === "auto") {
-        var input_file_name = this.generateNameUntilUnique(file_name+"复制");
+        var input_file_name = this.generateNameUntilUnique(file_name + "复制");
 
         // 5.交换元件
         doc.swapElement(targetName);
@@ -93,7 +102,7 @@ Ele.prototype.CopySymbol = function (mode) {
  * @return {string} 随机3位数字
  * @private
  */
-Ele.prototype.getRandom3= function () {
+Ele.prototype.getRandom3 = function () {
     var num = random.randint(1, 999);
     return num.toString().padStart(3, '0');
 }
@@ -146,6 +155,8 @@ Ele.prototype.generateNameUseLast = function (baseName) {
  * @returns {Element}
  */
 Ele.prototype.getMaxRight = function (elements) {
+    var doc = fl.getDocumentDOM();
+
     // 获取最右边的元素
     var maxElement = elements[0];
     var maxTopRight = new Point(0, 0);
@@ -156,7 +167,7 @@ Ele.prototype.getMaxRight = function (elements) {
         var rect = wrapRect(doc.getSelectionRect());
         var topRight = rect.getCorner("top right");
 
-        if (topRight.IsAtDirection(maxTopRight,"top right")) {
+        if (topRight.IsAtDirection(maxTopRight, "top right")) {
             maxElement = element;
             maxTopRight = topRight;
         }
@@ -167,9 +178,10 @@ Ele.prototype.getMaxRight = function (elements) {
 /**
  * 重置注册点-editor
  * @param {Point} transformationPoint 形变点
- * @private 
+ * @private
  */
 Ele.prototype.resetRegisterPointWrap = function (transformationPoint) {
+    var doc = fl.getDocumentDOM();
     doc.enterEditMode('inPlace');
     doc.selectAll();
 
@@ -180,9 +192,7 @@ Ele.prototype.resetRegisterPointWrap = function (transformationPoint) {
         // 选中当前元件
         onlySelectCurrent(element);
 
-        // doc.group();
         doc.moveSelectionBy(transformationPoint.neg().toObj());
-        // doc.unGroup();
         doc.selectNone();
     }
 
@@ -211,9 +221,8 @@ Ele.prototype.resetRegisterPoint = function (element) {
 
     // 设置形变点为注册点
     element.setTransformationPoint(getZeroPoint().toObj());
+    var doc = fl.getDocumentDOM();
     doc.moveSelectionBy(trPoint.toObj());
-
-    // doc.selectNone();
 }
 
 /**
@@ -226,6 +235,7 @@ Ele.prototype.alterTransformationPoint = function (element, whichCorner) {
     var registerPoint = wrapPoint(element);
 
     onlySelectCurrent(element);
+    var doc = fl.getDocumentDOM();
     var rect = wrapRect(doc.getSelectionRect());
     var topRight = rect.getCorner(whichCorner)
 
@@ -234,6 +244,21 @@ Ele.prototype.alterTransformationPoint = function (element, whichCorner) {
     element.setTransformationPoint(relativePoint.toObj());
 }
 
+
+/**
+ * 判断图层是否存在
+ * @param {Array.<Layer>} layers 图层数组
+ * @param {String} layerName 图层名称
+ * @return {Boolean} 图层是否存在
+ */
+Ele.prototype.IsLayerExists = function (layers, layerName) {
+    for (var i = 0; i < layers.length; i++) {
+        if (layers[i].name === layerName) {
+            return true;
+        }
+    }
+    return false;
+}
 /**
  *
  * @type {Ele}

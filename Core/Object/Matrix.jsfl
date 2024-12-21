@@ -13,6 +13,7 @@
  * @returns {Matrix}
  */
 function createMatrix(a, b, c, d, tx, ty) {
+    var doc = fl.getDocumentDOM();//文档
     var matrix = doc.viewMatrix;
     matrix.a = a;
     matrix.b = b;
