@@ -1,9 +1,9 @@
 /**
- * @file: First.jsfl
+ * @file: FirstRun.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
  * @date: 2024/12/16 16:45
- * @project: WindowSWF-master
+ * @project: AnJsflScript
  * @description:
  */
 
@@ -31,7 +31,7 @@ function importMoudle(relativeScriptPath) {
     var scriptURI = curFolderURI + "/" + relativeScriptPath;
 
     fl.runScript(scriptURI);
-    fl.trace(scriptURI + " imported.");
+    // fl.trace(scriptURI + " imported.");
 }
 
 
@@ -51,3 +51,4 @@ importMoudle("Core/Utils/path.jsfl");
 importMoudle("Core/Utils/random.jsfl");
 importMoudle("Core/Utils/string.jsfl");
 
+fl.trace("Core modules imported.");

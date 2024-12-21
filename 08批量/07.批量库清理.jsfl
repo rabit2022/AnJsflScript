@@ -1,9 +1,10 @@
 /**
- * Created with JetBrains Rider.
- * User: 穹的兔兔
- * Date: 2024/12/8
- * Time: 14:58
- * To change this template use File | Settings | File Templates.
+ * @file: 07.批量库清理.jsfl
+ * @author: 穹的兔兔
+ * @email: 3101829204@qq.com
+ * @date: 2024/12/8 15:10
+ * @project: AnJsflScript
+ * @description:
  */
 
 

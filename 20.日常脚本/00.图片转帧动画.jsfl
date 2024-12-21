@@ -1,9 +1,9 @@
 /**
- * @file: 00.图片转动画.jsfl
+ * @file: 00.图片转帧动画.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
  * @date: 2024/12/11 22:29
- * @project: WindowSWF-master
+ * @project: AnJsflScript
  * @description:
  */
 

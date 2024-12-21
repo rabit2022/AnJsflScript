@@ -1,9 +1,9 @@
 /**
- * @file: 02.q弹.jsfl
+ * @file: 02.获取所有帧的高度.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
  * @date: 2024/12/17 14:11
- * @project: WindowSWF-master
+ * @project: AnJsflScript
  * @description:
  */
 

@@ -1,9 +1,9 @@
 ﻿/**
- * @file: 06.一键回正.jsfl
+ * @file: 07.一键回中.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
  * @date: 2024/12/5 16:33
- * @project: WindowSWF-master
+ * @project: AnJsflScript
  * @description:
  */
 

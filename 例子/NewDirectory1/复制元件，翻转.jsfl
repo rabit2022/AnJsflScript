@@ -1,10 +1,4 @@
-﻿/**
- * Created with JetBrains Rider.
- * User: admin
- * Date: 2024/12/4
- * Time: 20:07
- * To change this template use File | Settings | File Templates.
- */
+﻿
 // 其基本功能是：
 // 1，Flash 中选定某个图片后向右复制 n 个
 // 2，间隔翻转

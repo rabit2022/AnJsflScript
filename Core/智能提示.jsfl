@@ -1,9 +1,9 @@
 ﻿// /**
-//  * @file: 常用.jsfl
+//  * @file: 智能提示.jsfl
 //  * @author: 穹的兔兔
 //  * @email: 3101829204@qq.com
 //  * @date: 2024/12/4 21:26
-//  * @project: WindowSWF-master
+//  * @project: AnJsflScript
 //  * @description:
 //  */
 //

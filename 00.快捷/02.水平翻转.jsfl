@@ -1,9 +1,10 @@
 ﻿/**
- * Created with JetBrains Rider.
- * User: admin
- * Date: 2024/12/4
- * Time: 16:14
- * To change this template use File | Settings | File Templates.
+ * @file: 02.水平翻转.jsfl
+ * @author: 穹的兔兔
+ * @email: 3101829204@qq.com
+ * @date: 2024/12/8 15:10
+ * @project: AnJsflScript
+ * @description:
  */
 
 
@@ -42,7 +43,7 @@
             return;
         }
 
-        doc.scaleSelection(1, -1, "center");
+        doc.scaleSelection(-1, 1, "center");
     }
 
     Main();

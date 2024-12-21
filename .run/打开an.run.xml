@@ -1,0 +1,13 @@
+﻿<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="打开an" type="RunNativeExe" factoryName="Native Executable" activateToolWindowBeforeRun="false">
+    <option name="EXE_PATH" value="D:/01_software/05_pictures/02_ps/Adobe Animate 2024/Animate.exe" />
+    <option name="PROGRAM_PARAMETERS" value="" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    <option name="PASS_PARENT_ENVS" value="1" />
+    <option name="USE_EXTERNAL_CONSOLE" value="0" />
+    <method v="2">
+      <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_外部工具_FirstRun" />
+      <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_外部工具_运行当前jsfl文件" />
+    </method>
+  </configuration>
+</component>

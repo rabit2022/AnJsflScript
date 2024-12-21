@@ -1,9 +1,9 @@
 /**
- * @file: 01.导入音频.jsfl
+ * @file: 01.批量导入音频.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
  * @date: 2024/12/14 15:37
- * @project: WindowSWF-master
+ * @project: AnJsflScript
  * @description:
  */
 
@@ -70,11 +70,8 @@
                 }
             }
         }
-
-
         // 输出导入结果
         fl.trace("成功导入 " + count + " 个音效文件到库中。");
     }
-
     Main();
 })();
