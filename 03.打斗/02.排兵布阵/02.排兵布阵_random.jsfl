@@ -32,7 +32,8 @@
 
     function checkXMLPanel() {
         var success = true;
-        var XMLPANEL = osPath.join([folder_name, onlyName + "_random.xml"]);
+        // var XMLPANEL = osPath.join([folder_name, onlyName + "_random.xml"]);
+        var XMLPANEL = osPath.getXMLPath();
         var panel = doc.xmlPanel(XMLPANEL);
         if (panel.dismiss === "cancel") {
             alert("取消修改");
@@ -73,7 +74,44 @@
         if (!success) {
             return;
         }
+        
+        // # 30仅数量
+        // # y=高*(1+间隔倍数)
+        // # x=(1.4~1.7)*y
+        // #  0.6,1.4 缩放1
 
+        var firstElement = selection[0];
+        var elementHeight = firstElement.height;
+        var initialPos=wrapPoint(firstElement);
+        
+        var rectHeight = elementHeight * (1 + horizontalSpacing);
+        var rectWidth = random.uniform(1.4, 1.7) * rectHeight;
+        var rectSize = new Point(rectWidth, rectHeight);
+        // fl.trace("矩形:"+rectSize.toString());
+        
+        for (var i = 0; i < horizontalCount; i++) {
+            if (i === 0) continue;
+            
+            OnlySelectCurrent(selection[0]);
+
+            // 复制粘贴
+            doc.clipCopy();
+            doc.clipPaste();
+            
+            // 移动位置
+            var element1 = doc.selection[0];
+
+            // 缩放倍数
+            var scale = random.uniform(0.6, 1.4);
+            // fl.trace("缩放倍数"+scale);
+            element1.scaleX*=scale;
+            element1.scaleY*=scale;
+            
+            var randomPos=generateRandomPoint(rectSize, initialPos);
+            element1.x=randomPos.x;
+            element1.y=randomPos.y;
+
+        }
     }
 
     Main();

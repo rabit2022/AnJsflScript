@@ -119,7 +119,7 @@ Rect.prototype.getCorner = function (whichCorner) {
  * @returns {string} 字符串
  */
 Rect.prototype.toString = function () {
-    return "Rect: left=" + this.left + ", top=" + this.top + ", right=" + this.right + ", bottom=" + this.bottom;
+    return "Rect(left=" + this.left + ", top=" + this.top + ", right=" + this.right + ", bottom=" + this.bottom+ ")";
 }
 
 /**
@@ -199,4 +199,23 @@ function calculateSafeMoveVector(bigRect, smallRect, moveVector) {
     return newMoveVector;
 }
 
+/**
+ * 随机生成  一个矩形范围内的  随机点
+ * @param {Point} rectSize 矩形大小
+ * @param {Point} elementPos 元素位置
+ * @returns {Point} 随机点
+ */
+function generateRandomPoint(rectSize,elementPos) {
+    // 计算矩形的一半宽高，用于确定随机点的范围
+    const halfWidth = (rectSize.x)/2;
+    const halfHeight = (rectSize.y)/2;
+
+    // 生成随机点的x和y坐标
+    // 随机点的坐标将是中心点坐标加上或减去矩形一半宽高的一个随机偏移量
+    const randomX =random.uniform(elementPos.x - halfWidth, elementPos.x + halfWidth);
+    const randomY =random.uniform(elementPos.y - halfHeight, elementPos.y + halfHeight);
+
+    // 返回相对于中心点的随机点坐标
+    return new Point(randomX, randomY);
+}
 

@@ -124,7 +124,7 @@ Point.prototype.IsAtDirection = function (point, whichCorner) {
  * @returns {string}
  */
 Point.prototype.toString = function () {
-    return "Point: " + this.x + " " + this.y;
+    return "Point(" + this.x + ", " + this.y+ ")";
 }
 
 /**

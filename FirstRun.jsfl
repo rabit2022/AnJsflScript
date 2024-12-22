@@ -52,6 +52,7 @@ importMoudle("Core/Object/Curve.jsfl");
 importMoudle("Core/Object/Ele.jsfl");
 importMoudle("Core/Object/FrameRange.jsfl");
 importMoudle("Core/Object/Matrix.jsfl");
+importMoudle("Core/Object/MoreElement.jsfl");
 importMoudle("Core/Object/Point.jsfl");
 importMoudle("Core/Object/Rect.jsfl");
 importMoudle("Core/Object/Select.jsfl");

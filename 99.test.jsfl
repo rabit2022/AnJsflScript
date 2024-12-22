@@ -55,8 +55,11 @@
         // // 假设baseURL是页面的URL
         // const baseURL = new URL(window.location.href);
         // return new URL(relativeURL, baseURL).href;
-        var url = getAbsolutePath("./test.txt");
-        fl.trace(url);
+        // var url = getAbsolutePath("./test.txt");
+        // fl.trace(url);
+        // an.getDocumentDOM().mouseClick({x:250, y:0}, false, true);
+        var rect = new Rect(0, 0, 100, 100);
+        doc.addNewPrimitiveOval(rect.toObj())
     }
 
     Main();

@@ -86,6 +86,28 @@
             return;
         }
 
+
+        var firstElement = selection[0];
+        var moreElement = new MoreElement(firstElement, horizontalSpacing, verticalSpacing);
+
+        for (var i = 0; i < horizontalCount; i++){
+            for (var j = 0; j < verticalCount; j++){
+                if (i === 0 && j === 0) {
+                    continue;
+                }
+
+                var nextPoint = moreElement.Staggered(i, j);
+
+                // 复制粘贴
+                doc.clipCopy();
+                doc.clipPaste();
+
+                // 移动元件
+                var newElement = doc.selection[0];
+                newElement.x = nextPoint.x;
+                newElement.y = nextPoint.y;
+            }
+        }
     }
 
     Main();

@@ -73,7 +73,6 @@
                 break;
             default:
                 throw new Error("未知排布方式");
-                break;
         }
     }
 

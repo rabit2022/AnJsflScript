@@ -19,7 +19,7 @@ function LogMatrix(matrix) {
  * 打印数组中的数字
  * @param {number[]}numbers 数组
  */
-function LogNumbers(numbers) {
+function LogArray(numbers) {
     var str = "[ ";
     for (var i = 0; i < numbers.length; i++) {
         if (i === numbers.length - 1) {

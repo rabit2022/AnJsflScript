@@ -30,19 +30,7 @@
         return true;
     }
 
-
-    function MoreElement(element) {
-        this.element = element;
-        this.positioin = new Point(element.x, element.y);
-        this.offsetX = element.width;
-    }
-
-    MoreElement.prototype.Next = function (index) {
-        var elementX = this.positioin.x + this.offsetX * index;
-        return new Point(elementX, this.positioin.y);
-    }
-
-
+    
     var doc = fl.getDocumentDOM();//文档
     var selection = doc.selection;//选择
     var library = doc.library;//库文件
@@ -75,7 +63,7 @@
             // 选中当前元件
             OnlySelectCurrent(element);
 
-            var moreElement = new MoreElement(element);
+            var moreElement = new MoreElement(element,1,1);
             moreElements.push(moreElement);
         }
 
@@ -89,7 +77,7 @@
             var moreElement = moreElements[i];
 
             for (var j = 0; j < copyCount; j++) {
-                var nextPoint = moreElement.Next(j);
+                var nextPoint = moreElement.Neat(j+1, 0);
                 // 复制元件
                 OnlySelectCurrent(moreElement.element);
                 

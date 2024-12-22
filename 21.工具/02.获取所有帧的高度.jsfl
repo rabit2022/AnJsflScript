@@ -56,7 +56,7 @@
             heights.push(eleHeight);
         }
 
-        LogNumbers(heights);
+        LogArray(heights);
     }
     Main();
 })();
