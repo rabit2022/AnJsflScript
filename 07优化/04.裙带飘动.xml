@@ -1,0 +1,21 @@
+<dialog title="q弹" buttons="accept, cancel">
+    <rows>
+        <row>
+            <label control="direction" value="选择飘动方向(默认向右，空格为左)"/>
+        </row>
+        <row>
+            <textbox id="direction" value="右" width="80"/>
+        </row>
+        <separator/>
+    
+    
+        <row>
+            <label control="angle" value="输入飘动幅度（1~10)"/>
+        </row>
+        <row>
+            <textbox id="angle" value="3" width="80"/>
+        </row>
+        <separator/>
+    </rows>
+    
+</dialog>

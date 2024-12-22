@@ -53,8 +53,9 @@
         timeline.currentFrame = currentFrame;
 
         // setSelectedFrames(selectionList [, bReplaceCurrentSelection])
-        // select None
-        timeline.setSelectedFrames([0, 0, 0], true);
+        // // select None
+        // timeline.setSelectedFrames([0, 0, 0], true);
+        SelectNoneTl(timeline);
     }
 
     Main();

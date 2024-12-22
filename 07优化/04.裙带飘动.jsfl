@@ -33,21 +33,12 @@
     function checkXMLPanel() {
 
         var success = true;
-        var XML_PANAL = [
-            "<dialog title='q弹' buttons='accept, cancel'>",
-
-            "<hbox ><label control='direction' value='选择飘动方向(默认向右，空格为左)'/><textbox id='direction' value='右' width='80' /></hbox>",
-            "<hbox><label control='angle' value='输入飘动幅度（1~10)'/><textbox id='angle' value='3' width='80' /></hbox>",
-            "<separator />",
-
-            "</dialog>"
-        ];
-        // 从XML字符串创建对话框面板并获取相关输入控件的值以及点击的按钮
-        var dialog = fl.xmlPanelFromString(XML_PANAL.join(""));
-
+        var XMLPANEL = osPath.getXMLPath();
+        var dialog = doc.xmlPanel(XMLPANEL);
+        
         // 如果点击的是“取消”按钮，直接返回，不执行后续代码，确保功能符合需求
         if (dialog.dismiss === "cancel") {
-            alert("取消修改");
+            // alert("取消修改");
             // return;
             success = false;
         }
@@ -108,6 +99,7 @@
 
         // 删除所有帧
         timeline1.removeFrames(1, timeline1.frameCount);
+        
 
         // 创建帧  30
         timeline1.currentFrame = 0;
@@ -128,8 +120,9 @@
         // fl.trace("angle:" + angle + " direction:" + direction + " element1" + 2 * angle * direction);
         element1.rotation += 2 * angle * direction;
 
-        // 选中所有帧
-        timeline1.setSelectedFrames(0, _30_frame);
+        // // 选中所有帧
+        // timeline1.setSelectedFrames(0, _30_frame);
+        SelectAllTl(timeline1);
 
         // 创建动效
         timeline1.createMotionTween();

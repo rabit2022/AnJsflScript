@@ -32,17 +32,8 @@
 
     function checkXMLPanel() {
         var success = true;
-        var XML_PANAL = [
-            "<dialog title='q弹' buttons='accept, cancel'>",
-
-            "<hbox ><label control='frameCount' value='请输入抖动帧数（越多越慢）:'/><textbox id='frameCount' value='10' width='80' /></hbox>",
-            "<hbox><label control='amplitude' value='请输入抖动幅度（越大越狠）:'/><textbox id='amplitude' value='2' width='80' /></hbox>",
-            "<separator />",
-
-            "</dialog>"
-        ];
-        // 从XML字符串创建对话框面板并获取相关输入控件的值以及点击的按钮
-        var dialog = fl.xmlPanelFromString(XML_PANAL.join(""));
+        var XMLPANEL = osPath.getXMLPath();
+        var dialog = doc.xmlPanel(XMLPANEL);
 
         // 如果点击的是“取消”按钮，直接返回，不执行后续代码，确保功能符合需求
         if (dialog.dismiss === "cancel") {

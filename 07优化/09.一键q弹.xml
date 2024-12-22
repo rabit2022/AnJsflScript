@@ -1,0 +1,22 @@
+<dialog title="q弹" buttons="accept, cancel">
+    <rows>
+        <!-- 抖动帧数设置-->
+        <row>
+            <label control="frameCount" value="请输入抖动帧数（越多越慢）:"/>
+        </row>
+        <row>
+            <textbox id="frameCount" value="10" width="80"/>
+        </row>
+        <separator/>
+        
+        <!-- 抖动幅度设置-->
+        <row>
+            <label control="amplitude" value="请输入抖动幅度（越大越狠）:"/>
+        </row>
+        <row>
+            <textbox id="amplitude" value="2" width="80"/>
+        </row>
+        <separator/>
+    </rows>
+
+</dialog>

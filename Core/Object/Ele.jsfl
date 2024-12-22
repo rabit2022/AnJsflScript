@@ -17,9 +17,6 @@ var Ele = function () {
     this.lastCount = "000";
 }
 
-
-
-
 /**
  * 判断是否是 元件
  * @param {Element} element 元素
@@ -28,7 +25,6 @@ var Ele = function () {
 Ele.prototype.IsSymbol = function (element) {
     return element.elementType === "instance" && element.instanceType === "symbol";
 }
-
 
 /**
  * 查找是否有重复名称
@@ -47,22 +43,21 @@ Ele.prototype.findDuplicateNameInLib = function (baseName) {
     return false;
 }
 
-
 /**
  *  复制元件
+ *  @param {Element} element 元件
  * @param {"ask"|"skip"|"auto"} mode 复制模式，ask：弹出输入框，skip：直接复制，auto：自动生成名称
  * @constructor
  */
-Ele.prototype.CopySymbol = function (mode) {
+Ele.prototype.CopySymbol = function (element, mode) {
     var doc = fl.getDocumentDOM();
-    var selection = doc.selection;//选中对象
     var library = doc.library;//库文件
 
     // 1.清空选择
     library.selectNone();
 
     // 2.直接复制元件
-    var origionName = selection[0].libraryItem.name;
+    var origionName = element.libraryItem.name;
     library.duplicateItem(origionName);
 
     // 3.获取新元件名称
@@ -70,7 +65,8 @@ Ele.prototype.CopySymbol = function (mode) {
 
     if (mode === "ask") {
         // 4.重新命名元件名称
-        var {_, file_name} = pathSplit(targetName);
+        // var {_, file_name} = pathSplit(targetName);
+        var file_name = osPath.basename(targetName);
         var input_file_name = prompt("请输入新元件名称：", file_name);
         if (input_file_name == null || input_file_name === "") {
             alert("元件名称不能为空！");
@@ -82,7 +78,7 @@ Ele.prototype.CopySymbol = function (mode) {
         doc.swapElement(targetName);
 
         // 6.更新元件名称
-        selection[0].libraryItem.name = input_file_name;
+        element.libraryItem.name = input_file_name;
     } else if (mode === "skip") {
         // 5.交换元件
         doc.swapElement(targetName);
@@ -93,7 +89,7 @@ Ele.prototype.CopySymbol = function (mode) {
         doc.swapElement(targetName);
 
         // 6.更新元件名称
-        selection[0].libraryItem.name = input_file_name;
+        element.libraryItem.name = input_file_name;
     }
 }
 
@@ -163,7 +159,7 @@ Ele.prototype.getMaxRight = function (elements) {
     for (var i = 0; i < elements.length; i++) {
         var element = elements[i];
 
-        onlySelectCurrent(element);
+        OnlySelectCurrent(element);
         var rect = wrapRect(doc.getSelectionRect());
         var topRight = rect.getCorner("top right");
 
@@ -190,10 +186,11 @@ Ele.prototype.resetRegisterPointWrap = function (transformationPoint) {
     for (var i = 0; i < selection1.length; i++) {
         var element = selection1[i];
         // 选中当前元件
-        onlySelectCurrent(element);
+        OnlySelectCurrent(element);
 
         doc.moveSelectionBy(transformationPoint.neg().toObj());
-        doc.selectNone();
+        // doc.selectNone();
+        SelectNone();
     }
 
     doc.exitEditMode();
@@ -212,12 +209,12 @@ Ele.prototype.resetRegisterPointWrap = function (transformationPoint) {
 Ele.prototype.resetRegisterPoint = function (element) {
     var trPoint = wrapPoint(element.getTransformationPoint());
 
-    onlySelectCurrent(element);
+    OnlySelectCurrent(element);
 
     // 重置注册点
     this.resetRegisterPointWrap(trPoint);
 
-    onlySelectCurrent(element);
+    OnlySelectCurrent(element);
 
     // 设置形变点为注册点
     element.setTransformationPoint(getZeroPoint().toObj());
@@ -234,7 +231,7 @@ Ele.prototype.alterTransformationPoint = function (element, whichCorner) {
     // 变形点 到右上角
     var registerPoint = wrapPoint(element);
 
-    onlySelectCurrent(element);
+    OnlySelectCurrent(element);
     var doc = fl.getDocumentDOM();
     var rect = wrapRect(doc.getSelectionRect());
     var topRight = rect.getCorner(whichCorner)
@@ -259,6 +256,8 @@ Ele.prototype.IsLayerExists = function (layers, layerName) {
     }
     return false;
 }
+
+
 /**
  *
  * @type {Ele}

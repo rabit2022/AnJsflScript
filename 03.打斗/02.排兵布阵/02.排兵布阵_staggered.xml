@@ -1,0 +1,43 @@
+﻿<dialog id="characterLayoutDialog" title="人物排列设置" buttons="accept,cancel">
+    <grid>
+<!--        <columns>-->
+<!--            <column flex="1"/>-->
+<!--            <column flex="3"/>-->
+<!--        </columns>-->
+        <rows>
+            <row>
+                <label value="横向人物数量："/>
+            </row>
+            <row>
+                <textbox id="horizontalCount" value="8"/>
+            </row>
+            <separator/>
+        
+            <row>
+                <label value="横向间距(单位：多少倍身宽)："/>
+            </row>
+            <row>
+            <textbox id="horizontalSpacing" value="1.2"/>
+            </row>
+            <separator/>
+            
+            <row>
+                <label value="纵向人物数量："/>
+            </row>
+            <row>
+                <textbox id="verticalCount" value="4"/>
+            </row>
+            <separator/>
+            
+            <row>
+                <label value="纵向间距："/>
+            </row>
+            <row>
+                <textbox id="verticalSpacing" value="0.3"/>
+            </row>
+            <separator/>
+            
+            
+        </rows>
+    </grid>
+</dialog>

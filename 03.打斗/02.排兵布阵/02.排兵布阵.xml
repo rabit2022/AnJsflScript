@@ -1,0 +1,12 @@
+﻿<dialog id="layoutDialog" title="排布模式选择" buttons="accept,cancel">
+    <label value="请输入排布模式:"/>
+    <radiogroup id="layoutRadioGroup" orient="horizontal">
+        <hbox> <!-- 使用hbox来水平排列所有元素 -->
+            <spacer flex="1"/> <!-- 添加一个spacer来填充剩余空间 -->
+            <radio label="整齐排布" value="neat"/>
+            <radio label="交错排布" value="staggered"/>
+            <radio label="随机排布" value="random"/>
+        </hbox>
+    </radiogroup>
+    <separator/>
+</dialog>

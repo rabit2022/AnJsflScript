@@ -40,7 +40,7 @@
             return;
         }
 
-        ele.CopySymbol("ask");
+        ele.CopySymbol(selection[0],"ask");
     }
     Main();
 })();

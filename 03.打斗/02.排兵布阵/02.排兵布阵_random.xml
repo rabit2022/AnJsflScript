@@ -1,0 +1,22 @@
+﻿<dialog id="characterLayoutDialog" title="人物排列设置" buttons="accept,cancel">
+    <grid>
+        <rows>
+            <row>
+                <label value="横向人物数量："/>
+            </row>
+            <row>
+                <textbox id="horizontalCount" value="30"/>
+            </row>
+            <separator/>
+            
+            
+            <row>
+                <label value="横向间距(单位：多少倍身宽)："/>
+            </row>
+            <row>
+                <textbox id="horizontalSpacing" value="3"/>
+            </row>
+            <separator/>
+        </rows>
+    </grid>
+</dialog>

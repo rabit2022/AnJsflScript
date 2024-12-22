@@ -73,7 +73,7 @@
             var element = selection[i];
 
             // 选中当前元件
-            onlySelectCurrent(element);
+            OnlySelectCurrent(element);
 
             var moreElement = new MoreElement(element);
             moreElements.push(moreElement);
@@ -91,7 +91,7 @@
             for (var j = 0; j < copyCount; j++) {
                 var nextPoint = moreElement.Next(j);
                 // 复制元件
-                onlySelectCurrent(moreElement.element);
+                OnlySelectCurrent(moreElement.element);
                 
                 // 复制粘贴
                 doc.clipCopy();
@@ -104,7 +104,7 @@
             }
         }
 
-        SelectStart();
+        SelectStart(selection);
     }
     Main();
 })();

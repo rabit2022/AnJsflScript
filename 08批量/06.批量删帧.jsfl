@@ -71,8 +71,9 @@
         // 回到最开始选择的帧
         timeline.currentFrame = currentFrame;
 
-        // select None
-        timeline.setSelectedFrames([0, 0, 0], true);
+        // // select None
+        // timeline.setSelectedFrames([0, 0, 0], true);
+        SelectNoneTl(timeline);
     }
 
     Main();

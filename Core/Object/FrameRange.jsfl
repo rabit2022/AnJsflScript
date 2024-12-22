@@ -18,6 +18,7 @@ function FrameRange(layerIndex, startFrame, endFrame) {
     this.layerIndex = layerIndex;
     this.startFrame = startFrame;
     this.endFrame = endFrame;
+    
     this.duration = endFrame - startFrame + 1;
 }
 
@@ -57,11 +58,15 @@ FrameRange.prototype.Contains = function (frs) {
 
 /**
  * 获取选中元件的帧范围
- * @param {number[]} selectedFrames 选中元件的帧范围
  * var selectedFrames = timeline.getSelectedFrames();
  * @return {FrameRange[]} 帧范围数组
  */
-function wrapSelectedFrames(selectedFrames) {
+function wrapSelectedFrames(timeline) {
+    var selectedFrames = timeline.getSelectedFrames();
+    // if (selectedFrames.length < 1) {
+    //     alert("请选择要调整长度的关键帧或图层！");
+    //     return;
+    // }
     /**
      * 获取选中元件的帧范围
      * @type {FrameRange[]}

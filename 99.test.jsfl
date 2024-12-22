@@ -40,7 +40,23 @@
         // var element = ele.getMaxRight(selection);
         // fl.trace(element.name);
 
-        fl.trace("Hello World!");
+        // fl.trace("Hello World!");
+
+        // var XMLPANEL = fl.scriptURI.split(".jsfl").join(".xml");
+        // var panel = doc.xmlPanel(XMLPANEL);
+        // if(panel.dismiss === "cancel") {
+        //     fl.trace("取消");
+        //     return;
+        // }
+        // direction = panel.direction;
+        // angle = parseInt(panel.angle);
+        // fl.trace("direction: " + direction + ", angle: " + angle);
+
+        // // 假设baseURL是页面的URL
+        // const baseURL = new URL(window.location.href);
+        // return new URL(relativeURL, baseURL).href;
+        var url = getAbsolutePath("./test.txt");
+        fl.trace(url);
     }
 
     Main();

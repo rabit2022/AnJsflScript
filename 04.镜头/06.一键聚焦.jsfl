@@ -95,7 +95,7 @@
 
     function getPeopleCenter() {
         // 人物的中心点
-        SelectStart();
+        SelectStart(selection);
 
         var rect = wrapRect(doc.getSelectionRect());
         var peopleCenter = rect.center();
@@ -138,7 +138,7 @@
         // 移动摄像机
         timeline.camera.setPosition(curFrameIndex, newCameraPos.x, newCameraPos.y);
 
-        SelectStart();
+        SelectStart(selection);
     }
 
     Main();

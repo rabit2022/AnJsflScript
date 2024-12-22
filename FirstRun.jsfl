@@ -22,13 +22,24 @@ function getCurFolderURI() {
     return folderPath;
 }
 
+
+/**
+ * 根据相对路径获取绝对路径
+ * @param {string} relativeScriptPath 相对于当前脚本文件的相对路径
+ * @returns {string}
+ */
+function getURIBy(relativeScriptPath) {
+    var curFolderURI = getCurFolderURI();
+    var scriptURI = curFolderURI + "/" + relativeScriptPath;
+    return scriptURI;
+}
+
 /**
  * 导入指定脚本文件
  * @param {string} relativeScriptPath 相对于当前脚本文件的相对路径
  */
 function importMoudle(relativeScriptPath) {
-    var curFolderURI = getCurFolderURI();
-    var scriptURI = curFolderURI + "/" + relativeScriptPath;
+    var scriptURI = getURIBy(relativeScriptPath);
 
     fl.runScript(scriptURI);
     // fl.trace(scriptURI + " imported.");

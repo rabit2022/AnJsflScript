@@ -39,7 +39,7 @@
             var item = selection[i];
             // symbol: 打散
             if (ele.IsSymbol(item)) {
-                ele.CopySymbol("skip");
+                ele.CopySymbol(item,"skip");
             } else {
                 continue;
             }
@@ -63,7 +63,7 @@
             return;
         }
 
-        ele.CopySymbol("ask");
+        ele.CopySymbol(selection[0], "ask");
 
         PackSymbol();
     }

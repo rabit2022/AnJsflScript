@@ -56,7 +56,8 @@
         //     worldViewMatrixAnti=getNormalMatrix();
         // }
 
-        doc.selectNone();
+        // doc.selectNone();
+        SelectNone();
         doc.clipPaste(true);
 
         // 本地摄像机的逆矩阵

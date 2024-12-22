@@ -80,12 +80,7 @@
         var kdh = new KeyframeDurationHandler(msg);
 
         // 选中的帧范围
-        var selectedFrames = timeline.getSelectedFrames();
-        if (selectedFrames.length < 1) {
-            alert("请选择要调整长度的关键帧或图层！");
-            return;
-        }
-        var selectedFrs = wrapSelectedFrames(selectedFrames);
+        var selectedFrs = wrapSelectedFrames(timeline);
         // fl.trace("==============================");
 
         for (var i = 0; i < selectedFrs.length; i++) {
@@ -139,8 +134,9 @@
             }
         }
 
-        // select None
-        timeline.setSelectedFrames([0, 0, 0], true);
+        // // select None
+        // timeline.setSelectedFrames([0, 0, 0], true);
+        SelectNoneTl(timeline);
     }
     Main();
 })();

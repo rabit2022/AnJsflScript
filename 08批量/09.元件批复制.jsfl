@@ -44,9 +44,10 @@
         }
 
         for (var i = 0; i < selection.length; i++) {
-            if (ele.IsSymbol(selection[i])) {
+            var element = selection[i];
+            if (ele.IsSymbol(element)) {
                 // CopySymbol();
-                ele.CopySymbol("auto");
+                ele.CopySymbol(element,"auto");
             }
         }
     }

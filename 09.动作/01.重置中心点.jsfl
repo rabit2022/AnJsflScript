@@ -46,7 +46,7 @@
 
         for (var i = 0; i < selection.length; i++) {
             var element = selection[i];
-            onlySelectCurrent(element);
+            OnlySelectCurrent(element);
 
             var elePos = wrapPoint(element);
             var symbolCenter = wrapRect(doc.getSelectionRect()).center();
@@ -57,7 +57,7 @@
         }
 
         // 还原选择
-        SelectStart();
+        SelectStart(selection);
     }
 
     Main();

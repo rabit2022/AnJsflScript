@@ -52,7 +52,7 @@
         // 把  所有元素的形变点   设置为   最右边的元素的形变点
         for (var i = 0; i < selection.length; i++) {
             var element = selection[i];
-            onlySelectCurrent(element);
+            OnlySelectCurrent(element);
 
             element.setTransformationPoint(trPoint.toObj());
         }
