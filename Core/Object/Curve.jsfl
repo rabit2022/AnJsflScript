@@ -54,7 +54,8 @@ var EASE_TYPES = {
 function setEaseCurve(timeline, easeType) {
     var easeData = EASE_TYPES[easeType];
     if (!easeData) {
-        alert("缓动类型不存在！");
+        // alert("缓动类型不存在！");
+        throw Error("缓动类型不存在！");
         return;
     }
     timeline.setFrameProperty('easeType', easeData[0], easeData[1], easeData[2]);

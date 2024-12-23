@@ -56,11 +56,15 @@ importMoudle("Core/Object/MoreElement.jsfl");
 importMoudle("Core/Object/Point.jsfl");
 importMoudle("Core/Object/Rect.jsfl");
 importMoudle("Core/Object/Select.jsfl");
+importMoudle("Core/Object/Size.jsfl");
+importMoudle("Core/Object/Transform.jsfl");
 
 // Utils
 importMoudle("Core/Utils/Log.jsfl");
 importMoudle("Core/Utils/path.jsfl");
 importMoudle("Core/Utils/random.jsfl");
 importMoudle("Core/Utils/string.jsfl");
+importMoudle("Core/Utils/LayerUtil.jsfl");
+importMoudle("Core/Utils/RectUtil.jsfl");
 
 fl.trace("Core modules imported.");

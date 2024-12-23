@@ -18,7 +18,7 @@ function FrameRange(layerIndex, startFrame, endFrame) {
     this.layerIndex = layerIndex;
     this.startFrame = startFrame;
     this.endFrame = endFrame;
-    
+
     this.duration = endFrame - startFrame + 1;
 }
 
@@ -35,7 +35,7 @@ FrameRange.prototype.toString = function () {
  * @param {FrameRange} fr2 选中范围数组
  * @return {boolean} 是否包含
  */
-FrameRange.prototype.Contain = function (fr2) {
+FrameRange.prototype.contain = function (fr2) {
     if (this.layerIndex !== fr2.layerIndex) {
         return false;
     }
@@ -46,9 +46,9 @@ FrameRange.prototype.Contain = function (fr2) {
  * 判断 FrameRange 是否包含在 selectedFrameRanges 中
  * @param {FrameRange[]} frs 选中范围数组
  */
-FrameRange.prototype.Contains = function (frs) {
+FrameRange.prototype.contains = function (frs) {
     for (var i = 0; i < frs.length; i++) {
-        if (this.Contain(frs[i])) {
+        if (this.contain(frs[i])) {
             return frs[i];
         }
     }
@@ -63,10 +63,6 @@ FrameRange.prototype.Contains = function (frs) {
  */
 function wrapSelectedFrames(timeline) {
     var selectedFrames = timeline.getSelectedFrames();
-    // if (selectedFrames.length < 1) {
-    //     alert("请选择要调整长度的关键帧或图层！");
-    //     return;
-    // }
     /**
      * 获取选中元件的帧范围
      * @type {FrameRange[]}
@@ -92,7 +88,7 @@ function wrapSelectedFrames(timeline) {
  */
 function getKeyFrames(layer) {
     var frames = layer.frames;
-
+    
     /**
      * 关键帧数组
      * @type {number[]}
@@ -114,11 +110,21 @@ function getKeyFrames(layer) {
 
 /**
  * 获取关键帧 范围
- * @param {number} layerIndex 图层
+ * @param {Layer|number} layer 图层
  * @param {number[]} keyFrames 关键帧索引数组
  * @return {FrameRange[]} 帧范围数组
  */
-function wrapKeyFrames(layerIndex, keyFrames) {
+function wrapKeyFrames(layer, keyFrames) {
+    // var layerIndex = getLayerIndex(layer);
+    // 获取图层索引
+    var layerIndex = 0;
+    if (typeof layer === "number") {
+        layerIndex = layer;
+    } else {
+        layerIndex = layerUtil.getLayerIndex(layer);
+    }
+    
+    
     /**
      * 关键帧范围数组
      * @type {FrameRange[]}

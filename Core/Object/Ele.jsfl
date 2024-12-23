@@ -9,7 +9,6 @@
 
 
 /**
- * 判断是否是元素
  * @class {Ele}
  * @constructor
  */
@@ -26,10 +25,13 @@ Ele.prototype.IsSymbol = function (element) {
     return element.elementType === "instance" && element.instanceType === "symbol";
 }
 
+
+
 /**
  * 查找是否有重复名称
  * @param {string} baseName 元件名称
  * @returns {boolean} 是否有重复名称
+ * @private
  */
 Ele.prototype.findDuplicateNameInLib = function (baseName) {
     var library = fl.getDocumentDOM().library;
@@ -41,6 +43,47 @@ Ele.prototype.findDuplicateNameInLib = function (baseName) {
         }
     }
     return false;
+}
+
+/**
+ * 生成一个唯一的名称，基于传入的基础名称，并确保其在 library 中是唯一的。
+ * 在 后面 加上 随机数，确保名称的唯一性。
+ * @param {string} baseName - 用于生成唯一名称的基础字符串。
+ * @returns {string} 返回一个唯一的名称。
+ */
+Ele.prototype.generateNameUntilUnique = function (baseName) {
+    this.lastCount = random.getPaddingNum(3);
+    var name = baseName + "" + this.lastCount;
+
+    var count = 0;
+    while (this.findDuplicateNameInLib(name)) {
+        this.lastCount = random.getPaddingNum(3);
+        name = baseName + "" + this.lastCount;
+
+        count++;
+        if (count > 10) {
+            throw new Error("已经尝试了 10 次，仍然无法生成唯一的名称！");
+        }
+    }
+    return name;
+}
+
+/**
+ * 生成一个唯一的名称，基于传入的基础名称，并确保其在 library 中是唯一的。
+ * 使用上一次生成的随机数，确保名称的唯一性。
+ * @param {string} baseName - 用于生成唯一名称的基础字符串。
+ * @returns {string} 返回一个唯一的名称。
+ */
+Ele.prototype.generateNameUseLast = function (baseName) {
+    var name = baseName + "" + this.lastCount;
+    while (this.findDuplicateNameInLib(name)) {
+        var info0 = "lastCount:" + this.lastCount + " 重复了！";
+        this.lastCount = random.getPaddingNum(3);
+        var info1 = "已经重新生成了新的名称！" + " lastCount:" + this.lastCount;
+        name = baseName + "" + this.lastCount;
+        fl.trace(info0 + info1);
+    }
+    return name;
 }
 
 /**
@@ -83,7 +126,7 @@ Ele.prototype.CopySymbol = function (element, mode) {
         // 5.交换元件
         doc.swapElement(targetName);
     } else if (mode === "auto") {
-        var input_file_name = this.generateNameUntilUnique(file_name + "复制");
+        var input_file_name = this.generateNameUntilUnique(file_name + "_复制_");
 
         // 5.交换元件
         doc.swapElement(targetName);
@@ -92,58 +135,6 @@ Ele.prototype.CopySymbol = function (element, mode) {
         element.libraryItem.name = input_file_name;
     }
 }
-
-/**
- * 获取随机3位数字的字符串,不够的地方用0补齐
- * @return {string} 随机3位数字
- * @private
- */
-Ele.prototype.getRandom3 = function () {
-    var num = random.randint(1, 999);
-    return num.toString().padStart(3, '0');
-}
-
-/**
- * 生成一个唯一的名称，基于传入的基础名称，并确保其在 library 中是唯一的。
- * 在 后面 加上 随机数，确保名称的唯一性。
- * @param {string} baseName - 用于生成唯一名称的基础字符串。
- * @returns {string} 返回一个唯一的名称。
- */
-Ele.prototype.generateNameUntilUnique = function (baseName) {
-    this.lastCount = this.getRandom3();
-    var name = baseName + "_" + this.lastCount;
-
-    var count = 0;
-    while (this.findDuplicateNameInLib(name)) {
-        this.lastCount = this.getRandom3();
-        name = baseName + "_" + this.lastCount;
-
-        count++;
-        if (count > 10) {
-            throw new Error("已经尝试了 10 次，仍然无法生成唯一的名称！");
-        }
-    }
-    return name;
-}
-
-/**
- * 生成一个唯一的名称，基于传入的基础名称，并确保其在 library 中是唯一的。
- * 使用上一次生成的随机数，确保名称的唯一性。
- * @param {string} baseName - 用于生成唯一名称的基础字符串。
- * @returns {string} 返回一个唯一的名称。
- */
-Ele.prototype.generateNameUseLast = function (baseName) {
-    var name = baseName + "_" + this.lastCount;
-    while (this.findDuplicateNameInLib(name)) {
-        var info0 = "lastCount:" + this.lastCount + " 重复了！";
-        this.lastCount = this.getRandom3()
-        var info1 = "已经重新生成了新的名称！" + " lastCount:" + this.lastCount;
-        name = baseName + "_" + this.lastCount;
-        fl.trace(info0 + info1);
-    }
-    return name;
-}
-
 
 /**
  * 获取最右边的元素
@@ -207,7 +198,7 @@ Ele.prototype.resetRegisterPointWrap = function (transformationPoint) {
  *             这个方法尽量不要使用，因为它会让 元件的注册点 发生变化，导致  设置位置时，出现偏差 </br>
  */
 Ele.prototype.resetRegisterPoint = function (element) {
-    var trPoint = wrapPoint(element.getTransformationPoint());
+    var trPoint = wrapPosition(element.getTransformationPoint());
 
     OnlySelectCurrent(element);
 
@@ -217,7 +208,7 @@ Ele.prototype.resetRegisterPoint = function (element) {
     OnlySelectCurrent(element);
 
     // 设置形变点为注册点
-    element.setTransformationPoint(getZeroPoint().toObj());
+    element.setTransformationPoint(getOrigin().toObj());
     var doc = fl.getDocumentDOM();
     doc.moveSelectionBy(trPoint.toObj());
 }
@@ -229,7 +220,7 @@ Ele.prototype.resetRegisterPoint = function (element) {
  */
 Ele.prototype.alterTransformationPoint = function (element, whichCorner) {
     // 变形点 到右上角
-    var registerPoint = wrapPoint(element);
+    var registerPoint = wrapPosition(element);
 
     OnlySelectCurrent(element);
     var doc = fl.getDocumentDOM();
@@ -241,25 +232,70 @@ Ele.prototype.alterTransformationPoint = function (element, whichCorner) {
     element.setTransformationPoint(relativePoint.toObj());
 }
 
-
 /**
- * 判断图层是否存在
- * @param {Array.<Layer>} layers 图层数组
- * @param {String} layerName 图层名称
- * @return {Boolean} 图层是否存在
+ * 把一个元件 分割成多个碎片。
+ * @param {Element} element - 要分割的元件。
+ * @param {string} SymbolName="碎片" - 元件的名称。
  */
-Ele.prototype.IsLayerExists = function (layers, layerName) {
-    for (var i = 0; i < layers.length; i++) {
-        if (layers[i].name === layerName) {
-            return true;
+Ele.prototype.splinterSymbol=function(element,SymbolName) {
+    var doc = fl.getDocumentDOM();//文档
+
+    doc.convertSelectionToBitmap()
+
+    var symbolName = ele.generateNameUntilUnique(SymbolName);
+    doc.convertToSymbol('graphic', symbolName, 'center');
+
+    var worldTopLeft = getTopLeft(doc.selection[0]);
+
+    doc.enterEditMode("inPlace");
+
+    doc.breakApart();
+    // 计算每个小块的尺寸    
+    var [blockWidth, blockHeight, blockCountX, blockCountY] = rectUtil.splitRectangle(element.width, element.height);
+    // fl.trace("blockWidth:"+blockWidth+" blockHeight:"+blockHeight+" blockCountX:"+blockCountX+" blockCountY:"+blockCountY);
+
+    for (var i = 0; i < blockCountX; i++) {
+        for (var j = 0; j < blockCountY; j++) {
+            var rect = wrapRectByTopLeft(i * blockWidth, j * blockHeight, blockWidth, blockHeight);
+
+            // 转换为世界坐标
+            rect = rect.addOffset(worldTopLeft)
+            // fl.trace("rect:" + j + "_" + i + " " + rect);
+            // fl.trace("rect:" + j + "_" + i + " " + rect);
+            doc.setSelectionRect(rect.toObj());
+
+            doc.group();
+
+            // fl.trace("group:" + j + "_" + i);
+            var symbolName = ele.generateNameUseLast(SymbolName + "碎片-" + j + "-" + i + "_");
+            doc.convertToSymbol('graphic', symbolName, 'center');
+            SelectNone();
         }
     }
-    return false;
+
+    SelectAll();
+    //分散到图层操作
+    doc.distributeToLayers();
+    // 删除多余的碎片
+    ele.splinterDeleter();
+    doc.exitEditMode();
+}
+
+/**
+ * 删除多余的碎片
+ * @private
+ */
+Ele.prototype.splinterDeleter=function() {
+    // 查找 名字中包含 "图层" 的 layer
+    var doc = fl.getDocumentDOM();
+    
+    var findLayers=layerUtil.getLayersIndexByName("图层");
+    // LogArray(findLayers);
+    
+    // 删除图层
+    layerUtil.deleteLayers(findLayers);
 }
 
 
-/**
- *
- * @type {Ele}
- */
+
 var ele = new Ele();

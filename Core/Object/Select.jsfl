@@ -34,6 +34,11 @@ function SelectStart(selection) {
 function SelectAll(elements) {
     var doc = fl.getDocumentDOM();//文档
     
+    if (!elements){
+        doc.selectAll();
+        return;
+    }
+    
     // 先清空所有选中
     // doc.selectNone();
     SelectNone();
@@ -68,11 +73,3 @@ function SelectAllTl(timeline){
     timeline.setSelectedFrames(0, timeline.frameCount - 1, true);
 }
 
-// /**
-//  * 删除  选中时间轴中的所有帧
-//  * @param {Timeline} timeline
-//  */
-// function DeleteSelectedTl(timeline){
-//     // 删除所有帧
-//     timeline.removeFrames(1, timeline.frameCount);
-// }

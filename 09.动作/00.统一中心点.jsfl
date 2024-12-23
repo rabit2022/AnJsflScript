@@ -47,7 +47,7 @@
         var maxElement = ele.getMaxRight(selection);
 
         // 获取 transformPoint 
-        var trPoint = wrapPoint(maxElement.getTransformationPoint());
+        var trPoint = wrapPosition(maxElement.getTransformationPoint());
 
         // 把  所有元素的形变点   设置为   最右边的元素的形变点
         for (var i = 0; i < selection.length; i++) {

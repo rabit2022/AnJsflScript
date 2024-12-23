@@ -95,7 +95,7 @@
             }
 
             // 选中范围 包含在 关键帧范围中
-            var keyFr = selectedFr.Contains(keyFrameRanges);
+            var keyFr = selectedFr.contains(keyFrameRanges);
             if (keyFr == null) {
                 continue;
             }

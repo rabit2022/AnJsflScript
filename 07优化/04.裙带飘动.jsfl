@@ -144,7 +144,7 @@
         // fl.trace("角度：" + angle + " 方向：" + direction);
 
         // 包装元件
-        var symbolName = ele.generateNameUntilUnique("裙带飘动_静");
+        var symbolName = ele.generateNameUntilUnique("裙带飘动_静_");
         doc.convertToSymbol("graphic", symbolName, "center");
 
         // 获取元件
@@ -157,7 +157,7 @@
         ele.alterTransformationPoint(element, "top right");
 
         // 包装元件
-        var symbolName1 = ele.generateNameUseLast("裙带飘动_动");
+        var symbolName1 = ele.generateNameUseLast("裙带飘动_动_");
         doc.convertToSymbol("graphic", symbolName1, "center");
 
         // k 帧

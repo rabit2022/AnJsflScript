@@ -82,11 +82,11 @@
 
         var firstElement = selection[0];
         var elementHeight = firstElement.height;
-        var initialPos=wrapPoint(firstElement);
+        var initialPos=wrapPosition(firstElement);
         
         var rectHeight = elementHeight * (1 + horizontalSpacing);
         var rectWidth = random.uniform(1.4, 1.7) * rectHeight;
-        var rectSize = new Point(rectWidth, rectHeight);
+        var rectSize = new Size(rectWidth, rectHeight);
         // fl.trace("矩形:"+rectSize.toString());
         
         for (var i = 0; i < horizontalCount; i++) {
@@ -107,7 +107,7 @@
             element1.scaleX*=scale;
             element1.scaleY*=scale;
             
-            var randomPos=generateRandomPoint(rectSize, initialPos);
+            var randomPos=rectUtil.generateRandomPoint(rectSize, initialPos);
             element1.x=randomPos.x;
             element1.y=randomPos.y;
 

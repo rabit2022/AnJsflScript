@@ -37,27 +37,7 @@
     var timeline = doc.getTimeline();//时间轴
     var layers = timeline.layers;//图层
     var curFrameIndex = timeline.currentFrame;
-
-
-    function getBgLayers() {
-        /**
-         * 背景的边界
-         * @type {Layer[]}
-         */
-        var bgLayers = [];
-        var BG_LAYER_NAME = "背景";
-        for (var i = 0; i < layers.length; i++) {
-            var layer = layers[i];
-            // if (Includes(layer.name, BG_LAYER_NAME)) {
-            if (layer.name.includes(BG_LAYER_NAME)){
-                // bgLayer = layer;
-                // break;
-                bgLayers.push(layer);
-            }
-        }
-        return bgLayers;
-    }
-
+    
     function getCameraRect(cameraPos) {
         // 摄像机缩放
         var cameraZoom = timeline.camera.getZoom(curFrameIndex) / 100;
@@ -70,7 +50,7 @@
 
     function getBgRect() {
         // 背景的边界
-        var bgLayers = getBgLayers();
+        var bgLayers = layerUtil.getLayersByName("背景");
         if (bgLayers.length < 1) {
             fl.trace("找不到背景图层,必须包含'背景'关键字");
             return;
@@ -113,7 +93,7 @@
 
         // 摄像机
         // 摄像机位置,左上角坐标
-        var cameraPos = wrapPoint(timeline.camera.getPosition(curFrameIndex));
+        var cameraPos = wrapPosition(timeline.camera.getPosition(curFrameIndex));
         var cameraRect = getCameraRect(cameraPos);
         var cameraCenter = cameraRect.center();
 
@@ -128,7 +108,7 @@
 
         if (bgRect) {
             // 最大移动向量
-            cameraOffset = calculateSafeMoveVector(bgRect, cameraRect, cameraOffset);
+            cameraOffset = rectUtil.calculateSafeMoveVector(bgRect, cameraRect, cameraOffset);
         }
 
         var newCameraPos = cameraPos.add(cameraOffset);

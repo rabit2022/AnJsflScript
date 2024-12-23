@@ -75,7 +75,7 @@ Point.prototype.toIntPonit = function () {
  * @returns {Point}
  */
 Point.prototype.noZero = function () {
-    var point = wrapPoint(this);
+    var point = wrapPosition(this);
     if (point.x === 0) {
         point.x = 1;
     }
@@ -140,14 +140,31 @@ Point.prototype.toObj = function () {
  * @param {{x:number,y:number}|Element|Point} element 点对象
  * @return {Point}
  */
-function wrapPoint(element) {
+function wrapPosition(element) {
     return new Point(element.x, element.y);
+}
+
+function wrapScale(element) {
+    return new Point(element.scaleX, element.scaleY);
+}
+
+function wrapSkew(element) {
+    return new Point(element.skewX, element.skewY);
 }
 
 /**
  * 取零点
  * @returns {Point}
  */
-function getZeroPoint() {
+function getOrigin() {
     return new Point(0, 0);
+}
+
+/**
+ * 取元素的左上角坐标
+ * @param {Element} element 元素
+ * @returns {Point}
+ */
+function getTopLeft(element){
+    return new Point(element.left, element.top);
 }

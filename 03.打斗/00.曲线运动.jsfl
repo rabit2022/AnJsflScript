@@ -44,55 +44,6 @@
         }
 
 
-        an.getDocumentDOM().convertToSymbol('graphic', '', 'center');
-        var lib = an.getDocumentDOM().library;
-        if (lib.getItemProperty('linkageImportForRS') == true) {
-            lib.setItemProperty('linkageImportForRS', false);
-        }
-        else {
-            lib.setItemProperty('linkageExportForAS', false);
-            lib.setItemProperty('linkageExportForRS', false);
-        }
-        lib.setItemProperty('scalingGrid',  false);
-
-        
-        an.getDocumentDOM().convertToSymbol('graphic', '', 'center');
-        var lib = an.getDocumentDOM().library;
-        if (lib.getItemProperty('linkageImportForRS') == true) {
-            lib.setItemProperty('linkageImportForRS', false);
-        }
-        else {
-            lib.setItemProperty('linkageExportForAS', false);
-            lib.setItemProperty('linkageExportForRS', false);
-        }
-        lib.setItemProperty('scalingGrid',  false);
-
-        
-        
-        an.getDocumentDOM().enterEditMode('inPlace');
-        an.getDocumentDOM().getTimeline().addMotionGuide();
-
-        an.getDocumentDOM().mouseClick({x:250, y:0}, false, true);
-        an.getDocumentDOM().deleteSelection();
-        an.getDocumentDOM().mouseClick({x:250, y:250}, false, true);
-        an.getDocumentDOM().deleteSelection();
-        an.getDocumentDOM().mouseClick({x:250, y:0}, false, true);
-        an.getDocumentDOM().deleteSelection();
-
-        an.getDocumentDOM().moveSelectionBy({x:811, y:361.7});
-
-        an.getDocumentDOM().getTimeline().insertFrames();
-
-        an.getDocumentDOM().getTimeline().insertKeyframe();
-
-        an.getDocumentDOM().moveSelectionBy({x:500, y:0});
-
-        an.getDocumentDOM().getTimeline().createMotionTween();
-        an.getDocumentDOM().getTimeline().setFrameProperty('easeType', 'easeType');
-        an.getDocumentDOM().exitEditMode();
-        an.getDocumentDOM().enterEditMode('inPlace');
-
-
     }
 
     Main();

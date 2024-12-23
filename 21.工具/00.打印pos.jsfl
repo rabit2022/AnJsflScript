@@ -38,23 +38,7 @@
     var layers = timeline.layers;//图层
     var curFrameIndex = timeline.currentFrame;//当前帧索引
 
-    function Transform(element) {
-        // 旋转
-        this.rotation = element.rotation;
-        // 缩放
-        this.scale = new Point(element.scaleX, element.scaleY);
-        // 位置
-        this.position = new Point(element.x, element.y);
-        // 宽高
-        this.size = new Point(element.width, element.height);
-        // 倾斜
-        this.skew = new Point(element.skewX, element.skewY);
-    }
     
-    Transform.prototype.toString = function () {
-        return "Transform(rotation=" + this.rotation + ", scale=" + this.scale + ", position=" + this.position + ", size=" + this.size + ", skew=" + this.skew + ")";
-    }
-
 
     function Main() {
         if (!checkDom()) {

@@ -139,83 +139,16 @@ function wrapRect(rect) {
     return new Rect(rect.left, rect.top, rect.right, rect.bottom);
 }
 
-
-/**
- * 计算新的向量，确保  小矩形的最终落点  不会超出  大矩形的边界
- * @param {Rect} bigRect 大矩形
- * @param {Rect} smallRect 小矩形
- * @param {Point} moveVector 原始向量
- * @returns {Point} 新的向量
- */
-function calculateSafeMoveVector(bigRect, smallRect, moveVector) {
-    // 小矩形的边界   与   大矩形的边界  的距离 
-    // <0  小矩形在大矩形的  外面
-    // >0  小矩形在大矩形的  里面
-    // =0  小矩形在大矩形的  边界上
-    var maxOffsetRect = smallRect.sub(bigRect);
-    // fl.trace("bigrect:" + bigRect.toString())
-    // fl.trace("smallrect:" + smallRect.toString())
-    //
-    // fl.trace("maxOffsetRect: " + maxOffsetRect.toString())
-    // fl.trace("moveVector: " + moveVector.toString())
-
-    // moveVector=cameraOffset.sub(cameraPos);
-    // moveVector.x>0 摄像机在人物的右边
-    // moveVector.x<0 摄像机在人物的左边
-    // moveVector.y>0 摄像机在人物的下边
-    // moveVector.y<0 摄像机在人物的上边
-
-    // newMoveVector=cameraPos.add(cameraOffset);
-    // moveVector.x>0 向左移动
-    // moveVector.x<0 向右移动
-    // moveVector.y>0 向上移动
-    // moveVector.y<0 向下移动
-
-    var newMoveVector = new Point(moveVector.x, moveVector.y);
-    if (moveVector.x < 0) {//向右移动
-        newMoveVector.x = Math.max(moveVector.x, maxOffsetRect.right);
-        if (maxOffsetRect.left < 0) {//small 在 big 的边界 左边
-            newMoveVector.x = Math.min(newMoveVector.x, maxOffsetRect.left);
-        }
-    } else if (moveVector.x > 0) {//向左移动
-        newMoveVector.x = Math.min(moveVector.x, maxOffsetRect.left);
-        if (maxOffsetRect.right > 0) {//small 在 big 的边界 右边
-            newMoveVector.x = Math.max(newMoveVector.x, maxOffsetRect.right);
-        }
-    }
-    if (moveVector.y < 0) {//向下移动
-        newMoveVector.y = Math.max(moveVector.y, maxOffsetRect.bottom);
-        if (maxOffsetRect.top < 0) {//small 在 big 的边界上面
-            newMoveVector.y = Math.min(newMoveVector.y, maxOffsetRect.top);
-        }
-    } else if (moveVector.y > 0) {//向上移动
-        newMoveVector.y = Math.min(moveVector.y, maxOffsetRect.top)
-        if (maxOffsetRect.bottom > 0) {//small 在 big 的边界下面
-            newMoveVector.y = Math.max(newMoveVector.y, maxOffsetRect.bottom);
-        }
-    }
-
-    // fl.trace("newMoveVector: " + newMoveVector.toString())
-    return newMoveVector;
+function wrapRectByTopLeft(left, top, width, height){
+    return new Rect(left, top, left + width, top + height);
 }
 
-/**
- * 随机生成  一个矩形范围内的  随机点
- * @param {Point} rectSize 矩形大小
- * @param {Point} elementPos 元素位置
- * @returns {Point} 随机点
- */
-function generateRandomPoint(rectSize,elementPos) {
-    // 计算矩形的一半宽高，用于确定随机点的范围
-    const halfWidth = (rectSize.x)/2;
-    const halfHeight = (rectSize.y)/2;
-
-    // 生成随机点的x和y坐标
-    // 随机点的坐标将是中心点坐标加上或减去矩形一半宽高的一个随机偏移量
-    const randomX =random.uniform(elementPos.x - halfWidth, elementPos.x + halfWidth);
-    const randomY =random.uniform(elementPos.y - halfHeight, elementPos.y + halfHeight);
-
-    // 返回相对于中心点的随机点坐标
-    return new Point(randomX, randomY);
+function wrapRectByCenter(centerX, centerY, width, height){
+    return new Rect(centerX - width/2, centerY - height/2, centerX + width/2, centerY + height/2);
 }
 
+function wrapRectByElement(element){
+    var topLeft = getTopLeft(element);
+    var size = wrapSize(element);
+    return new Rect(topLeft.x, topLeft.y, topLeft.x + size.width, topLeft.y + size.height);
+}

@@ -48,7 +48,7 @@
             var element = selection[i];
             OnlySelectCurrent(element);
 
-            var elePos = wrapPoint(element);
+            var elePos = wrapPosition(element);
             var symbolCenter = wrapRect(doc.getSelectionRect()).center();
 
             var offset = symbolCenter.sub(elePos);

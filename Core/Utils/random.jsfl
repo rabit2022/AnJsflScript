@@ -157,6 +157,17 @@ Random.prototype.get_random_color = function () {
     return [r, g, b];
 }
 
+
+
+// 自定义
+/**
+ * 获取随机3位数字的字符串,不够的地方用0补齐
+ * @return {string} 随机3位数字
+ */
+Random.prototype.getPaddingNum = function (digits) {
+    var num = random.randint(1, 999);
+    return num.toString().padStart(digits, '0');
+}
 var random = new Random();
 
 
