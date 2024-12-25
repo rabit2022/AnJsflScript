@@ -34,19 +34,13 @@ Transform.prototype.setRotation = function (rotation) {
 }
 /**
  * 设置缩放
- * @param {number|Point} scale 缩放比例
+ * @param {Point} scale 缩放比例
  * @return {Transform} Transform
  */
 Transform.prototype.setScale = function (scale) {
-    if (typeof scale === "number") {
-        this.element.scaleX = scale;
-        this.element.scaleY = scale;
-        this.scale = new Point(scale, scale);
-    } else {
-        this.element.scaleX = scale.x;
-        this.element.scaleY = scale.y;
-        this.scale = scale;
-    }
+    this.element.scaleX = scale.x;
+    this.element.scaleY = scale.y;
+    this.scale = scale;
     return this;
 }
 Transform.prototype.setPosition = function (position) {

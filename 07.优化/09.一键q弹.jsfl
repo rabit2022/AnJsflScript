@@ -108,7 +108,7 @@
         }
 
         // 包装元件
-        var symbolName = ele.generateNameUntilUnique("一键q弹_静_");
+        var symbolName = libUtil.generateNameUntilUnique("一键q弹_静_");
         doc.convertToSymbol("graphic", symbolName, "top center");
 
         // 获取元件的变换点
@@ -116,7 +116,7 @@
         element.setTransformationPoint(getOrigin().toObj());
 
         // 包装元件
-        var symbolName1 = ele.generateNameUseLast("一键q弹_动_");
+        var symbolName1 = libUtil.generateNameUseLast("一键q弹_动_");
         doc.convertToSymbol("graphic", symbolName1, "center");
 
         doc.enterEditMode("inPlace");

@@ -79,18 +79,18 @@ RectUtil.prototype.calculateSafeMoveVector= function (bigRect, smallRect, moveVe
 /**
  * 随机生成  一个矩形范围内的  随机点
  * @param {Size} rectSize 矩形大小
- * @param {Point} elementPos 元素位置
+ * @param {Point} centerPos 元素位置
  * @returns {Point} 随机点
  */
-RectUtil.prototype.generateRandomPoint= function (rectSize,elementPos) {
+RectUtil.prototype.generateRandomPoint= function (rectSize,centerPos) {
     // 计算矩形的一半宽高，用于确定随机点的范围
     const halfWidth = (rectSize.width)/2;
     const halfHeight = (rectSize.height)/2;
 
     // 生成随机点的x和y坐标
     // 随机点的坐标将是中心点坐标加上或减去矩形一半宽高的一个随机偏移量
-    const randomX =random.uniform(elementPos.x - halfWidth, elementPos.x + halfWidth);
-    const randomY =random.uniform(elementPos.y - halfHeight, elementPos.y + halfHeight);
+    const randomX =random.uniform(centerPos.x - halfWidth, centerPos.x + halfWidth);
+    const randomY =random.uniform(centerPos.y - halfHeight, centerPos.y + halfHeight);
 
     // 返回相对于中心点的随机点坐标
     return new Point(randomX, randomY);
@@ -100,18 +100,17 @@ RectUtil.prototype.generateRandomPoint= function (rectSize,elementPos) {
 /**
  * 计算矩形分割后每个小块的尺寸。
  * 尽可能的均匀分割5x5的小块。
- * @param {number} width - 矩形的宽度。
- * @param {number} height - 矩形的高度。
+ * @param {Size} rectSize - 矩形的大小。
  * @param {number} [gridSize=5] - 分割网格的大小，默认为5。
  * @returns {[number, number, number, number]} [blockWidth, blockHeight,blockCountX,blockCountY]- 每个小块的宽度和高度，以及网格的数量。
  */
-RectUtil.prototype.splitRectangle= function (width, height, gridSize) {
+RectUtil.prototype.splitRectangle= function (rectSize, gridSize) {
     if (!gridSize) {
         gridSize = 5;
     }
     // 计算矩形的长边和短边
-    const longerSide = Math.max(width, height);
-    const shorterSide = Math.min(width, height);
+    const longerSide = rectSize.max;
+    const shorterSide = rectSize.min;
 
     // 计算每个网格块的长边尺寸，不超过gridSize
     const blockLongerSide = longerSide / gridSize;
@@ -125,7 +124,7 @@ RectUtil.prototype.splitRectangle= function (width, height, gridSize) {
     // 返回每个小块的宽度和高度
     // 这里我们假设返回的顺序是宽度和高度，根据传入的width和height的对应关系
     // [blockWidth, blockHeight,blockCountX,blockCountY]
-    if (width > height) {
+    if (rectSize.width > rectSize.height) {
         return [blockLongerSide, blockShorterSide, gridSize, shorterMaxCount];
     } else {
         return [blockShorterSide, blockLongerSide, shorterMaxCount, gridSize];

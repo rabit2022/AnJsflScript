@@ -1,0 +1,51 @@
+<dialog id="MotionBlurOptions" title="设置缓动曲线" buttons="accept,cancel">
+    <grid>
+        <columns>
+            <column />
+            <column />
+        </columns>
+        <rows>
+            <row>
+                <label control="Bug" value="Bug: "/>
+                <menulist label="Bug">
+                    <menupopup>
+                        <menuitem label="第一个无法被选中,只能tab选中" value="1" />
+                    </menupopup>
+                </menulist>
+            </row>
+            <row>
+                <label control="easeType" value="缓动类型: "/>
+                <menulist id="easeType">
+                    <menupop>
+                        <menuitem label="传统 (Classic) " value="Classic"/>
+                        <menuitem label="线性 (Quad) " value="Quad"  selected="true" />
+                        <menuitem label="三次 (Cubic) " value="Cubic" />
+                        <menuitem label="四次 (Quart) " value="Quart" />
+                        <menuitem label="五次 (Quint) " value="Quint" />
+                        <menuitem label="正弦 (Sine) " value="Sine" />
+                        <menuitem label="反弹 (Back) " value="Back" />
+                        <menuitem label="圆形 (Circ) " value="Circ" />
+                        <menuitem label="弹跳 (Bounce) " value="Bounce" />
+                        <menuitem label="弹性 (Elastic) " value="Elastic" />
+                    </menupop>
+                </menulist>
+            </row>
+            <row>
+<!--                Ease-In-Out-->
+                <label control="easeInOut" value="缓入缓出: " />
+                <menulist id="easeInOut">
+                    <menupop>
+                        <menuitem label="缓入 (Ease-In) " value="Ease-In"  selected="true" />
+                        <menuitem label="缓出 (Ease-Out) " value="Ease-Out" />
+                        <menuitem label="缓入缓出 (Ease-In-Out) " value="Ease-In-Out" />
+                    </menupop>
+                </menulist>
+            </row>
+            <row>
+                <label value="传统强度: (0~100)" tooltip="缓动类型: [传统 (Classic)] 缓入缓出:[缓入 (Ease-In)] [缓出 (Ease-Out)] 这些选项时有效"/>
+                <textbox id="intensity" value="0" />
+            </row>
+        </rows>
+    </grid>
+</dialog>
+    

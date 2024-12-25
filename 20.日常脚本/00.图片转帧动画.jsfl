@@ -126,7 +126,7 @@
         library.addItemToDocument(stageCenter.toObj(), selectedPics[0].name);
 
         // 转为元件
-        var symbol_name = ele.generateNameUntilUnique(NEW_SYMBOL_NAME);
+        var symbol_name = libUtil.generateNameUntilUnique(NEW_SYMBOL_NAME);
         doc.convertToSymbol("graphic", symbol_name, "center");
 
 

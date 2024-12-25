@@ -114,6 +114,16 @@ Rect.prototype.getCorner = function (whichCorner) {
     }
 }
 
+
+Rect.prototype.expandAround = function (around) {
+    return new Rect(this.left - around, this.top - around, this.right + around, this.bottom + around);
+}   
+
+//  缩小矩形
+Rect.prototype.shrinkAround = function (around) {
+    return new Rect(this.left + around, this.top + around, this.right - around, this.bottom - around);
+}
+
 /**
  * 字符串
  * @returns {string} 字符串

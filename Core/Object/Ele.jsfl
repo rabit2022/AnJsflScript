@@ -13,7 +13,6 @@
  * @constructor
  */
 var Ele = function () {
-    this.lastCount = "000";
 }
 
 /**
@@ -26,65 +25,6 @@ Ele.prototype.IsSymbol = function (element) {
 }
 
 
-
-/**
- * 查找是否有重复名称
- * @param {string} baseName 元件名称
- * @returns {boolean} 是否有重复名称
- * @private
- */
-Ele.prototype.findDuplicateNameInLib = function (baseName) {
-    var library = fl.getDocumentDOM().library;
-
-    var items = library.items;
-    for (var i = 0; i < items.length; i++) {
-        if (items[i].name === baseName) {
-            return true;
-        }
-    }
-    return false;
-}
-
-/**
- * 生成一个唯一的名称，基于传入的基础名称，并确保其在 library 中是唯一的。
- * 在 后面 加上 随机数，确保名称的唯一性。
- * @param {string} baseName - 用于生成唯一名称的基础字符串。
- * @returns {string} 返回一个唯一的名称。
- */
-Ele.prototype.generateNameUntilUnique = function (baseName) {
-    this.lastCount = random.getPaddingNum(3);
-    var name = baseName + "" + this.lastCount;
-
-    var count = 0;
-    while (this.findDuplicateNameInLib(name)) {
-        this.lastCount = random.getPaddingNum(3);
-        name = baseName + "" + this.lastCount;
-
-        count++;
-        if (count > 10) {
-            throw new Error("已经尝试了 10 次，仍然无法生成唯一的名称！");
-        }
-    }
-    return name;
-}
-
-/**
- * 生成一个唯一的名称，基于传入的基础名称，并确保其在 library 中是唯一的。
- * 使用上一次生成的随机数，确保名称的唯一性。
- * @param {string} baseName - 用于生成唯一名称的基础字符串。
- * @returns {string} 返回一个唯一的名称。
- */
-Ele.prototype.generateNameUseLast = function (baseName) {
-    var name = baseName + "" + this.lastCount;
-    while (this.findDuplicateNameInLib(name)) {
-        var info0 = "lastCount:" + this.lastCount + " 重复了！";
-        this.lastCount = random.getPaddingNum(3);
-        var info1 = "已经重新生成了新的名称！" + " lastCount:" + this.lastCount;
-        name = baseName + "" + this.lastCount;
-        fl.trace(info0 + info1);
-    }
-    return name;
-}
 
 /**
  *  复制元件
@@ -126,7 +66,7 @@ Ele.prototype.CopySymbol = function (element, mode) {
         // 5.交换元件
         doc.swapElement(targetName);
     } else if (mode === "auto") {
-        var input_file_name = this.generateNameUntilUnique(file_name + "_复制_");
+        var input_file_name = libUtil.generateNameUntilUnique(file_name + "_复制_");
 
         // 5.交换元件
         doc.swapElement(targetName);
@@ -236,22 +176,24 @@ Ele.prototype.alterTransformationPoint = function (element, whichCorner) {
  * 把一个元件 分割成多个碎片。
  * @param {Element} element - 要分割的元件。
  * @param {string} SymbolName="碎片" - 元件的名称。
+ * @bug 可能出现 doc.setSelectionRect 出错的情况，原因可能是 选择框对矩形坐标要求太苛刻，由于小数有误差，导致出错。这是能想到的目前切片的最简单方法，只能暂时用这个方法。可以更换位置尝试，目前测试 有概率出现，不是绝对的。
  */
 Ele.prototype.splinterSymbol=function(element,SymbolName) {
     var doc = fl.getDocumentDOM();//文档
 
     doc.convertSelectionToBitmap()
 
-    var symbolName = ele.generateNameUntilUnique(SymbolName);
+    var symbolName = libUtil.generateNameUntilUnique(SymbolName);
     doc.convertToSymbol('graphic', symbolName, 'center');
 
     var worldTopLeft = getTopLeft(doc.selection[0]);
 
     doc.enterEditMode("inPlace");
-
+    
     doc.breakApart();
     // 计算每个小块的尺寸    
-    var [blockWidth, blockHeight, blockCountX, blockCountY] = rectUtil.splitRectangle(element.width, element.height);
+    var elementSize = wrapSize(element);
+    var [blockWidth, blockHeight, blockCountX, blockCountY] = rectUtil.splitRectangle(elementSize);
     // fl.trace("blockWidth:"+blockWidth+" blockHeight:"+blockHeight+" blockCountX:"+blockCountX+" blockCountY:"+blockCountY);
 
     for (var i = 0; i < blockCountX; i++) {
@@ -259,15 +201,19 @@ Ele.prototype.splinterSymbol=function(element,SymbolName) {
             var rect = wrapRectByTopLeft(i * blockWidth, j * blockHeight, blockWidth, blockHeight);
 
             // 转换为世界坐标
-            rect = rect.addOffset(worldTopLeft)
-            // fl.trace("rect:" + j + "_" + i + " " + rect);
-            // fl.trace("rect:" + j + "_" + i + " " + rect);
+            rect = rect.addOffset(worldTopLeft);
+            // 扩大一点，避免 doc.setSelectionRect 出错
+            // rect = rect.expandAround(0.5);
+
+            fl.trace("rect:" + j + "_" + i + " " + rect);
+            // rect.right=Math.ceil(rect.right);
+            // rect.bottom=Math.ceil(rect.bottom);
             doc.setSelectionRect(rect.toObj());
 
             doc.group();
 
             // fl.trace("group:" + j + "_" + i);
-            var symbolName = ele.generateNameUseLast(SymbolName + "碎片-" + j + "-" + i + "_");
+            var symbolName = libUtil.generateNameUseLast(SymbolName + "碎片-" + j + "-" + i + "_");
             doc.convertToSymbol('graphic', symbolName, 'center');
             SelectNone();
         }

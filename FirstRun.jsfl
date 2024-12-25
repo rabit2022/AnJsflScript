@@ -4,7 +4,7 @@
  * @email: 3101829204@qq.com
  * @date: 2024/12/16 16:45
  * @project: AnJsflScript
- * @description:
+ * @description:每一次打开An时，都要 执行此脚本，用于初始化一些必要的模块。
  */
 
 
@@ -60,11 +60,12 @@ importMoudle("Core/Object/Size.jsfl");
 importMoudle("Core/Object/Transform.jsfl");
 
 // Utils
+importMoudle("Core/Utils/LayerUtil.jsfl");
+importMoudle("Core/Utils/LibUtil.jsfl");
 importMoudle("Core/Utils/Log.jsfl");
 importMoudle("Core/Utils/path.jsfl");
 importMoudle("Core/Utils/random.jsfl");
-importMoudle("Core/Utils/string.jsfl");
-importMoudle("Core/Utils/LayerUtil.jsfl");
 importMoudle("Core/Utils/RectUtil.jsfl");
+importMoudle("Core/Utils/string.jsfl");
 
 fl.trace("Core modules imported.");

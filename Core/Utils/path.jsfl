@@ -7,7 +7,12 @@
  * @description:
  */
 
-function OSPath() {}
+function OSPath() {
+    // 插件位置
+    this.PLUGIN_PATH = fl.configURI + "WindowSWF";
+    // 命令位置
+    this.COMMAND_PATH = fl.configURI + "Commands";
+}
 
 OSPath.prototype.abspath=function( relativePath) {
     // 将当前工作目录和相对路径合并
@@ -203,10 +208,9 @@ OSPath.prototype.splitext=function(path) {
 }
 
 
+
+
 // 自定义函数
-OSPath.prototype.ext=function( path) {
-    return osPath.splitext(path)[1];
-}
 /**
  * 获取路径的基本名称（basename）并去除其后缀（extension）。
  *
@@ -230,8 +234,21 @@ OSPath.prototype.getXMLPath=function() {
 
 
 
+OSPath.prototype.isMac=function() {
+    return (fl.version.search(/mac/i) > -1);
+}
 
-
+OSPath.prototype.openDirectory=function(path) {
+    var uri = FLfile.uriToPlatformPath(path);
+    if (this.isMac()) {
+        FLfile.runCommandLine("open " + "\"" + uri + "\"");
+    } else {
+        FLfile.runCommandLine("explorer " + "\"" + uri + "\"");
+    }
+}
 
 
 var osPath = new OSPath();
+
+
+

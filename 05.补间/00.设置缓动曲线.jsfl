@@ -30,6 +30,33 @@
         return true;
     }
 
+    function checkXMLPanel() {
+        var success = true;
+        var XMLPANEL = osPath.getXMLPath();
+        var panel = doc.xmlPanel(XMLPANEL);
+        if (panel.dismiss === "cancel") {
+            alert("取消修改");
+            success = false;
+        }
+        easeType = panel.easeType;
+        if (easeType === null) {
+            alert("请选择缓动曲线");
+            success = false;
+        }
+        easeInOut = panel.easeInOut;
+        if (easeInOut === null) {
+            alert("请选择缓动方向");
+            success = false;
+        }
+        var inputIntensity = panel.intensity;
+        if (inputIntensity === null || isNaN(Number(inputIntensity))) {
+            alert("请设置缓动强度");
+            success = false;
+        }
+        var intensity = Number(inputIntensity);
+        return {easeType: easeType, easeInOut: easeInOut, intensity: intensity, success: success}
+    }
+
     var doc = fl.getDocumentDOM();//文档
     var selection = doc.selection;//选择
     var library = doc.library;//库文件
@@ -43,8 +70,21 @@
             return;
         }
 
-        timeline.createMotionTween();
-        setEaseCurve(timeline, "Quad Ease-In-Out");
+        var {easeType, easeInOut, intensity, success} = checkXMLPanel();
+        if (!success) {
+            return;
+        }
+
+        if (easeType === "Classic") {
+            timeline.createMotionTween();
+            curve.setClassicEaseCurve(timeline, intensity);
+        } else {
+            var easeCurve = easeType + " " + easeInOut;
+
+            timeline.createMotionTween();
+            curve.setEaseCurve(timeline, easeCurve);
+        }
+
     }
 
     Main();

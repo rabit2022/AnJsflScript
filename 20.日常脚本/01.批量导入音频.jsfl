@@ -44,11 +44,11 @@
         }
 
         // 让用户选择包含音效文件的文件夹
-        // var folderURL = fl.browseForFolderURL("请选择包含音效文件的文件夹");
+        var folderURL = fl.browseForFolderURL("请选择包含音效文件的文件夹");
         // var folderURL = "file:///F|/01_programme/python/files/files_pro/2024-12/1211/贺晓晓";
         // var folderURL = "file:///F:\\04_ps\\沙雕动画\\01-我的神国模拟器\\2024-12-14\\新建文件夹";
-        var folder = "F:\\04_ps\\沙雕动画\\01-我的神国模拟器\\2024-12-14\\新建文件夹";
-        var folderURL = FLfile.platformPathToURI(folder);
+        // var folder = "F:\\04_ps\\沙雕动画\\01-我的神国模拟器\\2024-12-14\\新建文件夹";
+        // var folderURL = FLfile.platformPathToURI(folder);
         if (!folderURL) {
             fl.trace("未选择文件夹。");
             return;
