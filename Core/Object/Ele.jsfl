@@ -187,6 +187,9 @@ Ele.prototype.splinterSymbol=function(element,SymbolName) {
     doc.convertToSymbol('graphic', symbolName, 'center');
 
     var worldTopLeft = getTopLeft(doc.selection[0]);
+    // fl.trace("worldTopLeft:"+worldTopLeft);
+    // var worldPos = wrapPosition(element);
+    // fl.trace("worldPos:"+worldPos);
 
     doc.enterEditMode("inPlace");
     
@@ -195,24 +198,18 @@ Ele.prototype.splinterSymbol=function(element,SymbolName) {
     var elementSize = wrapSize(element);
     var [blockWidth, blockHeight, blockCountX, blockCountY] = rectUtil.splitRectangle(elementSize);
     // fl.trace("blockWidth:"+blockWidth+" blockHeight:"+blockHeight+" blockCountX:"+blockCountX+" blockCountY:"+blockCountY);
-
+    
+    var moreElement = wrapMoreElement(worldTopLeft.x,worldTopLeft.y,blockWidth,blockHeight);
     for (var i = 0; i < blockCountX; i++) {
         for (var j = 0; j < blockCountY; j++) {
-            var rect = wrapRectByTopLeft(i * blockWidth, j * blockHeight, blockWidth, blockHeight);
-
-            // 转换为世界坐标
-            rect = rect.addOffset(worldTopLeft);
-            // 扩大一点，避免 doc.setSelectionRect 出错
-            // rect = rect.expandAround(0.5);
-
+            var rect = moreElement.NeatRect(i, j);
+            
             fl.trace("rect:" + j + "_" + i + " " + rect);
-            // rect.right=Math.ceil(rect.right);
-            // rect.bottom=Math.ceil(rect.bottom);
+            // 选择小块
             doc.setSelectionRect(rect.toObj());
 
             doc.group();
 
-            // fl.trace("group:" + j + "_" + i);
             var symbolName = libUtil.generateNameUseLast(SymbolName + "碎片-" + j + "-" + i + "_");
             doc.convertToSymbol('graphic', symbolName, 'center');
             SelectNone();
@@ -224,6 +221,7 @@ Ele.prototype.splinterSymbol=function(element,SymbolName) {
     doc.distributeToLayers();
     // 删除多余的碎片
     ele.splinterDeleter();
+    
     doc.exitEditMode();
 }
 

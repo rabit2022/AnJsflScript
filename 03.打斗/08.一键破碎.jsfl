@@ -48,35 +48,31 @@
         // 4*5  0.9-1      1-1.2height    width=2*height
         // 5*5   1         1.2-1.5height       width=2*height
         var elementHeight = element.height;
-        
+
         var rectHeight = elementHeight * random.uniform(0.9, 1.2);
         var rectWidth = random.uniform(1.2, 2) * rectHeight;
+
+        // var initialPos = wrapPosition(element);
+        var offsetY = elementHeight * random.uniform(0.8, 1);
+        // var rectCenter = initialPos.add(new Point(0, offsetY));
+        var rectCenter = new Point(0, offsetY);
+
+        // setPosition 函数直接设置元素的位置， 参照物为元素的注册点
+        var rect = wrapRectByCenter(rectCenter.x, rectCenter.y, rectWidth, rectHeight);
         
-        var rectSize = new Size(rectWidth, rectHeight);
-        // fl.trace("rectSize:" + rectSize);
-        return rectSize;
+        fl.trace("rect:" + rect);
+        return rect;
     }
 
     function KFrames(element) {
-        var explosionRectSize = getExplosionRect(element);
-
-        var initialPos = wrapPosition(element);
-        var offsetY = element.height *random.uniform(0.8, 1);
-        var rectCenter = initialPos.add(new Point(0, offsetY));
-        // fl.trace("initialPos:" + initialPos + " rectCenter:" + rectCenter)
-
-
-        var worldTopLeft = getTopLeft(doc.selection[0]);
-        // explosionRectSize=explosionRectSize.addOffset(worldTopLeft);
-        // 转换到世界坐标系
-        rectCenter=rectCenter.sub(worldTopLeft);
+        var explosionRect = getExplosionRect(element);
 
         doc.enterEditMode("inPlace");
 
         var timeline1 = doc.getTimeline();//时间轴
         // 增加10帧
         timeline1.insertFrames(10 - 1, true);
-        
+
         // 选中最后一帧
         timeline1.currentFrame = timeline1.frameCount - 1;
         timeline1.insertKeyframe();
@@ -94,18 +90,20 @@
         SelectAll();
         for (var i = 0; i < doc.selection.length; i++) {
             var element = doc.selection[i];
-            
-            var randomPos = rectUtil.generateRandomPoint(explosionRectSize, rectCenter);
-            
+
+            // var randomPos = rectUtil.generateRandomPoint(explosionRectSize, rectCenter);
+            var randomPos = rectUtil.generateRandomPointInRect(explosionRect);
+
+
             // scale:0.5-1.5   ======0-0.6
             // skew:-180-180   ======-36 ~ 36
             // 随机缩放
             var scaleX = random.uniform(0.5, 1.5);
-            var scaleY = scaleX+random.uniform(0, 0.6);
+            var scaleY = scaleX + random.uniform(0, 0.6);
             // 随机倾斜
             var skewX = random.uniform(-180, 180);
-            var skewY = skewX+random.uniform(-36, 36);
-            
+            var skewY = skewX + random.uniform(-36, 36);
+
             var transform = wrapTransform(element);
             transform.setPosition(randomPos).setScale(new Point(scaleX, scaleY)).setSkew(new Point(skewX, skewY));
         }
@@ -121,7 +119,7 @@
         // 碎片
         ele.splinterSymbol(doc.selection[0], "一键爆炸_");
 
-        
+
         // 爆炸效果
         KFrames(doc.selection[0]);
     }

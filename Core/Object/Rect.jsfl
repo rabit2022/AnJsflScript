@@ -114,10 +114,54 @@ Rect.prototype.getCorner = function (whichCorner) {
     }
 }
 
+/**
+ * 获取矩形的某个部分
+ * @param {"top right"|"top left"|"bottom right"|"bottom left"|"top center"|"right center"|"bottom center"|"left center"|"center"|
+ * "top"|"right"|"bottom"|"left"} whichPart 部分
+ * @param {number} [ratio] 0-1 获取部分的比例
+ * @returns {Rect} 矩形
+ */
+Rect.prototype.getPart = function (whichPart, ratio) {
+    // var ratio = getPart / splitPart;
+    if (ratio == undefined) {
+        ratio = 0.5;
+    }
+    switch (whichPart) {
+        case "top right":
+            return new Rect(this.right - (this.width * (1 - ratio)), this.top, this.right, this.top + (this.height * ratio));
+        case "top left":
+            return new Rect(this.left, this.top, this.left + (this.width * ratio), this.top + (this.height * ratio));
+        case "bottom right":
+            return new Rect(this.right - (this.width * (1 - ratio)), this.bottom - (this.height * ratio), this.right, this.bottom);
+        case "bottom left":
+            return new Rect(this.left, this.bottom - (this.height * ratio), this.left + (this.width * ratio), this.bottom);
+        case "top center":
+            return new Rect((this.left + this.right) / 2 - (this.width * (1 - ratio)) / 2, this.top, (this.left + this.right) / 2 + (this.width * (1 - ratio)) / 2, this.top + (this.height * ratio));
+        case "right center":
+            return new Rect(this.right - (this.width * (1 - ratio)), (this.top + this.bottom) / 2 - (this.height * (1 - ratio)) / 2, this.right, (this.top + this.bottom) / 2 + (this.height * (1 - ratio)) / 2);
+        case "bottom center":
+            return new Rect((this.left + this.right) / 2 - (this.width * (1 - ratio)) / 2, this.bottom - (this.height * ratio), (this.left + this.right) / 2 + (this.width * (1 - ratio)) / 2, this.bottom);
+        case "left center":
+            return new Rect(this.left, (this.top + this.bottom) / 2 - (this.height * (1 - ratio)) / 2, this.left + (this.width * ratio), (this.top + this.bottom) / 2 + (this.height * (1 - ratio)) / 2);
+        case "center":
+            return new Rect((this.left + this.right) / 2 - (this.width * (1 - ratio)) / 2, (this.top + this.bottom) / 2 - (this.height * (1 - ratio)) / 2, (this.left + this.right) / 2 + (this.width * (1 - ratio)) / 2, (this.top + this.bottom) / 2 + (this.height * (1 - ratio)) / 2);
+        case "top":
+            return new Rect(this.left, this.top, this.right, this.top + (this.height * ratio));
+        case "right":
+            return new Rect(this.right - (this.width * (1 - ratio)), this.top, this.right, this.bottom);
+        case "bottom":
+            return new Rect(this.left, this.bottom - (this.height * ratio), this.right, this.bottom);
+        case "left":
+            return new Rect(this.left, this.top, this.left + (this.width * ratio), this.bottom);
+        default:
+            throw new Error("whichPart 参数错误");
+    }
+}
+
 
 Rect.prototype.expandAround = function (around) {
     return new Rect(this.left - around, this.top - around, this.right + around, this.bottom + around);
-}   
+}
 
 //  缩小矩形
 Rect.prototype.shrinkAround = function (around) {
@@ -129,7 +173,7 @@ Rect.prototype.shrinkAround = function (around) {
  * @returns {string} 字符串
  */
 Rect.prototype.toString = function () {
-    return "Rect(left=" + this.left + ", top=" + this.top + ", right=" + this.right + ", bottom=" + this.bottom+ ")";
+    return "Rect(left=" + this.left + ", top=" + this.top + ", right=" + this.right + ", bottom=" + this.bottom + ")";
 }
 
 /**
@@ -149,16 +193,22 @@ function wrapRect(rect) {
     return new Rect(rect.left, rect.top, rect.right, rect.bottom);
 }
 
-function wrapRectByTopLeft(left, top, width, height){
+function wrapRectByTopLeft(left, top, width, height) {
     return new Rect(left, top, left + width, top + height);
 }
 
-function wrapRectByCenter(centerX, centerY, width, height){
-    return new Rect(centerX - width/2, centerY - height/2, centerX + width/2, centerY + height/2);
+function wrapRectByCenter(centerX, centerY, width, height) {
+    return new Rect(centerX - width / 2, centerY - height / 2, centerX + width / 2, centerY + height / 2);
 }
 
-function wrapRectByElement(element){
+function wrapRectByElement(element) {
     var topLeft = getTopLeft(element);
     var size = wrapSize(element);
     return new Rect(topLeft.x, topLeft.y, topLeft.x + size.width, topLeft.y + size.height);
 }
+
+// 圆心 半径
+function wrapRectByRadius(centerPos, radius) {
+    return new Rect(centerPos.x - radius, centerPos.y - radius, centerPos.x + radius, centerPos.y + radius);
+}
+

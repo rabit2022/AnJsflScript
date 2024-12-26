@@ -57,17 +57,14 @@
 
         var rectHeight = biggerSize * ratioY;
         var rectWidth = rectHeight * (2 + random.uniform(-0.5, 0.5));
-        // fl.trace("rectWidth:" + rectWidth + " rectHeight:" + rectHeight);
 
-        // var center = wrapPosition(element);
-        // var rect = wrapRectByCenter(center.x, center.y, rectWidth, rectHeight);
-        // return rect;
-        var rectSize = new Size(rectWidth, rectHeight);
-        return rectSize;
+        var originPos = getOrigin();
+        var rect = wrapRectByCenter(originPos.x, originPos.y, rectWidth, rectHeight);
+        return rect;
     }
 
     function KFrames(element) {
-        var explosionRectSize = getExplosionRect(element);
+        var explosionRect = getExplosionRect(element);
 
         doc.enterEditMode("inPlace");
 
@@ -98,8 +95,8 @@
             var element = doc.selection[i];
 
             // 移动到随机位置
-            var initialPos = wrapPosition(element);
-            var randomPos = rectUtil.generateRandomPoint(explosionRectSize, initialPos);
+            var randomPos = rectUtil.generateRandomPointInRect(explosionRect);
+            
             // 随机缩放
             var scale = random.uniform(1.5, 3);
             // 随机旋转

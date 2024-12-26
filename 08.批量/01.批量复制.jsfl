@@ -63,7 +63,7 @@
             // 选中当前元件
             OnlySelectCurrent(element);
 
-            var moreElement = new MoreElement(element,1,1);
+            var moreElement = new MoreElement(element);
             moreElements.push(moreElement);
         }
 
@@ -77,7 +77,7 @@
             var moreElement = moreElements[i];
 
             for (var j = 0; j < copyCount; j++) {
-                var nextPoint = moreElement.Neat(j+1, 0);
+                var nextPoint = moreElement.NeatOffset(j+1, 0);
                 // 复制元件
                 OnlySelectCurrent(moreElement.element);
                 

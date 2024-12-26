@@ -16,7 +16,9 @@
             <row>
                 <label control="easeType" value="缓动类型: "/>
                 <menulist id="easeType">
+<!--                    No Ease-->
                     <menupop>
+                        <menuitem label="None (No Ease) " value="No Ease"  selected="true" />
                         <menuitem label="传统 (Classic) " value="Classic"/>
                         <menuitem label="线性 (Quad) " value="Quad"  selected="true" />
                         <menuitem label="三次 (Cubic) " value="Cubic" />

@@ -17,6 +17,13 @@
 SymbolInstance.prototype.loop = undefined;
 
 /**
+ * 帧选择器
+ * 动画的结束帧,默认为-1,表示播放到最后一帧
+ * @type {number}
+ */
+SymbolInstance.prototype.lastFrame = 0;
+
+/**
  * @typedef {Element|
  * Instance|BitmapInstance|CompiledClipInstance|SymbolInstance|ComponentInstance|
  * Shape|OvalObject|RectangleObject|
@@ -36,10 +43,6 @@ Element = function () {
 Item = function () {
 };
 
-
-
-
-
 /**
  * 运行命令行
  * 重要：可以调用 powershell,cmd,bash等命令行工具,python,java等脚本语言,以及执行其他可执行文件
@@ -49,8 +52,13 @@ FlashFile.prototype.runCommandLine = function (commandLine) {
 };
 
 /**
- * 帧选择器
- * 动画的结束帧,默认为-1,表示播放到最后一帧
- * @type {number} 
-*/
-SymbolInstance.prototype.lastFrame = 0;
+ * 必须为非0的整数
+ * 请使用 newCameraPos.toIntPonit().noZero()
+ * 
+ * @since Animate 2019
+ * @param {number} frameIndex
+ * @param {number} tx  必须为非0的整数
+ * @param {number} ty  必须为非0的整数
+ */
+Camera.prototype.setPosition = function (frameIndex, tx, ty) {
+};

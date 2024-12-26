@@ -96,7 +96,7 @@
                     continue;
                 }
 
-                var nextPoint = moreElement.Staggered(i, j);
+                var nextPoint = moreElement.StaggeredOffset(i, j);
 
                 // 复制粘贴
                 doc.clipCopy();

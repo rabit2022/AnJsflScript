@@ -51,6 +51,7 @@ function importMoudle(relativeScriptPath) {
 importMoudle("Core/Object/Curve.jsfl");
 importMoudle("Core/Object/Ele.jsfl");
 importMoudle("Core/Object/FrameRange.jsfl");
+importMoudle("Core/Object/Graphics.jsfl");
 importMoudle("Core/Object/Matrix.jsfl");
 importMoudle("Core/Object/MoreElement.jsfl");
 importMoudle("Core/Object/Point.jsfl");

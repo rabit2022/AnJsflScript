@@ -61,6 +61,11 @@ Point.prototype.center = function () {
     return new Point(this.x / 2, this.y / 2);
 }
 
+// multiply
+Point.prototype.mul = function (point) {
+    return new Point(this.x * point.x, this.y * point.y);
+}
+
 /**
  * 四舍五入
  * @returns {Point}

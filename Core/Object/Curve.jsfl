@@ -53,10 +53,10 @@ function Curve() {
 /**
  * 设置缓动曲线
  * @param {Timeline} timeline
- * @param {"No Ease"|"Classic Ease"|"Quad Ease-In"|"Cubic Ease-In"|"Quart Ease-In"|"Quint Ease-In"|"Sine Ease-In"|"Back Ease-In"|"Circ Ease-In"|"Bounce Ease-In"|"Elastic Ease-In"|"Quad Ease-Out"|"Cubic Ease-Out"|"Quart Ease-Out"|"Quint Ease-Out"|"Sine Ease-Out"|"Back Ease-Out"|"Circ Ease-Out"|"Bounce Ease-Out"|"Elastic Ease-Out"|"Quad Ease-In-Out"|"Cubic Ease-In-Out"|"Quart Ease-In-Out"|"Quint Ease-In-Out"|"Sine Ease-In-Out"|"Back Ease-In-Out"|"Circ Ease-In-Out"|"Bounce Ease-In-Out"|"Elastic Ease-In-Out"} easeType 缓动类型
+ * @param {"No Ease"|"Classic Ease"|"Quad Ease-In"|"Cubic Ease-In"|"Quart Ease-In"|"Quint Ease-In"|"Sine Ease-In"|"Back Ease-In"|"Circ Ease-In"|"Bounce Ease-In"|"Elastic Ease-In"|"Quad Ease-Out"|"Cubic Ease-Out"|"Quart Ease-Out"|"Quint Ease-Out"|"Sine Ease-Out"|"Back Ease-Out"|"Circ Ease-Out"|"Bounce Ease-Out"|"Elastic Ease-Out"|"Quad Ease-In-Out"|"Cubic Ease-In-Out"|"Quart Ease-In-Out"|"Quint Ease-In-Out"|"Sine Ease-In-Out"|"Back Ease-In-Out"|"Circ Ease-In-Out"|"Bounce Ease-In-Out"|"Elastic Ease-In-Out"} easeCurve 缓动类型
  */
-Curve.prototype.setEaseCurve=function(timeline, easeType) {
-    var easeData = this.EASE_TYPES[easeType];
+Curve.prototype.setEaseCurve=function(timeline, easeCurve) {
+    var easeData = this.EASE_TYPES[easeCurve];
     if (!easeData) {
         throw Error("缓动类型不存在！");
     }
@@ -66,13 +66,22 @@ Curve.prototype.setEaseCurve=function(timeline, easeType) {
 /**
  * 设置经典缓动曲线
  * @param {Timeline} timeline
- * @param {number} intensity 缓动强度，-100~100，默认0
+ * @param {"Ease-In"|"Ease-Out"} [easeInOut] 缓动方向
+ * @param {number} [intensity] 缓动强度，-100~100，默认0
  */
-Curve.prototype.setClassicEaseCurve=function(timeline,intensity) {
+Curve.prototype.setClassicEaseCurve=function(timeline,easeInOut,intensity) {
     if(intensity===undefined){
         intensity=0;
     }
-    timeline.setFrameProperty('easeType', 5, -1, intensity);
+    // Ease-In  -1  Ease-Out 1  Ease-In-Out 0
+    var native=0;
+    if(easeInOut==="Ease-In"){
+        native=-1;
+    }else if(easeInOut==="Ease-Out"){
+        native=1;
+    }
+    
+    timeline.setFrameProperty('easeType', 5, -1, native*intensity);
 }
 
 var curve=new Curve();

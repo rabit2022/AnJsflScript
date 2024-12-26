@@ -78,24 +78,14 @@ RectUtil.prototype.calculateSafeMoveVector= function (bigRect, smallRect, moveVe
 
 /**
  * 随机生成  一个矩形范围内的  随机点
- * @param {Size} rectSize 矩形大小
- * @param {Point} centerPos 元素位置
+ * @param {Rect} rect 矩形
  * @returns {Point} 随机点
  */
-RectUtil.prototype.generateRandomPoint= function (rectSize,centerPos) {
-    // 计算矩形的一半宽高，用于确定随机点的范围
-    const halfWidth = (rectSize.width)/2;
-    const halfHeight = (rectSize.height)/2;
-
-    // 生成随机点的x和y坐标
-    // 随机点的坐标将是中心点坐标加上或减去矩形一半宽高的一个随机偏移量
-    const randomX =random.uniform(centerPos.x - halfWidth, centerPos.x + halfWidth);
-    const randomY =random.uniform(centerPos.y - halfHeight, centerPos.y + halfHeight);
-
-    // 返回相对于中心点的随机点坐标
+RectUtil.prototype.generateRandomPointInRect= function (rect) {
+    const randomX =random.uniform(rect.left, rect.right);
+    const randomY =random.uniform(rect.top, rect.bottom);
     return new Point(randomX, randomY);
 }
-
 
 /**
  * 计算矩形分割后每个小块的尺寸。

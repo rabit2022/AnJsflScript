@@ -1,5 +1,5 @@
 /**
- * @file: 00.设置缓动曲线.jsfl
+ * @file: 00.设置缓动曲线_下拉菜单.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
  * @date: 2024/12/9 16:51
@@ -77,14 +77,18 @@
 
         if (easeType === "Classic") {
             timeline.createMotionTween();
-            curve.setClassicEaseCurve(timeline, intensity);
+            curve.setClassicEaseCurve(timeline, easeInOut, intensity);
+        } else if (easeType === "No Ease") {
+            var easeCurve = easeType;
+
+            timeline.createMotionTween();
+            curve.setEaseCurve(timeline, easeCurve);
         } else {
             var easeCurve = easeType + " " + easeInOut;
 
             timeline.createMotionTween();
             curve.setEaseCurve(timeline, easeCurve);
         }
-
     }
 
     Main();

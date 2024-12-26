@@ -19,10 +19,10 @@
             alert("请选择元件？");
             return false;
         }
-        // if (selection.length > 1) {
-        //     alert("请选择单个元件");
-        //     return false;
-        // }
+        if (selection.length > 1) {
+            alert("请选择单个元件");
+            return false;
+        }
         // if (selection.length === 1) {
         //     alert("请选择至少两个元件");
         //     return false;
@@ -64,6 +64,19 @@
     var layers = timeline.layers;//图层
     var curFrameIndex = timeline.currentFrame;//当前帧索引
 
+    function getExplosionRect(horizontalSpacing) {
+        var firstElement = selection[0];
+        var elementHeight = firstElement.height;
+        var initialPos = wrapPosition(firstElement);
+
+        var rectHeight = elementHeight * (1 + horizontalSpacing);
+        var rectWidth = random.uniform(1.4, 1.7) * rectHeight;
+        // var rectSize = new Size(rectWidth, rectHeight);
+        // fl.trace("矩形:"+rectSize.toString());
+        var rect = wrapRectByCenter(initialPos.x, initialPos.y, rectWidth, rectHeight);
+        return rect;
+    }
+
     function Main() {
         if (!checkDom()) {
             return;
@@ -80,15 +93,8 @@
         // # x=(1.4~1.7)*y
         // #  0.6,1.4 缩放1
 
-        var firstElement = selection[0];
-        var elementHeight = firstElement.height;
-        var initialPos=wrapPosition(firstElement);
-        
-        var rectHeight = elementHeight * (1 + horizontalSpacing);
-        var rectWidth = random.uniform(1.4, 1.7) * rectHeight;
-        var rectSize = new Size(rectWidth, rectHeight);
-        // fl.trace("矩形:"+rectSize.toString());
-        
+        var explosionRect = getExplosionRect(horizontalSpacing);
+
         for (var i = 0; i < horizontalCount; i++) {
             if (i === 0) continue;
             
@@ -103,13 +109,13 @@
 
             // 缩放倍数
             var scale = random.uniform(0.6, 1.4);
-            // fl.trace("缩放倍数"+scale);
-            element1.scaleX*=scale;
-            element1.scaleY*=scale;
             
-            var randomPos=rectUtil.generateRandomPoint(rectSize, initialPos);
-            element1.x=randomPos.x;
-            element1.y=randomPos.y;
+            // 随机位置
+            // var randomPos=rectUtil.generateRandomPoint(rectSize, initialPos);
+            var randomPos=rectUtil.generateRandomPointInRect(explosionRect);
+            
+            var transform = wrapTransform(element1);
+            transform.setPosition(randomPos).setScale(new Point(scale, scale));
 
         }
     }

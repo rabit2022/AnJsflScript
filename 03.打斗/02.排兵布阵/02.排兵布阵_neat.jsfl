@@ -96,7 +96,7 @@
                     continue;
                 }
                 
-                var nextPoint = moreElement.Neat(i, j);
+                var nextPoint = moreElement.NeatOffset(i, j);
 
                 // 复制粘贴
                 doc.clipCopy();
