@@ -70,13 +70,13 @@
         timeline.convertToKeyframes(_30_frames);
 
         // 设置元件位置
-        var symbolElement = timeline.layers[1].frames[_30_frames].elements[0];
+        var symbolElement = timeline.layers[SYMBOL_LAYER_INDEX].frames[_30_frames].elements[0];
         OnlySelectCurrent(symbolElement);
         symbolElement.x = movePos.x;
         symbolElement.y = movePos.y;
 
         // 选中图层1的所有帧
-        timeline.setSelectedFrames([1, 0, _30_frames], true);
+        timeline.setSelectedFrames([SYMBOL_LAYER_INDEX, 0, _30_frames], true);
 
         // 补间动画
         timeline.createMotionTween();

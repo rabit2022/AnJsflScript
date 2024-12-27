@@ -123,7 +123,7 @@ Rect.prototype.getCorner = function (whichCorner) {
  */
 Rect.prototype.getPart = function (whichPart, ratio) {
     // var ratio = getPart / splitPart;
-    if (ratio == undefined) {
+    if (ratio === undefined) {
         ratio = 0.5;
     }
     switch (whichPart) {
