@@ -29,25 +29,7 @@
         return true;
     }
 
-    function checkXMLPanel() {
-        var success = true;
-        var XMLPANEL = osPath.getXMLPath();
-        var panel = doc.xmlPanel(XMLPANEL);
-        if (panel.dismiss === "cancel") {
-            alert("取消修改");
-            success = false;
-        }
-        // // horizontalCount
-        // var inputHorizontalCount = panel.horizontalCount;
-        // if (inputHorizontalCount === null || isNaN(Number(inputHorizontalCount))) {
-        //     alert("横向排布数量只能输入数字，请重新输入。");
-        //     success = false;
-        // }
-        // var horizontalCount = Number(inputHorizontalCount);
-        //
-        // return {horizontalCount: horizontalCount, success: success};
-    }
-
+    
     var doc = fl.getDocumentDOM();//文档
     var selection = doc.selection;//选择
     var library = doc.library;//库文件
@@ -60,8 +42,6 @@
         if (!checkDom()) {
             return;
         }
-        // var {horizontalCount, success} = checkXMLPanel();
-
 
         var direction = MyPrompt.parseDirection("输入头部朝向(默认为右，空格为左)：",
             {"右": 1, " ": -1, "左": -1});

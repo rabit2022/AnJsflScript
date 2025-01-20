@@ -31,35 +31,15 @@
     }
 
     function checkXMLPanel() {
-        var success = true;
-        var XMLPANEL = osPath.getXMLPath();
-        var dialog = doc.xmlPanel(XMLPANEL);
+        var panel = xmlPanelUtil.getXMLPanel();
+        if (panel === null) return null;
+        
+        var amplitude = xmlPanelUtil.parseNumber(panel.amplitude,"抖动幅度只能输入数字，请重新输入。");
+        if (amplitude === null) return null;
+        var frameCount = xmlPanelUtil.parseNumber(panel.frameCount,"抖动帧数只能输入数字，请重新输入。");
+        if (frameCount === null) return null;
 
-        // 如果点击的是“取消”按钮，直接返回，不执行后续代码，确保功能符合需求
-        if (dialog.dismiss === "cancel") {
-            alert("取消修改");
-            // return;
-            success = false;
-        }
-
-        var inputFrameCount = dialog.frameCount;
-        var inputAmplitude = dialog.amplitude;
-        // 检查输入抖动帧数是否为空
-        if (inputFrameCount === null || isNaN(Number(inputFrameCount))) {
-            alert("抖动帧数只能输入数字，请重新输入。");
-            // return;
-            success = false;
-        }
-        // 检查输入抖动幅度是否为空
-        if (inputAmplitude === null || isNaN(Number(inputAmplitude))) {
-            alert("抖动幅度只能输入数字，请重新输入。");
-            // return;
-            success = false;
-        }
-
-        var amplitude = Number(inputAmplitude);
-        var frameCount = Number(inputFrameCount);
-        return {amplitude: amplitude, frameCount: frameCount, success: success};
+        return {amplitude: amplitude, frameCount: frameCount};
     }
 
     var doc = fl.getDocumentDOM();//文档
@@ -100,12 +80,11 @@
         if (!checkDom()) {
             return;
         }
-
-        // 获取输入参数
-        var {amplitude, frameCount, success} = checkXMLPanel();
-        if (!success) {
-            return;
-        }
+        
+        var config = checkXMLPanel();
+        if (config === null) return;
+        var amplitude = config.amplitude;
+        var frameCount = config.frameCount;
 
         // 包装元件
         var symbolName = libUtil.generateNameUntilUnique("一键q弹_静_");

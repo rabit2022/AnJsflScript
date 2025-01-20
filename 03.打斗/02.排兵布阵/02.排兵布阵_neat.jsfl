@@ -61,9 +61,7 @@
 
         // 整齐排布
         var config = checkXMLPanel();
-        if (config === null) {
-            return;
-        }
+        if (config === null) return;
         var horizontalCount = config.horizontalCount;
         var horizontalSpacing = config.horizontalSpacing;
         var verticalCount = config.verticalCount;

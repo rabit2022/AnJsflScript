@@ -44,7 +44,7 @@ Prompt.prototype.parseNumber = function (promptMessage, defaultValue, alertMessa
  */
 Prompt.prototype.parseDirection = function (promptMessage, tipDictionary) {
     if (tipDictionary === null) {
-        tipDictionary = {"右": 1, "左": -1, "空格": -1};
+        tipDictionary = {"右": 1, "左": -1, " ": -1};
     }
     
     var firstTip = dictUtil.keys(tipDictionary)[0];
@@ -54,10 +54,10 @@ Prompt.prototype.parseDirection = function (promptMessage, tipDictionary) {
     if (inputDirection in tipDictionary) {
         direction = tipDictionary[inputDirection];
     } else if (inputDirection === null) {
-        alert("取消输入");
+        alert("方向不能为空，请重新输入。");
         return null;
     }else {
-        alert("输入错误，请重新输入。");
+        alert("输入错误(方向只能输入空格或右)，请重新输入。");
         return null;
     }
     return direction;

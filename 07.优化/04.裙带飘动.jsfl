@@ -31,53 +31,22 @@
     }
 
     function checkXMLPanel() {
+        var panel = xmlPanelUtil.getXMLPanel();
+        if (panel === null) return null;
 
-        var success = true;
-        var XMLPANEL = osPath.getXMLPath();
-        var dialog = doc.xmlPanel(XMLPANEL);
-        
-        // 如果点击的是“取消”按钮，直接返回，不执行后续代码，确保功能符合需求
-        if (dialog.dismiss === "cancel") {
-            // alert("取消修改");
-            // return;
-            success = false;
-        }
 
-        var inputAngle = dialog.angle;
-        // 检查输入角度是否为空
-        if (inputAngle === null || isNaN(Number(inputAngle))) {
-            alert("角度只能输入数字，请重新输入。");
-            // return;
-            success = false;
-        }
+        var angle = xmlPanelUtil.parseNumber(panel.angle, "角度只能输入数字，请重新输入。");
+        if (angle === null) return null;
         // 检查输入角度是否在1~10之间
-        if (Number(inputAngle) < 1 || Number(inputAngle) > 10) {
+        if (angle < 1 || angle > 10) {
             alert("角度只能输入1~10之间的数字，请重新输入。");
-            // return;
-            success = false;
+            return null;
         }
-
-        var inputDirection = dialog.direction;
-        // 检查输入方向是否为空
-        if (inputDirection === null) {
-            alert("方向不能为空，请重新输入。");
-            // return;
-            success = false;
-        }
-        // 检查输入方向是否为“左”或“右”
-        if (inputDirection !== " " && inputDirection !== "右") {
-            alert("方向只能输入空格或右，请重新输入。");
-            // return;
-            success = false;
-        }
-
-        var angle = Number(inputAngle);
-        var direction = inputDirection === " " ? 1 : -1;
-        return {
-            angle: angle,
-            direction: direction,
-            success: success
-        }
+        
+        var direction = xmlPanelUtil.parseDirection(panel.direction,
+            {"右": -1, "左": 1, " ": 1});
+        
+        return {angle: angle, direction: direction};
     }
 
 
@@ -99,7 +68,7 @@
 
         // 删除所有帧
         timeline1.removeFrames(1, timeline1.frameCount);
-        
+
 
         // 创建帧  30
         timeline1.currentFrame = 0;
@@ -126,7 +95,7 @@
 
         // 创建动效
         timeline1.createMotionTween();
-        setEaseCurve(timeline1, "Sine Ease-In-Out");
+        curve.setEaseCurve(timeline1, "Sine Ease-In-Out");
 
         doc.exitEditMode();
     }
@@ -137,11 +106,10 @@
         }
 
         // 获取输入值
-        var {angle, direction, success} = checkXMLPanel();
-        if (!success) {
-            return;
-        }
-        // fl.trace("角度：" + angle + " 方向：" + direction);
+        var config = checkXMLPanel();
+        if (config === null) return;
+        var angle = config.angle;
+        var direction = config.direction;
 
         // 包装元件
         var symbolName = libUtil.generateNameUntilUnique("裙带飘动_静_");

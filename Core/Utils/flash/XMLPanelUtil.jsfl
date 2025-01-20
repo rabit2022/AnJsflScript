@@ -48,4 +48,25 @@ XMLPanelUtil.prototype.parseNumber = function(inputStr,alertMsg) {
     return Number(inputStr);
 }
 
+XMLPanelUtil.prototype.parseDirection = function(inputDirection,tipDictionary) {
+    // var inputDirection = dialog.direction;
+    if (tipDictionary === null) {
+        tipDictionary = {"右": 1, "左": -1, " ": -1};
+    }
+    
+    var firstTip = dictUtil.keys(tipDictionary)[0];
+    var direction = tipDictionary[firstTip];
+    
+    if (inputDirection in tipDictionary) {
+        direction = tipDictionary[inputDirection];
+    } else if (inputDirection === null) {
+        alert("方向不能为空，请重新输入。");
+        return null;
+    }else {
+        alert("输入错误(方向只能输入空格或右)，请重新输入。");
+        return null;
+    }
+}
+
+
 var xmlPanelUtil = new XMLPanelUtil();

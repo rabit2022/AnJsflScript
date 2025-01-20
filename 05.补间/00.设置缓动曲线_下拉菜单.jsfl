@@ -31,30 +31,24 @@
     }
 
     function checkXMLPanel() {
-        var success = true;
-        var XMLPANEL = osPath.getXMLPath();
-        var panel = doc.xmlPanel(XMLPANEL);
-        if (panel.dismiss === "cancel") {
-            alert("取消修改");
-            success = false;
-        }
-        easeType = panel.easeType;
+        var panel = xmlPanelUtil.getXMLPanel();
+        if (panel === null) return null;
+        
+        var easeType = panel.easeType;
         if (easeType === null) {
             alert("请选择缓动曲线");
-            success = false;
+            return null;
         }
-        easeInOut = panel.easeInOut;
+        var easeInOut = panel.easeInOut;
         if (easeInOut === null) {
             alert("请选择缓动方向");
-            success = false;
+            return null;
         }
-        var inputIntensity = panel.intensity;
-        if (inputIntensity === null || isNaN(Number(inputIntensity))) {
-            alert("请设置缓动强度");
-            success = false;
-        }
-        var intensity = Number(inputIntensity);
-        return {easeType: easeType, easeInOut: easeInOut, intensity: intensity, success: success}
+        
+        var intensity =xmlPanelUtil.parseNumber(panel.intensity,"请设置缓动强度");
+        if (intensity === null) return null;
+        
+        return {easeType: easeType, easeInOut: easeInOut, intensity: intensity};
     }
 
     var doc = fl.getDocumentDOM();//文档
@@ -69,11 +63,13 @@
         if (!checkDom()) {
             return;
         }
+        
+        var config = checkXMLPanel();
+        if (config === null) return;
 
-        var {easeType, easeInOut, intensity, success} = checkXMLPanel();
-        if (!success) {
-            return;
-        }
+        var easeType = config.easeType;
+        var easeInOut = config.easeInOut;
+        var intensity = config.intensity;
 
         if (easeType === "Classic") {
             timeline.createMotionTween();
