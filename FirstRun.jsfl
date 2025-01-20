@@ -61,12 +61,21 @@ importMoudle("Core/Object/Size.jsfl");
 importMoudle("Core/Object/Transform.jsfl");
 
 // Utils
-importMoudle("Core/Utils/LayerUtil.jsfl");
-importMoudle("Core/Utils/LibUtil.jsfl");
-importMoudle("Core/Utils/Log.jsfl");
-importMoudle("Core/Utils/path.jsfl");
-importMoudle("Core/Utils/random.jsfl");
-importMoudle("Core/Utils/RectUtil.jsfl");
-importMoudle("Core/Utils/string.jsfl");
+// custom
+importMoudle("Core/Utils/custom/RectUtil.jsfl");
+
+// flash
+importMoudle("Core/Utils/flash/LayerUtil.jsfl");
+importMoudle("Core/Utils/flash/LibUtil.jsfl");
+importMoudle("Core/Utils/flash/Log.jsfl");
+importMoudle("Core/Utils/flash/PromptUtil.jsfl");
+importMoudle("Core/Utils/flash/XMLPanelUtil.jsfl");
+
+// native
+importMoudle("Core/Utils/native/DictUtil.jsfl");
+importMoudle("Core/Utils/native/path.jsfl");
+importMoudle("Core/Utils/native/random.jsfl");
+importMoudle("Core/Utils/native/string.jsfl");
+
 
 fl.trace("Core modules imported.");

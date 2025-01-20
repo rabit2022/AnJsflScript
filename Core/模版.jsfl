@@ -10,14 +10,15 @@
 (function () {
     function checkDom() {
         if (doc == null) {
-            alert("请打开 [.fla] 文件");
-            return false;
+            throw new Error("请打开 [.fla] 文件");
         }
-
-        if (selection.length < 1) {
-            alert("请选择元件？");
-            return false;
-        }
+    }
+    
+    function checkSelection() {
+        // if (selection.length < 1) {
+        //     alert("请选择元件？");
+        //     return false;
+        // }
         // if (selection.length > 1) {
         //     alert("请选择单个元件");
         //     return false;
@@ -30,24 +31,18 @@
     }
 
     function checkXMLPanel() {
-        var success = true;
-        var XMLPANEL = osPath.getXMLPath();
-        var panel = doc.xmlPanel(XMLPANEL);
-        if (panel.dismiss === "cancel") {
-            alert("取消修改");
-            success = false;
-        }
-        // // horizontalCount
-        // var inputHorizontalCount = panel.horizontalCount;
-        // if (inputHorizontalCount === null || isNaN(Number(inputHorizontalCount))) {
-        //     alert("横向排布数量只能输入数字，请重新输入。");
-        //     success = false;
-        // }
-        // var horizontalCount = Number(inputHorizontalCount);
+        var panel = xmlPanelUtil.getXMLPanel();
+        if (panel === null) return null;
+
+        // var horizontalCount = xmlPanelUtil.parseNumber(panel.horizontalCount, "横向排布数量只能输入数字，请重新输入。");
+        // if (horizontalCount === null) return null;
         //
-        // return {horizontalCount: horizontalCount, success: success};
+        // return {horizontalCount: horizontalCount};
     }
-        var doc = fl.getDocumentDOM();//文档
+
+
+    var doc = fl.getDocumentDOM();//文档
+    checkDom();
     var selection = doc.selection;//选择
     var library = doc.library;//库文件
 
@@ -56,10 +51,13 @@
     var curFrameIndex = timeline.currentFrame;//当前帧索引
 
     function Main() {
-        if (!checkDom()) {
+        if (!checkSelection()) {
             return;
         }
-        // var {horizontalCount, success} = checkXMLPanel();
+        // var config = checkXMLPanel();
+        // if (config === null) return;
+        // var horizontalCount = config.horizontalCount;
+        
 
 
     }

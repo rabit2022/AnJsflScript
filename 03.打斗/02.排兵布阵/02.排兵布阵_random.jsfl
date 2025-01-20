@@ -31,29 +31,15 @@
     }
 
     function checkXMLPanel() {
-        var success = true;
-        // var XMLPANEL = osPath.join([folder_name, onlyName + "_random.xml"]);
-        var XMLPANEL = osPath.getXMLPath();
-        var panel = doc.xmlPanel(XMLPANEL);
-        if (panel.dismiss === "cancel") {
-            alert("取消修改");
-            success = false;
-        }
-        // horizontalCount  horizontalSpacing
-        var inputHorizontalCount = panel.horizontalCount;
-        if (inputHorizontalCount === null || isNaN(Number(inputHorizontalCount))) {
-            alert("横向排布数量只能输入数字，请重新输入。");
-            success = false;
-        }
-        var inputHorizontalSpacing = panel.horizontalSpacing;
-        if (inputHorizontalSpacing === null || isNaN(Number(inputHorizontalSpacing))) {
-            alert("横向排布间距只能输入数字，请重新输入。");
-            success = false;
-        }
+        var panel = xmlPanelUtil.getXMLPanel();
+        if (panel === null) return null;
 
-        var horizontalCount = Number(inputHorizontalCount);
-        var horizontalSpacing = Number(inputHorizontalSpacing);
-        return {horizontalCount: horizontalCount, horizontalSpacing: horizontalSpacing, success: success}
+        var horizontalCount = xmlPanelUtil.parseNumber(panel.horizontalCount, "横向排布数量只能输入数字，请重新输入。");
+        if (horizontalCount === null) return null;
+        var horizontalSpacing = xmlPanelUtil.parseNumber(panel.horizontalSpacing, "横向排布间距只能输入数字，请重新输入。");
+        if (horizontalSpacing === null) return null;
+
+        return {horizontalCount: horizontalCount, horizontalSpacing: horizontalSpacing};
     }
 
     var doc = fl.getDocumentDOM();//文档
@@ -83,11 +69,13 @@
         }
 
         // 随机排布
-        var {horizontalCount, horizontalSpacing, success} = checkXMLPanel();
-        if (!success) {
+        var config = checkXMLPanel();
+        if (config === null) {
             return;
         }
-        
+        var horizontalCount = config.horizontalCount;
+        var horizontalSpacing = config.horizontalSpacing;
+
         // # 30仅数量
         // # y=高*(1+间隔倍数)
         // # x=(1.4~1.7)*y
@@ -97,23 +85,23 @@
 
         for (var i = 0; i < horizontalCount; i++) {
             if (i === 0) continue;
-            
+
             OnlySelectCurrent(selection[0]);
 
             // 复制粘贴
             doc.clipCopy();
             doc.clipPaste();
-            
+
             // 移动位置
             var element1 = doc.selection[0];
 
             // 缩放倍数
             var scale = random.uniform(0.6, 1.4);
-            
+
             // 随机位置
             // var randomPos=rectUtil.generateRandomPoint(rectSize, initialPos);
-            var randomPos=rectUtil.generateRandomPointInRect(explosionRect);
-            
+            var randomPos = rectUtil.generateRandomPointInRect(explosionRect);
+
             var transform = wrapTransform(element1);
             transform.setPosition(randomPos).setScale(new Point(scale, scale));
 

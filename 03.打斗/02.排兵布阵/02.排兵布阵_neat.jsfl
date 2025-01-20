@@ -30,41 +30,19 @@
     }
 
     function checkXMLPanel() {
-        var success = true;
-        // var XMLPANEL = osPath.join([folder_name, onlyName + "_neat.xml"]);
-        var XMLPANEL = osPath.getXMLPath();
-        var panel = doc.xmlPanel(XMLPANEL);
-        if (panel.dismiss === "cancel") {
-            alert("取消修改");
-            success = false;
-        }
-        // horizontalCount  horizontalSpacing  verticalCount  verticalSpacing
-        var inputHorizontalCount = panel.horizontalCount;
-        if (inputHorizontalCount === null || isNaN(Number(inputHorizontalCount))) {
-            alert("横向排布数量只能输入数字，请重新输入。");
-            success = false;
-        }
-        var inputHorizontalSpacing = panel.horizontalSpacing;
-        if (inputHorizontalSpacing === null || isNaN(Number(inputHorizontalSpacing))) {
-            alert("横向排布间距只能输入数字，请重新输入。");
-            success = false;
-        }
-        var inputVerticalCount = panel.verticalCount;
-        if (inputVerticalCount === null || isNaN(Number(inputVerticalCount))) {
-            alert("纵向排布数量只能输入数字，请重新输入。");
-            success = false;
-        }
-        var inputVerticalSpacing = panel.verticalSpacing;
-        if (inputVerticalSpacing === null || isNaN(Number(inputVerticalSpacing))) {
-            alert("纵向排布间距只能输入数字，请重新输入。");
-            success = false;
-        }
-
-        var horizontalCount = Number(inputHorizontalCount);
-        var horizontalSpacing = Number(inputHorizontalSpacing);
-        var verticalCount = Number(inputVerticalCount);
-        var verticalSpacing = Number(inputVerticalSpacing);
-        return {horizontalCount: horizontalCount, horizontalSpacing: horizontalSpacing, verticalCount: verticalCount, verticalSpacing: verticalSpacing, success: success}
+        var panel = xmlPanelUtil.getXMLPanel();
+        if (panel === null) return null;
+        
+        var horizontalCount = xmlPanelUtil.parseNumber(panel.horizontalCount,"横向排布数量只能输入数字，请重新输入。");
+        if (horizontalCount === null) return null;
+        var horizontalSpacing = xmlPanelUtil.parseNumber(panel.horizontalSpacing,"横向排布间距只能输入数字，请重新输入。");
+        if (horizontalSpacing === null) return null;
+        var verticalCount = xmlPanelUtil.parseNumber(panel.verticalCount,"纵向排布数量只能输入数字，请重新输入。");
+        if (verticalCount === null) return null;
+        var verticalSpacing = xmlPanelUtil.parseNumber(panel.verticalSpacing,"纵向排布间距只能输入数字，请重新输入。");
+        if (verticalSpacing === null) return null;
+        
+        return {horizontalCount: horizontalCount, horizontalSpacing: horizontalSpacing, verticalCount: verticalCount, verticalSpacing: verticalSpacing};
     }
 
     var doc = fl.getDocumentDOM();//文档
@@ -82,10 +60,16 @@
         }
 
         // 整齐排布
-        var {horizontalCount, horizontalSpacing, verticalCount, verticalSpacing, success} = checkXMLPanel();
-        if (!success) {
+        var config = checkXMLPanel();
+        if (config === null) {
             return;
         }
+        var horizontalCount = config.horizontalCount;
+        var horizontalSpacing = config.horizontalSpacing;
+        var verticalCount = config.verticalCount;
+        var verticalSpacing = config.verticalSpacing;
+        
+        
         
         var firstElement = selection[0];
         var moreElement = new MoreElement(firstElement, horizontalSpacing, verticalSpacing);

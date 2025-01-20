@@ -227,6 +227,13 @@ OSPath.prototype.basenameWithoutExt=function(path) {
     // 返回去除扩展名的基本名称
     return root;
 }
+
+/**
+ * 获取 XML 面板的路径。
+ *
+ * @return {string} - XML 面板的路径。
+ * @deprecated 该函数已过时，请使用 {@link xmlPanelUtil.getXMLPath()}。
+ */
 OSPath.prototype.getXMLPath=function() {
     var XMLPANEL = fl.scriptURI.split(".jsfl").join(".xml");
     return XMLPANEL;

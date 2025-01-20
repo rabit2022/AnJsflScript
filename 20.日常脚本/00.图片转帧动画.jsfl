@@ -132,7 +132,7 @@
 
         KFrames(selectedPics);
 
-        cleanFolders(NEW_SYMBOL_NAME, symbol_name, selectedPics);
+        // cleanFolders(NEW_SYMBOL_NAME, symbol_name, selectedPics);
     }
 
     Main();

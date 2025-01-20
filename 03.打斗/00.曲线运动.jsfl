@@ -43,7 +43,7 @@
 
     function drawLineAndMove(timeline, movePos) {
         var _r_250 = 250;
-        var circleLineRect = graphics.drawCircleLine(new Point(_r_250, 0), _r_250);
+        var circleLineRect = graphics.drawCircleWithoutFill(new Point(_r_250, 0), _r_250);
 
         // 删除bottom部分
         var bottom_rect = circleLineRect.getPart("bottom");
