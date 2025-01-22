@@ -10,11 +10,8 @@
 
 (function () {
     function Main() {
-        // if (!checkDom()) {
-        //     return;
-        // }
-
-        osPath.openDirectory(osPath.PLUGIN_PATH);
+        // osPath.openDirectory(OSPath.PLUGIN_PATH);
+        os.startfile(OSPath.PLUGIN_PATH);
 
     }
 

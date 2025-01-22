@@ -10,11 +10,8 @@
 
 (function () {
     function Main() {
-        // if (!checkDom()) {
-        //     return;
-        // }
-
-        osPath.openDirectory(osPath.COMMAND_PATH);
+        // osPath.openDirectory(OSPath.COMMAND_PATH);
+        os.startfile(OSPath.COMMAND_PATH);
 
     }
 

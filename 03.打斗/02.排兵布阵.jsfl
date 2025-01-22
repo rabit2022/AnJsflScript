@@ -48,11 +48,8 @@
         }
 
         var XMLPANEL = osPath.join([folder_name,XMLFOLDER, onlyName + ".xml"]);
-        var panel = doc.xmlPanel(XMLPANEL);
-        if(panel.dismiss === "cancel") {
-            // fl.trace("取消");
-            return;
-        }
+        var panel = xmlPanelUtil.getXMLPanel(XMLPANEL);
+        if (panel == null) return;
         
         var radioGroup = panel.layoutRadioGroup;
         switch (radioGroup) {

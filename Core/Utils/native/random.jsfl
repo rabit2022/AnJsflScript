@@ -168,6 +168,8 @@ Random.prototype.getPaddingNum = function (digits) {
     var num = random.randint(1, 999);
     return num.toString().padStart(digits, '0');
 }
+
+
 var random = new Random();
 
 
