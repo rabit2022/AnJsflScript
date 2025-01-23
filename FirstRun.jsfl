@@ -58,6 +58,8 @@
         importMoudle("Core/Object/Size.jsfl");
         importMoudle("Core/Object/Transform.jsfl");
         importMoudle("Core/Utils/custom/RectUtil.jsfl");
+        importMoudle("Core/Utils/flash/Constants.jsfl");
+        importMoudle("Core/Utils/flash/FrameRangeUtil.jsfl");
         importMoudle("Core/Utils/flash/LayerUtil.jsfl");
         importMoudle("Core/Utils/flash/LibUtil.jsfl");
         importMoudle("Core/Utils/flash/Log.jsfl");

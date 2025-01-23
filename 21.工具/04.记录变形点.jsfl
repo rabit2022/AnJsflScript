@@ -1,20 +1,17 @@
 ﻿/**
- * @file: ${FILE_NAME}
+ * @file: 04.记录变形点.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
- * @date: ${DATE} ${TIME}
- * @project: ${PROJECT_NAME}
- * @description: ${END}
+ * @date: 2025/1/22 20:41
+ * @project: AnJsflScript
+ * @description:
  */
 
 (function () {
     function checkDom() {
         if (doc == null) {
-            // throw new Error("请打开 [.fla] 文件");
-            alert("请打开 [.fla] 文件");
-            return false;
+            throw new Error("请打开 [.fla] 文件");
         }
-        return true;
     }
 
     function checkSelection() {
@@ -45,7 +42,7 @@
 
 
     var doc = fl.getDocumentDOM();//文档
-    if (!checkDom()) return;
+    checkDom();
     var selection = doc.selection;//选择
     var library = doc.library;//库文件
 
@@ -54,11 +51,20 @@
     var curFrameIndex = timeline.currentFrame;//当前帧索引
 
     function Main() {
-        if (!checkSelection()) return;
+        if (!checkSelection()) {
+            return;
+        }
         // var config = checkXMLPanel();
         // if (config === null) return;
         // var horizontalCount = config.horizontalCount;
 
+        
+        var element=selection[0];
+        var transformPoint=wrapPosition(doc.getTransformationPoint());
+        print("变形点坐标："+transformPoint.toString());
+        
+        var rect=wrapRectByElement(element);
+        print("元件矩形："+rect.toString());
 
     }
 

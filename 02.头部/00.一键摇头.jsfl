@@ -14,10 +14,10 @@
             return false;
         }
 
-        // if (selection.length < 1) {
-        //     alert("请选择元件？");
-        //     return false;
-        // }
+        if (selection.length < 1) {
+            alert("请选择元件？");
+            return false;
+        }
         // if (selection.length > 1) {
         //     alert("请选择单个元件");
         //     return false;
@@ -43,13 +43,13 @@
             return;
         }
 
-        var direction = MyPrompt.parseDirection("输入头部朝向(默认为右，空格为左)：",
+        var direction = promptUtil.parseDirection("输入头部朝向(默认为右，空格为左)：",
             {"右": 1, " ": -1, "左": -1});
         if (direction === null) {
             return;
         }
 
-        var force = MyPrompt.parseNumber("输入摇头力度", 3, "摇头力度只能输入数字，请重新输入。");
+        var force = promptUtil.parseNumber("输入摇头力度", 3, "摇头力度只能输入数字，请重新输入。");
         if (force === null) {
             return;
         }

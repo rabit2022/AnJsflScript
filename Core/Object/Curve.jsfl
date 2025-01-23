@@ -70,6 +70,9 @@ Curve.prototype.setEaseCurve=function(timeline, easeCurve) {
  * @param {number} [intensity] 缓动强度，-100~100，默认0
  */
 Curve.prototype.setClassicEaseCurve=function(timeline,easeInOut,intensity) {
+    if(easeInOut===undefined){
+        easeInOut="Ease-In";
+    }
     if(intensity===undefined){
         intensity=0;
     }

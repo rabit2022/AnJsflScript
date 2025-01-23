@@ -33,12 +33,12 @@ LayerUtil.prototype.getLayersByName = function (layerName) {
     var doc = fl.getDocumentDOM();//文档
     var timeline = doc.getTimeline();//时间轴
     var layers = timeline.layers;//图层
-    
+
     var findLayers = [];
     for (var i = 0; i < layers.length; i++) {
         var layer = layers[i];
         // if (Includes(layer.name, BG_LAYER_NAME)) {
-        if (layer.name.includes(layerName)){
+        if (layer.name.includes(layerName)) {
             findLayers.push(layer);
         }
     }
@@ -58,7 +58,7 @@ LayerUtil.prototype.getLayersIndexByName = function (layerName) {
     for (var i = 0; i < layers.length; i++) {
         var layer = layers[i];
         // if (Includes(layer.name, BG_LAYER_NAME)) {
-        if (layer.name.includes(layerName)){
+        if (layer.name.includes(layerName)) {
             findLayers.push(i);
         }
     }
@@ -70,14 +70,14 @@ LayerUtil.prototype.getLayersIndexByName = function (layerName) {
  * @param {Layer} layer 图层
  * @return {Number} 图层索引
  */
-LayerUtil.prototype.getLayerIndex=function(layer) {
+LayerUtil.prototype.getLayerIndex = function (layer) {
     var doc = fl.getDocumentDOM();//文档
     var timeline = doc.getTimeline();//时间轴
     var layers = timeline.layers;//图层
-    
+
     var layerIndex = 0;
     for (var i = 0; i < layers.length; i++) {
-        if (layers[i].name === layer.name) {
+        if (layers[i] === layer) {
             layerIndex = i;
             break;
         }
@@ -89,12 +89,12 @@ LayerUtil.prototype.getLayerIndex=function(layer) {
  * 删除 图层
  * @param {Array.<Number>|Array.<Layer>} layersIndex 图层索引数组
  */
-LayerUtil.prototype.deleteLayers=function(layersIndex) {
+LayerUtil.prototype.deleteLayers = function (layersIndex) {
     var doc = fl.getDocumentDOM();//文档
     var timeline = doc.getTimeline();//时间轴
 
     // 删除图层
-    if (layersIndex.length>0) {
+    if (layersIndex.length > 0) {
         for (var i = 0; i < layersIndex.length; i++) {
             var layerIndex = layersIndex[i];
             // doc.deleteLayer(layerIndex);

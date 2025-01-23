@@ -48,6 +48,7 @@
         }
 
         var XMLPANEL = osPath.join([folder_name,XMLFOLDER, onlyName + ".xml"]);
+        print(XMLPANEL)
         var panel = xmlPanelUtil.getXMLPanel(XMLPANEL);
         if (panel == null) return;
         

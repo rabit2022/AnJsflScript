@@ -166,7 +166,7 @@ OSPath.prototype.normpath = function (path) {
  */
 OSPath.prototype.join = function (paths) {
     // return this.normpath(paths.join('/'));
-    return paths.map(this.normpath).join('/');
+    return paths.join('/');
 }
 
 /**
