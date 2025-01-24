@@ -18,10 +18,10 @@
             alert("请选择元件？");
             return false;
         }
-        // if (selection.length > 1) {
-        //     alert("请选择单个元件");
-        //     return false;
-        // }
+        if (selection.length > 1) {
+            alert("请选择单个元件");
+            return false;
+        }
         // if (selection.length === 1) {
         //     alert("请选择至少两个元件");
         //     return false;

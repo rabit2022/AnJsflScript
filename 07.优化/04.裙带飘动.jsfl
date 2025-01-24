@@ -122,7 +122,7 @@
         // ele.resetRegisterPoint(element);
 
         // 变形点 到右上角
-        ele.alterTransformationPoint(element, "top right");
+        ele.setTransformationPoint(element, "top right");
 
         // 包装元件
         var symbolName1 = libUtil.generateNameUseLast("裙带飘动_动_");

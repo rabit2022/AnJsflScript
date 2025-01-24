@@ -1,10 +1,10 @@
 ﻿/**
- * @file: ${FILE_NAME}
+ * @file: 11.组装万能头.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
- * @date: ${DATE} ${TIME}
- * @project: ${PROJECT_NAME}
- * @description: ${END}
+ * @date: 2025/1/24 19:50
+ * @project: AnJsflScript
+ * @description:
  */
 
 (function () {
@@ -36,10 +36,21 @@
         var panel = xmlPanelUtil.getXMLPanel();
         if (panel === null) return null;
 
-        // var horizontalCount = xmlPanelUtil.parseNumber(panel.horizontalCount, "横向排布数量只能输入数字，请重新输入。");
-        // if (horizontalCount === null) return null;
-        //
-        // return {horizontalCount: horizontalCount};
+        var shakeIntensity = xmlPanelUtil.parseNumber(panel.shakeIntensity, "摇头强度只能输入数字，请重新输入。");
+        if (shakeIntensity === null) return null;
+        var motionFrameCount = xmlPanelUtil.parseNumber(panel.motionFrameCount, "表情帧数只能输入数字，请重新输入。");
+        if (motionFrameCount === null) return null;
+        var headDirection = xmlPanelUtil.parseNumber(panel.headDirection);
+        if (headDirection === null) return null;
+        var shakeMode = panel.shakeMode; // traditional,smooth
+        if (shakeMode === null) return null;
+
+        return {
+            shakeIntensity: shakeIntensity,
+            motionFrameCount: motionFrameCount,
+            headDirection: headDirection,
+            shakeMode: shakeMode
+        };
     }
 
     var doc = fl.getDocumentDOM();//文档
@@ -56,10 +67,14 @@
         if (!checkSelection()) return;
 
         // 读取XML面板配置
-        // var config = checkXMLPanel();
-        // if (config === null) return;
-        // var horizontalCount = config.horizontalCount;
+        var config = checkXMLPanel();
+        if (config === null) return;
+        var shakeIntensity = config.shakeIntensity;
+        var motionFrameCount = config.motionFrameCount;
+        var headDirection = config.headDirection;
+        var shakeMode = config.shakeMode;
 
+        
     }
 
     Main();

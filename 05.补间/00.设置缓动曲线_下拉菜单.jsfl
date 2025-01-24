@@ -71,18 +71,16 @@
         var easeInOut = config.easeInOut;
         var intensity = config.intensity;
 
+        
         if (easeType === "Classic") {
-            timeline.createMotionTween();
             curve.setClassicEaseCurve(timeline, easeInOut, intensity);
         } else if (easeType === "No Ease") {
             var easeCurve = easeType;
 
-            timeline.createMotionTween();
             curve.setEaseCurve(timeline, easeCurve);
         } else {
             var easeCurve = easeType + " " + easeInOut;
 
-            timeline.createMotionTween();
             curve.setEaseCurve(timeline, easeCurve);
         }
     }

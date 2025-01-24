@@ -57,8 +57,10 @@
         importMoudle("Core/Object/Select.jsfl");
         importMoudle("Core/Object/Size.jsfl");
         importMoudle("Core/Object/Transform.jsfl");
+        importMoudle("Core/Utils/custom/PointUtil.jsfl");
         importMoudle("Core/Utils/custom/RectUtil.jsfl");
         importMoudle("Core/Utils/flash/Constants.jsfl");
+        importMoudle("Core/Utils/flash/FilterUtil.jsfl");
         importMoudle("Core/Utils/flash/FrameRangeUtil.jsfl");
         importMoudle("Core/Utils/flash/LayerUtil.jsfl");
         importMoudle("Core/Utils/flash/LibUtil.jsfl");
@@ -67,10 +69,12 @@
         importMoudle("Core/Utils/flash/XMLPanelUtil.jsfl");
         importMoudle("Core/Utils/native/array.jsfl");
         importMoudle("Core/Utils/native/DictUtil.jsfl");
-        importMoudle("Core/Utils/native/os.jsfl");
-        importMoudle("Core/Utils/native/path.jsfl");
-        importMoudle("Core/Utils/native/random.jsfl");
         importMoudle("Core/Utils/native/string.jsfl");
+        importMoudle("Core/Utils/py/BuiltInP.jsfl");
+        importMoudle("Core/Utils/py/os.jsfl");
+        importMoudle("Core/Utils/py/path.jsfl");
+        importMoudle("Core/Utils/py/random.jsfl");
+        importMoudle("Core/Utils/py/StringP.jsfl");
 
         // 导入完成
         fl.trace("=============Core modules imported.=============");

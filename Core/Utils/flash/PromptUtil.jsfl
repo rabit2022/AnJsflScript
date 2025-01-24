@@ -79,7 +79,7 @@ PromptUtil.prototype.parseNumberWithSign = function (promptMessage, defaultValue
 /**
  * 弹出提示框，获取输入的方向
  * @param {string} promptMessage 提示信息
- * @param {object} [tipDictionary={"右": 1, "左": -1, "空格": -1}] 提示字典
+ * @param {object} [tipDictionary={"右": 1, "左": -1, " ": -1}] 提示字典
  * @returns {number} 输入的方向
  */
 PromptUtil.prototype.parseDirection = function (promptMessage, tipDictionary) {

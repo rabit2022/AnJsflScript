@@ -7,17 +7,10 @@
  * @description:
  */
 
-/**
- * 帧范围对象
- * @param {number} layerIndex 图层索引
- * @param {number} startFrame 开始帧
- * @param {number} endFrame 结束帧
- * @constructor
- */
+
 function FrameRangeUtil() {
 
 }
-
 
 
 /**
@@ -26,7 +19,7 @@ function FrameRangeUtil() {
  * @return {FrameRange[]} 帧范围数组
  * @private
  */
-FrameRangeUtil.prototype.wrapFrFromSl=function(selectedFrames) {
+FrameRangeUtil.prototype.wrapFrFromSl = function (selectedFrames) {
     /**
      * 获取选中元件的帧范围
      * @type {FrameRange[]}
@@ -49,9 +42,23 @@ FrameRangeUtil.prototype.wrapFrFromSl=function(selectedFrames) {
  * var selectedFrames = timeline.getSelectedFrames();
  * @return {FrameRange[]} 帧范围数组
  */
-FrameRangeUtil.prototype.wrapSelectedFrames=function(timeline) {
+FrameRangeUtil.prototype.getSelectedFrs = function (timeline) {
     var selectedFrames = timeline.getSelectedFrames();
     return this.wrapFrFromSl(selectedFrames);
+}
+
+/**
+ * 重置选中帧
+ * @param {Timeline} timeline 时间线
+ * @param {FrameRange[]} frs 帧范围数组
+ */
+FrameRangeUtil.prototype.resetSelectedFrames = function (timeline, frs) {
+    for (var i = 0; i < frs.length; i++) {
+        var fr = frs[i];
+
+        var frArray = fr.toArray();
+        timeline.setSelectedFrames(frArray, false);
+    }
 }
 
 
@@ -60,9 +67,8 @@ FrameRangeUtil.prototype.wrapSelectedFrames=function(timeline) {
  * @param {Layer} layer 图层
  * @return {number[]} 关键帧索引数组
  * @see https://gitee.com/ninge/WindowSWF/tree/master/
- * @private
  */
-FrameRangeUtil.prototype.getKeyFrames=function(layer) {
+FrameRangeUtil.prototype.getKeyFrames = function (layer) {
     var frames = layer.frames;
 
     /**
@@ -91,7 +97,7 @@ FrameRangeUtil.prototype.getKeyFrames=function(layer) {
  * @return {FrameRange[]} 帧范围数组
  * @private
  */
-FrameRangeUtil.prototype.wrapKeyFrames=function(layer, keyFrames) {
+FrameRangeUtil.prototype.wrapKeyFrames = function (layer, keyFrames) {
     // 获取图层索引
     var layerIndex = 0;
     if (typeof layer === "number") {
@@ -124,7 +130,7 @@ FrameRangeUtil.prototype.wrapKeyFrames=function(layer, keyFrames) {
  * @param {FrameRange} selectedFr 选中范围
  * @return {FrameRange[]} 帧范围数组
  */
-FrameRangeUtil.prototype.getKeyFrameRanges=function(timeline, selectedFr) {
+FrameRangeUtil.prototype.getKeyFrameRanges = function (timeline, selectedFr) {
     var layers = timeline.layers;//图层
 
     // 关键帧范围
@@ -132,7 +138,7 @@ FrameRangeUtil.prototype.getKeyFrameRanges=function(timeline, selectedFr) {
     var keyFrames = this.getKeyFrames(layer);
 
     // 缺少最后一段，补上
-    var lastKf=layer.frameCount;// 开区间
+    var lastKf = layer.frameCount;// 开区间
     keyFrames.push(lastKf);
 
     var keyFrameRanges = this.wrapKeyFrames(selectedFr.layerIndex, keyFrames);
@@ -147,7 +153,7 @@ FrameRangeUtil.prototype.getKeyFrameRanges=function(timeline, selectedFr) {
  * @param {FrameRange[]} keyFrameRanges 关键帧范围数组
  * @return {FrameRange[]} 帧范围数组
  */
-FrameRangeUtil.prototype.getKfrsFromSlBigger=function(selectedFrBigger, keyFrameRanges) {
+FrameRangeUtil.prototype.getKfrsFromSlBigger = function (selectedFrBigger, keyFrameRanges) {
     var keyFrs = [];
     for (var i = 0; i < keyFrameRanges.length; i++) {
         var keyFrameRange = keyFrameRanges[i];
@@ -165,7 +171,7 @@ FrameRangeUtil.prototype.getKfrsFromSlBigger=function(selectedFrBigger, keyFrame
  * @param {FrameRange[]} keyFrameRanges 关键帧范围数组
  * @return {FrameRange} 帧范围
  */
-FrameRangeUtil.prototype.getKfrFromSlLittle=function(selectedFrLittle, keyFrameRanges) {
+FrameRangeUtil.prototype.getKfrFromSlLittle = function (selectedFrLittle, keyFrameRanges) {
     var keyFr = null;
     for (var i = 0; i < keyFrameRanges.length; i++) {
         var keyFrameRange = keyFrameRanges[i];
@@ -177,4 +183,4 @@ FrameRangeUtil.prototype.getKfrFromSlLittle=function(selectedFrLittle, keyFrameR
     return keyFr;
 }
 
-var frameRangeUtil = new FrameRangeUtil();
+var frUtil = new FrameRangeUtil();

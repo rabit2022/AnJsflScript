@@ -44,5 +44,11 @@ FrameRange.prototype.contain = function (fr2) {
     return this.startFrame <= fr2.startFrame && this.endFrame >= fr2.endFrame;
 }
 
-
+/**
+ * 转换为数组 
+ * @return {Array} 数组
+ */
+FrameRange.prototype.toArray = function () {
+    return [this.layerIndex, this.startFrame, this.endFrame];
+}
 

@@ -64,15 +64,15 @@
         // print("关键帧持续帧数：" + num + "，模式：" + mode);
 
         // 选中的帧范围
-        var selectedFrs = frameRangeUtil.wrapSelectedFrames(timeline);
+        var selectedFrs = frUtil.getSelectedFrs(timeline);
         for (var i = 0; i < selectedFrs.length; i++) {
             // 某一个图层的 选中的帧范围
             var selectedFr = selectedFrs[i];
             // 某一个图层的 关键帧范围 列表
-            var keyFrameRanges = frameRangeUtil.getKeyFrameRanges(timeline, selectedFr);
+            var keyFrameRanges = frUtil.getKeyFrameRanges(timeline, selectedFr);
 
             // 选中范围 包含的 关键帧范围
-            var keyFr = frameRangeUtil.getKfrFromSlLittle(selectedFr, keyFrameRanges);
+            var keyFr = frUtil.getKfrFromSlLittle(selectedFr, keyFrameRanges);
             if (keyFr == null) continue;
             // fl.trace("选中范围：" + keyFr.toString());
 

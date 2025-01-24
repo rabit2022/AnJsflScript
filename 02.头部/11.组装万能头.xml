@@ -1,0 +1,56 @@
+﻿
+<dialog id="characterLayoutDialog" title="人物排列设置" buttons="accept,cancel">
+    <grid>
+        <!--                <columns>-->
+        <!--                    <column/>-->
+        <!--                    <column/>-->
+        <!--                </columns>-->
+        <rows>
+            <row>
+                <label value="摇头力度:"/>
+            </row>
+            <row>
+                <textbox id="shakeIntensity" value="3"/>
+            </row>
+            <separator/>
+
+            <row>
+                <label value="表情帧数(表情元件帧数，例如6帧表情)："/>
+            </row>
+            <row>
+                <textbox id="motionFrameCount" value="6"/>
+            </row>
+            <separator/>
+
+            <row>
+                <label value="请选择头部朝向:"/>
+            </row>
+            <row>
+                <radiogroup id="headDirection" orient="horizontal">
+                    <hbox>
+                        <spacer flex="1"/> <!-- 添加一个spacer来填充剩余空间 -->
+                        <radio id="left" label="头部向左" value="-1" selected="true"/>
+                        <radio id="right" label="头部向右" value="1"/>
+                    </hbox>
+                </radiogroup>
+            </row>
+            <separator/>
+
+            <row>
+                <label value="请选择摇头模式:"/>
+            </row>
+            <row>
+                <radiogroup id="shakeMode" orient="horizontal">
+                    <hbox>
+                        <spacer flex="1"/> <!-- 添加一个spacer来填充剩余空间 -->
+                        <radio id="traditional" label="传统摇头" value="traditional" selected="true"/>
+                        <radio id="smooth" label="丝滑摇头" value="smooth"/>
+                    </hbox>
+                </radiogroup>
+            </row>
+            <separator/>
+        </rows>
+    </grid>
+
+
+</dialog>

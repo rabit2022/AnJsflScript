@@ -130,7 +130,7 @@ Ele.prototype.resetRegisterPointWrap = function (transformationPoint) {
 /**
  * 重置注册点
  * 1，新的注册点 是 原来的 变形点 </br>
- * 2，经常配合 {@link Ele.alterTransformationPoint} 使用 </br>
+ * 2，经常配合 {@link Ele.setTransformationPoint} 使用 </br>
  * 3，如果没有设置变形点，一般来说，元件的默认的变形点就是  中心点 </br>
  * @param {Element} element 元素
  * @deprecated 请使用  doc.convertToSymbol("graphic", symbolName, "center"); 提前设置好元件的注册点</br>
@@ -158,7 +158,7 @@ Ele.prototype.resetRegisterPoint = function (element) {
  * @param {Element} element
  * @param {"top right"|"top left"|"bottom right"|"bottom left"|"top center"|"right center"|"bottom center"|"left center"} whichCorner
  */
-Ele.prototype.alterTransformationPoint = function (element, whichCorner) {
+Ele.prototype.setTransformationPoint = function (element, whichCorner) {
     // 变形点 到右上角
     var registerPoint = wrapPosition(element);
 

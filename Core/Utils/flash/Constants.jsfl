@@ -22,3 +22,11 @@ var FRAME_11 = 11 - 1;
 var FRAME_12 = 12 - 1;
 
 
+// 时间--帧数
+var SECOND_1 = 30;
+var MINUTE_1 = 60 * SECOND_1;
+// var HOUR_1 = 60 * MINUTE_1;
+// var DAY_1 = 24 * HOUR_1;
+// var WEEK_1 = 7 * DAY_1;
+// var MONTH_1 = 30 * DAY_1;
+// var YEAR_1 = 365 * DAY_1;

@@ -15,14 +15,14 @@
     }
 
     function checkSelection() {
-        // if (selection.length < 1) {
-        //     alert("请选择元件？");
-        //     return false;
-        // }
-        // if (selection.length > 1) {
-        //     alert("请选择单个元件");
-        //     return false;
-        // }
+        if (selection.length < 1) {
+            alert("请选择元件？");
+            return false;
+        }
+        if (selection.length > 1) {
+            alert("请选择单个元件");
+            return false;
+        }
         // if (selection.length === 1) {
         //     alert("请选择至少两个元件");
         //     return false;
@@ -50,6 +50,29 @@
     var layers = timeline.layers;//图层
     var curFrameIndex = timeline.currentFrame;//当前帧索引
 
+    function KFrames(blurFilterForce) {
+        doc.enterEditMode("inPlace");
+        
+        var timeline = doc.getTimeline();
+        var layers = timeline.layers;
+
+        // 添加滤镜
+        filterUtil.addBlurFilterToFrame(layers[0], FRAME_1, blurFilterForce, blurFilterForce, "medium");
+
+        // 给所有图层加帧
+        timeline.insertFrames(FRAME_6, true);
+
+        var _4_frames = 4 - 1;
+        timeline.convertToKeyframes(FRAME_4);
+
+        // 水平翻转
+        var frame4_element = timeline.layers[0].frames[_4_frames].elements[0];
+        frame4_element.scaleX = -1;
+        frame4_element.scaleY = 1;
+
+        doc.exitEditMode();
+    }
+
     function Main() {
         if (!checkSelection()) {
             return;
@@ -58,54 +81,17 @@
         // if (config === null) return;
         // var horizontalCount = config.horizontalCount;
 
-        // var myFilters = doc.getFilters();
-        // for (var i = 0; i < myFilters.length; i++) {
-        //     if (myFilters[i].name === "blurFilter") {
-        //         myFilters[i].blurX = 50;
-        //     }
-        // }
-        // doc.setFilters(myFilters);
-
         var blurFilterForce = promptUtil.parseNumber("输入动态模糊度：", 4, "动态模糊度只能输入数字，请重新输入。");
         if (blurFilterForce === null) return;
         
         // var element=selection[0];
         doc.group();
-        
-        SelectAll();
-        var element = doc.selection[0];
-        
-        // 滤镜添加--失败
-        var myFilters = element.getFilters();
-        for (var i = 0; i < myFilters.length; i++) {
-            if (myFilters[i].name === "blurFilter") {
-                myFilters[i].blurX = blurFilterForce;
-                myFilters[i].blurY = blurFilterForce;
-            }
-        }
-        doc.setFilters(myFilters);
-        
-        // print(doc.selection.length)
 
         var symbolName = libUtil.generateNameUntilUnique("一键摆头_");
         doc.convertToSymbol('graphic', symbolName, 'center');
-
-
-        doc.enterEditMode("inPlace");
-
-        var timeline = doc.getTimeline();
-        // 给所有图层加帧
-        timeline.insertFrames(FRAME_6, true);
-
-        var _4_frames = 4 - 1;
-        timeline.convertToKeyframes(FRAME_4);
-
-        // 水平翻转
-        var frame4_element=timeline.layers[0].frames[_4_frames].elements[0];
-        frame4_element.scaleX=-1;
-        frame4_element.scaleY=1;
-
-        doc.exitEditMode();
+        
+        
+        KFrames(blurFilterForce);
     }
 
     Main();

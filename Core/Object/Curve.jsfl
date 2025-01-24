@@ -49,17 +49,17 @@ function Curve() {
 }
 
 
-
 /**
  * 设置缓动曲线
  * @param {Timeline} timeline
  * @param {"No Ease"|"Classic Ease"|"Quad Ease-In"|"Cubic Ease-In"|"Quart Ease-In"|"Quint Ease-In"|"Sine Ease-In"|"Back Ease-In"|"Circ Ease-In"|"Bounce Ease-In"|"Elastic Ease-In"|"Quad Ease-Out"|"Cubic Ease-Out"|"Quart Ease-Out"|"Quint Ease-Out"|"Sine Ease-Out"|"Back Ease-Out"|"Circ Ease-Out"|"Bounce Ease-Out"|"Elastic Ease-Out"|"Quad Ease-In-Out"|"Cubic Ease-In-Out"|"Quart Ease-In-Out"|"Quint Ease-In-Out"|"Sine Ease-In-Out"|"Back Ease-In-Out"|"Circ Ease-In-Out"|"Bounce Ease-In-Out"|"Elastic Ease-In-Out"} easeCurve 缓动类型
  */
-Curve.prototype.setEaseCurve=function(timeline, easeCurve) {
+Curve.prototype.setEaseCurve = function (timeline, easeCurve) {
     var easeData = this.EASE_TYPES[easeCurve];
     if (!easeData) {
         throw Error("缓动类型不存在！");
     }
+    timeline.createMotionTween();
     timeline.setFrameProperty('easeType', easeData[0], easeData[1], easeData[2]);
 }
 
@@ -69,22 +69,45 @@ Curve.prototype.setEaseCurve=function(timeline, easeCurve) {
  * @param {"Ease-In"|"Ease-Out"} [easeInOut] 缓动方向
  * @param {number} [intensity] 缓动强度，-100~100，默认0
  */
-Curve.prototype.setClassicEaseCurve=function(timeline,easeInOut,intensity) {
-    if(easeInOut===undefined){
-        easeInOut="Ease-In";
+Curve.prototype.setClassicEaseCurve = function (timeline, easeInOut, intensity) {
+    if (easeInOut === undefined) {
+        easeInOut = "Ease-In";
     }
-    if(intensity===undefined){
-        intensity=0;
+    if (intensity === undefined) {
+        intensity = 0;
     }
     // Ease-In  -1  Ease-Out 1  Ease-In-Out 0
-    var native=0;
-    if(easeInOut==="Ease-In"){
-        native=-1;
-    }else if(easeInOut==="Ease-Out"){
-        native=1;
+    var native = 0;
+    if (easeInOut === "Ease-In") {
+        native = -1;
+    } else if (easeInOut === "Ease-Out") {
+        native = 1;
     }
-    
-    timeline.setFrameProperty('easeType', 5, -1, native*intensity);
+
+    // print("classic ease curve:"+native*intensity)
+    timeline.createMotionTween();
+    timeline.setFrameProperty('easeType', 5, -1, native * intensity);
 }
 
-var curve=new Curve();
+/**
+ * 设置旋转缓动
+ * @param {Timeline} timeline
+ * @param {"none"|"auto"|"clockwise"|"counter-clockwise"} motionTweenRotate 旋转方向
+ * @param {number} motionTweenRotateTimes 旋转次数
+ */
+Curve.prototype.setTweenRotation = function (timeline, motionTweenRotate, motionTweenRotateTimes) {
+    if (motionTweenRotate === undefined) {
+        motionTweenRotate = "none";
+    }
+    if (motionTweenRotateTimes === undefined) {
+        motionTweenRotateTimes = 0;
+    }
+
+    // timeline.createMotionTween();
+    timeline.setFrameProperty('motionTweenRotate', motionTweenRotate);
+    timeline.setFrameProperty('motionTweenRotateTimes', motionTweenRotateTimes);
+}
+
+
+
+var curve = new Curve();
