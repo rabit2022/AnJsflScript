@@ -211,27 +211,7 @@ function divmod(a, b) {
     return [q, r];
 }
 
-/**
- * 返回一个枚举对象。iterable 必须是一个序列，或 iterator，或其他支持迭代的对象。
- * @param {Array|Object|string|Iterator} iterable 要枚举的可迭代对象。
- * @param {number}[start=0] 起始索引。
- * @return {Array} 枚举对象。
- */
-function enumerate(iterable, start) {
-    if (start === undefined) {
-        start = 0; // 默认从 0 开始
-    }
 
-    var result = [];
-    var index = start;
-
-    for (var i = 0; i < iterable.length; i++) {
-        result.push([index, iterable[i]]);
-        index++;
-    }
-
-    return result;
-}
 
 /**
  * 过滤可迭代对象 iterable，返回一个包含所有满足 predicate 函数的元素的新数组。
@@ -371,22 +351,7 @@ function issubclass(class_, classinfo) {
     }
 }
 
-function iter(object) {
-    if (Array.isArray(object)) {
-        var index = 0;
-        return {
-            next: function () {
-                if (index < object.length) {
-                    return {value: object[index++], done: false};
-                } else {
-                    return {value: undefined, done: true};
-                }
-            }
-        };
-    } else {
-        throw new TypeError("Object is not iterable");
-    }
-}
+
 
 function len(object) {
     if (object === null || object === undefined) {
@@ -556,40 +521,6 @@ function print(str) {
     fl.trace(str);
 }
 
-/**
- * 由 start 到 stop 之间，以 step 为步长生成一个序列。
- * @param {number} start 序列起始值。
- * @param {number} [stop=start] 序列结束值。
- * @param {number} [step=1] 序列步长。
- * @return {Array} 序列数组。
- */
-function range(start, stop, step) {
-    // 参数处理
-    if (arguments.length === 1) {
-        stop = start;
-        start = 0;
-        step = 1;
-    } else if (arguments.length === 2) {
-        step = 1;
-    } else if (arguments.length === 0) {
-        throw new Error("Range requires at least one argument");
-    }
-
-    if (step === 0) {
-        throw new Error("Range step argument must not be zero");
-    }
-
-    // 计算长度
-    var length = Math.max(0, Math.ceil((stop - start) / step));
-
-    // 生成数组
-    var result = [];
-    for (var i = 0; i < length; i++) {
-        result.push(start + i * step);
-    }
-
-    return result;
-}
 
 /**
  * 返回一个反向的迭代器。

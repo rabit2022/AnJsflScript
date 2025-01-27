@@ -8,6 +8,25 @@
  */
 
 (function () {
+    var descriptions={
+        "file": "03.一键摆头.jsfl",
+        "file description": "摆头的动作",
+        "selection": "仅一个元件",
+        "selection description": "选中头部",
+        "XMLPanel": false,
+        "input parameters": {
+            "动态模糊度": 4
+        },
+        "detail": "包装元件",
+        "detail description": "",
+        "steps": [
+            "打包",
+            "包装元件",
+            "k帧",
+            "添加滤镜",
+            "水平翻转"
+        ]
+    };
     function checkDom() {
         if (doc == null) {
             throw new Error("请打开 [.fla] 文件");

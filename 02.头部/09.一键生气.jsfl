@@ -51,6 +51,8 @@
         }
         return frs;
     }
+    
+    
 
     var doc = fl.getDocumentDOM();//文档
     if (!checkDom()) return;

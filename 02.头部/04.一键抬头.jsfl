@@ -8,6 +8,22 @@
  */
 
 (function () {
+    var descriptions={
+        "file": "04.一键抬头.jsfl",
+        "file description": "抬头的动作",
+        "selection": "仅一个元件",
+        "selection description": "选中头部",
+        "XMLPanel": false,
+        "input parameters": {
+            "头部朝向": "右",
+            "抬头角度": 15
+        },
+        "detail": "更改transform",
+        "detail description": "更改元件的旋转",
+        "steps": [
+            "更改旋转"
+        ]
+    };
     function checkDom() {
         if (doc == null) {
             // throw new Error("请打开 [.fla] 文件");

@@ -8,6 +8,24 @@
  */
 
 (function () {
+    var descriptions = {
+        "file": "00.一键摇头.jsfl",
+        "file description": "输出 摇头动作的元件,说话时的头部动作",
+        "selection": "仅一个元件",
+        "selection description": "选中头部",
+        "XMLPanel": false,
+        "input parameters": {
+            "头部朝向": "右",
+            "摇头力度": 3
+        },
+        "detail": "包装元件",
+        "detail description": "k 6帧头",
+        "steps": [
+            "包装元件",
+            "更改元件位置"
+        ]
+    };
+
     function checkDom() {
         if (doc == null) {
             alert("请打开 [.fla] 文件");
@@ -29,7 +47,7 @@
         return true;
     }
 
-    
+
     var doc = fl.getDocumentDOM();//文档
     var selection = doc.selection;//选择
     var library = doc.library;//库文件
@@ -53,7 +71,7 @@
         if (force === null) {
             return;
         }
-        
+
         // fl.trace("direction: " + direction + ", force: " + force);
 
         var symbolName = libUtil.generateNameUntilUnique("一键摇头_");
@@ -65,14 +83,14 @@
         var _6_frames = 6 - 1;
         // 给所有图层加帧
         timeline.insertFrames(_6_frames, true);
-        
+
         var _4_frames = 4 - 1;
         timeline.convertToKeyframes(_4_frames);
-        
-        var frame4_element=timeline.layers[0].frames[_4_frames].elements[0];
-        frame4_element.x+= direction*force;
-        frame4_element.y+= direction*force;
-        
+
+        var frame4_element = timeline.layers[0].frames[_4_frames].elements[0];
+        frame4_element.x += direction * force;
+        frame4_element.y += direction * force;
+
         doc.exitEditMode();
     }
 

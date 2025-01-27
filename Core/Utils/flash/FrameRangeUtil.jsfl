@@ -98,13 +98,14 @@ FrameRangeUtil.prototype.getKeyFrames = function (layer) {
  * @private
  */
 FrameRangeUtil.prototype.wrapKeyFrames = function (layer, keyFrames) {
-    // 获取图层索引
-    var layerIndex = 0;
-    if (typeof layer === "number") {
-        layerIndex = layer;
-    } else {
-        layerIndex = layerUtil.getLayerIndex(layer);
-    }
+    // // 获取图层索引
+    // var layerIndex = 0;
+    // if (typeof layer === "number") {
+    //     layerIndex = layer;
+    // } else {
+    //     layerIndex = layerUtil.getLayerIndex(layer);
+    // }
+    var layerIndex = layerUtil.convertToLayerIndex(layer);
 
 
     /**
@@ -181,6 +182,28 @@ FrameRangeUtil.prototype.getKfrFromSlLittle = function (selectedFrLittle, keyFra
         }
     }
     return keyFr;
+}
+
+/**
+ * 安全的转换为关键帧
+ * 如果 需要转换的帧 已经是 关键帧，则不转换关键帧，以防止
+ * bug(当前帧已经是关键帧，再次转换会把下一帧也变成关键帧)
+ * @param {Timeline} timeline 时间线
+ * @param {Layer|number} layer 图层
+ * @param {number[]} frs 帧数组
+ */
+FrameRangeUtil.prototype.convertToKeyframesSafety = function (timeline, layer, frs) {
+    // timeline.convertToKeyframes(frame_1);
+    var layer_ = layerUtil.convertToLayer(timeline, layer);
+    var keyFrames = this.getKeyFrames(layer_);
+
+    for (var i = 0; i < frs.length; i++) {
+        var fr = frs[i];
+        if (keyFrames.includes(fr)) {
+            continue;
+        }
+        timeline.convertToKeyframes(fr);
+    }
 }
 
 var frUtil = new FrameRangeUtil();

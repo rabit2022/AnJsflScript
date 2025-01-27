@@ -70,11 +70,13 @@
         importMoudle("Core/Utils/native/array.jsfl");
         importMoudle("Core/Utils/native/DictUtil.jsfl");
         importMoudle("Core/Utils/native/string.jsfl");
+        importMoudle("Core/Utils/py/0.path.jsfl");
+        importMoudle("Core/Utils/py/BuiltInP.2.jsfl");
         importMoudle("Core/Utils/py/BuiltInP.jsfl");
         importMoudle("Core/Utils/py/os.jsfl");
-        importMoudle("Core/Utils/py/path.jsfl");
         importMoudle("Core/Utils/py/random.jsfl");
         importMoudle("Core/Utils/py/StringP.jsfl");
+
 
         // 导入完成
         fl.trace("=============Core modules imported.=============");

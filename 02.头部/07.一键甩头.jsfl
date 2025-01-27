@@ -52,6 +52,8 @@
         return frs;
     }
 
+    
+
     var doc = fl.getDocumentDOM();//文档
     if (!checkDom()) return;
     var selection = doc.selection;//选择

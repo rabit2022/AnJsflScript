@@ -8,6 +8,23 @@
  */
 
 (function () {
+    var descriptions={
+        "file": "02.一键点头.jsfl",
+        "file description": "输出 点头动作的元件，需要自己设置变形点",
+        "selection": "仅一个元件",
+        "selection description": "选中头部",
+        "XMLPanel": false,
+        "input parameters": {
+            "头部朝向": "右"
+        },
+        "detail": "包装元件",
+        "detail description": "",
+        "steps": [
+            "包装元件",
+            "k帧",
+            "更改旋转"
+        ]
+    }
     function checkDom() {
         if (doc == null) {
             throw new Error("请打开 [.fla] 文件");

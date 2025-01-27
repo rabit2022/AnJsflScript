@@ -103,12 +103,12 @@
         timeline.insertFrames(toInsertFrameCount, true);
 
         // 关键帧
-        var Keyframes = range(0, toInsertFrameCount, motionFramesCount);
+        var Keyframes = new Range(0, toInsertFrameCount, motionFramesCount);
 
         for (var i = 0; i < Keyframes.length; i++) {
             if (i === 0) continue;
 
-            var frameIndex = Keyframes[i];
+            var frameIndex = Keyframes.next();
             timeline.convertToKeyframes(frameIndex);
 
             var frame_element = timeline.layers[0].frames[frameIndex].elements[0];

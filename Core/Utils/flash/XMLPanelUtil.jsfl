@@ -19,7 +19,6 @@ XMLPanelUtil.prototype.getXMLPath = function () {
 /**
  * 获取XML面板
  * @param {string} [panelPath] 面板路径，默认使用当前脚本的XML路径
- * @returns {XMLPanel}
  */
 XMLPanelUtil.prototype.getXMLPanel = function (panelPath) {
     if (panelPath === undefined) {
@@ -46,11 +45,20 @@ XMLPanelUtil.prototype.parseNumber = function (inputStr, alertMsg) {
         if (alertMsg !== undefined) {
             alert(alertMsg);
         }
-        // success = false;
         return null;
     }
 
     return Number(inputStr);
+}
+XMLPanelUtil.prototype.parseString = function (inputStr, alertMsg) {
+    if (inputStr === null) {
+        if (alertMsg !== undefined) {
+            alert(alertMsg);
+        }
+        return null;
+    }
+
+    return inputStr;
 }
 
 XMLPanelUtil.prototype.parseDirection = function (inputDirection, tipDictionary) {

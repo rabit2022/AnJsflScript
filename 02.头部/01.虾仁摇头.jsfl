@@ -8,6 +8,25 @@
  */
 
 (function () {
+    var descriptions={
+        "file": "01.虾仁摇头.jsfl",
+        "file description": "输出 摇头动作的元件,没有说话时的头部动作",
+        "selection": "仅一个元件",
+        "selection description": "选中头部",
+        "XMLPanel": true,
+        "input parameters": {
+            "摇头力度": 6,
+            "头部朝向": null
+        },
+        "detail": "包装元件",
+        "detail description": "",
+        "steps": [
+            "包装元件",
+            "设置变形点",
+            "更改旋转",
+            "设置传统补间"
+        ]
+    };
     function checkDom() {
         if (doc == null) {
             throw new Error("请打开 [.fla] 文件");
@@ -34,10 +53,10 @@
         var panel = xmlPanelUtil.getXMLPanel();
         if (panel === null) return null;
 
-        var shakeIntensity = xmlPanelUtil.parseNumber(panel.shakeIntensity, "摇头强度只能输入数字，请重新输入。");
+        var shakeIntensity = xmlPanelUtil.parseNumber(panel.shakeIntensity, "摇头力度只能输入数字，请重新输入。");
         if (shakeIntensity === null) return null;
 
-        var headDirection = xmlPanelUtil.parseNumber(panel.headDirection);
+        var headDirection = xmlPanelUtil.parseNumber(panel.headDirection,"头部朝向只能输入数字，请重新输入。");
         if (headDirection === null) return null;
 
         return {shakeIntensity: shakeIntensity, headDirection: headDirection};

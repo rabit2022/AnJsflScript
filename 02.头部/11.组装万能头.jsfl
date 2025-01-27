@@ -40,9 +40,9 @@
         if (shakeIntensity === null) return null;
         var motionFrameCount = xmlPanelUtil.parseNumber(panel.motionFrameCount, "表情帧数只能输入数字，请重新输入。");
         if (motionFrameCount === null) return null;
-        var headDirection = xmlPanelUtil.parseNumber(panel.headDirection);
+        var headDirection = xmlPanelUtil.parseNumber(panel.headDirection,"头部朝向只能输入数字，请重新输入。");
         if (headDirection === null) return null;
-        var shakeMode = panel.shakeMode; // traditional,smooth
+        var shakeMode = xmlPanelUtil.parseString(panel.shakeMode, "摇头模式只能输入 (传统摇头 丝滑摇头)，请重新输入。");
         if (shakeMode === null) return null;
 
         return {

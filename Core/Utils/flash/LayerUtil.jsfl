@@ -109,6 +109,37 @@ LayerUtil.prototype.deleteLayers = function (layersIndex) {
     }
 }
 
+/**
+ * 转换为图层索引
+ * @param {Layer|Number} layer 图层或图层索引
+ * @return {Number} 图层索引
+ */
+LayerUtil.prototype.convertToLayerIndex = function (layer) {
+    // 获取图层索引
+    var layerIndex = 0;
+    if (typeof layer === "number") {
+        layerIndex = layer;
+    } else {
+        layerIndex = layerUtil.getLayerIndex(layer);
+    }
+    return layerIndex;
+}
+
+/**
+ * 转换为图层
+ * @param {Timeline} timeline 时间轴
+ * @param {Layer|Number} layer 图层或图层索引
+ * @return {Layer} 图层
+ */
+LayerUtil.prototype.convertToLayer=function(timeline,layer){
+    var layers = timeline.layers;//图层
+    
+    if(typeof layer === "number"){
+        return layers[layer];
+    }else{
+        return layer;
+    }
+}
 
 var layerUtil = new LayerUtil();
 
