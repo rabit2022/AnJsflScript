@@ -10,7 +10,7 @@
                 <label value="摇头力度:"/>
             </row>
             <row>
-                <textbox id="shakeIntensity" value="6"/>
+                <textbox id="shakeIntensity" value="3"/>
             </row>
             <separator/>
 

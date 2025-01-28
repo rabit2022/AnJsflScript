@@ -8,6 +8,21 @@
  */
 
 (function () {
+    var descriptions = {
+        "file": "07.一键甩头.jsfl",
+        "file description": "头部的甩头效果的动作，必须一个图层一个元件",
+        "selection": "仅一个元件",
+        "selection description": "选中头部",
+        "XMLPanel": false,
+        "input parameters": {},
+        "detail": "直接k帧",
+        "detail description": "更改元件的 旋转补间,由于选中帧有多个元件时，补间动画会出现问题，所以这里选中帧的图层上，只能有一个元件。",
+        "steps": [
+            "设置变形点",
+            "获取选择的第一帧",
+            "传统补间，顺时针旋转"
+        ]
+    };
     function checkDom() {
         if (doc == null) {
             // throw new Error("请打开 [.fla] 文件");
@@ -45,10 +60,7 @@
 
     function checkSelectedFrames() {
         var frs = frUtil.getSelectedFrs(timeline);
-        if (frs.length < 1) {
-            alert("请选择至少一个帧");
-            return null;
-        }
+        if (!CheckSelection(frs, "selectFrame", "Not Zero")) return null;
         return frs;
     }
 
@@ -56,12 +68,17 @@
 
     var doc = fl.getDocumentDOM();//文档
     if (!checkDom()) return;
+
     var selection = doc.selection;//选择
     var library = doc.library;//库文件
-
     var timeline = doc.getTimeline();//时间轴
+
     var layers = timeline.layers;//图层
+    var curLayerIndex = timeline.currentLayer;//当前图层索引
     var curFrameIndex = timeline.currentFrame;//当前帧索引
+    var curLayer = layers[curLayerIndex];//当前图层
+    var curFrame = curLayer.frames[curFrameIndex];//当前帧
+
 
     function Main() {
         if (!checkSelection()) return;
@@ -82,7 +99,7 @@
 
         // 变形点
         var element = selection[0];
-        var trPoint = pointUtil.getShakeHeadTrPoint(element1);
+        var trPoint = pointUtil.getShakeHeadTrPoint(element);
         element.setTransformationPoint(trPoint);
 
         // 1,11
@@ -90,8 +107,8 @@
         var frame_11 = firstFrame + FRAME_11;
 
         // 关键帧
-        timeline.convertToKeyframes(frame_1);
-        timeline.convertToKeyframes(frame_11);
+        var toConvertKeys = [frame_1, frame_11];
+        frUtil.convertToKeyframesSafety(timeline, curLayerIndex, toConvertKeys);
 
         // 选中帧
         timeline.setSelectedFrames(frame_1, frame_11, true);

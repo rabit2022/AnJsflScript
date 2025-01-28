@@ -8,60 +8,41 @@
  */
 
 (function () {
-    function checkDom() {
-        if (doc == null) {
-            alert("请打开 [.fla] 文件");
-            return false;
-        }
-        return true;
-    }
-
-    function checkSelection() {
-        if (selection.length < 1) {
-            alert("请选择元件？");
-            return false;
-        }
-        if (selection.length > 1) {
-            alert("请选择单个元件");
-            return false;
-        }
-        // if (selection.length === 1) {
-        //     alert("请选择至少两个元件");
-        //     return false;
-        // }
-        return true;
-    }
-
-    function checkXMLPanel() {
-        var panel = xmlPanelUtil.getXMLPanel();
-        if (panel === null) return null;
-
-        // var horizontalCount = xmlPanelUtil.parseNumber(panel.horizontalCount, "横向排布数量只能输入数字，请重新输入。");
-        // if (horizontalCount === null) return null;
-        //
-        // return {horizontalCount: horizontalCount};
-    }
-
-
+    var descriptions={
+        "file": "09.一键生气.jsfl",
+        "file description": "生气的动作",
+        "selection": "仅一个元件",
+        "selection description": "选中头部",
+        "XMLPanel": true,
+        "input parameters": {},
+        "detail": "直接k帧",
+        "detail description": "选中至少一帧，这一帧上元件数量，只能是一个",
+        "steps": [
+            "获取第一帧",
+            "k帧",
+            "设置缩放",
+            "创建补间动画"
+        ]
+    };
     function checkSelectedFrames() {
         var frs = frUtil.getSelectedFrs(timeline);
-        if (frs.length < 1) {
-            alert("请选择至少一个帧");
-            return null;
-        }
+        if (!CheckSelection(frs, "selectFrame", "Not Zero")) return null;
         return frs;
     }
     
-    
-
     var doc = fl.getDocumentDOM();//文档
-    if (!checkDom()) return;
+    if (!CheckDom(doc)) return;
+    
     var selection = doc.selection;//选择
     var library = doc.library;//库文件
-
     var timeline = doc.getTimeline();//时间轴
+
     var layers = timeline.layers;//图层
+    var curLayerIndex = timeline.currentLayer;//当前图层索引
     var curFrameIndex = timeline.currentFrame;//当前帧索引
+    var curLayer = layers[curLayerIndex];//当前图层
+    var curFrame = curLayer.frames[curFrameIndex];//当前帧
+
 
     const MAX_KEYFRAME = 30;  // 最大关键帧数量
     /**
@@ -94,38 +75,28 @@
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection()) return;
-
-        // 读取XML面板配置
-        // var config = checkXMLPanel();
-        // if (config === null) return;
-        // var horizontalCount = config.horizontalCount;
-
+        if (!CheckSelection(selection,"selectElement","Only one")) return;
+        
         // 选中的所有帧 的第一帧
         var frs = checkSelectedFrames();
         if (frs === null) return;
         var firstFrame = frs[0].startFrame;
-        // print(firstFrame);
 
         // 0,2,3,5,6,8,9,11,12,14,15,17,18,20,21,23,24,26,27,29,30
         // 0,2
         // 2    104.7,104.9
         var {allKeyFrames, alteredKeyFrames} = generateKfs(MAX_KEYFRAME, firstFrame);
-        // print(allKeyFrames);
-        // print(alteredKeyFrames);
 
-        for (var i = 0; i < allKeyFrames.length; i++) {
-            var frame = allKeyFrames[i];
-
-            // 关键帧
-            timeline.convertToKeyframes(frame);
-        }
+        
+        // 关键帧
+        frUtil.convertToKeyframesSafety(timeline, curLayerIndex, allKeyFrames);
+        
 
         for (var i = 0; i < alteredKeyFrames.length; i++) {
             var frame = alteredKeyFrames[i];
 
             // 3
-            var frame_element=timeline.layers[0].frames[frame].elements[0];
+            var frame_element=curLayer.frames[frame].elements[0];
             frame_element.scaleX=1.047;
             frame_element.scaleY=1.049;
         }
@@ -135,6 +106,7 @@
         var lastF = allKeyFrames[allKeyFrames.length - 1];
         // 选中所有帧
         timeline.setSelectedFrames(firstF, lastF, true);
+
 
         // 传统补间动画
         curve.setClassicEaseCurve(timeline);

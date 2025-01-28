@@ -220,16 +220,18 @@ Ele.prototype.splinterSymbol=function(element,SymbolName) {
     //分散到图层操作
     doc.distributeToLayers();
     // 删除多余的碎片
-    ele.splinterDeleter();
+    var timeline = doc.getTimeline();
+    ele.splinterDeleter(timeline);
     
     doc.exitEditMode();
 }
 
 /**
  * 删除多余的碎片
+ * @param {Timeline} timeline - 时间轴。
  * @private
  */
-Ele.prototype.splinterDeleter=function() {
+Ele.prototype.splinterDeleter=function(timeline) {
     // 查找 名字中包含 "图层" 的 layer
     var doc = fl.getDocumentDOM();
     
@@ -237,7 +239,7 @@ Ele.prototype.splinterDeleter=function() {
     // LogArray(findLayers);
     
     // 删除图层
-    layerUtil.deleteLayers(findLayers);
+    layerUtil.deleteLayers(timeline,findLayers);
 }
 
 

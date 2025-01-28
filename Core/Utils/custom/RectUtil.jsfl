@@ -30,12 +30,7 @@ RectUtil.prototype.calculateSafeMoveVector= function (bigRect, smallRect, moveVe
     // >0  小矩形在大矩形的  里面
     // =0  小矩形在大矩形的  边界上
     var maxOffsetRect = smallRect.sub(bigRect);
-    // fl.trace("bigrect:" + bigRect.toString())
-    // fl.trace("smallrect:" + smallRect.toString())
-    //
-    // fl.trace("maxOffsetRect: " + maxOffsetRect.toString())
-    // fl.trace("moveVector: " + moveVector.toString())
-
+    
     // moveVector=cameraOffset.sub(cameraPos);
     // moveVector.x>0 摄像机在人物的右边
     // moveVector.x<0 摄像机在人物的左边

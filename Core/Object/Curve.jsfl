@@ -108,6 +108,18 @@ Curve.prototype.setTweenRotation = function (timeline, motionTweenRotate, motion
     timeline.setFrameProperty('motionTweenRotateTimes', motionTweenRotateTimes);
 }
 
+/**
+ * 删除缓动
+ * @param {Timeline} timeline
+ * @param {number} startFrame 开始帧
+ * @param {number} [endFrame] 结束帧，默认开始帧
+ */
+Curve.prototype.deleteMotionTween = function (timeline,startFrame,endFrame) {
+    if (endFrame === undefined) endFrame = startFrame;
+    
+    timeline.setSelectedFrames(startFrame,endFrame, true);
+    timeline.setFrameProperty('tweenType', 'none');
 
+}
 
 var curve = new Curve();

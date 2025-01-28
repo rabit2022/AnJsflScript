@@ -31,7 +31,3 @@ function LogArray(numbers) {
     }
     fl.trace(str);
 }
-
-// function print(str) {
-//     fl.trace(str);
-// }

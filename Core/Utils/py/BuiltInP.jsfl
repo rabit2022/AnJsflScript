@@ -607,7 +607,7 @@ function slice(start, stop, step) {
  * @param {Array|Object|string|Iterator} iterable 要排序的可迭代对象。
  * @param {function} [key] 排序函数用的参数。
  * @param {boolean} [reverse=false] 是否反转排序结果。
- * @return {Array} 排序后的数组。
+ * @return {Array|string} 排序后的数组。
  */
 function sorted(iterable, key, reverse) {
     if (key === undefined) {

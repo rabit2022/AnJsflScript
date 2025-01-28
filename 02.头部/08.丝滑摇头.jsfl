@@ -8,6 +8,28 @@
  */
 
 (function () {
+    var descriptions={
+        "file": "08.丝滑摇头.jsfl",
+        "file description": "摇头的动作",
+        "selection": "仅一个元件",
+        "selection description": "选中头部",
+        "XMLPanel": true,
+        "input parameters": {
+            "摇头力度": 3,
+            "头部朝向": "头部向左"
+        },
+        "detail": "包装元件",
+        "detail description": "选中头部",
+        "steps": [
+            "读取XML面板配置",
+            "包装元件",
+            "k帧",
+            "设置变形点",
+            "更改位置",
+            "传统补间"
+        ]
+    };
+    
     function checkDom() {
         if (doc == null) {
             alert("请打开 [.fla] 文件");
@@ -46,23 +68,21 @@
         return {shakeIntensity: shakeIntensity, headDirection: headDirection};
     }
 
-    function checkSelectedFrames() {
-        var frs = frUtil.getSelectedFrs(timeline);
-        if (frs.length < 1) {
-            alert("请选择至少一个帧");
-            return null;
-        }
-        return frs;
-    }
+
 
     var doc = fl.getDocumentDOM();//文档
     if (!checkDom()) return;
+
     var selection = doc.selection;//选择
     var library = doc.library;//库文件
-
     var timeline = doc.getTimeline();//时间轴
+
     var layers = timeline.layers;//图层
+    var curLayerIndex = timeline.currentLayer;//当前图层索引
     var curFrameIndex = timeline.currentFrame;//当前帧索引
+    var curLayer = layers[curLayerIndex];//当前图层
+    var curFrame = curLayer.frames[curFrameIndex];//当前帧
+
 
     function KFrames(headDirection, shakeIntensity) {
         doc.enterEditMode("inPlace");

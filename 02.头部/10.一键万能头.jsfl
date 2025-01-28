@@ -8,6 +8,25 @@
  */
 
 (function () {
+    var descriptions={
+        "file": "10.一键万能头.jsfl",
+        "file description": "选中多个表情，合成万能头",
+        "selection": "元件2个以上",
+        "selection description": "选中多个表情",
+        "XMLPanel": false,
+        "input parameters": {
+            "单个表情特续的帧数": 6
+        },
+        "detail": "包装元件",
+        "detail description": "",
+        "steps": [
+            "包装元件",
+            "k帧",
+            "交换元素",
+            "除了第一帧的元素，都删除",
+            "移动到中心位置"
+        ]
+    };
     function checkDom() {
         if (doc == null) {
             alert("请打开 [.fla] 文件");

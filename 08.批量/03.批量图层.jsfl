@@ -54,7 +54,7 @@
         for (var i = 0; i < LAYER_NAME_ARRAY.length; i++) {
             // var layer = layers[i];
             var toAddLayerName = LAYER_NAME_ARRAY[i];
-            if (!layerUtil.IsLayerExists(layers, toAddLayerName)) {
+            if (!layerUtil.IsLayerExists(timeline, toAddLayerName)) {
                 timeline.addNewLayer(toAddLayerName, "normal", false);
             }
         }

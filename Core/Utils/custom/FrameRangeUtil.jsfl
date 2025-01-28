@@ -92,22 +92,16 @@ FrameRangeUtil.prototype.getKeyFrames = function (layer) {
 
 /**
  * 获取关键帧 范围
+ * @param {Array.<Layer>} layers 图层数组
  * @param {Layer|number} layer 图层
  * @param {number[]} keyFrames 关键帧索引数组
  * @return {FrameRange[]} 帧范围数组
  * @private
  */
-FrameRangeUtil.prototype.wrapKeyFrames = function (layer, keyFrames) {
-    // // 获取图层索引
-    // var layerIndex = 0;
-    // if (typeof layer === "number") {
-    //     layerIndex = layer;
-    // } else {
-    //     layerIndex = layerUtil.getLayerIndex(layer);
-    // }
-    var layerIndex = layerUtil.convertToLayerIndex(layer);
-
-
+FrameRangeUtil.prototype.wrapKeyFrames = function (layers, layer, keyFrames) {
+    // 获取图层索引
+    var layerIndex = layerUtil.convertToLayerIndex(layers, layer);
+    
     /**
      * 关键帧范围数组
      * @type {FrameRange[]}
@@ -142,7 +136,7 @@ FrameRangeUtil.prototype.getKeyFrameRanges = function (timeline, selectedFr) {
     var lastKf = layer.frameCount;// 开区间
     keyFrames.push(lastKf);
 
-    var keyFrameRanges = this.wrapKeyFrames(selectedFr.layerIndex, keyFrames);
+    var keyFrameRanges = this.wrapKeyFrames(layers, selectedFr.layerIndex, keyFrames);
     if (keyFrameRanges.length < 1) return null;
     return keyFrameRanges;
 }

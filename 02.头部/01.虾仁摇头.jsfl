@@ -27,27 +27,6 @@
             "设置传统补间"
         ]
     };
-    function checkDom() {
-        if (doc == null) {
-            throw new Error("请打开 [.fla] 文件");
-        }
-    }
-
-    function checkSelection() {
-        if (selection.length < 1) {
-            alert("请选择元件？");
-            return false;
-        }
-        if (selection.length > 1) {
-            alert("请选择单个元件");
-            return false;
-        }
-        // if (selection.length === 1) {
-        //     alert("请选择至少两个元件");
-        //     return false;
-        // }
-        return true;
-    }
 
     function checkXMLPanel() {
         var panel = xmlPanelUtil.getXMLPanel();
@@ -61,22 +40,23 @@
 
         return {shakeIntensity: shakeIntensity, headDirection: headDirection};
     }
-
-
+    
     var doc = fl.getDocumentDOM();//文档
-    checkDom();
+    if (!CheckDom(doc)) return;
+
     var selection = doc.selection;//选择
     var library = doc.library;//库文件
-
     var timeline = doc.getTimeline();//时间轴
+
     var layers = timeline.layers;//图层
+    var curLayerIndex = timeline.currentLayer;//当前图层索引
     var curFrameIndex = timeline.currentFrame;//当前帧索引
+    var curLayer = layers[curLayerIndex];//当前图层
+    var curFrame = curLayer.frames[curFrameIndex];//当前帧
     
     function Main() {
-        if (!checkSelection()) {
-            return;
-        }
-
+        if (!CheckSelection(selection, "selectElement", "Only one")) return;
+        
         // 配置参数
         var config = checkXMLPanel();
         if (config === null) return;

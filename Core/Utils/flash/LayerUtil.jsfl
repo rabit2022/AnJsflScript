@@ -12,11 +12,13 @@ function LayerUtil() {
 
 /**
  * 判断图层是否存在
- * @param {Array.<Layer>} layers 图层数组
+ * @param {Timeline} timeline 时间轴
  * @param {String} layerName 图层名称
  * @return {Boolean} 图层是否存在
  */
-LayerUtil.prototype.IsLayerExists = function (layers, layerName) {
+LayerUtil.prototype.IsLayerExists = function (timeline, layerName) {
+    var layers = timeline.layers;//图层
+    
     for (var i = 0; i < layers.length; i++) {
         if (layers[i].name === layerName) {
             return true;
@@ -67,14 +69,11 @@ LayerUtil.prototype.getLayersIndexByName = function (layerName) {
 
 /**
  * 获取指定图层的索引
+ * @param {Array.<Layer>} layers 图层数组
  * @param {Layer} layer 图层
  * @return {Number} 图层索引
  */
-LayerUtil.prototype.getLayerIndex = function (layer) {
-    var doc = fl.getDocumentDOM();//文档
-    var timeline = doc.getTimeline();//时间轴
-    var layers = timeline.layers;//图层
-
+LayerUtil.prototype.getLayerIndex = function (layers, layer) {
     var layerIndex = 0;
     for (var i = 0; i < layers.length; i++) {
         if (layers[i] === layer) {
@@ -87,40 +86,34 @@ LayerUtil.prototype.getLayerIndex = function (layer) {
 
 /**
  * 删除 图层
- * @param {Array.<Number>|Array.<Layer>} layersIndex 图层索引数组
+ * @param {Timeline} timeline 时间轴
+ * @param {Array.<Number>|Array.<Layer>} layers 图层索引数组
  */
-LayerUtil.prototype.deleteLayers = function (layersIndex) {
-    var doc = fl.getDocumentDOM();//文档
-    var timeline = doc.getTimeline();//时间轴
-
+LayerUtil.prototype.deleteLayers = function (timeline, layers) {
     // 删除图层
-    if (layersIndex.length > 0) {
-        for (var i = 0; i < layersIndex.length; i++) {
-            var layerIndex = layersIndex[i];
-            // doc.deleteLayer(layerIndex);
-            if (typeof layerIndex === "number") {
-                timeline.deleteLayer(layerIndex);
-            } else {
-                var layer = layerIndex;
-                var layerIndex = this.getLayerIndex(layer);
-                timeline.deleteLayer(layerIndex);
-            }
+    if (layers.length > 0) {
+        for (var i = 0; i < layers.length; i++) {
+            var layer_ = layers[i];
+            
+            var layerIndex = this.convertToLayerIndex(layers, layer_);
+            timeline.deleteLayer(layerIndex);
         }
     }
 }
 
 /**
  * 转换为图层索引
+ * @param {Array.<Layer>} layers 图层数组
  * @param {Layer|Number} layer 图层或图层索引
  * @return {Number} 图层索引
  */
-LayerUtil.prototype.convertToLayerIndex = function (layer) {
+LayerUtil.prototype.convertToLayerIndex = function (layers, layer) {
     // 获取图层索引
     var layerIndex = 0;
     if (typeof layer === "number") {
         layerIndex = layer;
     } else {
-        layerIndex = layerUtil.getLayerIndex(layer);
+        layerIndex = this.getLayerIndex(layers, layer);
     }
     return layerIndex;
 }
@@ -135,7 +128,8 @@ LayerUtil.prototype.convertToLayer=function(timeline,layer){
     var layers = timeline.layers;//图层
     
     if(typeof layer === "number"){
-        return layers[layer];
+        var layerIndex = layer;
+        return layers[layerIndex];
     }else{
         return layer;
     }

@@ -50,6 +50,12 @@ XMLPanelUtil.prototype.parseNumber = function (inputStr, alertMsg) {
 
     return Number(inputStr);
 }
+/**
+ * 解析输入的字符串为字符串
+ * @param {string} inputStr 输入的字符串
+ * @param {string} [alertMsg] 错误提示信息
+ * @returns {string}
+ */
 XMLPanelUtil.prototype.parseString = function (inputStr, alertMsg) {
     if (inputStr === null) {
         if (alertMsg !== undefined) {
@@ -60,7 +66,12 @@ XMLPanelUtil.prototype.parseString = function (inputStr, alertMsg) {
 
     return inputStr;
 }
-
+/**
+ * 解析输入的方向字符串为数字
+ * @param {string} inputDirection 输入的方向字符串
+ * @param {object} [tipDictionary={"右": 1, "左": -1, " ": -1}] 方向提示字典
+ * @returns {number}
+ */
 XMLPanelUtil.prototype.parseDirection = function (inputDirection, tipDictionary) {
     // var inputDirection = dialog.direction;
     if (tipDictionary === null) {
@@ -72,6 +83,7 @@ XMLPanelUtil.prototype.parseDirection = function (inputDirection, tipDictionary)
 
     if (inputDirection in tipDictionary) {
         direction = tipDictionary[inputDirection];
+        return direction;
     } else if (inputDirection === null) {
         alert("方向不能为空，请重新输入。");
         return null;
