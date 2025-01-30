@@ -69,7 +69,7 @@
             // 某一个图层的 选中的帧范围
             var selectedFr = selectedFrs[i];
             // 某一个图层的 关键帧范围 列表
-            var keyFrameRanges = frUtil.getKeyFrameRanges(timeline, selectedFr);
+            var keyFrameRanges = frUtil.getKeyFrameRanges(layers, selectedFr);
 
             // 选中范围 包含的 关键帧范围
             var keyFr = frUtil.getKfrFromSlLittle(selectedFr, keyFrameRanges);

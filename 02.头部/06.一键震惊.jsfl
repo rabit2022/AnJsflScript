@@ -25,13 +25,6 @@
         ]
     };
 
-
-    function checkSelectedFrames() {
-        var frs = frUtil.getSelectedFrs(timeline);
-        if (!CheckSelection(frs, "selectFrame", "Not Zero")) return null;
-        return frs;
-    }
-    
     var doc = fl.getDocumentDOM();//文档
     if (!CheckDom(doc)) return;
     
@@ -45,31 +38,27 @@
     var curLayer = layers[curLayerIndex];//当前图层
     var curFrame = curLayer.frames[curFrameIndex];//当前帧
 
+    var KEY_FRAMES = [FRAME_1, FRAME_3, FRAME_6];
+    
     function Main() {
         if (!CheckSelection(selection, "selectElement", "Not Zero")) return;
-        
-        var frs = checkSelectedFrames();
+
+        // 第一帧
+        var frs = CheckSelectedFrames(timeline);
         if (frs === null) return;
-        
+        var firstFrame = frs[0].startFrame;
+        var firstLayer = layers[frs[0].layerIndex];
+
         // 变形点
         ele.setTransformationPoint(selection[0], "bottom center");
 
-        // 1,3,6
-        // var firstFrame = frs[0].startFrame;
-        // 第一帧
-        var firstFrame = frs[0].startFrame;
-
-        var frame_1 = firstFrame + FRAME_1;
-        var frame_3 = firstFrame + FRAME_3;
-        var frame_6 = firstFrame + FRAME_6;
+        KEY_FRAMES=arrUtil.addOffset(KEY_FRAMES,firstFrame);
         
-
         // 关键帧
-        var toConvertKeys = [frame_1, frame_3, frame_6];
-        frUtil.convertToKeyframesSafety(timeline, curLayerIndex, toConvertKeys);
+        frUtil.convertToKeyframesSafety(timeline, curLayerIndex, KEY_FRAMES);
 
         // 3
-        var frame3_element = curLayer.frames[frame_3].elements[0];
+        var frame3_element = firstLayer.frames[frame_3].elements[0];
         frame3_element.scaleY = 1.6;
         
         // 选中1-5帧

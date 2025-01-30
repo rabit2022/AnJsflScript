@@ -517,10 +517,19 @@ function pow(base, exp, mod) {
     }
 }
 
-function print(str) {
+// function print(str) {
+//     fl.trace(str);
+// }
+function print() {
+    // 将 arguments 转换为真正的数组
+    var args = Array.prototype.slice.call(arguments);
+
+    // 将所有参数拼接成一个字符串
+    var str = args.join(" ");
+
+    // 调用 fl.trace 方法
     fl.trace(str);
 }
-
 
 /**
  * 返回一个反向的迭代器。

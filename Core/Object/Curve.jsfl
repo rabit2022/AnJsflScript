@@ -66,22 +66,30 @@ Curve.prototype.setEaseCurve = function (timeline, easeCurve) {
 /**
  * 设置经典缓动曲线
  * @param {Timeline} timeline
- * @param {"Ease-In"|"Ease-Out"} [easeInOut] 缓动方向
- * @param {number} [intensity] 缓动强度，-100~100，默认0
+ * @param {"Ease-In"|"Ease-Out"|"No Ease"} [easeInOut="No Ease"] 缓动方向
+ * @param {number} [intensity=0] 缓动强度，-100~100
  */
 Curve.prototype.setClassicEaseCurve = function (timeline, easeInOut, intensity) {
     if (easeInOut === undefined) {
-        easeInOut = "Ease-In";
+        easeInOut = "No Ease";
     }
     if (intensity === undefined) {
         intensity = 0;
     }
-    // Ease-In  -1  Ease-Out 1  Ease-In-Out 0
+    // Ease-In  -1  Ease-Out 1  No Ease 0
     var native = 0;
-    if (easeInOut === "Ease-In") {
-        native = -1;
-    } else if (easeInOut === "Ease-Out") {
-        native = 1;
+    switch (easeInOut) {
+        case "Ease-In":
+            native = -1;
+            break;
+        case "Ease-Out":
+            native = 1;
+            break;
+        case "No Ease":
+            native = 0;
+            break;
+        default:
+            throw Error("缓动方向不存在！");
     }
 
     // print("classic ease curve:"+native*intensity)

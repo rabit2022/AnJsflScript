@@ -25,14 +25,14 @@ FrameRangeUtil.prototype.wrapFrFromSl = function (selectedFrames) {
      * @type {FrameRange[]}
      */
     var frameRanges = [];
-    for (var i = 0; i < selectedFrames.length; i++) {
+    for (var i = 0; i < selectedFrames.length; i += 3) {
         // fl.trace("选中元件：" + i);
         var layerIndex = selectedFrames[i];
         var startFrame = selectedFrames[i + 1];
         var endFrame = selectedFrames[i + 2];
-        i = i + 2;
-        var frameRange = new FrameRange(layerIndex, startFrame, endFrame);
-        frameRanges.push(frameRange);
+        // i = i + 2;
+        var fr = new FrameRange(layerIndex, startFrame, endFrame);
+        frameRanges.push(fr);
     }
     return frameRanges;
 }
@@ -101,7 +101,7 @@ FrameRangeUtil.prototype.getKeyFrames = function (layer) {
 FrameRangeUtil.prototype.wrapKeyFrames = function (layers, layer, keyFrames) {
     // 获取图层索引
     var layerIndex = layerUtil.convertToLayerIndex(layers, layer);
-    
+
     /**
      * 关键帧范围数组
      * @type {FrameRange[]}
@@ -121,12 +121,12 @@ FrameRangeUtil.prototype.wrapKeyFrames = function (layers, layer, keyFrames) {
 
 /**
  * 获取选中元件的关键帧范围
- * @param {Timeline} timeline 时间线
+ * @param {Array.<Layer>} layers 图层数组
  * @param {FrameRange} selectedFr 选中范围
  * @return {FrameRange[]} 帧范围数组
  */
-FrameRangeUtil.prototype.getKeyFrameRanges = function (timeline, selectedFr) {
-    var layers = timeline.layers;//图层
+FrameRangeUtil.prototype.getKeyFrameRanges = function (layers, selectedFr) {
+    // var layers = timeline.layers;//图层
 
     // 关键帧范围
     var layer = layers[selectedFr.layerIndex];
@@ -188,7 +188,9 @@ FrameRangeUtil.prototype.getKfrFromSlLittle = function (selectedFrLittle, keyFra
  */
 FrameRangeUtil.prototype.convertToKeyframesSafety = function (timeline, layer, frs) {
     // timeline.convertToKeyframes(frame_1);
-    var layer_ = layerUtil.convertToLayer(timeline, layer);
+    var layers = timeline.layers;
+    
+    var layer_ = layerUtil.convertToLayer(layers, layer);
     var keyFrames = this.getKeyFrames(layer_);
 
     for (var i = 0; i < frs.length; i++) {
@@ -199,5 +201,6 @@ FrameRangeUtil.prototype.convertToKeyframesSafety = function (timeline, layer, f
         timeline.convertToKeyframes(fr);
     }
 }
+
 
 var frUtil = new FrameRangeUtil();

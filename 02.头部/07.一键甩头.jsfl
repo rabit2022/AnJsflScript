@@ -57,15 +57,7 @@
         //
         // return {horizontalCount: horizontalCount};
     }
-
-    function checkSelectedFrames() {
-        var frs = frUtil.getSelectedFrs(timeline);
-        if (!CheckSelection(frs, "selectFrame", "Not Zero")) return null;
-        return frs;
-    }
-
     
-
     var doc = fl.getDocumentDOM();//文档
     if (!checkDom()) return;
 
@@ -87,7 +79,7 @@
         // var horizontalCount = config.horizontalCount;
 
         // 选中的所有帧 的第一帧
-        var frs = checkSelectedFrames();
+        var frs = CheckSelectedFrames(timeline);
         if (frs === null) return;
         var firstFrame = frs[0].startFrame;
 

@@ -56,6 +56,7 @@
         importMoudle("Core/Object/Rect.jsfl");
         importMoudle("Core/Object/Size.jsfl");
         importMoudle("Core/Object/Transform.jsfl");
+        importMoudle("Core/TopLevel/Check.jsfl");
         importMoudle("Core/TopLevel/Log.jsfl");
         importMoudle("Core/TopLevel/Selection.jsfl");
         importMoudle("Core/Utils/custom/Constants.jsfl");
@@ -68,6 +69,7 @@
         importMoudle("Core/Utils/flash/PromptUtil.jsfl");
         importMoudle("Core/Utils/flash/XMLPanelUtil.jsfl");
         importMoudle("Core/Utils/native/array.jsfl");
+        importMoudle("Core/Utils/native/ArrayUtil.jsfl");
         importMoudle("Core/Utils/native/DictUtil.jsfl");
         importMoudle("Core/Utils/native/string.jsfl");
         importMoudle("Core/Utils/py/0.path.jsfl");

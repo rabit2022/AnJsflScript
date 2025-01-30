@@ -24,11 +24,7 @@
             "创建补间动画"
         ]
     };
-    function checkSelectedFrames() {
-        var frs = frUtil.getSelectedFrs(timeline);
-        if (!CheckSelection(frs, "selectFrame", "Not Zero")) return null;
-        return frs;
-    }
+    
     
     var doc = fl.getDocumentDOM();//文档
     if (!CheckDom(doc)) return;
@@ -78,9 +74,10 @@
         if (!CheckSelection(selection,"selectElement","Only one")) return;
         
         // 选中的所有帧 的第一帧
-        var frs = checkSelectedFrames();
+        var frs = CheckSelectedFrames(timeline);
         if (frs === null) return;
         var firstFrame = frs[0].startFrame;
+        var firstLayer = layers[frs[0].layerIndex];
 
         // 0,2,3,5,6,8,9,11,12,14,15,17,18,20,21,23,24,26,27,29,30
         // 0,2
@@ -96,7 +93,7 @@
             var frame = alteredKeyFrames[i];
 
             // 3
-            var frame_element=curLayer.frames[frame].elements[0];
+            var frame_element=firstLayer.frames[frame].elements[0];
             frame_element.scaleX=1.047;
             frame_element.scaleY=1.049;
         }

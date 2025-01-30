@@ -50,7 +50,7 @@
 
     function getBgRect() {
         // 背景的边界
-        var bgLayers = layerUtil.getLayersByName("背景");
+        var bgLayers = layerUtil.getLayersByName(layers,"背景");
         if (bgLayers.length < 1) {
             fl.trace("找不到背景图层,必须包含'背景'关键字");
             return;

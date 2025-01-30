@@ -12,13 +12,11 @@ function LayerUtil() {
 
 /**
  * 判断图层是否存在
- * @param {Timeline} timeline 时间轴
+ * @param {Array.<Layer>} layers 图层数组
  * @param {String} layerName 图层名称
  * @return {Boolean} 图层是否存在
  */
-LayerUtil.prototype.IsLayerExists = function (timeline, layerName) {
-    var layers = timeline.layers;//图层
-    
+LayerUtil.prototype.IsLayerExists = function (layers, layerName) {
     for (var i = 0; i < layers.length; i++) {
         if (layers[i].name === layerName) {
             return true;
@@ -28,14 +26,11 @@ LayerUtil.prototype.IsLayerExists = function (timeline, layerName) {
 }
 /**
  * 获取包含指定名称的图层
+ * @param {Array.<Layer>} layers 图层数组
  * @param {String} layerName 图层名称
  * @return {Array.<Layer>} 图层数组
  */
-LayerUtil.prototype.getLayersByName = function (layerName) {
-    var doc = fl.getDocumentDOM();//文档
-    var timeline = doc.getTimeline();//时间轴
-    var layers = timeline.layers;//图层
-
+LayerUtil.prototype.getLayersByName = function (layers, layerName) {
     var findLayers = [];
     for (var i = 0; i < layers.length; i++) {
         var layer = layers[i];
@@ -48,14 +43,11 @@ LayerUtil.prototype.getLayersByName = function (layerName) {
 }
 /**
  * 获取包含指定名称的图层的索引
+ * @param {Array.<Layer>} layers 图层数组
  * @param {String} layerName 图层名称
  * @return {Array.<Number>} 图层索引数组
  */
-LayerUtil.prototype.getLayersIndexByName = function (layerName) {
-    var doc = fl.getDocumentDOM();//文档
-    var timeline = doc.getTimeline();//时间轴
-    var layers = timeline.layers;//图层
-
+LayerUtil.prototype.getLayersIndexByName = function (layers,layerName) {
     var findLayers = [];
     for (var i = 0; i < layers.length; i++) {
         var layer = layers[i];
@@ -120,12 +112,12 @@ LayerUtil.prototype.convertToLayerIndex = function (layers, layer) {
 
 /**
  * 转换为图层
- * @param {Timeline} timeline 时间轴
+ * @param {Array.<Layer>} layers 图层数组
  * @param {Layer|Number} layer 图层或图层索引
  * @return {Layer} 图层
  */
-LayerUtil.prototype.convertToLayer=function(timeline,layer){
-    var layers = timeline.layers;//图层
+LayerUtil.prototype.convertToLayer=function(layers,layer){
+    // var layers = timeline.layers;//图层
     
     if(typeof layer === "number"){
         var layerIndex = layer;

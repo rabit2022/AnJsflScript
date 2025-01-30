@@ -44,7 +44,7 @@
         }
 
         // 给所有图层加帧
-        timeline.insertFrames(MINUTE_1, true, curFrameIndex);
+        timeline.insertFrames(MINUTE_FRAME, true, curFrameIndex);
 
         // 回到最开始选择的帧
         timeline.currentFrame = curFrameIndex;

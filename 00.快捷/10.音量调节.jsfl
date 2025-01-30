@@ -38,7 +38,7 @@
     var layers = timeline.layers;//图层
     var curFrameIndex = timeline.currentFrame;//当前帧索引
 
-    var MAX_CHANNEL = 32768;
+    // var MAX_CHANNEL = 32768;
     
     function Main() {
         if (!checkDom()) {
