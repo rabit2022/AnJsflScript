@@ -30,7 +30,7 @@
         return true;
     }
 
-    
+
     var doc = fl.getDocumentDOM();//文档
     var selection = doc.selection;//选择
     var library = doc.library;//库文件
@@ -77,14 +77,14 @@
             var moreElement = moreElements[i];
 
             for (var j = 0; j < copyCount; j++) {
-                var nextPoint = moreElement.NeatOffset(j+1, 0);
+                var nextPoint = moreElement.NeatOffset(j + 1, 0);
                 // 复制元件
                 OnlySelectCurrent(moreElement.element);
-                
+
                 // 复制粘贴
                 doc.clipCopy();
                 doc.clipPaste();
-                
+
                 // 移动元件
                 var newElement = doc.selection[0];
                 newElement.x = nextPoint.x;
@@ -94,5 +94,6 @@
 
         SelectStart(selection);
     }
+
     Main();
 })();

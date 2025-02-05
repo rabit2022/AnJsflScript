@@ -60,5 +60,6 @@
             element.width = height * ratio;
         }
     }
+
     Main();
 })();

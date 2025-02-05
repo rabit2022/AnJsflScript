@@ -34,16 +34,21 @@
         var panel = xmlPanelUtil.getXMLPanel();
         if (panel === null) return null;
 
-        var horizontalCount = xmlPanelUtil.parseNumber(panel.horizontalCount,"横向排布数量只能输入数字，请重新输入。");
+        var horizontalCount = xmlPanelUtil.parseNumber(panel.horizontalCount, "横向排布数量只能输入数字，请重新输入。");
         if (horizontalCount === null) return null;
-        var horizontalSpacing = xmlPanelUtil.parseNumber(panel.horizontalSpacing,"横向排布间距只能输入数字，请重新输入。");
+        var horizontalSpacing = xmlPanelUtil.parseNumber(panel.horizontalSpacing, "横向排布间距只能输入数字，请重新输入。");
         if (horizontalSpacing === null) return null;
-        var verticalCount = xmlPanelUtil.parseNumber(panel.verticalCount,"纵向排布数量只能输入数字，请重新输入。");
+        var verticalCount = xmlPanelUtil.parseNumber(panel.verticalCount, "纵向排布数量只能输入数字，请重新输入。");
         if (verticalCount === null) return null;
-        var verticalSpacing = xmlPanelUtil.parseNumber(panel.verticalSpacing,"纵向排布间距只能输入数字，请重新输入。");
+        var verticalSpacing = xmlPanelUtil.parseNumber(panel.verticalSpacing, "纵向排布间距只能输入数字，请重新输入。");
         if (verticalSpacing === null) return null;
 
-        return {horizontalCount: horizontalCount, horizontalSpacing: horizontalSpacing, verticalCount: verticalCount, verticalSpacing: verticalSpacing};
+        return {
+            horizontalCount: horizontalCount,
+            horizontalSpacing: horizontalSpacing,
+            verticalCount: verticalCount,
+            verticalSpacing: verticalSpacing
+        };
     }
 
     var doc = fl.getDocumentDOM();//文档
@@ -53,7 +58,7 @@
     var timeline = doc.getTimeline();//时间轴
     var layers = timeline.layers;//图层
     var curFrameIndex = timeline.currentFrame;//当前帧索引
-    
+
     function Main() {
         if (!checkDom()) {
             return;
@@ -68,12 +73,11 @@
         var verticalSpacing = config.verticalSpacing;
 
 
-
         var firstElement = selection[0];
         var moreElement = new MoreElement(firstElement, horizontalSpacing, verticalSpacing);
 
-        for (var i = 0; i < horizontalCount; i++){
-            for (var j = 0; j < verticalCount; j++){
+        for (var i = 0; i < horizontalCount; i++) {
+            for (var j = 0; j < verticalCount; j++) {
                 if (i === 0 && j === 0) {
                     continue;
                 }

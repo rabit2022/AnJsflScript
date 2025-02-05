@@ -8,7 +8,7 @@
  */
 
 (function () {
-    var descriptions={
+    var descriptions = {
         "file": "02.一键点头.jsfl",
         "file description": "输出 点头动作的元件，需要自己设置变形点",
         "selection": "仅一个元件",
@@ -39,7 +39,7 @@
     var curFrame = curLayer.frames[curFrameIndex];//当前帧
 
     var ShakeIntensity = 20; // 震动强度
-    
+
     function Main() {
         if (!CheckSelection(selection, "selectElement", "Only one")) return;
 
@@ -63,10 +63,10 @@
         timeline.convertToKeyframes(FRAME_10);
 
         // 获取元素，1,7
-        var frame1_element=timeline.layers[0].frames[FRAME_1].elements[0];
+        var frame1_element = timeline.layers[0].frames[FRAME_1].elements[0];
         frame1_element.rotation = headDirection * ShakeIntensity;
 
-        var frame7_element=timeline.layers[0].frames[FRAME_7].elements[0];
+        var frame7_element = timeline.layers[0].frames[FRAME_7].elements[0];
         frame7_element.rotation = headDirection * ShakeIntensity;
 
         doc.exitEditMode();

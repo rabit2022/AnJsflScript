@@ -52,17 +52,17 @@
 
         var rect = wrapRect(doc.getSelectionRect());
         var offset = new Point(-rect.width, rect.height / 5);
-        
+
         var symbolName = libUtil.generateNameUntilUnique("一键震惊_静_");
         doc.convertToSymbol('graphic', symbolName, 'center');
 
-        
+
         doc.enterEditMode("inPlace");
 
 
         doc.exitEditMode();
-        
-        
+
+
         doc.setBlendMode('layer');
 
         doc.moveSelectionBy(offset.neg().toObj());

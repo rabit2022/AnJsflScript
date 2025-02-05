@@ -42,7 +42,7 @@
         if (!checkDom()) {
             return;
         }
-        
+
         for (var i = 0; i < selection.length; i++) {
             var element = selection[i];
             element.loop = "loop";

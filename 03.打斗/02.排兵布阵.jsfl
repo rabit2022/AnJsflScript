@@ -38,35 +38,35 @@
     var layers = timeline.layers;//图层
     var curFrameIndex = timeline.currentFrame;//当前帧索引
 
-    var [folder_name,basename] =osPath.split(fl.scriptURI);
-    var onlyName= osPath.basenameWithoutExt(fl.scriptURI);
+    var [folder_name, basename] = osPath.split(fl.scriptURI);
+    var onlyName = osPath.basenameWithoutExt(fl.scriptURI);
     var XMLFOLDER = "02.排兵布阵";
-    
+
     function Main() {
         if (!checkDom()) {
             return;
         }
 
-        var XMLPANEL = osPath.join([folder_name,XMLFOLDER, onlyName + ".xml"]);
+        var XMLPANEL = osPath.join([folder_name, XMLFOLDER, onlyName + ".xml"]);
         print(XMLPANEL)
         var panel = xmlPanelUtil.getXMLPanel(XMLPANEL);
         if (panel == null) return;
-        
+
         var radioGroup = panel.layoutRadioGroup;
         switch (radioGroup) {
             case "neat":
                 // fl.trace("整齐排布");
-                var SCRIPT_PATH= osPath.join([folder_name,XMLFOLDER, onlyName + "_neat.jsfl"]);
+                var SCRIPT_PATH = osPath.join([folder_name, XMLFOLDER, onlyName + "_neat.jsfl"]);
                 fl.runScript(SCRIPT_PATH);
                 break;
             case "staggered":
                 // fl.trace("交错排布");
-                var SCRIPT_PATH= osPath.join([folder_name,XMLFOLDER, onlyName + "_staggered.jsfl"]);
+                var SCRIPT_PATH = osPath.join([folder_name, XMLFOLDER, onlyName + "_staggered.jsfl"]);
                 fl.runScript(SCRIPT_PATH);
                 break;
             case "random":
                 // fl.trace("随机排布");
-                var SCRIPT_PATH= osPath.join([folder_name,XMLFOLDER, onlyName + "_random.jsfl"]);
+                var SCRIPT_PATH = osPath.join([folder_name, XMLFOLDER, onlyName + "_random.jsfl"]);
                 fl.runScript(SCRIPT_PATH);
                 break;
             default:

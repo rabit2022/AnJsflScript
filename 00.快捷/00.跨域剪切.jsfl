@@ -42,11 +42,11 @@
         if (!checkDom()) {
             return;
         }
-        
+
         // 记录当前视图矩阵
         var tempWorldViewMatrixAnti = doc.viewMatrix;
         fl.tempWorldViewMatrixAnti = tempWorldViewMatrixAnti;
-        
+
         // 复制元件
         // doc.clipCut();
         doc.clipCopy();

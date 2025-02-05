@@ -42,10 +42,10 @@
             alert("角度只能输入1~10之间的数字，请重新输入。");
             return null;
         }
-        
+
         var direction = xmlPanelUtil.parseDirection(panel.direction,
             {"右": -1, "左": 1, " ": 1});
-        
+
         return {angle: angle, direction: direction};
     }
 

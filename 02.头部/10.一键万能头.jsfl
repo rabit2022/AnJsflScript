@@ -8,7 +8,7 @@
  */
 
 (function () {
-    var descriptions={
+    var descriptions = {
         "file": "10.一键万能头.jsfl",
         "file description": "选中多个表情，合成万能头",
         "selection": "元件2个以上",
@@ -27,6 +27,7 @@
             "移动到中心位置"
         ]
     };
+
     function checkDom() {
         if (doc == null) {
             alert("请打开 [.fla] 文件");
@@ -74,7 +75,7 @@
     selection = selection.filter(function (value) {
         return value.libraryItem !== undefined;
     });
-    
+
     var SYMBOL_LENGTH = selection.length;
     var SELECTION_NAMES = selection.map(function (value) {
         return value.libraryItem.name;

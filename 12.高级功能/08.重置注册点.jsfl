@@ -40,7 +40,7 @@
         if (!checkDom()) {
             return;
         }
-        
+
         for (var i = 0; i < selection.length; i++) {
             // 获取元件的变换点
             var element = selection[i];
@@ -48,6 +48,7 @@
             ele.resetRegisterPoint(element);
         }
     }
+
     Main();
 })();
 

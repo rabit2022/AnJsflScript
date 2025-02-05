@@ -57,7 +57,7 @@
         // }
 
         // doc.selectNone();
-        SelectNone();
+        $Selection.SelectNone();
         doc.clipPaste(true);
 
         // 本地摄像机的逆矩阵

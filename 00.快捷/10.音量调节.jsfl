@@ -39,7 +39,7 @@
     var curFrameIndex = timeline.currentFrame;//当前帧索引
 
     // var MAX_CHANNEL = 32768;
-    
+
     function Main() {
         if (!checkDom()) {
             return;
@@ -56,17 +56,17 @@
 
         var envelopeElement = soundEnvelope[0];
         var curVolume = (envelopeElement.leftChannel + envelopeElement.rightChannel) / 2 / MAX_CHANNEL * 100;
-        curVolume =Math.ceil(curVolume);
+        curVolume = Math.ceil(curVolume);
 
         var inputPercent = prompt("请输入百分比 (0-100):", curVolume);
-        if (inputPercent === null || inputPercent === "" || isNaN(Number(inputPercent)) ) {
+        if (inputPercent === null || inputPercent === "" || isNaN(Number(inputPercent))) {
             return;
         }
         inputPercent = parseInt(inputPercent);
 
-        
+
         var setVolume = Math.floor(MAX_CHANNEL / 100 * inputPercent)
-        
+
         var newSoundEnvelope = [
             {leftChannel: setVolume, rightChannel: setVolume, mark: envelopeElement.mark}
         ]

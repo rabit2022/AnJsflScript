@@ -60,7 +60,7 @@
             } else {
                 // 一旦发现有一个元素的loop属性不等于"loop"，即可确定targetLoop应为"single frame"
                 // targetLoop = "single frame";
-                break; 
+                break;
             }
         }
 
@@ -71,7 +71,7 @@
 
         // 设置所有选中元素的loop属性
         for (var i = 0; i < selection.length; i++) {
-            var element = selection[i]; 
+            var element = selection[i];
             if (ele.IsSymbol(element)) {
                 element.loop = targetLoop;
             }

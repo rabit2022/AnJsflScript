@@ -27,11 +27,11 @@
 
     var doc = fl.getDocumentDOM();//文档
     if (!CheckDom(doc)) return;
-    
+
     var selection = doc.selection;//选择
     var library = doc.library;//库文件
     var timeline = doc.getTimeline();//时间轴
-    
+
     var layers = timeline.layers;//图层
     var curLayerIndex = timeline.currentLayer;//当前图层索引
     var curFrameIndex = timeline.currentFrame;//当前帧索引
@@ -39,7 +39,7 @@
     var curFrame = curLayer.frames[curFrameIndex];//当前帧
 
     var KEY_FRAMES = [FRAME_1, FRAME_3, FRAME_6];
-    
+
     function Main() {
         if (!CheckSelection(selection, "selectElement", "Not Zero")) return;
 
@@ -52,20 +52,20 @@
         // 变形点
         ele.setTransformationPoint(selection[0], "bottom center");
 
-        KEY_FRAMES=arrUtil.addOffset(KEY_FRAMES,firstFrame);
-        
+        KEY_FRAMES = arrUtil.addOffset(KEY_FRAMES, firstFrame);
+
         // 关键帧
         frUtil.convertToKeyframesSafety(timeline, curLayerIndex, KEY_FRAMES);
 
         // 3
         var frame3_element = firstLayer.frames[frame_3].elements[0];
         frame3_element.scaleY = 1.6;
-        
+
         // 选中1-5帧
         timeline.setSelectedFrames(frame_1, frame_6, true);
         // 传统补间动画
         curve.setClassicEaseCurve(timeline);
-        
+
         // 重置选中帧
         frUtil.resetSelectedFrames(timeline, frs);
     }

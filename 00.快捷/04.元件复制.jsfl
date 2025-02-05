@@ -7,8 +7,8 @@
  * @description:
  */
 
-
-(function () {
+require(["checkUtil", "ele"], function (checkUtil, ele){
+    
     function checkDom() {
         if (doc == null) {
             alert("请打开 [.fla] 文件");
@@ -40,7 +40,8 @@
             return;
         }
 
-        ele.CopySymbol(selection[0],"ask");
+        ele.CopySymbol(selection[0], "ask");
     }
+
     Main();
-})();
+});

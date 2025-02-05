@@ -8,7 +8,7 @@
             <textbox id="frameCount" value="10" width="80"/>
         </row>
         <separator/>
-        
+
         <!-- 抖动幅度设置-->
         <row>
             <label control="amplitude" value="请输入抖动幅度（越大越狠）:"/>

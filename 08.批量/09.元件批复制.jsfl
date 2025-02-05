@@ -47,7 +47,7 @@
             var element = selection[i];
             if (ele.IsSymbol(element)) {
                 // CopySymbol();
-                ele.CopySymbol(element,"auto");
+                ele.CopySymbol(element, "auto");
             }
         }
     }

@@ -35,7 +35,7 @@
     function Main() {
         // 检查选择的元件
         if (!CheckSelection(selection, "selectElement", "No limit")) return;
-        
+
         var keyFrames = frUtil.getKeyFrames(curLayer);
 
         var transformArray = [];

@@ -8,7 +8,7 @@
  */
 
 (function () {
-    var descriptions={
+    var descriptions = {
         "file": "09.一键生气.jsfl",
         "file description": "生气的动作",
         "selection": "仅一个元件",
@@ -24,11 +24,11 @@
             "创建补间动画"
         ]
     };
-    
-    
+
+
     var doc = fl.getDocumentDOM();//文档
     if (!CheckDom(doc)) return;
-    
+
     var selection = doc.selection;//选择
     var library = doc.library;//库文件
     var timeline = doc.getTimeline();//时间轴
@@ -71,8 +71,8 @@
 
     function Main() {
         // 检查选择的元件
-        if (!CheckSelection(selection,"selectElement","Only one")) return;
-        
+        if (!CheckSelection(selection, "selectElement", "Only one")) return;
+
         // 选中的所有帧 的第一帧
         var frs = CheckSelectedFrames(timeline);
         if (frs === null) return;
@@ -84,18 +84,18 @@
         // 2    104.7,104.9
         var {allKeyFrames, alteredKeyFrames} = generateKfs(MAX_KEYFRAME, firstFrame);
 
-        
+
         // 关键帧
         frUtil.convertToKeyframesSafety(timeline, curLayerIndex, allKeyFrames);
-        
+
 
         for (var i = 0; i < alteredKeyFrames.length; i++) {
             var frame = alteredKeyFrames[i];
 
             // 3
-            var frame_element=firstLayer.frames[frame].elements[0];
-            frame_element.scaleX=1.047;
-            frame_element.scaleY=1.049;
+            var frame_element = firstLayer.frames[frame].elements[0];
+            frame_element.scaleX = 1.047;
+            frame_element.scaleY = 1.049;
         }
 
         // 获取allKeyFrames first,last
@@ -109,7 +109,7 @@
         curve.setClassicEaseCurve(timeline);
 
         // 重置选中帧
-        frUtil.resetSelectedFrames(timeline,frs);
+        frUtil.resetSelectedFrames(timeline, frs);
     }
 
     Main();

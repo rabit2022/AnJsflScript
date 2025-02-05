@@ -59,7 +59,7 @@
 
         // setPosition 函数直接设置元素的位置， 参照物为元素的注册点
         var rect = wrapRectByCenter(rectCenter.x, rectCenter.y, rectWidth, rectHeight);
-        
+
         fl.trace("rect:" + rect);
         return rect;
     }

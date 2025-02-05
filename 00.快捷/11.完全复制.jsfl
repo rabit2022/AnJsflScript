@@ -39,7 +39,7 @@
             var item = selection[i];
             // symbol: 打散
             if (ele.IsSymbol(item)) {
-                ele.CopySymbol(item,"skip");
+                ele.CopySymbol(item, "skip");
             } else {
                 continue;
             }

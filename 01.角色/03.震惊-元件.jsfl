@@ -44,12 +44,12 @@
 
         var selection = doc.selection;
         var timeline = doc.getTimeline();//时间轴
-        
+
         var layers = timeline.layers;//图层
         var curLayerIndex = timeline.currentLayer;//当前图层索引
         var curLayer = layers[curLayerIndex];//当前图层
-        
-        
+
+
         ele.setTransformationPoint(selection[0], "bottom center");
 
         // 关键帧
@@ -81,7 +81,7 @@
         // 获取第一帧
         var frs = CheckSelectedFrames(timeline);
         if (frs === null) return;
-        
+
         var symbolName = libUtil.generateNameUntilUnique("一键震惊_静_");
         doc.convertToSymbol('graphic', symbolName, 'center');
 
@@ -94,9 +94,9 @@
             var element = selection[i];
             element.loop = "play once";
         }
-        
+
         KFrames();
-        
+
         // 重置选中帧
         frUtil.resetSelectedFrames(timeline, frs);
     }

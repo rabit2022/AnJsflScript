@@ -1,0 +1,26 @@
+{
+  "name": "sat",
+  "description": "Library for performing 2D collision detection",
+  "version": "0.9.0",
+  "author": "Jim Riecken <jriecken@gmail.com>",
+  "keywords": [
+    "collision detection",
+    "sat",
+    "game"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jriecken/sat-js.git"
+  },
+  "bugs": {
+    "url": "http://github.com/jriecken/sat-js/issues"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "main": "SAT.js",
+  "devDependencies": {
+    "mocha": "^2.1.0"
+  }
+}

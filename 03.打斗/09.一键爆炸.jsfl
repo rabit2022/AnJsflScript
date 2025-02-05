@@ -75,7 +75,7 @@
         // doc.distributeToLayers();
         // // 删除多余的碎片
         // ele.splinterDeleter();
-        
+
         // 选中最后一帧
         timeline1.currentFrame = timeline1.frameCount - 1;
         timeline1.insertKeyframe();
@@ -96,12 +96,12 @@
 
             // 移动到随机位置
             var randomPos = rectUtil.generateRandomPointInRect(explosionRect);
-            
+
             // 随机缩放
             var scale = random.uniform(1.5, 3);
             // 随机旋转
             var rotation = random.uniform(-180, 180);
-            
+
             var transform = wrapTransform(element);
             transform.setPosition(randomPos).setScale(new Point(scale, scale)).setRotation(rotation);
         }
@@ -117,7 +117,7 @@
         // 碎片
         ele.splinterSymbol(doc.selection[0], "一键爆炸_");
 
-        
+
         // 爆炸效果
         KFrames(doc.selection[0]);
     }

@@ -33,7 +33,7 @@
     function checkXMLPanel() {
         var panel = xmlPanelUtil.getXMLPanel();
         if (panel === null) return null;
-        
+
         var easeType = panel.easeType;
         if (easeType === null) {
             alert("请选择缓动曲线");
@@ -44,10 +44,10 @@
             alert("请选择缓动方向");
             return null;
         }
-        
-        var intensity =xmlPanelUtil.parseNumber(panel.intensity,"请设置缓动强度");
+
+        var intensity = xmlPanelUtil.parseNumber(panel.intensity, "请设置缓动强度");
         if (intensity === null) return null;
-        
+
         return {easeType: easeType, easeInOut: easeInOut, intensity: intensity};
     }
 
@@ -63,7 +63,7 @@
         if (!checkDom()) {
             return;
         }
-        
+
         var config = checkXMLPanel();
         if (config === null) return;
 
@@ -71,7 +71,7 @@
         var easeInOut = config.easeInOut;
         var intensity = config.intensity;
 
-        
+
         if (easeType === "Classic") {
             curve.setClassicEaseCurve(timeline, easeInOut, intensity);
         } else if (easeType === "No Ease") {

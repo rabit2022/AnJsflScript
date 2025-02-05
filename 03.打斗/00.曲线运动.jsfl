@@ -92,7 +92,7 @@
 
         var symbolName = libUtil.generateNameUseLast("曲线运动_动_");
         doc.convertToSymbol('graphic', symbolName, 'center');
-        
+
         doc.enterEditMode('inPlace');
 
         var timeline1 = doc.getTimeline();//时间轴

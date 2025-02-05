@@ -8,8 +8,8 @@
                 <textbox id="horizontalCount" value="30"/>
             </row>
             <separator/>
-            
-            
+
+
             <row>
                 <label value="横向间距(单位：多少倍身宽)："/>
             </row>

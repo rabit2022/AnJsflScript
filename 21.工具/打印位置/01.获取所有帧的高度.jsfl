@@ -58,6 +58,7 @@
 
         LogArray(heights);
     }
+
     Main();
 })();
 

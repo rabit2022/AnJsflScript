@@ -23,6 +23,7 @@
             "传统补间，顺时针旋转"
         ]
     };
+
     function checkDom() {
         if (doc == null) {
             // throw new Error("请打开 [.fla] 文件");
@@ -57,7 +58,7 @@
         //
         // return {horizontalCount: horizontalCount};
     }
-    
+
     var doc = fl.getDocumentDOM();//文档
     if (!checkDom()) return;
 
@@ -110,7 +111,7 @@
         curve.setTweenRotation(timeline, "clockwise", 1);
 
         // 重置选中帧
-        frUtil.resetSelectedFrames(timeline,frs);
+        frUtil.resetSelectedFrames(timeline, frs);
 
     }
 

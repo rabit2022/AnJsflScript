@@ -61,7 +61,7 @@
             return;
         }
 
-        ele.CopySymbol(selection[0],"ask");
+        ele.CopySymbol(selection[0], "ask");
 
         PackSymbol();
     }

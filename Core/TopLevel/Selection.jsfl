@@ -7,66 +7,78 @@
  * @description:
  */
 
-/**
- * 选中当前元件
- * @param element
- */
-function OnlySelectCurrent(element) {
-    SelectNone();
-    element.selected = true;
-}
-
-/**
- * 选中最开始的元件
- * @param {Element[]} selection 选中的元件数组
- */
-function SelectStart(selection) {
-    SelectAll(selection);
-}
-
-/**
- * 选中所有元件
- * @param {Element[]} [elements] 没有参数时，选中所有元件；有参数时，选中参数中的所有元件
- */
-function SelectAll(elements) {
-    var doc = fl.getDocumentDOM();//文档
-    
-    if (!elements){
-        doc.selectAll();
-        return;
-    }
-    
-    // 先清空所有选中
-    SelectNone();
-    // 选中所有元件
-    for (var i = 0; i < elements.length; i++) {
-        var element = elements[i];
+(function (root, factory) {
+    "use strict";
+    root["$Selection"] = factory();
+}(this, function () {
+    /**
+     * 选中当前元件
+     * @param element
+     */
+    function OnlySelectCurrent(element) {
+        SelectNone();
         element.selected = true;
     }
-}
 
-function SelectNone() {
-    var doc = fl.getDocumentDOM();
-    doc.selectNone();
-}
+    /**
+     * 选中最开始的元件
+     * @param {Element[]} selection 选中的元件数组
+     */
+    function SelectStart(selection) {
+        SelectAll(selection);
+    }
 
-/**
- * 
- * 不选中时间轴中的所有帧
- * @param {Timeline} timeline
- */
-function SelectNoneTl(timeline){
-    // select None
-    timeline.setSelectedFrames([0, 0, 0], true);
-}
+    /**
+     * 选中所有元件
+     * @param {Element[]} [elements] 没有参数时，选中所有元件；有参数时，选中参数中的所有元件
+     */
+    function SelectAll(elements) {
+        var doc = fl.getDocumentDOM();//文档
 
-/**
- * 选中时间轴中的所有帧
- * @param {Timeline} timeline
- */
-function SelectAllTl(timeline){
-    // select All
-    timeline.setSelectedFrames(0, timeline.frameCount - 1, true);
-}
+        if (!elements) {
+            doc.selectAll();
+            return;
+        }
 
+        // 先清空所有选中
+        SelectNone();
+        // 选中所有元件
+        for (var i = 0; i < elements.length; i++) {
+            var element = elements[i];
+            element.selected = true;
+        }
+    }
 
+    function SelectNone() {
+        var doc = fl.getDocumentDOM();
+        doc.selectNone();
+    }
+
+    /**
+     *
+     * 不选中时间轴中的所有帧
+     * @param {Timeline} timeline
+     */
+    function SelectNoneTl(timeline) {
+        // select None
+        timeline.setSelectedFrames([0, 0, 0], true);
+    }
+
+    /**
+     * 选中时间轴中的所有帧
+     * @param {Timeline} timeline
+     */
+    function SelectAllTl(timeline) {
+        // select All
+        timeline.setSelectedFrames(0, timeline.frameCount - 1, true);
+    }
+
+    return {
+        OnlySelectCurrent: OnlySelectCurrent,
+        SelectStart: SelectStart,
+        SelectAll: SelectAll,
+        SelectNone: SelectNone,
+        SelectNoneTl: SelectNoneTl,
+        SelectAllTl: SelectAllTl
+    };
+}));

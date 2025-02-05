@@ -8,7 +8,7 @@
  */
 
 (function () {
-    var descriptions={
+    var descriptions = {
         "file": "08.丝滑摇头.jsfl",
         "file description": "摇头的动作",
         "selection": "仅一个元件",
@@ -29,7 +29,7 @@
             "传统补间"
         ]
     };
-    
+
     function checkDom() {
         if (doc == null) {
             alert("请打开 [.fla] 文件");
@@ -67,7 +67,6 @@
 
         return {shakeIntensity: shakeIntensity, headDirection: headDirection};
     }
-
 
 
     var doc = fl.getDocumentDOM();//文档

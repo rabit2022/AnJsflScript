@@ -58,13 +58,13 @@
         // if (config === null) return;
         // var horizontalCount = config.horizontalCount;
 
-        
-        var element=selection[0];
-        var transformPoint=wrapPosition(doc.getTransformationPoint());
-        print("变形点坐标："+transformPoint.toString());
-        
-        var rect=wrapRectByElement(element);
-        print("元件矩形："+rect.toString());
+
+        var element = selection[0];
+        var transformPoint = wrapPosition(doc.getTransformationPoint());
+        print("变形点坐标：" + transformPoint.toString());
+
+        var rect = wrapRectByElement(element);
+        print("元件矩形：" + rect.toString());
 
     }
 

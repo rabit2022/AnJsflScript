@@ -7,8 +7,8 @@
             <textbox id="direction" value="右" width="80"/>
         </row>
         <separator/>
-    
-    
+
+
         <row>
             <label control="angle" value="输入飘动幅度（1~10)"/>
         </row>
@@ -17,5 +17,5 @@
         </row>
         <separator/>
     </rows>
-    
+
 </dialog>

@@ -1,5 +1,4 @@
-﻿
-<dialog id="characterLayoutDialog" title="人物排列设置" buttons="accept,cancel">
+﻿<dialog id="characterLayoutDialog" title="人物排列设置" buttons="accept,cancel">
     <grid>
         <!--                <columns>-->
         <!--                    <column/>-->

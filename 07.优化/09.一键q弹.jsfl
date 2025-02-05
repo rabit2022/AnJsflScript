@@ -33,10 +33,10 @@
     function checkXMLPanel() {
         var panel = xmlPanelUtil.getXMLPanel();
         if (panel === null) return null;
-        
-        var amplitude = xmlPanelUtil.parseNumber(panel.amplitude,"抖动幅度只能输入数字，请重新输入。");
+
+        var amplitude = xmlPanelUtil.parseNumber(panel.amplitude, "抖动幅度只能输入数字，请重新输入。");
         if (amplitude === null) return null;
-        var frameCount = xmlPanelUtil.parseNumber(panel.frameCount,"抖动帧数只能输入数字，请重新输入。");
+        var frameCount = xmlPanelUtil.parseNumber(panel.frameCount, "抖动帧数只能输入数字，请重新输入。");
         if (frameCount === null) return null;
 
         return {amplitude: amplitude, frameCount: frameCount};
@@ -80,7 +80,7 @@
         if (!checkDom()) {
             return;
         }
-        
+
         var config = checkXMLPanel();
         if (config === null) return;
         var amplitude = config.amplitude;

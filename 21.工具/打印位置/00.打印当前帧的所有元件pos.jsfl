@@ -38,7 +38,6 @@
     var layers = timeline.layers;//图层
     var curFrameIndex = timeline.currentFrame;//当前帧索引
 
-    
 
     function Main() {
         if (!checkDom()) {

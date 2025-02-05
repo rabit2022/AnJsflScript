@@ -22,68 +22,72 @@
         return folderPath;
     }
 
-
-    /**
-     * 根据相对路径获取绝对路径
-     * @param {string} relativeScriptPath 相对于当前脚本文件的相对路径
-     * @returns {string}
-     */
-    function getURIBy(relativeScriptPath) {
-        var curFolderURI = getCurFolderURI();
-        var scriptURI = curFolderURI + "/" + relativeScriptPath;
-        return scriptURI;
-    }
-
     /**
      * 导入指定脚本文件
      * @param {string} relativeScriptPath 相对于当前脚本文件的相对路径
      */
     function importMoudle(relativeScriptPath) {
-        var scriptURI = getURIBy(relativeScriptPath);
+        var curFolderURI = getCurFolderURI();
+        var scriptURI = curFolderURI + "/" + relativeScriptPath;
 
         fl.runScript(scriptURI);
     }
 
     function Main() {
         // 导入模块,相对路径导入
-        importMoudle("Core/Object/Curve.jsfl");
-        importMoudle("Core/Object/Ele.jsfl");
-        importMoudle("Core/Object/FrameRange.jsfl");
-        importMoudle("Core/Object/Graphics.jsfl");
-        importMoudle("Core/Object/Matrix.jsfl");
-        importMoudle("Core/Object/MoreElement.jsfl");
-        importMoudle("Core/Object/Point.jsfl");
-        importMoudle("Core/Object/Rect.jsfl");
-        importMoudle("Core/Object/Size.jsfl");
-        importMoudle("Core/Object/Transform.jsfl");
-        importMoudle("Core/TopLevel/Check.jsfl");
-        importMoudle("Core/TopLevel/Log.jsfl");
-        importMoudle("Core/TopLevel/Selection.jsfl");
-        importMoudle("Core/Utils/custom/Constants.jsfl");
-        importMoudle("Core/Utils/custom/FrameRangeUtil.jsfl");
-        importMoudle("Core/Utils/custom/PointUtil.jsfl");
-        importMoudle("Core/Utils/custom/RectUtil.jsfl");
-        importMoudle("Core/Utils/flash/FilterUtil.jsfl");
-        importMoudle("Core/Utils/flash/LayerUtil.jsfl");
-        importMoudle("Core/Utils/flash/LibUtil.jsfl");
-        importMoudle("Core/Utils/flash/PromptUtil.jsfl");
-        importMoudle("Core/Utils/flash/XMLPanelUtil.jsfl");
-        importMoudle("Core/Utils/native/array.jsfl");
-        importMoudle("Core/Utils/native/ArrayUtil.jsfl");
-        importMoudle("Core/Utils/native/DictUtil.jsfl");
-        importMoudle("Core/Utils/native/string.jsfl");
-        importMoudle("Core/Utils/py/0.path.jsfl");
-        importMoudle("Core/Utils/py/BuiltInP.2.jsfl");
-        importMoudle("Core/Utils/py/BuiltInP.jsfl");
-        importMoudle("Core/Utils/py/os.jsfl");
-        importMoudle("Core/Utils/py/random.jsfl");
-        importMoudle("Core/Utils/py/StringP.jsfl");
-        
-        
+        importMoudle("Third/requirejs-2.3.7/require.jsfl");
+
+        require.config({
+            baseUrl: getCurFolderURI(), // 设置模块的基础路径
+            paths: {
+                shim: "./Third/es5-shim-4.6.7/es5-shim",
+                sham: "./Third/es5-shim-4.6.7/es5-sham",
+                linq: "./Third/linq-4.0.3/linq",
+                sat: "./Third/sat-js/SAT",
+
+                curve:"Core/Object/curve",
+                ele:"Core/Object/ele",
+                frameRange:"Core/Object/frameRange",
+                graphics:"Core/Object/graphics",
+                moreElement:"Core/Object/moreElement",
+                rect:"Core/Object/rect",
+                size:"Core/Object/size",
+                transform:"Core/Object/transform",
+                Constants:"Core/TopLevel/Constants",
+                Log:"Core/TopLevel/Log",
+                Selection:"Core/TopLevel/Selection",
+                checkUtil:"Core/Utils/flash/checkUtil",
+                filterUtil:"Core/Utils/flash/filterUtil",
+                layerUtil:"Core/Utils/flash/layerUtil",
+                libUtil:"Core/Utils/flash/libUtil",
+                promptUtil:"Core/Utils/flash/promptUtil",
+                XMLPanelUtil:"Core/Utils/flash/XMLPanelUtil",
+                array:"Core/Utils/native/array",
+                arrayUtil:"Core/Utils/native/arrayUtil",
+                dictUtil:"Core/Utils/native/dictUtil",
+                string:"Core/Utils/native/string",
+                builtInP:"Core/Utils/py/builtInP",
+                os:"Core/Utils/py/os",
+                random:"Core/Utils/py/random",
+                StringP:"Core/Utils/py/StringP",
+
+
+            }
+        });
+
+        require(["shim", "sham", "array", "string","Constants", "Log", "Selection"], function (shim, sham, array, string) {
+        });
+
+        // require(["sat"], function (sat) {
+        //     var Vector = sat.SAT.Vector;
+        //     var p = new Vector(10, 20);
+        //     fl.trace(p.toString());
+        // });
+
         // 导入完成
         fl.trace("=============Core modules imported.=============");
-        
+
     }
-    
+
     Main();
 })();

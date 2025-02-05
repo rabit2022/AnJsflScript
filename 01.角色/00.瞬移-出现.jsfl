@@ -30,7 +30,7 @@
     var curFrameIndex = timeline.currentFrame;//当前帧索引
     var curLayer = layers[curLayerIndex];//当前图层
     var curFrame = curLayer.frames[curFrameIndex];//当前帧
-    
+
     // 关键帧
     var KEY_FRAMES = arrUtil.convertToProgrammeIndex([1, 2, 3, 4, 5, 9]);
     // 滤镜效果

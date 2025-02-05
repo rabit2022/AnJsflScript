@@ -8,7 +8,7 @@
  */
 
 (function () {
-    var descriptions={
+    var descriptions = {
         "file": "01.虾仁摇头.jsfl",
         "file description": "输出 摇头动作的元件,没有说话时的头部动作",
         "selection": "仅一个元件",
@@ -35,12 +35,12 @@
         var shakeIntensity = xmlPanelUtil.parseNumber(panel.shakeIntensity, "摇头力度只能输入数字，请重新输入。");
         if (shakeIntensity === null) return null;
 
-        var headDirection = xmlPanelUtil.parseNumber(panel.headDirection,"头部朝向只能输入数字，请重新输入。");
+        var headDirection = xmlPanelUtil.parseNumber(panel.headDirection, "头部朝向只能输入数字，请重新输入。");
         if (headDirection === null) return null;
 
         return {shakeIntensity: shakeIntensity, headDirection: headDirection};
     }
-    
+
     var doc = fl.getDocumentDOM();//文档
     if (!CheckDom(doc)) return;
 
@@ -53,10 +53,10 @@
     var curFrameIndex = timeline.currentFrame;//当前帧索引
     var curLayer = layers[curLayerIndex];//当前图层
     var curFrame = curLayer.frames[curFrameIndex];//当前帧
-    
+
     function Main() {
         if (!CheckSelection(selection, "selectElement", "Only one")) return;
-        
+
         // 配置参数
         var config = checkXMLPanel();
         if (config === null) return;
@@ -70,12 +70,12 @@
         doc.enterEditMode("inPlace");
 
         var timeline = doc.getTimeline();
-        
+
         // 设置变形点
-        var element1= timeline.layers[0].frames[0].elements[0];
-        var trPoint = pointUtil.getShakeHeadTrPoint(selection[0],0.9);
+        var element1 = timeline.layers[0].frames[0].elements[0];
+        var trPoint = pointUtil.getShakeHeadTrPoint(selection[0], 0.9);
         element1.setTransformationPoint(trPoint.toObj());
-        
+
         // 给所有图层加帧
         timeline.insertFrames(FRAME_7, true);
         // 关键帧 1,4,7

@@ -38,7 +38,7 @@
         if (!checkDom()) {
             return;
         }
-        
+
         for (var i = 0; i < selection.length; i++) {
             var angle = selection[i].rotation;
             // alert("当前选区的旋转角度为："+angle);

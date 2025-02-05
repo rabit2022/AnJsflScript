@@ -16,7 +16,7 @@
         if (shakeIntensity === null) return null;
         var motionFrameCount = xmlPanelUtil.parseNumber(panel.motionFrameCount, "表情帧数只能输入数字，请重新输入。");
         if (motionFrameCount === null) return null;
-        var headDirection = xmlPanelUtil.parseNumber(panel.headDirection,"头部朝向只能输入数字，请重新输入。");
+        var headDirection = xmlPanelUtil.parseNumber(panel.headDirection, "头部朝向只能输入数字，请重新输入。");
         if (headDirection === null) return null;
         var shakeMode = xmlPanelUtil.parseString(panel.shakeMode, "摇头模式只能输入 (传统摇头 丝滑摇头)，请重新输入。");
         if (shakeMode === null) return null;
@@ -41,10 +41,10 @@
     var curFrameIndex = timeline.currentFrame;//当前帧索引
     var curLayer = layers[curLayerIndex];//当前图层
     var curFrame = curLayer.frames[curFrameIndex];//当前帧
-    
+
     function Main() {
         if (!CheckSelection(selection, "selectElement", "No limit")) return;
-        
+
         // 读取XML面板配置
         var config = checkXMLPanel();
         if (config === null) return;
@@ -53,7 +53,7 @@
         var headDirection = config.headDirection;
         var shakeMode = config.shakeMode;
 
-        
+
     }
 
     Main();
