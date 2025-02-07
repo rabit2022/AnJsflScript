@@ -112,7 +112,7 @@ define(["layerUtil"], function (layerUtil) {
      * @return {number[]} 关键帧索引数组
      * @see https://gitee.com/ninge/WindowSWF/tree/master/
      */
-    FrameRangeUtil.prototype.getKeyFrames = function (layer) {
+    FrameRangeUtil.getKeyFrames = function (layer) {
         var frames = layer.frames;
 
         /**
@@ -142,7 +142,7 @@ define(["layerUtil"], function (layerUtil) {
      * @return {FrameRange[]} 帧范围数组
      * @private
      */
-    FrameRangeUtil.prototype.wrapKeyFrames = function (layers, layer, keyFrames) {
+    FrameRangeUtil.wrapKeyFrames = function (layers, layer, keyFrames) {
         // 获取图层索引
         var layerIndex = layerUtil.convertToLayerIndex(layers, layer);
 
@@ -169,7 +169,7 @@ define(["layerUtil"], function (layerUtil) {
      * @param {FrameRange} selectedFr 选中范围
      * @return {FrameRange[]} 帧范围数组
      */
-    FrameRangeUtil.prototype.getKeyFrameRanges = function (layers, selectedFr) {
+    FrameRangeUtil.getKeyFrameRanges = function (layers, selectedFr) {
         // var layers = timeline.layers;//图层
 
         // 关键帧范围
@@ -192,7 +192,7 @@ define(["layerUtil"], function (layerUtil) {
      * @param {FrameRange[]} keyFrameRanges 关键帧范围数组
      * @return {FrameRange[]} 帧范围数组
      */
-    FrameRangeUtil.prototype.getKfrsFromSlBigger = function (selectedFrBigger, keyFrameRanges) {
+    FrameRangeUtil.getKfrsFromSlBigger = function (selectedFrBigger, keyFrameRanges) {
         var keyFrs = [];
         for (var i = 0; i < keyFrameRanges.length; i++) {
             var keyFrameRange = keyFrameRanges[i];
@@ -210,7 +210,7 @@ define(["layerUtil"], function (layerUtil) {
      * @param {FrameRange[]} keyFrameRanges 关键帧范围数组
      * @return {FrameRange} 帧范围
      */
-    FrameRangeUtil.prototype.getKfrFromSlLittle = function (selectedFrLittle, keyFrameRanges) {
+    FrameRangeUtil.getKfrFromSlLittle = function (selectedFrLittle, keyFrameRanges) {
         var keyFr = null;
         for (var i = 0; i < keyFrameRanges.length; i++) {
             var keyFrameRange = keyFrameRanges[i];
@@ -230,7 +230,7 @@ define(["layerUtil"], function (layerUtil) {
      * @param {Layer|number} layer 图层
      * @param {number[]} frs 帧数组
      */
-    FrameRangeUtil.prototype.convertToKeyframesSafety = function (timeline, layer, frs) {
+    FrameRangeUtil.convertToKeyframesSafety = function (timeline, layer, frs) {
         // timeline.convertToKeyframes(frame_1);
         var layers = timeline.layers;
 
@@ -245,13 +245,9 @@ define(["layerUtil"], function (layerUtil) {
             timeline.convertToKeyframes(fr);
         }
     }
-
-
-    var frUtil = new FrameRangeUtil();
-
-
+    
     return {
         FrameRange: FrameRange,
-        frUtil: frUtil
+        FrameRangeUtil: FrameRangeUtil
     };
 });

@@ -8,120 +8,119 @@
  */
 
 
-(function () {
-    function checkDom() {
-        if (doc == null) {
-            alert("请打开 [.fla] 文件");
-            return false;
+require(["checkUtil", "SAT", "random", "satUtil", "selection", "ele"],
+    function (checkUtil, sat, random, satUtil, sel, ele) {
+        var checkDom = checkUtil.CheckDom,
+            checkSelection = checkUtil.CheckSelection;
+
+        var Vector = sat.Vector,
+            Rectangle = sat.Rectangle,
+            wrapPosition = sat.GLOBALS.wrapPosition,
+            wrapRect = sat.GLOBALS.wrapRect,
+            wrapTransform = sat.GLOBALS.wrapTransform,
+            wrapRectByCenter = sat.GLOBALS.wrapRectByCenter,
+            wrapSize = sat.GLOBALS.wrapSize,
+            wrapPoint = sat.GLOBALS.wrapPoint;
+        var pointUtil = satUtil.PointUtil,
+            rectUtil = satUtil.RectUtil;
+
+        var doc = fl.getDocumentDOM();//文档
+        if (!checkDom(doc)) return;
+
+        var selection = doc.selection;//选择
+        var library = doc.library;//库文件
+        var timeline = doc.getTimeline();//时间轴
+
+        var layers = timeline.layers;//图层
+        var curLayerIndex = timeline.currentLayer;//当前图层索引
+        var curLayer = layers[curLayerIndex];//当前图层
+
+        var curFrameIndex = timeline.currentFrame;//当前帧索引
+        var curFrame = curLayer.frames[curFrameIndex];//当前帧
+
+
+        function getExplosionRect(element) {
+            // # 爆炸矩形  position
+            // # 倍数x=w/h
+            // # 倍数y=0.08*x^2-x+5  +-0.3
+            // # m = max(w,h)
+            // # rw=m*倍数y
+            // # rh=y*(2+-0.8)
+            //
+            // # 1.5-3 scale
+            // # -180,180  rotation
+            var size = wrapSize(element);
+            var biggerSize = size.max;
+            var smallerSize = size.min;
+            var ratioX = biggerSize / smallerSize;
+            var ratioY = 0.08 * ratioX * ratioX - ratioX + 5 + random.uniform(-0.3, 0.3);
+
+            var rectHeight = biggerSize * ratioY;
+            var rectWidth = rectHeight * (2 + random.uniform(-0.5, 0.5));
+
+            var originPos = getOrigin();
+            var rect = wrapRectByCenter(originPos.x, originPos.y, rectWidth, rectHeight);
+            return rect;
         }
 
-        // if (selection.length < 1) {
-        //     alert("请选择元件？");
-        //     return false;
-        // }
-        // if (selection.length > 1) {
-        //     alert("请选择单个元件");
-        //     return false;
-        // }
-        // if (selection.length === 1) {
-        //     alert("请选择至少两个元件");
-        //     return false;
-        // }
-        return true;
-    }
+        function KFrames(element) {
+            var explosionRect = getExplosionRect(element);
 
-    var doc = fl.getDocumentDOM();//文档
-    var selection = doc.selection;//选择
-    var library = doc.library;//库文件
+            doc.enterEditMode("inPlace");
 
-    var timeline = doc.getTimeline();//时间轴
-    var layers = timeline.layers;//图层
-    var curFrameIndex = timeline.currentFrame;//当前帧索引
+            var timeline1 = doc.getTimeline();//时间轴
+            // 增加15帧
+            timeline1.insertFrames(15 - 1, true);
+            // //分散到图层操作
+            // doc.distributeToLayers();
+            // // 删除多余的碎片
+            // ele.splinterDeleter();
+
+            // 选中最后一帧
+            timeline1.currentFrame = timeline1.frameCount - 1;
+            timeline1.insertKeyframe();
 
 
-    function getExplosionRect(element) {
-        // # 爆炸矩形  position
-        // # 倍数x=w/h
-        // # 倍数y=0.08*x^2-x+5  +-0.3
-        // # m = max(w,h)
-        // # rw=m*倍数y
-        // # rh=y*(2+-0.8)
-        //
-        // # 1.5-3 scale
-        // # -180,180  rotation
-        var size = wrapSize(element);
-        var biggerSize = size.max;
-        var smallerSize = size.min;
-        var ratioX = biggerSize / smallerSize;
-        var ratioY = 0.08 * ratioX * ratioX - ratioX + 5 + random.uniform(-0.3, 0.3);
+            // 补间动画
+            doc.selectAll();
+            timeline1.createMotionTween();
+            timeline1.setFrameProperty('motionTweenRotate', 'clockwise');
+            timeline1.setFrameProperty('motionTweenRotateTimes', '2');
+            // timeline1.setSelectedFrames([]);
 
-        var rectHeight = biggerSize * ratioY;
-        var rectWidth = rectHeight * (2 + random.uniform(-0.5, 0.5));
+            // 更改位置
+            timeline1.currentFrame = timeline1.frameCount - 1;
+            sel.SelectAll();
+            for (var i = 0; i < doc.selection.length; i++) {
+                var element = doc.selection[i];
 
-        var originPos = getOrigin();
-        var rect = wrapRectByCenter(originPos.x, originPos.y, rectWidth, rectHeight);
-        return rect;
-    }
+                // 移动到随机位置
+                var randomPos = rectUtil.generateRandomPointInRect(explosionRect);
 
-    function KFrames(element) {
-        var explosionRect = getExplosionRect(element);
+                // 随机缩放
+                var scale = random.uniform(1.5, 3);
+                // 随机旋转
+                var rotation = random.uniform(-180, 180);
 
-        doc.enterEditMode("inPlace");
+                var transform = wrapTransform(element);
+                transform.setPosition(randomPos).setScale(new Vector(scale, scale)).setRotation(rotation);
+            }
 
-        var timeline1 = doc.getTimeline();//时间轴
-        // 增加15帧
-        timeline1.insertFrames(15 - 1, true);
-        // //分散到图层操作
-        // doc.distributeToLayers();
-        // // 删除多余的碎片
-        // ele.splinterDeleter();
-
-        // 选中最后一帧
-        timeline1.currentFrame = timeline1.frameCount - 1;
-        timeline1.insertKeyframe();
-
-
-        // 补间动画
-        doc.selectAll();
-        timeline1.createMotionTween();
-        timeline1.setFrameProperty('motionTweenRotate', 'clockwise');
-        timeline1.setFrameProperty('motionTweenRotateTimes', '2');
-        // timeline1.setSelectedFrames([]);
-
-        // 更改位置
-        timeline1.currentFrame = timeline1.frameCount - 1;
-        SelectAll();
-        for (var i = 0; i < doc.selection.length; i++) {
-            var element = doc.selection[i];
-
-            // 移动到随机位置
-            var randomPos = rectUtil.generateRandomPointInRect(explosionRect);
-
-            // 随机缩放
-            var scale = random.uniform(1.5, 3);
-            // 随机旋转
-            var rotation = random.uniform(-180, 180);
-
-            var transform = wrapTransform(element);
-            transform.setPosition(randomPos).setScale(new Point(scale, scale)).setRotation(rotation);
+            doc.exitEditMode();
         }
 
-        doc.exitEditMode();
-    }
+        function Main() {
+            // 检查选择的元件
+            if (!checkSelection(selection, "selectElement", "No limit")) return;
 
-    function Main() {
-        if (!checkDom()) {
-            return;
+
+            // 碎片
+            ele.splinterSymbol(doc.selection[0], "一键爆炸_");
+
+
+            // 爆炸效果
+            KFrames(doc.selection[0]);
         }
 
-        // 碎片
-        ele.splinterSymbol(doc.selection[0], "一键爆炸_");
-
-
-        // 爆炸效果
-        KFrames(doc.selection[0]);
-    }
-
-    Main();
-})();
-
+        Main();
+    });

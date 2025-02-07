@@ -8,42 +8,38 @@
  */
 
 
-(function () {
-    function checkDom() {
-        if (doc == null) {
-            alert("请打开 [.fla] 文件");
-            return false;
-        }
+require(["checkUtil","selection","layerUtil","satUtil","SAT"],
+    function(checkUtil,sel,layerUtil,satUtil,sat) {
+    var checkDom = checkUtil.CheckDom,
+        checkSelection = checkUtil.CheckSelection;
+    var Vector = sat.Vector,
+        Rectangle = sat.Rectangle,
+        wrapPosition = sat.GLOBALS.wrapPosition,
+        wrapRect = sat.GLOBALS.wrapRect;
+    var pointUtil = satUtil.PointUtil,
+        rectUtil = satUtil.RectUtil;
 
-        if (selection.length < 1) {
-            alert("请选择元件？");
-            return false;
-        }
-        // if (selection.length > 1) {
-        //     alert("请选择单个元件");
-        //     return false;
-        // }
-        // if (selection.length === 1) {
-        //     alert("请选择至少两个元件");
-        //     return false;
-        // }
-        return true;
-    }
 
     var doc = fl.getDocumentDOM();//文档
+    if (!checkDom(doc)) return;
+
     var selection = doc.selection;//选择
     var library = doc.library;//库文件
-
     var timeline = doc.getTimeline();//时间轴
+
     var layers = timeline.layers;//图层
-    var curFrameIndex = timeline.currentFrame;
+    var curLayerIndex = timeline.currentLayer;//当前图层索引
+    var curLayer = layers[curLayerIndex];//当前图层
+
+    var curFrameIndex = timeline.currentFrame;//当前帧索引
+    var curFrame = curLayer.frames[curFrameIndex];//当前帧
 
     function getCameraRect(cameraPos) {
         // 摄像机缩放
         var cameraZoom = timeline.camera.getZoom(curFrameIndex) / 100;
         var stageWidth = doc.width;
         var stageHeight = doc.height;
-        var cameraRect = new Rect(-cameraPos.x, -cameraPos.y,
+        var cameraRect = new Rectangle(-cameraPos.x, -cameraPos.y,
             -cameraPos.x + stageWidth / cameraZoom, -cameraPos.y + stageHeight / cameraZoom);
         return cameraRect;
     }
@@ -68,25 +64,24 @@
             curElements = curElements.concat(elements);
         }
 
-        SelectAll(curElements);
+        sel.SelectAll(curElements);
         var bgRect = wrapRect(doc.getSelectionRect());
         return bgRect;
     }
 
     function getPeopleCenter() {
         // 人物的中心点
-        SelectStart(selection);
+        sel.SelectStart(selection);
 
         var rect = wrapRect(doc.getSelectionRect());
-        var peopleCenter = rect.center();
+        var peopleCenter = rect.getCenterVector();
         return peopleCenter;
     }
 
-
     function Main() {
-        if (!checkDom()) {
-            return;
-        }
+        // 检查选择的元件
+        if (!checkSelection(selection, "selectElement", "Not Zero")) return;
+
 
         // 允许摄像机
         timeline.camera.cameraEnabled = true;
@@ -95,7 +90,7 @@
         // 摄像机位置,左上角坐标
         var cameraPos = wrapPosition(timeline.camera.getPosition(curFrameIndex));
         var cameraRect = getCameraRect(cameraPos);
-        var cameraCenter = cameraRect.center();
+        var cameraCenter = cameraRect.getCenterVector();
 
         // 背景
         var bgRect = getBgRect();
@@ -118,10 +113,8 @@
         // 移动摄像机
         timeline.camera.setPosition(curFrameIndex, newCameraPos.x, newCameraPos.y);
 
-        SelectStart(selection);
+        sel.SelectStart(selection);
     }
 
     Main();
-})();
-
-
+});

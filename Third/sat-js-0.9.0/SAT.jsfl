@@ -1,13 +1,28 @@
-﻿/**
- * @file: Vector.jsfl
- * @author: 穹的兔兔
- * @email: 3101829204@qq.com
- * @date: 2025/2/5 18:21
- * @project: AnJsflScript
- * @description:
+﻿// Version 0.9.0 - Copyright 2012 - 2021 -  Jim Riecken <jimr@jimr.ca>
+//
+// Released under the MIT License - https://github.com/jriecken/sat-js
+//
+// A simple library for determining intersections of circles and
+// polygons using the Separating Axis Theorem.
+/** @preserve SAT.js - Version 0.9.0 - Copyright 2012 - 2021 - Jim Riecken <jimr@jimr.ca> - released under the MIT License. https://github.com/jriecken/sat-js */
+
+/*global define: false, module: false*/
+/*jshint shadow:true, sub:true, forin:true, noarg:true, noempty:true,
+  eqeqeq:true, bitwise:true, strict:true, undef:true,
+  curly:true, browser:true */
+
+// Create a UMD wrapper for SAT. Works in:
+//
+//  - Plain browser via global SAT variable
+//  - AMD loader (like require.js)
+//  - Node.js
+//
+// The quoted properties all over the place are used so that the Closure Compiler
+// does not mangle the exposed API in advanced mode.
+/**
+ * @param {*} root - The global scope
+ * @param {Function} factory - Factory that creates SAT module
  */
-
-
 (function (root, factory) {
     "use strict";
     if (typeof define === 'function' && define['amd']) {
@@ -353,6 +368,12 @@
     SAT_GLOBALS['getTopLeft'] = getTopLeft;
 
 
+    //
+    // ## Rectangle
+    //
+    // Represents a rectangle with `left`, `top`, `right`, and `bottom` properties.
+
+
     /**
      * 矩形
      * @param {number} left 左边
@@ -401,8 +422,9 @@
         } else if (offset instanceof Vector) {
             offset = new Rectangle(offset.x, offset.y, offset.x, offset.y);
         }
-        return new Rectangle(this.left + offset.x, this.top + offset.y, this.right + offset.x, this.bottom + offset.y);
+        return new Rectangle(this.left + offset.left, this.top + offset.top, this.right + offset.right, this.bottom + offset.bottom);
     }
+    
     /**
      * 矩形 偏移前的 矩形
      * 移动矩形的边界
@@ -415,8 +437,9 @@
         } else if (offset instanceof Vector) {
             offset = new Rectangle(offset.x, offset.y, offset.x, offset.y);
         }
-        return new Rectangle(this.left - offset.x, this.top - offset.y, this.right - offset.x, this.bottom - offset.y);
+        return new Rectangle(this.left - offset.left, this.top - offset.top, this.right - offset.right, this.bottom - offset.bottom);
     }
+    
     // /**
     //  * 矩形相加
     //  * 扩展  矩形的边界
@@ -588,6 +611,11 @@
     SAT_GLOBALS["wrapRectByElement"] = wrapRectByElement;
     SAT_GLOBALS["wrapRectByRadius"] = wrapRectByRadius;
 
+    //
+    // ## Size
+    //
+    // Represents a size with `width` and `height` properties.
+
     /**
      * 尺寸
      * @param {number} width 宽度
@@ -622,13 +650,19 @@
     }
 
     Size.prototype.toPoint = function () {
-        return new Point(this.width, this.height);
+        return new Vector(this.width, this.height);
     }
 
     function wrapSize(element) {
         return new Size(element.width, element.height);
     }
     SAT_GLOBALS["wrapSize"] = wrapSize;
+
+
+    //
+    // ## Transform
+    //
+    // Represents a transform with `rotation`, `scale`, `position`, `size`, and `skew` properties.
 
     /**
      * 转换对象
@@ -641,13 +675,13 @@
         // 旋转
         this.rotation = element.rotation;
         // 缩放
-        this.scale = new Point(element.scaleX, element.scaleY);
+        this.scale = new Vector(element.scaleX, element.scaleY);
         // 位置
-        this.position = new Point(element.x, element.y);
+        this.position = new Vector(element.x, element.y);
         // 宽高
         this.size = new Size(element.width, element.height);
         // 倾斜
-        this.skew = new Point(element.skewX, element.skewY);
+        this.skew = new Vector(element.skewX, element.skewY);
     }
     SAT['Transform'] = Transform;
 
@@ -658,7 +692,7 @@
     }
     /**
      * 设置缩放
-     * @param {Point} scale 缩放比例
+     * @param {Vector} scale 缩放比例
      * @return {Transform} Transform
      */
     Transform.prototype.setScale = function (scale) {
@@ -700,8 +734,6 @@
     }
     SAT_GLOBALS["wrapTransform"] = wrapTransform;
 
-    return {
-        SAT: SAT,
-        SAT_GLOBALS: SAT_GLOBALS
-    }
+    SAT["GLOBALS"] = SAT_GLOBALS;
+    return SAT;
 }));

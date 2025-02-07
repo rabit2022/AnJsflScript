@@ -7,9 +7,9 @@
  * @description:
  */
 
-define(["sat"], function (sat) {
-    var Vector = sat.SAT.V;
-    var  wrapRectByTopLeft = sat.SAT_GLOBALS.wrapRectByTopLeft;
+define(["SAT"], function (sat) {
+    var Vector = sat.V;
+    var  wrapRectByTopLeft = sat.GLOBALS.wrapRectByTopLeft;
     
     /**
      * 排兵布阵类
@@ -50,8 +50,11 @@ define(["sat"], function (sat) {
     }
 
     MoreElement.prototype.NeatRect = function (x, y) {
-        var offset = this.Offset.scale(new Vector(x, y));
+        var offset = this.Offset.scale(x, y);
         var newRect = this.Rect.addOffset(offset);
+        // print("this.Rect=" + this.Rect);
+        // print("offset=" + offset);
+        // print("newRect=" + newRect);
         return newRect;
     }
 
@@ -81,6 +84,10 @@ define(["sat"], function (sat) {
         }
         return rect;
     }
+    MoreElement.prototype.toString = function () {
+        return "MoreElement(element=" + this.element + ", positioin=" + this.positioin + ", Offset=" + this.Offset + ", Rect=" + this.Rect + ")";
+    }
+
 
     function wrapMoreElement(left, top, width, height) {
         var eleObj = {x: left, y: top, width: width, height: height};

@@ -7,10 +7,10 @@
  * @description:
  */
 
-define(["sat","random"], function (sat, random) {
-    var wrapPosition = sat.SAT_GLOBALS.wrapPosition;
-    var wrapRectByElement = sat.SAT_GLOBALS.wrapRectByElement;
-    var Vector = sat.SAT.Vector;
+define(["SAT","random"], function (sat, random) {
+    var wrapPosition = sat.GLOBALS.wrapPosition;
+    var wrapRectByElement = sat.GLOBALS.wrapRectByElement;
+    var Vector = sat.Vector;
 
     function PointUtil() {
 
@@ -22,7 +22,7 @@ define(["sat","random"], function (sat, random) {
      * @param {Number} [ratio=5/6] 缩放比例
      * @returns {*}
      */
-    PointUtil.prototype.getShakeHeadTrPoint = function (element, ratio) {
+    PointUtil.getShakeHeadTrPoint = function (element, ratio) {
         if (ratio === undefined) {
             ratio = 5 / 6;
         }
@@ -40,7 +40,6 @@ define(["sat","random"], function (sat, random) {
         return trPointLocal;
     }
 
-    var pointUtil = new PointUtil();
     /**
      * 矩形工具类
      * @constructor
@@ -57,7 +56,7 @@ define(["sat","random"], function (sat, random) {
      * @param {Vector} moveVector 原始向量
      * @returns {Vector} 新的向量
      */
-    RectUtil.prototype.calculateSafeMoveVector = function (bigRect, smallRect, moveVector) {
+    RectUtil.calculateSafeMoveVector = function (bigRect, smallRect, moveVector) {
         // 小矩形的边界   与   大矩形的边界  的距离 
         // <0  小矩形在大矩形的  外面
         // >0  小矩形在大矩形的  里面
@@ -110,7 +109,7 @@ define(["sat","random"], function (sat, random) {
      * @param {Rectangle} Rectangle 矩形
      * @returns {Vector} 随机点
      */
-    RectUtil.prototype.generateRandomPointInRect = function (Rectangle) {
+    RectUtil.generateRandomPointInRect = function (Rectangle) {
         const randomX = random.uniform(Rectangle.left, Rectangle.right);
         const randomY = random.uniform(Rectangle.top, Rectangle.bottom);
         return new Vector(randomX, randomY);
@@ -123,7 +122,7 @@ define(["sat","random"], function (sat, random) {
      * @param {number} [gridSize=5] - 分割网格的大小，默认为5。
      * @returns {[number, number, number, number]} [blockWidth, blockHeight,blockCountX,blockCountY]- 每个小块的宽度和高度，以及网格的数量。
      */
-    RectUtil.prototype.splitRectangle = function (rectSize, gridSize) {
+    RectUtil.splitRectangle = function (rectSize, gridSize) {
         if (!gridSize) {
             gridSize = 5;
         }
@@ -149,11 +148,9 @@ define(["sat","random"], function (sat, random) {
             return [blockShorterSide, blockLongerSide, shorterMaxCount, gridSize];
         }
     }
-
-    var rectUtil = new RectUtil();
     
-    var SAT_UTIL = {};
-    SAT_UTIL["pointUtil"]=pointUtil;
-    SAT_UTIL["rectUtil"]=rectUtil;
-    return SAT_UTIL;
+    return {
+        PointUtil: PointUtil,
+        RectUtil: RectUtil
+    };
 });

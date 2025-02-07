@@ -11,7 +11,7 @@ define(function () {
 
     }
 
-    XMLPanelUtil.prototype.getXMLPath = function () {
+    XMLPanelUtil.getXMLPath = function () {
         var XMLPANEL = fl.scriptURI.split(".jsfl").join(".xml");
         return XMLPANEL;
     }
@@ -20,7 +20,7 @@ define(function () {
      * 获取XML面板
      * @param {string} [panelPath] 面板路径，默认使用当前脚本的XML路径
      */
-    XMLPanelUtil.prototype.getXMLPanel = function (panelPath) {
+    XMLPanelUtil.getXMLPanel = function (panelPath) {
         if (panelPath === undefined) {
             panelPath = this.getXMLPath();
         }
@@ -40,7 +40,7 @@ define(function () {
      * @param {string} [alertMsg] 错误提示信息
      * @returns {number}
      */
-    XMLPanelUtil.prototype.parseNumber = function (inputStr, alertMsg) {
+    XMLPanelUtil.parseNumber = function (inputStr, alertMsg) {
         if (inputStr === null || isNaN(Number(inputStr))) {
             if (alertMsg !== undefined) {
                 alert(alertMsg);
@@ -56,7 +56,7 @@ define(function () {
      * @param {string} [alertMsg] 错误提示信息
      * @returns {string}
      */
-    XMLPanelUtil.prototype.parseString = function (inputStr, alertMsg) {
+    XMLPanelUtil.parseString = function (inputStr, alertMsg) {
         if (inputStr === null) {
             if (alertMsg !== undefined) {
                 alert(alertMsg);
@@ -72,7 +72,7 @@ define(function () {
      * @param {object} [tipDictionary={"右": 1, "左": -1, " ": -1}] 方向提示字典
      * @returns {number}
      */
-    XMLPanelUtil.prototype.parseDirection = function (inputDirection, tipDictionary) {
+    XMLPanelUtil.parseDirection = function (inputDirection, tipDictionary) {
         // var inputDirection = dialog.direction;
         if (tipDictionary === null) {
             tipDictionary = {"右": 1, "左": -1, " ": -1};
@@ -94,7 +94,5 @@ define(function () {
     }
 
 
-    var xmlPanelUtil = new XMLPanelUtil();
-    return xmlPanelUtil;
-
+    return XMLPanelUtil;
 });

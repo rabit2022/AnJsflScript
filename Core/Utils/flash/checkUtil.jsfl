@@ -8,14 +8,17 @@
  */
 
 
-define(function () {
+define(["frameRange"], function (frameRange) {
+
+    var frUtil = frameRange.FrameRangeUtil;
+    
     /**
      * 检查选择的元件或帧是否符合指定的模式和条件。
      *
      * @param {Array} selection - 选择的元件或帧数组。
      * @param {"selectElement"|"selectFrame"|"elementOnFrame"} [mode="selectElement"] - 检查模式，默认值为 "selectElement"。
      * @param {"No limit"|"Not Zero"|"Zero"|"Only one"|"Only two"|"More"|
-     * ">0"|"=0"|"=1"|"=2"|">1"} [condition="No selection"] - 检查条件，默认值为 "No selection"。
+     * ">0"|"=0"|"=1"|"=2"|">=2"} [condition="No selection"] - 检查条件，默认值为 "No selection"。
      * @returns {boolean} - 如果选择符合指定条件，则返回 true，否则返回 false。
      */
     function CheckSelection(selection, mode, condition) {
@@ -56,7 +59,7 @@ define(function () {
 
         }
         if (selection.length > 1) {
-            if (condition === "More" || condition === ">1") return true;
+            if (condition === "More" || condition === ">=2") return true;
 
             if (mode === "selectElement") {
                 alert("请选择单个元件");

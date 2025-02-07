@@ -1,16 +1,19 @@
-/**
- * @file: 09.元件批复制.jsfl
- * @author: 穹的兔兔
- * @email: 3101829204@qq.com
- * @date: 2024/12/8 15:19
- * @project: AnJsflScript
- * @description:
- */
+﻿require(["checkUtil", "SAT", "satUtil", "frameRange","selection"], 
+    function (checkUtil, sat, satUtil, frameRange,sel) {
+    var checkDom = checkUtil.CheckDom, 
+        checkSelection = checkUtil.CheckSelection,
+        checkSelectedFrames = checkUtil.CheckSelectedFrames;
+        
+    var Vector = sat.Vector, 
+        Rectangle = sat.Rectangle, 
+        wrapPosition = sat.GLOBALS.wrapPosition,
+        wrapRect = sat.GLOBALS.wrapRect;
 
-require(["checkUtil","ele"],function(checkUtil, ele) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
+    var pointUtil = satUtil.PointUtil, 
+        rectUtil = satUtil.RectUtil;
 
+    var frUtil = frameRange.FrameRangeUtil;
+    
     var doc = fl.getDocumentDOM();//文档
     if (!checkDom(doc)) return;
 
@@ -30,14 +33,8 @@ require(["checkUtil","ele"],function(checkUtil, ele) {
         if (!checkSelection(selection, "selectElement", "No limit")) return;
 
 
-        for (var i = 0; i < selection.length; i++) {
-            var element = selection[i];
-            if (ele.IsSymbol(element)) {
-                // CopySymbol();
-                ele.CopySymbol(element, "auto");
-            }
-        }
     }
 
     Main();
 });
+

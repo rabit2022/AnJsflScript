@@ -1998,19 +1998,20 @@ var requirejs, require, define;
                     [moduleName]));
             }
         } else if (isFlash) {
+            // .js--.jsfl
+            var scriptURI = url.replace('.js', '.jsfl');
+
             try {
-                // .js--.jsfl
-                var scriptURI = url.replace('.js', '.jsfl');
-                
-                fl.trace("require.load is called for flash [" + moduleName + "] at [" + scriptURI + "]");
-                
                 fl.runScript(scriptURI);
+                fl.trace("load for flash [" + moduleName + "] at [" + scriptURI + "]");
+                
                 //Account for anonymous modules
                 context.completeLoad(moduleName);
             } catch (e) {
+                fl.trace("failed to load script for flash [" + moduleName + "] at [" + scriptURI + "]");
                 context.onError(makeError('flash',
                     'Flash loading failed for ' +
-                    moduleName + ' at ' + url,
+                    moduleName + ' at ' + scriptURI,
                     e,
                     [moduleName]));
             }

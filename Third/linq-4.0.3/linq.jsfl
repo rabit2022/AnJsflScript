@@ -2941,5 +2941,5 @@
     Grouping.prototype = new ArrayEnumerable();
 
 // export default Enumerable;
-    return {Enumerable: Enumerable};
+    return Enumerable;
 }));

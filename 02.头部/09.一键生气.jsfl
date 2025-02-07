@@ -7,7 +7,12 @@
  * @description:
  */
 
-(function () {
+require(["checkUtil", "curve", "frameRange"],function(checkUtil,curve,frameRange) {
+    var checkDom = checkUtil.CheckDom,
+        checkSelection = checkUtil.CheckSelection,
+        checkSelectedFrames = checkUtil.CheckSelectedFrames;
+    var frUtil = frameRange.FrameRangeUtil;
+
     var descriptions = {
         "file": "09.一键生气.jsfl",
         "file description": "生气的动作",
@@ -25,9 +30,9 @@
         ]
     };
 
-
+    
     var doc = fl.getDocumentDOM();//文档
-    if (!CheckDom(doc)) return;
+    if (!checkDom(doc)) return;
 
     var selection = doc.selection;//选择
     var library = doc.library;//库文件
@@ -35,8 +40,9 @@
 
     var layers = timeline.layers;//图层
     var curLayerIndex = timeline.currentLayer;//当前图层索引
-    var curFrameIndex = timeline.currentFrame;//当前帧索引
     var curLayer = layers[curLayerIndex];//当前图层
+
+    var curFrameIndex = timeline.currentFrame;//当前帧索引
     var curFrame = curLayer.frames[curFrameIndex];//当前帧
 
 
@@ -68,13 +74,13 @@
         return {allKeyFrames: allKeyFrames, alteredKeyFrames: alteredKeyFrames};
     }
 
-
     function Main() {
         // 检查选择的元件
-        if (!CheckSelection(selection, "selectElement", "Only one")) return;
+        // 检查选择的元件
+        if (!checkSelection(selection, "selectElement", "Only one")) return;
 
         // 选中的所有帧 的第一帧
-        var frs = CheckSelectedFrames(timeline);
+        var frs = checkSelectedFrames(timeline);
         if (frs === null) return;
         var firstFrame = frs[0].startFrame;
         var firstLayer = layers[frs[0].layerIndex];
@@ -110,7 +116,8 @@
 
         // 重置选中帧
         frUtil.resetSelectedFrames(timeline, frs);
+
     }
 
     Main();
-})();
+});

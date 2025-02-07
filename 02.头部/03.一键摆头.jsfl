@@ -7,7 +7,11 @@
  * @description:
  */
 
-(function () {
+
+require(["checkUtil", "promptUtil", "filterUtil", "libUtil"],function(checkUtil, promptUtil, filterUtil, libUtil) {
+    var checkDom = checkUtil.CheckDom,
+        checkSelection = checkUtil.CheckSelection;
+    
     var descriptions = {
         "file": "03.一键摆头.jsfl",
         "file description": "摆头的动作",
@@ -27,8 +31,9 @@
             "水平翻转"
         ]
     };
+    
     var doc = fl.getDocumentDOM();//文档
-    if (!CheckDom(doc)) return;
+    if (!checkDom(doc)) return;
 
     var selection = doc.selection;//选择
     var library = doc.library;//库文件
@@ -36,11 +41,11 @@
 
     var layers = timeline.layers;//图层
     var curLayerIndex = timeline.currentLayer;//当前图层索引
-    var curFrameIndex = timeline.currentFrame;//当前帧索引
     var curLayer = layers[curLayerIndex];//当前图层
+
+    var curFrameIndex = timeline.currentFrame;//当前帧索引
     var curFrame = curLayer.frames[curFrameIndex];//当前帧
-
-
+    
     function KFrames(blurFilterForce) {
         doc.enterEditMode("inPlace");
 
@@ -65,7 +70,8 @@
     }
 
     function Main() {
-        if (!CheckSelection(selection, "selectElement", "Only one")) return;
+        // 检查选择的元件
+        if (!checkSelection(selection, "selectElement", "Only one")) return;
 
 
         var blurFilterForce = promptUtil.parseNumber("输入动态模糊度：", 4, "动态模糊度只能输入数字，请重新输入。");
@@ -82,4 +88,8 @@
     }
 
     Main();
-})();
+});
+
+
+
+

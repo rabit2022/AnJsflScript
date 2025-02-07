@@ -18,16 +18,16 @@ define(function () {
      * @readonly
      * @static
      */
-    OSPath.prototype.PLUGIN_PATH = fl.configURI + "WindowSWF";
+    OSPath.PLUGIN_PATH = fl.configURI + "WindowSWF";
     /**
      * 命令位置
      * @type {string}
      * @readonly
      * @static
      */
-    OSPath.prototype.COMMAND_PATH = fl.configURI + "Commands";
+    OSPath.COMMAND_PATH = fl.configURI + "Commands";
 
-    OSPath.prototype.abspath = function (relativePath) {
+    OSPath.abspath = function (relativePath) {
         // 将当前工作目录和相对路径合并
         var absolutePath = relativePath;
         // var currentWorkingDirectory = getCurFolderURI();
@@ -54,16 +54,16 @@ define(function () {
 
         return absolutePath;
     }
-    OSPath.prototype.basename = function (path) {
+    OSPath.basename = function (path) {
         return path.split('/').pop();
     }
-    OSPath.prototype.dirname = function (path) {
+    OSPath.dirname = function (path) {
         return path.split('/').slice(0, -1).join('/');
     }
-    OSPath.prototype.exists = function (uri) {
+    OSPath.exists = function (uri) {
         return FLfile.exists(uri);
     }
-    OSPath.prototype.isAbs = function (path) {
+    OSPath.isAbs = function (path) {
         // return path.startsWith('/');
         // // Unix 和 Linux 的绝对路径判断
         // if (path.startsWith('/')) {
@@ -79,11 +79,11 @@ define(function () {
         // 如果不是以上情况，则不是绝对路径
         return false;
     }
-    OSPath.prototype.isfile = function (uri) {
+    OSPath.isfile = function (uri) {
         var [root, ext] = this.splitext(uri);
         return ext.length > 0;
     }
-    OSPath.prototype.isdir = function (uri) {
+    OSPath.isdir = function (uri) {
         var [root, ext] = this.splitext(uri);
         return ext.length === 0;
     }
@@ -95,7 +95,7 @@ define(function () {
      * @param {string} path - 要规范化的路径。
      * @return {string} - 规范化后的路径。
      */
-    OSPath.prototype.normcase = function (path) {
+    OSPath.normcase = function (path) {
         // 在 Windows 上，将路径中的所有字符都转换为小写，并将正斜杠转换为反斜杠
         if (os.isWindows()) {
             return path.toLowerCase().replace(/\\/g, '/');
@@ -113,7 +113,7 @@ define(function () {
      * @return {string} - 规范化后的路径。
      * @private
      */
-    OSPath.prototype.normpath = function (path) {
+    OSPath.normpath = function (path) {
         var isWindows = os.isWindows();
         const separator = isWindows ? '\\' : '/';
         var normalizedParts = [];
@@ -161,7 +161,7 @@ define(function () {
      * join(['/foo', 'bar', 'baz']) 返回 '/foo/bar/baz'
      * join(['/foo/bar', 'baz']) 返回 '/foo/bar/baz'
      */
-    OSPath.prototype.join = function (paths) {
+    OSPath.join = function (paths) {
         // return this.normpath(paths.join('/'));
         return paths.join('/');
     }
@@ -180,10 +180,10 @@ define(function () {
      * @return {[string, string]} - 一个包含head和tail的数组。
      * @example
      * 示例：
-     * OSPath.prototype.split('bar') 返回 ['', 'bar']
-     * OSPath.prototype.split('/foo/bar/') 返回 ['', '']
+     * OSPath.split('bar') 返回 ['', 'bar']
+     * OSPath.split('/foo/bar/') 返回 ['', '']
      */
-    OSPath.prototype.split = function (path) {
+    OSPath.split = function (path) {
         // 处理空路径的情况
         if (path === '') {
             return ['', ''];
@@ -227,7 +227,7 @@ define(function () {
      * splitext('bar') 返回 ['bar', '']，因为没有扩展名。
      * splitext('foo.bar.exe') 返回 ['foo.bar', '.exe']，扩展名包括点。
      */
-    OSPath.prototype.splitext = function (path) {
+    OSPath.splitext = function (path) {
         // 找到最后一个和倒数第二个斜杠的位置
         const lastSlashIndex = path.lastIndexOf('/');
         const secondLastSlashIndex = path.lastIndexOf('/', lastSlashIndex - 1);
@@ -258,12 +258,12 @@ define(function () {
      * @param {string} path - 要处理的文件路径。
      * @return {string} - 去除后缀的文件基本名称。
      */
-    OSPath.prototype.basenameWithoutExt = function (path) {
+    OSPath.basenameWithoutExt = function (path) {
         // 获取路径的基本名称
-        const basename = osPath.basename(path);
+        const basename = OSPath.basename(path);
 
         // 获取路径的扩展名
-        const [root, ext] = osPath.splitext(basename);
+        const [root, ext] = OSPath.splitext(basename);
 
         // 返回去除扩展名的基本名称
         return root;
@@ -271,10 +271,10 @@ define(function () {
 
 
     function OS() {
-        this.path = new OSPath();
     }
+    OS.path = OSPath;
 
-    OS.prototype.isMac = function () {
+    OS.isMac = function () {
         return (fl.version.search(/mac/i) > -1);
     }
 
@@ -283,7 +283,7 @@ define(function () {
      * WIN 24,0,0,305
      * @returns {boolean}
      */
-    OS.prototype.isWindows = function () {
+    OS.isWindows = function () {
         return (fl.version.search(/win/i) > -1);
     }
 
@@ -293,7 +293,7 @@ define(function () {
      *
      * @return {string} - 当前工作目录的路径。
      */
-    OS.prototype.getcwd = function () {
+    OS.getcwd = function () {
         // 获取当前脚本文件的完整路径
         var scriptURI = fl.scriptURI;
         // 获取路径中最后一个“/”的位置
@@ -308,7 +308,7 @@ define(function () {
      *
      * @param {string} uri - 要创建的目录的路径。
      */
-    OS.prototype.mkdir = function (uri) {
+    OS.mkdir = function (uri) {
         var success = FLfile.createFolder(uri);
         if (success) {
             print("Folder created: " + uri);
@@ -326,7 +326,7 @@ define(function () {
      * @param {string} [cwd] - 工作目录。
      * @param {number} [show_cmd] - 窗口样式。
      */
-    OS.prototype.startfile = function (path, operation, arguments, cwd, show_cmd) {
+    OS.startfile = function (path, operation, arguments, cwd, show_cmd) {
         // 转换路径为平台路径
         var uri = FLfile.uriToPlatformPath(path);
 
@@ -400,15 +400,11 @@ define(function () {
      * @param {string} [uri='.'] - 要列出的目录的路径。
      * @returns {string[]} - 包含目录条目的数组。
      */
-    OS.prototype.listdir = function (uri) {
+    OS.listdir = function (uri) {
         var files = FLfile.listFolder(uri);
         // print(files);
         return files;
     };
 
-    var os = new OS();
-    
-    return {
-        os: os
-    };
+    return OS;
 });

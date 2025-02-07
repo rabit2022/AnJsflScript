@@ -40,50 +40,44 @@
         require.config({
             baseUrl: getCurFolderURI(), // 设置模块的基础路径
             paths: {
-                shim: "./Third/es5-shim-4.6.7/es5-shim",
-                sham: "./Third/es5-shim-4.6.7/es5-sham",
-                linq: "./Third/linq-4.0.3/linq",
-                sat: "./Third/sat-js/SAT",
+                "es5-sham":"Third/es5-shim-4.6.7/es5-sham",
+                "es5-shim":"Third/es5-shim-4.6.7/es5-shim",
+                "es6-sham":"Third/es6-shim-0.35.4/es6-sham",
+                "es6-shim":"Third/es6-shim-0.35.4/es6-shim",
+                "linq":"Third/linq-4.0.3/linq",
+                "linqUtil":"Third/linq-4.0.3/linqUtil",
+                "shim":"Third/myShim/shim",
+                "require":"Third/requirejs-2.3.7/require",
+                "SAT":"Third/sat-js-0.9.0/SAT",
+                "satUtil":"Third/sat-js-0.9.0/satUtil",
 
-                curve:"Core/Object/curve",
-                ele:"Core/Object/ele",
-                frameRange:"Core/Object/frameRange",
-                graphics:"Core/Object/graphics",
-                moreElement:"Core/Object/moreElement",
-                rect:"Core/Object/rect",
-                size:"Core/Object/size",
-                transform:"Core/Object/transform",
-                Constants:"Core/TopLevel/Constants",
-                Log:"Core/TopLevel/Log",
-                Selection:"Core/TopLevel/Selection",
-                checkUtil:"Core/Utils/flash/checkUtil",
-                filterUtil:"Core/Utils/flash/filterUtil",
-                layerUtil:"Core/Utils/flash/layerUtil",
-                libUtil:"Core/Utils/flash/libUtil",
-                promptUtil:"Core/Utils/flash/promptUtil",
-                XMLPanelUtil:"Core/Utils/flash/XMLPanelUtil",
-                array:"Core/Utils/native/array",
-                arrayUtil:"Core/Utils/native/arrayUtil",
-                dictUtil:"Core/Utils/native/dictUtil",
-                string:"Core/Utils/native/string",
-                builtInP:"Core/Utils/py/builtInP",
-                os:"Core/Utils/py/os",
-                random:"Core/Utils/py/random",
-                StringP:"Core/Utils/py/StringP",
+                "curve":"Core/Object/curve",
+                "ele":"Core/Object/ele",
+                "frameRange":"Core/Object/frameRange",
+                "graphics":"Core/Object/graphics",
+                "moreElement":"Core/Object/moreElement",
+                "Constants":"Core/TopLevel/Constants",
+                "Log":"Core/TopLevel/Log",
+                "checkUtil":"Core/Utils/flash/checkUtil",
+                "filterUtil":"Core/Utils/flash/filterUtil",
+                "layerUtil":"Core/Utils/flash/layerUtil",
+                "libUtil":"Core/Utils/flash/libUtil",
+                "promptUtil":"Core/Utils/flash/promptUtil",
+                "selection":"Core/Utils/flash/selection",
+                "xmlPanelUtil":"Core/Utils/flash/xmlPanelUtil",
+                "builtInP":"Core/Utils/py/builtInP",
+                "os":"Core/Utils/py/os",
+                "random":"Core/Utils/py/random",
+                "StringP":"Core/Utils/py/StringP",
 
 
             }
         });
-
-        require(["shim", "sham", "array", "string","Constants", "Log", "Selection"], function (shim, sham, array, string) {
-        });
-
-        // require(["sat"], function (sat) {
-        //     var Vector = sat.SAT.Vector;
-        //     var p = new Vector(10, 20);
-        //     fl.trace(p.toString());
-        // });
-
+        
+        // 当前es3(es1999)环境,补齐es5(es2009)和es6(es2015)的一些方法
+        require(["es5-shim", "es5-sham","es6-shim","es6-sham","shim",
+            "Constants", "Log"]);
+        
         // 导入完成
         fl.trace("=============Core modules imported.=============");
 

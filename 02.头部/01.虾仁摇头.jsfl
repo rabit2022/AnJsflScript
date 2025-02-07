@@ -7,91 +7,100 @@
  * @description:
  */
 
-(function () {
-    var descriptions = {
-        "file": "01.虾仁摇头.jsfl",
-        "file description": "输出 摇头动作的元件,没有说话时的头部动作",
-        "selection": "仅一个元件",
-        "selection description": "选中头部",
-        "XMLPanel": true,
-        "input parameters": {
-            "摇头力度": 6,
-            "头部朝向": null
-        },
-        "detail": "包装元件",
-        "detail description": "",
-        "steps": [
-            "包装元件",
-            "设置变形点",
-            "更改旋转",
-            "设置传统补间"
-        ]
-    };
 
-    function checkXMLPanel() {
-        var panel = xmlPanelUtil.getXMLPanel();
-        if (panel === null) return null;
+require(["checkUtil", "xmlPanelUtil", "libUtil", "satUtil", "curve","selection"],
+    function (checkUtil, xmlPanelUtil, libUtil, satUtil, curve,sel) {
+        var checkDom = checkUtil.CheckDom,
+            checkSelection = checkUtil.CheckSelection;
+        var pointUtil = satUtil.PointUtil,
+            rectUtil = satUtil.RectUtil;
+        var descriptions = {
+            "file": "01.虾仁摇头.jsfl",
+            "file description": "输出 摇头动作的元件,没有说话时的头部动作",
+            "selection": "仅一个元件",
+            "selection description": "选中头部",
+            "XMLPanel": true,
+            "input parameters": {
+                "摇头力度": 6,
+                "头部朝向": null
+            },
+            "detail": "包装元件",
+            "detail description": "",
+            "steps": [
+                "包装元件",
+                "设置变形点",
+                "更改旋转",
+                "设置传统补间"
+            ]
+        };
 
-        var shakeIntensity = xmlPanelUtil.parseNumber(panel.shakeIntensity, "摇头力度只能输入数字，请重新输入。");
-        if (shakeIntensity === null) return null;
+        function checkXMLPanel() {
+            var panel = xmlPanelUtil.getXMLPanel();
+            if (panel === null) return null;
 
-        var headDirection = xmlPanelUtil.parseNumber(panel.headDirection, "头部朝向只能输入数字，请重新输入。");
-        if (headDirection === null) return null;
+            var shakeIntensity = xmlPanelUtil.parseNumber(panel.shakeIntensity, "摇头力度只能输入数字，请重新输入。");
+            if (shakeIntensity === null) return null;
 
-        return {shakeIntensity: shakeIntensity, headDirection: headDirection};
-    }
+            var headDirection = xmlPanelUtil.parseNumber(panel.headDirection, "头部朝向只能输入数字，请重新输入。");
+            if (headDirection === null) return null;
 
-    var doc = fl.getDocumentDOM();//文档
-    if (!CheckDom(doc)) return;
+            return {shakeIntensity: shakeIntensity, headDirection: headDirection};
+        }
 
-    var selection = doc.selection;//选择
-    var library = doc.library;//库文件
-    var timeline = doc.getTimeline();//时间轴
+        var doc = fl.getDocumentDOM();//文档
+        if (!checkDom(doc)) return;
 
-    var layers = timeline.layers;//图层
-    var curLayerIndex = timeline.currentLayer;//当前图层索引
-    var curFrameIndex = timeline.currentFrame;//当前帧索引
-    var curLayer = layers[curLayerIndex];//当前图层
-    var curFrame = curLayer.frames[curFrameIndex];//当前帧
+        var selection = doc.selection;//选择
+        var library = doc.library;//库文件
+        var timeline = doc.getTimeline();//时间轴
 
-    function Main() {
-        if (!CheckSelection(selection, "selectElement", "Only one")) return;
+        var layers = timeline.layers;//图层
+        var curLayerIndex = timeline.currentLayer;//当前图层索引
+        var curLayer = layers[curLayerIndex];//当前图层
 
-        // 配置参数
-        var config = checkXMLPanel();
-        if (config === null) return;
-        var shakeIntensity = config.shakeIntensity;
-        var headDirection = config.headDirection;
+        var curFrameIndex = timeline.currentFrame;//当前帧索引
+        var curFrame = curLayer.frames[curFrameIndex];//当前帧
 
-        var symbolName = libUtil.generateNameUntilUnique("虾仁摇头_");
-        doc.convertToSymbol('graphic', symbolName, 'center');
-        // var trPoint = getTrPoint(selection[0]);
+        function Main() {
+            // 检查选择的元件
+            if (!checkSelection(selection, "selectElement", "Only one")) return;
 
-        doc.enterEditMode("inPlace");
 
-        var timeline = doc.getTimeline();
+            // 配置参数
+            var config = checkXMLPanel();
+            if (config === null) return;
+            var shakeIntensity = config.shakeIntensity;
+            var headDirection = config.headDirection;
 
-        // 设置变形点
-        var element1 = timeline.layers[0].frames[0].elements[0];
-        var trPoint = pointUtil.getShakeHeadTrPoint(selection[0], 0.9);
-        element1.setTransformationPoint(trPoint.toObj());
+            var symbolName = libUtil.generateNameUntilUnique("虾仁摇头_");
+            doc.convertToSymbol('graphic', symbolName, 'center');
+            // var trPoint = getTrPoint(selection[0]);
 
-        // 给所有图层加帧
-        timeline.insertFrames(FRAME_7, true);
-        // 关键帧 1,4,7
-        timeline.convertToKeyframes(FRAME_4);
-        timeline.convertToKeyframes(FRAME_7);
+            doc.enterEditMode("inPlace");
 
-        var frame4_element = timeline.layers[0].frames[FRAME_4].elements[0];
-        frame4_element.rotation = headDirection * shakeIntensity;
+            var timeline = doc.getTimeline();
 
-        SelectAllTl(timeline);
+            // 设置变形点
+            var element1 = timeline.layers[0].frames[0].elements[0];
+            var trPoint = pointUtil.getShakeHeadTrPoint(selection[0], 0.9);
+            element1.setTransformationPoint(trPoint.toObj());
 
-        curve.setClassicEaseCurve(timeline);
+            // 给所有图层加帧
+            timeline.insertFrames(FRAME_7, true);
+            // 关键帧 1,4,7
+            timeline.convertToKeyframes(FRAME_4);
+            timeline.convertToKeyframes(FRAME_7);
 
-        doc.exitEditMode();
+            var frame4_element = timeline.layers[0].frames[FRAME_4].elements[0];
+            frame4_element.rotation = headDirection * shakeIntensity;
 
-    }
+            sel.SelectAllTl(timeline);
 
-    Main();
-})();
+            curve.setClassicEaseCurve(timeline);
+
+            doc.exitEditMode();
+
+        }
+
+        Main();
+    });

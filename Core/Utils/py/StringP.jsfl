@@ -11,7 +11,7 @@
     } else if (typeof exports === 'object') {
         module['exports'] = factory();
     } else {
-        root['SAT'] = factory();
+        root['StringP'] = factory();
     }
 }(this, function () {
     function StringP(str) {

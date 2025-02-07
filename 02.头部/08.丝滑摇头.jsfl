@@ -7,7 +7,11 @@
  * @description:
  */
 
-(function () {
+require(["checkUtil", "xmlPanelUtil", "libUtil", "satUtil", "curve","selection"],
+    function(checkUtil, xmlPanelUtil, libUtil, satUtil, curve,sel) {
+    var checkDom = checkUtil.CheckDom,
+        checkSelection = checkUtil.CheckSelection;
+
     var descriptions = {
         "file": "08.丝滑摇头.jsfl",
         "file description": "摇头的动作",
@@ -30,29 +34,24 @@
         ]
     };
 
-    function checkDom() {
-        if (doc == null) {
-            alert("请打开 [.fla] 文件");
-            return false;
-        }
-        return true;
-    }
+    var pointUtil = satUtil.PointUtil,
+        rectUtil = satUtil.RectUtil;
 
-    function checkSelection() {
-        if (selection.length < 1) {
-            alert("请选择元件？");
-            return false;
-        }
-        if (selection.length > 1) {
-            alert("请选择单个元件");
-            return false;
-        }
-        // if (selection.length === 1) {
-        //     alert("请选择至少两个元件");
-        //     return false;
-        // }
-        return true;
-    }
+    
+    var doc = fl.getDocumentDOM();//文档
+    if (!checkDom(doc)) return;
+
+    var selection = doc.selection;//选择
+    var library = doc.library;//库文件
+    var timeline = doc.getTimeline();//时间轴
+
+    var layers = timeline.layers;//图层
+    var curLayerIndex = timeline.currentLayer;//当前图层索引
+    var curLayer = layers[curLayerIndex];//当前图层
+
+    var curFrameIndex = timeline.currentFrame;//当前帧索引
+    var curFrame = curLayer.frames[curFrameIndex];//当前帧
+
 
     function checkXMLPanel() {
         var panel = xmlPanelUtil.getXMLPanel();
@@ -67,21 +66,6 @@
 
         return {shakeIntensity: shakeIntensity, headDirection: headDirection};
     }
-
-
-    var doc = fl.getDocumentDOM();//文档
-    if (!checkDom()) return;
-
-    var selection = doc.selection;//选择
-    var library = doc.library;//库文件
-    var timeline = doc.getTimeline();//时间轴
-
-    var layers = timeline.layers;//图层
-    var curLayerIndex = timeline.currentLayer;//当前图层索引
-    var curFrameIndex = timeline.currentFrame;//当前帧索引
-    var curLayer = layers[curLayerIndex];//当前图层
-    var curFrame = curLayer.frames[curFrameIndex];//当前帧
-
 
     function KFrames(headDirection, shakeIntensity) {
         doc.enterEditMode("inPlace");
@@ -106,7 +90,7 @@
         frame4_element.x += headDirection * shakeIntensity;
         frame4_element.y += shakeIntensity;
 
-        SelectAllTl(timeline);
+        sel.SelectAllTl(timeline);
 
         curve.setClassicEaseCurve(timeline);
 
@@ -116,7 +100,7 @@
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection()) return;
+        if (!checkSelection(selection, "selectElement", "Only one")) return;
 
         // 读取XML面板配置
         var config = checkXMLPanel();
@@ -131,4 +115,4 @@
     }
 
     Main();
-})();
+});

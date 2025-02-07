@@ -16,7 +16,7 @@ define( function () {
      * @param {Element} element 元素对象
      * @return {Boolean} 是否有滤镜
      */
-    FilterUtil.prototype.hasFilter = function (element) {
+    FilterUtil.hasFilter = function (element) {
         var filters = element.filters;
         if (filters === null || filters === undefined) return false;
         return filters.length > 0;
@@ -32,7 +32,7 @@ define( function () {
      * @param {"low"|"medium"|"high"} strength 可选品质
      * @see https://gitee.com/ninge/WindowSWF/tree/master/
      */
-    FilterUtil.prototype.addBlurFilterToFrame = function (layer, frameNum, blurX, blurY, strength) { //图层，第几帧，x轴数值，y轴数值，品质可选（low、medium，high）
+    FilterUtil.addBlurFilterToFrame = function (layer, frameNum, blurX, blurY, strength) { //图层，第几帧，x轴数值，y轴数值，品质可选（low、medium，high）
         // 创建模糊滤镜对象
         var blurFilter = {
             "name": "blurFilter",
@@ -52,6 +52,5 @@ define( function () {
         layer.setFiltersAtFrame(frameNum, filters);
     }
 
-    var filterUtil = new FilterUtil();
-    return filterUtil;
+    return FilterUtil;
 });

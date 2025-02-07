@@ -31,3 +31,18 @@ function LogArray(numbers) {
     }
     fl.trace(str);
 }
+
+
+function print() {
+    if (!DEBUG_MODE) {
+        return;
+    }
+    // 将 arguments 转换为真正的数组
+    var args = Array.prototype.slice.call(arguments);
+
+    // 将所有参数拼接成一个字符串
+    var str = args.join("    ");
+
+    // 调用 fl.trace 方法
+    fl.trace(str);
+}

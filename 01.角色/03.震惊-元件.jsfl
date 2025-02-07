@@ -7,19 +7,14 @@
  * @description:
  */
 
-(function () {
-    function checkXMLPanel() {
-        var panel = xmlPanelUtil.getXMLPanel();
-        if (panel === null) return null;
-
-        // var horizontalCount = xmlPanelUtil.parseNumber(panel.horizontalCount, "横向排布数量只能输入数字，请重新输入。");
-        // if (horizontalCount === null) return null;
-        //
-        // return {horizontalCount: horizontalCount};
-    }
+require(["checkUtil", "ele", "frameRange", "curve", "libUtil"], function (checkUtil, ele, frameRange, curve, libUtil) {
+    var checkDom = checkUtil.CheckDom,
+        checkSelection = checkUtil.CheckSelection,
+        checkSelectedFrames = checkUtil.CheckSelectedFrames;
+    var frUtil = frameRange.FrameRangeUtil;
 
     var doc = fl.getDocumentDOM();//文档
-    if (!CheckDom(doc)) return;
+    if (!checkDom(doc)) return;
 
     var selection = doc.selection;//选择
     var library = doc.library;//库文件
@@ -27,9 +22,11 @@
 
     var layers = timeline.layers;//图层
     var curLayerIndex = timeline.currentLayer;//当前图层索引
-    var curFrameIndex = timeline.currentFrame;//当前帧索引
     var curLayer = layers[curLayerIndex];//当前图层
+
+    var curFrameIndex = timeline.currentFrame;//当前帧索引
     var curFrame = curLayer.frames[curFrameIndex];//当前帧
+
 
     // 关键帧
     var KEY_FRAMES = [FRAME_1, FRAME_3, FRAME_6];
@@ -76,10 +73,10 @@
 
     function Main() {
         // 检查选择的元件
-        if (!CheckSelection(selection, "selectElement", "Only one")) return;
+        if (!checkSelection(selection, "selectElement", "Only one")) return;
 
         // 获取第一帧
-        var frs = CheckSelectedFrames(timeline);
+        var frs = checkSelectedFrames(timeline);
         if (frs === null) return;
 
         var symbolName = libUtil.generateNameUntilUnique("一键震惊_静_");
@@ -89,9 +86,9 @@
         doc.convertToSymbol('graphic', symbolName, 'center');
 
         // 播放一次
-        var selection = doc.selection;//选择
-        for (var i = 0; i < selection.length; i++) {
-            var element = selection[i];
+        var selection1 = doc.selection;//选择
+        for (var i = 0; i < selection1.length; i++) {
+            var element = selection1[i];
             element.loop = "play once";
         }
 
@@ -102,4 +99,4 @@
     }
 
     Main();
-})();
+});

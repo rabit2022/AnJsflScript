@@ -7,19 +7,16 @@
  * @description:
  */
 
-(function () {
-    function checkXMLPanel() {
-        var panel = xmlPanelUtil.getXMLPanel();
-        if (panel === null) return null;
 
-        // var horizontalCount = xmlPanelUtil.parseNumber(panel.horizontalCount, "横向排布数量只能输入数字，请重新输入。");
-        // if (horizontalCount === null) return null;
-        //
-        // return {horizontalCount: horizontalCount};
-    }
+require(["checkUtil","promptUtil","linqUtil","filterUtil","curve","frameRange"],
+    function(checkUtil,promptUtil,linqUtil,filterUtil,curve,frameRange) {
+    var checkDom = checkUtil.CheckDom,
+        checkSelection = checkUtil.CheckSelection,
+        checkSelectedFrames = checkUtil.CheckSelectedFrames;
+    var frUtil = frameRange.FrameRangeUtil;
 
     var doc = fl.getDocumentDOM();//文档
-    if (!CheckDom(doc)) return;
+    if (!checkDom(doc)) return;
 
     var selection = doc.selection;//选择
     var library = doc.library;//库文件
@@ -31,6 +28,7 @@
 
     var curFrameIndex = timeline.currentFrame;//当前帧索引
     var curFrame = curLayer.frames[curFrameIndex];//当前帧
+
 
     // 关键帧 1,7,11
     var KEY_FRAMES = [FRAME_1, FRAME_7, FRAME_11];
@@ -44,7 +42,7 @@
 
     function Main() {
         // 检查选择的元件
-        if (!CheckSelection(selection, "selectElement", "Only one")) return;
+        if (!checkSelection(selection, "selectElement", "Only one")) return;
 
         // 输入瞬冲方向(默认为右，空格为左)
         var direction = promptUtil.parseDirection("请输入瞬冲方向(默认为右，空格为左)：",
@@ -52,12 +50,12 @@
         if (direction === null) return;
 
         // 获取第一帧
-        var frs = CheckSelectedFrames(timeline);
+        var frs = checkSelectedFrames(timeline);
         if (frs === null) return;
         var firstLayer = layers[frs[0].layerIndex];
         var firstFrame = frs[0].startFrame;
 
-        KEY_FRAMES = arrUtil.addOffset(KEY_FRAMES, firstFrame);
+        KEY_FRAMES = linqUtil.addOffset(KEY_FRAMES, firstFrame);
         ALTER_ROTATION += firstFrame;
         ALTER_POSITION_BLUR += firstFrame;
 
@@ -86,4 +84,4 @@
     }
 
     Main();
-})();
+});

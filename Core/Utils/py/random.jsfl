@@ -164,7 +164,7 @@ define( function () {
      * @return {string} 随机3位数字
      */
     Random.getPaddingNum = function (digits) {
-        var num = random.randint(1, 999);
+        var num = Random.randint(1, 999);
         return num.toString().padStart(digits, '0');
     }
 

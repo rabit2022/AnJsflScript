@@ -8,7 +8,7 @@
  */
 
 define(function () {
-    function PromptUtil(message) {
+    function PromptUtil() {
     }
 
     /**
@@ -18,7 +18,7 @@ define(function () {
      * @param {string} [alertMessage="请重新输入。"] 输入错误时的提示信息
      * @returns {number} 输入的数字
      */
-    PromptUtil.prototype.parseNumber = function (promptMessage, defaultValue, alertMessage) {
+    PromptUtil.parseNumber = function (promptMessage, defaultValue, alertMessage) {
         if (defaultValue === null) {
             defaultValue = 0;
         }
@@ -32,11 +32,10 @@ define(function () {
             return null;
         }
 
-        var force = Number(inputForce);
-        return force;
+        return Number(inputForce);
     }
 
-    PromptUtil.prototype.parseNumberWithSign = function (promptMessage, defaultValue, alertMessage) {
+    PromptUtil.parseNumberWithSign = function (promptMessage, defaultValue, alertMessage) {
         if (defaultValue === null || defaultValue === undefined) {
             defaultValue = 0;
         }
@@ -82,7 +81,7 @@ define(function () {
      * @param {object} [tipDictionary={"右": 1, "左": -1, " ": -1}] 提示字典
      * @returns {number} 输入的方向
      */
-    PromptUtil.prototype.parseDirection = function (promptMessage, tipDictionary) {
+    PromptUtil.parseDirection = function (promptMessage, tipDictionary) {
         if (tipDictionary === null) {
             tipDictionary = {"右": 1, "左": -1, " ": -1};
         }
@@ -103,6 +102,5 @@ define(function () {
         return direction;
     }
 
-    var promptUtil = new PromptUtil();
-    return promptUtil;
+    return PromptUtil;
 });

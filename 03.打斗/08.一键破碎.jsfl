@@ -7,37 +7,33 @@
  * @description:
  */
 
+require(["checkUtil",  "SAT", "random", "satUtil","selection","ele"],
+    function(checkUtil, sat, random, satUtil, sel, ele) {
+    var checkDom = checkUtil.CheckDom,
+        checkSelection = checkUtil.CheckSelection;
 
-(function () {
-    function checkDom() {
-        if (doc == null) {
-            alert("请打开 [.fla] 文件");
-            return false;
-        }
-
-        // if (selection.length < 1) {
-        //     alert("请选择元件？");
-        //     return false;
-        // }
-        // if (selection.length > 1) {
-        //     alert("请选择单个元件");
-        //     return false;
-        // }
-        // if (selection.length === 1) {
-        //     alert("请选择至少两个元件");
-        //     return false;
-        // }
-        return true;
-    }
+    var Vector = sat.Vector,
+        Rectangle = sat.Rectangle,
+        wrapPosition = sat.GLOBALS.wrapPosition,
+        wrapRect = sat.GLOBALS.wrapRect,
+        wrapTransform = sat.GLOBALS.wrapTransform,
+        wrapRectByCenter = sat.GLOBALS.wrapRectByCenter;
+    var pointUtil = satUtil.PointUtil,
+        rectUtil = satUtil.RectUtil;
 
     var doc = fl.getDocumentDOM();//文档
+    if (!checkDom(doc)) return;
+
     var selection = doc.selection;//选择
     var library = doc.library;//库文件
-
     var timeline = doc.getTimeline();//时间轴
-    var layers = timeline.layers;//图层
-    var curFrameIndex = timeline.currentFrame;//当前帧索引
 
+    var layers = timeline.layers;//图层
+    var curLayerIndex = timeline.currentLayer;//当前图层索引
+    var curLayer = layers[curLayerIndex];//当前图层
+
+    var curFrameIndex = timeline.currentFrame;//当前帧索引
+    var curFrame = curLayer.frames[curFrameIndex];//当前帧
 
     function getExplosionRect(element) {
         // 爆炸矩形  position
@@ -54,8 +50,8 @@
 
         // var initialPos = wrapPosition(element);
         var offsetY = elementHeight * random.uniform(0.8, 1);
-        // var rectCenter = initialPos.add(new Point(0, offsetY));
-        var rectCenter = new Point(0, offsetY);
+        // var rectCenter = initialPos.add(new Vector(0, offsetY));
+        var rectCenter = new Vector(0, offsetY);
 
         // setPosition 函数直接设置元素的位置， 参照物为元素的注册点
         var rect = wrapRectByCenter(rectCenter.x, rectCenter.y, rectWidth, rectHeight);
@@ -87,7 +83,7 @@
 
         // 更改位置
         timeline1.currentFrame = timeline1.frameCount - 1;
-        SelectAll();
+        sel.SelectAll();
         for (var i = 0; i < doc.selection.length; i++) {
             var element = doc.selection[i];
 
@@ -105,16 +101,15 @@
             var skewY = skewX + random.uniform(-36, 36);
 
             var transform = wrapTransform(element);
-            transform.setPosition(randomPos).setScale(new Point(scaleX, scaleY)).setSkew(new Point(skewX, skewY));
+            transform.setPosition(randomPos).setScale(new Vector(scaleX, scaleY)).setSkew(new Vector(skewX, skewY));
         }
 
         doc.exitEditMode();
     }
 
     function Main() {
-        if (!checkDom()) {
-            return;
-        }
+        // 检查选择的元件
+        if (!checkSelection(selection, "selectElement", "No limit")) return;
 
         // 碎片
         ele.splinterSymbol(doc.selection[0], "一键爆炸_");
@@ -125,5 +120,4 @@
     }
 
     Main();
-})();
-
+});

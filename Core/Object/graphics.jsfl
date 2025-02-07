@@ -6,11 +6,10 @@
  * @project: AnJsflScript
  * @description:
  */
-define(["sat"], function (sat) {
-    var Vector = sat.SAT.Vector;
-    var wrapRectByRadius=sat.SAT_GLOBALS.wrapRectByRadius;
+define(["SAT"], function (sat) {
+    var Vector = sat.Vector;
+    var wrapRectByRadius=sat.GLOBALS.wrapRectByRadius;
     function Graphics() {
-
     }
 
     /**
@@ -38,7 +37,7 @@ define(["sat"], function (sat) {
      * 比{@link Graphics.drawCircle} 的圆弧 粗一些
      * @param {Vector}centerPos 圆心位置
      * @param {number}radius 半径
-     * @return {Rect} 圆弧所在矩形
+     * @return {Rectangle} 圆弧所在矩形
      */
     Graphics.drawCircleWithoutFill = function (centerPos, radius) {
         var doc = fl.getDocumentDOM();//文档

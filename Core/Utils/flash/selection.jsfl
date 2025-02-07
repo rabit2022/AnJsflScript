@@ -7,10 +7,7 @@
  * @description:
  */
 
-(function (root, factory) {
-    "use strict";
-    root["$Selection"] = factory();
-}(this, function () {
+define(function () {
     /**
      * 选中当前元件
      * @param element
@@ -81,4 +78,4 @@
         SelectNoneTl: SelectNoneTl,
         SelectAllTl: SelectAllTl
     };
-}));
+});

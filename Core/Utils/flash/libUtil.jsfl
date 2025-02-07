@@ -9,8 +9,13 @@
 
 define([ "random"], function (random) {
     function LibUtil() {
-        this.lastCount = "000";
     }
+    /**
+     * 记录上一次生成的随机数，用于生成唯一名称。
+     * @type {string}
+     * @private
+     */
+    LibUtil.lastCount = "000";
 
 
     /**
@@ -19,7 +24,7 @@ define([ "random"], function (random) {
      * @returns {boolean} 是否有重复名称
      * @private
      */
-    LibUtil.prototype.findDuplicateNameInLib = function (baseName) {
+    LibUtil.findDuplicateNameInLib = function (baseName) {
         var library = fl.getDocumentDOM().library;
 
         var items = library.items;
@@ -38,12 +43,12 @@ define([ "random"], function (random) {
      * @param {string} baseName - 用于生成唯一名称的基础字符串。
      * @returns {string} 返回一个唯一的名称。
      */
-    LibUtil.prototype.generateNameUntilUnique = function (baseName) {
+    LibUtil.generateNameUntilUnique = function (baseName) {
         this.lastCount = random.getPaddingNum(3);
         var name = baseName + "" + this.lastCount;
 
         var count = 0;
-        while (libUtil.findDuplicateNameInLib(name)) {
+        while (this.findDuplicateNameInLib(name)) {
             this.lastCount = random.getPaddingNum(3);
             name = baseName + "" + this.lastCount;
 
@@ -61,9 +66,9 @@ define([ "random"], function (random) {
      * @param {string} baseName - 用于生成唯一名称的基础字符串。
      * @returns {string} 返回一个唯一的名称。
      */
-    LibUtil.prototype.generateNameUseLast = function (baseName) {
+    LibUtil.generateNameUseLast = function (baseName) {
         var name = baseName + "" + this.lastCount;
-        while (libUtil.findDuplicateNameInLib(name)) {
+        while (this.findDuplicateNameInLib(name)) {
             var info0 = "lastCount:" + this.lastCount + " 重复了！";
             this.lastCount = random.getPaddingNum(3);
             var info1 = "已经重新生成了新的名称！" + " lastCount:" + this.lastCount;
@@ -74,6 +79,5 @@ define([ "random"], function (random) {
     }
 
 
-    var libUtil = new LibUtil();
-    return libUtil;
+    return LibUtil;
 });

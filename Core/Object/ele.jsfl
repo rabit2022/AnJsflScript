@@ -6,17 +6,17 @@
  * @project: AnJsflScript
  * @description:
  */
-define(["sat","satUtil","libUtil","moreElement","layerUtil"],
-    function (sat,satUtil, libUtil, me, layerUtil) {
-    var Vector = sat.SAT.V;
-    var wrapRect =sat.SAT_GLOBALS.wrapRect;
-    var wrapPosition = sat.SAT_GLOBALS.wrapPosition;
-    var wrapSize = sat.SAT_GLOBALS.wrapSize;
-    var getOrigin = sat.SAT_GLOBALS.getOrigin;
-    var getTopLeft = sat.SAT_GLOBALS.getTopLeft;
+define(["SAT","satUtil","libUtil","moreElement","layerUtil","os","selection"],
+    function (sat,satUtil, libUtil, me, layerUtil, os, sel) {
+    var Vector = sat.V;
+    var wrapRect =sat.GLOBALS.wrapRect;
+    var wrapPosition = sat.GLOBALS.wrapPosition;
+    var wrapSize = sat.GLOBALS.wrapSize;
+    var getOrigin = sat.GLOBALS.getOrigin;
+    var getTopLeft = sat.GLOBALS.getTopLeft;
 
     var wrapMoreElement=me.GLOBALS.wrapMoreElement;
-    var rectUtil=satUtil.rectUtil;
+    var rectUtil=satUtil.RectUtil;
     
     /**
      * @class {Ele}
@@ -58,7 +58,7 @@ define(["sat","satUtil","libUtil","moreElement","layerUtil"],
         if (mode === "ask") {
             // 4.重新命名元件名称
             // var {_, file_name} = pathSplit(targetName);
-            var file_name = osPath.basename(targetName);
+            var file_name = os.path.basename(targetName);
             var input_file_name = prompt("请输入新元件名称：", file_name);
             if (input_file_name == null || input_file_name === "") {
                 alert("元件名称不能为空！");
@@ -99,7 +99,7 @@ define(["sat","satUtil","libUtil","moreElement","layerUtil"],
         for (var i = 0; i < elements.length; i++) {
             var element = elements[i];
 
-            $Selection.OnlySelectCurrent(element);
+            sel.OnlySelectCurrent(element);
             var rect = wrapRect(doc.getSelectionRect());
             var topRight = rect.getCorner("top right");
 
@@ -126,11 +126,11 @@ define(["sat","satUtil","libUtil","moreElement","layerUtil"],
         for (var i = 0; i < selection1.length; i++) {
             var element = selection1[i];
             // 选中当前元件
-            $Selection.OnlySelectCurrent(element);
+            sel.OnlySelectCurrent(element);
 
             doc.moveSelectionBy(transformationPoint.neg().toObj());
             // doc.selectNone();
-            $Selection.SelectNone();
+            sel.SelectNone();
         }
 
         doc.exitEditMode();
@@ -149,12 +149,12 @@ define(["sat","satUtil","libUtil","moreElement","layerUtil"],
     Ele.prototype.resetRegisterPoint = function (element) {
         var trPoint = wrapPosition(element.getTransformationPoint());
 
-        $Selection.OnlySelectCurrent(element);
+        sel.OnlySelectCurrent(element);
 
         // 重置注册点
         this.resetRegisterPointWrap(trPoint);
 
-        $Selection.OnlySelectCurrent(element);
+        sel.OnlySelectCurrent(element);
 
         // 设置形变点为注册点
         element.setTransformationPoint(getOrigin().toObj());
@@ -171,7 +171,7 @@ define(["sat","satUtil","libUtil","moreElement","layerUtil"],
         // 变形点 到右上角
         var registerPoint = wrapPosition(element);
 
-        $Selection.OnlySelectCurrent(element);
+        sel.OnlySelectCurrent(element);
         var doc = fl.getDocumentDOM();
         var rect = wrapRect(doc.getSelectionRect());
         var topRight = rect.getCorner(whichCorner)
@@ -209,6 +209,7 @@ define(["sat","satUtil","libUtil","moreElement","layerUtil"],
         // fl.trace("blockWidth:"+blockWidth+" blockHeight:"+blockHeight+" blockCountX:"+blockCountX+" blockCountY:"+blockCountY);
 
         var moreElement = wrapMoreElement(worldTopLeft.x, worldTopLeft.y, blockWidth, blockHeight);
+        // print("moreElement:" + moreElement.toString());
         for (var i = 0; i < blockCountX; i++) {
             for (var j = 0; j < blockCountY; j++) {
                 var rect = moreElement.NeatRect(i, j);
@@ -221,11 +222,11 @@ define(["sat","satUtil","libUtil","moreElement","layerUtil"],
 
                 var symbolName = libUtil.generateNameUseLast(SymbolName + "碎片-" + j + "-" + i + "_");
                 doc.convertToSymbol('graphic', symbolName, 'center');
-                $Selection.SelectNone();
+                sel.SelectNone();
             }
         }
 
-        $Selection.SelectAll();
+        sel.SelectAll();
         //分散到图层操作
         doc.distributeToLayers();
         // 删除多余的碎片
