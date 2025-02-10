@@ -7,14 +7,14 @@
  * @description:
  */
 
-require(["checkUtil", "promptUtil", "satUtil", "frameRange", "curve"],
-    function(checkUtil, promptUtil, satUtil, frameRange, curve) {
+require(["checkUtil", "promptUtil", "satUtil", "frUtil", "curve"],
+    function(checkUtil, promptUtil, satUtil, frUtil, curve) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection,
         checkSelectedFrames = checkUtil.CheckSelectedFrames;
     var pointUtil = satUtil.PointUtil,
         rectUtil = satUtil.RectUtil;
-    var frUtil = frameRange.FrameRangeUtil;
+    // var frUtil = frameRange.FrameRangeUtil;
 
     var descriptions = {
         "file": "07.一键甩头.jsfl",

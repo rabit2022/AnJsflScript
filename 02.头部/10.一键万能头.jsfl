@@ -84,7 +84,7 @@ require(["checkUtil", "promptUtil", "libUtil","SAT","selection","linqUtil"],
         var Important_element_position = wrapPosition(Important_element);
 
         // 移动到中心位置
-        var Offset = selectCenter.sub(Important_element_position);
+        var Offset = selectCenter.clone().sub(Important_element_position);
         // print("Offset:" + Offset.toString());
 
         sel.OnlySelectCurrent(Important_element);

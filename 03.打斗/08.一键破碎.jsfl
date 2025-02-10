@@ -80,6 +80,7 @@ require(["checkUtil",  "SAT", "random", "satUtil","selection","ele"],
         timeline1.setFrameProperty('motionTweenRotate', 'clockwise');
         timeline1.setFrameProperty('motionTweenRotateTimes', '1');
         // timeline1.setSelectedFrames([]);
+        
 
         // 更改位置
         timeline1.currentFrame = timeline1.frameCount - 1;

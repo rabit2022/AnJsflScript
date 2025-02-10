@@ -1,16 +1,15 @@
-/**
- * @file: 00.统一中心点.jsfl
+﻿/**
+ * @file: 04.记录变形点.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
- * @date: 2024/12/7 20:16
+ * @date: 2025/1/22 20:41
  * @project: AnJsflScript
  * @description:
  */
 
-require(["checkUtil","selection","ele","SAT"],function(checkUtil,sel,ele,sat) {
+require(["checkUtil"],function(checkUtil) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
-    var wrapPosition = sat.GLOBALS.wrapPosition;
 
     var doc = fl.getDocumentDOM();//文档
     if (!checkDom(doc)) return;
@@ -28,22 +27,16 @@ require(["checkUtil","selection","ele","SAT"],function(checkUtil,sel,ele,sat) {
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, "selectElement", "Not Zero")) return;
+        if (!checkSelection(selection, "selectElement", "No limit")) return;
 
 
-        // 找到最右边的元素
-        var maxElement = ele.getMaxRight(selection);
+        var element = selection[0];
+        var transformPoint = wrapPosition(doc.getTransformationPoint());
+        print("变形点坐标：" + transformPoint.toString());
 
-        // 获取 transformPoint 
-        var trPoint = wrapPosition(maxElement.getTransformationPoint());
+        var rect = wrapRectByElement(element);
+        print("元件矩形：" + rect.toString());
 
-        // 把  所有元素的形变点   设置为   最右边的元素的形变点
-        for (var i = 0; i < selection.length; i++) {
-            var element = selection[i];
-            sel.OnlySelectCurrent(element);
-
-            element.setTransformationPoint(trPoint.toObj());
-        }
     }
 
     Main();

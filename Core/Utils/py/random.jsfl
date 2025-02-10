@@ -156,18 +156,6 @@ define( function () {
         // return "rgb(${r},${g},${b})";
         return [r, g, b];
     }
-
-
-// 自定义
-    /**
-     * 获取随机3位数字的字符串,不够的地方用0补齐
-     * @return {string} 随机3位数字
-     */
-    Random.getPaddingNum = function (digits) {
-        var num = Random.randint(1, 999);
-        return num.toString().padStart(digits, '0');
-    }
-
     
     return Random;
 });

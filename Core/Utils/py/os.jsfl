@@ -272,6 +272,7 @@ define(function () {
 
     function OS() {
     }
+
     OS.path = OSPath;
 
     OS.isMac = function () {
@@ -336,7 +337,7 @@ define(function () {
         // 构建命令
         var cmd;
 
-        if (os.isMac()) {
+        if (this.isMac()) {
             // macOS 使用 `open` 命令
             cmd = "open \"" + uri + "\"";
 
@@ -354,7 +355,7 @@ define(function () {
             if (cwd_uri) {
                 cmd += " --cwd \"" + cwd_uri + "\"";
             }
-        } else {
+        } else if (this.isWindows()) {
             // Windows 使用 `start` 或 `explorer.exe` 命令
             switch (operation) {
                 case "open":

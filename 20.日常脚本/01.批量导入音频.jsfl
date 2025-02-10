@@ -7,54 +7,36 @@
  * @description:
  */
 
-
-(function () {
-    function checkDom() {
-        if (doc == null) {
-            alert("请打开 [.fla] 文件");
-            return false;
-        }
-
-        // if (selection.length < 1) {
-        //     alert("请选择元件？");
-        //     return false;
-        // }
-        // if (selection.length > 1) {
-        //     alert("请选择单个元件");
-        //     return false;
-        // }
-        // if (selection.length === 1) {
-        //     alert("请选择至少两个元件");
-        //     return false;
-        // }
-        return true;
-    }
+require(["checkUtil"],function(checkUtil) {
+    var checkDom = checkUtil.CheckDom,
+        checkSelection = checkUtil.CheckSelection;
 
     var doc = fl.getDocumentDOM();//文档
+    if (!checkDom(doc)) return;
+
     var selection = doc.selection;//选择
     var library = doc.library;//库文件
-
     var timeline = doc.getTimeline();//时间轴
+
     var layers = timeline.layers;//图层
-    var curFrameIndex = timeline.currentFrame;
+    var curLayerIndex = timeline.currentLayer;//当前图层索引
+    var curLayer = layers[curLayerIndex];//当前图层
+
+    var curFrameIndex = timeline.currentFrame;//当前帧索引
+    var curFrame = curLayer.frames[curFrameIndex];//当前帧
 
     function Main() {
-        if (!checkDom()) {
-            return;
-        }
+        // 检查选择的元件
+        if (!checkSelection(selection, "selectElement", "No limit")) return;
+
 
         // 让用户选择包含音效文件的文件夹
         var folderURL = fl.browseForFolderURL("请选择包含音效文件的文件夹");
-        // var folderURL = "file:///F|/01_programme/python/files/files_pro/2024-12/1211/贺晓晓";
-        // var folderURL = "file:///F:\\04_ps\\沙雕动画\\01-我的神国模拟器\\2024-12-14\\新建文件夹";
-        // var folder = "F:\\04_ps\\沙雕动画\\01-我的神国模拟器\\2024-12-14\\新建文件夹";
-        // var folderURL = FLfile.platformPathToURI(folder);
         if (!folderURL) {
             fl.trace("未选择文件夹。");
             return;
         }
 
-        // fl.trace("选择的文件夹：" + folderURL);
         // 获取文件夹中的所有文件
         var files = FLfile.listFolder(folderURL);
         var count = 0;
@@ -70,9 +52,10 @@
                 }
             }
         }
+        
         // 输出导入结果
         fl.trace("成功导入 " + count + " 个音效文件到库中。");
     }
 
     Main();
-})();
+});

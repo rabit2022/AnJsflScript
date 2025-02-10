@@ -8,12 +8,12 @@
  */
 
 
-require(["checkUtil", "frameRange", "linqUtil", "curve","ele"],
-    function(checkUtil, frameRange, linqUtil, curve, ele) {
+require(["checkUtil","frUtil", "linqUtil", "curve","ele"],
+    function(checkUtil, frUtil, linqUtil, curve, ele) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection,
         checkSelectedFrames = checkUtil.CheckSelectedFrames;
-    var frUtil = frameRange.FrameRangeUtil;
+    // var frUtil = frameRange.FrameRangeUtil;
 
     var descriptions = {
         "file": "06.一键震惊.jsfl",

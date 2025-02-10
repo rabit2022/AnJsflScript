@@ -1,16 +1,19 @@
-/**
- * @file: 08.重置注册点.jsfl
- * @author: 穹的兔兔
- * @email: 3101829204@qq.com
- * @date: 2024/12/9 19:22
- * @project: AnJsflScript
- * @description:
- */
+﻿require(["checkUtil", "SAT", "satUtil", "selection"], 
+    function (checkUtil, sat, satUtil, sel) {
+    var checkDom = checkUtil.CheckDom, 
+        checkSelection = checkUtil.CheckSelection,
+        checkSelectedFrames = checkUtil.CheckSelectedFrames;
+        
+    var Vector = sat.Vector, 
+        Rectangle = sat.Rectangle, 
+        wrapPosition = sat.GLOBALS.wrapPosition,
+        wrapRect = sat.GLOBALS.wrapRect;
 
-require(["checkUtil","ele"],function(checkUtil,ele) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
+    var pointUtil = satUtil.PointUtil, 
+        rectUtil = satUtil.RectUtil;
 
+    // var frUtil = frameRange.FrameRangeUtil;
+    
     var doc = fl.getDocumentDOM();//文档
     if (!checkDom(doc)) return;
 
@@ -30,13 +33,8 @@ require(["checkUtil","ele"],function(checkUtil,ele) {
         if (!checkSelection(selection, "selectElement", "No limit")) return;
 
 
-        for (var i = 0; i < selection.length; i++) {
-            // 获取元件的变换点
-            var element = selection[i];
-
-            ele.resetRegisterPoint(element);
-        }
     }
 
     Main();
 });
+

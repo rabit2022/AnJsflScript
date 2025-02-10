@@ -45,7 +45,7 @@ require(["checkUtil", "SAT"], function (checkUtil, sat) {
         var boundsCenterPoint = wrapRect(doc.getSelectionRect()).getCenterVector();
 
         // 计算偏移量
-        var offset = screenCenterPoint.sub(boundsCenterPoint);
+        var offset = screenCenterPoint.clone().sub(boundsCenterPoint);
 
         // 移动所有选中的元件到屏幕中心
         doc.moveSelectionBy(offset.toObj());

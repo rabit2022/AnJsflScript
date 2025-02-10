@@ -9,16 +9,16 @@
 define(["SAT"], function (sat) {
     var Vector = sat.Vector;
     var wrapRectByRadius=sat.GLOBALS.wrapRectByRadius;
-    function Graphics() {
+    function GraphicsUtil() {
     }
 
     /**
      * 画圆，不要填充
      * @param {Vector}centerPos 圆心位置
      * @param {number}radius 半径
-     * @deprecated 建议使用 {@link Graphics.drawCircleWithoutFill} ,效果更好
+     * @deprecated 建议使用 {@link GraphicsUtil.drawCircleWithoutFill} ,效果更好
      */
-    Graphics.drawCircle = function (centerPos, radius) {
+    GraphicsUtil.drawCircle = function (centerPos, radius) {
         var doc = fl.getDocumentDOM();//文档
 
         var circleRect = wrapRectByRadius(centerPos, radius);
@@ -34,12 +34,12 @@ define(["SAT"], function (sat) {
 
     /**
      * 画圆，删除填充部分，效果更好
-     * 比{@link Graphics.drawCircle} 的圆弧 粗一些
+     * 比{@link GraphicsUtil.drawCircle} 的圆弧 粗一些
      * @param {Vector}centerPos 圆心位置
      * @param {number}radius 半径
      * @return {Rectangle} 圆弧所在矩形
      */
-    Graphics.drawCircleWithoutFill = function (centerPos, radius) {
+    GraphicsUtil.drawCircleWithoutFill = function (centerPos, radius) {
         var doc = fl.getDocumentDOM();//文档
 
         var circleRect = wrapRectByRadius(centerPos, radius);
@@ -61,6 +61,6 @@ define(["SAT"], function (sat) {
     }
 
 
-    return Graphics;
+    return GraphicsUtil;
 
 });

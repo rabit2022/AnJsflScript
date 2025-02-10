@@ -7,19 +7,12 @@
  * @description:
  */
 
-(function () {
-    function checkXMLPanel() {
-        var panel = xmlPanelUtil.getXMLPanel();
-        if (panel === null) return null;
-
-        // var horizontalCount = xmlPanelUtil.parseNumber(panel.horizontalCount, "横向排布数量只能输入数字，请重新输入。");
-        // if (horizontalCount === null) return null;
-        //
-        // return {horizontalCount: horizontalCount};
-    }
+require(["checkUtil"],function(checkUtil) {
+    var checkDom = checkUtil.CheckDom,
+        checkSelection = checkUtil.CheckSelection;
 
     var doc = fl.getDocumentDOM();//文档
-    if (!CheckDom(doc)) return;
+    if (!checkDom(doc)) return;
 
     var selection = doc.selection;//选择
     var library = doc.library;//库文件
@@ -34,7 +27,8 @@
 
     function Main() {
         // 检查选择的元件
-        if (!CheckSelection(selection, "selectElement", "No limit")) return;
+        if (!checkSelection(selection, "selectElement", "No limit")) return;
+
 
         var keyFrames = frUtil.getKeyFrames(curLayer);
 
@@ -51,4 +45,4 @@
     }
 
     Main();
-})();
+});

@@ -9,8 +9,8 @@
 
 define(["SAT"], function (sat) {
     var Vector = sat.V;
-    var  wrapRectByTopLeft = sat.GLOBALS.wrapRectByTopLeft;
-    
+    var wrapRectByTopLeft = sat.GLOBALS.wrapRectByTopLeft;
+
     /**
      * 排兵布阵类
      * @param {Element} element 要布阵的元素
@@ -45,16 +45,13 @@ define(["SAT"], function (sat) {
      * @returns {Vector} 元素坐标
      */
     MoreElement.prototype.NeatOffset = function (x, y) {
-        var offset = this.Offset.scale(new Vector(x, y));
-        return this.positioin.add(offset);
+        var offset = this.Offset.clone().scale(x, y);
+        return this.positioin.clone().add(offset);
     }
 
     MoreElement.prototype.NeatRect = function (x, y) {
-        var offset = this.Offset.scale(x, y);
+        var offset = this.Offset.clone().scale(x, y);
         var newRect = this.Rect.addOffset(offset);
-        // print("this.Rect=" + this.Rect);
-        // print("offset=" + offset);
-        // print("newRect=" + newRect);
         return newRect;
     }
 
@@ -89,16 +86,10 @@ define(["SAT"], function (sat) {
     }
 
 
-    function wrapMoreElement(left, top, width, height) {
+    MoreElement.wrapMoreElement = function (left, top, width, height) {
         var eleObj = {x: left, y: top, width: width, height: height};
         return new MoreElement(eleObj);
     }
-
-    var MoreElement_GLOBALS = {};
-    MoreElement_GLOBALS['wrapMoreElement']=wrapMoreElement;
     
-    return {
-        MoreElement: MoreElement,
-        GLOBALS: MoreElement_GLOBALS
-    };
+    return MoreElement;
 });

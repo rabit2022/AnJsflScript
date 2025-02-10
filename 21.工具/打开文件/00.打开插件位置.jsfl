@@ -1,19 +1,16 @@
-﻿require(["checkUtil", "SAT", "satUtil", "frameRange","selection"], 
-    function (checkUtil, sat, satUtil, frameRange,sel) {
-    var checkDom = checkUtil.CheckDom, 
-        checkSelection = checkUtil.CheckSelection,
-        checkSelectedFrames = checkUtil.CheckSelectedFrames;
-        
-    var Vector = sat.Vector, 
-        Rectangle = sat.Rectangle, 
-        wrapPosition = sat.GLOBALS.wrapPosition,
-        wrapRect = sat.GLOBALS.wrapRect;
+﻿/**
+ * @file: 02.打开插件位置.jsfl
+ * @author: 穹的兔兔
+ * @email: 3101829204@qq.com
+ * @date: 2024/12/25 21:40
+ * @project: AnJsflScript
+ * @description:
+ */
 
-    var pointUtil = satUtil.PointUtil, 
-        rectUtil = satUtil.RectUtil;
+require(["checkUtil","os"],function(checkUtil,os) {
+    var checkDom = checkUtil.CheckDom,
+        checkSelection = checkUtil.CheckSelection;
 
-    var frUtil = frameRange.FrameRangeUtil;
-    
     var doc = fl.getDocumentDOM();//文档
     if (!checkDom(doc)) return;
 
@@ -32,9 +29,9 @@
         // 检查选择的元件
         if (!checkSelection(selection, "selectElement", "No limit")) return;
 
+        os.startfile(os.path.PLUGIN_PATH);
 
     }
 
     Main();
 });
-

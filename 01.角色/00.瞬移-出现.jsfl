@@ -8,12 +8,12 @@
  */
 
 
-require(["checkUtil", "linqUtil","frameRange","filterUtil","selection","curve"], 
-    function (checkUtil, linqUtil, frameRange, filterUtil, sel, curve) {
+require(["checkUtil", "linqUtil","filterUtil","selection","curve","frUtil"], 
+    function (checkUtil, linqUtil,  filterUtil, sel, curve, frUtil) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection,
         checkSelectedFrames = checkUtil.CheckSelectedFrames;
-    var frUtil = frameRange.FrameRangeUtil;
+    // var frUtil = frameRange.FrameRangeUtil;
 
     var doc = fl.getDocumentDOM();//文档
     if (!checkDom(doc)) return;

@@ -8,11 +8,11 @@
  */
 
 
-require(["checkUtil","selection","moreElement"],function(checkUtil,sel,me) {
+require(["checkUtil","selection","moreElement"],function(checkUtil,sel,MoreElement) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
 
-    var MoreElement = me.MoreElement;
+    // var MoreElement = me.MoreElement;
     // var wrapMoreElement=me.GLOBALS.wrapMoreElement;
     
     var doc = fl.getDocumentDOM();//文档
@@ -65,10 +65,11 @@ require(["checkUtil","selection","moreElement"],function(checkUtil,sel,me) {
         var currentMoreElementsCopy;
         for (var i = 0; i < moreElements.length; i++) {
             var moreElement = moreElements[i];
+            // print("moreElement"+moreElement.toString())
 
             for (var j = 0; j < copyCount; j++) {
                 var nextPoint = moreElement.NeatOffset(j + 1, 0);
-                print("nextPoint"+nextPoint.x+","+nextPoint.y)
+                // print("nextPoint:"+nextPoint.toString())
                 // 复制元件
                 sel.OnlySelectCurrent(moreElement.element);
 

@@ -35,7 +35,7 @@ define(["SAT","random"], function (sat, random) {
         var botttomPart = eleRect.getPart("bottom", 1 - ratio);
         var trPointWorld = botttomPart.getCorner("top center");
 
-        var trPointLocal = trPointWorld.sub(elePos);
+        var trPointLocal = trPointWorld.clone().sub(elePos);
 
         return trPointLocal;
     }
@@ -51,12 +51,12 @@ define(["SAT","random"], function (sat, random) {
 
     /**
      * 计算新的向量，确保  小矩形的最终落点  不会超出  大矩形的边界
-     * @param {Rectangle} bigRect 大矩形
-     * @param {Rectangle} smallRect 小矩形
-     * @param {Vector} moveVector 原始向量
-     * @returns {Vector} 新的向量
+     * @param {Rectangle} bigRect 大矩形--限制范围
+     * @param {Rectangle} smallRect 小矩形--要移动的矩形
+     * @param {Vector} moveVector 要移动的向量
+     * @returns {Vector} 可以移动的向量
      */
-    RectUtil.calculateSafeMoveVector = function (bigRect, smallRect, moveVector) {
+    RectUtil.moveRectSafety = function (bigRect, smallRect, moveVector) {
         // 小矩形的边界   与   大矩形的边界  的距离 
         // <0  小矩形在大矩形的  外面
         // >0  小矩形在大矩形的  里面

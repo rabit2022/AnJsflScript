@@ -8,15 +8,15 @@
  */
 
 
-define(["frameRange"], function (frameRange) {
+define(["frUtil"], function (frUtil) {
 
-    var frUtil = frameRange.FrameRangeUtil;
+    // var frUtil = frameRange.FrameRangeUtil;
     
     /**
      * 检查选择的元件或帧是否符合指定的模式和条件。
      *
      * @param {Array} selection - 选择的元件或帧数组。
-     * @param {"selectElement"|"selectFrame"|"elementOnFrame"} [mode="selectElement"] - 检查模式，默认值为 "selectElement"。
+     * @param {"selectElement"|"selectFrame"|"elementOnFrame"|"selectLibItem"} [mode="selectElement"] - 检查模式，默认值为 "selectElement"。
      * @param {"No limit"|"Not Zero"|"Zero"|"Only one"|"Only two"|"More"|
      * ">0"|"=0"|"=1"|"=2"|">=2"} [condition="No selection"] - 检查条件，默认值为 "No selection"。
      * @returns {boolean} - 如果选择符合指定条件，则返回 true，否则返回 false。
@@ -36,6 +36,8 @@ define(["frameRange"], function (frameRange) {
                 alert("请选择至少一个帧");
             } else if (mode === "elementOnFrame") {
                 alert("当前帧上至少有一个元件");
+            } else if (mode === "selectLibItem") {
+                alert("请选择库里面的item");
             }
             return false;
         }
@@ -51,6 +53,8 @@ define(["frameRange"], function (frameRange) {
                 alert("请选择至少两个帧");
             } else if (mode === "elementOnFrame") {
                 alert("当前帧上至少需要两个元件");
+            }else if (mode === "selectLibItem") {
+                alert("请选择单个库item");
             }
             return false;
         }
@@ -67,6 +71,8 @@ define(["frameRange"], function (frameRange) {
                 alert("请选择单个帧");
             } else if (mode === "elementOnFrame") {
                 alert("当前帧上只能有一个元件");
+            }else if (mode === "selectLibItem") {
+                alert("请选择多个库item");
             }
             return false;
         }

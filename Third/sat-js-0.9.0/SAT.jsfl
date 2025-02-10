@@ -249,9 +249,12 @@
      * 四舍五入
      * @returns {Vector}
      */
-    Vector.prototype['round'] = Vector.prototype.round = Vector.prototype.toIntPonit = function () {
-        return new Vector(Math.round(this.x), Math.round(this.y));
-    }
+    Vector.prototype['round'] = Vector.prototype.round = function () {
+        // return new Vector(Math.round(this.x), Math.round(this.y));
+        this['x']=Math.round(this['x']);
+        this['y']=Math.round(this['y']);
+        return this;
+    };
 
     /**
      * timeline.camera.setPosition(curFrameIndex, newCameraPos.x, newCameraPos.y);
@@ -259,15 +262,19 @@
      * @returns {Vector}
      */
     Vector.prototype['noZero'] = Vector.prototype.noZero = function () {
-        var point = wrapPosition(this);
-        if (point.x === 0) {
-            point.x = 1;
-        }
-        if (point.y === 0) {
-            point.y = 1;
-        }
-        return point;
-    }
+        // var point = wrapPosition(this);
+        // if (point.x === 0) {
+        //     point.x = 1;
+        // }
+        // if (point.y === 0) {
+        //     point.y = 1;
+        // }
+        // return point;
+        this['x']=this['x']?this['x']:1;
+        this['y']=this['y']?this['y']:1;
+        return this;
+    };
+    
 
     /**
      * 判断是否  在 另一个点 的 某个方向上

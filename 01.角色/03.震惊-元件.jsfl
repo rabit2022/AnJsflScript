@@ -7,11 +7,12 @@
  * @description:
  */
 
-require(["checkUtil", "ele", "frameRange", "curve", "libUtil"], function (checkUtil, ele, frameRange, curve, libUtil) {
+require(["checkUtil", "ele","frUtil", "curve", "libUtil"], 
+    function (checkUtil, ele, frUtil, curve, libUtil) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection,
         checkSelectedFrames = checkUtil.CheckSelectedFrames;
-    var frUtil = frameRange.FrameRangeUtil;
+    // var frUtil = frameRange.FrameRangeUtil;
 
     var doc = fl.getDocumentDOM();//文档
     if (!checkDom(doc)) return;

@@ -103,7 +103,7 @@ require(["checkUtil", "libUtil", "curve", "graphics", "selection", "SAT"],
 
             // 查找圆形的右下角位置
             var right_bottom_pos = circle_rect.getCorner("bottom right");
-            var offset_pos = right_bottom_pos.sub(initialPos);
+            var offset_pos = right_bottom_pos.clone().clone().sub(initialPos);
 
             KFrames(timeline1, offset_pos);
 

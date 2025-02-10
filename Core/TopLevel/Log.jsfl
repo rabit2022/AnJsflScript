@@ -34,9 +34,8 @@ function LogArray(numbers) {
 
 
 function print() {
-    if (!DEBUG_MODE) {
-        return;
-    }
+    if (!(typeof DEBUG_MODE!==undefined&&DEBUG_MODE===true)) return;
+    
     // 将 arguments 转换为真正的数组
     var args = Array.prototype.slice.call(arguments);
 

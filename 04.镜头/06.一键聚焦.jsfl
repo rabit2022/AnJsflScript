@@ -99,16 +99,16 @@ require(["checkUtil","selection","layerUtil","satUtil","SAT"],
         var peopleCenter = getPeopleCenter();
 
         // 计算摄像机的位置
-        var cameraOffset = cameraCenter.sub(peopleCenter);
+        var cameraOffset = cameraCenter.clone().sub(peopleCenter);
 
         if (bgRect) {
             // 最大移动向量
-            cameraOffset = rectUtil.calculateSafeMoveVector(bgRect, cameraRect, cameraOffset);
+            cameraOffset = rectUtil.moveRectSafety(bgRect, cameraRect, cameraOffset);
         }
 
-        var newCameraPos = cameraPos.add(cameraOffset);
+        var newCameraPos = cameraPos.clone().add(cameraOffset);
         // 必须为非0的整数
-        newCameraPos = newCameraPos.toIntPonit().noZero();
+        newCameraPos = newCameraPos.round().noZero();
 
         // 移动摄像机
         timeline.camera.setPosition(curFrameIndex, newCameraPos.x, newCameraPos.y);

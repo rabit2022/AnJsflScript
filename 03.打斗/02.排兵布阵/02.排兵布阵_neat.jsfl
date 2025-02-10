@@ -7,10 +7,10 @@
  * @description:
  */
 
-require(["checkUtil","xmlPanelUtil","moreElement"],function(checkUtil,xmlPanelUtil,me) {
+require(["checkUtil","xmlPanelUtil","moreElement"],function(checkUtil,xmlPanelUtil,MoreElement) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
-    var MoreElement = me.MoreElement;
+    // var MoreElement = me.MoreElement;
 
     
     var doc = fl.getDocumentDOM();//文档
