@@ -1,7 +1,7 @@
 例子/**
 
-.idea/**
-.run/**
+#.idea/**
+#.run/**
 /test/**
 
 # git rm -r --cached .

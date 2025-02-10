@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="UserContentModel">
+    <attachedFolders />
+    <explicitIncludes />
+    <explicitExcludes>
+      <Path>test/core-js-3.40.0 - 2025-02-02T013824.090</Path>
+      <Path>test/depre</Path>
+      <Path>test/flash</Path>
+      <Path>test/sat-js-master - 2025-02-01T172016.826</Path>
+      <Path>例子</Path>
+    </explicitExcludes>
+  </component>
+</project>
