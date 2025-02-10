@@ -1,5 +1,5 @@
 
-# 欢迎来到 AnJsflScript！
+# 欢迎来到 AnJsflScript！！！
 
 **AnJsflScript** 是一个专为 Adobe Animate 设计的 JavaScript FL (JSFL) 脚本集合，旨在通过自动化任务提升工作效率，帮助用户更高效地完成重复性工作，从而专注于创意与设计。
 
@@ -16,7 +16,7 @@
 
 ### 2.1 下载项目
 
-* **下载最新版本**：访问项目的 [GitHub 仓库](https://github.com/rabit2022/AnJsflScript) 并下载最新发布的 tag 版本。tag 版本经过相对稳定，适合大多数用户使用。当前项目可能会进行重构等操作，因此建议始终使用最新发布的 tag 版本。
+* **下载最新版本**：访问本项目的 GitHub 仓库并下载最新发布的[ tag 版本](https://github.com/rabit2022/AnJsflScript/tags)。tag 版本经过相对稳定，适合大多数用户使用。当前项目可能会进行重构等操作，因此建议始终使用最新发布的 tag 版本。
 * **解压到本地**：将下载的文件解压到本地的一个合适位置，例如 `C:\AnJsflScript` 或 `~/Documents/AnJsflScript`。
 
 ### 2.2 打开 Adobe Animate 并新建或打开文档
@@ -26,7 +26,7 @@
 
 ### 2.3 运行 FirstRun.jsfl 脚本
 
-* **运行脚本**：在 Adobe Animate 中，选择 `File > Scripts > Run Script File...`，导航到解压后的 `AnJsflScript` 文件夹，选择 `FirstRun.jsfl` 脚本并运行。
+* **运行脚本**：在 Adobe Animate 中，选择 `命令 > 运行命令`，导航到解压后的 `AnJsflScript` 文件夹，选择 `FirstRun.jsfl` 脚本并运行。
 * **脚本功能**：`FirstRun.jsfl` 是初始化脚本，用于配置环境和加载必要的设置，例如 `requirejs` 和 `es5-shim` 等。这些设置是其他脚本正常运行的基础。
 * **重要提示**：每一次打开 Adobe Animate 软件时，都必须先运行此脚本，否则其他脚本可能无法正常工作。
 
@@ -65,7 +65,7 @@
 
 * **运行顺序**：请确保先运行 `FirstRun.jsfl` 脚本，并且必须打开文档，否则其他脚本可能无法正常工作。
 * **文档打开**：脚本需要在具体的文档环境中运行，因此必须先打开一个文档。
-* **版本兼容性**：虽然 AnJsflScript 旨在与最新版本的 Adobe Animate 兼容，但由于软件更新可能导致某些功能发生变化，使用的是2024版本的 Animate，因此可能会遇到一些兼容性问题。
+* **版本兼容性**：虽然 AnJsflScript 旨在与最新版本的 Adobe Animate 兼容，但由于软件更新可能导致某些功能发生变化，使用的是Adobe Animate 2024版本，因此可能会遇到一些兼容性问题。
 
 ***
 
@@ -75,8 +75,6 @@
 * **反馈**：如果在使用过程中遇到问题，或有任何建议，请通过GitHub Issues提交反馈，或者通过其他方式联系我。
 
 ***
-
-
 
 ## 6. 参考项目
 
