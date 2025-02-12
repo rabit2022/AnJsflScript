@@ -79,8 +79,8 @@
 ## 6. 参考项目
 
 * [**WindowSWF** ：b站up @见水中月](https://gitee.com/ninge/WindowSWF/tree/master/)
-* [**es5-shim-4.6.7** : 当前es3环境，使用es5-shim进行 补充 es5 环境的api兼容性](https://github.com/es-shims/es5-shim)
-* [**es6-shim-0.35.4** : 当前es3环境，使用es6-shim进行 补充 es6 环境的api兼容性](https://github.com/es-shims/es6-shim)
+* [**es5-shim-4.6.7** : 当前es3环境， 补充 es5 环境的api](https://github.com/es-shims/es5-shim)
+* [**es6-shim-0.35.4** : 当前es3环境，补充 es6 环境的api](https://github.com/es-shims/es6-shim)
 * [**linq.js-4.0.3** : 一个jsLinq库，可以方便的进行数组的查询操作](https://github.com/neuecc/linq.js)
 * [**requirejs-2.3.7** : 一个js模块加载器，可以方便的进行模块化开发](https://github.com/requirejs/requirejs)
 * [**sat-js-0.9.0** : 一个js图形库，仅用到Vector代码，其他代码已经删除](https://github.com/jriecken/sat-js)

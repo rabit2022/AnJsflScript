@@ -6,6 +6,11 @@
  * @project: AnJsflScript
  * @description:
  */
+
+
+// 定义一个标志变量，用于控制是否处于调试模式
+var DEBUG_MODE = true; // 在调试模式下设置为 true，在生产模式下设置为 false
+
 (function () {
 
     /**

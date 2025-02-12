@@ -285,21 +285,22 @@
     Vector.prototype['isInDirectionOf'] = Vector.prototype.IsInDirectionOf = function (point, whichCorner) {
         var deltaX = this.x - point.x;
         var deltaY = this.y - point.y;
+        // y轴向下，x轴向右
         switch (whichCorner) {
             case "top right":
-                return deltaX > 0 && deltaY > 0;
-            case "top left":
-                return deltaX < 0 && deltaY > 0;
-            case "bottom right":
                 return deltaX > 0 && deltaY < 0;
-            case "bottom left":
+            case "top left":
                 return deltaX < 0 && deltaY < 0;
+            case "bottom right":
+                return deltaX > 0 && deltaY > 0;
+            case "bottom left":
+                return deltaX < 0 && deltaY > 0;
             case "top center":
-                return deltaY > 0;
+                return deltaY < 0;
             case "right center":
                 return deltaX > 0;
             case "bottom center":
-                return deltaY < 0;
+                return deltaY > 0;
             case "left center":
                 return deltaX < 0;
             case "center":

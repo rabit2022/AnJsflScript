@@ -16,6 +16,8 @@ define([ "random"], function (random) {
     
     function LibUtil() {
     }
+    
+    LibUtil.LastName = "";
 
     /**
      * 获取随机3位数字的字符串,不够的地方用0补齐
@@ -77,6 +79,8 @@ define([ "random"], function (random) {
                 throw new Error("已经尝试了[" + count + "]次，仍然无法生成唯一的名称！当前名称为：[" + name+"]");
             }
         }
+        
+        this.LastName = name;
         return name;
     }
 
@@ -95,6 +99,8 @@ define([ "random"], function (random) {
             name = baseName + "" + this.lastCount;
             fl.trace(info0 + info1);
         }
+        
+        this.LastName = name;
         return name;
     }
 

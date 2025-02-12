@@ -61,3 +61,17 @@ FlashFile.prototype.runCommandLine = function (commandLine) {
  */
 Camera.prototype.setPosition = function (frameIndex, tx, ty) {
 };
+
+/**
+ * 6个变量，意义相同
+ * @since Flash MX 2004
+ * @type {Flash}
+ */
+flash = fl = App = app = animate = an = new Flash();
+
+/**
+ * 文档对象。但是没有打开时，不会返回null，无法提前退出，不建议使用。
+ * @type {Document}
+ * @deprecated 使用fl.getDocumentDOM()代替
+ */
+document = fl.getDocumentDOM();//文档

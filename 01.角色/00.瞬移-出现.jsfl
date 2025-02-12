@@ -77,8 +77,9 @@ require(["checkUtil", "linqUtil","filterUtil","selection","curve","frUtil"],
 
             // 删除元素
             var disappearElements = firstLayer.frames[disappearframe].elements;
-            sel.SelectAll(disappearElements);
-            doc.deleteSelection();
+            // sel.SelectAll(disappearElements);
+            // doc.deleteSelection();
+            sel.DeleteSelection(disappearElements);
         }
 
         // 获取allKeyFrames first,last

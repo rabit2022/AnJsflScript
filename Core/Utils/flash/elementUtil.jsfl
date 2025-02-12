@@ -6,16 +6,18 @@
  * @project: AnJsflScript
  * @description:
  */
-define(["SAT", "satUtil", "libUtil",  "layerUtil", "os", "selection","moreElement"],
-    function (sat, satUtil, libUtil, layerUtil, os, sel,MoreElement) {
-        var Vector = sat.V, 
-            wrapRect = sat.GLOBALS.wrapRect, 
-            wrapPosition = sat.GLOBALS.wrapPosition,
-            wrapSize = sat.GLOBALS.wrapSize, 
-            getOrigin = sat.GLOBALS.getOrigin, 
-            getTopLeft = sat.GLOBALS.getTopLeft;
 
-        var wrapMoreElement = MoreElement.wrapMoreElement;
+define(["SAT", "satUtil", "libUtil", "layerUtil", "os", "selection", "moreElementUtil", "builtInP"],
+    function (sat, satUtil, libUtil, layerUtil, os, sel, meUtil, builtInP) {
+        var Vector = sat.V,
+            wrapRect = sat.GLOBALS.wrapRect,
+            wrapPosition = sat.GLOBALS.wrapPosition,
+            wrapSize = sat.GLOBALS.wrapSize,
+            getOrigin = sat.GLOBALS.getOrigin,
+            getTopLeft = sat.GLOBALS.getTopLeft,
+            wrapRectByElement = sat.GLOBALS.wrapRectByElement;
+
+        var wrapMoreElement = meUtil.wrapMoreElement;
         var rectUtil = satUtil.RectUtil;
 
         /**
@@ -34,14 +36,27 @@ define(["SAT", "satUtil", "libUtil",  "layerUtil", "os", "selection","moreElemen
             return element.elementType === "instance" && element.instanceType === "symbol";
         }
 
+        /**
+         * 判断是否是 位图
+         * @param {Element} element 元素
+         * @returns {boolean} 是否是 位图
+         */
+        ElementUtil.IsBitmap = function (element) {
+            return element.elementType === "instance" && element.instanceType === "bitmap";
+        }
+        ElementUtil.IsShape = function (element) {
+            return element.elementType === "shape";
+        }
+
 
         /**
          *  复制元件
          *  @param {Element} element 元件
          * @param {"ask"|"skip"|"auto"} mode 复制模式，ask：弹出输入框，skip：直接复制，auto：自动生成名称
+         * @param {string} [newName=origionName] 新元件名称，仅在 mode 为 auto 时有效
          * @constructor
          */
-        ElementUtil.CopySymbol = function (element, mode) {
+        ElementUtil.CopySymbol = function (element, mode, newName) {
             var doc = fl.getDocumentDOM();
             var library = doc.library;//库文件
 
@@ -51,6 +66,10 @@ define(["SAT", "satUtil", "libUtil",  "layerUtil", "os", "selection","moreElemen
             // 2.直接复制元件
             var origionName = element.libraryItem.name;
             library.duplicateItem(origionName);
+
+            if (newName === undefined) {
+                newName = origionName;
+            }
 
             // 3.获取新元件名称
             var targetName = library.getSelectedItems()[0].name;
@@ -75,7 +94,7 @@ define(["SAT", "satUtil", "libUtil",  "layerUtil", "os", "selection","moreElemen
                 // 5.交换元件
                 doc.swapElement(targetName);
             } else if (mode === "auto") {
-                var input_file_name = libUtil.generateNameUntilUnique(file_name + "_复制_");
+                var input_file_name = libUtil.generateNameUntilUnique(newName);
 
                 // 5.交换元件
                 doc.swapElement(targetName);
@@ -91,19 +110,21 @@ define(["SAT", "satUtil", "libUtil",  "layerUtil", "os", "selection","moreElemen
          * @returns {Element}
          */
         ElementUtil.getMaxRight = function (elements) {
-            var doc = fl.getDocumentDOM();
+            function getTopRight(element) {
+                var rect = wrapRectByElement(element);
+                return rect.getCorner("top right");
+            }
 
             // 获取最右边的元素
             var maxElement = elements[0];
-            var maxTopRight = new Vector(0, 0);
+            var maxTopRight = getTopRight(maxElement);
             for (var i = 0; i < elements.length; i++) {
                 var element = elements[i];
-
-                sel.OnlySelectCurrent(element);
-                var rect = wrapRect(doc.getSelectionRect());
-                var topRight = rect.getCorner("top right");
-
+                var topRight = getTopRight(element);
+                // print("topRight:" + topRight.toString())
+                // print("maxTopRight:" + maxTopRight.toString())
                 if (topRight.IsInDirectionOf(maxTopRight, "top right")) {
+
                     maxElement = element;
                     maxTopRight = topRight;
                 }
@@ -191,7 +212,17 @@ define(["SAT", "satUtil", "libUtil",  "layerUtil", "os", "selection","moreElemen
         ElementUtil.splinterSymbol = function (element, SymbolName) {
             var doc = fl.getDocumentDOM();//文档
 
-            doc.convertSelectionToBitmap()
+            sel.OnlySelectCurrent(element);
+            if (this.IsSymbol(doc.selection[0])) {
+                doc.convertSelectionToBitmap();
+            }
+
+            if (!this.IsBitmap(doc.selection[0])) {
+                LogError("转换位图失败！！！");
+                // throw new Error("转换位图失败！！！");
+                return false;
+            }
+
 
             var symbolName = libUtil.generateNameUntilUnique(SymbolName);
             doc.convertToSymbol('graphic', symbolName, 'center');
@@ -207,7 +238,7 @@ define(["SAT", "satUtil", "libUtil",  "layerUtil", "os", "selection","moreElemen
             // 计算每个小块的尺寸    
             var elementSize = wrapSize(element);
             var [blockWidth, blockHeight, blockCountX, blockCountY] = rectUtil.splitRectangle(elementSize);
-            fl.trace("blockWidth:"+blockWidth+" blockHeight:"+blockHeight+" blockCountX:"+blockCountX+" blockCountY:"+blockCountY);
+            fl.trace("blockWidth:" + blockWidth + " blockHeight:" + blockHeight + " blockCountX:" + blockCountX + " blockCountY:" + blockCountY);
 
             var moreElement = wrapMoreElement(worldTopLeft.x, worldTopLeft.y, blockWidth, blockHeight);
             // print("moreElement:" + moreElement.toString());
@@ -236,27 +267,90 @@ define(["SAT", "satUtil", "libUtil",  "layerUtil", "os", "selection","moreElemen
             var timeline = doc.getTimeline();
             var layers = timeline.layers;//图层
 
-            this.splinterDeleter(timeline, layers);
+            splinterDeleter(timeline, layers);
 
             doc.exitEditMode();
+
+            /**
+             * 删除多余的碎片
+             * @param {Timeline} timeline - 时间轴。
+             * @param {Array.<Layer>} layers 图层数组
+             * @private
+             */
+             function splinterDeleter(timeline, layers) {
+                var DELETE_LAYER_NAME = "图层";
+
+                // 查找 名字中包含 "图层" 的 layer
+                var findLayers = layerUtil.getLayersIndexByName(layers, DELETE_LAYER_NAME);
+
+                // 删除图层
+                layerUtil.deleteLayers(timeline, findLayers);
+            }
+            return true;
         }
+
+        
 
         /**
-         * 删除多余的碎片
-         * @param {Timeline} timeline - 时间轴。
-         * @param {Array.<Layer>} layers 图层数组
-         * @private
+         * 播放一次
+         * @param {Element[]} elements 元素数组
          */
-        ElementUtil.splinterDeleter = function (timeline, layers) {
-            var DELETE_LAYER_NAME = "图层";
-
-            // 查找 名字中包含 "图层" 的 layer
-            var findLayers = layerUtil.getLayersIndexByName(layers, DELETE_LAYER_NAME);
-
-            // 删除图层
-            layerUtil.deleteLayers(timeline, findLayers);
+        ElementUtil.playOnce = function (elements) {
+            for (var i = 0; i < elements.length; i++) {
+                var element = elements[i];
+                if (this.IsSymbol(element)) {
+                    element.loop = "play once";
+                }
+            }
         }
 
+
+        /**
+         * 完全的打散
+         * @param {Element} element
+         */
+        ElementUtil.breakApartCompletely= function (element) {
+            var doc = fl.getDocumentDOM();//文档
+            var library = doc.library;//库文件
+            
+            if (!this.IsSymbol(element)) {
+                print("请选择元件");
+                return;
+            }
+            // sel.OnlySelectCurrent(element);
+            
+            
+            var MIDDLE_NAME = "完全分解-中转";
+            
+            this.CopySymbol(element, "auto", MIDDLE_NAME);
+            doc.enterEditMode("inPlace");
+
+            function convertSel2ShapeInner(selection) {
+                sel.SelectAll();
+                try {
+                    doc.breakApart();
+                } catch (e) {
+                    return;
+                }
+
+                var isAllShape = builtInP.all(selection, function (item) {
+                    return ElementUtil.IsShape(item);
+                });
+                if (isAllShape) {
+                    return;
+                } else {
+                    convertSel2ShapeInner(doc.selection)
+                }
+            }
+
+            convertSel2ShapeInner(doc.selection);
+
+            doc.exitEditMode();
+
+            doc.breakApart();
+
+            library.deleteItem(libUtil.LastName);
+        }
 
         return ElementUtil;
     });

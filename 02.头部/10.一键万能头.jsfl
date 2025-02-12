@@ -120,8 +120,10 @@ require(["checkUtil", "promptUtil", "libUtil","SAT","selection","linqUtil"],
         doc.exitEditMode();
 
         // 除了第一帧的元素，都删除
-        sel.SelectAll(TO_DELETE_SELECTION);
-        doc.deleteSelection();
+        // sel.SelectAll(TO_DELETE_SELECTION);
+        // doc.deleteSelection();
+        sel.DeleteSelection(TO_DELETE_SELECTION);
+        
 
         sel.OnlySelectCurrent(Important_element);
 

@@ -55,6 +55,7 @@
                 "frameRange":"Core/Object/frameRange",
                 "frameRangeUtil":"Core/Object/frameRangeUtil",
                 "moreElement":"Core/Object/moreElement",
+                "moreElementUtil":"Core/Object/moreElementUtil",
                 "Constants":"Core/TopLevel/Constants",
                 "Log":"Core/TopLevel/Log",
                 "checkUtil":"Core/Utils/flash/checkUtil",
@@ -65,7 +66,7 @@
                 "layerUtil":"Core/Utils/flash/layerUtil",
                 "libUtil":"Core/Utils/flash/libUtil",
                 "promptUtil":"Core/Utils/flash/promptUtil",
-                "selection":"Core/Utils/flash/selection",
+                "selectionUtil":"Core/Utils/flash/selectionUtil",
                 "xmlPanelUtil":"Core/Utils/flash/xmlPanelUtil",
                 "builtInP":"Core/Utils/py/builtInP",
                 "os":"Core/Utils/py/os",
@@ -77,8 +78,10 @@
             map: {
                 "*": {
                     "sat": "SAT",
-                    "sel": "selection",
+                    "sel": "selectionUtil",
+                    "selection": "selectionUtil",
                     "me": "moreElement",
+                    "meUtil": "moreElementUtil",
                     "ele": "elementUtil",
                     "curve": "curveUtil",
                     "graphics": "graphicsUtil",

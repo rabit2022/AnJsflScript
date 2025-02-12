@@ -7,10 +7,15 @@
  * @description:
  */
 
-require(["checkUtil"],function(checkUtil) {
+require(["checkUtil","sat","frUtil"],function(checkUtil, sat, frUtil) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
-
+    var Vector = sat.Vector,
+        Rectangle = sat.Rectangle,
+        wrapPosition = sat.GLOBALS.wrapPosition,
+        wrapRect = sat.GLOBALS.wrapRect,
+        wrapTransform = sat.GLOBALS.wrapTransform;
+    
     var doc = fl.getDocumentDOM();//文档
     if (!checkDom(doc)) return;
 

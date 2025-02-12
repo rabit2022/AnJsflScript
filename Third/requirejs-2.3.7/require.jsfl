@@ -2003,12 +2003,13 @@ var requirejs, require, define;
 
             try {
                 fl.runScript(scriptURI);
-                fl.trace("load for flash [" + moduleName + "] at [" + scriptURI + "]");
-                
+                if (typeof print !== "undefined")
+                    print("[requirejs] load for flash [" + moduleName + "] at [" + scriptURI + "]");
+
                 //Account for anonymous modules
                 context.completeLoad(moduleName);
             } catch (e) {
-                fl.trace("failed to load script for flash [" + moduleName + "] at [" + scriptURI + "]");
+                fl.trace("[Error] failed to load script for flash [" + moduleName + "] at [" + scriptURI + "]");
                 context.onError(makeError('flash',
                     'Flash loading failed for ' +
                     moduleName + ' at ' + scriptURI,

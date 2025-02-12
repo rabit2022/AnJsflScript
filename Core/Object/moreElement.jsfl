@@ -84,12 +84,6 @@ define(["SAT"], function (sat) {
     MoreElement.prototype.toString = function () {
         return "MoreElement(element=" + this.element + ", positioin=" + this.positioin + ", Offset=" + this.Offset + ", Rect=" + this.Rect + ")";
     }
-
-
-    MoreElement.wrapMoreElement = function (left, top, width, height) {
-        var eleObj = {x: left, y: top, width: width, height: height};
-        return new MoreElement(eleObj);
-    }
     
     return MoreElement;
 });

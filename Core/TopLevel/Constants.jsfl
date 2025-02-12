@@ -22,6 +22,9 @@ var FRAME_10 = 10 - 1;
 var FRAME_11 = 11 - 1;
 var FRAME_12 = 12 - 1;
 
+// 17,18
+var FRAME_17 = 17 - 1;
+var FRAME_18 = 18 - 1;
 
 // 时间--帧数
 var SECOND_FRAME = 30;
@@ -35,6 +38,6 @@ var MAX_BLUR = 255;
 var MAX_CHANNEL = 32768;
 
 
-// 定义一个标志变量，用于控制是否处于调试模式
-var DEBUG_MODE = true; // 在调试模式下设置为 true，在生产模式下设置为 false
+// // 定义一个标志变量，用于控制是否处于调试模式
+// var DEBUG_MODE = true; // 在调试模式下设置为 true，在生产模式下设置为 false
 

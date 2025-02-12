@@ -115,11 +115,14 @@ require(["checkUtil", "SAT", "random", "satUtil", "selection", "ele"],
 
 
             // 碎片
-            ele.splinterSymbol(doc.selection[0], "一键爆炸_");
+            if (!ele.splinterSymbol(doc.selection[0], "一键爆炸_")) return;
 
 
             // 爆炸效果
             KFrames(doc.selection[0]);
+
+            // 播放一次
+            ele.playOnce(doc.selection);
         }
 
         Main();

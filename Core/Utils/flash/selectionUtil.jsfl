@@ -69,13 +69,29 @@ define(function () {
         // select All
         timeline.setSelectedFrames(0, timeline.frameCount - 1, true);
     }
-
+    
+    /**
+     * 删除选中的元件
+     * @param {Element[]} [elements] 没有参数时，删除所有选中的元件；有参数时，删除参数中的所有元件
+     */
+    function DeleteSelection(elements) {
+        var doc = fl.getDocumentDOM();
+        if (!elements) {
+            doc.deleteSelection();
+            return;
+        }
+        
+        SelectAll(elements);
+        doc.deleteSelection();
+    }
+    
     return {
         OnlySelectCurrent: OnlySelectCurrent,
         SelectStart: SelectStart,
         SelectAll: SelectAll,
         SelectNone: SelectNone,
         SelectNoneTl: SelectNoneTl,
-        SelectAllTl: SelectAllTl
+        SelectAllTl: SelectAllTl,
+        DeleteSelection: DeleteSelection
     };
 });
