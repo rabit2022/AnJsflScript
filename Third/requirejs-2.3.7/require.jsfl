@@ -2003,8 +2003,8 @@ var requirejs, require, define;
 
             try {
                 fl.runScript(scriptURI);
-                if (typeof print !== "undefined")
-                    print("[requirejs] load for flash [" + moduleName + "] at [" + scriptURI + "]");
+                // if (typeof print !== "undefined")
+                //     print("[requirejs] load for flash [" + moduleName + "] at [" + scriptURI + "]");
 
                 //Account for anonymous modules
                 context.completeLoad(moduleName);

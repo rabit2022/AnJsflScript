@@ -8,7 +8,7 @@
  */
 
 
-require(["checkUtil","xmlPanelUtil","curve"],function(checkUtil,xmlPanelUtil,curve) {
+require(["checkUtil", "xmlPanelUtil", "curve"], function (checkUtil, xmlPanelUtil, curve) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
 
@@ -64,11 +64,13 @@ require(["checkUtil","xmlPanelUtil","curve"],function(checkUtil,xmlPanelUtil,cur
             curve.setClassicEaseCurve(timeline, easeInOut, intensity);
         } else if (easeType === "No Ease") {
             var easeCurve = easeType;
-
+            
+            curve.createTween(timeline, "motion tween");
             curve.setEaseCurve(timeline, easeCurve);
         } else {
             var easeCurve = easeType + " " + easeInOut;
-
+            
+            curve.createTween(timeline, "motion tween");
             curve.setEaseCurve(timeline, easeCurve);
         }
     }

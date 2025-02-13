@@ -77,6 +77,7 @@ require(["checkUtil", "libUtil", "curve", "graphics", "selection", "SAT"],
 
             // 补间动画
             // timeline.createMotionTween();
+            curve.createTween(timeline,"motion tween");
             curve.setEaseCurve(timeline, "Sine Ease-In-Out");
         }
 

@@ -16,9 +16,9 @@ define(["SAT"], function (sat) {
      * 画圆，不要填充
      * @param {Vector}centerPos 圆心位置
      * @param {number}radius 半径
-     * @deprecated 建议使用 {@link GraphicsUtil.drawCircleWithoutFill} ,效果更好
+     * @deprecated 建议使用 {@link GraphicsUtil.drawCircleLineWithoutFill} ,效果更好
      */
-    GraphicsUtil.drawCircle = function (centerPos, radius) {
+    GraphicsUtil.drawCircleLineWithoutFill_deprecated = function (centerPos, radius) {
         var doc = fl.getDocumentDOM();//文档
 
         var circleRect = wrapRectByRadius(centerPos, radius);
@@ -39,7 +39,7 @@ define(["SAT"], function (sat) {
      * @param {number}radius 半径
      * @return {Rectangle} 圆弧所在矩形
      */
-    GraphicsUtil.drawCircleWithoutFill = function (centerPos, radius) {
+    GraphicsUtil.drawCircleLineWithoutFill = function (centerPos, radius) {
         var doc = fl.getDocumentDOM();//文档
 
         var circleRect = wrapRectByRadius(centerPos, radius);
@@ -60,7 +60,23 @@ define(["SAT"], function (sat) {
         return circleRect;
     }
 
-
+    GraphicsUtil.drawCircleWithoutLine = function (centerPos, radius){
+        var doc = fl.getDocumentDOM();//文档
+        
+        var circleRect = wrapRectByRadius(centerPos, radius);
+        print("circleRect",circleRect.toString());
+        doc.addNewPrimitiveOval(circleRect.toObj(),false,true);
+        // 选中圆形
+        // bug: bContactSensitiveSelection接触感应选择模式。必须设置为true，否则可能无法选中圆形，导致后面的代码出错。
+        doc.setSelectionRect(circleRect.toObj(),true,true);
+        // var circleCenter = circleRect.getCenterVector();
+        // doc.mouseClick(circleCenter.getCenter().toObj(), true, true);//选中所有
+        
+        // 分离到Shape
+        doc.breakApart();
+        return circleRect;
+    }
+    
     return GraphicsUtil;
 
 });

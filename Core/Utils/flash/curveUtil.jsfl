@@ -17,9 +17,16 @@
         root['curve'] = factory();
     }
 }(this, function () {
+    /**
+     * 缓动曲线工具类
+     * @constructor
+     * @class Curve
+     * @note 必须先选中帧，才能设置缓动曲线
+     */
     function Curve() {
-        
+
     }
+
     /**
      * 缓动曲线类型
      * @type {{}}
@@ -71,7 +78,7 @@
         if (!easeData) {
             throw Error("缓动类型不存在！");
         }
-        timeline.createMotionTween();
+        // timeline.createMotionTween();
         timeline.setFrameProperty('easeType', easeData[0], easeData[1], easeData[2]);
     }
 
@@ -106,7 +113,10 @@
 
         // print("classic ease curve:"+native*intensity)
         timeline.createMotionTween();
-        timeline.setFrameProperty('easeType', 5, -1, native * intensity);
+        var finalIntensity = native * intensity;
+        if (finalIntensity !== 0) {
+            timeline.setFrameProperty('easeType', 5, -1, finalIntensity);
+        }
     }
 
     /**
@@ -139,10 +149,39 @@
 
         timeline.setSelectedFrames(startFrame, endFrame, true);
         timeline.setFrameProperty('tweenType', 'none');
-
     }
 
-    // var curve = new Curve();
+    /**
+     * 创建缓动
+     * @param {Timeline} timeline
+     * @param {"motion tween"|"shape tween"} tweenType 缓动类型
+     */
+    Curve.createTween = function (timeline, tweenType) {
+        if (tweenType === undefined) tweenType = "motion tween";
+
+        print("create tween:" + tweenType);
+        switch (tweenType) {
+            case "motion tween":
+                timeline.createMotionTween();
+                break;
+            case "shape tween":
+                // print("create shape tween");
+                // timeline.setFrameProperty('tweenType', 'shape');
+                this.createShapeTween(timeline);
+                break;
+            default:
+                throw Error("缓动类型不存在！");
+        }
+    }
+    /**
+     * 创建形状补间
+     * @param {Timeline} timeline
+     * @private
+     */
+    Curve.createShapeTween = function (timeline) {
+        timeline.setFrameProperty('tweenType', 'shape');
+    }
+    
 
     return Curve;
 

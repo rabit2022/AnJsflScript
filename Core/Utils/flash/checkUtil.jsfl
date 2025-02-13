@@ -8,7 +8,7 @@
  */
 
 
-define(["frUtil"], function (frUtil) {
+define(["frUtil","frameRange"], function (frUtil,FrameRange) {
 
     // var frUtil = frameRange.FrameRangeUtil;
     
@@ -97,7 +97,7 @@ define(["frUtil"], function (frUtil) {
      * @param {Timeline} timeline - 时间轴对象。
      * @param {"No limit"|"Not Zero"|"Zero"|"Only one"|"Only two"|"More"|
      * ">0"|"=0"|"=1"|"=2"|">1"} [condition="Not Zero"] - 检查条件
-     * @returns {Array}
+     * @returns {FrameRange[]}
      */
     function CheckSelectedFrames(timeline, condition) {
         if (condition === undefined) condition = "Not Zero";

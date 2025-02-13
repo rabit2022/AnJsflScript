@@ -25,12 +25,13 @@ function LogArray(numbers, tips) {
 
     var str = tips + "[ ";
     for (var i = 0; i < numbers.length; i++) {
+        var num = numbers[i].toString();
         if (i === numbers.length - 1) {
-            str += numbers[i] + " ]";
+            str += num + " ]";
             break;
         }
 
-        str += numbers[i] + ", ";
+        str += num + ", ";
     }
     // fl.trace(str);
     print(str);
@@ -75,4 +76,17 @@ function print() {
 
 function LogError() {
     fl.trace("[Error] " + Array.prototype.slice.call(arguments).join("    "));
+}
+
+
+function LogDict(dict, tips) {
+    if (tips === undefined) tips = "";
+    var str = tips + "{";
+    for (var key in dict) {
+        if (dict.hasOwnProperty(key)) {
+            str += key + ": " + dict[key] + ",\n";
+        }
+    }
+    str += "}";
+    print(str);
 }

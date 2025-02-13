@@ -22,7 +22,18 @@ define( function () {
 
         this.duration = endFrame - startFrame;
     }
-
+    /**
+     * 判断两个帧范围是否有重叠
+     * @param {FrameRange} other 另一个帧范围
+     * @return {boolean} 是否有重叠
+     */
+    FrameRange.prototype.intersects = function (other) {
+        return this.startFrame <= other.endFrame && other.startFrame <= this.endFrame;
+    };
+    
+    FrameRange.prototype.clone = function () {
+        return new FrameRange(this.layerIndex, this.startFrame, this.endFrame);
+    }
     /**
      * 输出字符串
      * @return {string} 字符串
@@ -46,7 +57,7 @@ define( function () {
 
     /**
      * 转换为数组
-     * @return {Array} 数组
+     * @return {[number, number, number]} 数组
      */
     FrameRange.prototype.toArray = function () {
         return [this.layerIndex, this.startFrame, this.endFrame];

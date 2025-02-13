@@ -306,8 +306,10 @@ define(["SAT", "satUtil", "libUtil", "layerUtil", "os", "selection", "moreElemen
 
 
         /**
-         * 完全的打散
+         * 完全的打散，转为形状
          * @param {Element} element
+         * @note 完全的打散，如果某些素材，打包，并且在打包的地方  调整颜色，则会导致颜色丢失。
+         *       原本的思路：转为位图，再打散为形状。但是，形状补间动画 无法正常工作。
          */
         ElementUtil.breakApartCompletely= function (element) {
             var doc = fl.getDocumentDOM();//文档

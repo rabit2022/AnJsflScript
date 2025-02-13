@@ -82,7 +82,8 @@ require(["checkUtil","selection","ele","libUtil","xmlPanelUtil","curve"],
         sel.SelectAllTl(timeline1);
 
         // 创建动效
-        timeline1.createMotionTween();
+        // timeline1.createMotionTween();
+        curve.createTween(timeline1,"motion tween");
         curve.setEaseCurve(timeline1, "Sine Ease-In-Out");
 
         doc.exitEditMode();
