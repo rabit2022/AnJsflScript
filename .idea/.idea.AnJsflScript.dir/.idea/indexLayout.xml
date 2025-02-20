@@ -9,6 +9,7 @@
       <Path>test/flash</Path>
       <Path>test/sat-js-master - 2025-02-01T172016.826</Path>
       <Path>例子</Path>
+      <Path>文档/例子</Path>
     </explicitExcludes>
   </component>
 </project>
