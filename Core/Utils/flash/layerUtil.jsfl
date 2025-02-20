@@ -25,57 +25,48 @@ define( function () {
         }
         return false;
     }
+
+    /**
+     * 获取包含指定名称的图层或其索引
+     * @param {Array.<Layer>} layers 图层数组
+     * @param {String} layerName 图层名称
+     * @param {Boolean} [returnIndices=false] 是否返回图层索引而不是图层对象
+     * @return {Array.<Layer>|Array.<Number>} 匹配的图层数组或索引数组
+     */
+    LayerUtil._getLayersOrIndicesByName = function(layers, layerName, returnIndices) {
+        returnIndices = returnIndices === undefined || returnIndices === null ? false : returnIndices;
+
+        var result = [];
+        for (var i = 0; i < layers.length; i++) {
+            if (layers[i].name.includes(layerName)) {
+                result.push(returnIndices ? i : layers[i]);
+            }
+        }
+        return result;
+    };
+
+
     /**
      * 获取包含指定名称的图层
      * @param {Array.<Layer>} layers 图层数组
      * @param {String} layerName 图层名称
-     * @return {Array.<Layer>} 图层数组
+     * @return {Array.<Layer>} 匹配的图层数组
      */
-    LayerUtil.getLayersByName = function (layers, layerName) {
-        var findLayers = [];
-        for (var i = 0; i < layers.length; i++) {
-            var layer = layers[i];
-            // if (Includes(layer.name, BG_LAYER_NAME)) {
-            if (layer.name.includes(layerName)) {
-                findLayers.push(layer);
-            }
-        }
-        return findLayers;
-    }
+    LayerUtil.getLayersByName = function(layers, layerName) {
+        return this._getLayersOrIndicesByName(layers, layerName, false);
+    };
+
     /**
      * 获取包含指定名称的图层的索引
      * @param {Array.<Layer>} layers 图层数组
      * @param {String} layerName 图层名称
-     * @return {Array.<Number>} 图层索引数组
+     * @return {Array.<Number>} 匹配的图层索引数组
      */
-    LayerUtil.getLayersIndexByName = function (layers, layerName) {
-        var findLayers = [];
-        for (var i = 0; i < layers.length; i++) {
-            var layer = layers[i];
-            // if (Includes(layer.name, BG_LAYER_NAME)) {
-            if (layer.name.includes(layerName)) {
-                findLayers.push(i);
-            }
-        }
-        return findLayers;
-    }
+    LayerUtil.getLayersIndexByName = function(layers, layerName) {
+        return this._getLayersOrIndicesByName(layers, layerName, true);
+    };
 
-    /**
-     * 获取指定图层的索引
-     * @param {Array.<Layer>} layers 图层数组
-     * @param {Layer} layer 图层
-     * @return {Number} 图层索引
-     */
-    LayerUtil.getLayerIndex = function (layers, layer) {
-        var layerIndex = 0;
-        for (var i = 0; i < layers.length; i++) {
-            if (layers[i] === layer) {
-                layerIndex = i;
-                break;
-            }
-        }
-        return layerIndex;
-    }
+
 
     /**
      * 删除 图层
@@ -94,6 +85,7 @@ define( function () {
         }
     }
 
+
     /**
      * 转换为图层索引
      * @param {Array.<Layer>} layers 图层数组
@@ -106,7 +98,7 @@ define( function () {
         if (typeof layer === "number") {
             layerIndex = layer;
         } else {
-            layerIndex = this.getLayerIndex(layers, layer);
+            layerIndex = layers.indexOf(layer);
         }
         return layerIndex;
     }

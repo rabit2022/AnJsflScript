@@ -27,27 +27,12 @@ require(["checkUtil","selection","promptUtil","frUtil"],
     var curFrameIndex = timeline.currentFrame;//当前帧索引
     var curFrame = curLayer.frames[curFrameIndex];//当前帧
 
-    function getMode() {
-        var pr = promptUtil.parseNumberWithSign("请输入关键帧持续帧数（“+3”为增加，“-3”为减少，无符号“3”为统一）", 30, "请输入合法的数字，例如“+3”或“-3”或“3”");
-        if (pr === null) return;
-        var {num, hasSign} = pr;
-
-        var mode = "unifiy";
-        if (hasSign) {
-            mode = "increase";
-            if (num < 0) {
-                mode = "decrease";
-                num = Math.abs(num);
-            }
-        }
-        return {num: num, mode: mode};
-    }
     function Main() {
         // 检查选择的元件
         if (!checkSelection(selection, "selectElement", "No limit")) return;
 
 
-        var {num, mode} = getMode();
+        var {num, mode} = promptUtil.parseNumberWithMode(30);
         // print("关键帧持续帧数：" + num + "，模式：" + mode);
 
         // 选中的帧范围

@@ -251,8 +251,8 @@
      */
     Vector.prototype['round'] = Vector.prototype.round = function () {
         // return new Vector(Math.round(this.x), Math.round(this.y));
-        this['x']=Math.round(this['x']);
-        this['y']=Math.round(this['y']);
+        this['x'] = Math.round(this['x']);
+        this['y'] = Math.round(this['y']);
         return this;
     };
 
@@ -270,11 +270,11 @@
         //     point.y = 1;
         // }
         // return point;
-        this['x']=this['x']?this['x']:1;
-        this['y']=this['y']?this['y']:1;
+        this['x'] = this['x'] ? this['x'] : 1;
+        this['y'] = this['y'] ? this['y'] : 1;
         return this;
     };
-    
+
 
     /**
      * 判断是否  在 另一个点 的 某个方向上
@@ -432,7 +432,7 @@
         }
         return new Rectangle(this.left + offset.left, this.top + offset.top, this.right + offset.right, this.bottom + offset.bottom);
     }
-    
+
     /**
      * 矩形 偏移前的 矩形
      * 移动矩形的边界
@@ -447,26 +447,6 @@
         }
         return new Rectangle(this.left - offset.left, this.top - offset.top, this.right - offset.right, this.bottom - offset.bottom);
     }
-    
-    // /**
-    //  * 矩形相加
-    //  * 扩展  矩形的边界
-    //  * @param {Rectangle} rect 矩形
-    //  * @returns {Rectangle} 矩形
-    //  */
-    // Rectangle.prototype.add = function (rect) {
-    //     return new Rectangle(this.left + rect.left, this.top + rect.top, this.right + rect.right, this.bottom + rect.bottom);
-    // }
-    //
-    // /**
-    //  * 矩形相减
-    //  * 小矩形的边界   与   大矩形的边界  的距离
-    //  * @param {Rectangle} rect 矩形
-    //  * @returns {Rectangle} 矩形
-    //  */
-    // Rectangle.prototype.sub = function (rect) {
-    //     return new Rectangle(this.left - rect.left, this.top - rect.top, this.right - rect.right, this.bottom - rect.bottom);
-    // }
 
     /**
      * 矩形中心点
@@ -487,87 +467,108 @@
 
     /**
      * 获取矩形的某个角点
-     * @param {"top right"|"top left"|"bottom right"|"bottom left"|"top center"|"right center"|"bottom center"|"left center"|"center"} whichCorner whichCorner 角点
+     * @param {"top right"|"top left"|"bottom right"|"bottom left"|"top center"|"right center"|"bottom center"|"left center"|"center"} whichCorner 角点或中心点
      * @returns {Vector} 点
      */
-    Rectangle.prototype.getCorner = function (whichCorner) {
+    Rectangle.prototype.getCorner = function(whichCorner) {
+        // 获取矩形的基本属性
+        const { left, right, top, bottom } = this;
+
+        // 获取中心点坐标
+        const { x: centerX, y: centerY } = this.getCenterVector();
+
+        // 辅助函数：创建 Vector 对象
+        function createVector(x, y) {
+            return new Vector(x, y);
+        }
+
         switch (whichCorner) {
             case "top right":
-                return new Vector(this.right, this.top);
+                return createVector(right, top);
             case "top left":
-                return new Vector(this.left, this.top);
+                return createVector(left, top);
             case "bottom right":
-                return new Vector(this.right, this.bottom);
+                return createVector(right, bottom);
             case "bottom left":
-                return new Vector(this.left, this.bottom);
+                return createVector(left, bottom);
             case "top center":
-                return new Vector((this.left + this.right) / 2, this.top);
+                return createVector(centerX, top);
             case "right center":
-                return new Vector(this.right, (this.top + this.bottom) / 2);
+                return createVector(right, centerY);
             case "bottom center":
-                return new Vector((this.left + this.right) / 2, this.bottom);
+                return createVector(centerX, bottom);
             case "left center":
-                return new Vector(this.left, (this.top + this.bottom) / 2);
+                return createVector(left, centerY);
             case "center":
-                return new Vector((this.left + this.right) / 2, (this.top + this.bottom) / 2);
+                return createVector(centerX, centerY);
             default:
                 throw new Error("参数错误：whichCorner " + whichCorner);
         }
-    }
+    };
 
     /**
      * 获取矩形的某个部分
+     *
+     * 该方法根据指定的 `whichPart` 参数，从当前矩形中提取一个子矩形。子矩形的大小和位置由 `whichPart` 和比例参数（`widthRatio` 和 `heightRatio`）决定。
+     *
      * @param {"top right"|"top left"|"bottom right"|"bottom left"|"top center"|"right center"|"bottom center"|"left center"|"center"|
      * "top"|"right"|"bottom"|"left"} whichPart 部分
-     * @param {number} [ratio] 0-1 获取部分的比例
-     * @returns {Rectangle} 矩形
+     * @param {number} [widthRatio=0.5] - 宽度方向的比例（0-1），表示提取部分的宽度占原始矩形宽度的比例。
+     * @param {number} [heightRatio=widthRatio] - 高度方向的比例（0-1），表示提取部分的高度占原始矩形高度的比例。
+     * @returns {Rectangle} - 返回一个新矩形对象，表示提取的部分。
+     * @throws {Error} - 如果 `whichPart` 参数无效，将抛出错误。
      */
-    Rectangle.prototype.getPart = function (whichPart, ratio) {
-        // var ratio = getPart / splitPart;
-        if (ratio === undefined) {
-            ratio = 0.5;
-        }
+    Rectangle.prototype.getPart = function (whichPart, widthRatio = 0.5, heightRatio = 0.5) {
+        // 解构矩形的基本属性
+        const {left, right, top, bottom, width, height} = this;
+
+        // 获取中心点坐标
+        const {x: centerX, y: centerY} = this.getCenterVector();
+
+        // 提前计算宽度和高度的占比
+        const widthPart = width * widthRatio;
+        const heightPart = height * heightRatio;
+
+        // 提前计算宽度和高度的剩余部分
+        const widthInversePart = width - widthPart;
+        const heightInversePart = height - heightPart;
+
+        // 提前计算宽度和高度的一半占比
+        const halfWidthPart = widthPart / 2;
+        const halfHeightPart = heightPart / 2;
+
         switch (whichPart) {
             case "top right":
-                return new Rectangle(this.right - (this.width * (1 - ratio)), this.top, this.right, this.top + (this.height * ratio));
+                return new Rectangle(right - widthInversePart, top, right, top + heightPart);
             case "top left":
-                return new Rectangle(this.left, this.top, this.left + (this.width * ratio), this.top + (this.height * ratio));
+                return new Rectangle(left, top, left + widthPart, top + heightPart);
             case "bottom right":
-                return new Rectangle(this.right - (this.width * (1 - ratio)), this.bottom - (this.height * ratio), this.right, this.bottom);
+                return new Rectangle(right - widthInversePart, bottom - heightInversePart, right, bottom);
             case "bottom left":
-                return new Rectangle(this.left, this.bottom - (this.height * ratio), this.left + (this.width * ratio), this.bottom);
+                return new Rectangle(left, bottom - heightInversePart, left + widthPart, bottom);
             case "top center":
-                return new Rectangle((this.left + this.right) / 2 - (this.width * (1 - ratio)) / 2, this.top, (this.left + this.right) / 2 + (this.width * (1 - ratio)) / 2, this.top + (this.height * ratio));
+                return new Rectangle(centerX - halfWidthPart, top, centerX + halfWidthPart, top + heightPart);
             case "right center":
-                return new Rectangle(this.right - (this.width * (1 - ratio)), (this.top + this.bottom) / 2 - (this.height * (1 - ratio)) / 2, this.right, (this.top + this.bottom) / 2 + (this.height * (1 - ratio)) / 2);
+                return new Rectangle(right - widthInversePart, centerY - halfHeightPart, right, centerY + halfHeightPart);
             case "bottom center":
-                return new Rectangle((this.left + this.right) / 2 - (this.width * (1 - ratio)) / 2, this.bottom - (this.height * ratio), (this.left + this.right) / 2 + (this.width * (1 - ratio)) / 2, this.bottom);
+                return new Rectangle(centerX - halfWidthPart, bottom - heightPart, centerX + halfWidthPart, bottom);
             case "left center":
-                return new Rectangle(this.left, (this.top + this.bottom) / 2 - (this.height * (1 - ratio)) / 2, this.left + (this.width * ratio), (this.top + this.bottom) / 2 + (this.height * (1 - ratio)) / 2);
+                return new Rectangle(left, centerY - halfHeightPart, left + widthPart, centerY + halfHeightPart);
             case "center":
-                return new Rectangle((this.left + this.right) / 2 - (this.width * (1 - ratio)) / 2, (this.top + this.bottom) / 2 - (this.height * (1 - ratio)) / 2, (this.left + this.right) / 2 + (this.width * (1 - ratio)) / 2, (this.top + this.bottom) / 2 + (this.height * (1 - ratio)) / 2);
+                return new Rectangle(centerX - halfWidthPart, centerY - halfHeightPart, centerX + halfWidthPart, centerY + halfHeightPart);
             case "top":
-                return new Rectangle(this.left, this.top, this.right, this.top + (this.height * ratio));
+                return new Rectangle(left, top, right, top + heightPart);
             case "right":
-                return new Rectangle(this.right - (this.width * (1 - ratio)), this.top, this.right, this.bottom);
+                return new Rectangle(right - widthInversePart, top, right, bottom);
             case "bottom":
-                return new Rectangle(this.left, this.bottom - (this.height * ratio), this.right, this.bottom);
+                return new Rectangle(left, bottom - heightPart, right, bottom);
             case "left":
-                return new Rectangle(this.left, this.top, this.left + (this.width * ratio), this.bottom);
+                return new Rectangle(left, top, left + widthPart, bottom);
             default:
                 throw new Error("whichPart 参数错误");
         }
-    }
+    };
 
-   
-//     Rectangle.prototype.expandAround = function (around) {
-//         return new Rectangle(this.left - around, this.top - around, this.right + around, this.bottom + around);
-//     }
-//
-// //  缩小矩形
-//     Rectangle.prototype.shrinkAround = function (around) {
-//         return new Rectangle(this.left + around, this.top + around, this.right - around, this.bottom - around);
-//     }
 
     /**
      * 字符串
@@ -635,10 +636,11 @@
         this.width = width;
         this.height = height;
 
-        this.max = Math.max(width, height);
-        this.min = Math.min(width, height);
+        this.max_size = Math.max(width, height);
+        this.min_size = Math.min(width, height);
         this.ratio = width / height;
     }
+
     SAT['Size'] = Size;
 
     Size.prototype.getRatioWidth = function () {
@@ -664,6 +666,7 @@
     function wrapSize(element) {
         return new Size(element.width, element.height);
     }
+
     SAT_GLOBALS["wrapSize"] = wrapSize;
 
 
@@ -691,6 +694,7 @@
         // 倾斜
         this.skew = new Vector(element.skewX, element.skewY);
     }
+
     SAT['Transform'] = Transform;
 
     Transform.prototype.setRotation = function (rotation) {
@@ -740,6 +744,7 @@
     function wrapTransform(element) {
         return new Transform(element);
     }
+
     SAT_GLOBALS["wrapTransform"] = wrapTransform;
 
     SAT["GLOBALS"] = SAT_GLOBALS;

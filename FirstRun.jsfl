@@ -56,7 +56,7 @@
                 "frameRangeUtil":"Core/Object/frameRangeUtil",
                 "moreElement":"Core/Object/moreElement",
                 "moreElementUtil":"Core/Object/moreElementUtil",
-                "Constants":"Core/TopLevel/Constants",
+                "Constants":"Core/Utils/custom/Constants",
                 "Log":"Core/TopLevel/Log",
                 "checkUtil":"Core/Utils/flash/checkUtil",
                 "curveUtil":"Core/Utils/flash/curveUtil",

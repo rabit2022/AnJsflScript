@@ -8,12 +8,14 @@
  */
 
 
-require(["checkUtil", "xmlPanelUtil", "libUtil", "satUtil", "curve","selection"],
-    function (checkUtil, xmlPanelUtil, libUtil, satUtil, curve,sel) {
+require(["checkUtil", "xmlPanelUtil", "libUtil", "satUtil", "curve","selection", "Constants"],
+    function (checkUtil, xmlPanelUtil, libUtil, satUtil, curve,sel, Constants) {
         var checkDom = checkUtil.CheckDom,
             checkSelection = checkUtil.CheckSelection;
         var pointUtil = satUtil.PointUtil,
             rectUtil = satUtil.RectUtil;
+        const {FRAME_4, FRAME_7}=Constants;
+        
         var descriptions = {
             "file": "01.虾仁摇头.jsfl",
             "file description": "输出 摇头动作的元件,没有说话时的头部动作",

@@ -8,15 +8,14 @@
  */
 
 
-require(["checkUtil", "elementUtil", "linqUtil", "frUtil", "selection", "sat", "graphics", "curve"],
-    function (checkUtil, ele, linqUtil, frUtil, sel, sat, graphics, curve) {
-        var checkDom = checkUtil.CheckDom,
-            checkSelection = checkUtil.CheckSelection,
-            checkSelectedFrames = checkUtil.CheckSelectedFrames;
+require(["checkUtil", "elementUtil", "linqUtil", "frUtil", "selection", "sat", "graphics", "curve", "Constants"],
+    function (checkUtil, ele, linqUtil, frUtil, sel, sat, graphics, curve, Constants) {
+        const {checkDom, checkSelection, checkSelectedFrames} = checkUtil;
         var Vector = sat.Vector,
             Rectangle = sat.Rectangle,
             wrapPosition = sat.GLOBALS.wrapPosition,
             wrapRect = sat.GLOBALS.wrapRect;
+        const {FRAME_1, FRAME_9, FRAME_17, FRAME_18} = Constants;
 
         var doc = fl.getDocumentDOM();//文档
         if (!checkDom(doc)) return;
@@ -39,7 +38,7 @@ require(["checkUtil", "elementUtil", "linqUtil", "frUtil", "selection", "sat", "
         if (frs === null) return;
         var firstLayer = layers[frs[0].layerIndex];
         var firstFrame = frs[0].startFrame;
-        var _FRAME_0 =  firstFrame;
+        var _FRAME_0 = firstFrame;
 
         // 关键帧 1,9,17,18
         var KEY_FRAMES = [FRAME_1, FRAME_9, FRAME_17, FRAME_18];

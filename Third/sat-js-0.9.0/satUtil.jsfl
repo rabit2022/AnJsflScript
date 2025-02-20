@@ -117,37 +117,37 @@ define(["SAT","random"], function (sat, random) {
 
     /**
      * 计算矩形分割后每个小块的尺寸。
-     * 尽可能的均匀分割5x5的小块。
-     * @param {Size} rectSize - 矩形的大小。
-     * @param {number} [gridSize=5] - 分割网格的大小，默认为5。
-     * @returns {[number, number, number, number]} [blockWidth, blockHeight,blockCountX,blockCountY]- 每个小块的宽度和高度，以及网格的数量。
+     * 尽可能均匀分割网格，例如 5x5 的小块。
+     * @param {Size} rectSize - 矩形的大小，包含 width 和 height 属性。
+     * @param {number} [gridSize=5] - 分割网格的大小，默认为 5。
+     * @returns {[number, number, number, number]} [blockWidth, blockHeight, blockCountX, blockCountY] - 每个小块的宽度和高度，以及网格的数量。
      */
-    RectUtil.splitRectangle = function (rectSize, gridSize) {
-        if (!gridSize) {
+    RectUtil.splitRectangle = function(rectSize, gridSize) {
+        // 设置默认值
+        if (gridSize === undefined) {
             gridSize = 5;
         }
-        // 计算矩形的长边和短边
-        const longerSide = rectSize.max;
-        const shorterSide = rectSize.min;
 
-        // 计算每个网格块的长边尺寸，不超过gridSize
+        const {max_size:longerSide,min_size:shorterSide,width, height}= rectSize;
+
+        // 计算每个网格块的长边尺寸
         const blockLongerSide = longerSide / gridSize;
+
         // 计算短边方向上最多能分割的块数
         const shorterMaxCount = Math.ceil(shorterSide / blockLongerSide);
 
         // 计算每个网格块的短边尺寸
         const blockShorterSide = shorterSide / shorterMaxCount;
 
-        // fl.trace("longerSide:"+longerSide+" shorterSide:"+shorterSide+" blockLongerSide:"+blockLongerSide+" blockShorterSide:"+blockShorterSide);
-        // 返回每个小块的宽度和高度
-        // 这里我们假设返回的顺序是宽度和高度，根据传入的width和height的对应关系
-        // [blockWidth, blockHeight,blockCountX,blockCountY]
-        if (rectSize.width > rectSize.height) {
+        // 根据矩形的宽高比例返回结果
+        if (width > height) {
+            // 宽度为长边
             return [blockLongerSide, blockShorterSide, gridSize, shorterMaxCount];
         } else {
+            // 高度为长边
             return [blockShorterSide, blockLongerSide, shorterMaxCount, gridSize];
         }
-    }
+    };
     
     return {
         PointUtil: PointUtil,

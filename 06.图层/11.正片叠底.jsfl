@@ -7,7 +7,7 @@
  * @description:
  */
 
-require(["checkUtil", "frUtil"], function (checkUtil, frUtil) {
+require(["checkUtil", "frUtil","frameRange"], function (checkUtil, frUtil,FrameRange) {
     var checkDom = checkUtil.CheckDom, checkSelection = checkUtil.CheckSelection,
         checkSelectedFrames = checkUtil.CheckSelectedFrames;
 
@@ -31,14 +31,20 @@ require(["checkUtil", "frUtil"], function (checkUtil, frUtil) {
     var firstLayer = layers[frs[0].layerIndex];
     var firstFrame = frs[0].startFrame;
 
+    /**
+     * 按照图层索引分类，将FrameRange数组转换为对象
+     * @param {FrameRange[]} arr 
+     * @returns {{number: number[]}} 
+     */
     function convertArrayToObject(arr) {
         const result = {};
         for (var i = 0; i < arr.length; i++) {
-            const [layerIndex, start, end] = arr[i];
-            if (!result[layerIndex]) {
-                result[layerIndex] = [];
+            // const [layerIndex, start, end] = arr[i];
+            const fr = arr[i];
+            if (!result[fr.layerIndex]) {
+                result[fr.layerIndex] = [];
             }
-            result[layerIndex].push(start);
+            result[fr.layerIndex].push(fr.startFrame);
         }
         return result;
     }
@@ -54,6 +60,10 @@ require(["checkUtil", "frUtil"], function (checkUtil, frUtil) {
         // curLayer.setBlendModeAtFrame(curFrameIndex, "multiply");
         
         //============分裂 选中范围 ，按照关键帧范围分裂 ===================
+        /**
+         * 
+         * @type {FrameRange[]}
+         */
         var splitFrs = [];
         for (var i = 0; i < frs.length; i++) {
             // 某一个图层的 选中的帧范围
@@ -65,32 +75,33 @@ require(["checkUtil", "frUtil"], function (checkUtil, frUtil) {
             var keyFr = frUtil.getSplitFrs(selectedFr, keyFrameRanges);
             splitFrs = splitFrs.concat(keyFr);
         }
-        LogArray(splitFrs);
-
-        var frArr = splitFrs.map(function (fr) {
-            return fr.toArray();
-        });
-        // LogArray(frArr);
-        
         
         /**
          * layerIndex: startFrame[]
          * @type {{number: number[]}} 
          */
-        var frDict = convertArrayToObject(frArr);
-        for (var item in frDict) {
-            var key = parseInt(item);
-            /**
-             * @type {number[]}
-             */
-            var value = frDict[key];
-            // print(key, value);
-
-            // timeline.currentLayer = key;
-            var curLayer = layers[key];//当前图层
-            value.forEach(function (frameIndex) {
+        var frDict = convertArrayToObject(splitFrs);
+        
+        // for (var item in frDict) {
+        //     var key = parseInt(item);
+        //     /**
+        //      * @type {number[]}
+        //      */
+        //     var value = frDict[key];
+        //     // print(key, value);
+        //
+        //     // timeline.currentLayer = key;
+        //     var curLayer = layers[key];//当前图层
+        //     value.forEach(function (frameIndex) {
+        //         curLayer.setBlendModeAtFrame(frameIndex, "multiply");
+        //     });
+        // }
+        for (const [layerIndex, frameIndexes] of Object.entries(frDict)){
+            var curLayer = layers[layerIndex];//当前图层
+            frameIndexes.forEach(function (frameIndex) {
                 curLayer.setBlendModeAtFrame(frameIndex, "multiply");
             });
+            
         }
     }
 

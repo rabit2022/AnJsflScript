@@ -7,11 +7,12 @@
  * @description:
  */
 
-require(["checkUtil", "linqUtil",  "filterUtil", "selection", "curve","frUtil"],
-    function (checkUtil, linqUtil, filterUtil, sel, curve, frUtil) {
+require(["checkUtil", "linqUtil",  "filterUtil", "selection", "curve","frUtil", "Constants"],
+    function (checkUtil, linqUtil, filterUtil, sel, curve, frUtil, Constants) {
     var checkDom = checkUtil.CheckDom, checkSelection = checkUtil.CheckSelection,
         checkSelectedFrames = checkUtil.CheckSelectedFrames;
     // var frUtil = frameRange.FrameRangeUtil;
+        const {FRAME_5, FRAME_7, FRAME_9, FRAME_6, FRAME_8, FRAME_10, MAX_BLUR}=Constants;
 
     var doc = fl.getDocumentDOM();//文档
     if (!checkDom(doc)) return;

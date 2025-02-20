@@ -17,11 +17,12 @@ define(function () {
         return Math.abs(x);
     }
 
+
     /**
-     * 如果 iterable 的所有元素均为真值（或可迭代对象为空）则返回 True
-     * @param {*} iterable
-     * @param {function}[predicate=Boolean]
-     * @returns {boolean}
+     * 如果 iterable 的所有元素均为真值（或可迭代对象为空）则返回 true。
+     * @param {*} iterable - 可迭代对象（如数组、类数组对象等）。
+     * @param {function}[predicate=Boolean] - 用于检查每个元素的函数，默认为 Boolean。
+     * @returns {boolean} - 如果所有元素均为真值，则返回 true；否则返回 false。
      */
     function all(iterable, predicate) {
         // 如果没有提供 predicate 函数，默认使用 Boolean 转换
@@ -34,20 +35,15 @@ define(function () {
             iterable = Array.from(iterable);
         }
 
-        // 遍历 iterable，检查每个元素是否满足 predicate 函数
-        for (var item in iterable) {
-            if (!predicate(item)) {
-                return false; // 如果有一个不满足条件，直接返回 false
-            }
-        }
-        return true; // 如果所有元素都满足条件，返回 true
+        // 使用 Array.prototype.every() 检查每个元素是否满足 predicate 函数
+        return iterable.every(predicate);
     }
 
     /**
-     * 如果 iterable 的任一元素为真值（或可迭代对象为空）则返回 True
-     * @param {*} iterable
-     * @param {function}[predicate=Boolean]
-     * @returns {boolean}
+     * 如果 iterable 中至少有一个元素为真值，则返回 true。
+     * @param {*} iterable - 可迭代对象（如数组、类数组对象等）。
+     * @param {function}[predicate=Boolean] - 用于检查每个元素的函数，默认为 Boolean。
+     * @returns {boolean} - 如果至少有一个元素为真值，则返回 true；否则返回 false。
      */
     function any(iterable, predicate) {
         // 如果没有提供 predicate 函数，默认使用 Boolean 转换
@@ -60,14 +56,10 @@ define(function () {
             iterable = Array.from(iterable);
         }
 
-        // 遍历 iterable，检查每个元素是否满足 predicate 函数
-        for (var item in iterable) {
-            if (predicate(item)) {
-                return true; // 如果有一个满足条件，直接返回 true
-            }
-        }
-        return false; // 如果所有元素都不满足条件，返回 false
+        // 使用 Array.prototype.some() 检查是否有至少一个元素满足 predicate 函数
+        return iterable.some(predicate);
     }
+
 
     /**
      * 返回一个对象的 ASCII 字符串表示。
