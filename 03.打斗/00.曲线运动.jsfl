@@ -12,10 +12,7 @@ require(["checkUtil", "libUtil", "curve", "graphics", "selection", "SAT"],
     function (checkUtil, libUtil, curve, graphics, sel, sat) {
         var checkDom = checkUtil.CheckDom,
             checkSelection = checkUtil.CheckSelection;
-        var Vector = sat.Vector,
-            Rectangle = sat.Rectangle,
-            wrapPosition = sat.GLOBALS.wrapPosition,
-            wrapRect = sat.GLOBALS.wrapRect;
+        var Vector = sat.Vector;
 
         var doc = fl.getDocumentDOM();//文档
         if (!checkDom(doc)) return;

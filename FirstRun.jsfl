@@ -37,7 +37,9 @@
         // 导入模块,相对路径导入
         importMoudle("Third/requirejs-2.3.7/require.jsfl");
 
-
+        // 项目文件夹路径
+        window.projectFolder = getCurFolderURI();
+        
         require.config({
             baseUrl: getCurFolderURI(), // 设置模块的基础路径
             paths: {
@@ -52,12 +54,16 @@
                 "SAT": "Third/sat-js-0.9.0/SAT",
                 "satUtil": "Third/sat-js-0.9.0/satUtil",
 
+                
                 "frameRange":"Core/Object/frameRange",
                 "frameRangeUtil":"Core/Object/frameRangeUtil",
                 "moreElement":"Core/Object/moreElement",
                 "moreElementUtil":"Core/Object/moreElementUtil",
-                "Constants":"Core/Utils/custom/Constants",
+                "console":"Core/TopLevel/console",
                 "Log":"Core/TopLevel/Log",
+                "Common":"Core/Utils/custom/Common",
+                "Constants":"Core/Utils/custom/Constants",
+                "JSFLConstants":"Core/Utils/custom/JSFLConstants",
                 "checkUtil":"Core/Utils/flash/checkUtil",
                 "curveUtil":"Core/Utils/flash/curveUtil",
                 "elementUtil":"Core/Utils/flash/elementUtil",
@@ -72,8 +78,6 @@
                 "os":"Core/Utils/py/os",
                 "random":"Core/Utils/py/random",
                 "StringP":"Core/Utils/py/StringP",
-
-
             },
             map: {
                 "*": {
@@ -95,7 +99,7 @@
         // 当前es3(es1999)环境,补齐es5(es2009)和es6(es2015)的一些方法
         require(["es5-shim", "es5-sham",
             "es6-shim", "es6-sham", "shim",
-            "Constants", "Log"]);
+            "Constants", "Log","console"]);
 
 
         // 导入完成

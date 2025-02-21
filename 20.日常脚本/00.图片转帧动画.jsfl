@@ -11,9 +11,7 @@ require(["checkUtil", "libUtil", "sat"],function(checkUtil, libUtil, sat) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     var Vector = sat.Vector,
-        Rectangle = sat.Rectangle,
-        wrapPosition = sat.GLOBALS.wrapPosition,
-        wrapRect = sat.GLOBALS.wrapRect;
+        Rectangle = sat.Rectangle;
 
     var doc = fl.getDocumentDOM();//文档
     if (!checkDom(doc)) return;
@@ -49,7 +47,7 @@ require(["checkUtil", "libUtil", "sat"],function(checkUtil, libUtil, sat) {
 
         // 把第一个作为参照
         doc.selectAll();
-        var pos = wrapRect(doc.getSelectionRect()).getCenterVector();
+        var pos = new Rectangle(doc.getSelectionRect()).getCenterVector();
 
         // 转为关键帧
         var timeline1 = doc.getTimeline();

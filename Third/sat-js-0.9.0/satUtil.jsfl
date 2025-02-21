@@ -9,8 +9,9 @@
 
 define(["SAT","random"], function (sat, random) {
     var wrapPosition = sat.GLOBALS.wrapPosition;
-    var wrapRectByElement = sat.GLOBALS.wrapRectByElement;
-    var Vector = sat.Vector;
+    // var wrapRectByElement = sat.GLOBALS.wrapRectByElement;
+    var Vector = sat.Vector,
+        Rectangle = sat.Rectangle;
 
     function PointUtil() {
 
@@ -29,7 +30,7 @@ define(["SAT","random"], function (sat, random) {
         // x:中间位置, y: height*5/6
         // element
         var elePos = wrapPosition(element);
-        var eleRect = wrapRectByElement(element);
+        var eleRect = new Rectangle(element);
 
         // trPoint
         var botttomPart = eleRect.getPart("bottom", 1 - ratio);

@@ -77,7 +77,7 @@ require(["checkUtil", "promptUtil", "libUtil","SAT","selection","linqUtil"],
         var toInsertFrameCount = motionFramesCount * SYMBOL_LENGTH - 1;
 
         // 中心位置
-        var selectRect = wrapRect(doc.getSelectionRect());
+        var selectRect = new Rectangle(doc.getSelectionRect());
         var selectCenter = selectRect.getCenterVector();
 
         var Important_element = selection[0];

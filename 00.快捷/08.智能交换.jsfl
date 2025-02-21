@@ -11,10 +11,7 @@
 require(["checkUtil", "SAT"], function (checkUtil, sat) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
-    var Vector = sat.Vector,
-        Rectangle = sat.Rectangle,
-        wrapPosition = sat.GLOBALS.wrapPosition,
-        wrapRect = sat.GLOBALS.wrapRect;
+    var Vector = sat.Vector;
 
 
     var doc = fl.getDocumentDOM();//文档

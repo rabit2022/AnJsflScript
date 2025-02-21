@@ -7,8 +7,9 @@
  * @description:
  */
 define(["SAT"], function (sat) {
-    var Vector = sat.Vector;
-    var wrapRectByRadius=sat.GLOBALS.wrapRectByRadius;
+    var Vector = sat.Vector,
+        Rectangle = sat.Rectangle;
+    // var wrapRectByRadius=sat.GLOBALS.wrapRectByRadius;
     function GraphicsUtil() {
     }
 
@@ -21,7 +22,7 @@ define(["SAT"], function (sat) {
     GraphicsUtil.drawCircleLineWithoutFill_deprecated = function (centerPos, radius) {
         var doc = fl.getDocumentDOM();//文档
 
-        var circleRect = wrapRectByRadius(centerPos, radius);
+        var circleRect = new Rectangle(centerPos, radius);
         doc.addNewPrimitiveOval(circleRect.toObj(), true);
 
         // 选中圆形
@@ -42,7 +43,7 @@ define(["SAT"], function (sat) {
     GraphicsUtil.drawCircleLineWithoutFill = function (centerPos, radius) {
         var doc = fl.getDocumentDOM();//文档
 
-        var circleRect = wrapRectByRadius(centerPos, radius);
+        var circleRect = new Rectangle(centerPos, radius);
         doc.addNewPrimitiveOval(circleRect.toObj());
 
         // 选中圆形
@@ -63,7 +64,7 @@ define(["SAT"], function (sat) {
     GraphicsUtil.drawCircleWithoutLine = function (centerPos, radius){
         var doc = fl.getDocumentDOM();//文档
         
-        var circleRect = wrapRectByRadius(centerPos, radius);
+        var circleRect = new Rectangle(centerPos, radius);
         print("circleRect",circleRect.toString());
         doc.addNewPrimitiveOval(circleRect.toObj(),false,true);
         // 选中圆形

@@ -38,8 +38,15 @@
     var SAT = {};
     var SAT_GLOBALS = {};
 
-    //
-    // ## Vector
+    // ------------------------------------------------------------------------------------------------------------------------
+    //  __   __   ______     ______     ______   ______     ______    
+    // /\ \ / /  /\  ___\   /\  ___\   /\__  _\ /\  __ \   /\  == \   
+    // \ \ \'/   \ \  __\   \ \ \____  \/_/\ \/ \ \ \/\ \  \ \  __<   
+    //  \ \__|    \ \_____\  \ \_____\    \ \_\  \ \_____\  \ \_\ \_\ 
+    //   \/_/      \/_____/   \/_____/     \/_/   \/_____/   \/_/ /_/ 
+    //                                                                
+    // ------------------------------------------------------------------------------------------------------------------------
+    // Vector
     //
     // Represents a vector in two dimensions with `x` and `y` properties.
 
@@ -59,26 +66,6 @@
     SAT['Vector'] = Vector;
     // Alias `Vector` as `V`
     SAT['V'] = Vector;
-
-
-    // Copy the values of another Vector into this one.
-    /**
-     * @param {Vector} other The other Vector.
-     * @return {Vector} This for chaining.
-     */
-    Vector.prototype['copy'] = Vector.prototype.copy = function (other) {
-        this['x'] = other['x'];
-        this['y'] = other['y'];
-        return this;
-    };
-
-    // Create a new vector with the same coordinates as this on.
-    /**
-     * @return {Vector} The new cloned vector
-     */
-    Vector.prototype['clone'] = Vector.prototype.clone = function () {
-        return new Vector(this['x'], this['y']);
-    };
 
     // Change this vector to be perpendicular to what it was before. (Effectively
     // roatates it 90 degrees in a clockwise direction)
@@ -262,19 +249,55 @@
      * @returns {Vector}
      */
     Vector.prototype['noZero'] = Vector.prototype.noZero = function () {
-        // var point = wrapPosition(this);
-        // if (point.x === 0) {
-        //     point.x = 1;
-        // }
-        // if (point.y === 0) {
-        //     point.y = 1;
-        // }
-        // return point;
         this['x'] = this['x'] ? this['x'] : 1;
         this['y'] = this['y'] ? this['y'] : 1;
         return this;
     };
 
+    // equals
+    /**
+     * 相等
+     * @param {Vector} other - 另一个向量
+     * @returns {boolean}
+     */
+    Vector.prototype['equals'] = Vector.prototype.equals = function (other) {
+        return this.x === other.x && this.y === other.y;
+    }
+
+    /**
+     * 让一个点围绕另一个点沿椭圆轨道旋转
+     * @param {Vector} pt - 要围绕的中心点
+     * @param {Number} arcWidth - 椭圆轨道的宽度（水平方向的半径）
+     * @param {Number} arcHeight - 椭圆轨道的高度（垂直方向的半径）
+     * @param {Number} degrees - 旋转的角度（0 - 360 度）
+     * @returns {Vector} - 返回当前点对象，其坐标已更新为旋转后的新位置
+     */
+    Vector.prototype['orbit'] = Vector.prototype.orbit = function (pt, arcWidth, arcHeight, degrees) {
+        // 将角度转换为弧度，因为 Math.cos 和 Math.sin 需要弧度作为输入
+        var radians = degrees * (Math.PI / 180);
+
+        // 根据椭圆参数方程计算新坐标
+        // 水平方向（x）：以中心点 pt.x 为基准，加上椭圆宽度乘以角度的余弦值
+        this.x = pt.x + arcWidth * Math.cos(radians);
+
+        // 垂直方向（y）：以中心点 pt.y 为基准，加上椭圆高度乘以角度的正弦值
+        this.y = pt.y + arcHeight * Math.sin(radians);
+
+        // 返回当前点对象，其坐标已更新为旋转后的新位置
+        return this;
+    }
+
+
+    // --------------------------------------------------------------------------------
+    // # Calculation methods
+
+    /**
+     * 取中心点
+     * @returns {Vector}
+     */
+    Vector.prototype['getCenter'] = Vector.prototype.getCenter = function () {
+        return new Vector(this.x / 2, this.y / 2);
+    }
 
     /**
      * 判断是否  在 另一个点 的 某个方向上
@@ -311,6 +334,65 @@
     }
 
     /**
+     * 计算两个向量之间的角度
+     * @param {Vector} other - 另一个向量
+     * @returns {number} 角度值，单位为弧度
+     */
+    Vector.prototype['angleTo'] = Vector.prototype.angleTo = function (other) {
+        var dot = this.dot(other);
+        var len1 = this.len();
+        var len2 = other.len();
+        var angle = Math.acos(dot / (len1 * len2));
+        return angle;
+    }
+
+    /**
+     * 计算两个向量之间的距离
+     * @param {Vector} other - 另一个向量
+     * @returns {number} 距离值，单位为像素
+     */
+    Vector.prototype['distanceTo'] = Vector.prototype.distanceTo = function (other) {
+        var x = this.x - other.x;
+        var y = this.y - other.y;
+        return Math.sqrt(x * x + y * y);
+    }
+
+    //interpolate
+    /**
+     * 计算两个向量之间的插值
+     * @param {Vector} other - 另一个向量
+     * @param {number} f - 0-1之间的数值，表示插值比例
+     * @returns {Vector} 两个向量的插值
+     */
+    Vector.prototype['interpolate'] = Vector.prototype.interpolate = function (other, f) {
+        f = typeof f === 'undefined' ? 1 : f;
+        return new Vector((this.x + other.x) * f, (this.y + other.y) * f);
+    }
+
+    // --------------------------------------------------------------------------------
+    // # Utility methods
+
+
+    // Copy the values of another Vector into this one.
+    /**
+     * @param {Vector} other The other Vector.
+     * @return {Vector} This for chaining.
+     */
+    Vector.prototype['copy'] = Vector.prototype.copy = function (other) {
+        this['x'] = other['x'];
+        this['y'] = other['y'];
+        return this;
+    };
+
+    // Create a new vector with the same coordinates as this on.
+    /**
+     * @return {Vector} The new cloned vector
+     */
+    Vector.prototype['clone'] = Vector.prototype.clone = function () {
+        return new Vector(this['x'], this['y']);
+    };
+
+    /**
      * 字符串
      * @returns {string}
      */
@@ -326,14 +408,51 @@
         return {x: this.x, y: this.y};
     }
 
-    /**
-     * 取中心点
-     * @returns {Vector}
-     */
-    Vector.prototype['getCenter'] = Vector.prototype.getCenter = function () {
-        return new Vector(this.x / 2, this.y / 2);
+    Vector.toString = function()
+    {
+        return '[class Vector]';
     }
 
+    // ----------------------------------------------------------------------------------------------------
+    // # Static methods
+
+    /**
+     * Gets the interpolated distance in pixels from a source Vector a target Vector
+     * 获取从源点到目标点的插值距离（像素）
+     * @param    {Vector}        pt1            The source Vector
+     * @param    {Vector}        pt2            The target Vector
+     * @param    {Number}    f            A number from 0 to 1
+     * @returns    {Vector}                The distance in pixels
+     */
+    Vector.interpolate = function (pt1, pt2, f) {
+        f = typeof f === 'undefined' ? 1 : f;
+        return new Vector((pt1.x + pt2.x) * f, (pt1.y + pt2.y) * f);
+    };
+
+    /**
+     * Returns a new Vector, based on an angle around and length from the Origin (0, 0)
+     * @param    {Number}    length        The length from the Origin
+     * @param    {Number}    angle        The angle in degrees to rotate around the origin
+     * @returns    {Vector}                    A new Vector object
+     */
+    Vector.polar = function (length, angle) {
+        return new Vector(length * Math.sin(angle), length * Math.cos(angle));
+    };
+
+    /**
+     * Gets the distance in pixels from a source Vector a target Vector
+     * @param    {Vector}        pt1            The source Vector
+     * @param    {Vector}        pt2            The target Vector
+     * @returns    {Number}                The distance in pixels
+     */
+    Vector.distance = function (pt1, pt2) {
+        var x = pt1.x - pt2.x;
+        var y = pt1.y - pt2.y;
+        return Math.sqrt(x * x + y * y);
+    };
+
+    // ----------------------------------------------------------------------------------------------------
+    // # Wrappers for Vector
 
     /**
      * 转换为Point对象
@@ -376,26 +495,152 @@
     SAT_GLOBALS['getTopLeft'] = getTopLeft;
 
 
-    //
-    // ## Rectangle
+    // ------------------------------------------------------------------------------------------------------------------------
+    //  ______     ______     ______     ______   ______     __   __     ______    
+    // /\  == \   /\  ___\   /\  ___\   /\__  _\ /\  __ \   /\ "-.\ \   /\  ___\   
+    // \ \  __<   \ \  __\   \ \ \____  \/_/\ \/ \ \  __ \  \ \ \-.  \  \ \ \__ \  
+    //  \ \_\ \_\  \ \_____\  \ \_____\    \ \_\  \ \_\ \_\  \ \_\\"\_\  \ \_____\ 
+    //   \/_/ /_/   \/_____/   \/_____/     \/_/   \/_/\/_/   \/_/ \/_/   \/_____/ 
+    //                                                                             
+    //  __         ______    
+    // /\ \       /\  ___\   
+    // \ \ \____  \ \  __\   
+    //  \ \_____\  \ \_____\ 
+    //   \/_____/   \/_____/ 
+    //                       
+    // ------------------------------------------------------------------------------------------------------------------------
+    // Rectangle
     //
     // Represents a rectangle with `left`, `top`, `right`, and `bottom` properties.
 
 
+    function findBoundingRectangle(elements) {
+        if (!elements.length) {
+            return null; // 如果数组为空，返回null
+        }
+
+        var top = elements[0].top;
+        var left = elements[0].left;
+        var right = elements[0].left + elements[0].width;
+        var bottom = elements[0].top + elements[0].height;
+
+        for (var i = 1; i < elements.length; i++) {
+            var element = elements[i];
+            var elementTop = element.top;
+            var elementLeft = element.left;
+            var elementRight = element.left + element.width;
+            var elementBottom = element.top + element.height;
+
+            if (elementTop < top) top = elementTop;
+            if (elementLeft < left) left = elementLeft;
+            if (elementRight > right) right = elementRight;
+            if (elementBottom > bottom) bottom = elementBottom;
+        }
+
+        return new Rectangle(left, top, right, bottom);
+    }
+
+    SAT_GLOBALS['findBoundingRectangle'] = findBoundingRectangle;
+
+
     /**
-     * 矩形
-     * @param {number} left 左边
-     * @param {number} top 上边
-     * @param {number} right 右边
-     * @param {number} bottom 下边
+     * Rectangle object.
+     * Useful for quickly creating objects on the stage
+     *
+     * @param    {Rectangle|Element|Element[]|Number|Vector}  [left]        A Rectangle object
+     * @param    {Number}    [top]        A radius for the bounds
+     * @param    {Number}    [right]        The right position of the bounds
+     * @param    {Number}    [bottom]        The bottom position of the bounds
+     * @class Rectangle
      * @constructor
-     * @class {Rectangle}
      */
-    function Rectangle(left, top, right, bottom) {
-        this.left = left;
-        this.top = top;
-        this.right = right;
-        this.bottom = bottom;
+    function Rectangle() {
+        // variables
+        var args = arguments;
+        var $dom = fl.getDocumentDOM();
+
+        // switch
+        switch (args.length) {
+            // 0 arguments, use document size
+            case 0:
+                this.left = 0;
+                this.top = 0;
+                this.right = $dom.width;
+                this.bottom = $dom.height;
+                break;
+
+            // 1 argument - should be a document, element, radius, or an Array of Elements (such as a selection)
+            case 1:
+
+                // Bounds
+                if (args[0] instanceof Rectangle) {
+                    var bounds = new Rectangle();
+                    bounds.top = this.top;
+                    bounds.left = this.left;
+                    bounds.right = this.right;
+                    bounds.bottom = this.bottom;
+                    return bounds;
+                }
+
+                // Document
+                else if (args[0] instanceof Document) {
+                    return new Rectangle();
+                }
+
+                // Element (element bounds)
+                else if (args[0] instanceof Element || args[0] instanceof SymbolItem) {
+                    this.left = args[0].left;
+                    this.top = args[0].top;
+                    this.right = args[0].left + args[0].width;
+                    this.bottom = args[0].top + args[0].height;
+                }
+
+                // Number (radius)
+                else if (typeof args[0] == 'number') {
+                    this.left = -args[0];
+                    this.top = -args[0];
+                    this.right = args[0];
+                    this.bottom = args[0];
+                }
+
+                    // Array - selection or list of elements
+                // 找到所有元素的最小矩形
+                else if (args[0] instanceof Array && args[0].length) {
+                    var rect = findBoundingRectangle(args[0]);
+                    this.left = rect.left;
+                    this.top = rect.top;
+                    this.right = rect.right;
+                    this.bottom = rect.bottom;
+                }
+
+                break;
+
+            // (width, height),(centerPos, radius)
+            case 2:
+                if (typeof args[0] === 'number' && typeof args[1] === 'number') {
+                    this.left = 0;
+                    this.top = 0;
+                    this.right = args[0];
+                    this.bottom = args[1];
+                } else if (args[0] instanceof Vector && typeof args[1] === 'number') {
+                    var radiusRect = new Rectangle(args[1]);
+                    var centerPos = args[0];
+                    var addRect = radiusRect.addOffset(centerPos);
+                    this.left = addRect.left;
+                    this.top = addRect.top;
+                    this.right = addRect.right;
+                    this.bottom = addRect.bottom;
+                }
+                break;
+
+            // left, top, right, bottom
+            case 4:
+                this.left = args[0];
+                this.top = args[1];
+                this.right = args[2];
+                this.bottom = args[3];
+                break;
+        }
 
         this.width = this.right - this.left;
         this.height = this.bottom - this.top;
@@ -403,21 +648,6 @@
 
     SAT['Rectangle'] = Rectangle;
 
-
-    /**
-     * 合并两个矩形，返回一个能够包含两个矩形的最小矩形。
-     * @param {Rectangle} other - 要合并的另一个矩形。
-     * @return {Rectangle} 合并后的矩形。
-     */
-    Rectangle.prototype.union = function (other) {
-        // 计算合并后的矩形的左上角和右下角坐标
-        var minLeft = Math.min(this.left, other.left);
-        var minTop = Math.min(this.top, other.top);
-        var maxRight = Math.max(this.right, other.right);
-        var maxBottom = Math.max(this.bottom, other.bottom);
-
-        return new Rectangle(minLeft, minTop, maxRight, maxBottom);
-    };
     /**
      * 矩形 偏移后的 矩形
      * 移动矩形的边界
@@ -470,12 +700,12 @@
      * @param {"top right"|"top left"|"bottom right"|"bottom left"|"top center"|"right center"|"bottom center"|"left center"|"center"} whichCorner 角点或中心点
      * @returns {Vector} 点
      */
-    Rectangle.prototype.getCorner = function(whichCorner) {
+    Rectangle.prototype.getCorner = function (whichCorner) {
         // 获取矩形的基本属性
-        const { left, right, top, bottom } = this;
+        const {left, right, top, bottom} = this;
 
         // 获取中心点坐标
-        const { x: centerX, y: centerY } = this.getCenterVector();
+        const {x: centerX, y: centerY} = this.getCenterVector();
 
         // 辅助函数：创建 Vector 对象
         function createVector(x, y) {
@@ -514,11 +744,17 @@
      * @param {"top right"|"top left"|"bottom right"|"bottom left"|"top center"|"right center"|"bottom center"|"left center"|"center"|
      * "top"|"right"|"bottom"|"left"} whichPart 部分
      * @param {number} [widthRatio=0.5] - 宽度方向的比例（0-1），表示提取部分的宽度占原始矩形宽度的比例。
-     * @param {number} [heightRatio=widthRatio] - 高度方向的比例（0-1），表示提取部分的高度占原始矩形高度的比例。
+     * @param {number} [heightRatio=0.5] - 高度方向的比例（0-1），表示提取部分的高度占原始矩形高度的比例。
      * @returns {Rectangle} - 返回一个新矩形对象，表示提取的部分。
      * @throws {Error} - 如果 `whichPart` 参数无效，将抛出错误。
      */
-    Rectangle.prototype.getPart = function (whichPart, widthRatio = 0.5, heightRatio = 0.5) {
+    Rectangle.prototype.getPart = function (whichPart, widthRatio, heightRatio ) {
+        if (typeof widthRatio === "undefined") {
+            widthRatio = 0.5;
+        }
+        if (typeof heightRatio === "undefined") {
+            heightRatio = widthRatio;
+        }
         // 解构矩形的基本属性
         const {left, right, top, bottom, width, height} = this;
 
@@ -570,6 +806,40 @@
     };
 
 
+    // --------------------------------------------------------------------------------
+    // # Utility methods
+    /**
+     * 复制一个矩形
+     * @param {Rectangle} rect 矩形
+     * @returns {Rectangle} 矩形
+     */
+    Rectangle.prototype.copy = function (rect) {
+        return new Rectangle(rect.left, rect.top, rect.right, rect.bottom);
+    };
+
+    /**
+     * 克隆一个矩形
+     * @returns {Rectangle} 矩形
+     */
+    Rectangle.prototype.clone = function () {
+        return new Rectangle(this.left, this.top, this.right, this.bottom);
+    };
+
+    /**
+     * 合并两个矩形，返回一个能够包含两个矩形的最小矩形。
+     * @param {Rectangle} other - 要合并的另一个矩形。
+     * @return {Rectangle} 合并后的矩形。
+     */
+    Rectangle.prototype.union = function (other) {
+        // 计算合并后的矩形的左上角和右下角坐标
+        var minLeft = Math.min(this.left, other.left);
+        var minTop = Math.min(this.top, other.top);
+        var maxRight = Math.max(this.right, other.right);
+        var maxBottom = Math.max(this.bottom, other.bottom);
+
+        return new Rectangle(minLeft, minTop, maxRight, maxBottom);
+    };
+
     /**
      * 字符串
      * @returns {string} 字符串
@@ -577,22 +847,17 @@
     Rectangle.prototype.toString = function () {
         return "Rectangle(left=" + this.left + ", top=" + this.top + ", right=" + this.right + ", bottom=" + this.bottom + ")";
     }
-
+    
+    Rectangle.toString = function()
+    {
+        return '[class Rectangle]';
+    }
     /**
      * 转换为对象
      * @returns {{left:number,top:number,right:number,bottom:number}} 矩形对象
      */
     Rectangle.prototype.toObj = function () {
         return {left: this.left, top: this.top, right: this.right, bottom: this.bottom};
-    }
-
-    /**
-     * 转换为矩形对象
-     * @param {{left:number,top:number,right:number,bottom:number}|Rectangle} rect 矩形对象
-     * @returns {Rectangle} 矩形
-     */
-    function wrapRect(rect) {
-        return new Rectangle(rect.left, rect.top, rect.right, rect.bottom);
     }
 
     function wrapRectByTopLeft(left, top, width, height) {
@@ -603,25 +868,26 @@
         return new Rectangle(centerX - width / 2, centerY - height / 2, centerX + width / 2, centerY + height / 2);
     }
 
-    function wrapRectByElement(element) {
-        var topLeft = getTopLeft(element);
-        var size = wrapSize(element);
-        return new Rectangle(topLeft.x, topLeft.y, topLeft.x + size.width, topLeft.y + size.height);
-    }
+    // // 圆心 半径
+    // function wrapRectByRadius(centerPos, radius) {
+    //     return new Rectangle(centerPos.x - radius, centerPos.y - radius, centerPos.x + radius, centerPos.y + radius);
+    // }
 
-    // 圆心 半径
-    function wrapRectByRadius(centerPos, radius) {
-        return new Rectangle(centerPos.x - radius, centerPos.y - radius, centerPos.x + radius, centerPos.y + radius);
-    }
-
-    SAT_GLOBALS["wrapRect"] = wrapRect;
+    // SAT_GLOBALS["wrapRect"] = wrapRect;
     SAT_GLOBALS["wrapRectByTopLeft"] = wrapRectByTopLeft;
     SAT_GLOBALS["wrapRectByCenter"] = wrapRectByCenter;
-    SAT_GLOBALS["wrapRectByElement"] = wrapRectByElement;
-    SAT_GLOBALS["wrapRectByRadius"] = wrapRectByRadius;
+    // SAT_GLOBALS["wrapRectByElement"] = wrapRectByElement;
+    // SAT_GLOBALS["wrapRectByRadius"] = wrapRectByRadius;
 
-    //
-    // ## Size
+    // ------------------------------------------------------------------------------------------------------------------------
+    //  ______     __     ______     ______    
+    // /\  ___\   /\ \   /\___  \   /\  ___\   
+    // \ \___  \  \ \ \  \/_/  /__  \ \  __\   
+    //  \/\_____\  \ \_\   /\_____\  \ \_____\ 
+    //   \/_____/   \/_/   \/_____/   \/_____/ 
+    //                                         
+    // ------------------------------------------------------------------------------------------------------------------------
+    // Size
     //
     // Represents a size with `width` and `height` properties.
 
@@ -669,9 +935,21 @@
 
     SAT_GLOBALS["wrapSize"] = wrapSize;
 
-
-    //
-    // ## Transform
+    // ------------------------------------------------------------------------------------------------------------------------
+    //  ______   ______     ______     __   __     ______     ______   ______    
+    // /\__  _\ /\  == \   /\  __ \   /\ "-.\ \   /\  ___\   /\  ___\ /\  __ \   
+    // \/_/\ \/ \ \  __<   \ \  __ \  \ \ \-.  \  \ \___  \  \ \  __\ \ \ \/\ \  
+    //    \ \_\  \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\  \/\_____\  \ \_\    \ \_____\ 
+    //     \/_/   \/_/ /_/   \/_/\/_/   \/_/ \/_/   \/_____/   \/_/     \/_____/ 
+    //                                                                           
+    //  ______     __    __    
+    // /\  == \   /\ "-./  \   
+    // \ \  __<   \ \ \-./\ \  
+    //  \ \_\ \_\  \ \_\ \ \_\ 
+    //   \/_/ /_/   \/_/  \/_/ 
+    //                         
+    // ------------------------------------------------------------------------------------------------------------------------
+    // Transform
     //
     // Represents a transform with `rotation`, `scale`, `position`, `size`, and `skew` properties.
 

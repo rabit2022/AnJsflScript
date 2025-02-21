@@ -14,13 +14,9 @@ require(["checkUtil", "SAT", "random", "satUtil", "selection", "ele"],
             checkSelection = checkUtil.CheckSelection;
 
         var Vector = sat.Vector,
-            Rectangle = sat.Rectangle,
-            wrapPosition = sat.GLOBALS.wrapPosition,
-            wrapRect = sat.GLOBALS.wrapRect,
             wrapTransform = sat.GLOBALS.wrapTransform,
             wrapRectByCenter = sat.GLOBALS.wrapRectByCenter,
-            wrapSize = sat.GLOBALS.wrapSize,
-            wrapPoint = sat.GLOBALS.wrapPoint;
+            wrapSize = sat.GLOBALS.wrapSize;
         var pointUtil = satUtil.PointUtil,
             rectUtil = satUtil.RectUtil;
 

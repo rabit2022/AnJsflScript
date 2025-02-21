@@ -14,8 +14,7 @@ require(["checkUtil","selection","layerUtil","satUtil","SAT"],
         checkSelection = checkUtil.CheckSelection;
     var Vector = sat.Vector,
         Rectangle = sat.Rectangle,
-        wrapPosition = sat.GLOBALS.wrapPosition,
-        wrapRect = sat.GLOBALS.wrapRect;
+        wrapPosition = sat.GLOBALS.wrapPosition;
     var pointUtil = satUtil.PointUtil,
         rectUtil = satUtil.RectUtil;
 
@@ -65,7 +64,7 @@ require(["checkUtil","selection","layerUtil","satUtil","SAT"],
         }
 
         sel.SelectAll(curElements);
-        var bgRect = wrapRect(doc.getSelectionRect());
+        var bgRect = new Rectangle(doc.getSelectionRect());
         return bgRect;
     }
 
@@ -73,7 +72,7 @@ require(["checkUtil","selection","layerUtil","satUtil","SAT"],
         // 人物的中心点
         sel.SelectStart(selection);
 
-        var rect = wrapRect(doc.getSelectionRect());
+        var rect = new Rectangle(doc.getSelectionRect());
         var peopleCenter = rect.getCenterVector();
         return peopleCenter;
     }

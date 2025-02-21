@@ -12,7 +12,6 @@
 var DEBUG_MODE = true; // 在调试模式下设置为 true，在生产模式下设置为 false
 
 (function () {
-
     /**
      * 获取当前脚本文件的所在文件夹路径
      * @returns {string}
@@ -26,29 +25,13 @@ var DEBUG_MODE = true; // 在调试模式下设置为 true，在生产模式下�
         var folderPath = scriptURI.substring(0, lastSlashIndex);
         return folderPath;
     }
-
-    /**
-     * 导入指定脚本文件
-     * @param {string} relativeScriptPath 相对于当前脚本文件的相对路径
-     */
-    function importMoudle(relativeScriptPath) {
-        var curFolderURI = getCurFolderURI();
-        var scriptURI = curFolderURI + "/" + relativeScriptPath;
-
-        fl.runScript(scriptURI);
-    }
-
     function Main() {
         // 清除当前的 RequireJS 实例
         window.requirejs = undefined;
         window.require = undefined;
         window.define = undefined;
-
-        var requirejsScript = "Third/requirejs-2.3.7/require.jsfl";
-        // 重新加载 require.js 脚本
-        importMoudle(requirejsScript);
-
-        fl.trace("ReRun require js script: " + requirejsScript);
+        
+        
     }
 
     Main();
