@@ -218,7 +218,7 @@ define(["SAT", "satUtil", "libUtil", "layerUtil", "os", "selection", "moreElemen
             }
 
             if (!this.IsBitmap(doc.selection[0])) {
-                LogError("转换位图失败！！！");
+                console.error("转换位图失败！！！");
                 // throw new Error("转换位图失败！！！");
                 return false;
             }

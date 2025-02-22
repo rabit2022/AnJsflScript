@@ -1,4 +1,7 @@
-﻿/**
+﻿/// <reference path="./Constants.d.ts" />
+
+
+/**
  * @file: Constants.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
@@ -6,6 +9,7 @@
  * @project: AnJsflScript
  * @description:
  */
+
 define(function () {
     /**
      * 定义帧索引值
@@ -20,20 +24,20 @@ define(function () {
      * 时间常量
      * @type {number}
      */
-    var SECOND_FRAME = 30;
-    var MINUTE_FRAME = 60 * SECOND_FRAME;
+    const SECOND_FRAME = 30;
+    const MINUTE_FRAME = 60 * SECOND_FRAME;
 
     /**
      * 模糊度常量
      * @type {number}
      */
-    var MAX_BLUR = 255;
+    const MAX_BLUR = 255;
 
     /**
      * 音量常量
      * @type {number}
      */
-    var MAX_CHANNEL = 32768;
+    const MAX_CHANNEL = 32768;
 
     /**
      * 模块导出对象

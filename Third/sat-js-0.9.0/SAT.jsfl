@@ -574,12 +574,7 @@
 
                 // Bounds
                 if (args[0] instanceof Rectangle) {
-                    var bounds = new Rectangle();
-                    bounds.top = this.top;
-                    bounds.left = this.left;
-                    bounds.right = this.right;
-                    bounds.bottom = this.bottom;
-                    return bounds;
+                    this.copy(args[0]);
                 }
 
                 // Document
@@ -607,10 +602,7 @@
                 // 找到所有元素的最小矩形
                 else if (args[0] instanceof Array && args[0].length) {
                     var rect = findBoundingRectangle(args[0]);
-                    this.left = rect.left;
-                    this.top = rect.top;
-                    this.right = rect.right;
-                    this.bottom = rect.bottom;
+                    this.copy(rect);
                 }
 
                 break;
@@ -626,10 +618,7 @@
                     var radiusRect = new Rectangle(args[1]);
                     var centerPos = args[0];
                     var addRect = radiusRect.addOffset(centerPos);
-                    this.left = addRect.left;
-                    this.top = addRect.top;
-                    this.right = addRect.right;
-                    this.bottom = addRect.bottom;
+                    this.copy(addRect);
                 }
                 break;
 
