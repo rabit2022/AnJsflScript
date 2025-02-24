@@ -70,3 +70,19 @@ flash = fl = App = app = animate = an = new Flash();
  * @deprecated 使用fl.getDocumentDOM()代替
  */
 document = fl.getDocumentDOM(); //文档
+
+/**
+ * 废弃的语法,编辑器会提示错误。
+ * @deprecated for each(param in [$type, $level]) {} </br>
+ * 建议
+ * // 使用 for...of
+ * for (const param of [$type, $level]) {
+ *     console.log(param);
+ * }
+ *
+ * // 或者使用 forEach
+ * [$type, $level].forEach(param => {
+ *     console.log(param);
+ * });
+ */
+each = function (param) {};

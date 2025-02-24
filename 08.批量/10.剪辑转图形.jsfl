@@ -7,7 +7,7 @@
  * @description:
  */
 
-require(['checkUtil', 'ele'], function (checkUtil, ele) {
+require(['checkUtil', 'elementUtil'], function (checkUtil, ele) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
 

@@ -12,8 +12,8 @@ require([
     'promptUtil',
     'linqUtil',
     'filterUtil',
-    'curve',
-    'frUtil',
+    'curveUtil',
+    'frameRangeUtil',
     'Constants',
 ], function (
     checkUtil,

@@ -10,9 +10,9 @@
 require([
     'checkUtil',
     'libUtil',
-    'curve',
-    'graphics',
-    'selection',
+    'curveUtil',
+    'graphicsUtil',
+    'selectionUtil',
     'SAT',
 ], function (checkUtil, libUtil, curve, graphics, sel, sat) {
     var checkDom = checkUtil.CheckDom,

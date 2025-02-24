@@ -11,11 +11,15 @@ require([
     'checkUtil',
     'promptUtil',
     'satUtil',
-    'frUtil',
-    'curve',
+    'frameRangeUtil',
+    'curveUtil',
     'Constants',
 ], function (checkUtil, promptUtil, satUtil, frUtil, curve, Constants) {
-    const { checkDom, checkSelection, checkSelectedFrames } = checkUtil;
+    const {
+        CheckDom: checkDom,
+        CheckSelection: checkSelection,
+        CheckSelectedFrames: checkSelectedFrames,
+    } = checkUtil;
     const { pointUtil, rectUtil } = satUtil;
     const { FRAME_1, FRAME_11 } = Constants;
 

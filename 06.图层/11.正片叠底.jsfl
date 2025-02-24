@@ -7,14 +7,16 @@
  * @description:
  */
 
-require(['checkUtil', 'frUtil', 'frameRange'], function (
+require(['checkUtil', 'frameRangeUtil', 'frameRange'], function (
     checkUtil,
     frUtil,
     FrameRange
 ) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection,
-        checkSelectedFrames = checkUtil.CheckSelectedFrames;
+    const {
+        CheckDom: checkDom,
+        CheckSelection: checkSelection,
+        CheckSelectedFrames: checkSelectedFrames,
+    } = checkUtil;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;

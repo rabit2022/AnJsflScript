@@ -4,16 +4,7 @@
  * @param {string} str - 初始化字符串。
  */
 
-(function (root, factory) {
-    'use strict';
-    if (typeof define === 'function' && define['amd']) {
-        define(factory);
-    } else if (typeof exports === 'object') {
-        module['exports'] = factory();
-    } else {
-        root['StringP'] = factory();
-    }
-})(this, function () {
+define(function () {
     function StringP(str) {
         if (typeof str !== 'string') {
             throw new TypeError('Expected a string');

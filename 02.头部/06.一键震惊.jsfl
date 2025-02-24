@@ -9,13 +9,17 @@
 
 require([
     'checkUtil',
-    'frUtil',
+    'frameRangeUtil',
     'linqUtil',
-    'curve',
-    'ele',
+    'curveUtil',
+    'elementUtil',
     'Constants',
 ], function (checkUtil, frUtil, linqUtil, curve, ele, Constants) {
-    const { checkDom, checkSelection, checkSelectedFrames } = checkUtil;
+    const {
+        CheckDom: checkDom,
+        CheckSelection: checkSelection,
+        CheckSelectedFrames: checkSelectedFrames,
+    } = checkUtil;
     const { FRAME_1, FRAME_3, FRAME_6 } = Constants;
 
     var descriptions = {

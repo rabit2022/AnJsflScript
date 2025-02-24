@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['frUtil', 'frameRange'], function (frUtil, FrameRange) {
+define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
     /**
      * 检查选择的元件或帧是否符合指定的模式和条件。
      *

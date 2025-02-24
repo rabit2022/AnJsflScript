@@ -12,11 +12,16 @@ require([
     'promptUtil',
     'libUtil',
     'SAT',
-    'selection',
+    'selectionUtil',
     'linqUtil',
 ], function (checkUtil, promptUtil, libUtil, sat, sel, linqUtil) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
+
+    var Vector = sat.Vector,
+      Rectangle = sat.Rectangle,
+      wrapPosition = sat.GLOBALS.wrapPosition,
+      wrapRect = sat.GLOBALS.wrapRect;
 
     var Range = linqUtil.range;
 
@@ -39,11 +44,6 @@ require([
             '移动到中心位置',
         ],
     };
-
-    var Vector = sat.Vector,
-        Rectangle = sat.Rectangle,
-        wrapPosition = sat.GLOBALS.wrapPosition,
-        wrapRect = sat.GLOBALS.wrapRect;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;

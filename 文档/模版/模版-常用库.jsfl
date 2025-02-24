@@ -1,22 +1,20 @@
-﻿require(['checkUtil', 'SAT', 'satUtil', 'selection'], function (
+﻿require(['checkUtil', 'SAT', 'satUtil', 'selectionUtil'], function (
     checkUtil,
     sat,
     satUtil,
     sel
 ) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection,
-        checkSelectedFrames = checkUtil.CheckSelectedFrames;
+    const {
+        CheckDom: checkDom,
+        CheckSelection: checkSelection,
+        CheckSelectedFrames: checkSelectedFrames,
+    } = checkUtil;
 
-    var Vector = sat.Vector,
-        Rectangle = sat.Rectangle,
-        wrapPosition = sat.GLOBALS.wrapPosition,
-        wrapRect = sat.GLOBALS.wrapRect;
+    const { Vector, Rectangle } = sat;
+    const { wrapPosition } = sat.GLOBALS;
 
     var pointUtil = satUtil.PointUtil,
         rectUtil = satUtil.RectUtil;
-
-    // var frUtil = frameRange.FrameRangeUtil;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;

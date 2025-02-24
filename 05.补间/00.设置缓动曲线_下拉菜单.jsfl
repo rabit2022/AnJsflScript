@@ -7,7 +7,7 @@
  * @description:
  */
 
-require(['checkUtil', 'xmlPanelUtil', 'curve'], function (
+require(['checkUtil', 'xmlPanelUtil', 'curveUtil'], function (
     checkUtil,
     xmlPanelUtil,
     curve

@@ -7,9 +7,10 @@
  * @description:
  */
 
-require(['checkUtil', 'ele'], function (checkUtil, ele) {
+require(['checkUtil', 'elementUtil'], function (checkUtil, ele) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
+    const { IsSymbol, CopySymbol } = ele;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -33,8 +34,8 @@ require(['checkUtil', 'ele'], function (checkUtil, ele) {
         for (var i = 0; i < selection.length; i++) {
             var item = selection[i];
             // symbol: 打散
-            if (ele.IsSymbol(item)) {
-                ele.CopySymbol(item, 'skip');
+            if (IsSymbol(item)) {
+                CopySymbol(item, 'skip');
             } else {
                 continue;
             }
@@ -48,7 +49,7 @@ require(['checkUtil', 'ele'], function (checkUtil, ele) {
         // 检查选择的元件
         if (!checkSelection(selection, 'selectElement', 'Not Zero')) return;
 
-        ele.CopySymbol(selection[0], 'ask');
+        CopySymbol(selection[0], 'ask');
 
         PackSymbol();
     }

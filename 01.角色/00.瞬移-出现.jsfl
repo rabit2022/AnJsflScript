@@ -11,16 +11,17 @@ require([
     'checkUtil',
     'linqUtil',
     'filterUtil',
-    'selection',
-    'curve',
-    'frUtil',
+    'selectionUtil',
+    'curveUtil',
+    'frameRangeUtil',
     'Constants',
 ], function (checkUtil, linqUtil, filterUtil, sel, curve, frUtil, Constants) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection,
-        checkSelectedFrames = checkUtil.CheckSelectedFrames;
-    var { FRAME_1, FRAME_2, FRAME_3, FRAME_4, FRAME_5 } = Constants;
-    // var frUtil = frameRange.FrameRangeUtil;
+    const {
+        CheckDom: checkDom,
+        CheckSelection: checkSelection,
+        CheckSelectedFrames: checkSelectedFrames,
+    } = checkUtil;
+    const { FRAME_1, FRAME_2, FRAME_3, FRAME_4, FRAME_5 } = Constants;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;

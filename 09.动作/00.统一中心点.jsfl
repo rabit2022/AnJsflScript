@@ -7,7 +7,7 @@
  * @description:
  */
 
-require(['checkUtil', 'selection', 'ele', 'SAT'], function (
+require(['checkUtil', 'selectionUtil', 'elementUtil', 'SAT'], function (
     checkUtil,
     sel,
     ele,

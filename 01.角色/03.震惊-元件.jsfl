@@ -9,9 +9,9 @@
 
 require([
     'checkUtil',
-    'ele',
-    'frUtil',
-    'curve',
+    'elementUtil',
+    'frameRangeUtil',
+    'curveUtil',
     'libUtil',
     'Constants',
 ], function (checkUtil, ele, frUtil, curve, libUtil, Constants) {

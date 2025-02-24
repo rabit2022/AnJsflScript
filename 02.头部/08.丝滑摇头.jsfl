@@ -12,8 +12,8 @@ require([
     'xmlPanelUtil',
     'libUtil',
     'satUtil',
-    'curve',
-    'selection',
+    'curveUtil',
+    'selectionUtil',
     'Constants',
 ], function (checkUtil, xmlPanelUtil, libUtil, satUtil, curve, sel, Constants) {
     var checkDom = checkUtil.CheckDom,

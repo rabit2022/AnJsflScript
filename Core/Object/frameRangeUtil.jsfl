@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['layerUtil', 'frameRange', 'selection'], function (
+define(['layerUtil', 'frameRange', 'selectionUtil'], function (
     layerUtil,
     FrameRange,
     sel

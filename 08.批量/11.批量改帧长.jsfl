@@ -7,12 +7,12 @@
  * @description:
  */
 
-require(['checkUtil', 'selection', 'promptUtil', 'frUtil'], function (
-    checkUtil,
-    sel,
-    promptUtil,
-    frUtil
-) {
+require([
+    'checkUtil',
+    'selectionUtil',
+    'promptUtil',
+    'frameRangeUtil',
+], function (checkUtil, sel, promptUtil, frUtil) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     // var frUtil = frameRange.FrameRangeUtil;

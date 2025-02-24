@@ -12,8 +12,8 @@ require([
     'SAT',
     'random',
     'satUtil',
-    'selection',
-    'ele',
+    'selectionUtil',
+    'elementUtil',
 ], function (checkUtil, sat, random, satUtil, sel, ele) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;

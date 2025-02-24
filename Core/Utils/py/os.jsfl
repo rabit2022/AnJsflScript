@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(function () {
+define(['loglevel', 'path-browserify'], function (log, path) {
     function OSPath() {}
 
     /**
@@ -26,60 +26,20 @@ define(function () {
     OSPath.COMMAND_PATH = fl.configURI + 'Commands';
 
     OSPath.abspath = function (relativePath) {
-        // 将当前工作目录和相对路径合并
-        var absolutePath = relativePath;
-        // var currentWorkingDirectory = getCurFolderURI();
-        var currentWorkingDirectory = os.getcwd();
-
-        // 如果相对路径不是以 '/' 开头，将其与当前工作目录合并
-        if (!relativePath.startsWith('/')) {
-            absolutePath = currentWorkingDirectory + '/' + relativePath;
-        }
-
-        // 标准化路径（例如，处理 '..' 和 '.')
-        absolutePath = absolutePath
-            .replace(/\/\//g, '/')
-            .replace(/(\/\.)+/g, '/')
-            .replace(/\/[^\/]+/g, function (p, offset) {
-                if (p === '/..') {
-                    // 如果是上一级目录，则需要去掉最后一个真实目录
-                    return '/' + p;
-                } else {
-                    // 否则，保留当前目录
-                    return p;
-                }
-            })
-            .replace(/^\//, '');
-
-        return absolutePath;
+        const currentWorkingDirectory = OS.getcwd();
+        return path.resolve(currentWorkingDirectory, relativePath);
     };
     OSPath.basename = function (path) {
-        return path.split('/').pop();
+        return path.basename(path);
     };
     OSPath.dirname = function (path) {
-        return path.split('/').slice(0, -1).join('/');
+        return path.dirname(path);
     };
     OSPath.exists = function (uri) {
         return FLfile.exists(uri);
     };
     OSPath.isAbs = function (path) {
-        // return path.startsWith('/');
-        // // Unix 和 Linux 的绝对路径判断
-        // if (path.startsWith('/')) {
-        //     return true;
-        // }
-
-        // Windows 的绝对路径判断
-        // 检查是否以盘符加冒号和反斜杠开头，如 C:\ 或 \\server\share
-        if (
-            (os.isWindows() && /^[a-zA-Z]:\\/.test(path)) ||
-            /^\\\\/.test(path)
-        ) {
-            return true;
-        }
-
-        // 如果不是以上情况，则不是绝对路径
-        return false;
+        return path.isAbsolute(path);
     };
     OSPath.isfile = function (uri) {
         var [root, ext] = this.splitext(uri);
@@ -98,7 +58,7 @@ define(function () {
      */
     OSPath.normcase = function (path) {
         // 在 Windows 上，将路径中的所有字符都转换为小写，并将正斜杠转换为反斜杠
-        if (os.isWindows()) {
+        if (OS.isWindows()) {
             return path.toLowerCase().replace(/\\/g, '/');
         }
 
@@ -115,44 +75,7 @@ define(function () {
      * @private
      */
     OSPath.normpath = function (path) {
-        var isWindows = os.isWindows();
-        const separator = isWindows ? '\\' : '/';
-        var normalizedParts = [];
-
-        path = path.replace(/\/\//g, '/');
-        var parts = path.split(separator);
-
-        for (var i = 0; i < parts.length; i++) {
-            const part = parts[i];
-
-            // 忽略空路径部分
-            if (!part) continue;
-
-            // 处理绝对路径
-            if (
-                part.startsWith(separator) ||
-                (isWindows && /^[A-Z]:/i.test(part))
-            ) {
-                normalizedParts = [part];
-            } else if (part.startsWith('..')) {
-                // 处理上一级目录
-                while (
-                    normalizedParts.length > 0 &&
-                    !(normalizedParts[normalizedParts.length - 1] === '..')
-                ) {
-                    normalizedParts.pop();
-                }
-                normalizedParts.push(part);
-            } else if (part.startsWith('.')) {
-                // 处理当前目录
-                continue;
-            } else {
-                // 处理普通目录
-                normalizedParts.push(part);
-            }
-        }
-
-        return normalizedParts.join(separator);
+        return path.normalize(path);
     };
 
     /**
@@ -168,8 +91,7 @@ define(function () {
      * join(['/foo/bar', 'baz']) 返回 '/foo/bar/baz'
      */
     OSPath.join = function (paths) {
-        // return this.normpath(paths.join('/'));
-        return paths.join('/');
+        return path.join(paths);
     };
 
     /**
@@ -182,43 +104,17 @@ define(function () {
      * 如果路径以斜杠结尾，则tail为空字符串。如果路径中没有斜杠，则head为空字符串。
      * 如果路径为空，则head和tail均为空字符串。head末尾的斜杠会被去掉，除非它是根目录。
      *
-     * @param {string} path - 要拆分的文件路径。
+     * @param {string} _path - 要拆分的路径。
      * @return {[string, string]} - 一个包含head和tail的数组。
      * @example
      * 示例：
      * OSPath.split('bar') 返回 ['', 'bar']
      * OSPath.split('/foo/bar/') 返回 ['', '']
      */
-    OSPath.split = function (path) {
-        // 处理空路径的情况
-        if (path === '') {
-            return ['', ''];
-        }
-
-        // 找到最后一个斜杠的位置
-        const lastSlashIndex = path.lastIndexOf('/');
-
-        // 如果路径以斜杠结尾，tail为空
-        var tail = '';
-        if (lastSlashIndex === path.length - 1) {
-            tail = '';
-        } else {
-            // 否则，tail是最后一个斜杠之后的部分
-            tail = path.substring(lastSlashIndex + 1);
-        }
-
-        // head是除了tail之外的所有内容
-        var head = path.substring(0, lastSlashIndex);
-
-        // 如果head以斜杠开头，保留这些斜杠，除非head是空的
-        if (head === '' || head === path) {
-            head = '';
-        } else if (head.endsWith('/')) {
-            // 去掉head末尾的斜杠，除非它是根目录
-            head = head.substring(0, head.length - 1);
-        }
-
-        return [head, tail];
+    OSPath.split = function (_path) {
+        const base = path.basename(_path);
+        const dir = path.dirname(_path);
+        return [dir, base];
     };
     /**
      * 分割路径为路径名和扩展名。
@@ -227,37 +123,15 @@ define(function () {
      * 扩展名包括前面的点（`.`），如果路径中没有扩展名，则返回一个空字符串。
      * 如果路径以点开头，则认为整个路径是一个文件名，没有扩展名。
      *
-     * @param {string} path - 要拆分的文件路径。
+     * @param {string} _path - 要拆分的文件路径。
      * @return {[string, string]} [root, ext] - 一个包含路径名和扩展名的数组。
      * @example
      * splitext('bar') 返回 ['bar', '']，因为没有扩展名。
      * splitext('foo.bar.exe') 返回 ['foo.bar', '.exe']，扩展名包括点。
      */
-    OSPath.splitext = function (path) {
-        // 找到最后一个和倒数第二个斜杠的位置
-        const lastSlashIndex = path.lastIndexOf('/');
-        const secondLastSlashIndex = path.lastIndexOf('/', lastSlashIndex - 1);
-
-        // 找到最后一个点的位置
-        const lastDotIndex = path.lastIndexOf('.');
-
-        // 如果没有找到点或者点在最后一个斜杠之后，或者点是第一个字符
-        // 或者点前面是斜杠（意味着点是路径的一部分，不是扩展名的开始）
-        if (
-            lastDotIndex === -1 ||
-            lastDotIndex < lastSlashIndex + 1 ||
-            path[lastDotIndex - 1] === '/' ||
-            path[0] === '.'
-        ) {
-            return [path, ''];
-        }
-
-        // root是路径除了扩展名之外的所有内容
-        var root = path.substring(0, lastDotIndex);
-
-        // ext是扩展名，包括打头的句点
-        var ext = path.substring(lastDotIndex);
-
+    OSPath.splitext = function (_path) {
+        const ext = path.extname(_path);
+        const root = _path.replace(ext, '');
         return [root, ext];
     };
 
@@ -265,17 +139,21 @@ define(function () {
     /**
      * 获取路径的基本名称（basename）并去除其后缀（extension）。
      *
-     * @param {string} path - 要处理的文件路径。
+     * @param {string} _path - 要处理的文件路径。
      * @return {string} - 去除后缀的文件基本名称。
      */
-    OSPath.basenameWithoutExt = function (path) {
-        // 获取路径的基本名称
-        const basename = OSPath.basename(path);
+    OSPath.basenameWithoutExt = function (_path) {
+        // // 获取路径的基本名称
+        // const basename = OSPath.basename(path);
+        //
+        // // 获取路径的扩展名
+        // const [root, ext] = OSPath.splitext(basename);
+        //
+        // // 返回去除扩展名的基本名称
+        // return root;
+        // todo: 优化代码
 
-        // 获取路径的扩展名
-        const [root, ext] = OSPath.splitext(basename);
-
-        // 返回去除扩展名的基本名称
+        const [root] = this.splitext(path.basename(_path));
         return root;
     };
 
@@ -319,9 +197,9 @@ define(function () {
     OS.mkdir = function (uri) {
         var success = FLfile.createFolder(uri);
         if (success) {
-            print('Folder created: ' + uri);
+            log.info('Folder created: ' + uri);
         } else {
-            print('Failed : ' + uri);
+            log.error('Failed : ' + uri);
         }
     };
 
@@ -329,7 +207,7 @@ define(function () {
      * 打开文件或目录。
      *
      * @param {string} path - 要打开的文件或目录的路径。
-     * @param {"open"|"print"|"edit"|"explore"|"find"|undefined} [operation] - 要执行的操作。
+     * @param {"open"|"printf"|"edit"|"explore"|"find"|undefined} [operation] - 要执行的操作。
      * @param {string} [arguments] - 要传递给操作的参数。
      * @param {string} [cwd] - 工作目录。
      * @param {number} [show_cmd] - 窗口样式。
@@ -368,7 +246,7 @@ define(function () {
                 case 'open':
                     cmd = 'start "" "' + uri + '"';
                     break;
-                case 'print':
+                case 'printf':
                     cmd = 'start "" /print "' + uri + '"';
                     break;
                 case 'edit':
@@ -400,7 +278,7 @@ define(function () {
         FLfile.runCommandLine(cmd);
 
         // 打印命令（调试用）
-        print('Command executed: ' + cmd);
+        log.info('Command executed: ' + cmd);
     };
 
     /**

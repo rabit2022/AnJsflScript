@@ -2,7 +2,7 @@
 // Copyright 2012 - 2021 - Jim Riecken <jimr@jimr.ca>
 // Released under the MIT License.
 
-declare module 'sat' {
+declare module 'SAT' {
     export class Vector {
         x: number;
         y: number;

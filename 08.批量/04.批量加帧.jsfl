@@ -7,7 +7,7 @@
  * @description:
  */
 
-require(['checkUtil', 'selection', 'Constants'], function (
+require(['checkUtil', 'selectionUtil', 'Constants'], function (
     checkUtil,
     sel,
     Constants

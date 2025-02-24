@@ -10,9 +10,9 @@
 require([
     'checkUtil',
     'linqUtil',
-    'ele',
-    'curve',
-    'frUtil',
+    'elementUtil',
+    'curveUtil',
+    'frameRangeUtil',
     'Constants',
 ], function (checkUtil, linqUtil, ele, curve, frUtil, Constants) {
     const { checkDom, checkSelection, checkSelectedFrames } = checkUtil;
@@ -61,7 +61,7 @@ require([
         // 调整高度
         var frame_element = firstLayer.frames[ALTER_HEIGHT_FRAME].elements[0];
         frame_element.height *= ALTER_RATIO;
-        print('调整高度' + frame_element.height);
+        // print('调整高度' + frame_element.height);
 
         // 获取allKeyFrames first,last
         var firstF = KEY_FRAMES[0];

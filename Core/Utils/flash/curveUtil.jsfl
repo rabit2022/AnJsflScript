@@ -7,16 +7,7 @@
  * @description:
  */
 
-(function (root, factory) {
-    'use strict';
-    if (typeof define === 'function' && define['amd']) {
-        define(factory);
-    } else if (typeof exports === 'object') {
-        module['exports'] = factory();
-    } else {
-        root['curve'] = factory();
-    }
-})(this, function () {
+define(function () {
     /**
      * 缓动曲线工具类
      * @constructor
@@ -168,7 +159,7 @@
     Curve.createTween = function (timeline, tweenType) {
         if (tweenType === undefined) tweenType = 'motion tween';
 
-        print('create tween:' + tweenType);
+        // print('create tween:' + tweenType);
         switch (tweenType) {
             case 'motion tween':
                 timeline.createMotionTween();

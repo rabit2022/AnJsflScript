@@ -9,7 +9,7 @@
 
 require([
     'checkUtil',
-    'selection',
+    'selectionUtil',
     'SAT',
     'satUtil',
     'xmlPanelUtil',

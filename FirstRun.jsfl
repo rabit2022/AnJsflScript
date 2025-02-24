@@ -37,11 +37,14 @@
         // 导入模块,相对路径导入
         importMoudle('Third/requirejs-2.3.7/require.jsfl');
 
-        // 项目文件夹路径
-        window.projectFolder = getCurFolderURI();
+        /**
+         * 项目文件夹路径
+         * @type {string}
+         */
+        window.PROJECT_FOLDER = getCurFolderURI();
 
         require.config({
-            baseUrl: getCurFolderURI(), // 设置模块的基础路径
+            baseUrl: window.PROJECT_FOLDER, // 设置模块的基础路径
             paths: {
                 'es5-sham': 'Third/es5-shim-4.6.7/es5-sham',
                 'es5-shim': 'Third/es5-shim-4.6.7/es5-shim',
@@ -49,16 +52,19 @@
                 'es6-shim': 'Third/es6-shim-0.35.4/es6-shim',
                 linq: 'Third/linq-4.0.3/linq',
                 linqUtil: 'Third/linq-4.0.3/linqUtil',
-                shim: 'Third/myShim/shim',
+                loglevel: 'Third/loglevel-1.9.2/loglevel',
+                'path-browserify':
+                    'Third/path-browserify-1.0.1/path-browserify',
                 require: 'Third/requirejs-2.3.7/require',
                 SAT: 'Third/sat-js-0.9.0/SAT',
                 satUtil: 'Third/sat-js-0.9.0/satUtil',
 
+                console: 'Core/myShim/console',
+                shim: 'Core/myShim/shim',
                 frameRange: 'Core/Object/frameRange',
                 frameRangeUtil: 'Core/Object/frameRangeUtil',
                 moreElement: 'Core/Object/moreElement',
                 moreElementUtil: 'Core/Object/moreElementUtil',
-                console: 'Core/TopLevel/console',
                 Log: 'Core/TopLevel/Log',
                 Common: 'Core/Utils/custom/Common',
                 Constants: 'Core/Utils/custom/Constants',
@@ -80,16 +86,16 @@
             },
             map: {
                 '*': {
-                    sat: 'SAT',
-                    sel: 'selectionUtil',
-                    selection: 'selectionUtil',
-                    me: 'moreElement',
-                    meUtil: 'moreElementUtil',
-                    ele: 'elementUtil',
-                    curve: 'curveUtil',
-                    graphics: 'graphicsUtil',
-                    fr: 'frameRange',
-                    frUtil: 'frameRangeUtil',
+                    // sat: 'SAT',
+                    // sel: 'selectionUtil',
+                    // selection: 'selectionUtil',
+                    // me: 'moreElement',
+                    // meUtil: 'moreElementUtil',
+                    // ele: 'elementUtil',
+                    // curve: 'curveUtil',
+                    // graphics: 'graphicsUtil',
+                    // fr: 'frameRange',
+                    // frUtil: 'frameRangeUtil',
                 },
             },
         });
@@ -101,10 +107,13 @@
             'es6-shim',
             'es6-sham',
             'shim',
-            'Constants',
-            'Log',
             'console',
         ]);
+
+        // 禁用log
+        require(['loglevel'], function (log) {
+            log.setDefaultLevel(log.levels.SILENT);
+        });
 
         // 导入完成
         fl.trace('=============Core modules imported.=============');

@@ -7,7 +7,7 @@
  * @description:
  */
 
-require(['checkUtil', 'selection', 'SAT'], function (checkUtil, sel, sat) {
+require(['checkUtil', 'selectionUtil', 'SAT'], function (checkUtil, sel, sat) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     var Vector = sat.Vector,

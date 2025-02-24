@@ -7,14 +7,12 @@
  * @description:
  */
 
-require(['checkUtil', 'sat'], function (checkUtil, sat) {
+require(['checkUtil', 'SAT','loglevel'], function (checkUtil, sat, log) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     var Vector = sat.Vector,
         Rectangle = sat.Rectangle,
-        wrapPosition = sat.GLOBALS.wrapPosition,
-        wrapRect = sat.GLOBALS.wrapRect,
-        wrapRectByElement = sat.GLOBALS.wrapRectByElement;
+        wrapPosition = sat.GLOBALS.wrapPosition;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -36,10 +34,12 @@ require(['checkUtil', 'sat'], function (checkUtil, sat) {
 
         var element = selection[0];
         var transformPoint = wrapPosition(doc.getTransformationPoint());
-        print('变形点坐标：' + transformPoint.toString());
+        // print('变形点坐标：' + transformPoint.toString());
+        log.info('变形点坐标：' + transformPoint.toString());
 
-        var rect = wrapRectByElement(element);
-        print('元件矩形：' + rect.toString());
+        var rect = new Rectangle(element);
+        // print('元件矩形：' + rect.toString());
+        log.info('元件矩形：' + rect.toString());
     }
 
     Main();

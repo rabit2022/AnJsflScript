@@ -7,11 +7,16 @@
  * @description:
  */
 
-require(['checkUtil', 'curve', 'frUtil'], function (checkUtil, curve, frUtil) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection,
-        checkSelectedFrames = checkUtil.CheckSelectedFrames;
-    // var frUtil = frameRange.FrameRangeUtil;
+require(['checkUtil', 'curveUtil', 'frameRangeUtil'], function (
+    checkUtil,
+    curve,
+    frUtil
+) {
+    const {
+        CheckDom: checkDom,
+        CheckSelection: checkSelection,
+        CheckSelectedFrames: checkSelectedFrames,
+    } = checkUtil;
 
     var descriptions = {
         file: '09.一键生气.jsfl',

@@ -7,7 +7,7 @@
  * @description:打印当前帧的所有元件pos
  */
 
-require(['checkUtil', 'sat'], function (checkUtil, sat) {
+require(['checkUtil', 'SAT','Log'], function (checkUtil, sat,l) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     var Vector = sat.Vector,
@@ -15,6 +15,7 @@ require(['checkUtil', 'sat'], function (checkUtil, sat) {
         Transform = sat.Transform,
         wrapPosition = sat.GLOBALS.wrapPosition,
         wrapRect = sat.GLOBALS.wrapRect;
+    var LogArray = l.LogArray;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;

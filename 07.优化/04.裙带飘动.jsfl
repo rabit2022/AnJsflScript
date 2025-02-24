@@ -9,11 +9,11 @@
 
 require([
     'checkUtil',
-    'selection',
-    'ele',
+    'selectionUtil',
+    'elementUtil',
     'libUtil',
     'xmlPanelUtil',
-    'curve',
+    'curveUtil',
 ], function (checkUtil, sel, ele, libUtil, xmlPanelUtil, curve) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;

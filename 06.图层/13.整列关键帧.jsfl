@@ -7,7 +7,7 @@
  * @description:
  */
 
-require(['checkUtil', 'frUtil'], function (checkUtil, frUtil) {
+require(['checkUtil', 'frameRangeUtil'], function (checkUtil, frUtil) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
 

@@ -67,7 +67,7 @@ define(['SAT'], function (sat) {
         var doc = fl.getDocumentDOM(); //文档
 
         var circleRect = new Rectangle(centerPos, radius);
-        print('circleRect', circleRect.toString());
+        // print('circleRect', circleRect.toString());
         doc.addNewPrimitiveOval(circleRect.toObj(), false, true);
         // 选中圆形
         // bug: bContactSensitiveSelection接触感应选择模式。必须设置为true，否则可能无法选中圆形，导致后面的代码出错。

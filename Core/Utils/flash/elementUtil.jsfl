@@ -13,10 +13,11 @@ define([
     'libUtil',
     'layerUtil',
     'os',
-    'selection',
+    'selectionUtil',
     'moreElementUtil',
     'builtInP',
-], function (sat, satUtil, libUtil, layerUtil, os, sel, meUtil, builtInP) {
+    'loglevel',
+], function (sat, satUtil, libUtil, layerUtil, os, sel, meUtil, builtInP, log) {
     var Vector = sat.V,
         wrapRect = sat.GLOBALS.wrapRect,
         wrapPosition = sat.GLOBALS.wrapPosition,
@@ -341,7 +342,7 @@ define([
         var library = doc.library; //库文件
 
         if (!this.IsSymbol(element)) {
-            print('请选择元件');
+            log.error('请选择元件');
             return;
         }
         // sel.OnlySelectCurrent(element);

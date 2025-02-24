@@ -42,7 +42,6 @@ require(['checkUtil', 'xmlPanelUtil', 'os'], function (
             XMLFOLDER,
             onlyName + '.xml',
         ]);
-        print(XMLPANEL);
         var panel = xmlPanelUtil.getXMLPanel(XMLPANEL);
         if (panel == null) return;
 
