@@ -7,14 +7,12 @@
  * @description:
  */
 define(function () {
-    function XMLPanelUtil() {
-
-    }
+    function XMLPanelUtil() {}
 
     XMLPanelUtil.getXMLPath = function () {
-        var XMLPANEL = fl.scriptURI.split(".jsfl").join(".xml");
+        var XMLPANEL = fl.scriptURI.split('.jsfl').join('.xml');
         return XMLPANEL;
-    }
+    };
 
     /**
      * 获取XML面板
@@ -25,15 +23,15 @@ define(function () {
             panelPath = this.getXMLPath();
         }
 
-        var doc = fl.getDocumentDOM();//文档
+        var doc = fl.getDocumentDOM(); //文档
 
         var panel = doc.xmlPanel(panelPath);
-        if (panel.dismiss === "cancel") {
-            alert("取消修改");
+        if (panel.dismiss === 'cancel') {
+            alert('取消修改');
             return null;
         }
         return panel;
-    }
+    };
     /**
      * 解析输入的字符串为数字
      * @param {string} inputStr 输入的字符串
@@ -49,7 +47,7 @@ define(function () {
         }
 
         return Number(inputStr);
-    }
+    };
     /**
      * 解析输入的字符串为字符串
      * @param {string} inputStr 输入的字符串
@@ -65,7 +63,7 @@ define(function () {
         }
 
         return inputStr;
-    }
+    };
     /**
      * 解析输入的方向字符串为数字
      * @param {string} inputDirection 输入的方向字符串
@@ -75,7 +73,7 @@ define(function () {
     XMLPanelUtil.parseDirection = function (inputDirection, tipDictionary) {
         // var inputDirection = dialog.direction;
         if (tipDictionary === null) {
-            tipDictionary = {"右": 1, "左": -1, " ": -1};
+            tipDictionary = { 右: 1, 左: -1, ' ': -1 };
         }
 
         var firstTip = Object.keys(tipDictionary)[0];
@@ -85,14 +83,13 @@ define(function () {
             direction = tipDictionary[inputDirection];
             return direction;
         } else if (inputDirection === null) {
-            alert("方向不能为空，请重新输入。");
+            alert('方向不能为空，请重新输入。');
             return null;
         } else {
-            alert("输入错误(方向只能输入空格或右)，请重新输入。");
+            alert('输入错误(方向只能输入空格或右)，请重新输入。');
             return null;
         }
-    }
-
+    };
 
     return XMLPanelUtil;
 });

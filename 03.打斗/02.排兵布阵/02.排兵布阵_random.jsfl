@@ -7,47 +7,60 @@
  * @description:
  */
 
-
-require(["checkUtil","selection","SAT","satUtil","xmlPanelUtil","random"],
-    function(checkUtil,sel,sat,satUtil,xmlPanelUtil,random) {
+require([
+    'checkUtil',
+    'selection',
+    'SAT',
+    'satUtil',
+    'xmlPanelUtil',
+    'random',
+], function (checkUtil, sel, sat, satUtil, xmlPanelUtil, random) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
 
-        var Vector = sat.Vector,
-            Rectangle = sat.Rectangle,
-            wrapPosition = sat.GLOBALS.wrapPosition,
-            wrapRect = sat.GLOBALS.wrapRect,
-            wrapTransform = sat.GLOBALS.wrapTransform,
-            wrapRectByCenter = sat.GLOBALS.wrapRectByCenter;
+    var Vector = sat.Vector,
+        Rectangle = sat.Rectangle,
+        wrapPosition = sat.GLOBALS.wrapPosition,
+        wrapRect = sat.GLOBALS.wrapRect,
+        wrapTransform = sat.GLOBALS.wrapTransform,
+        wrapRectByCenter = sat.GLOBALS.wrapRectByCenter;
 
-        var pointUtil = satUtil.PointUtil,
-            rectUtil = satUtil.RectUtil;
+    var pointUtil = satUtil.PointUtil,
+        rectUtil = satUtil.RectUtil;
 
-    
-    var doc = fl.getDocumentDOM();//文档
+    var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
 
-    var selection = doc.selection;//选择
-    var library = doc.library;//库文件
-    var timeline = doc.getTimeline();//时间轴
+    var selection = doc.selection; //选择
+    var library = doc.library; //库文件
+    var timeline = doc.getTimeline(); //时间轴
 
-    var layers = timeline.layers;//图层
-    var curLayerIndex = timeline.currentLayer;//当前图层索引
-    var curLayer = layers[curLayerIndex];//当前图层
+    var layers = timeline.layers; //图层
+    var curLayerIndex = timeline.currentLayer; //当前图层索引
+    var curLayer = layers[curLayerIndex]; //当前图层
 
-    var curFrameIndex = timeline.currentFrame;//当前帧索引
-    var curFrame = curLayer.frames[curFrameIndex];//当前帧
+    var curFrameIndex = timeline.currentFrame; //当前帧索引
+    var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
     function checkXMLPanel() {
         var panel = xmlPanelUtil.getXMLPanel();
         if (panel === null) return null;
 
-        var horizontalCount = xmlPanelUtil.parseNumber(panel.horizontalCount, "横向排布数量只能输入数字，请重新输入。");
+        var horizontalCount = xmlPanelUtil.parseNumber(
+            panel.horizontalCount,
+            '横向排布数量只能输入数字，请重新输入。'
+        );
         if (horizontalCount === null) return null;
-        var horizontalSpacing = xmlPanelUtil.parseNumber(panel.horizontalSpacing, "横向排布间距只能输入数字，请重新输入。");
+        var horizontalSpacing = xmlPanelUtil.parseNumber(
+            panel.horizontalSpacing,
+            '横向排布间距只能输入数字，请重新输入。'
+        );
         if (horizontalSpacing === null) return null;
 
-        return {horizontalCount: horizontalCount, horizontalSpacing: horizontalSpacing};
+        return {
+            horizontalCount: horizontalCount,
+            horizontalSpacing: horizontalSpacing,
+        };
     }
 
     function getExplosionRect(horizontalSpacing) {
@@ -59,13 +72,17 @@ require(["checkUtil","selection","SAT","satUtil","xmlPanelUtil","random"],
         var rectWidth = random.uniform(1.4, 1.7) * rectHeight;
         // var rectSize = new Size(rectWidth, rectHeight);
         // fl.trace("矩形:"+rectSize.toString());
-        var rect = wrapRectByCenter(initialPos.x, initialPos.y, rectWidth, rectHeight);
+        var rect = wrapRectByCenter(
+            initialPos.x,
+            initialPos.y,
+            rectWidth,
+            rectHeight
+        );
         return rect;
     }
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, "selectElement", "Only one")) return;
-
+        if (!checkSelection(selection, 'selectElement', 'Only one')) return;
 
         // 随机排布
         var config = checkXMLPanel();
@@ -103,7 +120,6 @@ require(["checkUtil","selection","SAT","satUtil","xmlPanelUtil","random"],
 
             var transform = wrapTransform(element1);
             transform.setPosition(randomPos).setScale(new Vector(scale, scale));
-
         }
     }
 

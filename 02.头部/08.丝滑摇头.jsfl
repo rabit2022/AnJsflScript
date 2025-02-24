@@ -7,113 +7,119 @@
  * @description:
  */
 
-require(["checkUtil", "xmlPanelUtil", "libUtil", "satUtil", "curve", "selection", "Constants"],
-    function (checkUtil, xmlPanelUtil, libUtil, satUtil, curve, sel, Constants) {
-        var checkDom = checkUtil.CheckDom,
-            checkSelection = checkUtil.CheckSelection;
-        const {FRAME_4, FRAME_7} = Constants;
+require([
+    'checkUtil',
+    'xmlPanelUtil',
+    'libUtil',
+    'satUtil',
+    'curve',
+    'selection',
+    'Constants',
+], function (checkUtil, xmlPanelUtil, libUtil, satUtil, curve, sel, Constants) {
+    var checkDom = checkUtil.CheckDom,
+        checkSelection = checkUtil.CheckSelection;
+    const { FRAME_4, FRAME_7 } = Constants;
 
-        var descriptions = {
-            "file": "08.丝滑摇头.jsfl",
-            "file description": "摇头的动作",
-            "selection": "仅一个元件",
-            "selection description": "选中头部",
-            "XMLPanel": true,
-            "input parameters": {
-                "摇头力度": 3,
-                "头部朝向": "头部向左"
-            },
-            "detail": "包装元件",
-            "detail description": "选中头部",
-            "steps": [
-                "读取XML面板配置",
-                "包装元件",
-                "k帧",
-                "设置变形点",
-                "更改位置",
-                "传统补间"
-            ]
-        };
+    var descriptions = {
+        file: '08.丝滑摇头.jsfl',
+        'file description': '摇头的动作',
+        selection: '仅一个元件',
+        'selection description': '选中头部',
+        XMLPanel: true,
+        'input parameters': {
+            摇头力度: 3,
+            头部朝向: '头部向左',
+        },
+        detail: '包装元件',
+        'detail description': '选中头部',
+        steps: [
+            '读取XML面板配置',
+            '包装元件',
+            'k帧',
+            '设置变形点',
+            '更改位置',
+            '传统补间',
+        ],
+    };
 
-        var pointUtil = satUtil.PointUtil,
-            rectUtil = satUtil.RectUtil;
+    var pointUtil = satUtil.PointUtil,
+        rectUtil = satUtil.RectUtil;
 
+    var doc = fl.getDocumentDOM(); //文档
+    if (!checkDom(doc)) return;
 
-        var doc = fl.getDocumentDOM();//文档
-        if (!checkDom(doc)) return;
+    var selection = doc.selection; //选择
+    var library = doc.library; //库文件
+    var timeline = doc.getTimeline(); //时间轴
 
-        var selection = doc.selection;//选择
-        var library = doc.library;//库文件
-        var timeline = doc.getTimeline();//时间轴
+    var layers = timeline.layers; //图层
+    var curLayerIndex = timeline.currentLayer; //当前图层索引
+    var curLayer = layers[curLayerIndex]; //当前图层
 
-        var layers = timeline.layers;//图层
-        var curLayerIndex = timeline.currentLayer;//当前图层索引
-        var curLayer = layers[curLayerIndex];//当前图层
+    var curFrameIndex = timeline.currentFrame; //当前帧索引
+    var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
-        var curFrameIndex = timeline.currentFrame;//当前帧索引
-        var curFrame = curLayer.frames[curFrameIndex];//当前帧
+    function checkXMLPanel() {
+        var panel = xmlPanelUtil.getXMLPanel();
+        if (panel === null) return null;
 
+        var shakeIntensity = xmlPanelUtil.parseNumber(
+            panel.shakeIntensity,
+            '摇头强度只能输入数字，请重新输入。'
+        );
+        if (shakeIntensity === null) return null;
 
-        function checkXMLPanel() {
-            var panel = xmlPanelUtil.getXMLPanel();
-            if (panel === null) return null;
+        var headDirection = xmlPanelUtil.parseNumber(panel.headDirection);
+        if (headDirection === null) return null;
 
+        return { shakeIntensity: shakeIntensity, headDirection: headDirection };
+    }
 
-            var shakeIntensity = xmlPanelUtil.parseNumber(panel.shakeIntensity, "摇头强度只能输入数字，请重新输入。");
-            if (shakeIntensity === null) return null;
+    function KFrames(headDirection, shakeIntensity) {
+        doc.enterEditMode('inPlace');
 
-            var headDirection = xmlPanelUtil.parseNumber(panel.headDirection);
-            if (headDirection === null) return null;
+        var timeline = doc.getTimeline();
 
-            return {shakeIntensity: shakeIntensity, headDirection: headDirection};
-        }
+        // 设置变形点
+        var element1 = timeline.layers[0].frames[0].elements[0];
+        // var trPoint = getTrPoint(selection[0]);
+        var trPoint = pointUtil.getShakeHeadTrPoint(element1);
+        element1.setTransformationPoint(trPoint.toObj());
 
-        function KFrames(headDirection, shakeIntensity) {
-            doc.enterEditMode("inPlace");
+        // 给所有图层加帧
+        timeline.insertFrames(FRAME_7, true);
+        // 关键帧 1,4,7
+        timeline.convertToKeyframes(FRAME_4);
+        timeline.convertToKeyframes(FRAME_7);
 
-            var timeline = doc.getTimeline();
+        var frame4_element = timeline.layers[0].frames[FRAME_4].elements[0];
+        // -57.25,-182.25    -60.25,-179.25  (-3,+3)  3,左摇头
+        // -57.25,-182.25    -54.25,-179.25  (+3,+3)  3,右摇头
+        frame4_element.x += headDirection * shakeIntensity;
+        frame4_element.y += shakeIntensity;
 
-            // 设置变形点
-            var element1 = timeline.layers[0].frames[0].elements[0];
-            // var trPoint = getTrPoint(selection[0]);
-            var trPoint = pointUtil.getShakeHeadTrPoint(element1);
-            element1.setTransformationPoint(trPoint.toObj());
+        sel.SelectAllTl(timeline);
 
-            // 给所有图层加帧
-            timeline.insertFrames(FRAME_7, true);
-            // 关键帧 1,4,7
-            timeline.convertToKeyframes(FRAME_4);
-            timeline.convertToKeyframes(FRAME_7);
+        curve.setClassicEaseCurve(timeline);
 
-            var frame4_element = timeline.layers[0].frames[FRAME_4].elements[0];
-            // -57.25,-182.25    -60.25,-179.25  (-3,+3)  3,左摇头 
-            // -57.25,-182.25    -54.25,-179.25  (+3,+3)  3,右摇头 
-            frame4_element.x += headDirection * shakeIntensity;
-            frame4_element.y += shakeIntensity;
+        doc.exitEditMode();
+    }
 
-            sel.SelectAllTl(timeline);
+    function Main() {
+        // 检查选择的元件
+        if (!checkSelection(selection, 'selectElement', 'Only one')) return;
 
-            curve.setClassicEaseCurve(timeline);
+        // 读取XML面板配置
+        var config = checkXMLPanel();
+        if (config === null) return;
+        var shakeIntensity = config.shakeIntensity;
+        var headDirection = config.headDirection;
 
-            doc.exitEditMode();
+        var symbolName = libUtil.generateNameUntilUnique('丝滑摇头_');
+        doc.convertToSymbol('graphic', symbolName, 'center');
 
-        }
+        KFrames(headDirection, shakeIntensity);
+    }
 
-        function Main() {
-            // 检查选择的元件
-            if (!checkSelection(selection, "selectElement", "Only one")) return;
-
-            // 读取XML面板配置
-            var config = checkXMLPanel();
-            if (config === null) return;
-            var shakeIntensity = config.shakeIntensity;
-            var headDirection = config.headDirection;
-
-            var symbolName = libUtil.generateNameUntilUnique("丝滑摇头_");
-            doc.convertToSymbol('graphic', symbolName, 'center');
-
-            KFrames(headDirection, shakeIntensity);
-        }
-
-        Main();
-    });
+    Main();
+});

@@ -7,25 +7,25 @@
  * @description:
  */
 
-require(["checkUtil", "libUtil", "sat"],function(checkUtil, libUtil, sat) {
+require(['checkUtil', 'libUtil', 'sat'], function (checkUtil, libUtil, sat) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     var Vector = sat.Vector,
         Rectangle = sat.Rectangle;
 
-    var doc = fl.getDocumentDOM();//文档
+    var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
 
-    var selection = doc.selection;//选择
-    var library = doc.library;//库文件
-    var timeline = doc.getTimeline();//时间轴
+    var selection = doc.selection; //选择
+    var library = doc.library; //库文件
+    var timeline = doc.getTimeline(); //时间轴
 
-    var layers = timeline.layers;//图层
-    var curLayerIndex = timeline.currentLayer;//当前图层索引
-    var curLayer = layers[curLayerIndex];//当前图层
+    var layers = timeline.layers; //图层
+    var curLayerIndex = timeline.currentLayer; //当前图层索引
+    var curLayer = layers[curLayerIndex]; //当前图层
 
-    var curFrameIndex = timeline.currentFrame;//当前帧索引
-    var curFrame = curLayer.frames[curFrameIndex];//当前帧
+    var curFrameIndex = timeline.currentFrame; //当前帧索引
+    var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
     function getPics() {
         var selectedPics = library.getSelectedItems();
@@ -43,7 +43,7 @@ require(["checkUtil", "libUtil", "sat"],function(checkUtil, libUtil, sat) {
     }
 
     function KFrames(selectedPics) {
-        doc.enterEditMode("inPlace");
+        doc.enterEditMode('inPlace');
 
         // 把第一个作为参照
         doc.selectAll();
@@ -51,7 +51,7 @@ require(["checkUtil", "libUtil", "sat"],function(checkUtil, libUtil, sat) {
 
         // 转为关键帧
         var timeline1 = doc.getTimeline();
-        timeline1.convertToKeyframes(0, selectedPics.length)
+        timeline1.convertToKeyframes(0, selectedPics.length);
 
         for (var i = 0; i < selectedPics.length; i++) {
             timeline1.currentFrame = i;
@@ -68,15 +68,14 @@ require(["checkUtil", "libUtil", "sat"],function(checkUtil, libUtil, sat) {
         doc.exitEditMode();
     }
 
-
     function cleanFolders(NEW_SYMBOL_NAME, symbol_name, selectedPics) {
         // 整理库的文件
         library.selectNone();
-        var FOLDER_NAME = NEW_SYMBOL_NAME + "_素材";
+        var FOLDER_NAME = NEW_SYMBOL_NAME + '_素材';
         library.newFolder(FOLDER_NAME);
 
-        var ANIMATE_FOLDER = FOLDER_NAME + "/动画";
-        library.newFolder(ANIMATE_FOLDER)
+        var ANIMATE_FOLDER = FOLDER_NAME + '/动画';
+        library.newFolder(ANIMATE_FOLDER);
 
         // 移动图片到 动画文件夹
         for (var i = 0; i < selectedPics.length; i++) {
@@ -95,12 +94,12 @@ require(["checkUtil", "libUtil", "sat"],function(checkUtil, libUtil, sat) {
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, "selectLibItem", "Not Zero")) return;
-        
+        if (!checkSelection(selection, 'selectLibItem', 'Not Zero')) return;
+
         var selectedPics = getPics();
 
         // 去除数字的名字
-        var NEW_SYMBOL_NAME = selectedPics[0].name.replace(/_\d+.*/, "");
+        var NEW_SYMBOL_NAME = selectedPics[0].name.replace(/_\d+.*/, '');
 
         // 把第一个图片 添加到  舞台中心
         var stageCenter = new Vector(doc.width / 2, doc.height / 2);
@@ -108,8 +107,7 @@ require(["checkUtil", "libUtil", "sat"],function(checkUtil, libUtil, sat) {
 
         // 转为元件
         var symbol_name = libUtil.generateNameUntilUnique(NEW_SYMBOL_NAME);
-        doc.convertToSymbol("graphic", symbol_name, "center");
-
+        doc.convertToSymbol('graphic', symbol_name, 'center');
 
         KFrames(selectedPics);
 

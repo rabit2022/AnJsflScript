@@ -7,10 +7,8 @@
  * @description:
  */
 
-
-define( function () {
-    function Random() {
-    }
+define(function () {
+    function Random() {}
 
     /**
      * 返回一个随机整数，从start（包含）到stop（不包含）。
@@ -37,15 +35,17 @@ define( function () {
         if (step < 1) {
             throw new Error('Step must be 1 or greater');
         }
-        const num = Math.floor(Math.random() * (Math.ceil((stop - start) / step)));
+        const num = Math.floor(
+            Math.random() * Math.ceil((stop - start) / step)
+        );
         return start + num * step;
     };
     Random.randint = function (a, b) {
         return this.randrange(a, b + 1);
-    }
+    };
     Random.choice = function (seq) {
         return seq[Math.floor(Math.random() * seq.length)];
-    }
+    };
     Random.choices = function (population, weights, cum_weights, k) {
         if (weights === null) {
             return this.sample(population, k);
@@ -57,7 +57,9 @@ define( function () {
             }
         }
         if (cum_weights.length !== weights.length) {
-            throw new Error('The number of weights does not match the population');
+            throw new Error(
+                'The number of weights does not match the population'
+            );
         }
         if (k === null) {
             k = 1;
@@ -75,14 +77,14 @@ define( function () {
             result.push(population[j]);
         }
         return result;
-    }
+    };
     Random.shuffle = function (seq) {
         for (var i = seq.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [seq[i], seq[j]] = [seq[j], seq[i]];
         }
         return seq;
-    }
+    };
     Random.sample = function (population, k, counts) {
         if (k > population.length) {
             throw new Error('Sample larger than population');
@@ -91,7 +93,9 @@ define( function () {
             counts = new Array(population.length).fill(1);
         }
         if (counts.length !== population.length) {
-            throw new Error('The number of counts does not match the population');
+            throw new Error(
+                'The number of counts does not match the population'
+            );
         }
         const result = [];
         for (var i = 0; i < k; i++) {
@@ -102,11 +106,10 @@ define( function () {
             }
         }
         return result;
-    }
+    };
     Random.uniform = function (a, b) {
         return a + (b - a) * Math.random();
-    }
-
+    };
 
     Random.gauss = function (mu, sigma) {
         var z = 0;
@@ -120,11 +123,11 @@ define( function () {
                 break;
             }
         }
-        return mu + sigma * x * Math.sqrt(-2 * Math.log(z) / z);
-    }
+        return mu + sigma * x * Math.sqrt((-2 * Math.log(z)) / z);
+    };
     Random.expovariate = function (lambd) {
         return -Math.log(1 - Math.random()) / lambd;
-    }
+    };
     Random.vonmisesvariate = function (mu, kappa) {
         var s;
         var r;
@@ -142,22 +145,20 @@ define( function () {
         }
         x = mu + Math.sin(s) * Math.cos(kappa * s);
         return x;
-    }
+    };
     Random.paretovariate = function (alpha) {
         return 1 / Math.pow(this.uniform(0, 1), 1 / alpha);
-    }
+    };
     Random.weibullvariate = function (alpha, beta) {
         return alpha * Math.pow(-Math.log(1 - this.uniform(0, 1)), 1 / beta);
-    }
+    };
     Random.get_random_color = function () {
         const r = Math.floor(Math.random() * 256);
         const g = Math.floor(Math.random() * 256);
         const b = Math.floor(Math.random() * 256);
         // return "rgb(${r},${g},${b})";
         return [r, g, b];
-    }
-    
+    };
+
     return Random;
 });
-
-

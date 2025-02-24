@@ -5,7 +5,7 @@
  */
 
 (function (root, factory) {
-    "use strict";
+    'use strict';
     if (typeof define === 'function' && define['amd']) {
         define(factory);
     } else if (typeof exports === 'object') {
@@ -13,14 +13,13 @@
     } else {
         root['StringP'] = factory();
     }
-}(this, function () {
+})(this, function () {
     function StringP(str) {
         if (typeof str !== 'string') {
             throw new TypeError('Expected a string');
         }
         this.str = str;
     }
-
 
     /**
      * 创建一个方法，将字符串包装为 StringP 实例。
@@ -29,7 +28,6 @@
     String.prototype.P = function () {
         return new StringP(this);
     };
-
 
     /**
      * 所有小写字母 'abcdefghijklmnopqrstuvwxyz'。
@@ -92,19 +90,64 @@
      * @static
      * @type {string}
      */
-    StringP.printable = StringP.digits + StringP.ascii_letters + StringP.punctuation + StringP.whitespace;
+    StringP.printable =
+        StringP.digits +
+        StringP.ascii_letters +
+        StringP.punctuation +
+        StringP.whitespace;
 
     /**
      * 所有关键字。
      * @static
      * @type {string[]}
      */
-    StringP.keywords = [// es5 关键字
-        "break", "case", "catch", "class", "const", "continue", "debugger", "default", "delete", "do", "else", "export", "extends", "finally", "for", "function", "if", "import", "in", "instanceof", "new", "return", "super", "switch", "this", "throw", "try", "typeof", "var", "void", "while", "with", "yield", // 严格模式下的关键字
-        "enum", // ES6 引入的关键字
-        "let", // es2017 关键字
-        "async", "await", // 未来保留关键字
-        "implements", "interface", "package", "private", "protected", "public", "static"];
+    StringP.keywords = [
+        // es5 关键字
+        'break',
+        'case',
+        'catch',
+        'class',
+        'const',
+        'continue',
+        'debugger',
+        'default',
+        'delete',
+        'do',
+        'else',
+        'export',
+        'extends',
+        'finally',
+        'for',
+        'function',
+        'if',
+        'import',
+        'in',
+        'instanceof',
+        'new',
+        'return',
+        'super',
+        'switch',
+        'this',
+        'throw',
+        'try',
+        'typeof',
+        'var',
+        'void',
+        'while',
+        'with',
+        'yield', // 严格模式下的关键字
+        'enum', // ES6 引入的关键字
+        'let', // es2017 关键字
+        'async',
+        'await', // 未来保留关键字
+        'implements',
+        'interface',
+        'package',
+        'private',
+        'protected',
+        'public',
+        'static',
+    ];
 
     /**
      * 将字符串中的每个单词首字母大写，其余部分小写，并根据指定的分隔符进行分割和拼接。
@@ -145,13 +188,11 @@
 
         // 使用 sep 拼接单词
         return capitalizedWords.join(sep);
-    }
-
+    };
 
     StringP.prototype.toString = function () {
         return this.str;
-    }
-
+    };
 
     /**
      * 返回原字符串的副本，其首个字符大写，其余为小写。
@@ -195,7 +236,11 @@
         return this.str.toLowerCase().replace(/[^a-z0-9]/gi, function (match) {
             // 对于一些特殊字符进行额外处理
             var specialCases = {
-                'ß': 'ss', 'Æ': 'ae', 'Œ': 'oe', 'æ': 'ae', 'œ': 'oe'
+                ß: 'ss',
+                Æ: 'ae',
+                Œ: 'oe',
+                æ: 'ae',
+                œ: 'oe',
             };
             return specialCases[match] || match.toLowerCase();
         });
@@ -392,14 +437,14 @@
      * const result2 = format("{name} was born in {country}", { name: "Guido" });
      * console.writeToLog(result2); // "Guido was born in {country}"
      */
-// function format(template) {
+    // function format(template) {
     StringP.prototype.format = function () {
         // 获取所有参数
         var args = Array.prototype.slice.call(arguments, 1);
         var kwargs = args[args.length - 1];
 
         // 检查最后一个参数是否是对象（可能是关键字参数）
-        if (typeof kwargs === "object" && !Array.isArray(kwargs)) {
+        if (typeof kwargs === 'object' && !Array.isArray(kwargs)) {
             args.pop(); // 如果是对象，则从 args 中移除
         } else {
             kwargs = {}; // 如果没有关键字参数，则初始化为空对象
@@ -408,13 +453,15 @@
         var template = this.str;
         // 替换模板中的 {key} 或 {index}
         return template.replace(/\{(\w+)\}/g, function (match, key) {
-            if (!isNaN(parseInt(key))) { // 如果是数字索引
+            if (!isNaN(parseInt(key))) {
+                // 如果是数字索引
                 return args[key] !== undefined ? args[key] : match;
-            } else { // 如果是关键字参数
+            } else {
+                // 如果是关键字参数
                 return kwargs[key] !== undefined ? kwargs[key] : match;
             }
         });
-    }
+    };
 
     /**
      * 格式化字符串，直接使用映射对象而不是复制到一个字典。
@@ -431,8 +478,7 @@
         return template.replace(/\{(\w+)\}/g, function (match, key) {
             return mapping[key] !== undefined ? mapping[key] : match;
         });
-    }
-
+    };
 
     StringP.prototype.isalpha = function () {
         return /^[a-zA-Z]+$/.test(this.str);
@@ -451,7 +497,12 @@
     };
 
     StringP.prototype.isalnum = function () {
-        return this.isalpha() || this.isdecimal() || this.isdigit() || this.isnumeric();
+        return (
+            this.isalpha() ||
+            this.isdecimal() ||
+            this.isdigit() ||
+            this.isnumeric()
+        );
     };
 
     StringP.prototype.isascii = function () {
@@ -467,7 +518,9 @@
     };
 
     StringP.prototype.isspace = function () {
-        return /^[\s\u00A0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000\uFEFF]*$/.test(this.str);
+        return /^[\s\u00A0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000\uFEFF]*$/.test(
+            this.str
+        );
     };
 
     StringP.prototype.istitle = function () {
@@ -485,7 +538,6 @@
     StringP.prototype.iskeyword = function () {
         return StringP.keywords.includes(this.str);
     };
-
 
     /**
      * 返回一个由 iterable 中的字符串拼接而成的字符串。
@@ -606,7 +658,9 @@
             }
             return result;
         } else {
-            throw new TypeError('maketrans() takes either two strings or a single dictionary');
+            throw new TypeError(
+                'maketrans() takes either two strings or a single dictionary'
+            );
         }
     };
 
@@ -623,7 +677,11 @@
         if (index === -1) {
             return [this.str, '', ''];
         } else {
-            return [this.str.slice(0, index), sep, this.str.slice(index + sep.length)];
+            return [
+                this.str.slice(0, index),
+                sep,
+                this.str.slice(index + sep.length),
+            ];
         }
     };
 
@@ -772,7 +830,11 @@
         if (index === -1) {
             return ['', '', this.str];
         } else {
-            return [this.str.slice(0, index + sep.length), sep, this.str.slice(index + sep.length)];
+            return [
+                this.str.slice(0, index + sep.length),
+                sep,
+                this.str.slice(index + sep.length),
+            ];
         }
     };
 
@@ -813,7 +875,6 @@
         }
     };
 
-
     /**
      * 返回一个由字符串内单词组成的列表，使用 sep 作为分隔字符串。 如果给出了 maxsplit，则最多进行 maxsplit 次拆分（因此，列表最多会有 maxsplit+1 个元素）。 如果 maxsplit 未指定或为 -1，则不限制拆分次数（进行所有可能的拆分）。
      *
@@ -849,7 +910,10 @@
         if (chars === undefined) {
             return this.str.trim();
         } else {
-            return this.str.replace(new RegExp('^[' + chars + ']+|[' + chars + ']+$', 'g'), '');
+            return this.str.replace(
+                new RegExp('^[' + chars + ']+|[' + chars + ']+$', 'g'),
+                ''
+            );
         }
     };
 
@@ -959,7 +1023,4 @@
     };
 
     return StringP;
-}));
-
-
-
+});

@@ -7,8 +7,7 @@
  * @description:
  */
 
-require(["checkUtil", "sat"],
-    function (checkUtil,sat) {
+require(['checkUtil', 'sat'], function (checkUtil, sat) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     var Vector = sat.Vector,
@@ -16,37 +15,35 @@ require(["checkUtil", "sat"],
         wrapPosition = sat.GLOBALS.wrapPosition,
         wrapRect = sat.GLOBALS.wrapRect;
 
-    var doc = fl.getDocumentDOM();//文档
+    var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
 
-    var selection = doc.selection;//选择
-    var library = doc.library;//库文件
-    var timeline = doc.getTimeline();//时间轴
+    var selection = doc.selection; //选择
+    var library = doc.library; //库文件
+    var timeline = doc.getTimeline(); //时间轴
 
-    var layers = timeline.layers;//图层
-    var curLayerIndex = timeline.currentLayer;//当前图层索引
-    var curLayer = layers[curLayerIndex];//当前图层
+    var layers = timeline.layers; //图层
+    var curLayerIndex = timeline.currentLayer; //当前图层索引
+    var curLayer = layers[curLayerIndex]; //当前图层
 
-    var curFrameIndex = timeline.currentFrame;//当前帧索引
-    var curFrame = curLayer.frames[curFrameIndex];//当前帧
+    var curFrameIndex = timeline.currentFrame; //当前帧索引
+    var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, "selectElement", "No limit")) return;
+        if (!checkSelection(selection, 'selectElement', 'No limit')) return;
 
         var selectedRect = wrapRect(doc.getSelectionRect());
-        print("Selected rectangle: " + selectedRect.toString());
+        print('Selected rectangle: ' + selectedRect.toString());
         var selectedCenter = selectedRect.getCenterVector();
-        print("Selected center: " + selectedCenter.toString());
+        print('Selected center: ' + selectedCenter.toString());
         // 宽高
         var width = selectedRect.width;
         var height = selectedRect.height;
-        print("Selected size: " + width + " x " + height);
-        
+        print('Selected size: ' + width + ' x ' + height);
+
         // var radius = Math.min(width, height) / 2;
         // print("Selected radius: " + radius);
-
-        
     }
 
     Main();

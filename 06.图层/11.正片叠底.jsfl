@@ -7,23 +7,28 @@
  * @description:
  */
 
-require(["checkUtil", "frUtil","frameRange"], function (checkUtil, frUtil,FrameRange) {
-    var checkDom = checkUtil.CheckDom, checkSelection = checkUtil.CheckSelection,
+require(['checkUtil', 'frUtil', 'frameRange'], function (
+    checkUtil,
+    frUtil,
+    FrameRange
+) {
+    var checkDom = checkUtil.CheckDom,
+        checkSelection = checkUtil.CheckSelection,
         checkSelectedFrames = checkUtil.CheckSelectedFrames;
 
-    var doc = fl.getDocumentDOM();//文档
+    var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
 
-    var selection = doc.selection;//选择
-    var library = doc.library;//库文件
-    var timeline = doc.getTimeline();//时间轴
+    var selection = doc.selection; //选择
+    var library = doc.library; //库文件
+    var timeline = doc.getTimeline(); //时间轴
 
-    var layers = timeline.layers;//图层
-    var curLayerIndex = timeline.currentLayer;//当前图层索引
-    var curLayer = layers[curLayerIndex];//当前图层
+    var layers = timeline.layers; //图层
+    var curLayerIndex = timeline.currentLayer; //当前图层索引
+    var curLayer = layers[curLayerIndex]; //当前图层
 
-    var curFrameIndex = timeline.currentFrame;//当前帧索引
-    var curFrame = curLayer.frames[curFrameIndex];//当前帧
+    var curFrameIndex = timeline.currentFrame; //当前帧索引
+    var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
     // 获取第一帧
     var frs = checkSelectedFrames(timeline);
@@ -33,8 +38,8 @@ require(["checkUtil", "frUtil","frameRange"], function (checkUtil, frUtil,FrameR
 
     /**
      * 按照图层索引分类，将FrameRange数组转换为对象
-     * @param {FrameRange[]} arr 
-     * @returns {{number: number[]}} 
+     * @param {FrameRange[]} arr
+     * @returns {{number: number[]}}
      */
     function convertArrayToObject(arr) {
         const result = {};
@@ -51,17 +56,17 @@ require(["checkUtil", "frUtil","frameRange"], function (checkUtil, frUtil,FrameR
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, "selectElement", "No limit")) return;
+        if (!checkSelection(selection, 'selectElement', 'No limit')) return;
 
         // doc.setBlendMode('multiply');
 
         // var blendMode = curLayer.getBlendModeAtFrame(frameIndex);
         // print(blendMode);
         // curLayer.setBlendModeAtFrame(curFrameIndex, "multiply");
-        
+
         //============分裂 选中范围 ，按照关键帧范围分裂 ===================
         /**
-         * 
+         *
          * @type {FrameRange[]}
          */
         var splitFrs = [];
@@ -75,13 +80,13 @@ require(["checkUtil", "frUtil","frameRange"], function (checkUtil, frUtil,FrameR
             var keyFr = frUtil.getSplitFrs(selectedFr, keyFrameRanges);
             splitFrs = splitFrs.concat(keyFr);
         }
-        
+
         /**
          * layerIndex: startFrame[]
-         * @type {{number: number[]}} 
+         * @type {{number: number[]}}
          */
         var frDict = convertArrayToObject(splitFrs);
-        
+
         // for (var item in frDict) {
         //     var key = parseInt(item);
         //     /**
@@ -96,12 +101,11 @@ require(["checkUtil", "frUtil","frameRange"], function (checkUtil, frUtil,FrameR
         //         curLayer.setBlendModeAtFrame(frameIndex, "multiply");
         //     });
         // }
-        for (const [layerIndex, frameIndexes] of Object.entries(frDict)){
-            var curLayer = layers[layerIndex];//当前图层
+        for (const [layerIndex, frameIndexes] of Object.entries(frDict)) {
+            var curLayer = layers[layerIndex]; //当前图层
             frameIndexes.forEach(function (frameIndex) {
-                curLayer.setBlendModeAtFrame(frameIndex, "multiply");
+                curLayer.setBlendModeAtFrame(frameIndex, 'multiply');
             });
-            
         }
     }
 

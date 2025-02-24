@@ -17,7 +17,6 @@ define(function () {
         return Math.abs(x);
     }
 
-
     /**
      * 如果 iterable 的所有元素均为真值（或可迭代对象为空）则返回 true。
      * @param {*} iterable - 可迭代对象（如数组、类数组对象等）。
@@ -60,7 +59,6 @@ define(function () {
         return iterable.some(predicate);
     }
 
-
     /**
      * 返回一个对象的 ASCII 字符串表示。
      * @param {Object} object 要转换为 ASCII 字符串的对象。
@@ -83,7 +81,7 @@ define(function () {
 
         // 添加前缀 "0b" 或 "-0b"（如果是负数）
         // return isNegative ? `-0b${binaryString}` : `0b${binaryString}`;
-        return isNegative ? "-0b" + binaryString : "0b" + binaryString;
+        return isNegative ? '-0b' + binaryString : '0b' + binaryString;
     }
 
     /**
@@ -108,7 +106,7 @@ define(function () {
         }
 
         // 检查参数是否在合法范围内
-        if (i < 0 || i > 0x10FFFF) {
+        if (i < 0 || i > 0x10ffff) {
             throw new RangeError('chr() arg not in range(0x110000)');
         }
 
@@ -123,11 +121,11 @@ define(function () {
      */
     function delattr(object, name) {
         if (object === null || object === undefined) {
-            throw new TypeError("object cannot be null or undefined");
+            throw new TypeError('object cannot be null or undefined');
         }
 
-        if (typeof name !== "string") {
-            throw new TypeError("name must be a string");
+        if (typeof name !== 'string') {
+            throw new TypeError('name must be a string');
         }
 
         if (!(name in object)) {
@@ -136,7 +134,6 @@ define(function () {
 
         delete object[name];
     }
-
 
     function dir(object) {
         // 如果没有提供参数，返回全局对象的属性
@@ -151,14 +148,16 @@ define(function () {
         while (currentObject !== null) {
             // 遍历当前对象的所有属性
             for (var key in currentObject) {
-                if (currentObject.hasOwnProperty(key)) { // 确保是自有属性
-                    if (properties.indexOf(key) === -1) { // 避免重复
+                if (currentObject.hasOwnProperty(key)) {
+                    // 确保是自有属性
+                    if (properties.indexOf(key) === -1) {
+                        // 避免重复
                         // properties.push(key);
                         var dict = {};
                         dict.name = key;
                         dict.value = currentObject[key];
 
-                        var str = "{" + dict.name + ": " + dict.value + "}";
+                        var str = '{' + dict.name + ': ' + dict.value + '}';
                         properties.push(str);
                     }
                 }
@@ -181,7 +180,7 @@ define(function () {
     function divmod(a, b) {
         // 检查除数是否为零
         if (b === 0) {
-            throw new Error("divisor cannot be zero");
+            throw new Error('divisor cannot be zero');
         }
 
         // 计算商
@@ -203,7 +202,6 @@ define(function () {
 
         return [q, r];
     }
-
 
     /**
      * 过滤可迭代对象 iterable，返回一个包含所有满足 predicate 函数的元素的新数组。
@@ -235,11 +233,11 @@ define(function () {
      */
     function getattr(object, name, default_) {
         if (object === null || object === undefined) {
-            throw new TypeError("object cannot be null or undefined");
+            throw new TypeError('object cannot be null or undefined');
         }
 
-        if (typeof name !== "string") {
-            throw new TypeError("name must be a string");
+        if (typeof name !== 'string') {
+            throw new TypeError('name must be a string');
         }
 
         if (default_ === undefined) {
@@ -257,11 +255,11 @@ define(function () {
      */
     function hasattr(object, name) {
         if (object === null || object === undefined) {
-            throw new TypeError("object cannot be null or undefined");
+            throw new TypeError('object cannot be null or undefined');
         }
 
-        if (typeof name !== "string") {
-            throw new TypeError("name must be a string");
+        if (typeof name !== 'string') {
+            throw new TypeError('name must be a string');
         }
 
         return name in object;
@@ -275,14 +273,14 @@ define(function () {
      */
     function hash(object) {
         if (object === null || object === undefined) {
-            throw new TypeError("object cannot be null or undefined");
+            throw new TypeError('object cannot be null or undefined');
         }
 
-        if (typeof object === "boolean") {
+        if (typeof object === 'boolean') {
             return object ? 1 : 0;
-        } else if (typeof object === "number") {
+        } else if (typeof object === 'number') {
             return object;
-        } else if (typeof object === "string") {
+        } else if (typeof object === 'string') {
             var hash = 0;
             for (var i = 0; i < object.length; i++) {
                 var char = object.charCodeAt(i);
@@ -290,14 +288,14 @@ define(function () {
                 hash = hash & hash; // Convert to 32bit integer
             }
             return hash;
-        } else if (typeof object === "object") {
-            if (object.hasOwnProperty("__hash__")) {
+        } else if (typeof object === 'object') {
+            if (object.hasOwnProperty('__hash__')) {
                 return object.__hash__();
             } else {
-                throw new TypeError("unhashable type: " + typeof object);
+                throw new TypeError('unhashable type: ' + typeof object);
             }
         } else {
-            throw new TypeError("unsupported type: " + typeof object);
+            throw new TypeError('unsupported type: ' + typeof object);
         }
     }
 
@@ -314,9 +312,8 @@ define(function () {
 
         // 添加前缀 "0x" 或 "-0x"（如果是负数）
         // return isNegative ? `-0x${hexString}` : `0x${hexString}`;
-        return isNegative ? "-0x" + hexString : "0x" + hexString;
+        return isNegative ? '-0x' + hexString : '0x' + hexString;
     }
-
 
     /**
      * 检查类是否是另一个类的子类。
@@ -325,11 +322,11 @@ define(function () {
      * @return {boolean} 类是否是另一个类的子类。
      */
     function issubclass(class_, classinfo) {
-        if (typeof class_ !== "function") {
-            throw new TypeError("arg 1 must be a class");
+        if (typeof class_ !== 'function') {
+            throw new TypeError('arg 1 must be a class');
         }
 
-        if (typeof classinfo === "function") {
+        if (typeof classinfo === 'function') {
             return classinfo.prototype instanceof class_;
         } else if (Array.isArray(classinfo)) {
             for (var i = 0; i < classinfo.length; i++) {
@@ -339,20 +336,19 @@ define(function () {
             }
             return false;
         } else {
-            throw new TypeError("arg 2 must be a class, tuple, or union");
+            throw new TypeError('arg 2 must be a class, tuple, or union');
         }
     }
 
-
     function len(object) {
         if (object === null || object === undefined) {
-            throw new TypeError("object cannot be null or undefined");
+            throw new TypeError('object cannot be null or undefined');
         }
 
-        if (typeof object === "string" || Array.isArray(object)) {
+        if (typeof object === 'string' || Array.isArray(object)) {
             return object.length;
         } else {
-            throw new TypeError("unsupported type: " + typeof object);
+            throw new TypeError('unsupported type: ' + typeof object);
         }
     }
 
@@ -381,7 +377,13 @@ define(function () {
 
         // 确保函数接受相同数量的参数
         if (iterables.length !== func.length) {
-            throw new Error("function takes " + func.length + " arguments, but " + iterables.length + " iterables were passed");
+            throw new Error(
+                'function takes ' +
+                    func.length +
+                    ' arguments, but ' +
+                    iterables.length +
+                    ' iterables were passed'
+            );
         }
 
         // 遍历可迭代对象，并将函数应用到每个元素上
@@ -413,9 +415,13 @@ define(function () {
             }
         } else {
             if (key === undefined) {
-                return iterable.length > 0 ? Math.max.apply(null, iterable) : default_;
+                return iterable.length > 0
+                    ? Math.max.apply(null, iterable)
+                    : default_;
             } else {
-                return iterable.length > 0 ? Math.max.apply(null, iterable.map(key)) : default_;
+                return iterable.length > 0
+                    ? Math.max.apply(null, iterable.map(key))
+                    : default_;
             }
         }
     }
@@ -436,9 +442,13 @@ define(function () {
             }
         } else {
             if (key === undefined) {
-                return iterable.length > 0 ? Math.min.apply(null, iterable) : default_;
+                return iterable.length > 0
+                    ? Math.min.apply(null, iterable)
+                    : default_;
             } else {
-                return iterable.length > 0 ? Math.min.apply(null, iterable.map(key)) : default_;
+                return iterable.length > 0
+                    ? Math.min.apply(null, iterable.map(key))
+                    : default_;
             }
         }
     }
@@ -455,11 +465,10 @@ define(function () {
         const octString = Math.abs(x).toString(8);
 
         // 添加前缀 "0o" 或 "-0o"（如果是负数）
-        return isNegative ? "-0o" + octString : "0o" + octString;
+        return isNegative ? '-0o' + octString : '0o' + octString;
     }
 
-
-// open(file, mode='r', buffering=-1, encoding=None, errors=None, newline=None, closefd=True, opener=None)¶
+    // open(file, mode='r', buffering=-1, encoding=None, errors=None, newline=None, closefd=True, opener=None)¶
     /**
      * 打开一个文件并返回一个文件对象。
      * @param {string} file 要打开的文件名。
@@ -472,7 +481,7 @@ define(function () {
             mode = 'r';
         }
         if (textToWrite === undefined) {
-            textToWrite = "";
+            textToWrite = '';
         }
 
         switch (mode) {
@@ -483,13 +492,13 @@ define(function () {
                 return FLfile.write(file, textToWrite);
                 break;
             case 'a':
-                return FLfile.write(file, textToWrite, "append");
+                return FLfile.write(file, textToWrite, 'append');
                 break;
             case 'x':
-                return FLfile.write(file, "");
+                return FLfile.write(file, '');
                 break;
             default:
-                throw new Error("Invalid mode: " + mode);
+                throw new Error('Invalid mode: ' + mode);
         }
     }
 
@@ -508,10 +517,9 @@ define(function () {
         }
     }
 
-// function print(str) {
-//     fl.trace(str);
-// }
-
+    // function print(str) {
+    //     fl.trace(str);
+    // }
 
     /**
      * 返回一个反向的迭代器。
@@ -521,13 +529,13 @@ define(function () {
     function reversed(seq) {
         if (Array.isArray(seq)) {
             return seq.slice().reverse();
-        } else if (typeof seq === "string") {
-            return seq.split("").reverse().join("");
-        } else if (typeof seq[Symbol.iterator] === "function") {
+        } else if (typeof seq === 'string') {
+            return seq.split('').reverse().join('');
+        } else if (typeof seq[Symbol.iterator] === 'function') {
             var array = Array.from(seq);
             return array.reverse();
         } else {
-            throw new TypeError("Object is not iterable");
+            throw new TypeError('Object is not iterable');
         }
     }
 
@@ -554,11 +562,11 @@ define(function () {
      */
     function setattr(object, name, value) {
         if (object === null || object === undefined) {
-            throw new TypeError("object cannot be null or undefined");
+            throw new TypeError('object cannot be null or undefined');
         }
 
-        if (typeof name !== "string") {
-            throw new TypeError("name must be a string");
+        if (typeof name !== 'string') {
+            throw new TypeError('name must be a string');
         }
 
         object[name] = value;
@@ -581,7 +589,7 @@ define(function () {
         }
 
         if (step === 0) {
-            throw new Error("slice step argument must not be zero");
+            throw new Error('slice step argument must not be zero');
         }
 
         var result = [];
@@ -591,7 +599,6 @@ define(function () {
 
         return result;
     }
-
 
     /**
      * 根据 iterable 中的项返回一个新的已排序列表。
@@ -616,8 +623,8 @@ define(function () {
                     return key(a) < key(b) ? -1 : key(a) > key(b) ? 1 : 0;
                 }
             });
-        } else if (typeof iterable === "string") {
-            var array = iterable.split("");
+        } else if (typeof iterable === 'string') {
+            var array = iterable.split('');
             array.sort(function (a, b) {
                 if (key === null) {
                     return a < b ? -1 : a > b ? 1 : 0;
@@ -625,8 +632,8 @@ define(function () {
                     return key(a) < key(b) ? -1 : key(a) > key(b) ? 1 : 0;
                 }
             });
-            return array.join("");
-        } else if (typeof iterable[Symbol.iterator] === "function") {
+            return array.join('');
+        } else if (typeof iterable[Symbol.iterator] === 'function') {
             var array = Array.from(iterable);
             array.sort(function (a, b) {
                 if (key === null) {
@@ -640,10 +647,9 @@ define(function () {
             }
             return array;
         } else {
-            throw new TypeError("Object is not iterable");
+            throw new TypeError('Object is not iterable');
         }
     }
-
 
     /**
      * 返回一个数组中所有元素的和。
@@ -684,7 +690,12 @@ define(function () {
         if (strict) {
             for (var i = 0; i < lengths.length; i++) {
                 if (lengths[i] !== minLength) {
-                    throw new Error("zip() argument " + (i + 1) + " is longer than argument " + (lengths.indexOf(minLength) + 1));
+                    throw new Error(
+                        'zip() argument ' +
+                            (i + 1) +
+                            ' is longer than argument ' +
+                            (lengths.indexOf(minLength) + 1)
+                    );
                 }
             }
         }
@@ -701,8 +712,6 @@ define(function () {
 
         return result;
     }
-
-
 
     return {
         abs: abs,
@@ -732,6 +741,6 @@ define(function () {
         slice: slice,
         sorted: sorted,
         sum: sum,
-        zip: zip
+        zip: zip,
     };
 });

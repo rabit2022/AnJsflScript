@@ -1,0 +1,13 @@
+﻿{
+  "extends": [
+    "airbnb",
+    "prettier"
+  ],
+  // 或 "google", "prettier"
+  "plugins": [
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}

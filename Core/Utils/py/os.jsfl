@@ -8,9 +8,7 @@
  */
 
 define(function () {
-
-    function OSPath() {
-    }
+    function OSPath() {}
 
     /**
      * 插件位置
@@ -18,14 +16,14 @@ define(function () {
      * @readonly
      * @static
      */
-    OSPath.PLUGIN_PATH = fl.configURI + "WindowSWF";
+    OSPath.PLUGIN_PATH = fl.configURI + 'WindowSWF';
     /**
      * 命令位置
      * @type {string}
      * @readonly
      * @static
      */
-    OSPath.COMMAND_PATH = fl.configURI + "Commands";
+    OSPath.COMMAND_PATH = fl.configURI + 'Commands';
 
     OSPath.abspath = function (relativePath) {
         // 将当前工作目录和相对路径合并
@@ -39,7 +37,8 @@ define(function () {
         }
 
         // 标准化路径（例如，处理 '..' 和 '.')
-        absolutePath = absolutePath.replace(/\/\//g, '/')
+        absolutePath = absolutePath
+            .replace(/\/\//g, '/')
             .replace(/(\/\.)+/g, '/')
             .replace(/\/[^\/]+/g, function (p, offset) {
                 if (p === '/..') {
@@ -53,16 +52,16 @@ define(function () {
             .replace(/^\//, '');
 
         return absolutePath;
-    }
+    };
     OSPath.basename = function (path) {
         return path.split('/').pop();
-    }
+    };
     OSPath.dirname = function (path) {
         return path.split('/').slice(0, -1).join('/');
-    }
+    };
     OSPath.exists = function (uri) {
         return FLfile.exists(uri);
-    }
+    };
     OSPath.isAbs = function (path) {
         // return path.startsWith('/');
         // // Unix 和 Linux 的绝对路径判断
@@ -72,22 +71,24 @@ define(function () {
 
         // Windows 的绝对路径判断
         // 检查是否以盘符加冒号和反斜杠开头，如 C:\ 或 \\server\share
-        if (os.isWindows() && /^[a-zA-Z]:\\/.test(path) || /^\\\\/.test(path)) {
+        if (
+            (os.isWindows() && /^[a-zA-Z]:\\/.test(path)) ||
+            /^\\\\/.test(path)
+        ) {
             return true;
         }
 
         // 如果不是以上情况，则不是绝对路径
         return false;
-    }
+    };
     OSPath.isfile = function (uri) {
         var [root, ext] = this.splitext(uri);
         return ext.length > 0;
-    }
+    };
     OSPath.isdir = function (uri) {
         var [root, ext] = this.splitext(uri);
         return ext.length === 0;
-    }
-
+    };
 
     /**
      * 规范路径的大小写。
@@ -103,7 +104,7 @@ define(function () {
 
         // 在其他操作系统上，返回原路径
         return path;
-    }
+    };
 
     /**
      * 规范化路径。
@@ -128,11 +129,17 @@ define(function () {
             if (!part) continue;
 
             // 处理绝对路径
-            if (part.startsWith(separator) || (isWindows && /^[A-Z]:/i.test(part))) {
+            if (
+                part.startsWith(separator) ||
+                (isWindows && /^[A-Z]:/i.test(part))
+            ) {
                 normalizedParts = [part];
             } else if (part.startsWith('..')) {
                 // 处理上一级目录
-                while (normalizedParts.length > 0 && !(normalizedParts[normalizedParts.length - 1] === '..')) {
+                while (
+                    normalizedParts.length > 0 &&
+                    !(normalizedParts[normalizedParts.length - 1] === '..')
+                ) {
                     normalizedParts.pop();
                 }
                 normalizedParts.push(part);
@@ -146,8 +153,7 @@ define(function () {
         }
 
         return normalizedParts.join(separator);
-    }
-
+    };
 
     /**
      * 合并多个路径。
@@ -164,7 +170,7 @@ define(function () {
     OSPath.join = function (paths) {
         // return this.normpath(paths.join('/'));
         return paths.join('/');
-    }
+    };
 
     /**
      * 分割路径为头部（head）和尾部（tail）。
@@ -213,7 +219,7 @@ define(function () {
         }
 
         return [head, tail];
-    }
+    };
     /**
      * 分割路径为路径名和扩展名。
      *
@@ -237,7 +243,12 @@ define(function () {
 
         // 如果没有找到点或者点在最后一个斜杠之后，或者点是第一个字符
         // 或者点前面是斜杠（意味着点是路径的一部分，不是扩展名的开始）
-        if (lastDotIndex === -1 || lastDotIndex < lastSlashIndex + 1 || path[lastDotIndex - 1] === '/' || path[0] === '.') {
+        if (
+            lastDotIndex === -1 ||
+            lastDotIndex < lastSlashIndex + 1 ||
+            path[lastDotIndex - 1] === '/' ||
+            path[0] === '.'
+        ) {
             return [path, ''];
         }
 
@@ -248,10 +259,9 @@ define(function () {
         var ext = path.substring(lastDotIndex);
 
         return [root, ext];
-    }
+    };
 
-
-// 自定义函数
+    // 自定义函数
     /**
      * 获取路径的基本名称（basename）并去除其后缀（extension）。
      *
@@ -267,17 +277,15 @@ define(function () {
 
         // 返回去除扩展名的基本名称
         return root;
-    }
+    };
 
-
-    function OS() {
-    }
+    function OS() {}
 
     OS.path = OSPath;
 
     OS.isMac = function () {
-        return (fl.version.search(/mac/i) > -1);
-    }
+        return fl.version.search(/mac/i) > -1;
+    };
 
     /**
      * 判断是否为 Windows 操作系统。
@@ -285,9 +293,8 @@ define(function () {
      * @returns {boolean}
      */
     OS.isWindows = function () {
-        return (fl.version.search(/win/i) > -1);
-    }
-
+        return fl.version.search(/win/i) > -1;
+    };
 
     /**
      * 获取当前工作目录。
@@ -298,11 +305,11 @@ define(function () {
         // 获取当前脚本文件的完整路径
         var scriptURI = fl.scriptURI;
         // 获取路径中最后一个“/”的位置
-        var lastSlashIndex = scriptURI.lastIndexOf("/");
+        var lastSlashIndex = scriptURI.lastIndexOf('/');
         // 获取脚本文件所在的文件夹路径
         var folderPath = scriptURI.substring(0, lastSlashIndex);
         return folderPath;
-    }
+    };
 
     /**
      * 创建目录。
@@ -312,11 +319,11 @@ define(function () {
     OS.mkdir = function (uri) {
         var success = FLfile.createFolder(uri);
         if (success) {
-            print("Folder created: " + uri);
+            print('Folder created: ' + uri);
         } else {
-            print("Failed : " + uri);
+            print('Failed : ' + uri);
         }
-    }
+    };
 
     /**
      * 打开文件或目录。
@@ -332,60 +339,60 @@ define(function () {
         var uri = FLfile.uriToPlatformPath(path);
 
         // 转换工作目录为平台路径（如果提供）
-        var cwd_uri = cwd ? FLfile.uriToPlatformPath(cwd) : "";
+        var cwd_uri = cwd ? FLfile.uriToPlatformPath(cwd) : '';
 
         // 构建命令
         var cmd;
 
         if (this.isMac()) {
             // macOS 使用 `open` 命令
-            cmd = "open \"" + uri + "\"";
+            cmd = 'open "' + uri + '"';
 
             // 添加操作参数
             if (operation) {
-                cmd += " -a \"" + operation + "\"";
+                cmd += ' -a "' + operation + '"';
             }
 
             // 添加额外参数
             if (arguments) {
-                cmd += " --args " + arguments;
+                cmd += ' --args ' + arguments;
             }
 
             // 添加工作目录
             if (cwd_uri) {
-                cmd += " --cwd \"" + cwd_uri + "\"";
+                cmd += ' --cwd "' + cwd_uri + '"';
             }
         } else if (this.isWindows()) {
             // Windows 使用 `start` 或 `explorer.exe` 命令
             switch (operation) {
-                case "open":
-                    cmd = "start \"\" \"" + uri + "\"";
+                case 'open':
+                    cmd = 'start "" "' + uri + '"';
                     break;
-                case "print":
-                    cmd = "start \"\" /print \"" + uri + "\"";
+                case 'print':
+                    cmd = 'start "" /print "' + uri + '"';
                     break;
-                case "edit":
-                    cmd = "notepad \"" + uri + "\"";
+                case 'edit':
+                    cmd = 'notepad "' + uri + '"';
                     break;
-                case "explore":
-                    cmd = "explorer.exe /e,\"" + uri + "\"";
+                case 'explore':
+                    cmd = 'explorer.exe /e,"' + uri + '"';
                     break;
-                case "find":
-                    cmd = "explorer.exe /select,\"" + uri + "\"";
+                case 'find':
+                    cmd = 'explorer.exe /select,"' + uri + '"';
                     break;
                 default:
-                    cmd = "start \"\" \"" + uri + "\"";
+                    cmd = 'start "" "' + uri + '"';
                     break;
             }
 
             // 添加工作目录
             if (cwd_uri) {
-                cmd = "pushd \"" + cwd_uri + "\" && " + cmd + " && popd";
+                cmd = 'pushd "' + cwd_uri + '" && ' + cmd + ' && popd';
             }
 
             // 添加窗口样式（仅 Windows 支持）
             if (show_cmd && os.isWindows()) {
-                cmd = "start /show " + show_cmd + " \"\" \"" + uri + "\"";
+                cmd = 'start /show ' + show_cmd + ' "" "' + uri + '"';
             }
         }
 
@@ -393,7 +400,7 @@ define(function () {
         FLfile.runCommandLine(cmd);
 
         // 打印命令（调试用）
-        print("Command executed: " + cmd);
+        print('Command executed: ' + cmd);
     };
 
     /**

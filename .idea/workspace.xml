@@ -5,13 +5,858 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d1fb0d1-a797-4697-adad-4dea37ecba6f" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/Core/TopLevel/Log.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/TopLevel/Log.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/00.快捷/00.跨域剪切.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/00.快捷/00.跨域剪切.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/00.快捷/01.原位粘贴.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/00.快捷/01.原位粘贴.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/00.快捷/02.水平翻转.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/00.快捷/02.水平翻转.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/00.快捷/03.垂直翻转.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/00.快捷/03.垂直翻转.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/00.快捷/04.元件复制.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/00.快捷/04.元件复制.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/00.快捷/05.元件分身.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/00.快捷/05.元件分身.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/00.快捷/06.一键回正.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/00.快捷/06.一键回正.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/00.快捷/07.一键回中.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/00.快捷/07.一键回中.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/00.快捷/08.智能交换.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/00.快捷/08.智能交换.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/00.快捷/09.一键等高.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/00.快捷/09.一键等高.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/00.快捷/10.音量调节.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/00.快捷/10.音量调节.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/00.快捷/11.完全复制.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/00.快捷/11.完全复制.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/00.智能循环/00.智能循环.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/00.智能循环/00.智能循环.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/00.智能循环/01.循环.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/00.智能循环/01.循环.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/00.智能循环/02.播放一次.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/00.智能循环/02.播放一次.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/00.智能循环/03.单帧.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/00.智能循环/03.单帧.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/00.智能循环/04.倒放一次.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/00.智能循环/04.倒放一次.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/00.智能循环/05.反向循环.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/00.智能循环/05.反向循环.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/00.智能循环/06.回到首帧.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/00.智能循环/06.回到首帧.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/00.智能循环/13.循环单帧.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/00.智能循环/13.循环单帧.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/01.角色/#06.灵魂出窍.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/01.角色/#06.灵魂出窍.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/01.角色/00.瞬移-出现.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/01.角色/00.瞬移-出现.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/01.角色/01.瞬移-消失.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/01.角色/01.瞬移-消失.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/01.角色/02.震惊-图层.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/01.角色/02.震惊-图层.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/01.角色/03.震惊-元件.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/01.角色/03.震惊-元件.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/01.角色/05.一键瞬冲.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/01.角色/05.一键瞬冲.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/01.角色/07.一键变身.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/01.角色/07.一键变身.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/02.头部/#11.组装万能头.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/02.头部/#11.组装万能头.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/02.头部/00.一键摇头.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/02.头部/00.一键摇头.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/02.头部/01.虾仁摇头.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/02.头部/01.虾仁摇头.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/02.头部/02.一键点头.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/02.头部/02.一键点头.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/02.头部/03.一键摆头.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/02.头部/03.一键摆头.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/02.头部/04.一键抬头.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/02.头部/04.一键抬头.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/02.头部/05.一键低头.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/02.头部/05.一键低头.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/02.头部/06.一键震惊.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/02.头部/06.一键震惊.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/02.头部/07.一键甩头.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/02.头部/07.一键甩头.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/02.头部/08.丝滑摇头.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/02.头部/08.丝滑摇头.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/02.头部/09.一键生气.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/02.头部/09.一键生气.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/02.头部/10.一键万能头.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/02.头部/10.一键万能头.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/03.打斗/00.曲线运动.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/03.打斗/00.曲线运动.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/03.打斗/02.排兵布阵.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/03.打斗/02.排兵布阵.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/03.打斗/02.排兵布阵/02.排兵布阵_neat.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/03.打斗/02.排兵布阵/02.排兵布阵_neat.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/03.打斗/02.排兵布阵/02.排兵布阵_random.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/03.打斗/02.排兵布阵/02.排兵布阵_random.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/03.打斗/02.排兵布阵/02.排兵布阵_staggered.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/03.打斗/02.排兵布阵/02.排兵布阵_staggered.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/03.打斗/08.一键破碎.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/03.打斗/08.一键破碎.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/03.打斗/09.一键爆炸.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/03.打斗/09.一键爆炸.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/04.镜头/06.一键聚焦.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/04.镜头/06.一键聚焦.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/05.补间/00.设置缓动曲线_下拉菜单.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/05.补间/00.设置缓动曲线_下拉菜单.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/06.图层/11.正片叠底.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/06.图层/11.正片叠底.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/06.图层/13.整列关键帧.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/06.图层/13.整列关键帧.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/07.优化/04.裙带飘动.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/07.优化/04.裙带飘动.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/07.优化/09.一键q弹.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/07.优化/09.一键q弹.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/08.批量/00.批量改名.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/08.批量/00.批量改名.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/08.批量/01.批量复制.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/08.批量/01.批量复制.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/08.批量/02.批量文件夹.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/08.批量/02.批量文件夹.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/08.批量/03.批量图层.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/08.批量/03.批量图层.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/08.批量/04.批量加帧.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/08.批量/04.批量加帧.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/08.批量/05.定量补帧.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/08.批量/05.定量补帧.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/08.批量/06.批量删帧.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/08.批量/06.批量删帧.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/08.批量/07.批量库清理.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/08.批量/07.批量库清理.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/08.批量/08.批量转元件.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/08.批量/08.批量转元件.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/08.批量/09.元件批复制.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/08.批量/09.元件批复制.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/08.批量/10.剪辑转图形.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/08.批量/10.剪辑转图形.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/08.批量/11.批量改帧长.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/08.批量/11.批量改帧长.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/09.动作/00.统一中心点.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/09.动作/00.统一中心点.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/09.动作/01.重置中心点.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/09.动作/01.重置中心点.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/12.高级功能/08.重置注册点.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/12.高级功能/08.重置注册点.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/20.日常脚本/00.图片转帧动画.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/20.日常脚本/00.图片转帧动画.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/20.日常脚本/01.批量导入音频.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/20.日常脚本/01.批量导入音频.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/21.工具/打印位置/00.当前帧的所有元件.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/21.工具/打印位置/00.当前帧的所有元件.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/21.工具/打印位置/01.打印关键帧的pos.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/21.工具/打印位置/01.打印关键帧的pos.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/21.工具/打印位置/02.记录变形点.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/21.工具/打印位置/02.记录变形点.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/21.工具/打印位置/03.打印矩形的数据.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/21.工具/打印位置/03.打印矩形的数据.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/21.工具/打开文件/00.打开插件位置.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/21.工具/打开文件/00.打开插件位置.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/21.工具/打开文件/01.打开命令位置.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/21.工具/打开文件/01.打开命令位置.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Object/frameRange.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Object/frameRange.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Object/frameRangeUtil.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Object/frameRangeUtil.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Object/moreElement.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Object/moreElement.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Object/moreElementUtil.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Object/moreElementUtil.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Utils/custom/Common.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Utils/custom/Common.jsfl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Utils/custom/Constants.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Utils/custom/Constants.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Utils/custom/JSFLConstants.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Utils/custom/JSFLConstants.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Utils/flash/checkUtil.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Utils/flash/checkUtil.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Utils/flash/curveUtil.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Utils/flash/curveUtil.jsfl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Utils/flash/elementUtil.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Utils/flash/elementUtil.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/requirejs-2.3.7/requirejs/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@types/requirejs/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/requirejs-2.3.7/requirejs/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@types/requirejs/index.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/requirejs-2.3.7/requirejs/requirejs-tests.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/requirejs-2.3.7/requirejs/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Utils/flash/filterUtil.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Utils/flash/filterUtil.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Utils/flash/graphicsUtil.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Utils/flash/graphicsUtil.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Utils/flash/layerUtil.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Utils/flash/layerUtil.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Utils/flash/libUtil.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Utils/flash/libUtil.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Utils/flash/promptUtil.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Utils/flash/promptUtil.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Utils/flash/selectionUtil.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Utils/flash/selectionUtil.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Utils/flash/xmlPanelUtil.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Utils/flash/xmlPanelUtil.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Utils/py/StringP.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Utils/py/StringP.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Utils/py/builtInP.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Utils/py/builtInP.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Utils/py/os.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Utils/py/os.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Utils/py/random.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Utils/py/random.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FirstRun.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/FirstRun.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReRun.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/ReRun.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/es5-shim-4.6.7/es5-sham.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/es5-shim-4.6.7/es5-sham.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/es5-shim-4.6.7/es5-shim.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/es5-shim-4.6.7/es5-shim.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/es6-shim-0.35.4/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Third/es6-shim-0.35.4/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/es6-shim-0.35.4/es6-sham.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/es6-shim-0.35.4/es6-sham.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/es6-shim-0.35.4/es6-shim.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/es6-shim-0.35.4/es6-shim.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/es6-shim-0.35.4/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Third/es6-shim-0.35.4/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/linq-4.0.3/linq.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Third/linq-4.0.3/linq.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/linq-4.0.3/linq.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/linq-4.0.3/linq.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/linq-4.0.3/linqUtil.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/linq-4.0.3/linqUtil.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/linq-4.0.3/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Third/linq-4.0.3/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/myShim/shim.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/myShim/shim.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/requirejs-2.3.7/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Third/requirejs-2.3.7/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/requirejs-2.3.7/require.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/requirejs-2.3.7/require.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/sat-js-0.9.0/SAT.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/sat-js-0.9.0/SAT.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/sat-js-0.9.0/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Third/sat-js-0.9.0/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/sat-js-0.9.0/satUtil.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/sat-js-0.9.0/satUtil.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/jsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/add.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/after.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/ary.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/assign.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/assignIn.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/assignInWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/assignWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/at.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/attempt.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/before.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/bind.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/bindAll.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/bindKey.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/camelCase.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/capitalize.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/castArray.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/ceil.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/chain.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/chunk.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/clamp.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/clone.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/cloneDeep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/cloneDeepWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/cloneWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/common/array.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/common/collection.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/common/common.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/common/date.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/common/function.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/common/lang.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/common/math.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/common/number.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/common/object.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/common/seq.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/common/string.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/common/util.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/compact.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/concat.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/cond.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/conformsTo.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/constant.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/countBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/create.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/curry.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/curryRight.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/debounce.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/deburr.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/defaultTo.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/defaults.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/defaultsDeep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/defer.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/delay.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/difference.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/differenceBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/differenceWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/divide.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/drop.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/dropRight.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/dropRightWhile.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/dropWhile.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/each.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/eachRight.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/endsWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/entries.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/entriesIn.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/eq.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/escape.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/escapeRegExp.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/every.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/extend.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/extendWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fill.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/filter.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/find.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/findIndex.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/findKey.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/findLast.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/findLastIndex.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/findLastKey.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/first.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/flatMap.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/flatMapDeep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/flatMapDepth.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/flatten.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/flattenDeep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/flattenDepth.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/flip.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/floor.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/flow.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/flowRight.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/forEach.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/forEachRight.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/forIn.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/forInRight.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/forOwn.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/forOwnRight.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/F.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/T.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/__.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/add.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/after.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/all.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/allPass.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/always.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/any.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/anyPass.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/apply.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/ary.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/assign.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/assignAll.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/assignAllWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/assignIn.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/assignInAll.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/assignInAllWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/assignInWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/assignWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/assoc.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/assocPath.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/at.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/attempt.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/before.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/bind.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/bindAll.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/bindKey.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/camelCase.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/capitalize.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/castArray.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/ceil.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/chunk.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/clamp.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/clone.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/cloneDeep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/cloneDeepWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/cloneWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/compact.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/complement.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/compose.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/concat.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/cond.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/conforms.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/conformsTo.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/constant.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/contains.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/convert.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/countBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/create.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/curry.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/curryN.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/curryRight.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/curryRightN.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/debounce.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/deburr.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/defaultTo.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/defaults.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/defaultsAll.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/defaultsDeep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/defaultsDeepAll.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/defer.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/delay.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/difference.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/differenceBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/differenceWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/dissoc.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/dissocPath.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/divide.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/drop.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/dropLast.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/dropLastWhile.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/dropRight.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/dropRightWhile.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/dropWhile.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/each.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/eachRight.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/endsWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/entries.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/entriesIn.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/eq.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/equals.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/escape.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/escapeRegExp.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/every.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/extend.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/extendAll.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/extendAllWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/extendWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/fill.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/filter.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/find.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/findFrom.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/findIndex.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/findIndexFrom.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/findKey.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/findLast.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/findLastFrom.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/findLastIndex.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/findLastIndexFrom.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/findLastKey.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/first.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/flatMap.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/flatMapDeep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/flatMapDepth.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/flatten.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/flattenDeep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/flattenDepth.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/flip.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/floor.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/flow.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/flowRight.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/forEach.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/forEachRight.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/forIn.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/forInRight.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/forOwn.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/forOwnRight.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/fromPairs.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/functions.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/functionsIn.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/get.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/getOr.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/groupBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/gt.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/gte.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/has.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/hasIn.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/head.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/identical.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/identity.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/inRange.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/includes.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/includesFrom.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/indexBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/indexOf.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/indexOfFrom.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/init.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/initial.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/intersection.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/intersectionBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/intersectionWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/invert.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/invertBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/invertObj.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/invoke.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/invokeArgs.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/invokeArgsMap.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/invokeMap.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isArguments.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isArray.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isArrayBuffer.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isArrayLike.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isArrayLikeObject.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isBoolean.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isBuffer.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isDate.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isElement.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isEmpty.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isEqual.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isEqualWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isError.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isFinite.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isFunction.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isInteger.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isLength.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isMap.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isMatch.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isMatchWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isNaN.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isNative.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isNil.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isNull.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isNumber.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isObject.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isObjectLike.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isPlainObject.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isRegExp.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isSafeInteger.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isSet.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isString.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isSymbol.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isTypedArray.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isUndefined.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isWeakMap.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/isWeakSet.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/iteratee.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/join.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/juxt.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/kebabCase.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/keyBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/keys.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/keysIn.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/last.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/lastIndexOf.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/lastIndexOfFrom.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/lowerCase.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/lowerFirst.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/lt.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/lte.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/map.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/mapKeys.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/mapValues.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/matches.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/matchesProperty.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/max.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/maxBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/mean.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/meanBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/memoize.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/merge.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/mergeAll.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/mergeAllWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/mergeWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/method.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/methodOf.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/min.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/minBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/multiply.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/nAry.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/negate.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/noConflict.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/noop.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/now.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/nth.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/nthArg.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/omit.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/omitAll.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/omitBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/once.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/orderBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/over.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/overArgs.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/overEvery.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/overSome.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/pad.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/padChars.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/padCharsEnd.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/padCharsStart.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/padEnd.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/padStart.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/parseInt.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/partial.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/partialRight.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/partition.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/path.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/pathEq.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/pathOr.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/paths.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/pick.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/pickAll.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/pickBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/pipe.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/placeholder.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/pluck.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/prop.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/propEq.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/propOr.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/property.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/propertyOf.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/props.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/pull.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/pullAll.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/pullAllBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/pullAllWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/pullAt.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/random.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/range.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/rangeRight.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/rangeStep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/rangeStepRight.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/rearg.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/reduce.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/reduceRight.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/reject.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/remove.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/repeat.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/replace.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/rest.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/restFrom.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/result.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/reverse.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/round.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/runInContext.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/sample.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/sampleSize.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/set.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/setWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/shuffle.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/size.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/slice.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/snakeCase.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/some.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/sortBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/sortedIndex.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/sortedIndexBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/sortedIndexOf.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/sortedLastIndex.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/sortedLastIndexBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/sortedLastIndexOf.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/sortedUniq.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/sortedUniqBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/split.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/spread.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/spreadFrom.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/startCase.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/startsWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/stubArray.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/stubFalse.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/stubObject.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/stubString.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/stubTrue.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/subtract.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/sum.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/sumBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/symmetricDifference.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/symmetricDifferenceBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/symmetricDifferenceWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/tail.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/take.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/takeLast.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/takeLastWhile.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/takeRight.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/takeRightWhile.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/takeWhile.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/tap.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/template.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/throttle.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/thru.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/times.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/toArray.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/toFinite.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/toInteger.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/toLength.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/toLower.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/toNumber.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/toPairs.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/toPairsIn.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/toPath.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/toPlainObject.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/toSafeInteger.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/toString.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/toUpper.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/transform.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/trim.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/trimChars.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/trimCharsEnd.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/trimCharsStart.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/trimEnd.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/trimStart.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/truncate.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/unapply.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/unary.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/unescape.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/union.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/unionBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/unionWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/uniq.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/uniqBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/uniqWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/uniqueId.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/unnest.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/unset.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/unzip.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/unzipWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/update.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/updateWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/upperCase.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/upperFirst.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/useWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/values.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/valuesIn.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/where.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/whereEq.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/without.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/words.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/wrap.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/xor.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/xorBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/xorWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/zip.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/zipAll.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/zipObj.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/zipObject.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/zipObjectDeep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fp/zipWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/fromPairs.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/functions.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/functionsIn.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/get.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/groupBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/gt.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/gte.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/has.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/hasIn.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/head.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/identity.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/inRange.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/includes.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/indexOf.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/initial.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/intersection.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/intersectionBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/intersectionWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/invert.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/invertBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/invoke.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/invokeMap.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isArguments.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isArray.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isArrayBuffer.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isArrayLike.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isArrayLikeObject.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isBoolean.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isBuffer.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isDate.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isElement.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isEmpty.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isEqual.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isEqualWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isError.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isFinite.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isFunction.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isInteger.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isLength.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isMap.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isMatch.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isMatchWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isNaN.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isNative.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isNil.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isNull.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isNumber.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isObject.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isObjectLike.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isPlainObject.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isRegExp.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isSafeInteger.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isSet.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isString.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isSymbol.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isTypedArray.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isUndefined.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isWeakMap.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/isWeakSet.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/iteratee.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/join.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/kebabCase.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/keyBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/keys.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/keysIn.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/last.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/lastIndexOf.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/lowerCase.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/lowerFirst.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/lt.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/lte.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/map.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/mapKeys.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/mapValues.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/matches.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/matchesProperty.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/max.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/maxBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/mean.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/meanBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/memoize.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/merge.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/mergeWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/method.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/methodOf.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/min.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/minBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/mixin.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/multiply.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/negate.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/noConflict.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/noop.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/now.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/nth.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/nthArg.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/omit.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/omitBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/once.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/orderBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/over.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/overArgs.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/overEvery.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/overSome.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/pad.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/padEnd.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/padStart.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/parseInt.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/partial.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/partialRight.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/partition.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/pick.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/pickBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/property.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/propertyOf.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/pull.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/pullAll.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/pullAllBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/pullAllWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/pullAt.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/random.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/range.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/rangeRight.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/rearg.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/reduce.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/reduceRight.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/reject.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/remove.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/repeat.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/replace.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/rest.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/result.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/reverse.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/round.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/runInContext.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/sample.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/sampleSize.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/set.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/setWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/shuffle.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/size.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/slice.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/snakeCase.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/some.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/sortBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/sortedIndex.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/sortedIndexBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/sortedIndexOf.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/sortedLastIndex.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/sortedLastIndexBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/sortedLastIndexOf.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/sortedUniq.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/sortedUniqBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/split.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/spread.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/startCase.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/startsWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/stubFalse.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/stubTrue.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/subtract.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/sum.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/sumBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/tail.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/take.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/takeRight.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/takeRightWhile.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/takeWhile.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/tap.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/template.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/throttle.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/thru.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/times.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/toArray.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/toFinite.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/toInteger.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/toLength.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/toLower.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/toNumber.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/toPairs.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/toPairsIn.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/toPath.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/toPlainObject.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/toSafeInteger.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/toString.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/toUpper.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/transform.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/trim.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/trimEnd.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/trimStart.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/truncate.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/unary.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/unescape.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/union.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/unionBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/unionWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/uniq.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/uniqBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/uniqWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/uniqueId.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/unset.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/unzip.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/unzipWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/update.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/updateWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/upperCase.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/upperFirst.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/values.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/valuesIn.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/without.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/words.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/wrap.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/xor.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/xorBy.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/xorWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/zip.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/zipObject.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/zipObjectDeep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/lodash/zipWith.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/types/Constants.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/Constants.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/types/sat.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/sat.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/文档/01.详细的环境配置.md" beforeDir="false" afterPath="$PROJECT_DIR$/文档/01.详细的环境配置.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/文档/01.配置环境.md" beforeDir="false" afterPath="$PROJECT_DIR$/文档/01.配置环境.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/文档/02.md" beforeDir="false" afterPath="$PROJECT_DIR$/文档/02.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/文档/02.引入requirejs.md" beforeDir="false" afterPath="$PROJECT_DIR$/文档/02.引入requirejs.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/文档/例子/01.文档的实例/document.selection.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/文档/例子/01.文档的实例/document.selection.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/文档/例子/02.论坛/论坛.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/文档/例子/02.论坛/论坛.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/文档/例子/03.网络/复制元件，翻转.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/文档/例子/03.网络/复制元件，翻转.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/安装插件.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/安装插件.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/先加后减1.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/先加后减1.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/先加后减2.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/先加后减2.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/先加后减3.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/先加后减3.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/先加后减6.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/先加后减6.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/先加后减7.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/先加后减7.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/减速1.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/减速1.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/减速2.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/减速2.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/减速3.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/减速3.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/加速1.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/加速1.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/加速2.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/加速2.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/加速3.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/加速3.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/智能补间.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/智能补间.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/波浪.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/波浪.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/自动添加缓冲补间.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/文档/例子/04.pgg/缓动面板插件2.7.0(1)/缓动面板插件2.7.0/AN缓动面板/缓动面板/自动添加缓冲补间.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/文档/例子/04.pgg/运动模糊/运动模糊脚本/运行此脚本可打开AN脚本安装位置.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/文档/例子/04.pgg/运动模糊/运动模糊脚本/运行此脚本可打开AN脚本安装位置.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/文档/智能提示.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/types/智能提示.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/文档/模版/模版-常用库.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/文档/模版/模版-常用库.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/文档/模版/模版.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/文档/模版/模版.jsfl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,10 +869,16 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/Third/es5-shim-4.6.7/package.json" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2tOMK5I8hposvS9Dz9l4J2TS0h0" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -37,17 +888,48 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "F:/04_ps/沙雕动画/_素材库/WindowSWF-master/WindowSWF-master/AnJsflScript",
+    "last_opened_file_path": "F:/04_ps/沙雕动画/_素材库/WindowSWF-master/WindowSWF-master/AnJsflScript/Third/loglevel/loglevel-1.9.2",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "npm.format.executor": "Run",
     "settings.editor.selected.configurable": "editor.preferences.fonts.default",
     "ts.external.directory.path": "D:\\01_software\\06_programme\\01_ide\\WebStorm 2023.3.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\loglevel\loglevel-1.9.2" />
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third" />
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\es5-shim-4.6.7" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\loglevel-1.9.2" />
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third" />
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\loglevel\loglevel-1.9.2" />
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\loglevel\dist" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.format">
+    <configuration name="format" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="format" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.format" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="默认任务">
@@ -57,6 +939,7 @@
       <option name="presentableId" value="Default" />
       <updated>1740218602043</updated>
       <workItem from="1740218603134" duration="989000" />
+      <workItem from="1740365796232" duration="3164000" />
     </task>
     <servers />
   </component>

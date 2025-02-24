@@ -1,6 +1,5 @@
 ﻿/// <reference path="./Constants.d.ts" />
 
-
 /**
  * @file: Constants.jsfl
  * @author: 穹的兔兔
@@ -17,7 +16,7 @@ define(function () {
      */
     var frames = {};
     for (var i = 1; i <= 30; i++) {
-        frames["FRAME_" + i] = i - 1;
+        frames['FRAME_' + i] = i - 1;
     }
 
     /**
@@ -47,7 +46,7 @@ define(function () {
         SECOND_FRAME: SECOND_FRAME,
         MINUTE_FRAME: MINUTE_FRAME,
         MAX_BLUR: MAX_BLUR,
-        MAX_CHANNEL: MAX_CHANNEL
+        MAX_CHANNEL: MAX_CHANNEL,
     };
 
     // 将动态生成的帧索引添加到模块的公共接口中

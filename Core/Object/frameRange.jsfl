@@ -7,7 +7,7 @@
  * @description:
  */
 
-define( function () {
+define(function () {
     /**
      * 帧范围类
      * 左闭右开区间 [startFrame, endFrame)
@@ -28,19 +28,30 @@ define( function () {
      * @return {boolean} 是否有重叠
      */
     FrameRange.prototype.intersects = function (other) {
-        return this.startFrame <= other.endFrame && other.startFrame <= this.endFrame;
+        return (
+            this.startFrame <= other.endFrame &&
+            other.startFrame <= this.endFrame
+        );
     };
-    
+
     FrameRange.prototype.clone = function () {
         return new FrameRange(this.layerIndex, this.startFrame, this.endFrame);
-    }
+    };
     /**
      * 输出字符串
      * @return {string} 字符串
      */
     FrameRange.prototype.toString = function () {
-        return "FrameRange(layerIndex=" + this.layerIndex + ", startFrame=" + this.startFrame + ", endFrame=" + this.endFrame + ")";
-    }
+        return (
+            'FrameRange(layerIndex=' +
+            this.layerIndex +
+            ', startFrame=' +
+            this.startFrame +
+            ', endFrame=' +
+            this.endFrame +
+            ')'
+        );
+    };
 
     /**
      * 判断 当前 FrameRange 是否包含   fr2 选中范围
@@ -52,8 +63,10 @@ define( function () {
         if (this.layerIndex !== fr2.layerIndex) {
             return false;
         }
-        return this.startFrame <= fr2.startFrame && this.endFrame >= fr2.endFrame;
-    }
+        return (
+            this.startFrame <= fr2.startFrame && this.endFrame >= fr2.endFrame
+        );
+    };
 
     /**
      * 转换为数组
@@ -61,7 +74,7 @@ define( function () {
      */
     FrameRange.prototype.toArray = function () {
         return [this.layerIndex, this.startFrame, this.endFrame];
-    }
+    };
 
     return FrameRange;
 });

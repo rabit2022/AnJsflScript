@@ -1,7 +1,8 @@
 例子/**
 
-#.idea/**
-#.run/**
+.idea/**
+.run/**
 /test/**
+node_modules/**
 
 # git rm -r --cached .

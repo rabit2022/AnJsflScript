@@ -6,10 +6,8 @@
  * @project: AnJsflScript
  * @description:
  */
-define( function () {
-    function FilterUtil() {
-
-    }
+define(function () {
+    function FilterUtil() {}
 
     /**
      * 判断指定元素是否有滤镜
@@ -20,7 +18,7 @@ define( function () {
         var filters = element.filters;
         if (filters === null || filters === undefined) return false;
         return filters.length > 0;
-    }
+    };
 
     /**
      * 添加滤镜到指定帧
@@ -32,15 +30,21 @@ define( function () {
      * @param {"low"|"medium"|"high"} strength 可选品质
      * @see https://gitee.com/ninge/WindowSWF/tree/master/
      */
-    FilterUtil.addBlurFilterToFrame = function (layer, frameIndex, blurX, blurY, strength) { 
+    FilterUtil.addBlurFilterToFrame = function (
+        layer,
+        frameIndex,
+        blurX,
+        blurY,
+        strength
+    ) {
         //图层，第几帧，x轴数值，y轴数值，品质可选（low、medium，high）
         // 创建模糊滤镜对象
         var blurFilter = {
-            "name": "blurFilter",
-            "enable": true,
-            "blurX": blurX,
-            "blurY": blurY,
-            "quality": strength
+            name: 'blurFilter',
+            enable: true,
+            blurX: blurX,
+            blurY: blurY,
+            quality: strength,
         };
 
         // 获取当前帧的滤镜数组，如果不存在则初始化为空数组
@@ -51,9 +55,7 @@ define( function () {
 
         // 将更新后的滤镜数组设置回指定帧
         layer.setFiltersAtFrame(frameIndex, filters);
-    }
-    
+    };
 
-    
     return FilterUtil;
 });

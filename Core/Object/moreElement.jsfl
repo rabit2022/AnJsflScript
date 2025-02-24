@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(["SAT"], function (sat) {
+define(['SAT'], function (sat) {
     var Vector = sat.V;
     var wrapRectByTopLeft = sat.GLOBALS.wrapRectByTopLeft;
 
@@ -35,16 +35,21 @@ define(["SAT"], function (sat) {
         this.Offset = new Vector(offsetX, offsetY);
 
         // x,y作为左上角坐标
-        this.Rect = wrapRectByTopLeft(element.x, element.y, element.width, element.height);
+        this.Rect = wrapRectByTopLeft(
+            element.x,
+            element.y,
+            element.width,
+            element.height
+        );
     }
-    
+
     /**
      * 排列模式枚举
      * @enum {string} MODES
      */
     MoreElement.MODES = {
-        NEAT: "neat",          // 整齐排列
-        STAGGERED: "staggered", // 交错排列
+        NEAT: 'neat', // 整齐排列
+        STAGGERED: 'staggered', // 交错排列
         // RANDOM: "random",      // 随机排列
 
         // 后续可能实现
@@ -81,7 +86,15 @@ define(["SAT"], function (sat) {
                 break;
             default:
                 // 对于未知模式，抛出错误
-                throw new Error("Unknown mode: \"" + mode + "\". Valid modes are: \"" + MoreElement.MODES.NEAT + "\" or \"" + MoreElement.MODES.STAGGERED + "\"");
+                throw new Error(
+                    'Unknown mode: "' +
+                        mode +
+                        '". Valid modes are: "' +
+                        MoreElement.MODES.NEAT +
+                        '" or "' +
+                        MoreElement.MODES.STAGGERED +
+                        '"'
+                );
         }
 
         return offset;
@@ -138,7 +151,11 @@ define(["SAT"], function (sat) {
      */
     MoreElement.prototype.StaggeredOffset = function (x, y) {
         // 获取交错排列的偏移量
-        var staggeredOffset = this._getOffset(x, y, MoreElement.MODES.STAGGERED);
+        var staggeredOffset = this._getOffset(
+            x,
+            y,
+            MoreElement.MODES.STAGGERED
+        );
 
         // 计算最终位置：初始位置 + 交错偏移量
         var finalPosition = this.positioin.clone().add(staggeredOffset);
@@ -160,8 +177,18 @@ define(["SAT"], function (sat) {
     };
 
     MoreElement.prototype.toString = function () {
-        return "MoreElement(element=" + this.element + ", positioin=" + this.positioin + ", Offset=" + this.Offset + ", Rect=" + this.Rect + ")";
-    }
-    
+        return (
+            'MoreElement(element=' +
+            this.element +
+            ', positioin=' +
+            this.positioin +
+            ', Offset=' +
+            this.Offset +
+            ', Rect=' +
+            this.Rect +
+            ')'
+        );
+    };
+
     return MoreElement;
 });

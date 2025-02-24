@@ -30,7 +30,7 @@ define(function () {
      * @param {Element[]} [elements] 没有参数时，选中所有元件；有参数时，选中参数中的所有元件
      */
     function SelectAll(elements) {
-        var doc = fl.getDocumentDOM();//文档
+        var doc = fl.getDocumentDOM(); //文档
 
         if (!elements) {
             doc.selectAll();
@@ -69,7 +69,7 @@ define(function () {
         // select All
         timeline.setSelectedFrames(0, timeline.frameCount - 1, true);
     }
-    
+
     /**
      * 删除选中的元件
      * @param {Element[]} [elements] 没有参数时，删除所有选中的元件；有参数时，删除参数中的所有元件
@@ -80,11 +80,11 @@ define(function () {
             doc.deleteSelection();
             return;
         }
-        
+
         SelectAll(elements);
         doc.deleteSelection();
     }
-    
+
     return {
         OnlySelectCurrent: OnlySelectCurrent,
         SelectStart: SelectStart,
@@ -92,6 +92,6 @@ define(function () {
         SelectNone: SelectNone,
         SelectNoneTl: SelectNoneTl,
         SelectAllTl: SelectAllTl,
-        DeleteSelection: DeleteSelection
+        DeleteSelection: DeleteSelection,
     };
 });

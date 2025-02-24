@@ -7,7 +7,7 @@
 // vim: ts=4 sts=4 sw=4 expandtab
 
 // Add semicolon to prevent IIFE from being passed as argument to concatenated code.
-; // eslint-disable-line no-extra-semi
+// eslint-disable-line no-extra-semi
 
 // UMD (Universal Module Definition)
 // see https://github.com/umdjs/umd/blob/master/templates/returnExports.js
@@ -27,8 +27,7 @@
         // Browser globals (root is window)
         root.returnExports = factory(); // eslint-disable-line no-param-reassign
     }
-}(this, function () {
-
+})(this, function () {
     var call = Function.call;
     var prototypeOfObject = Object.prototype;
     var owns = call.bind(prototypeOfObject.hasOwnProperty);
@@ -67,7 +66,8 @@
         Object.getPrototypeOf = function getPrototypeOf(object) {
             // eslint-disable-next-line no-proto
             var proto = object.__proto__;
-            if (proto || proto == null) { // `undefined` is for pre-proto browsers
+            if (proto || proto == null) {
+                // `undefined` is for pre-proto browsers
                 return proto;
             } else if (toStr(object.constructor) === '[object Function]') {
                 return object.constructor.prototype;
@@ -79,7 +79,6 @@
             // cross-realm objects on browsers that lack `__proto__` support (like
             // IE <11), but that's the best we can do.
             return null;
-
         };
     }
 
@@ -88,31 +87,48 @@
 
     // check whether getOwnPropertyDescriptor works if it's given. Otherwise, shim partially.
     if (Object.defineProperty) {
-        var doesGetOwnPropertyDescriptorWork = function doesGetOwnPropertyDescriptorWork(object) {
-            try {
-                object.sentinel = 0; // eslint-disable-line no-param-reassign
-                return Object.getOwnPropertyDescriptor(object, 'sentinel').value === 0;
-            } catch (exception) {
-                return false;
-            }
-        };
-        var getOwnPropertyDescriptorWorksOnObject = doesGetOwnPropertyDescriptorWork({});
+        var doesGetOwnPropertyDescriptorWork =
+            function doesGetOwnPropertyDescriptorWork(object) {
+                try {
+                    object.sentinel = 0; // eslint-disable-line no-param-reassign
+                    return (
+                        Object.getOwnPropertyDescriptor(object, 'sentinel')
+                            .value === 0
+                    );
+                } catch (exception) {
+                    return false;
+                }
+            };
+        var getOwnPropertyDescriptorWorksOnObject =
+            doesGetOwnPropertyDescriptorWork({});
         // var getOwnPropertyDescriptorWorksOnDom = typeof document === 'undefined'
         //     || doesGetOwnPropertyDescriptorWork(document.createElement('div'));
         var getOwnPropertyDescriptorWorksOnDom = false;
-        if (typeof document !== 'undefined' && typeof document.createElement === 'function') {
-            getOwnPropertyDescriptorWorksOnDom = doesGetOwnPropertyDescriptorWork(document.createElement('div'));
+        if (
+            typeof document !== 'undefined' &&
+            typeof document.createElement === 'function'
+        ) {
+            getOwnPropertyDescriptorWorksOnDom =
+                doesGetOwnPropertyDescriptorWork(document.createElement('div'));
         }
-        if (!getOwnPropertyDescriptorWorksOnDom || !getOwnPropertyDescriptorWorksOnObject) {
-            var getOwnPropertyDescriptorFallback = Object.getOwnPropertyDescriptor;
+        if (
+            !getOwnPropertyDescriptorWorksOnDom ||
+            !getOwnPropertyDescriptorWorksOnObject
+        ) {
+            var getOwnPropertyDescriptorFallback =
+                Object.getOwnPropertyDescriptor;
         }
     }
 
     if (!Object.getOwnPropertyDescriptor || getOwnPropertyDescriptorFallback) {
-        var ERR_NON_OBJECT = 'Object.getOwnPropertyDescriptor called on a non-object: ';
+        var ERR_NON_OBJECT =
+            'Object.getOwnPropertyDescriptor called on a non-object: ';
 
         /* eslint-disable no-proto */
-        Object.getOwnPropertyDescriptor = function getOwnPropertyDescriptor(object, property) {
+        Object.getOwnPropertyDescriptor = function getOwnPropertyDescriptor(
+            object,
+            property
+        ) {
             if (isPrimitive(object)) {
                 throw new TypeError(ERR_NON_OBJECT + object);
             }
@@ -121,7 +137,11 @@
             // for I8's DOM elements.
             if (getOwnPropertyDescriptorFallback) {
                 try {
-                    return getOwnPropertyDescriptorFallback.call(Object, object, property);
+                    return getOwnPropertyDescriptorFallback.call(
+                        Object,
+                        object,
+                        property
+                    );
                 } catch (exception) {
                     // try the shim if the real one doesn't work
                 }
@@ -138,7 +158,7 @@
             // probably `enumerable`. Detect enumerability though.
             descriptor = {
                 enumerable: isEnumerable(object, property),
-                configurable: true
+                configurable: true,
             };
 
             // If JS engine supports accessor properties then property may be a
@@ -199,10 +219,9 @@
     // ES5 15.2.3.5
     // https://es5.github.io/#x15.2.3.5
     if (!Object.create) {
-
         // Contributed by Brandon Benvie, October, 2012
         var createEmpty;
-        var supportsProto = !({__proto__: null} instanceof Object);
+        var supportsProto = !({ __proto__: null } instanceof Object);
         // the following produces false positives
         // in Opera Mini => not a reliable check
         // Object.prototype.__proto__ === null
@@ -267,7 +286,7 @@
         /* global document */
         if (supportsProto || typeof document === 'undefined') {
             createEmpty = function () {
-                return {__proto__: null};
+                return { __proto__: null };
             };
         } else {
             // In old IE __proto__ can't be used to manually set `null`, nor does
@@ -278,7 +297,9 @@
             createEmpty = function () {
                 // Determine which approach to use
                 // see https://github.com/es-shims/es5-shim/issues/150
-                var empty = shouldUseActiveX() ? getEmptyViaActiveX() : getEmptyViaIFrame();
+                var empty = shouldUseActiveX()
+                    ? getEmptyViaActiveX()
+                    : getEmptyViaIFrame();
 
                 delete empty.constructor;
                 delete empty.hasOwnProperty;
@@ -288,8 +309,7 @@
                 delete empty.toString;
                 delete empty.valueOf;
 
-                var Empty = function Empty() {
-                };
+                var Empty = function Empty() {};
                 Empty.prototype = empty;
                 // short-circuit future calls
                 createEmpty = function () {
@@ -300,10 +320,8 @@
         }
 
         Object.create = function create(prototype, properties) {
-
             var object;
-            var Type = function Type() {
-            }; // An empty constructor.
+            var Type = function Type() {}; // An empty constructor.
 
             if (prototype === null) {
                 object = createEmpty();
@@ -313,7 +331,9 @@
                 // Use `typeof` tho, b/c in old IE, DOM elements are not `instanceof Object`
                 // like they are in modern browsers. Using `Object.create` on DOM elements
                 // is...err...probably inappropriate, but the native version allows for it.
-                throw new TypeError('Object prototype may only be an Object or null'); // same msg as Chrome
+                throw new TypeError(
+                    'Object prototype may only be an Object or null'
+                ); // same msg as Chrome
             } else {
                 Type.prototype = prototype;
                 object = new Type();
@@ -361,8 +381,13 @@
         // var definePropertyWorksOnDom = typeof document === 'undefined'
         //     || doesDefinePropertyWork(document.createElement('div'));
         var definePropertyWorksOnDom = false;
-        if (typeof document !== 'undefined' && typeof document.createElement === 'function') {
-            definePropertyWorksOnDom = doesDefinePropertyWork(document.createElement('div'));
+        if (
+            typeof document !== 'undefined' &&
+            typeof document.createElement === 'function'
+        ) {
+            definePropertyWorksOnDom = doesDefinePropertyWork(
+                document.createElement('div')
+            );
         }
         if (!definePropertyWorksOnObject || !definePropertyWorksOnDom) {
             var definePropertyFallback = Object.defineProperty,
@@ -371,11 +396,18 @@
     }
 
     if (!Object.defineProperty || definePropertyFallback) {
-        var ERR_NON_OBJECT_DESCRIPTOR = 'Property description must be an object: ';
-        var ERR_NON_OBJECT_TARGET = 'Object.defineProperty called on non-object: ';
-        var ERR_ACCESSORS_NOT_SUPPORTED = 'getters & setters can not be defined on this javascript engine';
+        var ERR_NON_OBJECT_DESCRIPTOR =
+            'Property description must be an object: ';
+        var ERR_NON_OBJECT_TARGET =
+            'Object.defineProperty called on non-object: ';
+        var ERR_ACCESSORS_NOT_SUPPORTED =
+            'getters & setters can not be defined on this javascript engine';
 
-        Object.defineProperty = function defineProperty(object, property, descriptor) {
+        Object.defineProperty = function defineProperty(
+            object,
+            property,
+            descriptor
+        ) {
             if (isPrimitive(object)) {
                 throw new TypeError(ERR_NON_OBJECT_TARGET + object);
             }
@@ -386,7 +418,12 @@
             // for I8's DOM elements.
             if (definePropertyFallback) {
                 try {
-                    return definePropertyFallback.call(Object, object, property, descriptor);
+                    return definePropertyFallback.call(
+                        Object,
+                        object,
+                        property,
+                        descriptor
+                    );
                 } catch (exception) {
                     // try the shim if the real one doesn't work
                 }
@@ -408,7 +445,11 @@
                     );
                 */
 
-                if (supportsAccessors && (lookupGetter(object, property) || lookupSetter(object, property))) {
+                if (
+                    supportsAccessors &&
+                    (lookupGetter(object, property) ||
+                        lookupSetter(object, property))
+                ) {
                     // As accessors are supported only on engines implementing
                     // `__proto__` we can safely override `__proto__` while defining
                     // a property to make sure that we don't hit an inherited
@@ -447,11 +488,18 @@
     // ES5 15.2.3.7
     // https://es5.github.io/#x15.2.3.7
     if (!Object.defineProperties || definePropertiesFallback) {
-        Object.defineProperties = function defineProperties(object, properties) {
+        Object.defineProperties = function defineProperties(
+            object,
+            properties
+        ) {
             // make a valiant attempt to use the real defineProperties
             if (definePropertiesFallback) {
                 try {
-                    return definePropertiesFallback.call(Object, object, properties);
+                    return definePropertiesFallback.call(
+                        Object,
+                        object,
+                        properties
+                    );
                 } catch (exception) {
                     // try the shim if the real one doesn't work
                 }
@@ -459,7 +507,11 @@
 
             Object.keys(properties).forEach(function (property) {
                 if (property !== '__proto__') {
-                    Object.defineProperty(object, property, properties[property]);
+                    Object.defineProperty(
+                        object,
+                        property,
+                        properties[property]
+                    );
                 }
             });
             return object;
@@ -471,7 +523,9 @@
     if (!Object.seal) {
         Object.seal = function seal(object) {
             if (Object(object) !== object) {
-                throw new TypeError('Object.seal can only be called on Objects.');
+                throw new TypeError(
+                    'Object.seal can only be called on Objects.'
+                );
             }
             // this is misleading and breaks feature-detection, but
             // allows "securable" code to "gracefully" degrade to working
@@ -485,7 +539,9 @@
     if (!Object.freeze) {
         Object.freeze = function freeze(object) {
             if (Object(object) !== object) {
-                throw new TypeError('Object.freeze can only be called on Objects.');
+                throw new TypeError(
+                    'Object.freeze can only be called on Objects.'
+                );
             }
             // this is misleading and breaks feature-detection, but
             // allows "securable" code to "gracefully" degrade to working
@@ -496,8 +552,7 @@
 
     // detect a Rhino bug and patch it
     try {
-        Object.freeze(function () {
-        });
+        Object.freeze(function () {});
     } catch (exception) {
         Object.freeze = (function (freezeObject) {
             return function freeze(object) {
@@ -505,9 +560,8 @@
                     return object;
                 }
                 return freezeObject(object);
-
             };
-        }(Object.freeze));
+        })(Object.freeze);
     }
 
     // ES5 15.2.3.10
@@ -515,7 +569,9 @@
     if (!Object.preventExtensions) {
         Object.preventExtensions = function preventExtensions(object) {
             if (Object(object) !== object) {
-                throw new TypeError('Object.preventExtensions can only be called on Objects.');
+                throw new TypeError(
+                    'Object.preventExtensions can only be called on Objects.'
+                );
             }
             // this is misleading and breaks feature-detection, but
             // allows "securable" code to "gracefully" degrade to working
@@ -529,7 +585,9 @@
     if (!Object.isSealed) {
         Object.isSealed = function isSealed(object) {
             if (Object(object) !== object) {
-                throw new TypeError('Object.isSealed can only be called on Objects.');
+                throw new TypeError(
+                    'Object.isSealed can only be called on Objects.'
+                );
             }
             return false;
         };
@@ -540,7 +598,9 @@
     if (!Object.isFrozen) {
         Object.isFrozen = function isFrozen(object) {
             if (Object(object) !== object) {
-                throw new TypeError('Object.isFrozen can only be called on Objects.');
+                throw new TypeError(
+                    'Object.isFrozen can only be called on Objects.'
+                );
             }
             return false;
         };
@@ -552,7 +612,9 @@
         Object.isExtensible = function isExtensible(object) {
             // 1. If Type(O) is not Object throw a TypeError exception.
             if (Object(object) !== object) {
-                throw new TypeError('Object.isExtensible can only be called on Objects.');
+                throw new TypeError(
+                    'Object.isExtensible can only be called on Objects.'
+                );
             }
             // 2. Return the Boolean value of the [[Extensible]] internal property of O.
             var name = '';
@@ -565,5 +627,4 @@
             return returnValue;
         };
     }
-
-}));
+});

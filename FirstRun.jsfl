@@ -16,7 +16,7 @@
         // 获取当前脚本文件的完整路径
         var scriptURI = fl.scriptURI;
         // 获取路径中最后一个“/”的位置
-        var lastSlashIndex = scriptURI.lastIndexOf("/");
+        var lastSlashIndex = scriptURI.lastIndexOf('/');
         // 获取脚本文件所在的文件夹路径
         var folderPath = scriptURI.substring(0, lastSlashIndex);
         return folderPath;
@@ -28,83 +28,86 @@
      */
     function importMoudle(relativeScriptPath) {
         var curFolderURI = getCurFolderURI();
-        var scriptURI = curFolderURI + "/" + relativeScriptPath;
+        var scriptURI = curFolderURI + '/' + relativeScriptPath;
 
         fl.runScript(scriptURI);
     }
 
     function Main() {
         // 导入模块,相对路径导入
-        importMoudle("Third/requirejs-2.3.7/require.jsfl");
+        importMoudle('Third/requirejs-2.3.7/require.jsfl');
 
         // 项目文件夹路径
         window.projectFolder = getCurFolderURI();
-        
+
         require.config({
             baseUrl: getCurFolderURI(), // 设置模块的基础路径
             paths: {
-                "es5-sham": "Third/es5-shim-4.6.7/es5-sham",
-                "es5-shim": "Third/es5-shim-4.6.7/es5-shim",
-                "es6-sham": "Third/es6-shim-0.35.4/es6-sham",
-                "es6-shim": "Third/es6-shim-0.35.4/es6-shim",
-                "linq": "Third/linq-4.0.3/linq",
-                "linqUtil": "Third/linq-4.0.3/linqUtil",
-                "shim": "Third/myShim/shim",
-                "require": "Third/requirejs-2.3.7/require",
-                "SAT": "Third/sat-js-0.9.0/SAT",
-                "satUtil": "Third/sat-js-0.9.0/satUtil",
+                'es5-sham': 'Third/es5-shim-4.6.7/es5-sham',
+                'es5-shim': 'Third/es5-shim-4.6.7/es5-shim',
+                'es6-sham': 'Third/es6-shim-0.35.4/es6-sham',
+                'es6-shim': 'Third/es6-shim-0.35.4/es6-shim',
+                linq: 'Third/linq-4.0.3/linq',
+                linqUtil: 'Third/linq-4.0.3/linqUtil',
+                shim: 'Third/myShim/shim',
+                require: 'Third/requirejs-2.3.7/require',
+                SAT: 'Third/sat-js-0.9.0/SAT',
+                satUtil: 'Third/sat-js-0.9.0/satUtil',
 
-                
-                "frameRange":"Core/Object/frameRange",
-                "frameRangeUtil":"Core/Object/frameRangeUtil",
-                "moreElement":"Core/Object/moreElement",
-                "moreElementUtil":"Core/Object/moreElementUtil",
-                "console":"Core/TopLevel/console",
-                "Log":"Core/TopLevel/Log",
-                "Common":"Core/Utils/custom/Common",
-                "Constants":"Core/Utils/custom/Constants",
-                "JSFLConstants":"Core/Utils/custom/JSFLConstants",
-                "checkUtil":"Core/Utils/flash/checkUtil",
-                "curveUtil":"Core/Utils/flash/curveUtil",
-                "elementUtil":"Core/Utils/flash/elementUtil",
-                "filterUtil":"Core/Utils/flash/filterUtil",
-                "graphicsUtil":"Core/Utils/flash/graphicsUtil",
-                "layerUtil":"Core/Utils/flash/layerUtil",
-                "libUtil":"Core/Utils/flash/libUtil",
-                "promptUtil":"Core/Utils/flash/promptUtil",
-                "selectionUtil":"Core/Utils/flash/selectionUtil",
-                "xmlPanelUtil":"Core/Utils/flash/xmlPanelUtil",
-                "builtInP":"Core/Utils/py/builtInP",
-                "os":"Core/Utils/py/os",
-                "random":"Core/Utils/py/random",
-                "StringP":"Core/Utils/py/StringP",
+                frameRange: 'Core/Object/frameRange',
+                frameRangeUtil: 'Core/Object/frameRangeUtil',
+                moreElement: 'Core/Object/moreElement',
+                moreElementUtil: 'Core/Object/moreElementUtil',
+                console: 'Core/TopLevel/console',
+                Log: 'Core/TopLevel/Log',
+                Common: 'Core/Utils/custom/Common',
+                Constants: 'Core/Utils/custom/Constants',
+                JSFLConstants: 'Core/Utils/custom/JSFLConstants',
+                checkUtil: 'Core/Utils/flash/checkUtil',
+                curveUtil: 'Core/Utils/flash/curveUtil',
+                elementUtil: 'Core/Utils/flash/elementUtil',
+                filterUtil: 'Core/Utils/flash/filterUtil',
+                graphicsUtil: 'Core/Utils/flash/graphicsUtil',
+                layerUtil: 'Core/Utils/flash/layerUtil',
+                libUtil: 'Core/Utils/flash/libUtil',
+                promptUtil: 'Core/Utils/flash/promptUtil',
+                selectionUtil: 'Core/Utils/flash/selectionUtil',
+                xmlPanelUtil: 'Core/Utils/flash/xmlPanelUtil',
+                builtInP: 'Core/Utils/py/builtInP',
+                os: 'Core/Utils/py/os',
+                random: 'Core/Utils/py/random',
+                StringP: 'Core/Utils/py/StringP',
             },
             map: {
-                "*": {
-                    "sat": "SAT",
-                    "sel": "selectionUtil",
-                    "selection": "selectionUtil",
-                    "me": "moreElement",
-                    "meUtil": "moreElementUtil",
-                    "ele": "elementUtil",
-                    "curve": "curveUtil",
-                    "graphics": "graphicsUtil",
-                    "fr": "frameRange",
-                    "frUtil": "frameRangeUtil",
-                }
-            }
+                '*': {
+                    sat: 'SAT',
+                    sel: 'selectionUtil',
+                    selection: 'selectionUtil',
+                    me: 'moreElement',
+                    meUtil: 'moreElementUtil',
+                    ele: 'elementUtil',
+                    curve: 'curveUtil',
+                    graphics: 'graphicsUtil',
+                    fr: 'frameRange',
+                    frUtil: 'frameRangeUtil',
+                },
+            },
         });
 
-
         // 当前es3(es1999)环境,补齐es5(es2009)和es6(es2015)的一些方法
-        require(["es5-shim", "es5-sham",
-            "es6-shim", "es6-sham", "shim",
-            "Constants", "Log","console"]);
-
+        require([
+            'es5-shim',
+            'es5-sham',
+            'es6-shim',
+            'es6-sham',
+            'shim',
+            'Constants',
+            'Log',
+            'console',
+        ]);
 
         // 导入完成
-        fl.trace("=============Core modules imported.=============");
-
+        fl.trace('=============Core modules imported.=============');
     }
 
     Main();

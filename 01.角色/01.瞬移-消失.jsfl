@@ -7,27 +7,35 @@
  * @description:
  */
 
-require(["checkUtil", "linqUtil",  "filterUtil", "selection", "curve","frUtil", "Constants"],
-    function (checkUtil, linqUtil, filterUtil, sel, curve, frUtil, Constants) {
-    var checkDom = checkUtil.CheckDom, checkSelection = checkUtil.CheckSelection,
+require([
+    'checkUtil',
+    'linqUtil',
+    'filterUtil',
+    'selection',
+    'curve',
+    'frUtil',
+    'Constants',
+], function (checkUtil, linqUtil, filterUtil, sel, curve, frUtil, Constants) {
+    var checkDom = checkUtil.CheckDom,
+        checkSelection = checkUtil.CheckSelection,
         checkSelectedFrames = checkUtil.CheckSelectedFrames;
     // var frUtil = frameRange.FrameRangeUtil;
-        const {FRAME_5, FRAME_7, FRAME_9, FRAME_6, FRAME_8, FRAME_10, MAX_BLUR}=Constants;
+    const { FRAME_5, FRAME_7, FRAME_9, FRAME_6, FRAME_8, FRAME_10, MAX_BLUR } =
+        Constants;
 
-    var doc = fl.getDocumentDOM();//文档
+    var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
 
-    var selection = doc.selection;//选择
-    var library = doc.library;//库文件
-    var timeline = doc.getTimeline();//时间轴
+    var selection = doc.selection; //选择
+    var library = doc.library; //库文件
+    var timeline = doc.getTimeline(); //时间轴
 
-    var layers = timeline.layers;//图层
-    var curLayerIndex = timeline.currentLayer;//当前图层索引
-    var curLayer = layers[curLayerIndex];//当前图层
+    var layers = timeline.layers; //图层
+    var curLayerIndex = timeline.currentLayer; //当前图层索引
+    var curLayer = layers[curLayerIndex]; //当前图层
 
-    var curFrameIndex = timeline.currentFrame;//当前帧索引
-    var curFrame = curLayer.frames[curFrameIndex];//当前帧
-
+    var curFrameIndex = timeline.currentFrame; //当前帧索引
+    var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
     // 关键帧
     var KEY_FRAMES = linqUtil.convertToProgrammeIndex([1, 5, 6, 7, 8, 9, 10]);
@@ -36,10 +44,10 @@ require(["checkUtil", "linqUtil",  "filterUtil", "selection", "curve","frUtil", 
     var BLUR_Y = [MAX_BLUR * 0.5, MAX_BLUR * 0.75, MAX_BLUR];
     // 消失效果
     var DISAPPEAR_FRAMES = [FRAME_6, FRAME_8, FRAME_10];
-    
+
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, "selectElement", "Only one")) return;
+        if (!checkSelection(selection, 'selectElement', 'Only one')) return;
 
         // 获取第一帧
         var frs = checkSelectedFrames(timeline);
@@ -54,13 +62,18 @@ require(["checkUtil", "linqUtil",  "filterUtil", "selection", "curve","frUtil", 
         // 关键帧
         frUtil.convertToKeyframesSafety(timeline, curLayer, KEY_FRAMES);
 
-
         // 滤镜效果
         for (var i = 0; i < BLUR_FILTER_FRAMES.length; i++) {
             var blurfilterframe = BLUR_FILTER_FRAMES[i];
             var blurY = BLUR_Y[i];
 
-            filterUtil.addBlurFilterToFrame(firstLayer, blurfilterframe, 0, blurY, "high");
+            filterUtil.addBlurFilterToFrame(
+                firstLayer,
+                blurfilterframe,
+                0,
+                blurY,
+                'high'
+            );
         }
 
         // 消失效果
@@ -75,7 +88,6 @@ require(["checkUtil", "linqUtil",  "filterUtil", "selection", "curve","frUtil", 
             // sel.SelectAll(disappearElements);
             // doc.deleteSelection();
             sel.DeleteSelection(disappearElements);
-            
         }
 
         // 获取allKeyFrames first,last
@@ -83,7 +95,6 @@ require(["checkUtil", "linqUtil",  "filterUtil", "selection", "curve","frUtil", 
         var lastF = KEY_FRAMES[KEY_FRAMES.length - 1];
         // 选中所有帧
         timeline.setSelectedFrames(firstF, lastF, true);
-
 
         // 传统补间动画
         curve.setClassicEaseCurve(timeline);

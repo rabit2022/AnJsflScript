@@ -7,37 +7,46 @@
  * @description:
  */
 
-
-require(["checkUtil", "xmlPanelUtil", "libUtil", "SAT"],
-    function(checkUtil, xmlPanelUtil, libUtil, sat) {
+require(['checkUtil', 'xmlPanelUtil', 'libUtil', 'SAT'], function (
+    checkUtil,
+    xmlPanelUtil,
+    libUtil,
+    sat
+) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     var getOrigin = sat.GLOBALS.getOrigin;
 
-    var doc = fl.getDocumentDOM();//文档
+    var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
 
-    var selection = doc.selection;//选择
-    var library = doc.library;//库文件
-    var timeline = doc.getTimeline();//时间轴
+    var selection = doc.selection; //选择
+    var library = doc.library; //库文件
+    var timeline = doc.getTimeline(); //时间轴
 
-    var layers = timeline.layers;//图层
-    var curLayerIndex = timeline.currentLayer;//当前图层索引
-    var curLayer = layers[curLayerIndex];//当前图层
+    var layers = timeline.layers; //图层
+    var curLayerIndex = timeline.currentLayer; //当前图层索引
+    var curLayer = layers[curLayerIndex]; //当前图层
 
-    var curFrameIndex = timeline.currentFrame;//当前帧索引
-    var curFrame = curLayer.frames[curFrameIndex];//当前帧
+    var curFrameIndex = timeline.currentFrame; //当前帧索引
+    var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
     function checkXMLPanel() {
         var panel = xmlPanelUtil.getXMLPanel();
         if (panel === null) return null;
 
-        var amplitude = xmlPanelUtil.parseNumber(panel.amplitude, "抖动幅度只能输入数字，请重新输入。");
+        var amplitude = xmlPanelUtil.parseNumber(
+            panel.amplitude,
+            '抖动幅度只能输入数字，请重新输入。'
+        );
         if (amplitude === null) return null;
-        var frameCount = xmlPanelUtil.parseNumber(panel.frameCount, "抖动帧数只能输入数字，请重新输入。");
+        var frameCount = xmlPanelUtil.parseNumber(
+            panel.frameCount,
+            '抖动帧数只能输入数字，请重新输入。'
+        );
         if (frameCount === null) return null;
 
-        return {amplitude: amplitude, frameCount: frameCount};
+        return { amplitude: amplitude, frameCount: frameCount };
     }
 
     /**
@@ -60,15 +69,16 @@ require(["checkUtil", "xmlPanelUtil", "libUtil", "SAT"],
         var verticalShift = initial + amplitude * 2;
 
         // 计算正弦波的y值
-        var y = amplitude * 2 * Math.sin(frequency * x + phaseShift) + verticalShift;
+        var y =
+            amplitude * 2 * Math.sin(frequency * x + phaseShift) +
+            verticalShift;
 
         return y;
     }
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, "selectElement", "Only one")) return;
-
+        if (!checkSelection(selection, 'selectElement', 'Only one')) return;
 
         var config = checkXMLPanel();
         if (config === null) return;
@@ -76,18 +86,18 @@ require(["checkUtil", "xmlPanelUtil", "libUtil", "SAT"],
         var frameCount = config.frameCount;
 
         // 包装元件
-        var symbolName = libUtil.generateNameUntilUnique("一键q弹_静_");
-        doc.convertToSymbol("graphic", symbolName, "top center");
+        var symbolName = libUtil.generateNameUntilUnique('一键q弹_静_');
+        doc.convertToSymbol('graphic', symbolName, 'top center');
 
         // 获取元件的变换点
         var element = doc.selection[0];
         element.setTransformationPoint(getOrigin().toObj());
 
         // 包装元件
-        var symbolName1 = libUtil.generateNameUseLast("一键q弹_动_");
-        doc.convertToSymbol("graphic", symbolName1, "center");
+        var symbolName1 = libUtil.generateNameUseLast('一键q弹_动_');
+        doc.convertToSymbol('graphic', symbolName1, 'center');
 
-        doc.enterEditMode("inPlace");
+        doc.enterEditMode('inPlace');
         doc.selectAll();
 
         // 获取初始值
@@ -99,13 +109,12 @@ require(["checkUtil", "xmlPanelUtil", "libUtil", "SAT"],
 
         // fl.trace("initial=" + initialHeight);
 
-        var timeline1 = doc.getTimeline();//时间轴
+        var timeline1 = doc.getTimeline(); //时间轴
 
         // 删除所有帧
         timeline1.removeFrames(1, timeline1.frameCount);
         // 创建关键帧
         timeline1.convertToKeyframes(0, frameCount);
-
 
         for (var i = 0; i < frameCount; i++) {
             timeline1.currentFrame = i;
@@ -120,11 +129,9 @@ require(["checkUtil", "xmlPanelUtil", "libUtil", "SAT"],
             // 重置位置
             element.x = initialX;
             element.y = initialY;
-
         }
 
         doc.exitEditMode();
-
     }
 
     Main();

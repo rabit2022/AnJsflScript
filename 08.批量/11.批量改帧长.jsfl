@@ -7,32 +7,35 @@
  * @description:
  */
 
-require(["checkUtil","selection","promptUtil","frUtil"],
-    function(checkUtil,sel,promptUtil,frUtil) {
+require(['checkUtil', 'selection', 'promptUtil', 'frUtil'], function (
+    checkUtil,
+    sel,
+    promptUtil,
+    frUtil
+) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     // var frUtil = frameRange.FrameRangeUtil;
 
-    var doc = fl.getDocumentDOM();//文档
+    var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
 
-    var selection = doc.selection;//选择
-    var library = doc.library;//库文件
-    var timeline = doc.getTimeline();//时间轴
+    var selection = doc.selection; //选择
+    var library = doc.library; //库文件
+    var timeline = doc.getTimeline(); //时间轴
 
-    var layers = timeline.layers;//图层
-    var curLayerIndex = timeline.currentLayer;//当前图层索引
-    var curLayer = layers[curLayerIndex];//当前图层
+    var layers = timeline.layers; //图层
+    var curLayerIndex = timeline.currentLayer; //当前图层索引
+    var curLayer = layers[curLayerIndex]; //当前图层
 
-    var curFrameIndex = timeline.currentFrame;//当前帧索引
-    var curFrame = curLayer.frames[curFrameIndex];//当前帧
+    var curFrameIndex = timeline.currentFrame; //当前帧索引
+    var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, "selectElement", "No limit")) return;
+        if (!checkSelection(selection, 'selectElement', 'No limit')) return;
 
-
-        var {num, mode} = promptUtil.parseNumberWithMode(30);
+        var { num, mode } = promptUtil.parseNumberWithMode(30);
         // print("关键帧持续帧数：" + num + "，模式：" + mode);
 
         // 选中的帧范围
@@ -53,15 +56,15 @@ require(["checkUtil","selection","promptUtil","frUtil"],
 
             // 删减关键帧，增加关键帧
             switch (mode) {
-                case "increase":
+                case 'increase':
                     timeline.insertFrames(num, false, keyFr.endFrame);
                     break;
-                case "decrease":
+                case 'decrease':
                     var startFrame = keyFr.startFrame;
                     var endFrame = keyFr.startFrame + num - 1;
                     timeline.removeFrames(startFrame, endFrame);
                     break;
-                case "unifiy":
+                case 'unifiy':
                     if (keyFr.duration === num) {
                         continue;
                     } else if (keyFr.duration > num) {
@@ -71,11 +74,15 @@ require(["checkUtil","selection","promptUtil","frUtil"],
                         timeline.removeFrames(startFrame, endFrame);
                     } else if (keyFr.duration < num) {
                         var toAddFrames = num - keyFr.duration;
-                        timeline.insertFrames(toAddFrames, false, keyFr.startFrame);
+                        timeline.insertFrames(
+                            toAddFrames,
+                            false,
+                            keyFr.startFrame
+                        );
                     }
                     break;
                 default:
-                    throw new Error("未知模式：" + mode);
+                    throw new Error('未知模式：' + mode);
             }
         }
 

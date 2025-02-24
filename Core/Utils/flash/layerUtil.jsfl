@@ -7,9 +7,8 @@
  * @description:
  */
 
-define( function () {
-    function LayerUtil() {
-    }
+define(function () {
+    function LayerUtil() {}
 
     /**
      * 判断图层是否存在
@@ -24,7 +23,7 @@ define( function () {
             }
         }
         return false;
-    }
+    };
 
     /**
      * 获取包含指定名称的图层或其索引
@@ -33,8 +32,15 @@ define( function () {
      * @param {Boolean} [returnIndices=false] 是否返回图层索引而不是图层对象
      * @return {Array.<Layer>|Array.<Number>} 匹配的图层数组或索引数组
      */
-    LayerUtil._getLayersOrIndicesByName = function(layers, layerName, returnIndices) {
-        returnIndices = returnIndices === undefined || returnIndices === null ? false : returnIndices;
+    LayerUtil._getLayersOrIndicesByName = function (
+        layers,
+        layerName,
+        returnIndices
+    ) {
+        returnIndices =
+            returnIndices === undefined || returnIndices === null
+                ? false
+                : returnIndices;
 
         var result = [];
         for (var i = 0; i < layers.length; i++) {
@@ -45,14 +51,13 @@ define( function () {
         return result;
     };
 
-
     /**
      * 获取包含指定名称的图层
      * @param {Array.<Layer>} layers 图层数组
      * @param {String} layerName 图层名称
      * @return {Array.<Layer>} 匹配的图层数组
      */
-    LayerUtil.getLayersByName = function(layers, layerName) {
+    LayerUtil.getLayersByName = function (layers, layerName) {
         return this._getLayersOrIndicesByName(layers, layerName, false);
     };
 
@@ -62,11 +67,9 @@ define( function () {
      * @param {String} layerName 图层名称
      * @return {Array.<Number>} 匹配的图层索引数组
      */
-    LayerUtil.getLayersIndexByName = function(layers, layerName) {
+    LayerUtil.getLayersIndexByName = function (layers, layerName) {
         return this._getLayersOrIndicesByName(layers, layerName, true);
     };
-
-
 
     /**
      * 删除 图层
@@ -83,8 +86,7 @@ define( function () {
                 timeline.deleteLayer(layerIndex);
             }
         }
-    }
-
+    };
 
     /**
      * 转换为图层索引
@@ -95,13 +97,13 @@ define( function () {
     LayerUtil.convertToLayerIndex = function (layers, layer) {
         // 获取图层索引
         var layerIndex = 0;
-        if (typeof layer === "number") {
+        if (typeof layer === 'number') {
             layerIndex = layer;
         } else {
             layerIndex = layers.indexOf(layer);
         }
         return layerIndex;
-    }
+    };
 
     /**
      * 转换为图层
@@ -112,13 +114,13 @@ define( function () {
     LayerUtil.convertToLayer = function (layers, layer) {
         // var layers = timeline.layers;//图层
 
-        if (typeof layer === "number") {
+        if (typeof layer === 'number') {
             var layerIndex = layer;
             return layers[layerIndex];
         } else {
             return layer;
         }
-    }
+    };
 
     return LayerUtil;
 });

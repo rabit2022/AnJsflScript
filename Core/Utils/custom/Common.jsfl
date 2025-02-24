@@ -27,13 +27,18 @@ define(function () {
         if (value == null) return true;
 
         // 检查空字符串
-        if (typeof value === "string" && value.trim() === "") return true;
+        if (typeof value === 'string' && value.trim() === '') return true;
 
         // 检查空数组
         if (Array.isArray(value) && value.length === 0) return true;
 
         // 检查空对象
-        if (typeof value === "object" && value.constructor === Object && Object.keys(value).length === 0) return true;
+        if (
+            typeof value === 'object' &&
+            value.constructor === Object &&
+            Object.keys(value).length === 0
+        )
+            return true;
 
         return false; // 其他情况视为非空
     }
@@ -87,8 +92,7 @@ define(function () {
      */
     function INHERIT_MACRO(subCls_CLASS, superCls_CLASS) {
         // 创建一个临时构造函数用于继承父类的原型
-        function TempConstructor() {
-        }
+        function TempConstructor() {}
 
         TempConstructor.prototype = superCls_CLASS.prototype;
 
@@ -99,10 +103,10 @@ define(function () {
         // 保留对父类原型的引用，方便调用父类方法
         subCls_CLASS.prototype._super = superCls_CLASS.prototype;
     }
-    
+
     return {
         IsNullOrEmpty: IsNullOrEmpty,
         IsEmpty: IsEmpty,
-        INHERIT_MACRO: INHERIT_MACRO
+        INHERIT_MACRO: INHERIT_MACRO,
     };
 });

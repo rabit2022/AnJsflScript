@@ -7,9 +7,12 @@
  * @description:
  */
 
-define(["layerUtil", "frameRange", "selection"], function (layerUtil, FrameRange, sel) {
-    function FrameRangeUtil() {
-    }
+define(['layerUtil', 'frameRange', 'selection'], function (
+    layerUtil,
+    FrameRange,
+    sel
+) {
+    function FrameRangeUtil() {}
 
     /**
      * 获取选中元件的帧范围
@@ -33,7 +36,7 @@ define(["layerUtil", "frameRange", "selection"], function (layerUtil, FrameRange
             frameRanges.push(fr);
         }
         return frameRanges;
-    }
+    };
 
     /**
      * 获取选中元件的帧范围
@@ -43,7 +46,7 @@ define(["layerUtil", "frameRange", "selection"], function (layerUtil, FrameRange
     FrameRangeUtil.getSelectedFrs = function (timeline) {
         var selectedFrames = timeline.getSelectedFrames();
         return this.wrapFrFromSl(selectedFrames);
-    }
+    };
 
     /**
      * 重置选中帧
@@ -58,8 +61,7 @@ define(["layerUtil", "frameRange", "selection"], function (layerUtil, FrameRange
             var frArray = fr.toArray();
             timeline.setSelectedFrames(frArray, false);
         }
-    }
-
+    };
 
     /**
      * 快速抽取关键帧索引-注意是索引， 不是frame对象
@@ -79,16 +81,16 @@ define(["layerUtil", "frameRange", "selection"], function (layerUtil, FrameRange
         for (var i = frames.length - 1; i >= 0; i--) {
             //情景模拟， 95  80  20  1 是关键帧
             //获取关键帧数
-            var frame = frames[i];//i=100
-            var startFrame = frame.startFrame;//95
-            i = startFrame;// 跳过 100-95序列
+            var frame = frames[i]; //i=100
+            var startFrame = frame.startFrame; //95
+            i = startFrame; // 跳过 100-95序列
             keyFrames.push(startFrame); //95帧关键帧记录，//索引加1
         }
         keyFrames.sort(function (a, b) {
             return a - b;
         });
         return keyFrames;
-    }
+    };
 
     /**
      * 获取关键帧 范围
@@ -117,7 +119,7 @@ define(["layerUtil", "frameRange", "selection"], function (layerUtil, FrameRange
             keyFrameRanges.push(frameRange);
         }
         return keyFrameRanges;
-    }
+    };
 
     /**
      * 获取选中元件的关键帧范围
@@ -133,13 +135,17 @@ define(["layerUtil", "frameRange", "selection"], function (layerUtil, FrameRange
         var keyFrames = this.getKeyFrames(layer);
 
         // 缺少最后一段，补上
-        var lastKf = layer.frameCount;// 开区间
+        var lastKf = layer.frameCount; // 开区间
         keyFrames.push(lastKf);
 
-        var keyFrameRanges = this.wrapKeyFrames(layers, selectedFr.layerIndex, keyFrames);
+        var keyFrameRanges = this.wrapKeyFrames(
+            layers,
+            selectedFr.layerIndex,
+            keyFrames
+        );
         if (keyFrameRanges.length < 1) return null;
         return keyFrameRanges;
-    }
+    };
 
     // /**
     //  * selectedFr 包含的 keyFrameRanges 中的 某些帧范围
@@ -174,16 +180,26 @@ define(["layerUtil", "frameRange", "selection"], function (layerUtil, FrameRange
             // 判断是否有重叠
             if (selectedFrBigger.intersects(keyFrameRange)) {
                 // 计算重叠部分的范围
-                var overlapStart = Math.max(selectedFrBigger.startFrame, keyFrameRange.startFrame);
-                var overlapEnd = Math.min(selectedFrBigger.endFrame, keyFrameRange.endFrame);
+                var overlapStart = Math.max(
+                    selectedFrBigger.startFrame,
+                    keyFrameRange.startFrame
+                );
+                var overlapEnd = Math.min(
+                    selectedFrBigger.endFrame,
+                    keyFrameRange.endFrame
+                );
                 // 创建新的帧范围对象
-                var overlapRange = new FrameRange(keyFrameRange.layerIndex, overlapStart, overlapEnd);
+                var overlapRange = new FrameRange(
+                    keyFrameRange.layerIndex,
+                    overlapStart,
+                    overlapEnd
+                );
                 keyFrs.push(overlapRange);
             }
         }
         return keyFrs;
     };
-    
+
     /**
      * keyFrameRanges 中的 包含 selectedFrLittle 的帧范围
      * 完全包含的，只有一个帧范围
@@ -191,7 +207,10 @@ define(["layerUtil", "frameRange", "selection"], function (layerUtil, FrameRange
      * @param {FrameRange[]} keyFrameRanges 关键帧范围数组
      * @return {FrameRange} 帧范围
      */
-    FrameRangeUtil.getKfrFromSlLittle = function (selectedFrLittle, keyFrameRanges) {
+    FrameRangeUtil.getKfrFromSlLittle = function (
+        selectedFrLittle,
+        keyFrameRanges
+    ) {
         var keyFr = null;
         for (var i = 0; i < keyFrameRanges.length; i++) {
             var keyFrameRange = keyFrameRanges[i];
@@ -201,7 +220,7 @@ define(["layerUtil", "frameRange", "selection"], function (layerUtil, FrameRange
             }
         }
         return keyFr;
-    }
+    };
 
     /**
      * 安全的转换为关键帧
@@ -225,7 +244,7 @@ define(["layerUtil", "frameRange", "selection"], function (layerUtil, FrameRange
             }
             timeline.convertToKeyframes(fr);
         }
-    }
+    };
 
     return FrameRangeUtil;
 });

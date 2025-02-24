@@ -2,7 +2,7 @@
 // Copyright 2012 - 2021 - Jim Riecken <jimr@jimr.ca>
 // Released under the MIT License.
 
-declare module "sat" {
+declare module 'sat' {
     export class Vector {
         x: number;
         y: number;
@@ -43,7 +43,12 @@ declare module "sat" {
 
         equals(other: Vector): boolean;
 
-        orbit(pt: Vector, arcWidth: number, arcHeight: number, degrees: number): Vector;
+        orbit(
+            pt: Vector,
+            arcWidth: number,
+            arcHeight: number,
+            degrees: number
+        ): Vector;
 
         getCenter(): Vector;
 
@@ -82,11 +87,19 @@ declare module "sat" {
         constructor(rect: Rectangle);
         constructor(doc: Document);
         constructor(element: Element);
-        // TODO: constructor 补全参数类型
-        constructor(symbolItem: SymbolItem);
-        
+        constructor(symbolItem: 'SymbolItem');
+        constructor(radius: number);
+        constructor(elements: Element[]);
+        constructor(width: number, height: number);
+        constructor(centerPos: Vector, radius: number);
+        constructor(left: number, top: number, right: number, bottom: number);
 
-        constructor(left?: number, top?: number, right?: number, bottom?: number);
+        constructor(
+            left?: number,
+            top?: number,
+            right?: number,
+            bottom?: number
+        );
 
         addOffset(offset: number | Vector | Rectangle): Rectangle;
 
@@ -98,7 +111,11 @@ declare module "sat" {
 
         getCorner(whichCorner: string): Vector;
 
-        getPart(whichPart: string, widthRatio?: number, heightRatio?: number): Rectangle;
+        getPart(
+            whichPart: string,
+            widthRatio?: number,
+            heightRatio?: number
+        ): Rectangle;
 
         copy(rect: Rectangle): Rectangle;
 
@@ -155,29 +172,56 @@ declare module "sat" {
     }
 
     export namespace GLOBALS {
-        export function wrapPosition(element: { x: number; y: number } | Element): Vector;
+        export function wrapPosition(
+            element: { x: number; y: number } | Element
+        ): Vector;
 
-        export function wrapScale(element: { scaleX: number; scaleY: number }): Vector;
+        export function wrapScale(element: {
+            scaleX: number;
+            scaleY: number;
+        }): Vector;
 
-        export function wrapSkew(element: { skewX: number; skewY: number }): Vector;
+        export function wrapSkew(element: {
+            skewX: number;
+            skewY: number;
+        }): Vector;
 
         export function getOrigin(): Vector;
 
-        export function getTopLeft(element: { left: number; top: number }): Vector;
-
-        export function findBoundingRectangle(elements: Array<{
+        export function getTopLeft(element: {
             left: number;
             top: number;
-            width: number;
+        }): Vector;
+
+        export function wrapRectByTopLeft(
+            left: number,
+            top: number,
+            width: number,
             height: number
-        }>): Rectangle;
+        ): Rectangle;
 
-        export function wrapRectByTopLeft(left: number, top: number, width: number, height: number): Rectangle;
+        export function wrapRectByCenter(
+            centerX: number,
+            centerY: number,
+            width: number,
+            height: number
+        ): Rectangle;
 
-        export function wrapRectByCenter(centerX: number, centerY: number, width: number, height: number): Rectangle;
-
-        export function wrapSize(element: { width: number; height: number }): Size;
+        export function wrapSize(element: {
+            width: number;
+            height: number;
+        }): Size;
 
         export function wrapTransform(element: any): Transform;
+
+        export function findBoundingRectangle(
+            elements: Array<Element>
+        ): Rectangle;
     }
+
+    // 别名
+    export { Vector as V };
+    export { Rectangle as R };
+    export { Size as S };
+    // export { Transform as T };
 }

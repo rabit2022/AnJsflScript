@@ -7,43 +7,49 @@
  * @description:
  */
 
-
-
-require(["checkUtil", "layerUtil"],function(checkUtil, layerUtil) {
+require(['checkUtil', 'layerUtil'], function (checkUtil, layerUtil) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
 
-    var doc = fl.getDocumentDOM();//文档
+    var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
 
-    var selection = doc.selection;//选择
-    var library = doc.library;//库文件
-    var timeline = doc.getTimeline();//时间轴
+    var selection = doc.selection; //选择
+    var library = doc.library; //库文件
+    var timeline = doc.getTimeline(); //时间轴
 
-    var layers = timeline.layers;//图层
-    var curLayerIndex = timeline.currentLayer;//当前图层索引
-    var curLayer = layers[curLayerIndex];//当前图层
+    var layers = timeline.layers; //图层
+    var curLayerIndex = timeline.currentLayer; //当前图层索引
+    var curLayer = layers[curLayerIndex]; //当前图层
 
-    var curFrameIndex = timeline.currentFrame;//当前帧索引
-    var curFrame = curLayer.frames[curFrameIndex];//当前帧
+    var curFrameIndex = timeline.currentFrame; //当前帧索引
+    var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, "selectElement", "No limit")) return;
-
+        if (!checkSelection(selection, 'selectElement', 'No limit')) return;
 
         var LAYER_NAME_ARRAY = [
-            // "摄像机", 
-            "特效1", "特效2",
-            "角色1", "角色2", "角色3", "角色4", "角色5", "角色6",
-            "背景", "配音",
-            "音效1", "音效2"];
+            // "摄像机",
+            '特效1',
+            '特效2',
+            '角色1',
+            '角色2',
+            '角色3',
+            '角色4',
+            '角色5',
+            '角色6',
+            '背景',
+            '配音',
+            '音效1',
+            '音效2',
+        ];
 
         for (var i = 0; i < LAYER_NAME_ARRAY.length; i++) {
             // var layer = layers[i];
             var toAddLayerName = LAYER_NAME_ARRAY[i];
             if (!layerUtil.IsLayerExists(layers, toAddLayerName)) {
-                timeline.addNewLayer(toAddLayerName, "normal", false);
+                timeline.addNewLayer(toAddLayerName, 'normal', false);
             }
         }
     }

@@ -8,9 +8,7 @@
  */
 
 define(['linq'], function (Enumerable) {
-    function LinqUtil() {
-    }
-
+    function LinqUtil() {}
 
     /**
      * 转换为程序的索引
@@ -20,7 +18,7 @@ define(['linq'], function (Enumerable) {
      */
     LinqUtil.convertToProgrammeIndex = function (arr) {
         return this.addOffset(arr, -1);
-    }
+    };
 
     /**
      * 转换为人类可读的索引
@@ -30,7 +28,7 @@ define(['linq'], function (Enumerable) {
      */
     LinqUtil.convertToHumanIndex = function (arr) {
         return this.addOffset(arr, 1);
-    }
+    };
 
     /**
      * 增加第一个帧
@@ -77,12 +75,14 @@ define(['linq'], function (Enumerable) {
             stop = args[1];
             step = args[2];
         } else {
-            throw new Error("Invalid number of arguments. Expected 1, 2, or 3 arguments.");
+            throw new Error(
+                'Invalid number of arguments. Expected 1, 2, or 3 arguments.'
+            );
         }
 
         // 检查 step 是否为零
         if (step === 0) {
-            throw new Error("step cannot be zero");
+            throw new Error('step cannot be zero');
         }
 
         // 计算生成的序列长度
@@ -102,6 +102,6 @@ define(['linq'], function (Enumerable) {
         return Enumerable.range(0, count).select(function (x) {
             return x * step + start;
         });
-    }
+    };
     return LinqUtil;
 });

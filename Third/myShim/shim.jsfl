@@ -6,17 +6,17 @@
  * @project: AnJsflScript
  * @description:
  */
-define(function() {
+define(function () {
     // es2017-es8
     String.prototype.padStart = function (targetLength, padString) {
         targetLength = targetLength >> 0;
-        padString = String(padString || "");
+        padString = String(padString || '');
         if (this.length > targetLength) return String(this);
         targetLength = targetLength - this.length;
         if (targetLength > padString.length)
             padString += padString.repeat(targetLength / padString.length);
         return padString.slice(0, targetLength) + String(this);
-    }
+    };
 
     // es2016 - es7
     Array.prototype.includes = function (searchElement, fromIndex) {

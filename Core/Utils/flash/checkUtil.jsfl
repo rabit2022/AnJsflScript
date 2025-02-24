@@ -7,10 +7,7 @@
  * @description:
  */
 
-
-define(["frUtil", "frameRange"], function (frUtil, FrameRange) {
-
-
+define(['frUtil', 'frameRange'], function (frUtil, FrameRange) {
     /**
      * 检查选择的元件或帧是否符合指定的模式和条件。
      *
@@ -28,44 +25,77 @@ define(["frUtil", "frameRange"], function (frUtil, FrameRange) {
         // 检查 mode 是否为 null
         if (mode === null) {
             // console.error("CheckSelection: 模式不能为 null，请指定一个有效的模式！");
-            alert("模式不能为 null，请指定一个有效的模式！");
+            alert('模式不能为 null，请指定一个有效的模式！');
             return false;
         }
 
         // 设置 mode 的默认值（仅当 mode 是 undefined 时）
-        mode = mode || "selectElement";
+        mode = mode || 'selectElement';
 
         // 检查 condition 是否为 null
         if (condition === null) {
             // console.error("CheckSelection: 条件不能为 null，请指定一个有效的条件！");
-            alert("条件不能为 null，请指定一个有效的条件！");
+            alert('条件不能为 null，请指定一个有效的条件！');
             return false;
         }
 
         // 设置 condition 的默认值（仅当 condition 是 undefined 时）
-        condition = condition || "No limit";
+        condition = condition || 'No limit';
 
         // 定义模式
-        var modes = ["selectElement", "selectFrame", "elementOnFrame", "selectLibItem"];
+        var modes = [
+            'selectElement',
+            'selectFrame',
+            'elementOnFrame',
+            'selectLibItem',
+        ];
 
         // 定义条件列表（主条件列表和其他别名列表）
         var conditions = [
-            ["No limit", "Zero", "Not Zero", "Only one", "Only two", "More"], // 主条件列表
-            [null, "=0", ">0", "=1", "=2", ">=2"] // 别名列表
+            ['No limit', 'Zero', 'Not Zero', 'Only one', 'Only two', 'More'], // 主条件列表
+            [null, '=0', '>0', '=1', '=2', '>=2'], // 别名列表
         ];
 
         // 定义提示信息
         var messages = [
-            [null, "请选择元件。", "请选择至少一个元件。", "只能选择单个元件。", "只能选择两个元件。", "请选择多个元件。"],
-            [null, "请选择帧。", "请选择至少一个帧。", "只能选择单个帧。", "只能选择两个帧。", "请选择多个帧。"],
-            [null, "当前帧上需要有元件。", "当前帧上至少需要一个元件。", "当前帧上只能有一个元件。", "当前帧上只能有两个元件。", "当前帧上需要多个元件。"],
-            [null, "请选择库中的项目。", "请选择至少一个库项目。", "只能选择单个库项目。", "只能选择两个库项目。", "请选择多个库项目。"]
+            [
+                null,
+                '请选择元件。',
+                '请选择至少一个元件。',
+                '只能选择单个元件。',
+                '只能选择两个元件。',
+                '请选择多个元件。',
+            ],
+            [
+                null,
+                '请选择帧。',
+                '请选择至少一个帧。',
+                '只能选择单个帧。',
+                '只能选择两个帧。',
+                '请选择多个帧。',
+            ],
+            [
+                null,
+                '当前帧上需要有元件。',
+                '当前帧上至少需要一个元件。',
+                '当前帧上只能有一个元件。',
+                '当前帧上只能有两个元件。',
+                '当前帧上需要多个元件。',
+            ],
+            [
+                null,
+                '请选择库中的项目。',
+                '请选择至少一个库项目。',
+                '只能选择单个库项目。',
+                '只能选择两个库项目。',
+                '请选择多个库项目。',
+            ],
         ];
 
         // 获取模式索引
         var modeIndex = modes.indexOf(mode);
         if (modeIndex === -1) {
-            alert("无效的模式：" + mode);
+            alert('无效的模式：' + mode);
             return false;
         }
 
@@ -83,7 +113,7 @@ define(["frUtil", "frameRange"], function (frUtil, FrameRange) {
         // 查找条件索引
         var conditionIndex = findConditionIndex(condition);
         if (conditionIndex === -1) {
-            alert("无效的条件：" + condition);
+            alert('无效的条件：' + condition);
             return false;
         }
 
@@ -103,7 +133,7 @@ define(["frUtil", "frameRange"], function (frUtil, FrameRange) {
                 case 5: // More 或 >=2
                     return length >= 2;
                 default:
-                    throw new Error("未知条件：" + condition);
+                    throw new Error('未知条件：' + condition);
             }
         }
 
@@ -116,7 +146,6 @@ define(["frUtil", "frameRange"], function (frUtil, FrameRange) {
         return true;
     }
 
-
     /**
      * 检查文档是否存在
      * @param {Document} doc
@@ -124,7 +153,7 @@ define(["frUtil", "frameRange"], function (frUtil, FrameRange) {
      */
     function CheckDom(doc) {
         if (doc == null) {
-            alert("请打开 [.fla] 文件");
+            alert('请打开 [.fla] 文件');
             return false;
         }
         return true;
@@ -138,16 +167,16 @@ define(["frUtil", "frameRange"], function (frUtil, FrameRange) {
      * @returns {FrameRange[]}
      */
     function CheckSelectedFrames(timeline, condition) {
-        if (condition === undefined) condition = "Not Zero";
+        if (condition === undefined) condition = 'Not Zero';
 
         var frs = frUtil.getSelectedFrs(timeline);
-        if (!CheckSelection(frs, "selectFrame", condition)) return null;
+        if (!CheckSelection(frs, 'selectFrame', condition)) return null;
         return frs;
     }
 
     return {
         CheckSelection: CheckSelection,
         CheckDom: CheckDom,
-        CheckSelectedFrames: CheckSelectedFrames
+        CheckSelectedFrames: CheckSelectedFrames,
     };
 });

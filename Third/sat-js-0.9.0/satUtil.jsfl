@@ -7,15 +7,13 @@
  * @description:
  */
 
-define(["SAT","random"], function (sat, random) {
+define(['SAT', 'random'], function (sat, random) {
     var wrapPosition = sat.GLOBALS.wrapPosition;
     // var wrapRectByElement = sat.GLOBALS.wrapRectByElement;
     var Vector = sat.Vector,
         Rectangle = sat.Rectangle;
 
-    function PointUtil() {
-
-    }
+    function PointUtil() {}
 
     /**
      * 获取 摇头 的 变形点
@@ -33,22 +31,20 @@ define(["SAT","random"], function (sat, random) {
         var eleRect = new Rectangle(element);
 
         // trPoint
-        var botttomPart = eleRect.getPart("bottom", 1 - ratio);
-        var trPointWorld = botttomPart.getCorner("top center");
+        var botttomPart = eleRect.getPart('bottom', 1 - ratio);
+        var trPointWorld = botttomPart.getCorner('top center');
 
         var trPointLocal = trPointWorld.clone().sub(elePos);
 
         return trPointLocal;
-    }
+    };
 
     /**
      * 矩形工具类
      * @constructor
      * @class {RectUtil}
      */
-    function RectUtil() {
-
-    }
+    function RectUtil() {}
 
     /**
      * 计算新的向量，确保  小矩形的最终落点  不会超出  大矩形的边界
@@ -58,13 +54,13 @@ define(["SAT","random"], function (sat, random) {
      * @returns {Vector} 可以移动的向量
      */
     RectUtil.moveRectSafety = function (bigRect, smallRect, moveVector) {
-        // 小矩形的边界   与   大矩形的边界  的距离 
+        // 小矩形的边界   与   大矩形的边界  的距离
         // <0  小矩形在大矩形的  外面
         // >0  小矩形在大矩形的  里面
         // =0  小矩形在大矩形的  边界上
         // var maxOffsetRect = smallRect.sub(bigRect);
         var maxOffsetRect = smallRect.subOffset(bigRect);
-        
+
         // moveVector=cameraOffset.sub(cameraPos);
         // moveVector.x>0 摄像机在人物的右边
         // moveVector.x<0 摄像机在人物的左边
@@ -78,32 +74,46 @@ define(["SAT","random"], function (sat, random) {
         // moveVector.y<0 向下移动
 
         var newMoveVector = new Vector(moveVector.x, moveVector.y);
-        if (moveVector.x < 0) {//向右移动
+        if (moveVector.x < 0) {
+            //向右移动
             newMoveVector.x = Math.max(moveVector.x, maxOffsetRect.right);
-            if (maxOffsetRect.left < 0) {//small 在 big 的边界 左边
+            if (maxOffsetRect.left < 0) {
+                //small 在 big 的边界 左边
                 newMoveVector.x = Math.min(newMoveVector.x, maxOffsetRect.left);
             }
-        } else if (moveVector.x > 0) {//向左移动
+        } else if (moveVector.x > 0) {
+            //向左移动
             newMoveVector.x = Math.min(moveVector.x, maxOffsetRect.left);
-            if (maxOffsetRect.right > 0) {//small 在 big 的边界 右边
-                newMoveVector.x = Math.max(newMoveVector.x, maxOffsetRect.right);
+            if (maxOffsetRect.right > 0) {
+                //small 在 big 的边界 右边
+                newMoveVector.x = Math.max(
+                    newMoveVector.x,
+                    maxOffsetRect.right
+                );
             }
         }
-        if (moveVector.y < 0) {//向下移动
+        if (moveVector.y < 0) {
+            //向下移动
             newMoveVector.y = Math.max(moveVector.y, maxOffsetRect.bottom);
-            if (maxOffsetRect.top < 0) {//small 在 big 的边界上面
+            if (maxOffsetRect.top < 0) {
+                //small 在 big 的边界上面
                 newMoveVector.y = Math.min(newMoveVector.y, maxOffsetRect.top);
             }
-        } else if (moveVector.y > 0) {//向上移动
-            newMoveVector.y = Math.min(moveVector.y, maxOffsetRect.top)
-            if (maxOffsetRect.bottom > 0) {//small 在 big 的边界下面
-                newMoveVector.y = Math.max(newMoveVector.y, maxOffsetRect.bottom);
+        } else if (moveVector.y > 0) {
+            //向上移动
+            newMoveVector.y = Math.min(moveVector.y, maxOffsetRect.top);
+            if (maxOffsetRect.bottom > 0) {
+                //small 在 big 的边界下面
+                newMoveVector.y = Math.max(
+                    newMoveVector.y,
+                    maxOffsetRect.bottom
+                );
             }
         }
 
         // fl.trace("newMoveVector: " + newMoveVector.toString())
         return newMoveVector;
-    }
+    };
 
     /**
      * 随机生成  一个矩形范围内的  随机点
@@ -114,7 +124,7 @@ define(["SAT","random"], function (sat, random) {
         const randomX = random.uniform(Rectangle.left, Rectangle.right);
         const randomY = random.uniform(Rectangle.top, Rectangle.bottom);
         return new Vector(randomX, randomY);
-    }
+    };
 
     /**
      * 计算矩形分割后每个小块的尺寸。
@@ -123,13 +133,18 @@ define(["SAT","random"], function (sat, random) {
      * @param {number} [gridSize=5] - 分割网格的大小，默认为 5。
      * @returns {[number, number, number, number]} [blockWidth, blockHeight, blockCountX, blockCountY] - 每个小块的宽度和高度，以及网格的数量。
      */
-    RectUtil.splitRectangle = function(rectSize, gridSize) {
+    RectUtil.splitRectangle = function (rectSize, gridSize) {
         // 设置默认值
         if (gridSize === undefined) {
             gridSize = 5;
         }
 
-        const {max_size:longerSide,min_size:shorterSide,width, height}= rectSize;
+        const {
+            max_size: longerSide,
+            min_size: shorterSide,
+            width,
+            height,
+        } = rectSize;
 
         // 计算每个网格块的长边尺寸
         const blockLongerSide = longerSide / gridSize;
@@ -143,15 +158,25 @@ define(["SAT","random"], function (sat, random) {
         // 根据矩形的宽高比例返回结果
         if (width > height) {
             // 宽度为长边
-            return [blockLongerSide, blockShorterSide, gridSize, shorterMaxCount];
+            return [
+                blockLongerSide,
+                blockShorterSide,
+                gridSize,
+                shorterMaxCount,
+            ];
         } else {
             // 高度为长边
-            return [blockShorterSide, blockLongerSide, shorterMaxCount, gridSize];
+            return [
+                blockShorterSide,
+                blockLongerSide,
+                shorterMaxCount,
+                gridSize,
+            ];
         }
     };
-    
+
     return {
         PointUtil: PointUtil,
-        RectUtil: RectUtil
+        RectUtil: RectUtil,
     };
 });

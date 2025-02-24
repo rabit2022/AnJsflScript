@@ -7,15 +7,13 @@
  * @description:
  */
 
-define(["moreElement"], function (MoreElement) {
-    function MoreElementUtil() {
-    }
-    
-    
+define(['moreElement'], function (MoreElement) {
+    function MoreElementUtil() {}
+
     MoreElementUtil.wrapMoreElement = function (left, top, width, height) {
-        var eleObj = {x: left, y: top, width: width, height: height};
+        var eleObj = { x: left, y: top, width: width, height: height };
         return new MoreElement(eleObj);
-    }
-    
+    };
+
     return MoreElementUtil;
 });
