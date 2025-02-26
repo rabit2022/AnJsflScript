@@ -7,7 +7,7 @@
  * @description:
  */
 
-require(['checkUtil', 'SAT', 'frameRangeUtil',"Log"], function (
+require(['checkUtil', 'SAT', 'frameRangeUtil', 'Log'], function (
     checkUtil,
     sat,
     frUtil,

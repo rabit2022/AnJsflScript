@@ -19,7 +19,7 @@ npm install path-browserify
 ## Usage
 
 ```javascript
-var path = require('path')
+var path = require('path');
 
 var filename = 'logo.png';
 var logo = path.join('./assets/img', filename);

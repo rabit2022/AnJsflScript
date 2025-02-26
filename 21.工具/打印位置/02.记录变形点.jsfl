@@ -7,7 +7,7 @@
  * @description:
  */
 
-require(['checkUtil', 'SAT','loglevel'], function (checkUtil, sat, log) {
+require(['checkUtil', 'SAT', 'loglevel'], function (checkUtil, sat, log) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     var Vector = sat.Vector,

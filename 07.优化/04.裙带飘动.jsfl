@@ -14,9 +14,11 @@ require([
     'libUtil',
     'xmlPanelUtil',
     'curveUtil',
-], function (checkUtil, sel, ele, libUtil, xmlPanelUtil, curve) {
+    "Constants"
+], function (checkUtil, sel, ele, libUtil, xmlPanelUtil, curve, Constants) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
+    const { FRAME_15, FRAME_30 } = Constants;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -68,17 +70,17 @@ require([
 
         // 创建帧  30
         timeline1.currentFrame = 0;
-        var _30_frame = 31 - 1;
-        var _15_frame = _30_frame / 2 - 1;
+        // var _30_frame = 31 - 1;
+        // var _15_frame = _30_frame / 2 - 1;
 
-        timeline1.insertFrames(_30_frame);
+        timeline1.insertFrames(FRAME_30);
 
         // 创建关键帧,15,30
-        timeline1.convertToKeyframes(_15_frame);
-        timeline1.convertToKeyframes(_30_frame);
+        timeline1.convertToKeyframes(FRAME_15);
+        timeline1.convertToKeyframes(FRAME_30);
 
         // 更改第15帧的旋转
-        timeline1.currentFrame = _15_frame;
+        timeline1.currentFrame = FRAME_15;
         doc.selectAll();
 
         var element1 = doc.selection[0];

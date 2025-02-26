@@ -1,13 +1,21 @@
 ﻿{
+  "parser": "@typescript-eslint/parser",
   "extends": [
-    "airbnb",
-    "prettier"
+    "airbnb", // 使用 Airbnb 的基础 JavaScript 配置
+    "prettier" // 使用 Prettier 格式化规则
   ],
-  // 或 "google", "prettier"
   "plugins": [
-    "prettier"
+    "prettier" // Prettier 插件
   ],
+  "parserOptions": {
+    "ecmaVersion": 6, // 支持最新 ECMAScript 特性
+    "sourceType": "module"
+  },
   "rules": {
-    "prettier/prettier": "error"
-  }
+    "max-classes-per-file": "error"
+//    "max-classes-per-file": ["error", 10],  // 允许每个文件最多有 5 个类
+//    "no-unused-vars": "off",// 没有使用的变量可以不用声明
+//    "lines-between-class-members": "off"   // 类成员之间不用空行
+  },
+  "ignorePatterns": ["**/*.d.ts"]
 }

@@ -70,7 +70,7 @@
     SAT['V'] = Vector;
 
     // Change this vector to be perpendicular to what it was before. (Effectively
-    // roatates it 90 degrees in a clockwise direction)
+    // rotates it 90 degrees in a clockwise direction)
     /**
      * @return {Vector} This for chaining.
      */
@@ -311,7 +311,7 @@
      * @param {"top right"|"top left"|"bottom right"|"bottom left"|"top center"|"right center"|"bottom center"|"left center"|"center"} whichCorner 方向
      * @returns {boolean}
      */
-    Vector.prototype['isInDirectionOf'] = Vector.prototype.IsInDirectionOf =
+    Vector.prototype['IsInDirectionOf'] = Vector.prototype.IsInDirectionOf =
         function (point, whichCorner) {
             var deltaX = this.x - point.x;
             var deltaY = this.y - point.y;

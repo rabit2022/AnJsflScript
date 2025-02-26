@@ -12,18 +12,17 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "SAT": ["Third/sat-js-0.9.0/SAT"],
-      "Constants": ["Core/Utils/custom/Constants"],
-      "linq": ["Third/linq-4.0.3/linq"],
-      "linqUtil": ["Third/linq-4.0.3/linqUtil"],
-      "require": ["Third/requirejs-2.3.7/require"],
-      "satUtil": ["Third/sat-js-0.9.0/satUtil"],
+      "SAT": ["types/SAT.d.ts"],
+      "Constants": ["types/Constants.d.ts"],
+
       "console": ["Core/myShim/console"],
       "shim": ["Core/myShim/shim"],
       "frameRange": ["Core/Object/frameRange"],
       "frameRangeUtil": ["Core/Object/frameRangeUtil"],
       "moreElement": ["Core/Object/moreElement"],
       "moreElementUtil": ["Core/Object/moreElementUtil"],
+      "linqUtil": ["Core/Third/linqUtil"],
+      "satUtil": ["Core/Third/satUtil"],
       "Log": ["Core/TopLevel/Log"],
       "Common": ["Core/Utils/custom/Common"],
       "JSFLConstants": ["Core/Utils/custom/JSFLConstants"],
@@ -42,8 +41,6 @@
       "random": ["Core/Utils/py/random"],
       "StringP": ["Core/Utils/py/StringP"]
     },
-    "declaration": true,
-    "declarationMap": true,
     "include": [
       "**/*.jsfl"
     ],

@@ -6,8 +6,8 @@
 
 ## 1. 安装与准备
 
-- **Adobe Animate**：确保已安装最新版本的 Adobe Animate。这是运行 AnJsflScript 的基础环境。
-- **JavaScript FL (JSFL)**：Adobe Animate 内置了 JSFL 支持，无需额外安装。这意味着你可以直接使用 AnJsflScript，无需担心兼容性问题。
+- **Adobe Animate**：确保已安装最新版本的 Adobe Animate，例如 Adobe Animate 2024。这是运行 AnJsflScript 的基础环境。
+- **JavaScript For Flash(JSFL)**：Adobe Animate 内置了 JSFL 支持，无需额外安装。
 
 ---
 
@@ -16,23 +16,39 @@
 ### 2.1 下载项目
 
 - **下载最新版本**：访问本项目的 GitHub 仓库并下载最新发布的[ tag 版本](https://github.com/rabit2022/AnJsflScript/tags)。tag 版本经过相对稳定，适合大多数用户使用。当前项目可能会进行重构等操作，因此建议始终使用最新发布的 tag 版本。
-- **解压到本地**：将下载的文件解压到本地的一个合适位置，例如 `C:\AnJsflScript` 或 `~/Documents/AnJsflScript`。
+- **解压到本地**：将下载的文件解压到本地的一个合适位置，例如 `C:\AnJsflScript` 。
 
 ### 2.2 打开 Adobe Animate 并新建或打开文档
 
 - **启动软件**：打开 Adobe Animate，确保软件正常运行。
 - **新建或打开文档**：必须先打开一个文档，才能运行脚本。这是因为脚本需要在具体的文档环境中操作，否则可能无法正常工作。
 
-### 2.3 运行 FirstRun.jsfl 脚本
+### **2.3 运行`FirstRun.jsfl`脚本**
+#### **功能**
+- `FirstRun.jsfl`是一个初始化脚本，主要用于配置环境和加载必要的设置，例如`requirejs`和`es5-shim`等。
+- 这些设置是其他脚本正常运行的基础。
 
-- **运行脚本**：在 Adobe Animate 中，选择 `命令 > 运行命令`，导航到解压后的 `AnJsflScript` 文件夹，选择 `FirstRun.jsfl` 脚本并运行。
-- **脚本功能**：`FirstRun.jsfl` 是初始化脚本，用于配置环境和加载必要的设置，例如 `requirejs` 和 `es5-shim` 等。这些设置是其他脚本正常运行的基础。
-- **重要提示**：每一次打开 Adobe Animate 软件时，都必须先运行此脚本，否则其他脚本可能无法正常工作。
+#### **运行方法**
+1. **通过Adobe Animate运行**
+    - 打开Adobe Animate。
+    - 选择`命令 > 运行命令`。
+    - 导航到解压后的`AnJsflScript`文件夹，选择`FirstRun.jsfl`脚本并运行。
+2. **直接双击运行**
+    - 找到解压后的`AnJsflScript`文件夹。
+    - 直接双击`FirstRun.jsfl`脚本文件。
+    - 如果安装了Adobe Animate，JSFL文件的默认打开方式是在Adobe Animate中打开。
 
-### 2.4 运行其他脚本
+#### **重要提示**
+- 每次打开Adobe Animate时，都必须先运行`FirstRun.jsfl`脚本，否则其他脚本可能无法正常工作。
 
-- **脚本位置**：除了 `Core`, `Third` 文件夹中的脚本外的文件夹中。例如`00.跨域剪切.jsfl`等。
-- **使用方法**：每个脚本的具体功能和使用方法可以在其文件名或注释中找到详细说明。一般双击脚本文件，即可运行。
+### **2.4 运行其他脚本**
+#### **脚本位置**
+- 除了`脚本功能说明` 的脚本和文件夹外，其他脚本通常位于  以数字开头的  文件夹中，例如`00.快捷/00.跨域剪切.jsfl`等。
+
+#### **使用方法**
+- 每个脚本的具体功能和使用方法可以在其文件名或注释中找到详细说明。
+- **通过Adobe Animate运行**
+- **直接双击运行**
 
 ---
 
@@ -57,6 +73,22 @@
 
 - **功能**：存放第三方库脚本，例如 `requirejs` 和 `es5-shim` 等。这些库为 AnJsflScript 提供了必要的支持。
 - **使用方法**：同样通过 `requirejs` 加载。这些第三方库在初始化时由 `FirstRun.jsfl` 脚本加载，为其他脚本提供支持。
+
+
+### **types** 文件夹
+- **功能**：  
+  存放与脚本相关的类型定义文件（通常是 `.d.ts` 文件）。这些文件为脚本提供类型支持，帮助开发者在编写代码时获得更好的提示和代码补全功能。例如，TypeScript 类型定义文件可以确保代码的类型安全性和可维护性。
+
+- **使用方法**：  
+  这些类型定义文件通常在开发过程中由 `requirejs` 或其他模块加载器加载。开发者在编写脚本时，可以通过引用这些类型定义文件来增强代码的可读性和稳定性。
+
+
+### **文档** 文件夹
+- **功能**：  
+  存放与脚本相关的文档文件，例如使用说明、API 文档、教程、例子等。这些文档为用户提供脚本的详细功能描述、使用方法和示例，帮助用户更好地理解和使用脚本。
+
+- **使用方法**：  
+  建议开发者阅读，用户可以根据需要阅读文档。
 
 ---
 
@@ -85,6 +117,28 @@
 - [**sat-js-0.9.0** : 一个js图形库，仅用到Vector代码，其他代码已经删除](https://github.com/jriecken/sat-js)
 
 为了使得以上项目能够在 Adobe Animate 中正常运行，部分进行了大量的修改，并且全部更改为requirejs模块化加载。
+
+
+## 7. 待确认
+
+### 1. Adobe Animate 2024 支持的 ES6 特性是否在其他旧版本可用
+
+#### 支持的 ES6 特性
+- **`const` **：支持使用 `const` 声明变量，替代传统的 `var`。
+- **解构赋值**：支持数组和对象的解构赋值，简化变量提取过程。
+
+#### 示例代码
+以下代码展示了在 Adobe Animate 2024 中可以使用的 ES6 特性：
+
+```javascript
+(function() {
+  const fruits = ["apple", "banana", "cherry"];
+  const [firstFruit, secondFruit] = fruits;
+  console.log(firstFruit); // 输出: apple
+  console.log(secondFruit); // 输出: banana
+})();
+```
+
 
 ---
 

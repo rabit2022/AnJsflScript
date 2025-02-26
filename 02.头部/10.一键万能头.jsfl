@@ -18,10 +18,11 @@ require([
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
 
+
     var Vector = sat.Vector,
-      Rectangle = sat.Rectangle,
-      wrapPosition = sat.GLOBALS.wrapPosition,
-      wrapRect = sat.GLOBALS.wrapRect;
+        Rectangle = sat.Rectangle,
+        wrapPosition = sat.GLOBALS.wrapPosition,
+        wrapRect = sat.GLOBALS.wrapRect;
 
     var Range = linqUtil.range;
 
