@@ -15,6 +15,8 @@
       "SAT": ["types/SAT.d.ts"],
       "Constants": ["types/Constants.d.ts"],
 
+
+      "JSFLConstants": ["Core/Constants/JSFLConstants"],
       "console": ["Core/myShim/console"],
       "shim": ["Core/myShim/shim"],
       "frameRange": ["Core/Object/frameRange"],
@@ -22,10 +24,9 @@
       "moreElement": ["Core/Object/moreElement"],
       "moreElementUtil": ["Core/Object/moreElementUtil"],
       "linqUtil": ["Core/Third/linqUtil"],
+      "logUtil": ["Core/Third/logUtil"],
       "satUtil": ["Core/Third/satUtil"],
-      "Log": ["Core/TopLevel/Log"],
-      "Common": ["Core/Utils/custom/Common"],
-      "JSFLConstants": ["Core/Utils/custom/JSFLConstants"],
+      "Func": ["Core/TopLevel/Func"],
       "checkUtil": ["Core/Utils/flash/checkUtil"],
       "curveUtil": ["Core/Utils/flash/curveUtil"],
       "elementUtil": ["Core/Utils/flash/elementUtil"],

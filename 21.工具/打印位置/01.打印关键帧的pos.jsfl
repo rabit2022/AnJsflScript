@@ -7,11 +7,11 @@
  * @description:
  */
 
-require(['checkUtil', 'SAT', 'frameRangeUtil', 'Log'], function (
+require(['checkUtil', 'SAT', 'frameRangeUtil', 'logUtil'], function (
     checkUtil,
     sat,
     frUtil,
-    Log
+    logUtil
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
@@ -20,7 +20,7 @@ require(['checkUtil', 'SAT', 'frameRangeUtil', 'Log'], function (
         wrapPosition = sat.GLOBALS.wrapPosition,
         wrapRect = sat.GLOBALS.wrapRect,
         wrapTransform = sat.GLOBALS.wrapTransform;
-    var LogArray = Log.LogArray;
+    var LogArray = logUtil.LogArray;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;

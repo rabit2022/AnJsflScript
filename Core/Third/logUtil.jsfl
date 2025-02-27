@@ -1,13 +1,13 @@
 /**
- * @file: Log.jsfl
+ * @file: logUtil.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
- * @date: 2024/12/17 22:31
+ * @date: 2025/2/27 14:45
  * @project: AnJsflScript
  * @description:
  */
 
-define(function () {
+define(['loglevel'], function (log) {
     /**
      * 打印数组中的数字
      * @param {number[]} numbers 数组
@@ -25,12 +25,13 @@ define(function () {
             }
         }
         str += ']';
-        print(str);
+        // print(str);
+        log.info(str);
     }
 
     /**
      * 打印元素位置
-     * @param {Array} elements 元素数组
+     * @param {Element[]} elements 元素数组
      */
     function LogElementPosition(elements) {
         var positions = [];
@@ -53,20 +54,6 @@ define(function () {
     }
 
     /**
-     * 打印日志
-     * @param {string} args 日志内容
-     * @private
-     */
-    function print() {
-        // 将 arguments 转换为真正的数组
-        var args = Array.prototype.slice.call(arguments);
-        // 将所有参数拼接成一个字符串
-        var str = args.join('    ');
-        // 调用 fl.trace 方法
-        fl.trace(str);
-    }
-
-    /**
      * 打印字典
      * @param {Object} dict 字典对象
      * @param {string} [tips] 打印提示
@@ -84,7 +71,22 @@ define(function () {
             }
         }
         str += ' }';
-        print(str);
+        // print(str);
+        log.info(str);
+    }
+
+    /**
+     * 打印日志
+     * @param {string} args 日志内容
+     */
+    function print() {
+        // 将 arguments 转换为真正的数组
+        var args = Array.prototype.slice.call(arguments);
+        // 将所有参数拼接成一个字符串
+        var str = args.join('    ');
+        // 调用 fl.trace 方法
+        fl.trace(str);
+        // log.info(str);
     }
 
     return {

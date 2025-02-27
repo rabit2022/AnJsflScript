@@ -18,7 +18,6 @@ require([
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
 
-
     var Vector = sat.Vector,
         Rectangle = sat.Rectangle,
         wrapPosition = sat.GLOBALS.wrapPosition,

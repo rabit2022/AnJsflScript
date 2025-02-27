@@ -24,4 +24,3 @@ function convertToSymbolWithOffset(atype, aname, xoffset, yoffset) {
 }
 
 convertToSymbolWithOffset('graphic', 'TEST 1', 32, 32);
-

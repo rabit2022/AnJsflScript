@@ -1,5 +1,5 @@
 ﻿{
-  "parser": "@typescript-eslint/parser",
+//  "parser": "@typescript-eslint/parser",
   "extends": [
     "airbnb", // 使用 Airbnb 的基础 JavaScript 配置
     "prettier" // 使用 Prettier 格式化规则
@@ -8,7 +8,7 @@
     "prettier" // Prettier 插件
   ],
   "parserOptions": {
-    "ecmaVersion": 6, // 支持最新 ECMAScript 特性
+    "ecmaVersion": 6, // 支持的 ECMAScript 版本
     "sourceType": "module"
   },
   "rules": {

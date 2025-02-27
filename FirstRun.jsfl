@@ -7,7 +7,7 @@
  * @description:每一次打开An时，都要 执行此脚本，用于初始化一些必要的模块。
  */
 
-(function () {
+(function() {
     /**
      * 获取当前脚本文件的所在文件夹路径
      * @returns {string}
@@ -41,22 +41,25 @@
          * 项目文件夹路径
          * @type {string}
          */
-        window.PROJECT_FOLDER = getCurFolderURI();
+        window.$ProjectFileDir$ = getCurFolderURI();
 
         require.config({
-            baseUrl: window.PROJECT_FOLDER, // 设置模块的基础路径
+            baseUrl: window.$ProjectFileDir$, // 设置模块的基础路径
             paths: {
-                'es5-sham': 'Third/es5-shim-4.6.7/es5-sham',
-                'es5-shim': 'Third/es5-shim-4.6.7/es5-shim',
-                'es6-sham': 'Third/es6-shim-0.35.4/es6-sham',
-                'es6-shim': 'Third/es6-shim-0.35.4/es6-shim',
-                linq: 'Third/linq-4.0.3/linq',
-                loglevel: 'Third/loglevel-1.9.2/loglevel',
-                'path-browserify':
-                    'Third/path-browserify-1.0.1/path-browserify',
-                require: 'Third/requirejs-2.3.7/require',
-                SAT: 'Third/sat-js-0.9.0/SAT',
+                "core-js":"Third/core-js-3.40.0/core-js",
+                "es5-sham":"Third/es5-shim-4.6.7/es5-sham",
+                "es5-shim":"Third/es5-shim-4.6.7/es5-shim",
+                "es6-sham":"Third/es6-shim-0.35.4/es6-sham",
+                "es6-shim":"Third/es6-shim-0.35.4/es6-shim",
+                "linq":"Third/linq-4.0.3/linq",
+                "lodash":"Third/lodash-4.17.21/lodash",
+                "loglevel":"Third/loglevel-1.9.2/loglevel",
+                "path-browserify":"Third/path-browserify-1.0.1/path-browserify",
+                "require":"Third/requirejs-2.3.7/require",
 
+
+                "Constants":"Core/Constants/Constants",
+                "JSFLConstants":"Core/Constants/JSFLConstants",
                 "console":"Core/myShim/console",
                 "shim":"Core/myShim/shim",
                 "frameRange":"Core/Object/frameRange",
@@ -64,11 +67,10 @@
                 "moreElement":"Core/Object/moreElement",
                 "moreElementUtil":"Core/Object/moreElementUtil",
                 "linqUtil":"Core/Third/linqUtil",
+                "logUtil":"Core/Third/logUtil",
+                "SAT":"Core/Third/sat-js-0.9.0/SAT",
                 "satUtil":"Core/Third/satUtil",
-                "Log":"Core/TopLevel/Log",
-                "Common":"Core/Utils/custom/Common",
-                "Constants":"Core/Utils/custom/Constants",
-                "JSFLConstants":"Core/Utils/custom/JSFLConstants",
+                "Func":"Core/TopLevel/Func",
                 "checkUtil":"Core/Utils/flash/checkUtil",
                 "curveUtil":"Core/Utils/flash/curveUtil",
                 "elementUtil":"Core/Utils/flash/elementUtil",
@@ -85,20 +87,6 @@
                 "StringP":"Core/Utils/py/StringP",
 
             },
-            map: {
-                '*': {
-                    // sat: 'SAT',
-                    // sel: 'selectionUtil',
-                    // selection: 'selectionUtil',
-                    // me: 'moreElement',
-                    // meUtil: 'moreElementUtil',
-                    // ele: 'elementUtil',
-                    // curve: 'curveUtil',
-                    // graphics: 'graphicsUtil',
-                    // fr: 'frameRange',
-                    // frUtil: 'frameRangeUtil',
-                },
-            },
         });
 
         // 当前es3(es1999)环境,补齐es5(es2009)和es6(es2015)的一些方法
@@ -112,12 +100,17 @@
         ]);
 
         // 禁用log
-        require(['loglevel'], function (log) {
+        require(['loglevel'], function(log) {
             log.setDefaultLevel(log.levels.SILENT);
         });
 
-        // 导入完成
-        fl.trace('=============Core modules imported.=============');
+        require(['logUtil'], function(logUtil) {
+            const { print }= logUtil;
+
+            // 导入完成
+            print('=============Core modules imported.=============');
+        });
+
     }
 
     Main();

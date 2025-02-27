@@ -65,7 +65,7 @@ export class Vector {
         pt: Vector,
         arcWidth: number,
         arcHeight: number,
-        degrees: number,
+        degrees: number
     ): Vector;
 
     getCenter(): Vector;
@@ -125,7 +125,7 @@ export class Rectangle {
     getPart(
         whichPart: string,
         widthRatio?: number,
-        heightRatio?: number,
+        heightRatio?: number
     ): Rectangle;
 
     copy(rect: Rectangle): Rectangle;
@@ -184,7 +184,7 @@ export class Transform {
 
 export namespace GLOBALS {
     export function wrapPosition(
-        element: { x: number; y: number } | Element,
+        element: { x: number; y: number } | Element
     ): Vector;
 
     export function wrapScale(element: {
@@ -192,49 +192,38 @@ export namespace GLOBALS {
         scaleY: number;
     }): Vector;
 
-    export function wrapSkew(element: {
-        skewX: number;
-        skewY: number;
-    }): Vector;
+    export function wrapSkew(element: { skewX: number; skewY: number }): Vector;
 
     export function getOrigin(): Vector;
 
-    export function getTopLeft(element: {
-        left: number;
-        top: number;
-    }): Vector;
+    export function getTopLeft(element: { left: number; top: number }): Vector;
 
     export function wrapRectByTopLeft(
         left: number,
         top: number,
         width: number,
-        height: number,
+        height: number
     ): Rectangle;
 
     export function wrapRectByCenter(
         centerX: number,
         centerY: number,
         width: number,
-        height: number,
+        height: number
     ): Rectangle;
 
-    export function wrapSize(element: {
-        width: number;
-        height: number;
-    }): Size;
+    export function wrapSize(element: { width: number; height: number }): Size;
 
     export function wrapTransform(element: any): Transform;
 
-    export function findBoundingRectangle(
-        elements: Array<Element>,
-    ): Rectangle;
+    export function findBoundingRectangle(elements: Array<Element>): Rectangle;
 }
 
-// // 别名
-// export { Vector as V };
-// export { Rectangle as R };
-// export { Size as S };
-// // export { Transform as T };
+// 别名
+export { Vector as V };
+export { Rectangle as R };
+export { Size as S };
+// export { Transform as T };
 
 // namespace SAT {
 //     export { Vector };
