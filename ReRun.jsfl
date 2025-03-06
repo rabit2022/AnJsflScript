@@ -8,6 +8,9 @@
  */
 
 require(['loglevel'], function (log) {
+    // 清除输出面板
+    fl.outputPanel.clear();
+
     // 清除当前的 RequireJS 实例
     window.requirejs = undefined;
     window.require = undefined;

@@ -143,7 +143,7 @@ define(['SAT', 'random'], function (sat, random) {
             max_size: longerSide,
             min_size: shorterSide,
             width,
-            height,
+            height
         } = rectSize;
 
         // 计算每个网格块的长边尺寸
@@ -162,7 +162,7 @@ define(['SAT', 'random'], function (sat, random) {
                 blockLongerSide,
                 blockShorterSide,
                 gridSize,
-                shorterMaxCount,
+                shorterMaxCount
             ];
         } else {
             // 高度为长边
@@ -170,13 +170,13 @@ define(['SAT', 'random'], function (sat, random) {
                 blockShorterSide,
                 blockLongerSide,
                 shorterMaxCount,
-                gridSize,
+                gridSize
             ];
         }
     };
 
     return {
         PointUtil: PointUtil,
-        RectUtil: RectUtil,
+        RectUtil: RectUtil
     };
 });

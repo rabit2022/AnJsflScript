@@ -16,7 +16,7 @@ require([
     'SAT',
     'graphicsUtil',
     'curveUtil',
-    'Constants',
+    'Constants'
 ], function (
     checkUtil,
     ele,

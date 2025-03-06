@@ -3,5 +3,5 @@
   "singleQuote": true,
   "printWidth": 80,
   "tabWidth": 4,
-  "trailingComma": "es5"
+  "trailingComma": "none"# 末尾没有逗号
 }

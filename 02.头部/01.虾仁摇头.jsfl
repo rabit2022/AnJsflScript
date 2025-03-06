@@ -14,7 +14,7 @@ require([
     'satUtil',
     'curveUtil',
     'selectionUtil',
-    'Constants',
+    'Constants'
 ], function (checkUtil, xmlPanelUtil, libUtil, satUtil, curve, sel, Constants) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
@@ -30,11 +30,11 @@ require([
         XMLPanel: true,
         'input parameters': {
             摇头力度: 6,
-            头部朝向: null,
+            头部朝向: null
         },
         detail: '包装元件',
         'detail description': '',
-        steps: ['包装元件', '设置变形点', '更改旋转', '设置传统补间'],
+        steps: ['包装元件', '设置变形点', '更改旋转', '设置传统补间']
     };
 
     function checkXMLPanel() {

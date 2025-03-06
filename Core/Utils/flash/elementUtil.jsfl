@@ -16,15 +16,14 @@ define([
     'selectionUtil',
     'moreElementUtil',
     'builtInP',
-    'loglevel',
+    'loglevel'
 ], function (sat, satUtil, libUtil, layerUtil, os, sel, meUtil, builtInP, log) {
     var Vector = sat.V,
-        wrapRect = sat.GLOBALS.wrapRect,
+        Rectangle = sat.R,
         wrapPosition = sat.GLOBALS.wrapPosition,
         wrapSize = sat.GLOBALS.wrapSize,
         getOrigin = sat.GLOBALS.getOrigin,
-        getTopLeft = sat.GLOBALS.getTopLeft,
-        wrapRectByElement = sat.GLOBALS.wrapRectByElement;
+        getTopLeft = sat.GLOBALS.getTopLeft;
 
     var wrapMoreElement = meUtil.wrapMoreElement;
     var rectUtil = satUtil.RectUtil;
@@ -124,7 +123,7 @@ define([
      */
     ElementUtil.getMaxRight = function (elements) {
         function getTopRight(element) {
-            var rect = wrapRectByElement(element);
+            var rect =new Rectangle(element);
             return rect.getCorner('top right');
         }
 
@@ -207,7 +206,7 @@ define([
 
         sel.OnlySelectCurrent(element);
         var doc = fl.getDocumentDOM();
-        var rect = wrapRect(doc.getSelectionRect());
+        var rect =new Rectangle(doc.getSelectionRect());
         var topRight = rect.getCorner(whichCorner);
 
         // 相对位置
@@ -225,15 +224,18 @@ define([
         var doc = fl.getDocumentDOM(); //文档
 
         sel.OnlySelectCurrent(element);
+
+        console.log('转换位图');
+
         if (this.IsSymbol(doc.selection[0])) {
             doc.convertSelectionToBitmap();
         }
 
-        if (!this.IsBitmap(doc.selection[0])) {
-            console.error('转换位图失败！！！');
-            // throw new Error("转换位图失败！！！");
-            return false;
-        }
+        // if (!this.IsBitmap(doc.selection[0])) {
+        //     console.error('转换位图失败！！！');
+        //     // throw new Error("转换位图失败！！！");
+        //     return false;
+        // }
 
         var symbolName = libUtil.generateNameUntilUnique(SymbolName);
         doc.convertToSymbol('graphic', symbolName, 'center');
@@ -250,7 +252,7 @@ define([
         var elementSize = wrapSize(element);
         var [blockWidth, blockHeight, blockCountX, blockCountY] =
             rectUtil.splitRectangle(elementSize);
-        fl.trace(
+        console.log(
             'blockWidth:' +
                 blockWidth +
                 ' blockHeight:' +
@@ -272,7 +274,7 @@ define([
             for (var j = 0; j < blockCountY; j++) {
                 var rect = moreElement.NeatRect(i, j);
 
-                fl.trace('rect:' + j + '_' + i + ' ' + rect);
+                console.info('rect:' + j + '_' + i + ' ' + rect);
                 // 选择小块
                 doc.setSelectionRect(rect.toObj());
 
@@ -281,6 +283,7 @@ define([
                 var baseName = SymbolName + '碎片-' + j + '-' + i + '_';
                 var symbolName = libUtil.generateNameUseLast(baseName);
                 doc.convertToSymbol('graphic', symbolName, 'center');
+                // console.info('symbolName:' + symbolName);
 
                 sel.SelectNone();
             }
@@ -311,6 +314,7 @@ define([
                 layers,
                 DELETE_LAYER_NAME
             );
+            console.log('findLayers:' + findLayers);
 
             // 删除图层
             layerUtil.deleteLayers(timeline, findLayers);

@@ -59,7 +59,7 @@ require(['checkUtil', 'xmlPanelUtil', 'moreElement'], function (
             horizontalCount: horizontalCount,
             horizontalSpacing: horizontalSpacing,
             verticalCount: verticalCount,
-            verticalSpacing: verticalSpacing,
+            verticalSpacing: verticalSpacing
         };
     }
 

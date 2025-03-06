@@ -7,11 +7,12 @@
  * @description:
  */
 
-define(['layerUtil', 'frameRange', 'selectionUtil'], function (
-    layerUtil,
-    FrameRange,
-    sel
-) {
+define([
+    'layerUtil',
+    'frameRange',
+    'selectionUtil',
+    'core-js/actual/array/includes'
+], function (layerUtil, FrameRange, sel) {
     function FrameRangeUtil() {}
 
     /**

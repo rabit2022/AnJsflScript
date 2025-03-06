@@ -30,6 +30,8 @@ require(['checkUtil', 'xmlPanelUtil', 'os'], function (
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
     var [folder_name, basename] = os.path.split(fl.scriptURI);
+    // console.log(folder_name);
+    // console.log(basename);
     var onlyName = os.path.basenameWithoutExt(fl.scriptURI);
     var XMLFOLDER = '02.排兵布阵';
 
@@ -37,11 +39,9 @@ require(['checkUtil', 'xmlPanelUtil', 'os'], function (
         // 检查选择的元件
         if (!checkSelection(selection, 'selectElement', 'Not Zero')) return;
 
-        var XMLPANEL = os.path.join([
-            folder_name,
-            XMLFOLDER,
-            onlyName + '.xml',
-        ]);
+        var XMLPANEL = os.path.join(folder_name, XMLFOLDER, onlyName + '.xml');
+        // console.log(XMLPANEL);
+
         var panel = xmlPanelUtil.getXMLPanel(XMLPANEL);
         if (panel == null) return;
 
@@ -49,29 +49,29 @@ require(['checkUtil', 'xmlPanelUtil', 'os'], function (
         switch (radioGroup) {
             case 'neat':
                 // fl.trace("整齐排布");
-                var SCRIPT_PATH = os.path.join([
+                var SCRIPT_PATH = os.path.join(
                     folder_name,
                     XMLFOLDER,
-                    onlyName + '_neat.jsfl',
-                ]);
+                    onlyName + '_neat.jsfl'
+                );
                 fl.runScript(SCRIPT_PATH);
                 break;
             case 'staggered':
                 // fl.trace("交错排布");
-                var SCRIPT_PATH = os.path.join([
+                var SCRIPT_PATH = os.path.join(
                     folder_name,
                     XMLFOLDER,
-                    onlyName + '_staggered.jsfl',
-                ]);
+                    onlyName + '_staggered.jsfl'
+                );
                 fl.runScript(SCRIPT_PATH);
                 break;
             case 'random':
                 // fl.trace("随机排布");
-                var SCRIPT_PATH = os.path.join([
+                var SCRIPT_PATH = os.path.join(
                     folder_name,
                     XMLFOLDER,
-                    onlyName + '_random.jsfl',
-                ]);
+                    onlyName + '_random.jsfl'
+                );
                 fl.runScript(SCRIPT_PATH);
                 break;
             default:

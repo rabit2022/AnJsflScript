@@ -93,6 +93,6 @@ define(['loglevel'], function (log) {
         LogArray: LogArray,
         LogElementPosition: LogElementPosition,
         LogDict: LogDict,
-        print: print,
+        print: print
     };
 });

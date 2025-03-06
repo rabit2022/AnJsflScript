@@ -158,7 +158,7 @@
             // probably `enumerable`. Detect enumerability though.
             descriptor = {
                 enumerable: isEnumerable(object, property),
-                configurable: true,
+                configurable: true
             };
 
             // If JS engine supports accessor properties then property may be a

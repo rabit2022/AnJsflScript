@@ -53,7 +53,7 @@ require(['checkUtil', 'xmlPanelUtil', 'curveUtil'], function (
         return {
             easeType: easeType,
             easeInOut: easeInOut,
-            intensity: intensity,
+            intensity: intensity
         };
     }
 

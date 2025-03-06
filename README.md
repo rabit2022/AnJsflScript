@@ -117,12 +117,18 @@
 ## 6. 参考项目
 
 - [**WindowSWF** ：b站up @见水中月](https://gitee.com/ninge/WindowSWF/tree/master/)
+- [**xJSFL** : Flash jsfl 框架,借鉴部分代码](https://github.com/davestewart/xJSFL)
+- [**sat-js-0.9.0** : js图形库，仅用到Vector代码，其他代码已经删除](https://github.com/jriecken/sat-js)
+- [**requirejs-2.3.7** : js模块加载器，可以方便的进行模块化开发](https://github.com/requirejs/requirejs)
+
+- [**core-js-3.41.0** : js的polyfill库，可以方便的进行兼容性处理](https://github.com/zloirock/core-js)
+- [**linq.js-4.0.3** : Linq库，可以方便的进行数组的查询操作](https://github.com/neuecc/linq.js)
+- [**lodash-4.17.21** : js工具库，提供了很多实用的函数，可以帮助开发者简化代码编写](https://github.com/lodash/lodash)
+- [**loglevel-1.9.2** : js日志库，可以方便的进行日志记录](https://github.com/pimterry/loglevel)
+- [**path-browserify-1.0.1** : js库，可以方便的进行路径处理](https://github.com/browserify/path-browserify)
+
 - [**es5-shim-4.6.7** : 当前es3环境， 补充 es5 环境的api](https://github.com/es-shims/es5-shim)
 - [**es6-shim-0.35.4** : 当前es3环境，补充 es6 环境的api](https://github.com/es-shims/es6-shim)
-- [**linq.js-4.0.3** : 一个jsLinq库，可以方便的进行数组的查询操作](https://github.com/neuecc/linq.js)
-- [**requirejs-2.3.7** : 一个js模块加载器，可以方便的进行模块化开发](https://github.com/requirejs/requirejs)
-- [**sat-js-0.9.0** : 一个js图形库，仅用到Vector代码，其他代码已经删除](https://github.com/jriecken/sat-js)
-- [**xJSFL** : Flash jsfl 框架](https://github.com/davestewart/xJSFL)
 
 为了使得以上项目能够在 Adobe Animate 中正常运行，部分进行了大量的修改，并且全部更改为requirejs模块化加载。
 

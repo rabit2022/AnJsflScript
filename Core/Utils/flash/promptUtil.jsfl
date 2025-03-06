@@ -101,7 +101,7 @@ define(function () {
 
             return {
                 num: frameAdjustment,
-                hasSign: hasSign,
+                hasSign: hasSign
             };
         }
     };
@@ -137,7 +137,7 @@ define(function () {
 
         return {
             num: config.num,
-            mode: mode,
+            mode: mode
         };
     };
 

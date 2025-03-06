@@ -19,11 +19,11 @@ require(['checkUtil', 'promptUtil'], function (checkUtil, promptUtil) {
         XMLPanel: false,
         'input parameters': {
             头部朝向: '右',
-            抬头角度: 15,
+            抬头角度: 15
         },
         detail: '更改transform',
         'detail description': '更改元件的旋转',
-        steps: ['更改旋转'],
+        steps: ['更改旋转']
     };
 
     var doc = fl.getDocumentDOM(); //文档

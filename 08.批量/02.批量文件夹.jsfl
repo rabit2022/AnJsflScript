@@ -44,7 +44,7 @@ require(['checkUtil', 'libUtil'], function (checkUtil, libUtil) {
             '一 常用/3.角色/3.人物三',
             '一 常用/3.角色/4.人物四',
             '一 常用/3.角色/5.人物五',
-            '一 常用/3.角色/6.人物六',
+            '一 常用/3.角色/6.人物六'
         ];
 
         for (var i = 0; i < folderNames.length; i++) {

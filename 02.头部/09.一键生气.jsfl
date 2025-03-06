@@ -15,7 +15,7 @@ require(['checkUtil', 'curveUtil', 'frameRangeUtil'], function (
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
-        CheckSelectedFrames: checkSelectedFrames,
+        CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
 
     var descriptions = {
@@ -27,7 +27,7 @@ require(['checkUtil', 'curveUtil', 'frameRangeUtil'], function (
         'input parameters': {},
         detail: '直接k帧',
         'detail description': '选中至少一帧，这一帧上元件数量，只能是一个',
-        steps: ['获取第一帧', 'k帧', '设置缩放', '创建补间动画'],
+        steps: ['获取第一帧', 'k帧', '设置缩放', '创建补间动画']
     };
 
     var doc = fl.getDocumentDOM(); //文档
@@ -73,7 +73,7 @@ require(['checkUtil', 'curveUtil', 'frameRangeUtil'], function (
 
         return {
             allKeyFrames: allKeyFrames,
-            alteredKeyFrames: alteredKeyFrames,
+            alteredKeyFrames: alteredKeyFrames
         };
     }
 

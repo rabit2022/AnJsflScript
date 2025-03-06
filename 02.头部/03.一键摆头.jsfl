@@ -12,7 +12,7 @@ require([
     'promptUtil',
     'filterUtil',
     'libUtil',
-    'Constants',
+    'Constants'
 ], function (checkUtil, promptUtil, filterUtil, libUtil, Constants) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
@@ -25,11 +25,11 @@ require([
         'selection description': '选中头部',
         XMLPanel: false,
         'input parameters': {
-            动态模糊度: 4,
+            动态模糊度: 4
         },
         detail: '包装元件',
         'detail description': '',
-        steps: ['打包', '包装元件', 'k帧', '添加滤镜', '水平翻转'],
+        steps: ['打包', '包装元件', 'k帧', '添加滤镜', '水平翻转']
     };
 
     var doc = fl.getDocumentDOM(); //文档

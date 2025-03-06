@@ -42,7 +42,7 @@ require(['checkUtil', 'layerUtil'], function (checkUtil, layerUtil) {
             '背景',
             '配音',
             '音效1',
-            '音效2',
+            '音效2'
         ];
 
         for (var i = 0; i < LAYER_NAME_ARRAY.length; i++) {

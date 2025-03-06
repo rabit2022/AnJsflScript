@@ -1,13 +1,15 @@
-﻿require(['checkUtil', 'SAT', 'satUtil', 'selectionUtil'], function (
-    checkUtil,
-    sat,
-    satUtil,
-    sel
-) {
+﻿require([
+    'checkUtil',
+    'SAT',
+    'satUtil',
+    'selectionUtil',
+    'core-js/stable/array/includes',
+    'core-js/stable/string/includes'
+], function (checkUtil, sat, satUtil, sel) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
-        CheckSelectedFrames: checkSelectedFrames,
+        CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
 
     const { Vector, Rectangle } = sat;

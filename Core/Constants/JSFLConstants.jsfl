@@ -29,8 +29,8 @@ define(function () {
              */
             compressionType: {
                 PHOTO: 'photo',
-                LOSSLESS: 'lossless',
-            },
+                LOSSLESS: 'lossless'
+            }
         },
 
         // --------------------------------------------------------------------------------
@@ -46,8 +46,8 @@ define(function () {
                 TEXT: 'text',
                 TLF_TEXT: 'tlfText',
                 INSTANCE: 'instance',
-                SHAPE_OBJ: 'shapeObj',
-            },
+                SHAPE_OBJ: 'shapeObj'
+            }
         },
 
         // --------------------------------------------------------------------------------
@@ -61,7 +61,7 @@ define(function () {
             type: {
                 INNER: 'inner',
                 OUTER: 'outer',
-                FULL: 'full',
+                FULL: 'full'
             },
             /**
              * filter.name
@@ -74,7 +74,7 @@ define(function () {
                 DROP_SHADOW_FILTER: 'dropShadowFilter',
                 GLOW_FILTER: 'glowFilter',
                 GRADIENT_BEVEL_FILTER: 'gradientBevelFilter',
-                GRADIENT_GLOW_FILTER: 'gradientGlowFilter',
+                GRADIENT_GLOW_FILTER: 'gradientGlowFilter'
             },
             /**
              * filter.property
@@ -91,8 +91,8 @@ define(function () {
                 BEVEL_TYPE: 'bevelType',
                 COLOR: 'color',
                 SHADOW_COLOR: 'shadowColor',
-                HIGHLIGHT_COLOR: 'highlightColor',
-            },
+                HIGHLIGHT_COLOR: 'highlightColor'
+            }
         },
 
         // --------------------------------------------------------------------------------
@@ -108,8 +108,8 @@ define(function () {
                 SOLID: 'solid',
                 LINEAR_GRADIENT: 'linearGradient',
                 RADIAL_GRADIENT: 'radialGradient',
-                NO_FILL: 'noFill',
-            },
+                NO_FILL: 'noFill'
+            }
         },
 
         // --------------------------------------------------------------------------------
@@ -124,7 +124,7 @@ define(function () {
                 NONE: 'none',
                 NAME: 'name',
                 COMMENT: 'comment',
-                ANCHOR: 'anchor',
+                ANCHOR: 'anchor'
             },
             /**
              * frame.tweenType
@@ -133,7 +133,7 @@ define(function () {
             tweenType: {
                 MOTION: 'motion',
                 SHAPE: 'shape',
-                NONE: 'none',
+                NONE: 'none'
             },
             /**
              * frame.easeCurve
@@ -145,8 +145,8 @@ define(function () {
                 ROTATION: 'rotation',
                 SCALE: 'scale',
                 COLOR: 'color',
-                FILTERS: 'filters',
-            },
+                FILTERS: 'filters'
+            }
         },
 
         // --------------------------------------------------------------------------------
@@ -163,8 +163,8 @@ define(function () {
                 EMBEDDED_VIDEO: 'embedded video',
                 LINKED_VIDEO: 'linked video',
                 VIDEO: 'video',
-                COMPILED_CLIP: 'compiled clip',
-            },
+                COMPILED_CLIP: 'compiled clip'
+            }
         },
 
         // --------------------------------------------------------------------------------
@@ -187,8 +187,8 @@ define(function () {
                 BITMAP: 'bitmap',
                 COMPILED_CLIP: 'compiled clip',
                 SCREEN: 'screen',
-                VIDEO: 'video',
-            },
+                VIDEO: 'video'
+            }
         },
 
         // --------------------------------------------------------------------------------
@@ -202,7 +202,7 @@ define(function () {
             animationType: {
                 NONE: 'none',
                 MOTION_OBJECT: 'motion object',
-                IK_POSE: 'IK pose',
+                IK_POSE: 'IK pose'
             },
             /**
              * layer.layerType
@@ -214,8 +214,8 @@ define(function () {
                 GUIDED: 'guided',
                 MASK: 'mask',
                 MASKED: 'masked',
-                FOLDER: 'folder',
-            },
+                FOLDER: 'folder'
+            }
         },
 
         // --------------------------------------------------------------------------------
@@ -238,8 +238,8 @@ define(function () {
                 COLOR: 'Color',
                 COLLECTION: 'Collection',
                 WEB_SERVICE_URL: 'Web Service URL',
-                WEB_SERVICE_OPERATION: 'Web Service Operation',
-            },
+                WEB_SERVICE_OPERATION: 'Web Service Operation'
+            }
         },
 
         // --------------------------------------------------------------------------------
@@ -254,7 +254,7 @@ define(function () {
             symbolType: {
                 BUTTON: 'button',
                 MOVIE_CLIP: 'movie clip',
-                GRAPHIC: 'graphic',
+                GRAPHIC: 'graphic'
             },
             /**
              * symbol.blendMode
@@ -274,8 +274,8 @@ define(function () {
                 SUBTRACT: 'subtract',
                 INVERT: 'invert',
                 ALPHA: 'alpha',
-                ERASE: 'erase',
-            },
+                ERASE: 'erase'
+            }
         },
 
         // --------------------------------------------------------------------------------
@@ -291,8 +291,8 @@ define(function () {
                 ADPCM: 'ADPCM',
                 MP3: 'MP3',
                 RAW: 'Raw',
-                SPEECH: 'Speech',
-            },
+                SPEECH: 'Speech'
+            }
         },
 
         // --------------------------------------------------------------------------------
@@ -306,7 +306,7 @@ define(function () {
             capType: {
                 NONE: 'none',
                 ROUND: 'round',
-                SQUARE: 'square',
+                SQUARE: 'square'
             },
             /**
              * stroke.joinType
@@ -315,7 +315,7 @@ define(function () {
             joinType: {
                 MITER: 'miter',
                 ROUND: 'round',
-                BEVEL: 'bevel',
+                BEVEL: 'bevel'
             },
             /**
              * stroke.scaleType
@@ -325,7 +325,7 @@ define(function () {
                 NORMAL: 'normal',
                 HORIZONTAL: 'horizontal',
                 VERTICAL: 'vertical',
-                NONE: 'none',
+                NONE: 'none'
             },
             /**
              * stroke.style
@@ -338,8 +338,8 @@ define(function () {
                 DOTTED: 'dotted',
                 RAGGED: 'ragged',
                 STIPPLE: 'stipple',
-                HATCHED: 'hatched',
-            },
+                HATCHED: 'hatched'
+            }
         },
 
         // --------------------------------------------------------------------------------
@@ -353,7 +353,7 @@ define(function () {
             textType: {
                 STATIC: 'static',
                 DYNAMIC: 'dynamic',
-                INPUT: 'input',
+                INPUT: 'input'
             },
             /**
              * text.lineType
@@ -363,7 +363,7 @@ define(function () {
                 SINGLE_LINE: 'single line',
                 MULTILINE: 'multiline',
                 MULTILINE_NO_WRAP: 'multiline no wrap',
-                PASSWORD: 'password',
+                PASSWORD: 'password'
             },
             /**
              * text.alignment
@@ -373,8 +373,8 @@ define(function () {
                 LEFT: 'left',
                 CENTER: 'center',
                 RIGHT: 'right',
-                JUSTIFY: 'justify',
-            },
+                JUSTIFY: 'justify'
+            }
         },
 
         // --------------------------------------------------------------------------------
@@ -391,7 +391,7 @@ define(function () {
                 TOP: 'top',
                 BOTTOM: 'bottom',
                 VERTICAL_CENTER: 'vertical center',
-                HORIZONTAL_CENTER: 'horizontal center',
+                HORIZONTAL_CENTER: 'horizontal center'
             },
             /**
              * transform.corner
@@ -405,7 +405,7 @@ define(function () {
                 TOP_CENTER: 'top center',
                 RIGHT_CENTER: 'right center',
                 BOTTOM_CENTER: 'bottom center',
-                LEFT_CENTER: 'left center',
+                LEFT_CENTER: 'left center'
             },
             /**
              * transform.distribute
@@ -417,8 +417,8 @@ define(function () {
                 RIGHT_EDGE: 'right edge',
                 TOP_EDGE: 'top edge',
                 VERTICAL_CENTER: 'vertical center',
-                BOTTOM_EDGE: 'bottom edge',
-            },
+                BOTTOM_EDGE: 'bottom edge'
+            }
         },
 
         // --------------------------------------------------------------------------------
@@ -432,9 +432,9 @@ define(function () {
             videoType: {
                 EMBEDDED_VIDEO: 'embedded video',
                 LINKED_VIDEO: 'linked video',
-                VIDEO: 'video',
-            },
-        },
+                VIDEO: 'video'
+            }
+        }
     };
 
     return JSFLConstants;

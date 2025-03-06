@@ -54,7 +54,7 @@ require(['checkUtil', 'xmlPanelUtil'], function (checkUtil, xmlPanelUtil) {
             shakeIntensity: shakeIntensity,
             motionFrameCount: motionFrameCount,
             headDirection: headDirection,
-            shakeMode: shakeMode,
+            shakeMode: shakeMode
         };
     }
 

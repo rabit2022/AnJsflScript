@@ -14,7 +14,7 @@ require([
     'filterUtil',
     'curveUtil',
     'frameRangeUtil',
-    'Constants',
+    'Constants'
 ], function (
     checkUtil,
     promptUtil,

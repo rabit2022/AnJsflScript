@@ -13,7 +13,7 @@ require([
     'libUtil',
     'SAT',
     'selectionUtil',
-    'linqUtil',
+    'linqUtil'
 ], function (checkUtil, promptUtil, libUtil, sat, sel, linqUtil) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
@@ -32,7 +32,7 @@ require([
         'selection description': '选中多个表情',
         XMLPanel: false,
         'input parameters': {
-            单个表情特续的帧数: 6,
+            单个表情特续的帧数: 6
         },
         detail: '包装元件',
         'detail description': '',
@@ -41,8 +41,8 @@ require([
             'k帧',
             '交换元素',
             '除了第一帧的元素，都删除',
-            '移动到中心位置',
-        ],
+            '移动到中心位置'
+        ]
     };
 
     var doc = fl.getDocumentDOM(); //文档

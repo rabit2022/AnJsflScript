@@ -10,14 +10,14 @@ fl.getDocumentDOM().addNewText({
     left: -1,
     top: 117.3,
     right: 9.2,
-    bottom: 134.6,
+    bottom: 134.6
 });
 fl.getDocumentDOM().setTextString('Hello World');
 fl.getDocumentDOM().setSelectionRect({
     left: -28,
     top: -22,
     right: 156.0,
-    bottom: 163,
+    bottom: 163
 });
 var theSelectionArray = fl.getDocumentDOM().selection;
 for (var i = 0; i < theSelectionArray.length; i++) {

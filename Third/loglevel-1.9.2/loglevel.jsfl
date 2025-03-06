@@ -37,7 +37,7 @@
                 return function () {
                     return Function.prototype.apply.apply(method, [
                         obj,
-                        arguments,
+                        arguments
                     ]);
                 };
             }
@@ -53,7 +53,7 @@
                 // In old IE, native console methods themselves don't have apply().
                 Function.prototype.apply.apply(console.log, [
                     console,
-                    arguments,
+                    arguments
                 ]);
             }
         }
@@ -257,7 +257,7 @@
             INFO: 2,
             WARN: 3,
             ERROR: 4,
-            SILENT: 5,
+            SILENT: 5
         };
 
         self.methodFactory = factory || defaultMethodFactory;

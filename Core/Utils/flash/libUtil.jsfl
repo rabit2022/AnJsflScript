@@ -7,7 +7,8 @@
  * @description:
  */
 
-define(['random'], function (random) {
+// import "core-js/stable/string/pad-start";
+define(['random', 'core-js/stable/string/pad-start'], function (random) {
     /**
      * 添加在 name 后面的随机数的位数，保证名称的唯一性。
      * @type {number}

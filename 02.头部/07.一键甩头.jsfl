@@ -13,12 +13,12 @@ require([
     'satUtil',
     'frameRangeUtil',
     'curveUtil',
-    'Constants',
+    'Constants'
 ], function (checkUtil, promptUtil, satUtil, frUtil, curve, Constants) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
-        CheckSelectedFrames: checkSelectedFrames,
+        CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
     const { pointUtil, rectUtil } = satUtil;
     const { FRAME_1, FRAME_11 } = Constants;
@@ -33,7 +33,7 @@ require([
         detail: '直接k帧',
         'detail description':
             '更改元件的 旋转补间,由于选中帧有多个元件时，补间动画会出现问题，所以这里选中帧的图层上，只能有一个元件。',
-        steps: ['设置变形点', '获取选择的第一帧', '传统补间，顺时针旋转'],
+        steps: ['设置变形点', '获取选择的第一帧', '传统补间，顺时针旋转']
     };
 
     var doc = fl.getDocumentDOM(); //文档

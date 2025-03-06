@@ -107,6 +107,6 @@ define(function () {
     return {
         IsNullOrEmpty: IsNullOrEmpty,
         IsEmpty: IsEmpty,
-        INHERIT_MACRO: INHERIT_MACRO,
+        INHERIT_MACRO: INHERIT_MACRO
     };
 });

@@ -12,10 +12,11 @@
     "sourceType": "module"
   },
   "rules": {
-    "max-classes-per-file": "error"
+    "max-classes-per-file": "error",
 //    "max-classes-per-file": ["error", 10],  // 允许每个文件最多有 5 个类
 //    "no-unused-vars": "off",// 没有使用的变量可以不用声明
 //    "lines-between-class-members": "off"   // 类成员之间不用空行
+    "comma-dangle": ["error", "never"] // 禁止末尾的逗号
   },
   "ignorePatterns": ["**/*.d.ts"]
 }

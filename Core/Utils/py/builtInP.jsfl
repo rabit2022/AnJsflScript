@@ -741,6 +741,6 @@ define(function () {
         slice: slice,
         sorted: sorted,
         sum: sum,
-        zip: zip,
+        zip: zip
     };
 });

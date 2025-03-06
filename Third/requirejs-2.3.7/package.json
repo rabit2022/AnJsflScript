@@ -4,9 +4,9 @@
     "volo": {
         "url": "https://raw.github.com/requirejs/requirejs/{version}/require.js"
     },
-    "main": "require.js",
+    "main": "require.jsfl",
     "scripts": {
-        "pretest": "jscs . && jshint require.js"
+        "pretest": "jscs . && jshint require.jsfl"
     },
     "repository": {
         "type": "git",

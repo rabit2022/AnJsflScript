@@ -29,17 +29,17 @@ define(['loglevel', 'path-browserify'], function (log, path) {
         const currentWorkingDirectory = OS.getcwd();
         return path.resolve(currentWorkingDirectory, relativePath);
     };
-    OSPath.basename = function (path) {
-        return path.basename(path);
+    OSPath.basename = function (_path) {
+        return path.basename(_path);
     };
-    OSPath.dirname = function (path) {
-        return path.dirname(path);
+    OSPath.dirname = function (_path) {
+        return path.dirname(_path);
     };
     OSPath.exists = function (uri) {
         return FLfile.exists(uri);
     };
-    OSPath.isAbs = function (path) {
-        return path.isAbsolute(path);
+    OSPath.isAbs = function (_path) {
+        return path.isAbsolute(_path);
     };
     OSPath.isfile = function (uri) {
         var [root, ext] = this.splitext(uri);
@@ -56,26 +56,27 @@ define(['loglevel', 'path-browserify'], function (log, path) {
      * @param {string} path - 要规范化的路径。
      * @return {string} - 规范化后的路径。
      */
-    OSPath.normcase = function (path) {
+    OSPath.normcase = function (_path) {
         // 在 Windows 上，将路径中的所有字符都转换为小写，并将正斜杠转换为反斜杠
         if (OS.isWindows()) {
-            return path.toLowerCase().replace(/\\/g, '/');
+            _path = _path.toLowerCase().replace(/\\/g, '/');
+            return _path;
         }
 
         // 在其他操作系统上，返回原路径
-        return path;
+        return _path;
     };
 
     /**
      * 规范化路径。
      * 通过折叠多余的分隔符和对上级目录的引用来标准化路径名，所以 A//B、A/B/、A/./B 和 A/foo/../B 都会转换成 A/B。这个字符串操作可能会改变带有符号链接的路径的含义。
      * 在 Windows 上，本方法将正斜杠转换为反斜杠。要规范大小写，请使用 normcase()。
-     * @param {string} path - 要规范化的路径。
+     * @param {string} _path - 要规范化的路径。
      * @return {string} - 规范化后的路径。
      * @private
      */
-    OSPath.normpath = function (path) {
-        return path.normalize(path);
+    OSPath.normpath = function (_path) {
+        return path.normalize(_path);
     };
 
     /**
@@ -84,14 +85,20 @@ define(['loglevel', 'path-browserify'], function (log, path) {
      * 该函数接受多个路径作为输入，并将它们合并成一个路径。
      * 路径之间使用斜杠（`/`）分隔，并将所有路径规范化。
      *
-     * @param {string[]} paths - 要合并的路径数组。
+     * @param {...string} paths - 要合并的路径数组。
      * @return {string} - 合并后的路径。
      * @example
      * join(['/foo', 'bar', 'baz']) 返回 '/foo/bar/baz'
      * join(['/foo/bar', 'baz']) 返回 '/foo/bar/baz'
      */
-    OSPath.join = function (paths) {
-        return path.join(paths);
+    OSPath.join = function () {
+        // 将 arguments 转换为数组
+        var paths = Array.prototype.slice.call(arguments);
+        var result = path.join.apply(path, paths); // 使用 apply 将数组展开为参数
+
+        // 确保路径以 file:/// 开头
+        result = result.replace('file:/', 'file:///');
+        return result;
     };
 
     /**
@@ -143,16 +150,6 @@ define(['loglevel', 'path-browserify'], function (log, path) {
      * @return {string} - 去除后缀的文件基本名称。
      */
     OSPath.basenameWithoutExt = function (_path) {
-        // // 获取路径的基本名称
-        // const basename = OSPath.basename(path);
-        //
-        // // 获取路径的扩展名
-        // const [root, ext] = OSPath.splitext(basename);
-        //
-        // // 返回去除扩展名的基本名称
-        // return root;
-        // todo: 优化代码
-
         const [root] = this.splitext(path.basename(_path));
         return root;
     };
@@ -207,7 +204,7 @@ define(['loglevel', 'path-browserify'], function (log, path) {
      * 打开文件或目录。
      *
      * @param {string} path - 要打开的文件或目录的路径。
-     * @param {"open"|"printf"|"edit"|"explore"|"find"|undefined} [operation] - 要执行的操作。
+     * @param {'open'|'printf'|'edit'|'explore'|'find'|undefined} [operation] - 要执行的操作。
      * @param {string} [arguments] - 要传递给操作的参数。
      * @param {string} [cwd] - 工作目录。
      * @param {number} [show_cmd] - 窗口样式。

@@ -12,7 +12,7 @@ require([
     'selectionUtil',
     'layerUtil',
     'satUtil',
-    'SAT',
+    'SAT'
 ], function (checkUtil, sel, layerUtil, satUtil, sat) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;

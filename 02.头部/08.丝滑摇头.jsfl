@@ -14,7 +14,7 @@ require([
     'satUtil',
     'curveUtil',
     'selectionUtil',
-    'Constants',
+    'Constants'
 ], function (checkUtil, xmlPanelUtil, libUtil, satUtil, curve, sel, Constants) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
@@ -28,7 +28,7 @@ require([
         XMLPanel: true,
         'input parameters': {
             摇头力度: 3,
-            头部朝向: '头部向左',
+            头部朝向: '头部向左'
         },
         detail: '包装元件',
         'detail description': '选中头部',
@@ -38,8 +38,8 @@ require([
             'k帧',
             '设置变形点',
             '更改位置',
-            '传统补间',
-        ],
+            '传统补间'
+        ]
     };
 
     var pointUtil = satUtil.PointUtil,

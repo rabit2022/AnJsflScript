@@ -13,7 +13,7 @@ require([
     'frameRangeUtil',
     'curveUtil',
     'libUtil',
-    'Constants',
+    'Constants'
 ], function (checkUtil, ele, frUtil, curve, libUtil, Constants) {
     const { checkDom, checkSelection, checkSelectedFrames } = checkUtil;
     const { FRAME_1, FRAME_3, FRAME_6 } = Constants;

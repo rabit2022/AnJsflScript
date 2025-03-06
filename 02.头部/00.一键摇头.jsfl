@@ -20,11 +20,11 @@ require(['checkUtil', 'promptUtil', 'libUtil'], function (
         XMLPanel: false,
         'input parameters': {
             头部朝向: '右',
-            摇头力度: 3,
+            摇头力度: 3
         },
         detail: '包装元件',
         'detail description': 'k 6帧头',
-        steps: ['包装元件', '更改元件位置'],
+        steps: ['包装元件', '更改元件位置']
     };
 
     var checkDom = checkUtil.CheckDom,

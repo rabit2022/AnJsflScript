@@ -15,10 +15,8 @@
       "SAT": ["types/SAT.d.ts"],
       "Constants": ["types/Constants.d.ts"],
 
-
       "JSFLConstants": ["Core/Constants/JSFLConstants"],
       "console": ["Core/myShim/console"],
-      "shim": ["Core/myShim/shim"],
       "frameRange": ["Core/Object/frameRange"],
       "frameRangeUtil": ["Core/Object/frameRangeUtil"],
       "moreElement": ["Core/Object/moreElement"],

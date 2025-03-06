@@ -92,6 +92,6 @@ define(function () {
         SelectNone: SelectNone,
         SelectNoneTl: SelectNoneTl,
         SelectAllTl: SelectAllTl,
-        DeleteSelection: DeleteSelection,
+        DeleteSelection: DeleteSelection
     };
 });

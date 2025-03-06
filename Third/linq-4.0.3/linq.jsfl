@@ -22,7 +22,7 @@
         True: function () {
             return true;
         },
-        Blank: function () {},
+        Blank: function () {}
     };
 
     var Types = {
@@ -31,7 +31,7 @@
         String: typeof '',
         Object: typeof {},
         Undefined: typeof undefined,
-        Function: typeof function () {},
+        Function: typeof function () {}
     };
 
     var funcCache = { '': Functions.Identity };
@@ -93,7 +93,7 @@
                 enumerable: false,
                 configurable: true,
                 writable: true,
-                value: value,
+                value: value
             });
         },
 
@@ -110,7 +110,7 @@
                 typeof Symbol !== 'undefined' &&
                 typeof Symbol.iterator !== 'undefined'
             );
-        },
+        }
     };
 
     var State = { Before: 0, Running: 1, After: 2 };
@@ -2857,12 +2857,12 @@
                     if (this.enumerator.moveNext()) {
                         return {
                             done: false,
-                            value: this.enumerator.current(),
+                            value: this.enumerator.current()
                         };
                     } else {
                         return { done: true };
                     }
-                },
+                }
             };
         };
     }
@@ -3245,7 +3245,7 @@
             moveNext: function () {
                 return ++index < source.length;
             },
-            dispose: Functions.Blank,
+            dispose: Functions.Blank
         };
     };
 
@@ -3422,7 +3422,7 @@
 
                 if (entry.next != null) entry.next.prev = entry.prev;
                 else this.last = entry.prev;
-            },
+            }
         };
 
         // Overload:function()
@@ -3540,7 +3540,7 @@
                             if (currentEntry != null) {
                                 const result = {
                                     key: currentEntry.key,
-                                    value: currentEntry.value,
+                                    value: currentEntry.value
                                 };
                                 currentEntry = currentEntry.next;
                                 return this.yieldReturn(result);
@@ -3550,7 +3550,7 @@
                         Functions.Blank
                     );
                 });
-            },
+            }
         };
 
         return Dictionary;

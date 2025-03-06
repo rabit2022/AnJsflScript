@@ -49,7 +49,7 @@ define(['SAT'], function (sat) {
      */
     MoreElement.MODES = {
         NEAT: 'neat', // 整齐排列
-        STAGGERED: 'staggered', // 交错排列
+        STAGGERED: 'staggered' // 交错排列
         // RANDOM: "random",      // 随机排列
 
         // 后续可能实现

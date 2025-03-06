@@ -53,7 +53,7 @@ define(function () {
         'Back Ease-In-Out': [5, 17, 0],
         'Circ Ease-In-Out': [5, 20, 0],
         'Bounce Ease-In-Out': [5, 23, 0],
-        'Elastic Ease-In-Out': [5, 26, 0],
+        'Elastic Ease-In-Out': [5, 26, 0]
     };
 
     /**

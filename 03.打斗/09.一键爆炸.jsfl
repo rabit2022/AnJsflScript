@@ -13,7 +13,7 @@ require([
     'random',
     'satUtil',
     'selectionUtil',
-    'elementUtil',
+    'elementUtil'
 ], function (checkUtil, sat, random, satUtil, sel, ele) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
@@ -21,7 +21,8 @@ require([
     var Vector = sat.Vector,
         wrapTransform = sat.GLOBALS.wrapTransform,
         wrapRectByCenter = sat.GLOBALS.wrapRectByCenter,
-        wrapSize = sat.GLOBALS.wrapSize;
+        wrapSize = sat.GLOBALS.wrapSize,
+        getOrigin = sat.GLOBALS.getOrigin;
     var pointUtil = satUtil.PointUtil,
         rectUtil = satUtil.RectUtil;
 
@@ -119,16 +120,18 @@ require([
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'No limit')) return;
+        if (!checkSelection(selection, 'selectElement', 'Only one')) return;
 
         // 碎片
         if (!ele.splinterSymbol(doc.selection[0], '一键爆炸_')) return;
 
-        // 爆炸效果
-        KFrames(doc.selection[0]);
+        console.log('开始爆炸');
 
-        // 播放一次
-        ele.playOnce(doc.selection);
+        // // 爆炸效果
+        // KFrames(doc.selection[0]);
+        //
+        // // 播放一次
+        // ele.playOnce(doc.selection);
     }
 
     Main();

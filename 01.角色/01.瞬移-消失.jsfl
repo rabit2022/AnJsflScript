@@ -14,12 +14,12 @@ require([
     'selectionUtil',
     'curveUtil',
     'frameRangeUtil',
-    'Constants',
+    'Constants'
 ], function (checkUtil, linqUtil, filterUtil, sel, curve, frUtil, Constants) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
-        CheckSelectedFrames: checkSelectedFrames,
+        CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
     const { FRAME_5, FRAME_7, FRAME_9, FRAME_6, FRAME_8, FRAME_10, MAX_BLUR } =
         Constants;

@@ -163,10 +163,10 @@
                     configurable: true,
                     enumerable: false,
                     writable: false,
-                    value: name,
+                    value: name
                 });
                 return name;
-            },
+            }
         });
     }
 });

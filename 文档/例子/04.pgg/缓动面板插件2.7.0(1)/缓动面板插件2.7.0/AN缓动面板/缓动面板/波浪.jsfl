@@ -16,7 +16,7 @@ var easeCurve = [
     { x: 67, y: 0 },
     { x: 83, y: 0 },
     { x: 83, y: 100 },
-    { x: 100, y: 100 },
+    { x: 100, y: 100 }
 ];
 
 var dom = fl.getDocumentDOM();

@@ -64,8 +64,8 @@ require(['checkUtil', 'Constants'], function (checkUtil, Constants) {
             {
                 leftChannel: setVolume,
                 rightChannel: setVolume,
-                mark: envelopeElement.mark,
-            },
+                mark: envelopeElement.mark
+            }
         ];
         // fl.trace(soundEnvelope[0].leftChannel + "  " +soundEnvelope[0].rightChannel + "  " +soundEnvelope[0].mark + "  "  )
         curFrame.setSoundEnvelope(newSoundEnvelope);

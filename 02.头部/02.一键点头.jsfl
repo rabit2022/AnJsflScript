@@ -24,11 +24,11 @@ require(['checkUtil', 'promptUtil', 'libUtil', 'Constants'], function (
         'selection description': '选中头部',
         XMLPanel: false,
         'input parameters': {
-            头部朝向: '右',
+            头部朝向: '右'
         },
         detail: '包装元件',
         'detail description': '',
-        steps: ['包装元件', 'k帧', '更改旋转'],
+        steps: ['包装元件', 'k帧', '更改旋转']
     };
 
     var doc = fl.getDocumentDOM(); //文档

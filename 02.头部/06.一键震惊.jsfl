@@ -13,12 +13,12 @@ require([
     'linqUtil',
     'curveUtil',
     'elementUtil',
-    'Constants',
+    'Constants'
 ], function (checkUtil, frUtil, linqUtil, curve, ele, Constants) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
-        CheckSelectedFrames: checkSelectedFrames,
+        CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
     const { FRAME_1, FRAME_3, FRAME_6 } = Constants;
 
@@ -32,7 +32,7 @@ require([
         detail: '直接k帧',
         'detail description':
             '更改元件的 缩放,由于选中帧有多个元件时，补间动画会出现问题，所以这里选中帧的图层上，只能有一个元件。',
-        steps: ['设置变形点', '获取选择的第一帧', '更改缩放', '补间动画'],
+        steps: ['设置变形点', '获取选择的第一帧', '更改缩放', '补间动画']
     };
 
     var doc = fl.getDocumentDOM(); //文档

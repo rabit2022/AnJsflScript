@@ -11,7 +11,7 @@ require([
     'checkUtil',
     'selectionUtil',
     'promptUtil',
-    'frameRangeUtil',
+    'frameRangeUtil'
 ], function (checkUtil, sel, promptUtil, frUtil) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
@@ -36,7 +36,7 @@ require([
         if (!checkSelection(selection, 'selectElement', 'No limit')) return;
 
         var { num, mode } = promptUtil.parseNumberWithMode(30);
-        // print("关键帧持续帧数：" + num + "，模式：" + mode);
+        console.log("关键帧持续帧数：" + num + "，模式：" + mode);
 
         // 选中的帧范围
         var selectedFrs = frUtil.getSelectedFrs(timeline);
@@ -64,7 +64,7 @@ require([
                     var endFrame = keyFr.startFrame + num - 1;
                     timeline.removeFrames(startFrame, endFrame);
                     break;
-                case 'unifiy':
+                case 'unify':
                     if (keyFr.duration === num) {
                         continue;
                     } else if (keyFr.duration > num) {

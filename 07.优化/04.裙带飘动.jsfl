@@ -14,7 +14,7 @@ require([
     'libUtil',
     'xmlPanelUtil',
     'curveUtil',
-    'Constants',
+    'Constants'
 ], function (checkUtil, sel, ele, libUtil, xmlPanelUtil, curve, Constants) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
@@ -52,7 +52,7 @@ require([
         var direction = xmlPanelUtil.parseDirection(panel.direction, {
             右: -1,
             左: 1,
-            ' ': 1,
+            ' ': 1
         });
 
         return { angle: angle, direction: direction };

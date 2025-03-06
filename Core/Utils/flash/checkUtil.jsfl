@@ -47,13 +47,13 @@ define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
             'selectElement',
             'selectFrame',
             'elementOnFrame',
-            'selectLibItem',
+            'selectLibItem'
         ];
 
         // 定义条件列表（主条件列表和其他别名列表）
         var conditions = [
             ['No limit', 'Zero', 'Not Zero', 'Only one', 'Only two', 'More'], // 主条件列表
-            [null, '=0', '>0', '=1', '=2', '>=2'], // 别名列表
+            [null, '=0', '>0', '=1', '=2', '>=2'] // 别名列表
         ];
 
         // 定义提示信息
@@ -64,7 +64,7 @@ define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
                 '请选择至少一个元件。',
                 '只能选择单个元件。',
                 '只能选择两个元件。',
-                '请选择多个元件。',
+                '请选择多个元件。'
             ],
             [
                 null,
@@ -72,7 +72,7 @@ define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
                 '请选择至少一个帧。',
                 '只能选择单个帧。',
                 '只能选择两个帧。',
-                '请选择多个帧。',
+                '请选择多个帧。'
             ],
             [
                 null,
@@ -80,7 +80,7 @@ define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
                 '当前帧上至少需要一个元件。',
                 '当前帧上只能有一个元件。',
                 '当前帧上只能有两个元件。',
-                '当前帧上需要多个元件。',
+                '当前帧上需要多个元件。'
             ],
             [
                 null,
@@ -88,8 +88,8 @@ define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
                 '请选择至少一个库项目。',
                 '只能选择单个库项目。',
                 '只能选择两个库项目。',
-                '请选择多个库项目。',
-            ],
+                '请选择多个库项目。'
+            ]
         ];
 
         // 获取模式索引
@@ -177,6 +177,6 @@ define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
     return {
         CheckSelection: CheckSelection,
         CheckDom: CheckDom,
-        CheckSelectedFrames: CheckSelectedFrames,
+        CheckSelectedFrames: CheckSelectedFrames
     };
 });

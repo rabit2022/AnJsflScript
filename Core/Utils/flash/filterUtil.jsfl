@@ -44,7 +44,7 @@ define(function () {
             enable: true,
             blurX: blurX,
             blurY: blurY,
-            quality: strength,
+            quality: strength
         };
 
         // 获取当前帧的滤镜数组，如果不存在则初始化为空数组

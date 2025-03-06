@@ -4,7 +4,7 @@
  * @param {string} str - 初始化字符串。
  */
 
-define(function () {
+define(['core-js/stable/string/includes'], function () {
     function StringP(str) {
         if (typeof str !== 'string') {
             throw new TypeError('Expected a string');
@@ -137,7 +137,7 @@ define(function () {
         'private',
         'protected',
         'public',
-        'static',
+        'static'
     ];
 
     /**
@@ -231,7 +231,7 @@ define(function () {
                 Æ: 'ae',
                 Œ: 'oe',
                 æ: 'ae',
-                œ: 'oe',
+                œ: 'oe'
             };
             return specialCases[match] || match.toLowerCase();
         });
@@ -671,7 +671,7 @@ define(function () {
             return [
                 this.str.slice(0, index),
                 sep,
-                this.str.slice(index + sep.length),
+                this.str.slice(index + sep.length)
             ];
         }
     };
@@ -824,7 +824,7 @@ define(function () {
             return [
                 this.str.slice(0, index + sep.length),
                 sep,
-                this.str.slice(index + sep.length),
+                this.str.slice(index + sep.length)
             ];
         }
     };

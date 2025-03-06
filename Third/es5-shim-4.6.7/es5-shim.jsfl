@@ -178,7 +178,7 @@
                 var obj = {};
                 $Object.defineProperty(obj, 'x', {
                     enumerable: false,
-                    value: obj,
+                    value: obj
                 });
                 // eslint-disable-next-line no-unreachable-loop, max-statements-per-line
                 for (var _ in obj) {
@@ -203,7 +203,7 @@
                     configurable: true,
                     enumerable: false,
                     writable: true,
-                    value: method,
+                    value: method
                 });
             };
         } else {
@@ -231,7 +231,7 @@
         var sentinel = { toString: toStringSentinel };
         $Object.defineProperty(F, 'prototype', {
             value: sentinel,
-            writable: false,
+            writable: false
         });
         if (new F().toString !== toStringSentinel) {
             var $dP = $Object.defineProperty;
@@ -259,11 +259,11 @@
                                     'enumerable' in d
                                         ? d.enumerable
                                         : desc.enumerable,
-                                writable: d.writable,
+                                writable: d.writable
                             });
                         }
                         return $dP(o, key, d);
-                    },
+                    }
                 },
                 true
             );
@@ -339,7 +339,7 @@
         /* replaceable with https://npmjs.com/package/es-abstract ES5.ToUint32 */
         ToUint32: function ToUint32(x) {
             return x >>> 0;
-        },
+        }
     };
 
     //
@@ -488,7 +488,7 @@
 
             // 22. Return F.
             return bound;
-        },
+        }
     });
 
     // _Please note: Shortcuts are defined after `Function.prototype.bind` as we
@@ -547,7 +547,7 @@
             unshift: function () {
                 array_unshift.apply(this, arguments);
                 return this.length;
-            },
+            }
         },
         hasUnshiftReturnValueBug
     );
@@ -644,7 +644,7 @@
                         }
                     }
                 }
-            },
+            }
         },
         !properlyBoxesContext(ArrayPrototype.forEach)
     );
@@ -683,7 +683,7 @@
                     }
                 }
                 return result;
-            },
+            }
         },
         !properlyBoxesContext(ArrayPrototype.map)
     );
@@ -726,7 +726,7 @@
                     }
                 }
                 return result;
-            },
+            }
         },
         !properlyBoxesContext(ArrayPrototype.filter)
     );
@@ -765,7 +765,7 @@
                     }
                 }
                 return true;
-            },
+            }
         },
         !properlyBoxesContext(ArrayPrototype.every)
     );
@@ -804,7 +804,7 @@
                     }
                 }
                 return false;
-            },
+            }
         },
         !properlyBoxesContext(ArrayPrototype.some)
     );
@@ -872,7 +872,7 @@
                 }
 
                 return result;
-            },
+            }
         },
         !reduceCoercesToObject
     );
@@ -944,7 +944,7 @@
                 } while (i--);
 
                 return result;
-            },
+            }
         },
         !reduceRightCoercesToObject
     );
@@ -981,7 +981,7 @@
                     }
                 }
                 return -1;
-            },
+            }
         },
         hasFirefox2IndexOfBug
     );
@@ -1016,7 +1016,7 @@
                     }
                 }
                 return -1;
-            },
+            }
         },
         hasFirefox2LastIndexOfBug
     );
@@ -1037,7 +1037,7 @@
                     return [];
                 }
                 return array_splice.apply(this, arguments);
-            },
+            }
         },
         !spliceNoopReturnsEmptyArray
     );
@@ -1066,7 +1066,7 @@
                     }
                 }
                 return array_splice.apply(this, args);
-            },
+            }
         },
         !spliceWorksWithEmptyObject || !hasES6Defaults
     );
@@ -1165,7 +1165,7 @@
                 O.length = len - actualDeleteCount + itemCount;
 
                 return A;
-            },
+            }
         },
         !spliceWorksWithLargeSparseArrays || !spliceWorksWithSmallSparseArrays
     );
@@ -1188,7 +1188,7 @@
                         isString(this) ? strSplit(this, '') : this,
                         sep
                     );
-                },
+                }
             },
             hasStringJoinBug
         );
@@ -1203,7 +1203,7 @@
                     var sep =
                         typeof separator === 'undefined' ? ',' : separator;
                     return originalJoin.call(this, sep);
-                },
+                }
             },
             hasJoinUndefinedBug
         );
@@ -1239,7 +1239,7 @@
                     return array_push.apply(this, arguments);
                 }
                 return pushShim.apply(this, arguments);
-            },
+            }
         },
         pushIsNotGeneric
     );
@@ -1266,7 +1266,7 @@
             slice: function (start, end) {
                 var arr = isString(this) ? strSplit(this, '') : this;
                 return arraySliceApply(arr, arguments);
-            },
+            }
         },
         splitString
     );
@@ -1312,7 +1312,7 @@
                     );
                 }
                 return arraySort(this, compareFn);
-            },
+            }
         },
         sortIgnoresNonFunctions || !sortIgnoresUndefined || !sortThrowsOnRegex
     );
@@ -1362,7 +1362,7 @@
         $width: true,
         $height: true,
         $top: true,
-        $localStorage: true,
+        $localStorage: true
     };
     var hasAutomationEqualityBug = (function () {
         /* globals window */
@@ -1402,7 +1402,7 @@
         'hasOwnProperty',
         'isPrototypeOf',
         'propertyIsEnumerable',
-        'constructor',
+        'constructor'
     ];
     var dontEnumsLength = dontEnums.length;
 
@@ -1469,7 +1469,7 @@
                 }
             }
             return theKeys;
-        },
+        }
     });
 
     var keysWorksWithArguments =
@@ -1497,7 +1497,7 @@
                     return originalKeys(arraySlice(object));
                 }
                 return originalKeys(object);
-            },
+            }
         },
         !keysWorksWithArguments || keysHasArgumentsLengthBug
     );
@@ -1558,7 +1558,7 @@
         'Sep',
         'Oct',
         'Nov',
-        'Dec',
+        'Dec'
     ];
     var daysInMonth = function daysInMonth(month, year) {
         return originalGetDate(new Date(year, month, 0));
@@ -1640,7 +1640,7 @@
                     return days - date + 1;
                 }
                 return date;
-            },
+            }
         },
         hasNegativeMonthYearBug
     );
@@ -1675,7 +1675,7 @@
                     (second < 10 ? '0' + second : second) +
                     ' GMT'
                 );
-            },
+            }
         },
         hasNegativeMonthYearBug || hasToUTCStringFormatBug
     );
@@ -1701,7 +1701,7 @@
                     ' ' +
                     year
                 );
-            },
+            }
         },
         hasNegativeMonthYearBug || hasToDateStringFormatBug
     );
@@ -1746,7 +1746,7 @@
             $Object.defineProperty(Date.prototype, 'toString', {
                 configurable: true,
                 enumerable: false,
-                writable: true,
+                writable: true
             });
         }
     }
@@ -1793,7 +1793,7 @@
                     originalGetUTCDate(this),
                     originalGetUTCHours(this),
                     originalGetUTCMinutes(this),
-                    originalGetUTCSeconds(this),
+                    originalGetUTCSeconds(this)
                 ];
                 year =
                     (year < 0 ? '-' : year > 9999 ? '+' : '') +
@@ -1817,7 +1817,7 @@
                     strSlice('000' + originalGetUTCMilliseconds(this), -3) +
                     'Z'
                 );
-            },
+            }
         },
         hasNegativeDateBug || hasSafari51DateBug
     );
@@ -1837,7 +1837,7 @@
                     // generic
                     toISOString: function () {
                         return true;
-                    },
+                    }
                 })
             );
         } catch (e) {
@@ -1986,7 +1986,7 @@
             );
 
             var months = [
-                0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365,
+                0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365
             ];
 
             var dayFromMonth = function dayFromMonth(year, month) {
@@ -2026,7 +2026,7 @@
                 DateShim,
                 {
                     now: NativeDate.now,
-                    UTC: NativeDate.UTC,
+                    UTC: NativeDate.UTC
                 },
                 true
             );
@@ -2181,7 +2181,7 @@
                 x2 /= 2;
             }
             return n;
-        },
+        }
     };
 
     var toFixedShim = function toFixed(fractionDigits) {
@@ -2420,7 +2420,7 @@
 
                 // 14: Return the concatenation of the Strings s and m.
                 return s + m;
-            },
+            }
         },
         hasToExponentialRoundingBug || toExponentialAllowsInfiniteDigits
     );
@@ -2440,7 +2440,7 @@
                 return typeof precision === 'undefined'
                     ? originalToPrecision(this)
                     : originalToPrecision(this, precision);
-            },
+            }
         },
         hasToPrecisionUndefinedBug
     );
@@ -2630,7 +2630,7 @@
                     normalizedStart = max(this.length + start, 0);
                 }
                 return string_substr(this, normalizedStart, length);
-            },
+            }
         },
         hasNegativeSubstrBug
     );
@@ -2667,7 +2667,7 @@
                 return $String(this)
                     .replace(trimBeginRegexp, '')
                     .replace(trimEndRegexp, '');
-            },
+            }
         },
         hasTrimWhitespaceBug
     );
@@ -2700,7 +2700,7 @@
                     }
                 }
                 return -1;
-            },
+            }
         },
         hasLastIndexBug
     );
@@ -2711,7 +2711,7 @@
         {
             lastIndexOf: function lastIndexOf(searchString) {
                 return originalLastIndexOf.apply(this, arguments);
-            },
+            }
         },
         StringPrototype.lastIndexOf.length !== 1
     );

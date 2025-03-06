@@ -155,7 +155,7 @@ The `Map`, `Set`, and `Promise` implementations are subclassable.
 You should use the following pattern to create a subclass in ES5 which will continue to work in ES6:
 
 ```javascript
-require('es6-shim');
+require('Third/es6-shim-0.35.4/es6-shim.jsfl');
 
 function MyPromise(exec) {
     var promise = new Promise(exec);
@@ -163,9 +163,10 @@ function MyPromise(exec) {
     // ...
     return promise;
 }
+
 Object.setPrototypeOf(MyPromise, Promise);
 MyPromise.prototype = Object.create(Promise.prototype, {
-    constructor: { value: MyPromise },
+    constructor: { value: MyPromise }
 });
 ```
 
@@ -185,7 +186,7 @@ The [es6-collections](https://github.com/WebReflection/es6-collections) implemen
 ## Getting started
 
 ```javascript
-require('es6-shim');
+require('Third/es6-shim-0.35.4/es6-shim.jsfl');
 var assert = require('assert');
 
 assert.equal(true, 'abc'.startsWith('a'));
@@ -217,12 +218,12 @@ assert.equal(1, Math.sign(400));
 assert.equal(0, Math.sign(0));
 assert.equal(-1, Math.sign(-400));
 
-var found = [5, 10, 15, 10].find(function (item) {
+var found = [5, 10, 15, 10].find(function(item) {
     return item / 2 === 5;
 });
 assert.equal(10, found);
 
-var foundIndex = [5, 10, 15, 10].findIndex(function (item) {
+var foundIndex = [5, 10, 15, 10].findIndex(function(item) {
     return item / 2 === 5;
 });
 assert.equal(1, foundIndex);
@@ -231,7 +232,7 @@ assert.equal(1, foundIndex);
 // Keys can be anything.
 var map = new Map([
     ['Bob', 42],
-    ['Foo', 'bar'],
+    ['Foo', 'bar']
 ]);
 map.set('John', 25);
 map.set('Alice', 400);
@@ -258,13 +259,13 @@ assert.equal(false, set.has(5));
 // http://www.slideshare.net/domenicdenicola/callbacks-promises-and-coroutines-oh-my-the-evolution-of-asynchronicity-in-javascript
 // https://github.com/petkaantonov/bluebird/#what-are-promises-and-why-should-i-use-them
 Promise.resolve(5)
-    .then(function (value) {
+    .then(function(value) {
         assert.equal(value, 5);
         if (value) throw new Error('whoops!');
         // do some stuff
         return anotherPromise();
     })
-    .catch(function (e) {
+    .catch(function(e) {
         assert.equal(e.message, 'whoops!');
         assert.equal(true, e instanceof Error);
         // any errors thrown asynchronously end up here

@@ -13,7 +13,7 @@ require([
     'SAT',
     'satUtil',
     'xmlPanelUtil',
-    'random',
+    'random'
 ], function (checkUtil, sel, sat, satUtil, xmlPanelUtil, random) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
@@ -59,7 +59,7 @@ require([
 
         return {
             horizontalCount: horizontalCount,
-            horizontalSpacing: horizontalSpacing,
+            horizontalSpacing: horizontalSpacing
         };
     }
 

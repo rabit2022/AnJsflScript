@@ -8,7 +8,7 @@
  * @see: https://github.com/davestewart/xJSFL
  */
 
-define(function() {
+define(function () {
     // --------------------------------------------------------------------------------
     // Log constants
 
@@ -19,8 +19,8 @@ define(function() {
         // logged to main log, output panel, and an alert box
         TRACE: 'TRACE',
 
-        // debug
-        DEBUG: 'DEBUG',
+        // // debug
+        // DEBUG: 'DEBUG',
 
         // log
         LOG: 'LOG',
@@ -35,7 +35,7 @@ define(function() {
         ERROR: 'ERROR',
 
         // logged to main log and file.log
-        FILE: 'FILE',
+        FILE: 'FILE'
     };
 
     // --------------------------------------------------------------------------------
@@ -51,9 +51,10 @@ define(function() {
          * @param    {Boolean}    addNewline    An optional Boolean to add a new line to the traced output
          * @returns    {String}                The created message
          */
-        formatLine: function(prefix, message, level, addNewline) {
+        formatLine: function (prefix, message, level, addNewline) {
             // new line
-            var newLine = fl.version.substr(0, 3).toLowerCase() === 'win' ? '\r\n' : '\n';
+            var newLine =
+                fl.version.substr(0, 3).toLowerCase() === 'win' ? '\r\n' : '\n';
             var output = '';
 
             // level
@@ -62,10 +63,14 @@ define(function() {
                     message = message.toUpperCase();
                 }
                 if (level >= 2) {
-                    output = '----------------------------------------------------------------------------------------------------' + newLine;
+                    output =
+                        '----------------------------------------------------------------------------------------------------' +
+                        newLine;
                 }
                 if (level === 3) {
-                    message += '----------------------------------------------------------------------------------------------------' + newLine;
+                    message +=
+                        '----------------------------------------------------------------------------------------------------' +
+                        newLine;
                 }
             }
 
@@ -75,7 +80,9 @@ define(function() {
             }
 
             // return
-            return ((level > 0 ? newLine : '') + output + prefix + '\t' + message);
+            return (
+                (level > 0 ? newLine : '') + output + prefix + '\t' + message
+            );
         },
 
         /**
@@ -85,13 +92,15 @@ define(function() {
          * @param    {Boolean}    $level        An optional Boolean to accentuate the message with a new line and capitals
          * @param    {Number}    $level        An optional Number to accentuate the message with a new line and: 1 = capitals, 2 = horizontal rule & capitals
          */
-        writeToLog: function(message, $type, $level) {
+        writeToLog: function (message, $type, $level) {
             // parameters
             // var param, type, level;
             // for each(param in [$type, $level]) {
             // for (param in [$type, $level]) {
-            var params = [$type, $level], type, level;
-            params.forEach(function(param) {
+            var params = [$type, $level],
+                type,
+                level;
+            params.forEach(function (param) {
                 // fl.trace(param);
                 if (typeof param === 'string') type = param;
                 if (typeof param === 'number') level = param;
@@ -101,12 +110,20 @@ define(function() {
 
             // date
             var date = new Date();
-            var time = date.toString().match(/\d{2}:\d{2}:\d{2}/) + ':' + (date.getMilliseconds() / 1000).toFixed(3).substr(2);
+            var time =
+                date.toString().match(/\d{2}:\d{2}:\d{2}/) +
+                ':' +
+                (date.getMilliseconds() / 1000).toFixed(3).substr(2);
 
             // log to main
             var uri = projectFolder + '/Logs/main.log';
             // fl.trace("time: "+time+" type: "+type+" message: "+message+"level: "+level);
-            var output = this.formatLine(time, type + '\t' + message, level, true);
+            var output = this.formatLine(
+                time,
+                type + '\t' + message,
+                level,
+                true
+            );
             // fl.trace(output);
             FLfile.write(uri, output, 'append');
             //trace(message);
@@ -126,7 +143,7 @@ define(function() {
          * @param    {String}    message        The message to log
          * @param    {Number}    level        An optional Number to accentuate the message. 1 = capitals, 2 = horizontal rule & capitals
          */
-        trace: function(message, level) {
+        trace: function (message, level) {
             if (level === undefined) level = 0;
 
             var output = this.formatLine('> xjsfl: ', message, level);
@@ -139,30 +156,32 @@ define(function() {
         //     this.writeToLog(message + '\n', Log.DEBUG, 3);
         // },
 
-        log: function(message) {
+        log: function (message) {
             trace('\n⚡admin  LOG  ❯❯ ' + message + '\n');
             this.writeToLog(message + '\n', Log.LOG, 3);
-        }, info: function(message) {
+        },
+        info: function (message) {
             trace('\n⚡admin  INFO  ❯❯ ' + message + '\n');
             this.writeToLog(message + '\n', Log.INFO, 3);
-        }, warn: function(message) {
+        },
+        warn: function (message) {
             trace('\n⚡admin  WARNING  ❯❯ ' + message + '\n');
             this.writeToLog(message + '\n', Log.WARN, 3);
-        }, error: function(message) {
+        },
+        error: function (message) {
             trace('\n⚡admin  ERROR  ❯❯ ' + message + '\n');
             this.writeToLog(message + '\n', Log.ERROR, 3);
         },
-
 
         /**
          * Clears a log file
          * @param    {String}    type    The type of log file to reset
          */
-        clear: function(type) {
+        clear: function (type) {
             var name = type === Log.FILE ? 'file' : 'main';
             FLfile.remove(projectFolder + '/Logs/' + name + '.log');
             trace(name + '.log reset');
-        },
+        }
     };
 
     window.console = console;

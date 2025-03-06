@@ -13,7 +13,7 @@ require([
     'curveUtil',
     'graphicsUtil',
     'selectionUtil',
-    'SAT',
+    'SAT'
 ], function (checkUtil, libUtil, curve, graphics, sel, sat) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;

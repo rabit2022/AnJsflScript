@@ -46,7 +46,7 @@ define(function () {
         SECOND_FRAME: SECOND_FRAME,
         MINUTE_FRAME: MINUTE_FRAME,
         MAX_BLUR: MAX_BLUR,
-        MAX_CHANNEL: MAX_CHANNEL,
+        MAX_CHANNEL: MAX_CHANNEL
     };
 
     // 将动态生成的帧索引添加到模块的公共接口中

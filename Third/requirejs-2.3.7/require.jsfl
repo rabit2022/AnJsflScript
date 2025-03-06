@@ -236,7 +236,7 @@ var requirejs, require, define;
                 bundles: {},
                 pkgs: {},
                 shim: {},
-                config: {},
+                config: {}
             },
             registry = {},
             //registry of just enabled modules, to speed
@@ -439,7 +439,7 @@ var requirejs, require, define;
                 //Custom require that does not do map translation, since
                 //ID is "absolute", already mapped/resolved.
                 context.makeRequire(null, {
-                    skipMap: true,
+                    skipMap: true
                 })([id]);
 
                 return true;
@@ -561,7 +561,7 @@ var requirejs, require, define;
                 isDefine: isDefine,
                 id:
                     (prefix ? prefix + '!' + normalizedName : normalizedName) +
-                    suffix,
+                    suffix
             };
         }
 
@@ -665,10 +665,10 @@ var requirejs, require, define;
                         config: function () {
                             return getOwn(config.config, mod.map.id) || {};
                         },
-                        exports: mod.exports || (mod.exports = {}),
+                        exports: mod.exports || (mod.exports = {})
                     });
                 }
-            },
+            }
         };
 
         function cleanRegistry(id) {
@@ -749,7 +749,6 @@ var requirejs, require, define;
                         } else {
                             noLoads.push(modId);
                             removeScript(modId);
-                            fl.trace('err: removed ');
                         }
                     } else if (!mod.inited && mod.fetched && map.isDefine) {
                         stillLoading = true;
@@ -892,7 +891,7 @@ var requirejs, require, define;
                 //ask the plugin to load it now.
                 if (this.shim) {
                     context.makeRequire(this.map, {
-                        enableBuildCallback: true,
+                        enableBuildCallback: true
                     })(
                         this.shim.deps || [],
                         bind(this, function () {
@@ -1066,7 +1065,7 @@ var requirejs, require, define;
                                 ? this.map.parentMap.name
                                 : null,
                             localRequire = context.makeRequire(map.parentMap, {
-                                enableBuildCallback: true,
+                                enableBuildCallback: true
                             });
 
                         //If current map is not normalized, wait for that
@@ -1104,7 +1103,7 @@ var requirejs, require, define;
                                         null,
                                         {
                                             enabled: true,
-                                            ignore: true,
+                                            ignore: true
                                         }
                                     );
                                 })
@@ -1146,7 +1145,7 @@ var requirejs, require, define;
                                 },
                                 null,
                                 {
-                                    enabled: true,
+                                    enabled: true
                                 }
                             );
                         });
@@ -1357,7 +1356,7 @@ var requirejs, require, define;
                     //can stay around for a while in the registry.
                     delete this.events[name];
                 }
-            },
+            }
         };
 
         function callGetModule(args) {
@@ -1408,7 +1407,7 @@ var requirejs, require, define;
 
             return {
                 node: node,
-                id: node && node.getAttribute('data-requiremodule'),
+                id: node && node.getAttribute('data-requiremodule')
             };
         }
 
@@ -1478,7 +1477,7 @@ var requirejs, require, define;
                         paths: true,
                         bundles: true,
                         config: true,
-                        map: true,
+                        map: true
                     };
 
                 eachProp(cfg, function (value, prop) {
@@ -1509,7 +1508,7 @@ var requirejs, require, define;
                         //Normalize the structure
                         if (isArray(value)) {
                             value = {
-                                deps: value,
+                                deps: value
                             };
                         }
                         if ((value.exports || value.init) && !value.exportsFn) {
@@ -1564,7 +1563,7 @@ var requirejs, require, define;
 
                 //If a deps array or a config callback is specified, then call
                 //require with those args. This is useful when require is defined as a
-                //config object before require.js is loaded.
+                //config object before require.jsfl is loaded.
                 if (cfg.deps || cfg.callback) {
                     context.require(cfg.deps || [], cfg.callback);
                 }
@@ -1656,7 +1655,7 @@ var requirejs, require, define;
                         requireMod.skipMap = options.skipMap;
 
                         requireMod.init(deps, callback, errback, {
-                            enabled: true,
+                            enabled: true
                         });
 
                         checkLoaded();
@@ -1713,7 +1712,7 @@ var requirejs, require, define;
                     specified: function (id) {
                         id = makeModuleMap(id, relMap, false, true).id;
                         return hasProp(defined, id) || hasProp(registry, id);
-                    },
+                    }
                 });
 
                 //Only allow undef on top level require calls
@@ -1839,7 +1838,7 @@ var requirejs, require, define;
                         callGetModule([
                             moduleName,
                             shim.deps || [],
-                            shim.exportsFn,
+                            shim.exportsFn
                         ]);
                     }
                 }
@@ -1997,7 +1996,7 @@ var requirejs, require, define;
                         )
                     );
                 }
-            },
+            }
         };
 
         context.require = context.makeRequire();
@@ -2091,7 +2090,7 @@ var requirejs, require, define;
     req.isBrowser = isBrowser;
     s = req.s = {
         contexts: contexts,
-        newContext: newContext,
+        newContext: newContext
     };
 
     //Create default context.
@@ -2256,12 +2255,14 @@ var requirejs, require, define;
                 );
             }
         } else if (isFlash) {
-            // .js--.jsfl
-            var scriptURI = url.replace('.js', '.jsfl');
+            // fl.trace('scriptURI [' + url + ']');
 
             try {
-                fl.runScript(scriptURI);
-                // fl.trace("[requirejs] load for flash [" + moduleName + "] at [" + scriptURI + "]");
+                // .js--.jsfl
+                var scriptURI = url.replace('.js', '.jsfl');
+
+                // In a flash environment, use importFlashScripts to load the script.
+                importFlashScripts(scriptURI);
 
                 //Account for anonymous modules
                 context.completeLoad(moduleName);
@@ -2286,9 +2287,59 @@ var requirejs, require, define;
                 );
             }
         } else {
-            throw new Error('Unsupported environment');
+            // throw new Error('Unsupported environment');
+            context.onError(
+                makeError('notsupported', 'Not supported', null, [moduleName])
+            );
         }
     };
+
+    /**
+     * Flash script 导入指定脚本文件
+     * @param {...string} scriptPaths 相对于当前脚本文件的相对路径，或绝对路径（允许多个路径，可以混搭）
+     */
+    function importFlashScripts() {
+        // 获取当前脚本文件的所在文件夹路径
+        function getcwd() {
+            var scriptURI = fl.scriptURI;
+            // 斜杠符号的位置
+            var lastSlashIndex = scriptURI.lastIndexOf('/');
+            // 获取脚本文件所在的文件夹路径
+            var folderPath = scriptURI.substring(0, lastSlashIndex);
+            return folderPath;
+        }
+
+        function startsWith(str, prefix) {
+            return str.indexOf(prefix) === 0;
+        }
+
+        // 判断路径是否为绝对路径
+        function isAbsolutePath(path) {
+            var ABSOLUTE_FLAG = 'file:///';
+            return startsWith(path, ABSOLUTE_FLAG);
+        }
+
+        // 将 arguments 转换为数组
+        var paths = Array.prototype.slice.call(arguments);
+        var curWorkingDirectory = getcwd();
+
+        paths.forEach(function (path) {
+            var scriptURI;
+
+            if (isAbsolutePath(path)) {
+                // 绝对路径
+                scriptURI = path;
+            } else {
+                // 相对路径
+                scriptURI = curWorkingDirectory + '/' + path;
+            }
+
+            fl.trace('[requirejs] load for flash [' + scriptURI + ']');
+
+            // 执行脚本
+            fl.runScript(scriptURI);
+        });
+    }
 
     function getInteractiveScript() {
         if (
@@ -2308,7 +2359,7 @@ var requirejs, require, define;
 
     //Look for a data-main script attribute, which could also adjust the baseUrl.
     if (isBrowser && !cfg.skipDataMain) {
-        //Figure out baseUrl. Get it from the script tag with require.js in it.
+        //Figure out baseUrl. Get it from the script tag with require.jsfl in it.
         eachReverse(scripts(), function (script) {
             //Set the 'head' where we can append children by
             //using the script's parent.
@@ -2435,7 +2486,7 @@ var requirejs, require, define;
     };
 
     define.amd = {
-        jQuery: true,
+        jQuery: true
     };
 
     /**

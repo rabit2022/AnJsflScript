@@ -13,7 +13,7 @@ require([
     'elementUtil',
     'curveUtil',
     'frameRangeUtil',
-    'Constants',
+    'Constants'
 ], function (checkUtil, linqUtil, ele, curve, frUtil, Constants) {
     const { checkDom, checkSelection, checkSelectedFrames } = checkUtil;
     const { FRAME_1, FRAME_3, FRAME_6 } = Constants;

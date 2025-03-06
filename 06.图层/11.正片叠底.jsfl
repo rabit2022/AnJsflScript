@@ -15,7 +15,7 @@ require(['checkUtil', 'frameRangeUtil', 'frameRange'], function (
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
-        CheckSelectedFrames: checkSelectedFrames,
+        CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
 
     var doc = fl.getDocumentDOM(); //文档
