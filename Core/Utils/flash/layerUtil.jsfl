@@ -7,9 +7,8 @@
  * @description:
  */
 
-define( function() {
-    function LayerUtil() {
-    }
+define(['loglevel'], function (log) {
+    function LayerUtil() {}
 
     /**
      * 判断图层是否存在
@@ -17,7 +16,7 @@ define( function() {
      * @param {String} layerName 图层名称
      * @return {Boolean} 图层是否存在
      */
-    LayerUtil.IsLayerExists = function(layers, layerName) {
+    LayerUtil.IsLayerExists = function (layers, layerName) {
         for (var i = 0; i < layers.length; i++) {
             if (layers[i].name === layerName) {
                 return true;
@@ -33,7 +32,7 @@ define( function() {
      * @param {Boolean} [returnIndices=false] 是否返回图层索引而不是图层对象
      * @return {Array.<Layer>|Array.<Number>} 匹配的图层数组或索引数组
      */
-    LayerUtil._getLayersOrIndicesByName = function(
+    LayerUtil._getLayersOrIndicesByName = function (
         layers,
         layerName,
         returnIndices
@@ -42,12 +41,17 @@ define( function() {
             returnIndices === undefined || returnIndices === null
                 ? false
                 : returnIndices;
-        console.log(returnIndices);
+        log.debug(returnIndices);
 
         var result = [];
         for (var i = 0; i < layers.length; i++) {
             if (layers[i].name.includes(layerName)) {
-                console.log('layers[i].name: ' + layers[i].name + '   layerName: ' + layerName);
+                log.debug(
+                    'layers[i].name: ' +
+                        layers[i].name +
+                        '   layerName: ' +
+                        layerName
+                );
                 result.push(returnIndices ? i : layers[i]);
             }
         }
@@ -60,7 +64,7 @@ define( function() {
      * @param {String} layerName 图层名称
      * @return {Array.<Layer>} 匹配的图层数组
      */
-    LayerUtil.getLayersByName = function(layers, layerName) {
+    LayerUtil.getLayersByName = function (layers, layerName) {
         return this._getLayersOrIndicesByName(layers, layerName, false);
     };
 
@@ -70,7 +74,7 @@ define( function() {
      * @param {String} layerName 图层名称
      * @return {Array.<Number>} 匹配的图层索引数组
      */
-    LayerUtil.getLayersIndexByName = function(layers, layerName) {
+    LayerUtil.getLayersIndexByName = function (layers, layerName) {
         return this._getLayersOrIndicesByName(layers, layerName, true);
     };
 
@@ -79,7 +83,7 @@ define( function() {
      * @param {Timeline} timeline 时间轴
      * @param {Array.<Number>|Array.<Layer>} layers 图层索引数组
      */
-    LayerUtil.deleteLayers = function(timeline, layers) {
+    LayerUtil.deleteLayers = function (timeline, layers) {
         // 删除图层
         if (layers.length > 0) {
             for (var i = 0; i < layers.length; i++) {
@@ -97,7 +101,7 @@ define( function() {
      * @param {Layer|Number} layer 图层或图层索引
      * @return {Number} 图层索引
      */
-    LayerUtil.convertToLayerIndex = function(layers, layer) {
+    LayerUtil.convertToLayerIndex = function (layers, layer) {
         // 获取图层索引
         var layerIndex = 0;
         if (typeof layer === 'number') {
@@ -114,7 +118,7 @@ define( function() {
      * @param {Layer|Number} layer 图层或图层索引
      * @return {Layer} 图层
      */
-    LayerUtil.convertToLayer = function(layers, layer) {
+    LayerUtil.convertToLayer = function (layers, layer) {
         // var layers = timeline.layers;//图层
 
         if (typeof layer === 'number') {

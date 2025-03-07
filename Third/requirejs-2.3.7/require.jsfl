@@ -2334,7 +2334,7 @@ var requirejs, require, define;
                 scriptURI = curWorkingDirectory + '/' + path;
             }
 
-            fl.trace('[requirejs] load for flash [' + scriptURI + ']');
+            // fl.trace('[requirejs] load for flash [' + scriptURI + ']');
 
             // 执行脚本
             fl.runScript(scriptURI);

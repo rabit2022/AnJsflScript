@@ -104,9 +104,78 @@ define(function () {
         subCls_CLASS.prototype._super = superCls_CLASS.prototype;
     }
 
+    /**
+     * 遍历可迭代对象（数组、类数组对象、普通对象、字典对象），并对每个元素执行回调函数。
+     * @param {Array|Object|Dict} iterable - 可迭代对象。
+     * @param {Function} callback - 回调函数。
+     * @note
+     * - 对于数组、类数组对象，回调函数将接收两个参数：索引和元素值。
+     * - 对于普通对象、字典对象，回调函数将接收两个参数：键和元素值。
+     * - 如果可迭代对象为空，则不会执行回调函数。
+     * @example
+     * // 遍历数组
+     * var arr = [1, 2, 3];
+     * OF_MACRO(arr, function (index, value) {
+     *   console.writeToLog(index + ": " + value);
+     * });
+     * // 输出：0: 1
+     * //       1: 2
+     * //       2: 3
+     *
+     * // 遍历类数组对象
+     * var obj = {0: "a", 1: "b", 2: "c"};
+     * OF_MACRO(obj, function (index, value) {
+     *   console.writeToLog(index + ": " + value);
+     * });
+     * // 输出：0: a
+     * //       1: b
+     * //       2: c
+     *
+     * // 遍历普通对象
+     * var obj = {a: 1, b: 2, c: 3};
+     * OF_MACRO(obj, function (key, value) {
+     *   console.writeToLog(key + ": " + value);
+     * });
+     * // 输出：a: 1
+     * //       b: 2
+     * //       c: 3
+     *
+     * // 遍历字典对象
+     * var obj = {a: 1, b: 2, c: 3};
+     * OF_MACRO(obj, function (key, value) {
+     *   console.writeToLog(key + ": " + value);
+     * });
+     * // 输出：a: 1
+     * //       b: 2
+     * //       c: 3
+     */
+    function OF_MACRO(iterable, callback) {
+        // 检查是否是数组或类数组对象
+        if (Array.isArray(iterable) ||
+            (typeof iterable === 'object' && iterable !== null && typeof iterable.length === 'number')) {
+            for (var i = 0; i < iterable.length; i++) {
+                callback(i, iterable[i]); // 传递值和索引
+            }
+        }
+        // 检查是否是普通对象或字典对象
+        else if (typeof iterable === 'object' && iterable !== null) {
+            var keys = Object.keys(iterable); // 获取对象的键
+            for (var i = 0; i < keys.length; i++) {
+                var key = keys[i];
+                var value = iterable[key];
+                callback(key, value); // 传递值和键
+            }
+        }
+        // 其他情况抛出错误
+        else {
+            throw new TypeError('The provided value is not iterable');
+        }
+    }
+
     return {
         IsNullOrEmpty: IsNullOrEmpty,
         IsEmpty: IsEmpty,
-        INHERIT_MACRO: INHERIT_MACRO
+        INHERIT_MACRO: INHERIT_MACRO,
+        OF_MACRO: OF_MACRO,
     };
 });

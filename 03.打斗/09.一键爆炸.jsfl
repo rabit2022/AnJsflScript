@@ -13,8 +13,9 @@ require([
     'random',
     'satUtil',
     'selectionUtil',
-    'elementUtil'
-], function (checkUtil, sat, random, satUtil, sel, ele) {
+    'elementUtil',
+    'loglevel'
+], function (checkUtil, sat, random, satUtil, sel, ele, log) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
 
@@ -125,13 +126,13 @@ require([
         // 碎片
         if (!ele.splinterSymbol(doc.selection[0], '一键爆炸_')) return;
 
-        console.log('开始爆炸');
+        log.info('开始爆炸');
 
-        // // 爆炸效果
-        // KFrames(doc.selection[0]);
-        //
-        // // 播放一次
-        // ele.playOnce(doc.selection);
+        // 爆炸效果
+        KFrames(doc.selection[0]);
+
+        // 播放一次
+        ele.playOnce(doc.selection);
     }
 
     Main();

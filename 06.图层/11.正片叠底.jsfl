@@ -7,16 +7,19 @@
  * @description:
  */
 
-require(['checkUtil', 'frameRangeUtil', 'frameRange'], function (
+require(['checkUtil', 'frameRangeUtil', 'frameRange', 'loglevel', 'FUNC'], function(
     checkUtil,
     frUtil,
-    FrameRange
+    FrameRange,
+    log,
+    FUNC
 ) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
         CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
+    const { OF_MACRO } = FUNC;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -89,26 +92,16 @@ require(['checkUtil', 'frameRangeUtil', 'frameRange'], function (
          */
         var frDict = convertArrayToObject(splitFrs);
 
-        // for (var item in frDict) {
-        //     var key = parseInt(item);
-        //     /**
-        //      * @type {number[]}
-        //      */
-        //     var value = frDict[key];
-        //     // print(key, value);
-        //
-        //     // timeline.currentLayer = key;
-        //     var curLayer = layers[key];//当前图层
-        //     value.forEach(function (frameIndex) {
-        //         curLayer.setBlendModeAtFrame(frameIndex, "multiply");
-        //     });
-        // }
-        for (const [layerIndex, frameIndexes] of Object.entries(frDict)) {
+        // for (var [layerIndex, frameIndexes] of Object.entries(frDict)) {
+        OF_MACRO(frDict, function(layerIndex, frameIndexes) {
+            // 在这里执行逻辑处理
+            log.info('layerIndex:' + layerIndex, 'frameIndexes:' + frameIndexes);
+
             var curLayer = layers[layerIndex]; //当前图层
-            frameIndexes.forEach(function (frameIndex) {
+            frameIndexes.forEach(function(frameIndex) {
                 curLayer.setBlendModeAtFrame(frameIndex, 'multiply');
             });
-        }
+        });
     }
 
     Main();

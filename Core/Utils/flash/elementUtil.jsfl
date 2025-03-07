@@ -123,7 +123,7 @@ define([
      */
     ElementUtil.getMaxRight = function (elements) {
         function getTopRight(element) {
-            var rect =new Rectangle(element);
+            var rect = new Rectangle(element);
             return rect.getCorner('top right');
         }
 
@@ -206,7 +206,7 @@ define([
 
         sel.OnlySelectCurrent(element);
         var doc = fl.getDocumentDOM();
-        var rect =new Rectangle(doc.getSelectionRect());
+        var rect = new Rectangle(doc.getSelectionRect());
         var topRight = rect.getCorner(whichCorner);
 
         // 相对位置
@@ -225,7 +225,7 @@ define([
 
         sel.OnlySelectCurrent(element);
 
-        console.log('转换位图');
+       log.info('转换位图');
 
         if (this.IsSymbol(doc.selection[0])) {
             doc.convertSelectionToBitmap();
@@ -252,7 +252,7 @@ define([
         var elementSize = wrapSize(element);
         var [blockWidth, blockHeight, blockCountX, blockCountY] =
             rectUtil.splitRectangle(elementSize);
-        console.log(
+        log.info(
             'blockWidth:' +
                 blockWidth +
                 ' blockHeight:' +
@@ -314,7 +314,7 @@ define([
                 layers,
                 DELETE_LAYER_NAME
             );
-            console.log('findLayers:' + findLayers);
+            log.info('findLayers:' + findLayers);
 
             // 删除图层
             layerUtil.deleteLayers(timeline, findLayers);

@@ -7,7 +7,7 @@
  * @description:每一次打开An时，都要 执行此脚本，用于初始化一些必要的模块。
  */
 
-(function() {
+(function () {
     /**
      * 获取当前 文件夹 路径
      */
@@ -48,7 +48,7 @@
         var paths = Array.prototype.slice.call(arguments);
         var curWorkingDirectory = getcwd();
 
-        paths.forEach(function(path) {
+        paths.forEach(function (path) {
             var scriptURI;
 
             if (isAbsolutePath(path)) {
@@ -73,21 +73,22 @@
          */
         window.$ProjectFileDir$ = getcwd();
 
-
         require([
             // 导入配置文件
             './require-config',
-            // 补全console模块, 避免其他模块依赖console时报错
-            'console',
+
             // bug:"core-js/stable/string/includes"在当前环境，只会返回true, 所以使用es6-shim提前导入
             // 测试在其他环境没有问题，可能是环境问题
             // 但是es6-shim依赖与object.create,define等方法，所以不能直接导入，需要先导入es5-sham
-            'es5-shim','es5-sham',
-            'es6-sham', 'es6-shim',
-
+            'es5-shim',
+            'es5-sham',
+            'es6-shim',
+            'es6-sham',
+            // 补全console模块, 避免其他模块依赖console时报错
+            'console'
         ]);
 
-        require(['loglevel', 'logUtil'], function(log, logUtil) {
+        require(['loglevel', 'logUtil'], function (log, logUtil) {
             const { print } = logUtil;
 
             // 禁用log

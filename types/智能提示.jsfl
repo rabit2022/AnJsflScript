@@ -19,7 +19,7 @@ SymbolInstance.prototype.loop = undefined;
  * 动画的结束帧,默认为-1,表示播放到最后一帧
  * @type {number}
  */
-SymbolInstance.prototype.lastFrame = 0;
+SymbolInstance.prototype.lastFrame = -1;
 
 /**
  * @typedef {Element|
@@ -58,7 +58,8 @@ FlashFile.prototype.runCommandLine = function (commandLine) {};
 Camera.prototype.setPosition = function (frameIndex, tx, ty) {};
 
 /**
- * 6个变量，意义相同
+ *  Flash 应用程序
+ * @note 6个变量，意义相同
  * @since Flash MX 2004
  * @type {Flash}
  */

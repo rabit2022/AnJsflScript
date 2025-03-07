@@ -11,8 +11,9 @@ require([
     'checkUtil',
     'selectionUtil',
     'promptUtil',
-    'frameRangeUtil'
-], function (checkUtil, sel, promptUtil, frUtil) {
+    'frameRangeUtil',
+    'loglevel'
+], function (checkUtil, sel, promptUtil, frUtil, log) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     // var frUtil = frameRange.FrameRangeUtil;
@@ -36,7 +37,7 @@ require([
         if (!checkSelection(selection, 'selectElement', 'No limit')) return;
 
         var { num, mode } = promptUtil.parseNumberWithMode(30);
-        console.log("关键帧持续帧数：" + num + "，模式：" + mode);
+        log.info('关键帧持续帧数：' + num + '，模式：' + mode);
 
         // 选中的帧范围
         var selectedFrs = frUtil.getSelectedFrs(timeline);

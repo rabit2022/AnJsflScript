@@ -35,7 +35,7 @@ require.config({
         logUtil: 'Core/Third/logUtil',
         SAT: 'Core/Third/sat-js-0.9.0/SAT',
         satUtil: 'Core/Third/satUtil',
-        Func: 'Core/TopLevel/Func',
+        FUNC: 'Core/myShim/FUNC',
         checkUtil: 'Core/Utils/flash/checkUtil',
         curveUtil: 'Core/Utils/flash/curveUtil',
         elementUtil: 'Core/Utils/flash/elementUtil',

@@ -14,6 +14,7 @@ define(function () {
 
     /**
      * @type {Object}    A selection of constants that can be used with xjsfl.output.log
+     * @private
      */
     var Log = {
         // logged to main log, output panel, and an alert box
@@ -50,8 +51,9 @@ define(function () {
          * @param    {Number}    level        An optional Number to accentuate the message. 1 = capitals, 2 = horizontal rule & capitals
          * @param    {Boolean}    addNewline    An optional Boolean to add a new line to the traced output
          * @returns    {String}                The created message
+         * @private
          */
-        formatLine: function (prefix, message, level, addNewline) {
+        __formatLine: function (prefix, message, level, addNewline) {
             // new line
             var newLine =
                 fl.version.substr(0, 3).toLowerCase() === 'win' ? '\r\n' : '\n';
@@ -91,8 +93,9 @@ define(function () {
          * @param    {String}    $type        An optional Log.CONSTANT type for the log message. Defaults to Log.INFO
          * @param    {Boolean}    $level        An optional Boolean to accentuate the message with a new line and capitals
          * @param    {Number}    $level        An optional Number to accentuate the message with a new line and: 1 = capitals, 2 = horizontal rule & capitals
+         * @private
          */
-        writeToLog: function (message, $type, $level) {
+        __writeToLog: function (message, $type, $level) {
             // parameters
             // var param, type, level;
             // for each(param in [$type, $level]) {
@@ -118,7 +121,7 @@ define(function () {
             // log to main
             var uri = projectFolder + '/Logs/main.log';
             // fl.trace("time: "+time+" type: "+type+" message: "+message+"level: "+level);
-            var output = this.formatLine(
+            var output = this.__formatLine(
                 time,
                 type + '\t' + message,
                 level,
@@ -133,9 +136,19 @@ define(function () {
                 var uri = projectFolder + '/Logs/file.log';
                 // var indent = new Array(xjsfl.file.stack.length + 1).join('	');
                 // var output = this.create(time, indent + message, level, true);
-                var output = this.formatLine(time, message, level, true);
+                var output = this.__formatLine(time, message, level, true);
                 FLfile.write(uri, output, 'append');
             }
+        },
+
+        /**
+         * 处理参数，支持多个字符串参数
+         * @returns {string}
+         * @private
+         */
+        __formatMessage: function () {
+            var args = Array.prototype.slice.call(arguments); // 将 arguments 转换为数组
+            return args.join('\t');
         },
 
         /**
@@ -145,10 +158,11 @@ define(function () {
          */
         trace: function (message, level) {
             if (level === undefined) level = 0;
+            // var message = this.__formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
 
-            var output = this.formatLine('> xjsfl: ', message, level);
+            var output = this.__formatLine('> xjsfl: ', message, level);
             fl.trace(output.replace(/[ \t]+/g, ' ').replace(/\r/g, ''));
-            this.writeToLog(message, Log.TRACE, level);
+            this.__writeToLog(message, Log.TRACE, level);
         },
 
         // debug: function (message) {
@@ -156,21 +170,29 @@ define(function () {
         //     this.writeToLog(message + '\n', Log.DEBUG, 3);
         // },
 
-        log: function (message) {
+        log: function () {
+            var message = this.__formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
+
             trace('\n⚡admin  LOG  ❯❯ ' + message + '\n');
-            this.writeToLog(message + '\n', Log.LOG, 3);
+            this.__writeToLog(message + '\n', Log.LOG, 3);
         },
-        info: function (message) {
+        info: function () {
+            var message = this.__formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
+
             trace('\n⚡admin  INFO  ❯❯ ' + message + '\n');
-            this.writeToLog(message + '\n', Log.INFO, 3);
+            this.__writeToLog(message + '\n', Log.INFO, 3);
         },
-        warn: function (message) {
+        warn: function () {
+            var message = this.__formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
+
             trace('\n⚡admin  WARNING  ❯❯ ' + message + '\n');
-            this.writeToLog(message + '\n', Log.WARN, 3);
+            this.__writeToLog(message + '\n', Log.WARN, 3);
         },
-        error: function (message) {
+        error: function () {
+            var message = this.__formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
+
             trace('\n⚡admin  ERROR  ❯❯ ' + message + '\n');
-            this.writeToLog(message + '\n', Log.ERROR, 3);
+            this.__writeToLog(message + '\n', Log.ERROR, 3);
         },
 
         /**
