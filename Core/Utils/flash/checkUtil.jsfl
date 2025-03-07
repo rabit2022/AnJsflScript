@@ -7,13 +7,14 @@
  * @description:
  */
 
-define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
+define(['frameRangeUtil', 'frameRange'], function(frUtil, FrameRange) {
     /**
      * 检查选择的元件或帧是否符合指定的模式和条件。
      *
      * @param {Array} selection - 选择的元件或帧数组。
-     * @param {"selectElement"|"selectFrame"|"elementOnFrame"|"selectLibItem"} [mode="selectElement"] - 检查模式，默认值为 "selectElement"。
-     * @param {"No limit"|"Not Zero"|"Zero"|"Only one"|"Only two"|"More"|"=0"|"=1"|"=2"|">=2"} [condition="No limit"] - 检查条件，默认值为 "No limit"。
+     * @param {'selectElement'|'selectFrame'|'elementOnFrame'|'selectLibItem'} [mode="selectElement"] - 检查模式，默认值为 "selectElement"。
+     * @param {'No limit'|'Not Zero'|'Zero'|'Only one'|'Only two'|'More'|'=0'|'=1'|'=2'|'>=2'} [condition="No limit"] - 检查条件，默认值为 "No limit"。
+     * @param {string} [exTips] - 额外提示信息。
      * @returns {boolean} - 如果选择符合指定条件，则返回 true，否则返回 false。
      *
      * @throws {Error} 如果 mode 或 condition 为 null，将抛出错误并提示用户。
@@ -21,7 +22,7 @@ define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
      * - 参数 `mode` 和 `condition` 不允许传入 `null`。如果需要使用默认值，请确保传入 `undefined` 或直接省略参数。
      * - 如果传入 `null`，函数将终止执行并提示用户。
      */
-    function CheckSelection(selection, mode, condition) {
+    function CheckSelection(selection, mode, condition, exTips) {
         // 检查 mode 是否为 null
         if (mode === null) {
             // console.error("CheckSelection: 模式不能为 null，请指定一个有效的模式！");
@@ -60,18 +61,18 @@ define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
         var messages = [
             [
                 null,
-                '请选择元件。',
-                '请选择至少一个元件。',
-                '只能选择单个元件。',
-                '只能选择两个元件。',
+                '请选择一个元件。',
+                '请至少选择一个元件。',
+                '请只选择一个元件。',
+                '请同时选择两个元件。',
                 '请选择多个元件。'
             ],
             [
                 null,
-                '请选择帧。',
-                '请选择至少一个帧。',
-                '只能选择单个帧。',
-                '只能选择两个帧。',
+                '请选择一个帧。',
+                '请至少选择一个帧。',
+                '请只选择一个帧。',
+                '请只选择两个帧。',
                 '请选择多个帧。'
             ],
             [
@@ -84,10 +85,10 @@ define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
             ],
             [
                 null,
-                '请选择库中的项目。',
-                '请选择至少一个库项目。',
-                '只能选择单个库项目。',
-                '只能选择两个库项目。',
+                '请选择库中的一个项目。',
+                '请至少选择一个库项目。',
+                '请只选择一个库项目。',
+                '请只选择两个库项目。',
                 '请选择多个库项目。'
             ]
         ];
@@ -139,7 +140,9 @@ define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
 
         // 检查条件并返回结果
         if (!checkCondition(conditionIndex, selection.length)) {
-            alert(messages[modeIndex][conditionIndex]);
+            var defaultMessage = messages[modeIndex][conditionIndex];
+            var message = exTips ? defaultMessage + '(' + exTips + ')' : defaultMessage;
+            alert(message);
             return false;
         }
 
@@ -162,8 +165,8 @@ define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
     /**
      * 检查选中的帧是否符合指定的条件
      * @param {Timeline} timeline - 时间轴对象。
-     * @param {"No limit"|"Not Zero"|"Zero"|"Only one"|"Only two"|"More"|
-     * ">0"|"=0"|"=1"|"=2"|">1"} [condition="Not Zero"] - 检查条件
+     * @param {'No limit'|'Not Zero'|'Zero'|'Only one'|'Only two'|'More'|
+     * '>0'|'=0'|'=1'|'=2'|'>1'} [condition="Not Zero"] - 检查条件
      * @returns {FrameRange[]}
      */
     function CheckSelectedFrames(timeline, condition) {

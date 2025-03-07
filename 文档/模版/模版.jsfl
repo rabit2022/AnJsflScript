@@ -8,10 +8,10 @@
  */
 
 require(['checkUtil', 'loglevel'], function (checkUtil, log) {
-    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
+    const { CheckDom, CheckSelection} = checkUtil;
 
     const doc = fl.getDocumentDOM(); //文档
-    if (!checkDom(doc)) return;
+    if (!CheckDom(doc)) return;
 
     const selection = doc.selection; //选择
     const library = doc.library; //库文件
@@ -26,7 +26,9 @@ require(['checkUtil', 'loglevel'], function (checkUtil, log) {
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'No limit')) return;
+        if (!CheckSelection(selection, 'selectElement', 'No limit')) return;
+
+
     }
 
     Main();

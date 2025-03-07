@@ -17,7 +17,7 @@ define([
     'moreElementUtil',
     'builtInP',
     'loglevel'
-], function (sat, satUtil, libUtil, layerUtil, os, sel, meUtil, builtInP, log) {
+], function(sat, satUtil, libUtil, layerUtil, os, sel, meUtil, builtInP, log) {
     var Vector = sat.V,
         Rectangle = sat.R,
         wrapPosition = sat.GLOBALS.wrapPosition,
@@ -32,14 +32,15 @@ define([
      * @class {ElementUtil}
      * @constructor
      */
-    var ElementUtil = function () {};
+    var ElementUtil = function() {
+    };
 
     /**
      * 判断是否是 元件
      * @param {Element} element 元素
      * @returns {boolean} 是否是 元件
      */
-    ElementUtil.IsSymbol = function (element) {
+    ElementUtil.IsSymbol = function(element) {
         return (
             element.elementType === 'instance' &&
             element.instanceType === 'symbol'
@@ -51,24 +52,37 @@ define([
      * @param {Element} element 元素
      * @returns {boolean} 是否是 位图
      */
-    ElementUtil.IsBitmap = function (element) {
+    ElementUtil.IsBitmap = function(element) {
         return (
             element.elementType === 'instance' &&
             element.instanceType === 'bitmap'
         );
     };
-    ElementUtil.IsShape = function (element) {
+    ElementUtil.IsShape = function(element) {
         return element.elementType === 'shape';
     };
+    /**
+     * 获取element的名称
+     * @param {Element} element 元素
+     * @returns {string} 名称
+     */
+    ElementUtil.getName = function(element) {
+        if (element.elementType === 'instance') {
+            return element.libraryItem.name;
+        } else {
+            return element.name;
+        }
+    };
+
 
     /**
      *  复制元件
      *  @param {Element} element 元件
-     * @param {"ask"|"skip"|"auto"} mode 复制模式，ask：弹出输入框，skip：直接复制，auto：自动生成名称
+     * @param {'ask'|'skip'|'auto'} mode 复制模式，ask：弹出输入框，skip：直接复制，auto：自动生成名称
      * @param {string} [newName=origionName] 新元件名称，仅在 mode 为 auto 时有效
      * @constructor
      */
-    ElementUtil.CopySymbol = function (element, mode, newName) {
+    ElementUtil.CopySymbol = function(element, mode, newName) {
         var doc = fl.getDocumentDOM();
         var library = doc.library; //库文件
 
@@ -121,7 +135,7 @@ define([
      * @param {Element[]} elements 元素数组
      * @returns {Element}
      */
-    ElementUtil.getMaxRight = function (elements) {
+    ElementUtil.getMaxRight = function(elements) {
         function getTopRight(element) {
             var rect = new Rectangle(element);
             return rect.getCorner('top right');
@@ -148,7 +162,7 @@ define([
      * @param {Vector} transformationPoint 形变点
      * @private
      */
-    ElementUtil.resetRegisterPointWrap = function (transformationPoint) {
+    ElementUtil.resetRegisterPointWrap = function(transformationPoint) {
         var doc = fl.getDocumentDOM();
         doc.enterEditMode('inPlace');
         doc.selectAll();
@@ -178,7 +192,7 @@ define([
      *             请使用  element.setTransformationPoint(getZeroPoint().toObj());  把元件的变形点设置为 注册点 </br>
      *             这个方法尽量不要使用，因为它会让 元件的注册点 发生变化，导致  设置位置时，出现偏差 </br>
      */
-    ElementUtil.resetRegisterPoint = function (element) {
+    ElementUtil.resetRegisterPoint = function(element) {
         var trPoint = wrapPosition(element.getTransformationPoint());
 
         sel.OnlySelectCurrent(element);
@@ -198,9 +212,9 @@ define([
     /**
      * 更改元件的变形点
      * @param {Element} element
-     * @param {"top right"|"top left"|"bottom right"|"bottom left"|"top center"|"right center"|"bottom center"|"left center"} whichCorner
+     * @param {'top right'|'top left'|'bottom right'|'bottom left'|'top center'|'right center'|'bottom center'|'left center'} whichCorner
      */
-    ElementUtil.setTransformationPoint = function (element, whichCorner) {
+    ElementUtil.setTransformationPoint = function(element, whichCorner) {
         // 变形点 到右上角
         var registerPoint = wrapPosition(element);
 
@@ -220,12 +234,12 @@ define([
      * @param {string} SymbolName="碎片" - 元件的名称。
      * @bug 可能出现 doc.setSelectionRect 出错的情况，原因可能是 选择框对矩形坐标要求太苛刻，由于小数有误差，导致出错。这是能想到的目前切片的最简单方法，只能暂时用这个方法。可以更换位置尝试，目前测试 有概率出现，不是绝对的。
      */
-    ElementUtil.splinterSymbol = function (element, SymbolName) {
+    ElementUtil.splinterSymbol = function(element, SymbolName) {
         var doc = fl.getDocumentDOM(); //文档
 
         sel.OnlySelectCurrent(element);
 
-       log.info('转换位图');
+        log.info('转换位图');
 
         if (this.IsSymbol(doc.selection[0])) {
             doc.convertSelectionToBitmap();
@@ -254,13 +268,13 @@ define([
             rectUtil.splitRectangle(elementSize);
         log.info(
             'blockWidth:' +
-                blockWidth +
-                ' blockHeight:' +
-                blockHeight +
-                ' blockCountX:' +
-                blockCountX +
-                ' blockCountY:' +
-                blockCountY
+            blockWidth +
+            ' blockHeight:' +
+            blockHeight +
+            ' blockCountX:' +
+            blockCountX +
+            ' blockCountY:' +
+            blockCountY
         );
 
         var moreElement = wrapMoreElement(
@@ -319,6 +333,7 @@ define([
             // 删除图层
             layerUtil.deleteLayers(timeline, findLayers);
         }
+
         return true;
     };
 
@@ -326,7 +341,7 @@ define([
      * 播放一次
      * @param {Element[]} elements 元素数组
      */
-    ElementUtil.playOnce = function (elements) {
+    ElementUtil.playOnce = function(elements) {
         for (var i = 0; i < elements.length; i++) {
             var element = elements[i];
             if (this.IsSymbol(element)) {
@@ -341,7 +356,7 @@ define([
      * @note 完全的打散，如果某些素材，打包，并且在打包的地方  调整颜色，则会导致颜色丢失。
      *       原本的思路：转为位图，再打散为形状。但是，形状补间动画 无法正常工作。
      */
-    ElementUtil.breakApartCompletely = function (element) {
+    ElementUtil.breakApartCompletely = function(element) {
         var doc = fl.getDocumentDOM(); //文档
         var library = doc.library; //库文件
 
@@ -364,7 +379,7 @@ define([
                 return;
             }
 
-            var isAllShape = builtInP.all(selection, function (item) {
+            var isAllShape = builtInP.all(selection, function(item) {
                 return ElementUtil.IsShape(item);
             });
             if (isAllShape) {

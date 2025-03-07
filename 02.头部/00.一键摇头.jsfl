@@ -7,10 +7,12 @@
  * @description:
  */
 
-require(['checkUtil', 'promptUtil', 'libUtil'], function (
+
+require(['checkUtil', 'promptUtil', 'libUtil','frameRangeUtil','Constants'], function (
     checkUtil,
     promptUtil,
-    libUtil
+    libUtil,
+    frameRangeUtil,Constants
 ) {
     var descriptions = {
         file: '00.一键摇头.jsfl',
@@ -29,6 +31,8 @@ require(['checkUtil', 'promptUtil', 'libUtil'], function (
 
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
+    const {convertToKeyframesSafety}=frameRangeUtil;
+    const {FRAME_4, FRAME_6} = Constants;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -73,14 +77,15 @@ require(['checkUtil', 'promptUtil', 'libUtil'], function (
         doc.enterEditMode('inPlace');
 
         var timeline = doc.getTimeline();
-        var _6_frames = 6 - 1;
+        // var _6_frames = 6 - 1;
         // 给所有图层加帧
-        timeline.insertFrames(_6_frames, true);
+        timeline.insertFrames(FRAME_6, true);
 
-        var _4_frames = 4 - 1;
-        timeline.convertToKeyframes(_4_frames);
+        // var _4_frames = 4 - 1;
+        // timeline.convertToKeyframes(_4_frames);
+        frameRangeUtil.convertToKeyframesSafety(timeline, curLayer, [FRAME_4]);
 
-        var frame4_element = timeline.layers[0].frames[_4_frames].elements[0];
+        var frame4_element = timeline.layers[0].frames[FRAME_4].elements[0];
         frame4_element.x += direction * force;
         frame4_element.y += direction * force;
 
