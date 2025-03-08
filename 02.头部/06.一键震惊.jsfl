@@ -70,7 +70,7 @@ require([
         EFFECT_FRAMES += firstFrame;
 
         // 关键帧
-        frUtil.convertToKeyframesSafety(timeline, curLayerIndex, KEY_FRAMES);
+        frUtil.convertToKeyframesSafety(timeline,KEY_FRAMES);
 
         // 3
         var frame3_element = firstLayer.frames[EFFECT_FRAMES].elements[0];

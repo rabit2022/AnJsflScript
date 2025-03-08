@@ -31,7 +31,7 @@ require(['checkUtil', 'promptUtil', 'libUtil','frameRangeUtil','Constants'], fun
 
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
-    const {convertToKeyframesSafety}=frameRangeUtil;
+    // const {convertToKeyframesSafety}=frameRangeUtil;
     const {FRAME_4, FRAME_6} = Constants;
 
     var doc = fl.getDocumentDOM(); //文档
@@ -83,7 +83,7 @@ require(['checkUtil', 'promptUtil', 'libUtil','frameRangeUtil','Constants'], fun
 
         // var _4_frames = 4 - 1;
         // timeline.convertToKeyframes(_4_frames);
-        frameRangeUtil.convertToKeyframesSafety(timeline, curLayer, [FRAME_4]);
+        frameRangeUtil.convertToKeyframesSafety(timeline,  [FRAME_4]);
 
         var frame4_element = timeline.layers[0].frames[FRAME_4].elements[0];
         frame4_element.x += direction * force;

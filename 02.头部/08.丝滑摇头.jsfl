@@ -14,8 +14,8 @@ require([
     'satUtil',
     'curveUtil',
     'selectionUtil',
-    'Constants'
-], function (checkUtil, xmlPanelUtil, libUtil, satUtil, curve, sel, Constants) {
+    'Constants','frameRangeUtil'
+], function (checkUtil, xmlPanelUtil, libUtil, satUtil, curve, sel, Constants,frUtil) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     const { FRAME_4, FRAME_7 } = Constants;
@@ -59,6 +59,7 @@ require([
     var curFrameIndex = timeline.currentFrame; //当前帧索引
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
+    const KEY_FRAMES = [FRAME_4, FRAME_7];
     function checkXMLPanel() {
         var panel = xmlPanelUtil.getXMLPanel();
         if (panel === null) return null;
@@ -89,8 +90,9 @@ require([
         // 给所有图层加帧
         timeline.insertFrames(FRAME_7, true);
         // 关键帧 1,4,7
-        timeline.convertToKeyframes(FRAME_4);
-        timeline.convertToKeyframes(FRAME_7);
+        // timeline.convertToKeyframes(FRAME_4);
+        // timeline.convertToKeyframes(FRAME_7);
+        frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
 
         var frame4_element = timeline.layers[0].frames[FRAME_4].elements[0];
         // -57.25,-182.25    -60.25,-179.25  (-3,+3)  3,左摇头

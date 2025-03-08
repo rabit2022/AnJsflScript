@@ -97,7 +97,7 @@ require(['checkUtil', 'curveUtil', 'frameRangeUtil'], function (
         );
 
         // 关键帧
-        frUtil.convertToKeyframesSafety(timeline, curLayerIndex, allKeyFrames);
+        frUtil.convertToKeyframesSafety(timeline, allKeyFrames);
 
         for (var i = 0; i < alteredKeyFrames.length; i++) {
             var frame = alteredKeyFrames[i];

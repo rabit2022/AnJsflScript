@@ -53,7 +53,7 @@ require([
         ele.setTransformationPoint(selection[0], 'bottom center');
 
         // 关键帧
-        frUtil.convertToKeyframesSafety(timeline, curLayer, KEY_FRAMES);
+        frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
 
         // 调整高度
         var frame_element = curLayer.frames[ALTER_HEIGHT_FRAME].elements[0];

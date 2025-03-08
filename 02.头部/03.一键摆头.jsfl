@@ -12,8 +12,8 @@ require([
     'promptUtil',
     'filterUtil',
     'libUtil',
-    'Constants'
-], function (checkUtil, promptUtil, filterUtil, libUtil, Constants) {
+    'Constants','frameRangeUtil'
+], function (checkUtil, promptUtil, filterUtil, libUtil, Constants,frUtil) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     const { FRAME_1, FRAME_4, FRAME_6 } = Constants;
@@ -46,6 +46,7 @@ require([
     var curFrameIndex = timeline.currentFrame; //当前帧索引
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
+    const KEY_FRAMES=[FRAME_4];
     function KFrames(blurFilterForce) {
         doc.enterEditMode('inPlace');
 
@@ -64,11 +65,12 @@ require([
         // 给所有图层加帧
         timeline.insertFrames(FRAME_6, true);
 
-        var _4_frames = 4 - 1;
-        timeline.convertToKeyframes(FRAME_4);
+        // var _4_frames = 4 - 1;
+        // timeline.convertToKeyframes(FRAME_4);
+        frUtil.convertToKeyframesSafety(timeline,  KEY_FRAMES);
 
         // 水平翻转
-        var frame4_element = timeline.layers[0].frames[_4_frames].elements[0];
+        var frame4_element = timeline.layers[0].frames[FRAME_4].elements[0];
         frame4_element.scaleX = -1;
         frame4_element.scaleY = 1;
 

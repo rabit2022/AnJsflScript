@@ -7,11 +7,12 @@
  * @description:
  */
 
-require(['checkUtil', 'promptUtil', 'libUtil', 'Constants'], function (
+require(['checkUtil', 'promptUtil', 'libUtil', 'Constants','frameRangeUtil'], function (
     checkUtil,
     promptUtil,
     libUtil,
-    Constants
+    Constants,
+    frUtil
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
@@ -47,6 +48,8 @@ require(['checkUtil', 'promptUtil', 'libUtil', 'Constants'], function (
 
     var ShakeIntensity = 20; // 震动强度
 
+    // 关键帧 4，7,10
+    const KEY_FRAMES=[FRAME_4,FRAME_7,FRAME_10];
     function Main() {
         // 检查选择的元件
         if (!checkSelection(selection, 'selectElement', 'Only one')) return;
@@ -67,9 +70,10 @@ require(['checkUtil', 'promptUtil', 'libUtil', 'Constants'], function (
         timeline.insertFrames(FRAME_12, true);
 
         // 关键帧 4，7,10
-        timeline.convertToKeyframes(FRAME_4);
-        timeline.convertToKeyframes(FRAME_7);
-        timeline.convertToKeyframes(FRAME_10);
+        // timeline.convertToKeyframes(FRAME_4);
+        // timeline.convertToKeyframes(FRAME_7);
+        // timeline.convertToKeyframes(FRAME_10);
+        frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
 
         // 获取元素，1,7
         var frame1_element = timeline.layers[0].frames[FRAME_1].elements[0];

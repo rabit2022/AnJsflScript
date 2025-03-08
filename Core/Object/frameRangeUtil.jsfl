@@ -223,23 +223,25 @@ define([
         return keyFr;
     };
 
+
     /**
      * 安全的转换为关键帧
-     * 如果 需要转换的帧 已经是 关键帧，则不转换关键帧，以防止
-     * bug(当前帧已经是关键帧，再次转换会把下一帧也变成关键帧)
+     * 如果 需要转换的帧 已经是 关键帧，则不转换关键帧，以防止bug
+     * @bug(当前帧已经是关键帧，再次转换会把下一帧也变成关键帧)
      * @param {Timeline} timeline 时间线
-     * @param {Layer|number} layer 图层
-     * @param {number[]} frs 帧数组
+     * @param {number[]} keyFramesIndex 帧数组
      */
-    FrameRangeUtil.convertToKeyframesSafety = function (timeline, layer, frs) {
+    FrameRangeUtil.convertToKeyframesSafety = function (timeline, keyFramesIndex) {
         // timeline.convertToKeyframes(frame_1);
-        var layers = timeline.layers;
+        var layers = timeline.layers; //图层
+        var curLayerIndex = timeline.currentLayer; //当前图层索引
+        var curLayer = layers[curLayerIndex]; //当前图层
 
-        var layer_ = layerUtil.convertToLayer(layers, layer);
-        var keyFrames = this.getKeyFrames(layer_);
+        // var layer_ = layerUtil.convertToLayer(layers, layer);
+        var keyFrames = this.getKeyFrames(curLayer);
 
-        for (var i = 0; i < frs.length; i++) {
-            var fr = frs[i];
+        for (var i = 0; i < keyFramesIndex.length; i++) {
+            var fr = keyFramesIndex[i];
             if (keyFrames.includes(fr)) {
                 continue;
             }

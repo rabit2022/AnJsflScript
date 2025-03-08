@@ -34,7 +34,7 @@ require(['checkUtil', 'frameRangeUtil'], function (checkUtil, frUtil) {
             timeline.currentLayer = i;
 
             // 关键帧
-            frUtil.convertToKeyframesSafety(timeline, layer, [curFrameIndex]);
+            frUtil.convertToKeyframesSafety(timeline, [curFrameIndex]);
         }
     }
 

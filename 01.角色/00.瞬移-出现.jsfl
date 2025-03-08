@@ -64,7 +64,7 @@ require([
         DISAPPEAR_FRAMES = linqUtil.addOffset(DISAPPEAR_FRAMES, firstFrame);
 
         // 关键帧
-        frUtil.convertToKeyframesSafety(timeline, curLayer, KEY_FRAMES);
+        frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
 
         // 滤镜效果
         for (var i = 0; i < BLUR_FILTER_FRAMES.length; i++) {

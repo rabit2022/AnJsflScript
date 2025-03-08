@@ -7,17 +7,20 @@
  * @description:
  */
 
+import { FRAME_30 } from 'Constants';
+
 require([
     'checkUtil',
     'libUtil',
     'curveUtil',
     'graphicsUtil',
     'selectionUtil',
-    'SAT'
-], function (checkUtil, libUtil, curve, graphics, sel, sat) {
+    'SAT','Constants','frameRangeUtil'
+], function (checkUtil, libUtil, curve, graphics, sel, sat,Constants,frameRangeUtil) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     var Vector = sat.Vector;
+    const {FRAME_1, FRAME_30}=Constants;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -38,6 +41,8 @@ require([
 
     // radius
     var RADIUS = 250;
+
+    const KEY_FRAMES=[FRAME_30];
 
     function drawLineAndMove(timeline, movePos) {
         var circleLineRect = graphics.drawCircleWithoutFill(
@@ -61,23 +66,24 @@ require([
     }
 
     function KFrames(timeline, movePos) {
-        var _30_frames = 30 - 1;
+        // var _30_frames = 30 - 1;
         // 给所有图层加帧
-        timeline.insertFrames(_30_frames, true);
+        timeline.insertFrames(FRAME_30, true);
 
         // 转为关键帧
         timeline.setSelectedLayers(SYMBOL_LAYER_INDEX);
-        timeline.convertToKeyframes(_30_frames);
+        // timeline.convertToKeyframes(FRAME_30);
+        frameRangeUtil.convertToKeyframesSafety(timeline,KEY_FRAMES);
 
         // 设置元件位置
         var symbolElement =
-            timeline.layers[SYMBOL_LAYER_INDEX].frames[_30_frames].elements[0];
+            timeline.layers[SYMBOL_LAYER_INDEX].frames[FRAME_30].elements[0];
         sel.OnlySelectCurrent(symbolElement);
         symbolElement.x = movePos.x;
         symbolElement.y = movePos.y;
 
         // 选中图层1的所有帧
-        timeline.setSelectedFrames([SYMBOL_LAYER_INDEX, 0, _30_frames], true);
+        timeline.setSelectedFrames([SYMBOL_LAYER_INDEX, 0, FRAME_30], true);
 
         // 补间动画
         // timeline.createMotionTween();

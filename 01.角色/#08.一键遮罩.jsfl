@@ -8,19 +8,21 @@
  */
 
 
-require(['checkUtil', 'loglevel', 'elementUtil', 'libUtil', 'selectionUtil','Constants'],
-    function(checkUtil, log, elementUtil, libUtil, selectionUtil, Constants) {
+require(['checkUtil', 'loglevel', 'elementUtil', 'libUtil', 'selectionUtil', 'Constants',
+        'layerUtil', 'frameRangeUtil', 'JSFLConstants', 'curveUtil'],
+    function(checkUtil, log, elementUtil, libUtil,
+             selectionUtil, Constants, layerUtil, frUtil, JSFLConstants, curveUtil) {
         const { CheckDom, CheckSelection } = checkUtil;
         const { IsSymbol, IsShape, getName } = elementUtil;
         const { SelectAll } = selectionUtil;
-        const { FRAME_30 } = Constants;
+        const { FRAME_1, FRAME_30 } = Constants;
 
         const doc = fl.getDocumentDOM(); //文档
         if (!CheckDom(doc)) return;
 
-        const selection = doc.selection; //选择
-        const library = doc.library; //库文件
-        const timeline = doc.getTimeline(); //时间轴
+        var selection = doc.selection; //选择
+        var library = doc.library; //库文件
+        var timeline = doc.getTimeline(); //时间轴
 
         var layers = timeline.layers; //图层
         var curLayerIndex = timeline.currentLayer; //当前图层索引
@@ -31,6 +33,27 @@ require(['checkUtil', 'loglevel', 'elementUtil', 'libUtil', 'selectionUtil','Con
 
         const MASK_LAYER_INDEX = 0; //遮罩层索引
         const TARGET_LAYER_INDEX = 1; //被遮层索引
+
+        const KEY_FRAMES = [FRAME_1, FRAME_30]; //关键帧
+
+        /**
+         * 刷新内部变量
+         * @note: 1,如果在函数内  进行了更改数据的操作(enterEditMode后，timeline变化)，需要调用此函数刷新内部变量
+         *        2,如果需要同时使用 全局变量 和 局部变量，需要 重新 定义
+         */
+        function refreshTimeline() {
+            // 刷新内部变量
+            selection = doc.selection; //选择
+            library = doc.library; //库文件
+            timeline = doc.getTimeline(); //时间轴
+
+            layers = timeline.layers; //图层
+            curLayerIndex = timeline.currentLayer; //当前图层索引
+            curLayer = layers[curLayerIndex]; //当前图层
+
+            curFrameIndex = timeline.currentFrame; //当前帧索引
+            curFrame = curLayer.frames[curFrameIndex]; //当前帧
+        }
         function checkMaskTarget() {
             var mask, target;
 
@@ -48,33 +71,77 @@ require(['checkUtil', 'loglevel', 'elementUtil', 'libUtil', 'selectionUtil','Con
             return { mask: mask, target: target };
         }
 
-        function Main() {
-            // // 请同时选中两个对象！(遮罩形状+被遮对象)
-            // if (!CheckSelection(selection, 'selectElement', 'Only two', '遮罩形状+被遮对象')) return;
-            //
-            // // const mt = checkMaskTarget();
-            // // if (!mt) return;
-            // //
-            // // const { mask, target } = mt;
-            // // log.info('遮罩对象：' + getName(mask) + '，被遮对象：' + getName(target));
-            // //
-            // // // 转为元件
-            // // var symbolName = libUtil.generateNameUntilUnique('一键遮罩_');
-            // // doc.convertToSymbol('graphic', symbolName, 'center');
+        function KFrame() {
+            doc.enterEditMode('inPlace');
 
-
+            refreshTimeline();
 
             // 分层，确保被遮对象在最上层
-            SelectAll();
-            doc.distributeToLayers();
+            Stratify();
 
-            // 增加30帧，增加关键帧(1,30,30)
-            // 给所有图层加帧
-            timeline.insertFrames(FRAME_30, true);
+            // // 增加30帧，增加关键帧(1,30,30)
+            // // 给所有图层加帧
+            // timeline.insertFrames(FRAME_30, true);
+            //
+            // timeline.currentLayer = TARGET_LAYER_INDEX;
+            // frUtil.convertToKeyframesSafety(timeline, [FRAME_30]);
+            //
+            // // 设置遮罩层0
+            // timeline.currentLayer = MASK_LAYER_INDEX;
+            // // timeline.setLayerProperty('layerType', 'mask');
+            // layers[MASK_LAYER_INDEX].layerType = JSFLConstants.layer.layerType.MASK;
+            //
+            // // 传统补间，元件1
+            // timeline.currentLayer = TARGET_LAYER_INDEX;
+            //
+            // // 获取allKeyFrames first,last
+            // var firstF = KEY_FRAMES[0];
+            // var lastF = KEY_FRAMES[KEY_FRAMES.length - 1];
+            // // 选中所有帧
+            // timeline.setSelectedFrames(firstF, lastF, true);
+            //
+            // curveUtil.setClassicEaseCurve(timeline);
+            //
+            // doc.exitEditMode();
 
-            // 设置遮罩层0
-            // 传统补间，元件1
+            /**
+             * 分层，确保被遮对象在最上层
+             */
+            function Stratify() {
+                SelectAll();
+                doc.distributeToLayers();
 
+                refreshTimeline();
+
+                var maskShape = layers[MASK_LAYER_INDEX].frames[curFrameIndex].elements[0]; //遮罩形状
+                var targetShape = layers[TARGET_LAYER_INDEX].frames[curFrameIndex].elements[0]; //被遮层
+
+                if (IsShape(maskShape) && IsSymbol(targetShape)) {
+                    // 正确顺序
+                } else {
+                    // 交换位置
+                    layerUtil.swapLayers(timeline, MASK_LAYER_INDEX, TARGET_LAYER_INDEX);
+
+                }
+            }
+
+        }
+
+        function Main() {
+            // 请同时选中两个对象！(遮罩形状+被遮对象)
+            if (!CheckSelection(selection, 'selectElement', 'Only two', '遮罩形状+被遮对象')) return;
+
+            const mt = checkMaskTarget();
+            if (!mt) return;
+
+            const { mask, target } = mt;
+            log.info('遮罩对象：' + getName(mask) + '，被遮对象：' + getName(target));
+
+            // 转为元件
+            var symbolName = libUtil.generateNameUntilUnique('一键遮罩_');
+            doc.convertToSymbol('graphic', symbolName, 'center');
+
+            KFrame();
         }
 
         Main();
