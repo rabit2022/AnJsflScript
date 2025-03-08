@@ -137,7 +137,7 @@ define(['loglevel'], function(log) {
      * @param {Number} layerIndex1 图层索引1
      * @param {Number} layerIndex2 图层索引2
      */
-    LayerUtil.swapLayers= function(timeline, layerIndex1, layerIndex2) {
+    LayerUtil.swapLayers = function(timeline, layerIndex1, layerIndex2) {
         var layers = timeline.layers; // 获取所有图层
 
         if (!(layerIndex1 >= 0 && layerIndex1 < layers.length && layerIndex2 >= 0 && layerIndex2 < layers.length)) {
@@ -145,21 +145,18 @@ define(['loglevel'], function(log) {
             return;
         }
 
-        // 交换图层名称
-        var tempName = layers[layerIndex1].name;
-        layers[layerIndex1].name = layers[layerIndex2].name;
-        layers[layerIndex2].name = tempName;
+        // 如果两个索引相同，无需交换
+        if (layerIndex1 === layerIndex2) {
+            log.info('图层索引相同，无需交换。');
+            return;
+        }
 
-        // 交换图层内容（通过复制和删除操作）
-        var frames1 = layers[layerIndex1].frames;
-        var frames2 = layers[layerIndex2].frames;
-
-        // 复制图层内容
-        layers[layerIndex1].frames = frames2;
-        layers[layerIndex2].frames = frames1;
+        // 交换图层顺序
+        timeline.reorderLayer(layerIndex1, layerIndex2);
+        timeline.reorderLayer(layerIndex2, layerIndex1);
 
         log.info('layerUtil.js:图层' + layerIndex1 + '(' + layers[layerIndex1].name + ')和图层' + layerIndex2 + '(' + layers[layerIndex2].name + ')交换成功。');
-    }
+    };
 
     return LayerUtil;
 });

@@ -7,9 +7,11 @@
  * @description:
  */
 
-require(['checkUtil'], function (checkUtil) {
+require(['checkUtil','selectionUtil'], function (checkUtil, selectionUtil) {
+
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
+    const SelectNone = selectionUtil.SelectNone;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -43,7 +45,7 @@ require(['checkUtil'], function (checkUtil) {
         // }
 
         // doc.selectNone();
-        $Selection.SelectNone();
+        SelectNone();
         doc.clipPaste(true);
 
         // 本地摄像机的逆矩阵

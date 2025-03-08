@@ -54,6 +54,7 @@ require(['checkUtil', 'loglevel', 'elementUtil', 'libUtil', 'selectionUtil', 'Co
             curFrameIndex = timeline.currentFrame; //当前帧索引
             curFrame = curLayer.frames[curFrameIndex]; //当前帧
         }
+
         function checkMaskTarget() {
             var mask, target;
 
@@ -79,30 +80,33 @@ require(['checkUtil', 'loglevel', 'elementUtil', 'libUtil', 'selectionUtil', 'Co
             // 分层，确保被遮对象在最上层
             Stratify();
 
-            // // 增加30帧，增加关键帧(1,30,30)
-            // // 给所有图层加帧
-            // timeline.insertFrames(FRAME_30, true);
-            //
-            // timeline.currentLayer = TARGET_LAYER_INDEX;
-            // frUtil.convertToKeyframesSafety(timeline, [FRAME_30]);
-            //
-            // // 设置遮罩层0
+            // 增加30帧，增加关键帧(1,30,30)
+            // 给所有图层加帧
+            timeline.insertFrames(FRAME_30, true);
+
+            timeline.currentLayer = TARGET_LAYER_INDEX;
+            frUtil.convertToKeyframesSafety(timeline, [FRAME_30]);
+
+
+            // 设置遮罩层0
             // timeline.currentLayer = MASK_LAYER_INDEX;
-            // // timeline.setLayerProperty('layerType', 'mask');
-            // layers[MASK_LAYER_INDEX].layerType = JSFLConstants.layer.layerType.MASK;
-            //
-            // // 传统补间，元件1
+            layers[MASK_LAYER_INDEX].layerType = JSFLConstants.layer.layerType.MASK;
             // timeline.currentLayer = TARGET_LAYER_INDEX;
-            //
-            // // 获取allKeyFrames first,last
-            // var firstF = KEY_FRAMES[0];
-            // var lastF = KEY_FRAMES[KEY_FRAMES.length - 1];
-            // // 选中所有帧
-            // timeline.setSelectedFrames(firstF, lastF, true);
-            //
-            // curveUtil.setClassicEaseCurve(timeline);
-            //
-            // doc.exitEditMode();
+            layers[TARGET_LAYER_INDEX].layerType = JSFLConstants.layer.layerType.MASKED;
+
+
+            // 传统补间，元件1
+            timeline.currentLayer = TARGET_LAYER_INDEX;
+
+            // 获取allKeyFrames first,last
+            var firstF = KEY_FRAMES[0];
+            var lastF = KEY_FRAMES[KEY_FRAMES.length - 1];
+            // 选中所有帧
+            timeline.setSelectedFrames(firstF, lastF, true);
+
+            curveUtil.setClassicEaseCurve(timeline);
+
+            doc.exitEditMode();
 
             /**
              * 分层，确保被遮对象在最上层
@@ -122,6 +126,7 @@ require(['checkUtil', 'loglevel', 'elementUtil', 'libUtil', 'selectionUtil', 'Co
                     // 交换位置
                     layerUtil.swapLayers(timeline, MASK_LAYER_INDEX, TARGET_LAYER_INDEX);
 
+                    refreshTimeline();
                 }
             }
 
