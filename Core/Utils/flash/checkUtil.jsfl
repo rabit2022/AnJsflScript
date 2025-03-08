@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['frameRangeUtil', 'frameRange'], function(frUtil, FrameRange) {
+define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
     /**
      * 检查选择的元件或帧是否符合指定的模式和条件。
      *
@@ -141,7 +141,9 @@ define(['frameRangeUtil', 'frameRange'], function(frUtil, FrameRange) {
         // 检查条件并返回结果
         if (!checkCondition(conditionIndex, selection.length)) {
             var defaultMessage = messages[modeIndex][conditionIndex];
-            var message = exTips ? defaultMessage + '(' + exTips + ')' : defaultMessage;
+            var message = exTips
+                ? defaultMessage + '(' + exTips + ')'
+                : defaultMessage;
             alert(message);
             return false;
         }

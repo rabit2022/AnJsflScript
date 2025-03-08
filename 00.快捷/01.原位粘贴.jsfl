@@ -7,8 +7,7 @@
  * @description:
  */
 
-require(['checkUtil','selectionUtil'], function (checkUtil, selectionUtil) {
-
+require(['checkUtil', 'selectionUtil'], function (checkUtil, selectionUtil) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     const SelectNone = selectionUtil.SelectNone;

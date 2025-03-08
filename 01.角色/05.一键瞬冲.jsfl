@@ -73,7 +73,7 @@ require([
         ALTER_POSITION_BLUR += firstFrame;
 
         // 关键帧
-        timeline.currentLayer=frs[0].layerIndex;
+        timeline.currentLayer = frs[0].layerIndex;
         frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
 
         // 旋转

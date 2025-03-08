@@ -151,8 +151,12 @@ define(function () {
      */
     function OF_MACRO(iterable, callback) {
         // 检查是否是数组或类数组对象
-        if (Array.isArray(iterable) ||
-            (typeof iterable === 'object' && iterable !== null && typeof iterable.length === 'number')) {
+        if (
+            Array.isArray(iterable) ||
+            (typeof iterable === 'object' &&
+                iterable !== null &&
+                typeof iterable.length === 'number')
+        ) {
             for (var i = 0; i < iterable.length; i++) {
                 callback(i, iterable[i]); // 传递值和索引
             }
@@ -176,6 +180,6 @@ define(function () {
         IsNullOrEmpty: IsNullOrEmpty,
         IsEmpty: IsEmpty,
         INHERIT_MACRO: INHERIT_MACRO,
-        OF_MACRO: OF_MACRO,
+        OF_MACRO: OF_MACRO
     };
 });

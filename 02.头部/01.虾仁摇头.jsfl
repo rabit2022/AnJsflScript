@@ -14,14 +14,23 @@ require([
     'satUtil',
     'curveUtil',
     'selectionUtil',
-    'Constants','frameRangeUtil'
-], function (checkUtil, xmlPanelUtil, libUtil, satUtil, curve, sel, Constants,
-             frUtil) {
+    'Constants',
+    'frameRangeUtil'
+], function (
+    checkUtil,
+    xmlPanelUtil,
+    libUtil,
+    satUtil,
+    curve,
+    sel,
+    Constants,
+    frUtil
+) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     var pointUtil = satUtil.PointUtil,
         rectUtil = satUtil.RectUtil;
-    const {FRAME_1, FRAME_4, FRAME_7 } = Constants;
+    const { FRAME_1, FRAME_4, FRAME_7 } = Constants;
 
     var descriptions = {
         file: '01.虾仁摇头.jsfl',
@@ -98,7 +107,7 @@ require([
         // 给所有图层加帧
         timeline.insertFrames(FRAME_7, true);
         // 关键帧 1,4,7
-        frUtil.convertToKeyframesSafety(timeline,  KEY_FRAMES);
+        frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
 
         var frame4_element = timeline.layers[0].frames[FRAME_4].elements[0];
         frame4_element.rotation = headDirection * shakeIntensity;

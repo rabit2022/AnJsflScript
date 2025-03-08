@@ -78,7 +78,7 @@ require([
 
         // 关键帧
         var toConvertKeys = [frame_1, frame_11];
-        frUtil.convertToKeyframesSafety(timeline,  toConvertKeys);
+        frUtil.convertToKeyframesSafety(timeline, toConvertKeys);
 
         // 选中帧
         timeline.setSelectedFrames(frame_1, frame_11, true);

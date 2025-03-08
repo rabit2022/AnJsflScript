@@ -7,13 +7,13 @@
  * @description:
  */
 
-require(['checkUtil', 'frameRangeUtil', 'frameRange', 'loglevel', 'FUNC'], function(
-    checkUtil,
-    frUtil,
-    FrameRange,
-    log,
-    FUNC
-) {
+require([
+    'checkUtil',
+    'frameRangeUtil',
+    'frameRange',
+    'loglevel',
+    'FUNC'
+], function (checkUtil, frUtil, FrameRange, log, FUNC) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
@@ -93,12 +93,15 @@ require(['checkUtil', 'frameRangeUtil', 'frameRange', 'loglevel', 'FUNC'], funct
         var frDict = convertArrayToObject(splitFrs);
 
         // for (var [layerIndex, frameIndexes] of Object.entries(frDict)) {
-        OF_MACRO(frDict, function(layerIndex, frameIndexes) {
+        OF_MACRO(frDict, function (layerIndex, frameIndexes) {
             // 在这里执行逻辑处理
-            log.info('layerIndex:' + layerIndex, 'frameIndexes:' + frameIndexes);
+            log.info(
+                'layerIndex:' + layerIndex,
+                'frameIndexes:' + frameIndexes
+            );
 
             var curLayer = layers[layerIndex]; //当前图层
-            frameIndexes.forEach(function(frameIndex) {
+            frameIndexes.forEach(function (frameIndex) {
                 curLayer.setBlendModeAtFrame(frameIndex, 'multiply');
             });
         });

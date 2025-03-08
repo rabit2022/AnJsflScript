@@ -7,13 +7,13 @@
  * @description:
  */
 
-require(['checkUtil', 'promptUtil', 'libUtil', 'Constants','frameRangeUtil'], function (
-    checkUtil,
-    promptUtil,
-    libUtil,
-    Constants,
-    frUtil
-) {
+require([
+    'checkUtil',
+    'promptUtil',
+    'libUtil',
+    'Constants',
+    'frameRangeUtil'
+], function (checkUtil, promptUtil, libUtil, Constants, frUtil) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     const { FRAME_1, FRAME_4, FRAME_7, FRAME_10, FRAME_12 } = Constants;
@@ -49,7 +49,7 @@ require(['checkUtil', 'promptUtil', 'libUtil', 'Constants','frameRangeUtil'], fu
     var ShakeIntensity = 20; // 震动强度
 
     // 关键帧 4，7,10
-    const KEY_FRAMES=[FRAME_4,FRAME_7,FRAME_10];
+    const KEY_FRAMES = [FRAME_4, FRAME_7, FRAME_10];
     function Main() {
         // 检查选择的元件
         if (!checkSelection(selection, 'selectElement', 'Only one')) return;

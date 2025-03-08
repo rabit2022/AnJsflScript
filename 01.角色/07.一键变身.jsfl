@@ -142,7 +142,7 @@ require([
     function Main() {
         // 关键帧
         // frUtil.convertToKeyframesSafety(timeline, firstLayer, KEY_FRAMES);
-        timeline.currentLayer=frs[0].layerIndex;
+        timeline.currentLayer = frs[0].layerIndex;
         frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
 
         // 变身前

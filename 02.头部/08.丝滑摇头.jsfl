@@ -14,8 +14,18 @@ require([
     'satUtil',
     'curveUtil',
     'selectionUtil',
-    'Constants','frameRangeUtil'
-], function (checkUtil, xmlPanelUtil, libUtil, satUtil, curve, sel, Constants,frUtil) {
+    'Constants',
+    'frameRangeUtil'
+], function (
+    checkUtil,
+    xmlPanelUtil,
+    libUtil,
+    satUtil,
+    curve,
+    sel,
+    Constants,
+    frUtil
+) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     const { FRAME_4, FRAME_7 } = Constants;

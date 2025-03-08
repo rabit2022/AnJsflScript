@@ -15,12 +15,23 @@ require([
     'curveUtil',
     'graphicsUtil',
     'selectionUtil',
-    'SAT','Constants','frameRangeUtil'
-], function (checkUtil, libUtil, curve, graphics, sel, sat,Constants,frameRangeUtil) {
+    'SAT',
+    'Constants',
+    'frameRangeUtil'
+], function (
+    checkUtil,
+    libUtil,
+    curve,
+    graphics,
+    sel,
+    sat,
+    Constants,
+    frameRangeUtil
+) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     var Vector = sat.Vector;
-    const {FRAME_1, FRAME_30}=Constants;
+    const { FRAME_1, FRAME_30 } = Constants;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -42,7 +53,7 @@ require([
     // radius
     var RADIUS = 250;
 
-    const KEY_FRAMES=[FRAME_30];
+    const KEY_FRAMES = [FRAME_30];
 
     function drawLineAndMove(timeline, movePos) {
         var circleLineRect = graphics.drawCircleWithoutFill(
@@ -73,7 +84,7 @@ require([
         // 转为关键帧
         timeline.setSelectedLayers(SYMBOL_LAYER_INDEX);
         // timeline.convertToKeyframes(FRAME_30);
-        frameRangeUtil.convertToKeyframesSafety(timeline,KEY_FRAMES);
+        frameRangeUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
 
         // 设置元件位置
         var symbolElement =

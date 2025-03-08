@@ -1,10 +1,10 @@
-﻿/**
- * @file: ${FILE_NAME}
+/**
+ * @file: 10.一键石化.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
- * @date: ${DATE} ${TIME}
- * @project: ${PROJECT_NAME}
- * @description: ${END}
+ * @date: 2025/3/8 23:45
+ * @project: AnJsflScript
+ * @description:
  */
 
 require(['checkUtil', 'loglevel'], function (checkUtil, log) {
@@ -27,6 +27,9 @@ require(['checkUtil', 'loglevel'], function (checkUtil, log) {
     function Main() {
         // 检查选择的元件
         if (!CheckSelection(selection, 'selectElement', 'No limit')) return;
+
+        // 复制元件，递归到绘制对象，并设置颜色
+        an.getDocumentDOM().setFillColor('#999999');
     }
 
     Main();

@@ -7,13 +7,13 @@
  * @description:
  */
 
-
-require(['checkUtil', 'promptUtil', 'libUtil','frameRangeUtil','Constants'], function (
-    checkUtil,
-    promptUtil,
-    libUtil,
-    frameRangeUtil,Constants
-) {
+require([
+    'checkUtil',
+    'promptUtil',
+    'libUtil',
+    'frameRangeUtil',
+    'Constants'
+], function (checkUtil, promptUtil, libUtil, frameRangeUtil, Constants) {
     var descriptions = {
         file: '00.一键摇头.jsfl',
         'file description': '输出 摇头动作的元件,说话时的头部动作',
@@ -32,7 +32,7 @@ require(['checkUtil', 'promptUtil', 'libUtil','frameRangeUtil','Constants'], fun
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     // const {convertToKeyframesSafety}=frameRangeUtil;
-    const {FRAME_4, FRAME_6} = Constants;
+    const { FRAME_4, FRAME_6 } = Constants;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -83,7 +83,7 @@ require(['checkUtil', 'promptUtil', 'libUtil','frameRangeUtil','Constants'], fun
 
         // var _4_frames = 4 - 1;
         // timeline.convertToKeyframes(_4_frames);
-        frameRangeUtil.convertToKeyframesSafety(timeline,  [FRAME_4]);
+        frameRangeUtil.convertToKeyframesSafety(timeline, [FRAME_4]);
 
         var frame4_element = timeline.layers[0].frames[FRAME_4].elements[0];
         frame4_element.x += direction * force;

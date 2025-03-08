@@ -223,7 +223,6 @@ define([
         return keyFr;
     };
 
-
     /**
      * 安全的转换为关键帧
      * 如果 需要转换的帧 已经是 关键帧，则不转换关键帧，以防止bug
@@ -231,7 +230,10 @@ define([
      * @param {Timeline} timeline 时间线
      * @param {number[]} keyFramesIndex 帧数组
      */
-    FrameRangeUtil.convertToKeyframesSafety = function (timeline, keyFramesIndex) {
+    FrameRangeUtil.convertToKeyframesSafety = function (
+        timeline,
+        keyFramesIndex
+    ) {
         // timeline.convertToKeyframes(frame_1);
         var layers = timeline.layers; //图层
         var curLayerIndex = timeline.currentLayer; //当前图层索引

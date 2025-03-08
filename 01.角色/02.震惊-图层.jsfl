@@ -56,7 +56,7 @@ require([
         ele.setTransformationPoint(selection[0], 'bottom center');
 
         // 关键帧
-        timeline.currentLayer=frs[0].layerIndex;
+        timeline.currentLayer = frs[0].layerIndex;
         frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
 
         // 调整高度
