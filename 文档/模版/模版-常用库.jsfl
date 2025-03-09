@@ -1,22 +1,25 @@
 ﻿require([
-    'checkUtil',
-    'SAT',
-    'satUtil',
-    'selectionUtil',
     'core-js/stable/array/includes',
     'core-js/stable/string/includes'
-], function (checkUtil, sat, satUtil, sel) {
-    const {
-        CheckDom: checkDom,
-        CheckSelection: checkSelection,
-        CheckSelectedFrames: checkSelectedFrames
-    } = checkUtil;
+], function () {
+    /**
+     * 刷新内部变量
+     * @note: 1,如果在函数内  进行了更改数据的操作(enterEditMode后，timeline变化)，需要调用此函数刷新内部变量
+     *        2,如果需要同时使用 全局变量 和 局部变量，需要 重新 定义
+     */
+    function refreshTimeline() {
+        // 刷新内部变量
+        selection = doc.selection; //选择
+        library = doc.library; //库文件
+        timeline = doc.getTimeline(); //时间轴
 
-    const { Vector, Rectangle } = sat;
-    const { wrapPosition } = sat.GLOBALS;
+        layers = timeline.layers; //图层
+        curLayerIndex = timeline.currentLayer; //当前图层索引
+        curLayer = layers[curLayerIndex]; //当前图层
 
-    var pointUtil = satUtil.PointUtil,
-        rectUtil = satUtil.RectUtil;
+        curFrameIndex = timeline.currentFrame; //当前帧索引
+        curFrame = curLayer.frames[curFrameIndex]; //当前帧
+    }
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;

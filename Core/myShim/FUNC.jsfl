@@ -176,10 +176,59 @@ define(function () {
         }
     }
 
+    /**
+     * 定义属性
+     * @param {Class} CLASS - 目标对象
+     * @param {string} name - 属性名
+     * @param {{get:function,set:function}} descriptor - 属性描述符
+     * @note
+     * - 定义属性时，必须提供 get 或 set 方法，否则会抛出错误。
+     * - 定义属性时，如果提供了 set 方法，则允许写操作。
+     * - 定义属性时，如果提供了 get 方法，则允许读操作。
+     * @example
+     * // 定义属性
+     * function MyClass() {
+     *   this._name = "John";
+     * }
+     *
+     * PROPERTY(MyClass, "name", {
+     *   get: function () {
+     *     return this._name;
+     *   },
+     *   set: function (value) {
+     *     this._name = value;
+     *   }
+     * });
+     *
+     * // 测试
+     * var instance = new MyClass();
+     * console.writeToLog(instance.name); // 输出：John
+     * instance.name = "Mary";
+     * console.writeToLog(instance.name); // 输出：Mary
+     */
+    function PROPERTY(CLASS, name, descriptor) {
+        // 确保至少提供了一个 get 或 set 方法
+        if (!descriptor.get && !descriptor.set) {
+            throw new Error(
+                `PROPERTY: At least one of 'get' or 'set' must be provided for property '${name}'.`
+            );
+        }
+
+        // 定义属性
+        Object.defineProperty(CLASS.prototype, name, {
+            get: descriptor.get || undefined, // 如果没有提供 get，则设置为 undefined
+            set: descriptor.set || undefined, // 如果没有提供 set，则设置为 undefined
+            enumerable: true, // 属性可枚举
+            configurable: true, // 属性可配置
+            writable: !!descriptor.set // 如果有 setter，则允许写操作
+        });
+    }
+
     return {
         IsNullOrEmpty: IsNullOrEmpty,
         IsEmpty: IsEmpty,
         INHERIT_MACRO: INHERIT_MACRO,
-        OF_MACRO: OF_MACRO
+        OF_MACRO: OF_MACRO,
+        PROPERTY: PROPERTY
     };
 });

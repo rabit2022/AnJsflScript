@@ -10,12 +10,12 @@
 require(['checkUtil', 'loglevel'], function (checkUtil, log) {
     const { CheckDom, CheckSelection } = checkUtil;
 
-    const doc = fl.getDocumentDOM(); //文档
+    var doc = fl.getDocumentDOM(); //文档
     if (!CheckDom(doc)) return;
 
-    const selection = doc.selection; //选择
-    const library = doc.library; //库文件
-    const timeline = doc.getTimeline(); //时间轴
+    var selection = doc.selection; //选择
+    var library = doc.library; //库文件
+    var timeline = doc.getTimeline(); //时间轴
 
     var layers = timeline.layers; //图层
     var curLayerIndex = timeline.currentLayer; //当前图层索引

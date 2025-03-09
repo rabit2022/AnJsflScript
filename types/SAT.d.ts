@@ -19,6 +19,23 @@
 //     export = mod;
 // }
 
+type Corner =
+    | 'top right'
+    | 'top left'
+    | 'bottom right'
+    | 'bottom left'
+    | 'top center'
+    | 'right center'
+    | 'bottom center'
+    | 'left center'
+    | 'center';
+type Part = Corner | 'top' | 'right' | 'bottom' | 'left';
+
+interface VectorLike {
+    x: number;
+    y: number;
+}
+
 // declare module 'module.SAT' {
 export class Vector {
     x: number;
@@ -70,7 +87,7 @@ export class Vector {
 
     getCenter(): Vector;
 
-    IsInDirectionOf(point: Vector, whichCorner: string): boolean;
+    IsInDirectionOf(point: Vector, whichCorner: Corner): boolean;
 
     angleTo(other: Vector): number;
 
@@ -93,16 +110,32 @@ export class Vector {
     static distance(pt1: Vector, pt2: Vector): number;
 }
 
+/**
+ * RectangleLike 类型描述
+ * @property {number} left - 矩形的左边界
+ * @property {number} top - 矩形的上边界
+ * @property {number} right - 矩形的右边界
+ * @property {number} bottom - 矩形的下边界
+ * @interface RectangleLike
+ */
+interface RectangleLike {
+    left: number;
+    top: number;
+    right: number;
+    bottom: number;
+}
+
 export class Rectangle {
     left: number;
     top: number;
     right: number;
     bottom: number;
-    width: number;
-    height: number;
+
+    readonly width: number;
+    readonly height: number;
 
     constructor();
-    constructor(rect: Rectangle);
+    constructor(rect: Rectangle | RectangleLike);
     constructor(doc: Document);
     constructor(element: Element);
     constructor(symbolItem: 'SymbolItem');
@@ -120,10 +153,10 @@ export class Rectangle {
 
     contains(rect: Rectangle): boolean;
 
-    getCorner(whichCorner: string): Vector;
+    getCorner(whichCorner: Corner): Vector;
 
     getPart(
-        whichPart: string,
+        whichPart: Part,
         widthRatio?: number,
         heightRatio?: number
     ): Rectangle;
@@ -136,7 +169,12 @@ export class Rectangle {
 
     toString(): string;
 
-    toObj(): { left: number; top: number; right: number; bottom: number };
+    toObj(): RectangleLike;
+}
+
+interface SizeLike {
+    width: number;
+    height: number;
 }
 
 export class Size {
@@ -154,13 +192,13 @@ export class Size {
 
     toString(): string;
 
-    toObj(): { width: number; height: number };
+    toObj(): SizeLike;
 
     toPoint(): Vector;
 }
 
 export class Transform {
-    element: any;
+    element: Element;
     rotation: number;
     scale: Vector;
     position: Vector;
@@ -184,7 +222,7 @@ export class Transform {
 
 export namespace GLOBALS {
     export function wrapPosition(
-        element: { x: number; y: number } | Element
+        element: VectorLike | Element | Vector
     ): Vector;
 
     export function wrapScale(element: {
@@ -196,7 +234,9 @@ export namespace GLOBALS {
 
     export function getOrigin(): Vector;
 
-    export function getTopLeft(element: { left: number; top: number }): Vector;
+    export function getTopLeft(
+        element: { left: number; top: number } | Element
+    ): Vector;
 
     export function wrapRectByTopLeft(
         left: number,
@@ -212,9 +252,9 @@ export namespace GLOBALS {
         height: number
     ): Rectangle;
 
-    export function wrapSize(element: { width: number; height: number }): Size;
+    export function wrapSize(element: Element): Size;
 
-    export function wrapTransform(element: any): Transform;
+    export function wrapTransform(element: Element): Transform;
 
     export function findBoundingRectangle(elements: Array<Element>): Rectangle;
 }
@@ -224,17 +264,3 @@ export { Vector as V };
 export { Rectangle as R };
 export { Size as S };
 // export { Transform as T };
-
-// namespace SAT {
-//     export { Vector };
-//     export { Rectangle };
-//     export { Size };
-//     export { Transform };
-//     export { GLOBALS };
-//     export { Vector as V };
-//     export { Rectangle as R };
-//     export { Size as S };
-//     // export { Transform as T };
-// }
-//
-// export var sat: typeof SAT;

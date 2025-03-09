@@ -90,6 +90,34 @@ require([
         return { mask: mask, target: target };
     }
 
+    /**
+     * 分层，确保被遮对象在最上层
+     */
+    function Stratify() {
+        SelectAll();
+        doc.distributeToLayers();
+
+        refreshTimeline();
+
+        var maskShape =
+            layers[MASK_LAYER_INDEX].frames[curFrameIndex].elements[0]; //遮罩形状
+        var targetShape =
+            layers[TARGET_LAYER_INDEX].frames[curFrameIndex].elements[0]; //被遮层
+
+        if (IsShape(maskShape) && IsSymbol(targetShape)) {
+            // 正确顺序
+        } else {
+            // 交换位置
+            layerUtil.swapLayers(
+                timeline,
+                MASK_LAYER_INDEX,
+                TARGET_LAYER_INDEX
+            );
+
+            refreshTimeline();
+        }
+    }
+
     function KFrame() {
         doc.enterEditMode('inPlace');
 
@@ -124,34 +152,6 @@ require([
         curveUtil.setClassicEaseCurve(timeline);
 
         doc.exitEditMode();
-
-        /**
-         * 分层，确保被遮对象在最上层
-         */
-        function Stratify() {
-            SelectAll();
-            doc.distributeToLayers();
-
-            refreshTimeline();
-
-            var maskShape =
-                layers[MASK_LAYER_INDEX].frames[curFrameIndex].elements[0]; //遮罩形状
-            var targetShape =
-                layers[TARGET_LAYER_INDEX].frames[curFrameIndex].elements[0]; //被遮层
-
-            if (IsShape(maskShape) && IsSymbol(targetShape)) {
-                // 正确顺序
-            } else {
-                // 交换位置
-                layerUtil.swapLayers(
-                    timeline,
-                    MASK_LAYER_INDEX,
-                    TARGET_LAYER_INDEX
-                );
-
-                refreshTimeline();
-            }
-        }
     }
 
     function Main() {

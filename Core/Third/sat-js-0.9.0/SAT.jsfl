@@ -20,7 +20,7 @@
 // The quoted properties all over the place are used so that the Closure Compiler
 // does not mangle the exposed API in advanced mode.
 
-/// <reference types="sat" />
+/// <reference path="SAT.d.ts" />
 
 /**
  * @param {*} root - The global scope
@@ -308,7 +308,7 @@
     /**
      * 判断是否  在 另一个点 的 某个方向上
      * @param {Vector} point 另一个点
-     * @param {"top right"|"top left"|"bottom right"|"bottom left"|"top center"|"right center"|"bottom center"|"left center"|"center"} whichCorner 方向
+     * @param {'top right'|'top left'|'bottom right'|'bottom left'|'top center'|'right center'|'bottom center'|'left center'|'center'} whichCorner 方向
      * @returns {boolean}
      */
     Vector.prototype['IsInDirectionOf'] = Vector.prototype.IsInDirectionOf =
@@ -466,7 +466,7 @@
 
     /**
      * 转换为Point对象
-     * @param {{x:number,y:number}|Element|Vector} element 点对象
+     * @param {VectorLike|Element|Vector} element 点对象
      * @return {Vector}
      */
     function wrapPosition(element) {
@@ -523,6 +523,48 @@
     // Represents a rectangle with `left`, `top`, `right`, and `bottom` properties.
 
     /**
+     * 当前对象是否与 RectangleLike 对象相等
+     * @param {Rectangle|RectangleLike} obj 矩形对象
+     * @returns {boolean} 相等返回true，否则返回false
+     * @private
+     */
+    function IsRectangleLike(obj) {
+        return (
+            obj &&
+            typeof obj === 'object' &&
+            typeof obj.left === 'number' &&
+            typeof obj.top === 'number' &&
+            typeof obj.right === 'number' &&
+            typeof obj.bottom === 'number'
+        );
+    }
+
+    /**
+     * 定义属性
+     * @param {Class} CLASS - 目标对象
+     * @param {string} name - 属性名
+     * @param {{get:function,set:function}} descriptor - 属性描述符
+     * @private
+     */
+    function PROPERTY(CLASS, name, descriptor) {
+        // 确保至少提供了一个 get 或 set 方法
+        if (!descriptor.get && !descriptor.set) {
+            throw new Error(
+                `PROPERTY: At least one of 'get' or 'set' must be provided for property '${name}'.`
+            );
+        }
+
+        // 定义属性
+        Object.defineProperty(CLASS.prototype, name, {
+            get: descriptor.get || undefined, // 如果没有提供 get，则设置为 undefined
+            set: descriptor.set || undefined, // 如果没有提供 set，则设置为 undefined
+            enumerable: true, // 属性可枚举
+            configurable: true, // 属性可配置
+            writable: !!descriptor.set // 如果有 setter，则允许写操作
+        });
+    }
+
+    /**
      * Rectangle object.
      * Useful for quickly creating objects on the stage
      *
@@ -550,8 +592,8 @@
 
             // 1 argument - should be a document, element, radius, or an Array of Elements (such as a selection)
             case 1:
-                // Bounds
-                if (args[0] instanceof Rectangle) {
+                // Bounds,RectangleLike
+                if (args[0] instanceof Rectangle || IsRectangleLike(args[0])) {
                     this.copy(args[0]);
                 }
 
@@ -586,6 +628,13 @@
                     this.copy(rect);
                 }
 
+                // other
+                else {
+                    throw new Error('Invalid argument 1');
+                }
+
+                break;
+
                 break;
 
             // (width, height),(centerPos, radius)
@@ -606,6 +655,8 @@
                     var centerPos = args[0];
                     var addRect = radiusRect.addOffset(centerPos);
                     this.copy(addRect);
+                } else {
+                    throw new Error('Invalid argument 2');
                 }
                 break;
 
@@ -618,9 +669,20 @@
                 break;
         }
 
-        this.width = this.right - this.left;
-        this.height = this.bottom - this.top;
+        // this.width = this.right - this.left;
+        // this.height = this.bottom - this.top;
     }
+
+    PROPERTY(Rectangle, 'width', {
+        get: function () {
+            return this.right - this.left;
+        }
+    });
+    PROPERTY(Rectangle, 'height', {
+        get: function () {
+            return this.bottom - this.top;
+        }
+    });
 
     SAT['Rectangle'] = Rectangle;
     SAT['R'] = Rectangle;
@@ -692,7 +754,7 @@
 
     /**
      * 获取矩形的某个角点
-     * @param {"top right"|"top left"|"bottom right"|"bottom left"|"top center"|"right center"|"bottom center"|"left center"|"center"} whichCorner 角点或中心点
+     * @param {Corner} whichCorner 角点或中心点
      * @returns {Vector} 点
      */
     Rectangle.prototype.getCorner = function (whichCorner) {
@@ -736,8 +798,7 @@
      *
      * 该方法根据指定的 `whichPart` 参数，从当前矩形中提取一个子矩形。子矩形的大小和位置由 `whichPart` 和比例参数（`widthRatio` 和 `heightRatio`）决定。
      *
-     * @param {"top right"|"top left"|"bottom right"|"bottom left"|"top center"|"right center"|"bottom center"|"left center"|"center"|
-     * "top"|"right"|"bottom"|"left"} whichPart 部分
+     * @param {Part} whichPart 部分
      * @param {number} [widthRatio=0.5] - 宽度方向的比例（0-1），表示提取部分的宽度占原始矩形宽度的比例。
      * @param {number} [heightRatio=0.5] - 高度方向的比例（0-1），表示提取部分的高度占原始矩形高度的比例。
      * @returns {Rectangle} - 返回一个新矩形对象，表示提取的部分。

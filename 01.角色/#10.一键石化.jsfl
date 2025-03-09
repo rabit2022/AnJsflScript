@@ -28,8 +28,8 @@ require(['checkUtil', 'loglevel'], function (checkUtil, log) {
         // 检查选择的元件
         if (!CheckSelection(selection, 'selectElement', 'No limit')) return;
 
-        // 复制元件，递归到绘制对象，并设置颜色
-        an.getDocumentDOM().setFillColor('#999999');
+        // // 复制元件，递归到绘制对象，并设置颜色
+        // an.getDocumentDOM().setFillColor('#999999');
     }
 
     Main();

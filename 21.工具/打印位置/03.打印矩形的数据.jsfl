@@ -12,8 +12,7 @@ require(['checkUtil', 'SAT', 'loglevel'], function (checkUtil, sat, log) {
         checkSelection = checkUtil.CheckSelection;
     var Vector = sat.Vector,
         Rectangle = sat.Rectangle,
-        wrapPosition = sat.GLOBALS.wrapPosition,
-        wrapRect = sat.GLOBALS.wrapRect;
+        wrapPosition = sat.GLOBALS.wrapPosition;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -33,7 +32,7 @@ require(['checkUtil', 'SAT', 'loglevel'], function (checkUtil, sat, log) {
         // 检查选择的元件
         if (!checkSelection(selection, 'selectElement', 'No limit')) return;
 
-        var selectedRect = wrapRect(doc.getSelectionRect());
+        var selectedRect = new Rectangle(doc.getSelectionRect());
         log.info('Selected rectangle: ' + selectedRect.toString());
         var selectedCenter = selectedRect.getCenterVector();
         log.info('Selected center: ' + selectedCenter.toString());

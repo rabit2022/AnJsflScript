@@ -16,7 +16,8 @@ require([
     'SAT',
     'graphicsUtil',
     'curveUtil',
-    'Constants'
+    'Constants',
+    'loglevel'
 ], function (
     checkUtil,
     ele,
@@ -26,13 +27,15 @@ require([
     sat,
     graphics,
     curve,
-    Constants
+    Constants,
+    log
 ) {
-    const { checkDom, checkSelection, checkSelectedFrames } = checkUtil;
-    var Vector = sat.Vector,
-        Rectangle = sat.Rectangle,
-        wrapPosition = sat.GLOBALS.wrapPosition,
-        wrapRect = sat.GLOBALS.wrapRect;
+    const {
+        CheckDom: checkDom,
+        CheckSelection: checkSelection,
+        CheckSelectedFrames: checkSelectedFrames
+    } = checkUtil;
+    const { Rectangle } = sat;
     const { FRAME_1, FRAME_9, FRAME_17, FRAME_18 } = Constants;
 
     var doc = fl.getDocumentDOM(); //文档
@@ -71,10 +74,10 @@ require([
     var MIDDLE_SHAPE_FRAME = KEY_FRAMES[1];
     var MIDDLE_SHAPE_CENTER = (function () {
         // 最大的矩形的中心
-        var selectedRect = wrapRect(doc.getSelectionRect());
-        // print("Selected rectangle: " + selectedRect.toString());
+        var selectedRect = new Rectangle(doc.getSelectionRect());
+        log.info('Selected rectangle: ' + selectedRect.toString());
         var selectedCenter = selectedRect.getCenterVector();
-        // print("Selected center: " + selectedCenter.toString());
+        log.info('Selected center: ' + selectedCenter.toString());
         return selectedCenter;
     })();
 

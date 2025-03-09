@@ -156,31 +156,6 @@ define([
     };
 
     /**
-     * 重置注册点-editor
-     * @param {Vector} transformationPoint 形变点
-     * @private
-     */
-    ElementUtil.resetRegisterPointWrap = function (transformationPoint) {
-        var doc = fl.getDocumentDOM();
-        doc.enterEditMode('inPlace');
-        doc.selectAll();
-
-        // 获取所有元件
-        var selection = doc.selection;
-        for (var i = 0; i < selection.length; i++) {
-            var element = selection[i];
-            // 选中当前元件
-            sel.OnlySelectCurrent(element);
-
-            doc.moveSelectionBy(transformationPoint.reverse().toObj());
-
-            sel.SelectNone();
-        }
-
-        doc.exitEditMode();
-    };
-
-    /**
      * 重置注册点
      * 1，新的注册点 是 原来的 变形点 </br>
      * 2，经常配合 {@link ElementUtil.setTransformationPoint} 使用 </br>
@@ -196,7 +171,7 @@ define([
         sel.OnlySelectCurrent(element);
 
         // 重置注册点
-        this.resetRegisterPointWrap(trPoint);
+        resetRegisterPointWrap(trPoint);
 
         sel.OnlySelectCurrent(element);
 
@@ -205,6 +180,30 @@ define([
 
         var doc = fl.getDocumentDOM();
         doc.moveSelectionBy(trPoint.reverse().toObj());
+
+        /**
+         * 重置注册点-editor
+         * @param {Vector} transformationPoint 形变点
+         */
+        function resetRegisterPointWrap(transformationPoint) {
+            var doc = fl.getDocumentDOM();
+            doc.enterEditMode('inPlace');
+            doc.selectAll();
+
+            // 获取所有元件
+            var selection = doc.selection;
+            for (var i = 0; i < selection.length; i++) {
+                var element = selection[i];
+                // 选中当前元件
+                sel.OnlySelectCurrent(element);
+
+                doc.moveSelectionBy(transformationPoint.reverse().toObj());
+
+                sel.SelectNone();
+            }
+
+            doc.exitEditMode();
+        }
     };
 
     /**

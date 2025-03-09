@@ -14,6 +14,7 @@
     "paths": {
       "SAT": ["types/SAT.d.ts"],
       "Constants": ["types/Constants.d.ts"],
+      "FUNC": ["types/FUNC.d.ts"],
 
       "JSFLConstants": ["Core/Constants/JSFLConstants"],
       "console": ["Core/myShim/console"],
@@ -24,7 +25,6 @@
       "linqUtil": ["Core/Third/linqUtil"],
       "logUtil": ["Core/Third/logUtil"],
       "satUtil": ["Core/Third/satUtil"],
-      "FUNC": ["Core/myShim/FUNC"],
       "checkUtil": ["Core/Utils/flash/checkUtil"],
       "curveUtil": ["Core/Utils/flash/curveUtil"],
       "elementUtil": ["Core/Utils/flash/elementUtil"],

@@ -50,7 +50,7 @@ define(['linq'], function (Enumerable) {
      * @param {number} start 开始值
      * @param {number} [stop=start+1] 结束值
      * @param {number} [step=1] 步长
-     * @return {IEnumerable<number>} 范围序列
+     * @return {Enumerable.IEnumerable<number>} 范围序列
      */
     LinqUtil.range = function () {
         // 获取参数

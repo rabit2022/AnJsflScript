@@ -7,6 +7,10 @@
  * @description:
  */
 
+// Getting started
+// 1. Install "JSFL Support" plugin: File > Settings > Plugins > Marketplace > JSFL Support
+// 2. Enable global JSFL library: File > Settings > Libraries & Frameworks > JavaScript > Libraries > JSFL
+
 /**
  * 帧选择器
  * @type {"loop"|"play once"|"single frame"|"loop reverse"|"play once reverse"}

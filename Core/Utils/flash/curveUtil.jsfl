@@ -18,8 +18,8 @@ define(function () {
 
     /**
      * 缓动曲线类型
-     * @type {{}}
      * @private
+     * @readonly
      */
     Curve.EASE_TYPES = {
         'No Ease': [5, -2, 0],
@@ -176,7 +176,6 @@ define(function () {
     /**
      * 创建形状补间
      * @param {Timeline} timeline
-     * @private
      */
     Curve.createShapeTween = function (timeline) {
         timeline.setFrameProperty('tweenType', 'shape');
