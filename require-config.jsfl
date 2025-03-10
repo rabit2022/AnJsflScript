@@ -22,11 +22,12 @@ require.config({
         loglevel: 'Third/loglevel-1.9.2/loglevel',
         'path-browserify': 'Third/path-browserify-1.0.1/path-browserify',
         require: 'Third/requirejs-2.3.7/require',
+        json3: 'Third/json3-3.3.3/json3',
+        sprintf: 'Third/sprintf-js-1.1.3/sprintf',
 
         Constants: 'Core/Constants/Constants',
         JSFLConstants: 'Core/Constants/JSFLConstants',
         console: 'Core/myShim/console',
-        shim: 'Core/myShim/shim',
         frameRange: 'Core/Object/frameRange',
         frameRangeUtil: 'Core/Object/frameRangeUtil',
         moreElement: 'Core/Object/moreElement',

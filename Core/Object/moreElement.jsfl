@@ -7,9 +7,10 @@
  * @description:
  */
 
-define(['SAT'], function (sat) {
+define(['SAT', 'sprintf'], function (sat, sp) {
     var Vector = sat.V;
     var wrapRectByTopLeft = sat.GLOBALS.wrapRectByTopLeft;
+    const sprintf = sp.sprintf;
 
     /**
      * 排兵布阵类
@@ -177,16 +178,12 @@ define(['SAT'], function (sat) {
     };
 
     MoreElement.prototype.toString = function () {
-        return (
-            'MoreElement(element=' +
-            this.element +
-            ', positioin=' +
-            this.positioin +
-            ', Offset=' +
-            this.Offset +
-            ', Rect=' +
-            this.Rect +
-            ')'
+        return sprintf(
+            'MoreElement(element=%s, positioin=%s, Offset=%s, Rect=%s)',
+            this.element,
+            this.positioin,
+            this.Offset,
+            this.Rect
         );
     };
 

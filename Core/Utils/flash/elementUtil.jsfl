@@ -13,11 +13,21 @@ define([
     'libUtil',
     'layerUtil',
     'os',
-    'selectionUtil',
-    'moreElementUtil',
+    'selectionUtil', // 'moreElementUtil',
     'builtInP',
-    'loglevel'
-], function (sat, satUtil, libUtil, layerUtil, os, sel, meUtil, builtInP, log) {
+    'loglevel',
+    'moreElement'
+], function (
+    sat,
+    satUtil,
+    libUtil,
+    layerUtil,
+    os,
+    sel,
+    builtInP,
+    log,
+    MoreElement
+) {
     var Vector = sat.V,
         Rectangle = sat.R,
         wrapPosition = sat.GLOBALS.wrapPosition,
@@ -25,7 +35,6 @@ define([
         getOrigin = sat.GLOBALS.getOrigin,
         getTopLeft = sat.GLOBALS.getTopLeft;
 
-    var wrapMoreElement = meUtil.wrapMoreElement;
     var rectUtil = satUtil.RectUtil;
 
     /**
@@ -274,12 +283,12 @@ define([
                 blockCountY
         );
 
-        var moreElement = wrapMoreElement(
-            worldTopLeft.x,
-            worldTopLeft.y,
-            blockWidth,
-            blockHeight
-        );
+        var moreElement = new MoreElement({
+            x: worldTopLeft.x,
+            y: worldTopLeft.y,
+            width: blockWidth,
+            height: blockHeight
+        });
         // print("moreElement:" + moreElement.toString());
         for (var i = 0; i < blockCountX; i++) {
             for (var j = 0; j < blockCountY; j++) {

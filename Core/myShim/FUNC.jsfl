@@ -7,7 +7,9 @@
  * @description:
  */
 
-define(function () {
+define(['sprintf'], function (sp) {
+    const sprintf = sp.sprintf;
+
     /**
      * 检查值是否为 null、undefined 或 空值。
      * @param {*} value - 要检查的值。
@@ -210,18 +212,25 @@ define(function () {
         // 确保至少提供了一个 get 或 set 方法
         if (!descriptor.get && !descriptor.set) {
             throw new Error(
-                `PROPERTY: At least one of 'get' or 'set' must be provided for property '${name}'.`
+                sprintf(
+                    "PROPERTY: At least one of 'get' or'set' must be provided for property '%s'.\nExample: descriptor = { get: function() { return this._value; } };",
+                    name
+                )
             );
         }
 
-        // 定义属性
-        Object.defineProperty(CLASS.prototype, name, {
-            get: descriptor.get || undefined, // 如果没有提供 get，则设置为 undefined
-            set: descriptor.set || undefined, // 如果没有提供 set，则设置为 undefined
+        // 动态创建属性描述对象
+        // 防止es5-shim报错
+        var attr = {
             enumerable: true, // 属性可枚举
-            configurable: true, // 属性可配置
-            writable: !!descriptor.set // 如果有 setter，则允许写操作
-        });
+            configurable: true // 属性可配置
+        };
+        if (descriptor.get) attr.get = descriptor.get;
+        if (descriptor.set) attr.set = descriptor.set;
+        attr.writable = !!descriptor.set; // 如果有 setter，则允许写操作
+
+        // 定义属性
+        Object.defineProperty(CLASS.prototype, name, attr);
     }
 
     return {

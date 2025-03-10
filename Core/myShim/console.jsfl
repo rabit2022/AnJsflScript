@@ -7,8 +7,9 @@
  * @description:
  * @see: https://github.com/davestewart/xJSFL
  */
-
-define(function () {
+// import 'core-js/stable/object/entries';
+define(['sprintf', 'json3', 'core-js/stable/object/entries'], function (sp) {
+    const sprintf = sp.sprintf;
     // --------------------------------------------------------------------------------
     // Log constants
 
@@ -40,9 +41,14 @@ define(function () {
     };
 
     // --------------------------------------------------------------------------------
-    // output (this functinality is permanent)
-    var trace = fl.trace;
-    var projectFolder = window.$ProjectFileDir$;
+    // 常量
+    const trace = fl.trace;
+    const projectFolder = window.$ProjectFileDir$;
+
+    // 存储计时器的起始时间
+    const timers = {};
+    // 存储计数器的计数
+    const counters = {};
     var console = {
         /**
          * Creates the text that will be traced or logged
@@ -142,13 +148,37 @@ define(function () {
         },
 
         /**
-         * 处理参数，支持多个字符串参数
+         * 处理参数
+         * 1,,支持多个字符串参数
+         * 2, 支持 sprintf 模板化字符串
+         * 3, 支持复杂类型参数(对象、数组,字典)，会自动使用 JSON.stringify 格式化为字符串
+         * 4，其他类型参数(null, undefined, boolean, number, function)，直接使用 String() 转换为字符串
          * @returns {string}
          * @private
          */
         __formatMessage: function () {
             var args = Array.prototype.slice.call(arguments); // 将 arguments 转换为数组
-            return args.join('\t');
+
+            // 检查是否使用了 sprintf 的模板化字符串
+            if (typeof args[0] === 'string' && args[0].includes('%')) {
+                // 使用 sprintf 格式化模板字符串
+                var formattedMessage = sprintf.apply(null, args);
+                return formattedMessage;
+            } else {
+                // 如果不是模板字符串，处理复杂类型
+                var formattedArgs = args.map(function (arg) {
+                    if (typeof arg === 'object' && arg !== null) {
+                        // 如果是对象或数组，使用 JSON.stringify 格式化为字符串
+                        return JSON.stringify(arg, null, 2);
+                    } else {
+                        // 其他类型直接返回字符串形式
+                        return String(arg);
+                    }
+                });
+
+                // 使用制表符连接所有参数
+                return formattedArgs.join('\t');
+            }
         },
 
         /**
@@ -203,6 +233,129 @@ define(function () {
             var name = type === Log.FILE ? 'file' : 'main';
             FLfile.remove(projectFolder + '/Logs/' + name + '.log');
             trace(name + '.log reset');
+        },
+
+        table: function (data) {
+            // 检查输入是否为数组或对象
+            if (!Array.isArray(data) && typeof data !== 'object') {
+                throw new Error('table expects an array or an object');
+            }
+
+            // 如果是对象，将其转换为键值对数组
+            if (typeof data === 'object' && !Array.isArray(data)) {
+                data = Object.entries(data).map(
+                    // ([key, value]) => ({ key, value }));
+                    function ([key, value]) {
+                        return { key: key, value: value };
+                    }
+                );
+            }
+
+            // 检查数据是否为空
+            if (data.length === 0) {
+                this.log('TABLE\nNo data to display.');
+                return;
+            }
+
+            // 判断数据类型：普通数组或对象数组
+            const isSimpleArray =
+                Array.isArray(data) && typeof data[0] !== 'object';
+
+            // 获取所有列名（即对象的键）
+            const columns = new Set();
+            if (!isSimpleArray) {
+                data.forEach(function (item) {
+                    if (typeof item === 'object') {
+                        Object.keys(item).forEach(function (key) {
+                            columns.add(key);
+                        });
+                    }
+                });
+            } else {
+                columns.add('index');
+                columns.add('value');
+            }
+
+            // 将列名转换为数组
+            const columnNames = Array.from(columns);
+
+            // 构建表格的表头
+            const header = columnNames.join('\t');
+
+            // 构建表格的每一行
+            const rows = data.map(function (item, index) {
+                if (isSimpleArray) {
+                    // 处理普通数组
+                    return [index, item].join('\t');
+                } else {
+                    // 处理对象数组
+                    return columnNames
+                        .map(function (column) {
+                            return item[column] !== undefined
+                                ? String(item[column])
+                                : '';
+                        })
+                        .join('\t');
+                }
+            });
+
+            // 将表头和行内容拼接成最终的表格字符串
+            const table = ['TABLE', header].concat(rows).join('\n');
+
+            // 打印到控制台
+            this.log(table);
+        },
+
+        time: function (label) {
+            if (label === undefined) label = 'default';
+            if (timers[label]) {
+                // console.warn(`Timer "${label}" already exists.`);
+                this.warn(sprintf('Timer "%s" already exists.', label));
+                return;
+            }
+            timers[label] = Date.now();
+            // console.log(`Timer "${label}" started.`);
+            this.log(sprintf('Timer "%s" started.', label));
+        },
+        timeEnd: function (label) {
+            if (label === undefined) label = 'default';
+            if (!timers[label]) {
+                // console.warn(`Timer "${label}" does not exist.`);
+                this.warn(sprintf('Timer "%s" does not exist.', label));
+                return;
+            }
+            const endTime = Date.now();
+            const duration = endTime - timers[label];
+            delete timers[label];
+            // console.log(`Timer "${label}": ${duration}ms`);
+            this.log(sprintf('Timer "%s": %sms', label, duration));
+        },
+        count: function (label) {
+            if (label === undefined) label = 'default';
+            if (!counters[label]) {
+                counters[label] = 0;
+            }
+            counters[label]++;
+            // console.log(`"${label}" was called ${counters[label]} times.`);
+            this.log(
+                sprintf('"%s" was called %s times.', label, counters[label])
+            );
+        },
+        countReset: function (label) {
+            if (label === undefined) label = 'default';
+            if (!counters[label]) {
+                // console.warn(`Counter "${label}" does not exist.`);
+                this.warn(sprintf('Counter "%s" does not exist.', label));
+                return;
+            }
+            delete counters[label];
+            // console.log(`Counter "${label}" has been reset.`);
+            this.log(sprintf('Counter "%s" has been reset.', label));
+        },
+        assert: function (expression, message) {
+            if (!expression) {
+                throw new Error(message || 'Assertion failed');
+            }
         }
     };
 

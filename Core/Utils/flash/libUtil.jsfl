@@ -8,7 +8,11 @@
  */
 
 // import "core-js/stable/string/pad-start";
-define(['random', 'core-js/stable/string/pad-start'], function (random) {
+define(['random', 'sprintf', 'core-js/stable/string/pad-start'], function (
+    random,
+    sp
+) {
+    const sprintf = sp.sprintf;
     /**
      * 添加在 name 后面的随机数的位数，保证名称的唯一性。
      * @type {number}
@@ -75,11 +79,11 @@ define(['random', 'core-js/stable/string/pad-start'], function (random) {
             count++;
             if (count > 10) {
                 throw new Error(
-                    '已经尝试了[' +
-                        count +
-                        ']次，仍然无法生成唯一的名称！当前名称为：[' +
-                        name +
-                        ']'
+                    sprintf(
+                        '已经尝试了[%d]次，仍然无法生成唯一的名称！当前名称为：[%s]',
+                        count,
+                        name
+                    )
                 );
             }
         }
@@ -97,10 +101,12 @@ define(['random', 'core-js/stable/string/pad-start'], function (random) {
     LibUtil.generateNameUseLast = function (baseName) {
         var name = baseName + '' + this.lastCount;
         while (this.findDuplicateNameInLib(name)) {
-            var info0 = 'lastCount:' + this.lastCount + ' 重复了！';
+            var info0 = sprintf('lastCount:%s 重复了！', this.lastCount);
             this.lastCount = this.getPaddingNum();
-            var info1 =
-                '已经重新生成了新的名称！' + ' lastCount:' + this.lastCount;
+            var info1 = sprintf(
+                '已经重新生成了新的名称！ lastCount:%s',
+                this.lastCount
+            );
             name = baseName + '' + this.lastCount;
             fl.trace(info0 + info1);
         }

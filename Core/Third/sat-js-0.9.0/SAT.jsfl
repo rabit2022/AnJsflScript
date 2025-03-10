@@ -26,17 +26,21 @@
  * @param {*} root - The global scope
  * @param {Function} factory - Factory that creates SAT module
  */
-(function (root, factory) {
-    'use strict';
-    if (typeof define === 'function' && define['amd']) {
-        define(factory);
-    } else if (typeof exports === 'object') {
-        module['exports'] = factory();
-    } else {
-        root['SAT'] = factory();
-    }
-})(this, function () {
-    'use strict';
+// (function (root, factory) {
+//     'use strict';
+//     if (typeof define === 'function' && define['amd']) {
+//         define(factory);
+//     } else if (typeof exports === 'object') {
+//         module['exports'] = factory();
+//     } else {
+//         root['SAT'] = factory();
+//     }
+// })(this, function () {
+define(['FUNC', 'sprintf'], function (FUNC, sp) {
+    const sprintf = sp.sprintf;
+    const PROPERTY = FUNC.PROPERTY;
+
+    ('use strict');
 
     var SAT = {};
     var SAT_GLOBALS = {};
@@ -408,7 +412,8 @@
      * @returns {string}
      */
     Vector.prototype['toString'] = Vector.prototype.toString = function () {
-        return 'Vector(' + this.x + ', ' + this.y + ')';
+        // return 'Vector(' + this.x + ', ' + this.y + ')';
+        return sprintf('Vector(%d, %d)', this.x, this.y);
     };
 
     /**
@@ -540,31 +545,6 @@
     }
 
     /**
-     * 定义属性
-     * @param {Class} CLASS - 目标对象
-     * @param {string} name - 属性名
-     * @param {{get:function,set:function}} descriptor - 属性描述符
-     * @private
-     */
-    function PROPERTY(CLASS, name, descriptor) {
-        // 确保至少提供了一个 get 或 set 方法
-        if (!descriptor.get && !descriptor.set) {
-            throw new Error(
-                `PROPERTY: At least one of 'get' or 'set' must be provided for property '${name}'.`
-            );
-        }
-
-        // 定义属性
-        Object.defineProperty(CLASS.prototype, name, {
-            get: descriptor.get || undefined, // 如果没有提供 get，则设置为 undefined
-            set: descriptor.set || undefined, // 如果没有提供 set，则设置为 undefined
-            enumerable: true, // 属性可枚举
-            configurable: true, // 属性可配置
-            writable: !!descriptor.set // 如果有 setter，则允许写操作
-        });
-    }
-
-    /**
      * Rectangle object.
      * Useful for quickly creating objects on the stage
      *
@@ -635,8 +615,6 @@
 
                 break;
 
-                break;
-
             // (width, height),(centerPos, radius)
             case 2:
                 if (
@@ -673,11 +651,17 @@
         // this.height = this.bottom - this.top;
     }
 
+    /**
+     * @property {number} width - 矩形宽度
+     */
     PROPERTY(Rectangle, 'width', {
         get: function () {
             return this.right - this.left;
         }
     });
+    /**
+     * @property {number} height - 矩形高度
+     */
     PROPERTY(Rectangle, 'height', {
         get: function () {
             return this.bottom - this.top;
@@ -922,15 +906,15 @@
      * @param {Rectangle} rect 矩形
      * @returns {Rectangle} 矩形
      */
-    Rectangle.prototype.copy = function (other) {
-        if (!other) return this;
-        this.left = other.left;
-        this.top = other.top;
-        this.right = other.right;
-        this.bottom = other.bottom;
+    Rectangle.prototype.copy = function (rect) {
+        if (!rect) return this;
+        this.left = rect.left;
+        this.top = rect.top;
+        this.right = rect.right;
+        this.bottom = rect.bottom;
 
-        this.width = this.right - this.left;
-        this.height = this.bottom - this.top;
+        // this.width = this.right - this.left;
+        // this.height = this.bottom - this.top;
         return this;
     };
 
@@ -962,16 +946,13 @@
      * @returns {string} 字符串
      */
     Rectangle.prototype.toString = function () {
-        return (
-            'Rectangle(left=' +
-            this.left +
-            ', top=' +
-            this.top +
-            ', right=' +
-            this.right +
-            ', bottom=' +
-            this.bottom +
-            ')'
+        // return ('Rectangle(left=' + this.left + ', top=' + this.top + ', right=' + this.right + ', bottom=' + this.bottom + ')');
+        return sprintf(
+            'Rectangle(left=%s, top=%s, right=%s, bottom=%s)',
+            this.left,
+            this.top,
+            this.right,
+            this.bottom
         );
     };
 
@@ -1080,7 +1061,8 @@
     };
 
     Size.prototype.toString = function () {
-        return 'Size(' + this.width + ', ' + this.height + ')';
+        // return 'Size(' + this.width + ', ' + this.height + ')';
+        return sprintf('Size(width=%s, height=%s)', this.width, this.height);
     };
 
     Size.prototype.toObj = function () {
@@ -1089,6 +1071,10 @@
 
     Size.prototype.toPoint = function () {
         return new Vector(this.width, this.height);
+    };
+
+    Size.toString = function () {
+        return '[class Size]';
     };
 
     function wrapSize(element) {
@@ -1174,19 +1160,18 @@
     };
 
     Transform.prototype.toString = function () {
-        return (
-            'Transform(rotation=' +
-            this.rotation +
-            ', scale=' +
-            this.scale +
-            ', position=' +
-            this.position +
-            ', size=' +
-            this.size +
-            ', skew=' +
-            this.skew +
-            ')'
+        return sprintf(
+            'Transform(rotation=%s, scale=%s, position=%s, size=%s, skew=%s)',
+            this.rotation,
+            this.scale,
+            this.position,
+            this.size,
+            this.skew
         );
+    };
+
+    Transform.toString = function () {
+        return '[class Transform]';
     };
 
     /**
@@ -1202,4 +1187,5 @@
 
     SAT['GLOBALS'] = SAT_GLOBALS;
     return SAT;
+    // });
 });

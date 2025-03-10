@@ -131,6 +131,7 @@
 
 [![WindowSWF](https://img.shields.io/badge/WindowSWF-Gitee-4caf50)](https://gitee.com/ninge/WindowSWF/tree/master/)
 [![xJSFL](https://img.shields.io/badge/xJSFL-GitHub-2196f3)](https://github.com/davestewart/xJSFL)
+
 [![SAT.js](https://img.shields.io/badge/SAT.js-v0.9.0-f44336)](https://github.com/jriecken/sat-js)
 [![RequireJS](https://img.shields.io/badge/RequireJS-v2.3.7-ffeb3b)](https://github.com/requirejs/requirejs)
 
@@ -142,6 +143,8 @@
 
 [![ES5-Shim](https://img.shields.io/badge/ES5--Shim-v4.6.7-9c27b0)](https://github.com/es-shims/es5-shim)
 [![ES6-Shim](https://img.shields.io/badge/ES6--Shim-v0.35.4-ff9800)](https://github.com/es-shims/es6-shim)
+[![json3-3.3.3](https://img.shields.io/badge/json3-3.3.3-blue)](https://github.com/bestiejs/json3)
+[![sprintf-js-1.1.3](https://img.shields.io/badge/sprintf-js/1.1.3-green)](https://github.com/alexei/sprintf.js)
 
 ##### 为了使得以上项目能够在 Adobe Animate 中正常运行，部分进行了大量的修改，并且全部更改为 requirejs 模块化加载。
 
@@ -161,7 +164,7 @@
 以下代码展示了在 Adobe Animate 2024 中可以使用的 ES6 特性：
 
 ```javascript
-(function() {
+(function () {
     const fruits = ['apple', 'banana', 'cherry'];
     const [firstFruit, secondFruit] = fruits;
     console.log(firstFruit); // 输出: apple
@@ -176,8 +179,9 @@
 - **代码行数**：7779
 - **字符数量**：185646
 - **脚本数量**：68
-
-![访问统计](https://profile-counter.glitch.me/AnJsflScript/count.svg)
+- **第三方库数量**：9
+- **界面访问量**：
+  ![访问统计](https://profile-counter.glitch.me/AnJsflScript/count.svg)
 
 ---
 
@@ -193,4 +197,3 @@
 - Email：3101829204@qq.com
 - B站：
   [![BiliBili](https://stats.justsong.cn/api/bilibili?id=453222786&theme=dark&lang=zh-CN)](https://space.bilibili.com/453222786?spm_id_from=333.788.0.0)
-

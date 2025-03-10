@@ -108,6 +108,8 @@ export class Vector {
     static polar(length: number, angle: number): Vector;
 
     static distance(pt1: Vector, pt2: Vector): number;
+
+    static toString(): string;
 }
 
 /**
@@ -170,6 +172,8 @@ export class Rectangle {
     toString(): string;
 
     toObj(): RectangleLike;
+
+    static toString(): string;
 }
 
 interface SizeLike {
@@ -195,6 +199,8 @@ export class Size {
     toObj(): SizeLike;
 
     toPoint(): Vector;
+
+    static toString(): string;
 }
 
 export class Transform {
@@ -218,6 +224,8 @@ export class Transform {
     setSkew(skew: Vector): Transform;
 
     toString(): string;
+
+    static toString(): string;
 }
 
 export namespace GLOBALS {
@@ -225,12 +233,13 @@ export namespace GLOBALS {
         element: VectorLike | Element | Vector
     ): Vector;
 
-    export function wrapScale(element: {
-        scaleX: number;
-        scaleY: number;
-    }): Vector;
+    export function wrapScale(
+        element: { scaleX: number; scaleY: number } | Element
+    ): Vector;
 
-    export function wrapSkew(element: { skewX: number; skewY: number }): Vector;
+    export function wrapSkew(
+        element: { skewX: number; skewY: number } | Element
+    ): Vector;
 
     export function getOrigin(): Vector;
 

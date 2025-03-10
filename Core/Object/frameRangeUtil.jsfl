@@ -148,25 +148,6 @@ define([
         return keyFrameRanges;
     };
 
-    // /**
-    //  * selectedFr 包含的 keyFrameRanges 中的 某些帧范围
-    //  * 可能有多个帧范围
-    //  * @param {FrameRange} selectedFrBigger 选中范围
-    //  * @param {FrameRange[]} keyFrameRanges 关键帧范围数组
-    //  * @return {FrameRange[]} 帧范围数组
-    //  */
-    // FrameRangeUtil.getSplitFrs = function (selectedFrBigger, keyFrameRanges) {
-    //     var keyFrs = [];
-    //     var lastCount = 0;
-    //     for (var i = 0; i < keyFrameRanges.length; i++) {
-    //         var keyFrameRange = keyFrameRanges[i];
-    //         if (selectedFrBigger.contain(keyFrameRange)) {
-    //             keyFrs.push(keyFrameRange);
-    //             lastCount = i;
-    //         }
-    //     }
-    //     return keyFrs;
-    // }
     /**
      * selectedFr 按照 keyFrameRanges 拆分为多个帧范围
      * 可能有多个帧范围

@@ -7,7 +7,9 @@
  * @description:
  */
 
-define(function () {
+define(['sprintf'], function (sp) {
+    const sprintf = sp.sprintf;
+
     /**
      * 帧范围类
      * 左闭右开区间 [startFrame, endFrame)
@@ -22,6 +24,7 @@ define(function () {
 
         this.duration = endFrame - startFrame;
     }
+
     /**
      * 判断两个帧范围是否有重叠
      * @param {FrameRange} other 另一个帧范围
@@ -42,14 +45,11 @@ define(function () {
      * @return {string} 字符串
      */
     FrameRange.prototype.toString = function () {
-        return (
-            'FrameRange(layerIndex=' +
-            this.layerIndex +
-            ', startFrame=' +
-            this.startFrame +
-            ', endFrame=' +
-            this.endFrame +
-            ')'
+        return sprintf(
+            'FrameRange(layerIndex=%d, startFrame=%d, endFrame=%d)',
+            this.layerIndex,
+            this.startFrame,
+            this.endFrame
         );
     };
 
