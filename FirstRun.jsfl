@@ -77,25 +77,26 @@
             // 导入配置文件
             './require-config',
 
-            // bug:"core-js/stable/string/includes"在当前环境，只会返回true, 所以使用es6-shim提前导入
-            // 测试在其他环境没有问题，可能是环境问题
-            // 但是es6-shim依赖与object.create,define等方法，所以不能直接导入，需要先导入es5-sham
+            // 导入shims, 避免其他模块依赖时报错
             'es5-shim',
             'es5-sham',
             'es6-shim',
             'es6-sham',
+
+            'json3',
             // 补全console模块, 避免其他模块依赖console时报错
             'console'
         ]);
 
-        require(['loglevel', 'logUtil'], function (log, logUtil) {
-            const { print } = logUtil;
-
+        require(['loglevel'], function (log) {
             // 禁用log
             log.setDefaultLevel(log.levels.SILENT);
-            // 导入完成
-            print('=============Core modules imported.=============');
+
         });
+
+        // 导入完成
+        // print('=============Core modules imported.=============');
+        console.info('=============Core modules imported.=============');
     }
 
     Main();

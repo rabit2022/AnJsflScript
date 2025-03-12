@@ -144,7 +144,7 @@
 [![ES5-Shim](https://img.shields.io/badge/ES5--Shim-v4.6.7-9c27b0)](https://github.com/es-shims/es5-shim)
 [![ES6-Shim](https://img.shields.io/badge/ES6--Shim-v0.35.4-ff9800)](https://github.com/es-shims/es6-shim)
 [![json3-3.3.3](https://img.shields.io/badge/json3-3.3.3-blue)](https://github.com/bestiejs/json3)
-[![sprintf-js-1.1.3](https://img.shields.io/badge/sprintf-js/1.1.3-green)](https://github.com/alexei/sprintf.js)
+[![sprintf-js-1.1.3](https://img.shields.io/badge/sprintf.js-v1.1.3-green)](https://github.com/alexei/sprintf.js)
 
 ##### 为了使得以上项目能够在 Adobe Animate 中正常运行，部分进行了大量的修改，并且全部更改为 requirejs 模块化加载。
 
@@ -176,10 +176,10 @@
 
 ## 8. 项目规模
 
-- **代码行数**：7779
-- **字符数量**：185646
-- **脚本数量**：68
-- **第三方库数量**：9
+- **代码行数**: 7862
+- **字符数量**: 187924
+- **脚本数量**: 68
+- **第三方库数量**：11
 - **界面访问量**：
   ![访问统计](https://profile-counter.glitch.me/AnJsflScript/count.svg)
 

@@ -7,11 +7,11 @@
  * @description:
  */
 
-require(['checkUtil', 'SAT', 'frameRangeUtil', 'logUtil'], function (
+require(['checkUtil', 'SAT', 'frameRangeUtil'], function (
     checkUtil,
     sat,
-    frUtil,
-    logUtil
+    frUtil
+    // logUtil
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
@@ -19,7 +19,7 @@ require(['checkUtil', 'SAT', 'frameRangeUtil', 'logUtil'], function (
         Rectangle = sat.Rectangle,
         wrapPosition = sat.GLOBALS.wrapPosition,
         wrapTransform = sat.GLOBALS.wrapTransform;
-    var LogArray = logUtil.LogArray;
+    // var LogArray = logUtil.LogArray;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -49,8 +49,8 @@ require(['checkUtil', 'SAT', 'frameRangeUtil', 'logUtil'], function (
             transformArray.push(transform);
         }
 
-        LogArray(keyFrames);
-        LogArray(transformArray);
+        console.log("关键帧：", keyFrames);
+        console.log("transform：", transformArray);
     }
 
     Main();

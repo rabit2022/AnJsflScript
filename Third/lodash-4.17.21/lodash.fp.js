@@ -296,7 +296,7 @@
                     const aryMethodKeys = keys(mapping.aryMethod);
 
                     const wrappers = {
-                        castArray: function (castArray) {
+                        castArray(castArray) {
                             return function () {
                                 const value = arguments[0];
                                 return isArray(value)
@@ -304,7 +304,7 @@
                                     : castArray.apply(undefined, arguments);
                             };
                         },
-                        iteratee: function (iteratee) {
+                        iteratee(iteratee) {
                             return function () {
                                 const func = arguments[0];
                                 let arity = arguments[1];
@@ -320,7 +320,7 @@
                                 return result;
                             };
                         },
-                        mixin: function (mixin) {
+                        mixin(mixin) {
                             return function (source) {
                                 const func = this;
                                 if (!isFunction(func)) {
@@ -346,19 +346,19 @@
                                 return func;
                             };
                         },
-                        nthArg: function (nthArg) {
+                        nthArg(nthArg) {
                             return function (n) {
                                 const arity = n < 0 ? 1 : toInteger(n) + 1;
                                 return curry(nthArg(n), arity);
                             };
                         },
-                        rearg: function (rearg) {
+                        rearg(rearg) {
                             return function (func, indexes) {
                                 const arity = indexes ? indexes.length : 0;
                                 return curry(rearg(func, indexes), arity);
                             };
                         },
-                        runInContext: function (runInContext) {
+                        runInContext(runInContext) {
                             return function (context) {
                                 return baseConvert(
                                     util,

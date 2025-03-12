@@ -7,30 +7,32 @@
  * @description:
  */
 
-(function() {
+(function () {
     function Main() {
-// 假设 require.s.contexts._.config 已经定义
+        // 假设 require.s.contexts._.config 已经定义
         const config = require.s.contexts._.config || {};
         const paths = config.paths || {};
 
-// 提取所有模块名称
+        // 提取所有模块名称
         var moduleNames = Object.keys(paths);
 
         // 排除 core-js 模块
-        moduleNames = moduleNames.filter(function(moduleName) {
+        moduleNames = moduleNames.filter(function (moduleName) {
             return moduleName !== 'core-js';
         });
         console.log(moduleNames);
 
-        require(moduleNames, function() {
+        require(moduleNames, function () {
             // var modules = arguments;
 
             // 打印加载的模块
-            moduleNames.forEach(function(moduleName, index) {
+            moduleNames.forEach(function (moduleName, index) {
                 try {
-                    console.log('Module "' + moduleName + '" loaded:', arguments[index]);
-                } catch (e) {
-                }
+                    console.log(
+                        'Module "' + moduleName + '" loaded:',
+                        arguments[index]
+                    );
+                } catch (e) {}
             });
         });
     }

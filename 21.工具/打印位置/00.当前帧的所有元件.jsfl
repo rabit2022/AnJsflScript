@@ -7,14 +7,14 @@
  * @description:打印当前帧的所有元件pos
  */
 
-require(['checkUtil', 'SAT', 'logUtil'], function (checkUtil, sat, logUtil) {
+require(['checkUtil', 'SAT'], function (checkUtil, sat) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     var Vector = sat.Vector,
         Rectangle = sat.Rectangle,
         Transform = sat.Transform,
         wrapPosition = sat.GLOBALS.wrapPosition;
-    var LogArray = logUtil.LogArray;
+    // var LogArray = logUtil.LogArray;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -42,7 +42,8 @@ require(['checkUtil', 'SAT', 'logUtil'], function (checkUtil, sat, logUtil) {
             transformArray.push(transform.toString());
         }
 
-        LogArray(transformArray);
+        // LogArray(transformArray);
+        console.log("transformArray: ", transformArray);
     }
 
     Main();

@@ -636,13 +636,13 @@ let define;
         }
 
         handlers = {
-            require: function (mod) {
+            require(mod) {
                 if (mod.require) {
                     return mod.require;
                 }
                 return (mod.require = context.makeRequire(mod.map));
             },
-            exports: function (mod) {
+            exports(mod) {
                 mod.usingExports = true;
                 if (mod.map.isDefine) {
                     if (mod.exports) {
@@ -651,7 +651,7 @@ let define;
                     return (mod.exports = defined[mod.map.id] = {});
                 }
             },
-            module: function (mod) {
+            module(mod) {
                 if (mod.module) {
                     return mod.module;
                 }

@@ -23,7 +23,6 @@
       "moreElement": ["Core/Object/moreElement"],
       "moreElementUtil": ["Core/Object/moreElementUtil"],
       "linqUtil": ["Core/Third/linqUtil"],
-      "logUtil": ["Core/Third/logUtil"],
       "satUtil": ["Core/Third/satUtil"],
       "checkUtil": ["Core/Utils/flash/checkUtil"],
       "curveUtil": ["Core/Utils/flash/curveUtil"],

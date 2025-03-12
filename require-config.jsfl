@@ -25,6 +25,8 @@ require.config({
         json3: 'Third/json3-3.3.3/json3',
         sprintf: 'Third/sprintf-js-1.1.3/sprintf',
 
+
+        // 'bug-shim': 'Core/myShim/shim-bug',
         Constants: 'Core/Constants/Constants',
         JSFLConstants: 'Core/Constants/JSFLConstants',
         console: 'Core/myShim/console',
@@ -33,7 +35,7 @@ require.config({
         moreElement: 'Core/Object/moreElement',
         moreElementUtil: 'Core/Object/moreElementUtil',
         linqUtil: 'Core/Third/linqUtil',
-        logUtil: 'Core/Third/logUtil',
+        // logUtil: 'Core/Third/logUtil',
         SAT: 'Core/Third/sat-js-0.9.0/SAT',
         satUtil: 'Core/Third/satUtil',
         FUNC: 'Core/myShim/FUNC',
