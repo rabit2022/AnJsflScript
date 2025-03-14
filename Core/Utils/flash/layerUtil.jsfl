@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['loglevel'], function (log) {
+define(['loglevel', 'sprintf'], function (log, { sprintf }) {
     function LayerUtil() {}
 
     /**
@@ -161,15 +161,11 @@ define(['loglevel'], function (log) {
         timeline.reorderLayer(layerIndex2, layerIndex1);
 
         log.info(
-            'layerUtil.js:图层' +
-                layerIndex1 +
-                '(' +
-                layers[layerIndex1].name +
-                ')和图层' +
-                layerIndex2 +
-                '(' +
-                layers[layerIndex2].name +
-                ')交换成功。'
+            'layerUtil.js:图层%d(%s)和图层%d(%s)交换成功。',
+            layerIndex1,
+            layers[layerIndex1].name,
+            layerIndex2,
+            layers[layerIndex2].name
         );
     };
 

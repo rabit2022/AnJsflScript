@@ -25,8 +25,6 @@ require.config({
         json3: 'Third/json3-3.3.3/json3',
         sprintf: 'Third/sprintf-js-1.1.3/sprintf',
 
-
-
         Constants: 'Core/Constants/Constants',
         JSFLConstants: 'Core/Constants/JSFLConstants',
         console: 'Core/myShim/console',

@@ -13,36 +13,36 @@ define(['linq'], function (Enumerable) {
     /**
      * 转换为程序的索引
      * 即 索引从0开始，而不是1开始
-     * @param {number[]} arr 索引数组
-     * @return {number[]} 程序员索引数组
+     * @param {Enumerable.IEnumerable<number>} enumerable 索引数组
+     * @return {Enumerable.IEnumerable<number>} 程序员索引数组
      */
-    LinqUtil.convertToProgrammeIndex = function (arr) {
-        return this.addOffset(arr, -1);
+    LinqUtil.convertToProgrammeIndex = function (enumerable) {
+        // return this.addOffset(enumerable, -1);
+        return LinqUtil.addOffset(enumerable, -1);
     };
 
     /**
      * 转换为人类可读的索引
      * 即 索引从1开始，而不是0开始
-     * @param {number[]} arr 索引数组
-     * @return {number[]} 人类可读索引数组
+     * @param {Enumerable.IEnumerable<number>} enumerable 索引数组
+     * @return {Enumerable.IEnumerable<number>} 人类可读索引数组
      */
-    LinqUtil.convertToHumanIndex = function (arr) {
-        return this.addOffset(arr, 1);
+    LinqUtil.convertToHumanIndex = function (enumerable) {
+        return LinqUtil.addOffset(enumerable, 1);
     };
 
     /**
      * 增加第一个帧
-     * @param {number[]} arr 索引数组
+     * @param {Enumerable.IEnumerable<number>} enumerable 索引数组
      * @param {number} offset 第一个帧
-     * @return {number[]} 索引数组
+     * @return {Enumerable.IEnumerable<number>} 索引数组
      */
-    LinqUtil.addOffset = function (arr, offset) {
+    LinqUtil.addOffset = function (enumerable, offset) {
         // 使用 linq.js 的 Enumerable 类
-        return Enumerable.from(arr)
+        return enumerable
             .select(function (item) {
                 return item + offset;
-            })
-            .toArray(); // 转换回数组
+            });
     };
 
     /**

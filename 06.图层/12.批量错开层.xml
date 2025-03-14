@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<dialog id="characterLayoutDialog" title="人物排列设置" buttons="accept,cancel">
+    <grid>
+        <!--                <columns>-->
+        <!--                    <column/>-->
+        <!--                    <column/>-->
+        <!--                </columns>-->
+        <rows>
+            <row>
+                <label value="副本数量："/>
+            </row>
+            <row>
+                <textbox id="copyCount" value="5"/>
+            </row>
+            <separator/>
+
+            <row>
+                <label value="间隔帧数："/>
+            </row>
+            <row>
+                <textbox id="frameInterval" value="1"/>
+            </row>
+            <separator/>
+
+            <row>
+                <label value="出现顺序："/>
+            </row>
+            <row>
+                <radiogroup id="appearanceOrder" orient="horizontal">
+                    <hbox>
+                        <spacer flex="1"/> <!-- 添加一个spacer来填充剩余空间 -->
+                        <radio id="bottomToTop" label="从下往上" value="bottomToTop" selected="true"/>
+                        <radio id="topToBottom" label="从上往下" value="topToBottom"/>
+                    </hbox>
+                </radiogroup>
+            </row>
+            <separator/>
+
+        </rows>
+    </grid>
+</dialog>
