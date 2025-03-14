@@ -7,7 +7,9 @@
  * @description:
  */
 
-define(function () {
+define(['elementUtil'], function (elementUtil) {
+    const { getName } = elementUtil;
+
     /**
      * 选中当前元件
      * @param element
@@ -85,6 +87,35 @@ define(function () {
         doc.deleteSelection();
     }
 
+
+    /**
+     * 在当前帧，选中 之前帧 选中的元素
+     * @param {Element[]} selection 选中的元件数组
+     * @note  在设置关键帧后(frUtil.convertToKeyframesSafety), 选中之前帧的元素会失效
+     *        需要重新 在当前帧，选中 之前帧 选中的元素
+     *        如果不使用这个函数，doc.selection 会一直为空,出现bug
+     */
+    function SelectBefore(selection) {
+        var doc = fl.getDocumentDOM(); //文档
+        var selectionNames = selection.map(getName); //选择的元件名称
+
+        SelectAll();
+        var lastSelection = [];
+
+        var newSelection = doc.selection;
+        for (var i = 0; i < newSelection.length; i++) {
+            var element = newSelection[i];
+            var elementName = getName(element);
+
+            if (selectionNames.includes(elementName)) {
+                lastSelection.push(element);
+            }
+        }
+
+        SelectStart(lastSelection);
+
+    }
+
     return {
         OnlySelectCurrent: OnlySelectCurrent,
         SelectStart: SelectStart,
@@ -92,6 +123,7 @@ define(function () {
         SelectNone: SelectNone,
         SelectNoneTl: SelectNoneTl,
         SelectAllTl: SelectAllTl,
-        DeleteSelection: DeleteSelection
+        DeleteSelection: DeleteSelection,
+        SelectBefore: SelectBefore
     };
 });

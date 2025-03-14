@@ -42,7 +42,9 @@ define(['sprintf', 'core-js/stable/object/entries'], function ({ sprintf }) {
     // --------------------------------------------------------------------------------
     // 常量
     const trace = fl.trace;
-    const projectFolder = window.$ProjectFileDir$;
+    const LOG_FOLDER = window.$ProjectFileDir$+'/Logs/';
+    const MAIN_LOG=LOG_FOLDER+'main.log';
+    const FILE_LOG=LOG_FOLDER+'file.log';
 
     // 存储计时器的起始时间
     const timers = {};
@@ -98,18 +100,16 @@ define(['sprintf', 'core-js/stable/object/entries'], function ({ sprintf }) {
          * @param    {String}    $type        An optional Log.CONSTANT type for the log message. Defaults to Log.INFO
          * @param    {Boolean}    $level        An optional Boolean to accentuate the message with a new line and capitals
          * @param    {Number}    $level        An optional Number to accentuate the message with a new line and: 1 = capitals, 2 = horizontal rule & capitals
+         * @note     如果LOG_FOLDER  文件夹不存在，不会创建日志文件，只会输出到控制台
+         *           如果开发者需要创建日志文件，请在项目的主目录下创建 Logs 文件夹
          * @private
          */
         __writeToLog: function (message, $type, $level) {
             // parameters
-            // var param, type, level;
-            // for each(param in [$type, $level]) {
-            // for (param in [$type, $level]) {
             var params = [$type, $level],
                 type,
                 level;
             params.forEach(function (param) {
-                // fl.trace(param);
                 if (typeof param === 'string') type = param;
                 if (typeof param === 'number') level = param;
                 if (typeof param === 'boolean') level = param === true ? 1 : 0;
@@ -124,25 +124,22 @@ define(['sprintf', 'core-js/stable/object/entries'], function ({ sprintf }) {
                 (date.getMilliseconds() / 1000).toFixed(3).substr(2);
 
             // log to main
-            var uri = projectFolder + '/Logs/main.log';
-            // fl.trace("time: "+time+" type: "+type+" message: "+message+"level: "+level);
+            // var uri = LOG_FOLDER + 'main.log';
             var output = this.__formatLine(
                 time,
                 type + '\t' + message,
                 level,
                 true
             );
-            // fl.trace(output);
-            FLfile.write(uri, output, 'append');
-            //trace(message);
+            FLfile.write(MAIN_LOG, output, 'append');
 
             // extra logging for file
             if (type === Log.FILE) {
-                var uri = projectFolder + '/Logs/file.log';
+                // var uri = projectFolder + '/Logs/file.log';
                 // var indent = new Array(xjsfl.file.stack.length + 1).join('	');
                 // var output = this.create(time, indent + message, level, true);
                 var output = this.__formatLine(time, message, level, true);
-                FLfile.write(uri, output, 'append');
+                FLfile.write(FILE_LOG, output, 'append');
             }
         },
 
@@ -244,7 +241,7 @@ define(['sprintf', 'core-js/stable/object/entries'], function ({ sprintf }) {
          */
         clear: function (type) {
             var name = type === Log.FILE ? 'file' : 'main';
-            FLfile.remove(projectFolder + '/Logs/' + name + '.log');
+            FLfile.remove(LOG_FOLDER + name + '.log');
             trace(name + '.log reset');
         },
 

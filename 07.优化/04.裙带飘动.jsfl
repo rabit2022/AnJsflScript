@@ -14,8 +14,8 @@ require([
     'libUtil',
     'xmlPanelUtil',
     'curveUtil',
-    'Constants'
-], function (checkUtil, sel, ele, libUtil, xmlPanelUtil, curve, Constants) {
+    'Constants','frameRangeUtil'
+], function (checkUtil, sel, ele, libUtil, xmlPanelUtil, curve, Constants, frUtil) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     const { FRAME_15, FRAME_30 } = Constants;
@@ -34,6 +34,7 @@ require([
     var curFrameIndex = timeline.currentFrame; //当前帧索引
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
+    const KEY_FRAMES=[FRAME_15,FRAME_30]; //关键帧
     function checkXMLPanel() {
         var panel = xmlPanelUtil.getXMLPanel();
         if (panel === null) return null;
@@ -76,8 +77,9 @@ require([
         timeline1.insertFrames(FRAME_30);
 
         // 创建关键帧,15,30
-        timeline1.convertToKeyframes(FRAME_15);
-        timeline1.convertToKeyframes(FRAME_30);
+        // timeline1.convertToKeyframes(FRAME_15);
+        // timeline1.convertToKeyframes(FRAME_30);
+        frUtil.convertToKeyframesSafety(timeline1, KEY_FRAMES);
 
         // 更改第15帧的旋转
         timeline1.currentFrame = FRAME_15;
