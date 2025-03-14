@@ -6,7 +6,12 @@ test/**
 .idea/**
 .run/**
 node_modules/**
+
+# 日志文件
 Logs/**
+
+# 缓存文件
+cache/**
 
 
 # 清除缓存

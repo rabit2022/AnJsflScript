@@ -26,7 +26,7 @@ require.config({
         sprintf: 'Third/sprintf-js-1.1.3/sprintf',
 
 
-        // 'bug-shim': 'Core/myShim/shim-bug',
+
         Constants: 'Core/Constants/Constants',
         JSFLConstants: 'Core/Constants/JSFLConstants',
         console: 'Core/myShim/console',
@@ -35,7 +35,6 @@ require.config({
         moreElement: 'Core/Object/moreElement',
         moreElementUtil: 'Core/Object/moreElementUtil',
         linqUtil: 'Core/Third/linqUtil',
-        // logUtil: 'Core/Third/logUtil',
         SAT: 'Core/Third/sat-js-0.9.0/SAT',
         satUtil: 'Core/Third/satUtil',
         FUNC: 'Core/myShim/FUNC',
@@ -53,5 +52,16 @@ require.config({
         os: 'Core/Utils/py/os',
         random: 'Core/Utils/py/random',
         StringP: 'Core/Utils/py/StringP'
-    }
+    },
+    packages: [
+        // {
+        //     name: 'core-js/stable/json',
+        //     location: 'Third/core-js-3.41.0/stable/json',
+        //     main: 'index'
+        // }, {
+        //     name: 'core-js/es/json',
+        //     location: 'Third/core-js-3.41.0/es/json',
+        //     main: 'index'
+        // }
+    ]
 });

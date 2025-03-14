@@ -29,18 +29,10 @@ define(['loglevel', 'path-browserify'], function (log, path) {
         const currentWorkingDirectory = OS.getcwd();
         return path.resolve(currentWorkingDirectory, relativePath);
     };
-    OSPath.basename = function (_path) {
-        return path.basename(_path);
-    };
-    OSPath.dirname = function (_path) {
-        return path.dirname(_path);
-    };
-    OSPath.exists = function (uri) {
-        return FLfile.exists(uri);
-    };
-    OSPath.isAbs = function (_path) {
-        return path.isAbsolute(_path);
-    };
+    OSPath.basename = path.basename;
+    OSPath.dirname = path.dirname;
+    OSPath.exists = FLfile.exists;
+    OSPath.isAbs = path.isAbsolute;
     OSPath.isfile = function (uri) {
         var [root, ext] = this.splitext(uri);
         return ext.length > 0;
@@ -67,17 +59,7 @@ define(['loglevel', 'path-browserify'], function (log, path) {
         return _path;
     };
 
-    /**
-     * 规范化路径。
-     * 通过折叠多余的分隔符和对上级目录的引用来标准化路径名，所以 A//B、A/B/、A/./B 和 A/foo/../B 都会转换成 A/B。这个字符串操作可能会改变带有符号链接的路径的含义。
-     * 在 Windows 上，本方法将正斜杠转换为反斜杠。要规范大小写，请使用 normcase()。
-     * @param {string} _path - 要规范化的路径。
-     * @return {string} - 规范化后的路径。
-     * @private
-     */
-    OSPath.normpath = function (_path) {
-        return path.normalize(_path);
-    };
+    OSPath.normpath = path.normalize;
 
     /**
      * 合并多个路径。
@@ -94,7 +76,8 @@ define(['loglevel', 'path-browserify'], function (log, path) {
     OSPath.join = function () {
         // 将 arguments 转换为数组
         var paths = Array.prototype.slice.call(arguments);
-        var result = path.join.apply(path, paths); // 使用 apply 将数组展开为参数
+        // 使用 apply 将数组展开为参数
+        var result = path.join.apply(path, paths);
 
         // 确保路径以 file:/// 开头
         result = result.replace('file:/', 'file:///');
@@ -195,6 +178,15 @@ define(['loglevel', 'path-browserify'], function (log, path) {
         var success = FLfile.createFolder(uri);
         if (success) {
             log.info('Folder created: ' + uri);
+        } else {
+            log.error('Failed : ' + uri);
+        }
+    };
+
+    OS.rmdir = function (uri) {
+        var success = FLfile.remove(uri);
+        if (success) {
+            log.info('Folder deleted: ' + uri);
         } else {
             log.error('Failed : ' + uri);
         }

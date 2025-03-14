@@ -7,9 +7,8 @@
  * @description:
  * @see: https://github.com/davestewart/xJSFL
  */
-// import 'core-js/stable/object/entries';
-define(['sprintf', 'core-js/stable/object/entries'], function(sp) {
-    const sprintf = sp.sprintf;
+
+define(['sprintf', 'core-js/stable/object/entries'], function ({ sprintf }) {
     // --------------------------------------------------------------------------------
     // Log constants
 
@@ -59,7 +58,7 @@ define(['sprintf', 'core-js/stable/object/entries'], function(sp) {
          * @returns    {String}                The created message
          * @private
          */
-        __formatLine: function(prefix, message, level, addNewline) {
+        __formatLine: function (prefix, message, level, addNewline) {
             // new line
             var newLine =
                 fl.version.substr(0, 3).toLowerCase() === 'win' ? '\r\n' : '\n';
@@ -101,7 +100,7 @@ define(['sprintf', 'core-js/stable/object/entries'], function(sp) {
          * @param    {Number}    $level        An optional Number to accentuate the message with a new line and: 1 = capitals, 2 = horizontal rule & capitals
          * @private
          */
-        __writeToLog: function(message, $type, $level) {
+        __writeToLog: function (message, $type, $level) {
             // parameters
             // var param, type, level;
             // for each(param in [$type, $level]) {
@@ -109,7 +108,7 @@ define(['sprintf', 'core-js/stable/object/entries'], function(sp) {
             var params = [$type, $level],
                 type,
                 level;
-            params.forEach(function(param) {
+            params.forEach(function (param) {
                 // fl.trace(param);
                 if (typeof param === 'string') type = param;
                 if (typeof param === 'number') level = param;
@@ -157,7 +156,7 @@ define(['sprintf', 'core-js/stable/object/entries'], function(sp) {
          * @returns {string}
          * @private
          */
-        __formatMessage: function() {
+        __formatMessage: function () {
             var args = Array.prototype.slice.call(arguments); // 将 arguments 转换为数组
 
             // 检查是否使用了 sprintf 的模板化字符串
@@ -167,7 +166,7 @@ define(['sprintf', 'core-js/stable/object/entries'], function(sp) {
                 return formattedMessage + '\t';
             } else {
                 // 如果不是模板字符串，处理复杂类型
-                var formattedArgs = args.map(function(arg) {
+                var formattedArgs = args.map(function (arg) {
                     if (typeof arg === 'object' && arg !== null) {
                         // 如果是对象或数组，使用 JSON.stringify 格式化为字符串
                         var json = JSON.stringify(arg, null, 2);
@@ -198,40 +197,40 @@ define(['sprintf', 'core-js/stable/object/entries'], function(sp) {
         //     this.__writeToLog(message, Log.TRACE, level);
         // },
 
-        trace: function() {
+        trace: function () {
             var message = this.__formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
 
             trace('\n⚡admin  TRACE  ❯❯ ' + message + '\n');
             this.__writeToLog(message + '\n', Log.TRACE, 3);
         },
 
-        debug: function() {
+        debug: function () {
             var message = this.__formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
 
             trace('\n⚡admin  DEBUG  ❯❯ ' + message + '\n');
             this.__writeToLog(message + '\n', Log.DEBUG, 3);
         },
 
-        log: function() {
+        log: function () {
             var message = this.__formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
 
             trace('\n⚡admin  LOG  ❯❯ ' + message + '\n');
             this.__writeToLog(message + '\n', Log.LOG, 3);
         },
-        info: function() {
+        info: function () {
             var message = this.__formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
 
             trace('\n⚡admin  INFO  ❯❯ ' + message + '\n');
             this.__writeToLog(message + '\n', Log.INFO, 3);
         },
-        warn: function() {
+        warn: function () {
             var message = this.__formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
 
             trace('\n⚡admin  WARNING  ❯❯ ' + message + '\n');
             alert('WARNING  ❯❯ ' + message + '\n');
             this.__writeToLog(message + '\n', Log.WARN, 3);
         },
-        error: function() {
+        error: function () {
             var message = this.__formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
 
             trace('\n⚡admin  ERROR  ❯❯ ' + message + '\n');
@@ -243,13 +242,13 @@ define(['sprintf', 'core-js/stable/object/entries'], function(sp) {
          * Clears a log file
          * @param    {String}    type    The type of log file to reset
          */
-        clear: function(type) {
+        clear: function (type) {
             var name = type === Log.FILE ? 'file' : 'main';
             FLfile.remove(projectFolder + '/Logs/' + name + '.log');
             trace(name + '.log reset');
         },
 
-        table: function(data) {
+        table: function (data) {
             // 检查输入是否为数组或对象
             if (!Array.isArray(data) && typeof data !== 'object') {
                 throw new Error('table expects an array or an object');
@@ -259,7 +258,7 @@ define(['sprintf', 'core-js/stable/object/entries'], function(sp) {
             if (typeof data === 'object' && !Array.isArray(data)) {
                 data = Object.entries(data).map(
                     // ([key, value]) => ({ key, value }));
-                    function([key, value]) {
+                    function ([key, value]) {
                         return { key: key, value: value };
                     }
                 );
@@ -278,9 +277,9 @@ define(['sprintf', 'core-js/stable/object/entries'], function(sp) {
             // 获取所有列名（即对象的键）
             const columns = new Set();
             if (!isSimpleArray) {
-                data.forEach(function(item) {
+                data.forEach(function (item) {
                     if (typeof item === 'object') {
-                        Object.keys(item).forEach(function(key) {
+                        Object.keys(item).forEach(function (key) {
                             columns.add(key);
                         });
                     }
@@ -297,14 +296,14 @@ define(['sprintf', 'core-js/stable/object/entries'], function(sp) {
             const header = columnNames.join('\t');
 
             // 构建表格的每一行
-            const rows = data.map(function(item, index) {
+            const rows = data.map(function (item, index) {
                 if (isSimpleArray) {
                     // 处理普通数组
                     return [index, item].join('\t');
                 } else {
                     // 处理对象数组
                     return columnNames
-                        .map(function(column) {
+                        .map(function (column) {
                             return item[column] !== undefined
                                 ? String(item[column])
                                 : '';
@@ -320,7 +319,7 @@ define(['sprintf', 'core-js/stable/object/entries'], function(sp) {
             this.info(table);
         },
 
-        time: function(label) {
+        time: function (label) {
             if (label === undefined) label = 'default';
             if (timers[label]) {
                 // console.warn(`Timer "${label}" already exists.`);
@@ -331,7 +330,7 @@ define(['sprintf', 'core-js/stable/object/entries'], function(sp) {
             // console.log(`Timer "${label}" started.`);
             this.info(sprintf('Timer "%s" started.', label));
         },
-        timeEnd: function(label) {
+        timeEnd: function (label) {
             if (label === undefined) label = 'default';
             if (!timers[label]) {
                 // console.warn(`Timer "${label}" does not exist.`);
@@ -344,7 +343,7 @@ define(['sprintf', 'core-js/stable/object/entries'], function(sp) {
             // console.log(`Timer "${label}": ${duration}ms`);
             this.info(sprintf('Timer "%s": %sms', label, duration));
         },
-        count: function(label) {
+        count: function (label) {
             if (label === undefined) label = 'default';
             if (!counters[label]) {
                 counters[label] = 0;
@@ -355,7 +354,7 @@ define(['sprintf', 'core-js/stable/object/entries'], function(sp) {
                 sprintf('"%s" was called %s times.', label, counters[label])
             );
         },
-        countReset: function(label) {
+        countReset: function (label) {
             if (label === undefined) label = 'default';
             if (!counters[label]) {
                 // console.warn(`Counter "${label}" does not exist.`);
@@ -366,7 +365,7 @@ define(['sprintf', 'core-js/stable/object/entries'], function(sp) {
             // console.log(`Counter "${label}" has been reset.`);
             this.info(sprintf('Counter "%s" has been reset.', label));
         },
-        assert: function(expression, message) {
+        assert: function (expression, message) {
             if (!expression) {
                 throw new Error(message || 'Assertion failed');
             }

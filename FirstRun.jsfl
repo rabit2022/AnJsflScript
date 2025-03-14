@@ -21,11 +21,18 @@
     }
 
     /**
-     * 导入指定脚本文件
+     * Flash script 导入指定脚本文件
      * @param {...string} scriptPaths 相对于当前脚本文件的相对路径，或绝对路径（允许多个路径，可以混搭）
      */
     function importFlashScripts() {
-        // 获取当前 文件夹 路径
+        // region polyfills
+
+        // String.prototype.startswith
+        function String_startsWith(str, prefix) {
+            return str.indexOf(prefix) === 0;
+        }
+
+        // 获取当前脚本文件的所在文件夹路径
         function getcwd() {
             var scriptURI = fl.scriptURI;
             // 斜杠符号的位置
@@ -35,35 +42,54 @@
             return folderPath;
         }
 
-        // 判断路径是否为绝对路径
-        function isAbsolutePath(path) {
-            var ABSOLUTE_FLAG = 'file:///';
-            // 兼容es5
-            return path.indexOf(ABSOLUTE_FLAG) === 0;
-            // es6
-            // return path.startsWith(ABSOLUTE_FLAG);
+        // 检查文件是否存在
+        var fileExists = FLfile.exists;
+
+        function assertPath(path) {
+            if (typeof path !== 'string') {
+                throw new TypeError( // 'Path must be a string. Received ' + JSON.stringify(path)
+                    'Path must be a string. Received ' + path + '.'
+                );
+            }
         }
+
+        function isAbsolute(path) {
+            assertPath(path);
+            // return path.length > 0 && path.charCodeAt(0) === 47 /*/*/;
+            var ABSOLUTE_FLAG = 'file:///';
+            return path.length > 0 && String_startsWith(path, ABSOLUTE_FLAG);
+        }
+
+        // endregion polyfills
 
         // 将 arguments 转换为数组
         var paths = Array.prototype.slice.call(arguments);
         var curWorkingDirectory = getcwd();
 
         paths.forEach(function (path) {
-            var scriptURI;
+            // 转换为绝对路径
+            var scriptURI = isAbsolute(path)
+                ? path
+                : curWorkingDirectory + '/' + path;
 
-            if (isAbsolutePath(path)) {
-                scriptURI = path; // 绝对路径直接使用
-            } else {
-                // 拼接相对路径
-                scriptURI = curWorkingDirectory + '/' + path;
-            }
-
+            // fl.trace('[importFlashScripts] Imported script file [' + scriptURI + ']');
             // 执行脚本
-            fl.runScript(scriptURI);
+            var exists = fileExists(scriptURI);
+            if (exists) {
+                fl.runScript(scriptURI);
+            } else {
+                // fl.trace('[importFlashScripts] Error: Cannot find script file [' + scriptURI + ']');
+                throw new Error(
+                    '[importFlashScripts] Error: Cannot find script file [' +
+                        scriptURI +
+                        ']'
+                );
+            }
         });
     }
 
     function Main() {
+        window.importFlashScripts = importFlashScripts;
         // 导入模块,相对路径导入
         importFlashScripts('Third/requirejs-2.3.7/require.jsfl');
 
@@ -78,12 +104,15 @@
             './require-config',
 
             // 导入shims, 避免其他模块依赖时报错
+            // corejs部分方法，如Object.create,String.prototype.includes等方法，有bug,无法使用
             'es5-shim',
             'es5-sham',
             'es6-shim',
             'es6-sham',
 
+            // corejs没有完整的实现JSON的polyfill, 所以需要导入json3
             'json3',
+
             // 补全console模块, 避免其他模块依赖console时报错
             'console'
         ]);
@@ -91,7 +120,6 @@
         require(['loglevel'], function (log) {
             // 禁用log
             log.setDefaultLevel(log.levels.SILENT);
-
         });
 
         // 导入完成

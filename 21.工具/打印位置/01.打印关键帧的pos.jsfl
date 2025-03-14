@@ -49,8 +49,8 @@ require(['checkUtil', 'SAT', 'frameRangeUtil'], function (
             transformArray.push(transform);
         }
 
-        console.log("关键帧：", keyFrames);
-        console.log("transform：", transformArray);
+        console.log('关键帧：', keyFrames);
+        console.log('transform：', transformArray);
     }
 
     Main();

@@ -2255,17 +2255,23 @@ var requirejs, require, define;
                 );
             }
         } else if (isFlash) {
-            // fl.trace('scriptURI [' + url + ']');
+            // .js--.jsfl 只匹配最后一个.js
+            var scriptURI = url.replace(/\.js(\?|$)/, '.jsfl');
 
+            // In a flash environment, use importFlashScripts to load the script.
+            importFlashScripts(scriptURI);
+
+            //Account for anonymous modules
+            context.completeLoad(moduleName);
             try {
-                // .js--.jsfl
-                var scriptURI = url.replace('.js', '.jsfl');
-
-                // In a flash environment, use importFlashScripts to load the script.
-                importFlashScripts(scriptURI);
-
-                //Account for anonymous modules
-                context.completeLoad(moduleName);
+                // // .js--.jsfl 只匹配最后一个.js
+                // var scriptURI = url.replace(/\.js(\?|$)/, '.jsfl');
+                //
+                // // In a flash environment, use importFlashScripts to load the script.
+                // importFlashScripts(scriptURI);
+                //
+                // //Account for anonymous modules
+                // context.completeLoad(moduleName);
             } catch (e) {
                 fl.trace(
                     '[Error] failed to load script for flash [' +
@@ -2293,53 +2299,6 @@ var requirejs, require, define;
             );
         }
     };
-
-    /**
-     * Flash script 导入指定脚本文件
-     * @param {...string} scriptPaths 相对于当前脚本文件的相对路径，或绝对路径（允许多个路径，可以混搭）
-     */
-    function importFlashScripts() {
-        // 获取当前脚本文件的所在文件夹路径
-        function getcwd() {
-            var scriptURI = fl.scriptURI;
-            // 斜杠符号的位置
-            var lastSlashIndex = scriptURI.lastIndexOf('/');
-            // 获取脚本文件所在的文件夹路径
-            var folderPath = scriptURI.substring(0, lastSlashIndex);
-            return folderPath;
-        }
-
-        function startsWith(str, prefix) {
-            return str.indexOf(prefix) === 0;
-        }
-
-        // 判断路径是否为绝对路径
-        function isAbsolutePath(path) {
-            var ABSOLUTE_FLAG = 'file:///';
-            return startsWith(path, ABSOLUTE_FLAG);
-        }
-
-        // 将 arguments 转换为数组
-        var paths = Array.prototype.slice.call(arguments);
-        var curWorkingDirectory = getcwd();
-
-        paths.forEach(function (path) {
-            var scriptURI;
-
-            if (isAbsolutePath(path)) {
-                // 绝对路径
-                scriptURI = path;
-            } else {
-                // 相对路径
-                scriptURI = curWorkingDirectory + '/' + path;
-            }
-
-            // fl.trace('[requirejs] load for flash [' + scriptURI + ']');
-
-            // 执行脚本
-            fl.runScript(scriptURI);
-        });
-    }
 
     function getInteractiveScript() {
         if (

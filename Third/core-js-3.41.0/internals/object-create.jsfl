@@ -104,7 +104,7 @@ define(function (require, exports, module) {
             } else {
                 // flash 环境
                 if (typeof fl != 'undefined') {
-                    console.log('flash 环境 的 Object.create');
+                    fl.trace('flash 环境 的 Object.create');
                     result = NullProtoObjectFlash();
                 }
                 // 默认环境

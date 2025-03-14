@@ -43,7 +43,7 @@ require(['checkUtil', 'SAT'], function (checkUtil, sat) {
         }
 
         // LogArray(transformArray);
-        console.log("transformArray: ", transformArray);
+        console.log('transformArray: ', transformArray);
     }
 
     Main();

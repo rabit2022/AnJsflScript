@@ -6,12 +6,13 @@
  * @project: AnJsflScript
  * @description:
  */
-
-(function () {
+// import 'core-js/stable/object/keys';
+require([], function () {
     function Main() {
         // 假设 require.s.contexts._.config 已经定义
         const config = require.s.contexts._.config || {};
         const paths = config.paths || {};
+        // console.log(paths);
 
         // 提取所有模块名称
         var moduleNames = Object.keys(paths);
@@ -28,9 +29,14 @@
             // 打印加载的模块
             moduleNames.forEach(function (moduleName, index) {
                 try {
+                    // console.log(
+                    //     'Module "' + moduleName + '" loaded:',
+                    //     arguments[index]
+                    // );
                     console.log(
-                        'Module "' + moduleName + '" loaded:',
-                        arguments[index]
+                        'Module "%s" loaded: %s',
+                        moduleName,
+                        moduleNames[index]
                     );
                 } catch (e) {}
             });
@@ -38,4 +44,6 @@
     }
 
     Main();
-})();
+});
+
+(function () {})();
