@@ -1,10 +1,10 @@
-import { Class } from './通用';
+// import { Class } from './通用';
 
 export function IsNullOrEmpty(value: any): boolean;
 
 export function IsEmpty(value: any): boolean;
 
-export function INHERIT_MACRO(subCls_CLASS: Class, superCls_CLASS: Class): void;
+// export function INHERIT_MACRO(subCls_CLASS: Function, superCls_CLASS: Function): void;
 
 export function OF_MACRO<T>(
     iterable: T[],
@@ -22,7 +22,7 @@ interface PropertyDescriptor {
 }
 
 export function PROPERTY(
-    CLASS: Class,
+    CLASS: Function,
     name: string,
     descriptor: PropertyDescriptor
 ): void;

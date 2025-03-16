@@ -13,8 +13,9 @@ require([
     'libUtil',
     'SAT',
     'selectionUtil',
-    'linqUtil','frameRangeUtil'
-], function (checkUtil, promptUtil, libUtil, sat, sel, linqUtil,frUtil) {
+    'linqUtil',
+    'frameRangeUtil'
+], function (checkUtil, promptUtil, libUtil, sat, sel, linqUtil, frUtil) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
 
@@ -109,8 +110,7 @@ require([
 
         // 关键帧
         var Keyframes = Range(0, toInsertFrameCount, motionFramesCount);
-        Keyframes=Keyframes.toArray();
-
+        Keyframes = Keyframes.toArray();
 
         for (var i = 0; i < Keyframes.length; i++) {
             if (i === 0) continue;

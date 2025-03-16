@@ -3,5 +3,6 @@
   "singleQuote": true,
   "printWidth": 80,
   "tabWidth": 4,
-  "trailingComma": "none"# 末尾没有逗号
+  "trailingComma": "none",# 末尾没有逗号
+  "endOfLine": "auto" # 自动换行
 }

@@ -45,66 +45,66 @@ define(['sprintf'], function (sp) {
         return false; // 其他情况视为非空
     }
 
-    /**
-     * 封装继承函数，用于实现子类继承父类。
-     * @param {Function} subCls_CLASS - 子类的构造函数（类名称）
-     * @param {Function} superCls_CLASS - 父类的构造函数（类名称）
-     * @note
-     * 如何在子类中模拟 `super` 的行为：
-     * 1. 在子类构造函数中调用父类构造函数：
-     *    使用 `superCls_CLASS.call(this, ...args)` 调用父类构造函数。
-     *    示例：`superCls_CLASS.call(this, name);`
-     *
-     * 2. 在子类方法中调用父类方法：
-     *    使用 `this._super.methodName.call(this, ...args)` 调用父类方法。
-     *    示例：`this._super.sayHello.call(this);`
-     *
-     * 命名约定：
-     * - `_MACRO` 或 `_M`：类似宏的函数，表示这是一个工具函数。
-     * - `_CLASS` 或 `_Cls`：表示参数类型是类（构造函数）。
-     * - `_Proto` 或 `_Prototype`：强调这个构造函数是基于原型链实现的。
-     * @example
-     * // 定义父类
-     * function SuperClass(name) {
-     *   this.name = name;
-     * }
-     *
-     * SuperClass.prototype.sayHello = function () {
-     *   return "Hello, my name is " + this.name + ".";
-     * };
-     *
-     * // 定义子类
-     * function SubClass(name, age) {
-     *   SuperClass.call(this, name); // 调用父类构造函数
-     *   this.age = age;
-     * }
-     *
-     * // 使用 INHERIT_MACRO 实现继承
-     * INHERIT_MACRO(SubClass, SuperClass);
-     *
-     * // 重写父类方法
-     * SubClass.prototype.sayHello = function () {
-     *   var parentMessage = this._super.sayHello.call(this); // 调用父类方法
-     *   return parentMessage + " I am " + this.age + " years old.";
-     * };
-     *
-     * // 测试
-     * var instance = new SubClass("John", 25);
-     * console.writeToLog(instance.sayHello()); // 输出：Hello, my name is John. I am 25 years old.
-     */
-    function INHERIT_MACRO(subCls_CLASS, superCls_CLASS) {
-        // 创建一个临时构造函数用于继承父类的原型
-        function TempConstructor() {}
-
-        TempConstructor.prototype = superCls_CLASS.prototype;
-
-        // 将子类的原型指向父类的原型
-        subCls_CLASS.prototype = new TempConstructor();
-        subCls_CLASS.prototype.constructor = subCls_CLASS; // 修复子类的 constructor 指针
-
-        // 保留对父类原型的引用，方便调用父类方法
-        subCls_CLASS.prototype._super = superCls_CLASS.prototype;
-    }
+    // /**
+    //  * 封装继承函数，用于实现子类继承父类。
+    //  * @param {Function} subCls_CLASS - 子类的构造函数（类名称）
+    //  * @param {Function} superCls_CLASS - 父类的构造函数（类名称）
+    //  * @note
+    //  * 如何在子类中模拟 `super` 的行为：
+    //  * 1. 在子类构造函数中调用父类构造函数：
+    //  *    使用 `superCls_CLASS.call(this, ...args)` 调用父类构造函数。
+    //  *    示例：`superCls_CLASS.call(this, name);`
+    //  *
+    //  * 2. 在子类方法中调用父类方法：
+    //  *    使用 `this._super.methodName.call(this, ...args)` 调用父类方法。
+    //  *    示例：`this._super.sayHello.call(this);`
+    //  *
+    //  * 命名约定：
+    //  * - `_MACRO` 或 `_M`：类似宏的函数，表示这是一个工具函数。
+    //  * - `_CLASS` 或 `_Cls`：表示参数类型是类（构造函数）。
+    //  * - `_Proto` 或 `_Prototype`：强调这个构造函数是基于原型链实现的。
+    //  * @example
+    //  * // 定义父类
+    //  * function SuperClass(name) {
+    //  *   this.name = name;
+    //  * }
+    //  *
+    //  * SuperClass.prototype.sayHello = function () {
+    //  *   return "Hello, my name is " + this.name + ".";
+    //  * };
+    //  *
+    //  * // 定义子类
+    //  * function SubClass(name, age) {
+    //  *   SuperClass.call(this, name); // 调用父类构造函数
+    //  *   this.age = age;
+    //  * }
+    //  *
+    //  * // 使用 INHERIT_MACRO 实现继承
+    //  * INHERIT_MACRO(SubClass, SuperClass);
+    //  *
+    //  * // 重写父类方法
+    //  * SubClass.prototype.sayHello = function () {
+    //  *   var parentMessage = this._super.sayHello.call(this); // 调用父类方法
+    //  *   return parentMessage + " I am " + this.age + " years old.";
+    //  * };
+    //  *
+    //  * // 测试
+    //  * var instance = new SubClass("John", 25);
+    //  * console.writeToLog(instance.sayHello()); // 输出：Hello, my name is John. I am 25 years old.
+    //  */
+    // function INHERIT_MACRO(subCls_CLASS, superCls_CLASS) {
+    //     // 创建一个临时构造函数用于继承父类的原型
+    //     function TempConstructor() {}
+    //
+    //     TempConstructor.prototype = superCls_CLASS.prototype;
+    //
+    //     // 将子类的原型指向父类的原型
+    //     subCls_CLASS.prototype = new TempConstructor();
+    //     subCls_CLASS.prototype.constructor = subCls_CLASS; // 修复子类的 constructor 指针
+    //
+    //     // 保留对父类原型的引用，方便调用父类方法
+    //     subCls_CLASS.prototype._super = superCls_CLASS.prototype;
+    // }
 
     /**
      * 遍历可迭代对象（数组、类数组对象、普通对象、字典对象），并对每个元素执行回调函数。
@@ -180,7 +180,7 @@ define(['sprintf'], function (sp) {
 
     /**
      * 定义属性
-     * @param {Class} CLASS - 目标对象
+     * @param {Function} CLASS - 目标对象
      * @param {string} name - 属性名
      * @param {{get:function,set:function}} descriptor - 属性描述符
      * @note
@@ -233,11 +233,64 @@ define(['sprintf'], function (sp) {
         Object.defineProperty(CLASS.prototype, name, attr);
     }
 
+    /**
+     * 动态解析参数并分配到指定的变量中
+     * 使得函数可以接收不同类型的参数，不用按照顺序指定参数类型，并自动分配到指定的变量中。
+     * @param {Array} args - 传入的参数数组
+     * @param {Object} options - 参数处理选项
+     * @returns {Object} - 解析后的参数对象
+     */
+    function DYNAMIC_PARAMS(args, options) {
+        const result = {};
+        const { types, required } = options;
+
+        // 遍历参数数组，根据类型分配到对应的变量
+        for (var i = 0; i < args.length; i++) {
+            const arg = args[i];
+            const type = typeof arg;
+
+            // 检查是否支持该类型
+            if (!types[type]) {
+                throw new TypeError('Unsupported argument type:' + type);
+            }
+
+            // 获取当前参数的分配目标
+            const targets = types[type];
+            if (!Array.isArray(targets)) {
+                // throw new Error(`Invalid targets for type ${type}. Expected an array.`);
+                throw new Error(
+                    'Invalid targets for type ' + type + '. Expected an array.'
+                );
+            }
+
+            // 分配参数到对应的属性
+            const target = targets.shift(); // 从数组中取出第一个目标
+            if (!target) {
+                // throw new Error(`Too many arguments of type ${type}.`);
+                throw new Error('Too many arguments of type ' + type + '.');
+            }
+
+            result[target] = arg;
+        }
+
+        // 检查是否缺少必需的参数
+        // for (const key of required) {
+        required.forEach(function (key) {
+            if (result[key] === undefined) {
+                // throw new Error(`Missing required argument: ${key}`);
+                throw new Error('Missing required argument:' + key);
+            }
+        });
+
+        return result;
+    }
+
     return {
         IsNullOrEmpty: IsNullOrEmpty,
         IsEmpty: IsEmpty,
-        INHERIT_MACRO: INHERIT_MACRO,
+        // INHERIT_MACRO: INHERIT_MACRO,
         OF_MACRO: OF_MACRO,
-        PROPERTY: PROPERTY
+        PROPERTY: PROPERTY,
+        DYNAMIC_PARAMS: DYNAMIC_PARAMS
     };
 });

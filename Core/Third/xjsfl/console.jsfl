@@ -42,9 +42,9 @@ define(['sprintf', 'core-js/stable/object/entries'], function ({ sprintf }) {
     // --------------------------------------------------------------------------------
     // 常量
     const trace = fl.trace;
-    const LOG_FOLDER = window.$ProjectFileDir$+'/Logs/';
-    const MAIN_LOG=LOG_FOLDER+'main.log';
-    const FILE_LOG=LOG_FOLDER+'file.log';
+    const LOG_FOLDER = window.$ProjectFileDir$ + '/Logs/';
+    const MAIN_LOG = LOG_FOLDER + 'main.log';
+    const FILE_LOG = LOG_FOLDER + 'file.log';
 
     // 存储计时器的起始时间
     const timers = {};

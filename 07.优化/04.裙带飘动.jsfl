@@ -14,8 +14,18 @@ require([
     'libUtil',
     'xmlPanelUtil',
     'curveUtil',
-    'Constants','frameRangeUtil'
-], function (checkUtil, sel, ele, libUtil, xmlPanelUtil, curve, Constants, frUtil) {
+    'Constants',
+    'frameRangeUtil'
+], function (
+    checkUtil,
+    sel,
+    ele,
+    libUtil,
+    xmlPanelUtil,
+    curve,
+    Constants,
+    frUtil
+) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     const { FRAME_15, FRAME_30 } = Constants;
@@ -34,7 +44,7 @@ require([
     var curFrameIndex = timeline.currentFrame; //当前帧索引
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
-    const KEY_FRAMES=[FRAME_15,FRAME_30]; //关键帧
+    const KEY_FRAMES = [FRAME_15, FRAME_30]; //关键帧
     function checkXMLPanel() {
         var panel = xmlPanelUtil.getXMLPanel();
         if (panel === null) return null;

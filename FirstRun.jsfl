@@ -78,7 +78,11 @@
             if (exists) {
                 fl.runScript(scriptURI);
             } else {
-                // fl.trace('[importFlashScripts] Error: Cannot find script file [' + scriptURI + ']');
+                fl.trace(
+                    '[importFlashScripts] Error: Cannot find script file [' +
+                        scriptURI +
+                        ']'
+                );
                 throw new Error(
                     '[importFlashScripts] Error: Cannot find script file [' +
                         scriptURI +

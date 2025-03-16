@@ -24,10 +24,15 @@ require.config({
         require: 'Third/requirejs-2.3.7/require',
         json3: 'Third/json3-3.3.3/json3',
         sprintf: 'Third/sprintf-js-1.1.3/sprintf',
+        // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\stacktrace.js-2.0.2\stacktrace.jsfl
+        // stacktrace: 'Third/stacktrace.js-2.0.2/stacktrace',
+        // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\error-stack-parser-3.0.0\error-stack-parser.jsfl
+        errorStackParser: 'Third/error-stack-parser-3.0.0/error-stack-parser',
+        // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\stackframe-1.3.4\stackframe.jsfl
+        stackframe: 'Third/stackframe-1.3.4/stackframe',
 
         Constants: 'Core/Constants/Constants',
-        JSFLConstants: 'Core/Constants/JSFLConstants',
-        console: 'Core/myShim/console',
+        FUNC: 'Core/myShim/FUNC',
         frameRange: 'Core/Object/frameRange',
         frameRangeUtil: 'Core/Object/frameRangeUtil',
         moreElement: 'Core/Object/moreElement',
@@ -35,7 +40,11 @@ require.config({
         linqUtil: 'Core/Third/linqUtil',
         SAT: 'Core/Third/sat-js-0.9.0/SAT',
         satUtil: 'Core/Third/satUtil',
-        FUNC: 'Core/myShim/FUNC',
+        console: 'Core/Third/xjsfl/console',
+        JSFLConstants: 'Core/Third/xjsfl/flash/JSFLConstants',
+        JSFLInterface: 'Core/Third/xjsfl/flash/JSFLInterface',
+        Class: 'Core/Third/xjsfl/Utils/Class',
+        Utils: 'Core/Third/xjsfl/Utils/Utils',
         checkUtil: 'Core/Utils/flash/checkUtil',
         curveUtil: 'Core/Utils/flash/curveUtil',
         elementUtil: 'Core/Utils/flash/elementUtil',
@@ -59,6 +68,16 @@ require.config({
         // }, {
         //     name: 'core-js/es/json',
         //     location: 'Third/core-js-3.41.0/es/json',
+        //     main: 'index'
+        // }
+        // 'core-js/stable/promise'
+        // {
+        //     name: 'core-js/stable/promise',
+        //     location: 'Third/core-js-3.41.0/stable/promise',
+        //     main: 'index'
+        // }, {
+        //     name: 'core-js/es/promise',
+        //     location: 'Third/core-js-3.41.0/es/promise',
         //     main: 'index'
         // }
     ]

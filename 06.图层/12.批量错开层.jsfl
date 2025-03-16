@@ -7,11 +7,14 @@
  * @description:
  */
 
-require(['checkUtil', 'loglevel', 'xmlPanelUtil', 'linqUtil', 'Constants', 'layerUtil'], function(
-    checkUtil,
-    log,
-    xmlPanelUtil, linqUtil, Constants, layerUtil
-) {
+require([
+    'checkUtil',
+    'loglevel',
+    'xmlPanelUtil',
+    'linqUtil',
+    'Constants',
+    'layerUtil'
+], function (checkUtil, log, xmlPanelUtil, linqUtil, Constants, layerUtil) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { range, convertToProgrammeIndex } = linqUtil;
     const { FRAME_1 } = Constants;
@@ -61,7 +64,7 @@ require(['checkUtil', 'loglevel', 'xmlPanelUtil', 'linqUtil', 'Constants', 'laye
     }
 
     // 粘贴到 0 的上方
-    function pasteLayer(appearanceOrder){
+    function pasteLayer(appearanceOrder) {
         switch (appearanceOrder) {
             case 'bottomToTop': // 从下往上
                 log.debug('从下往上');
@@ -99,15 +102,19 @@ require(['checkUtil', 'loglevel', 'xmlPanelUtil', 'linqUtil', 'Constants', 'laye
         // log.debug('frameInterval', frameInterval);
         // log.debug('appearanceOrder', appearanceOrder);
 
-
         // 复制当前图层
         timeline.copyLayers();
 
         // 生成需要添加的空帧的帧数
-        var toAddFrameCount = range(0, frameInterval * copyCount, frameInterval).select(function(x) {
+        var toAddFrameCount = range(
+            0,
+            frameInterval * copyCount,
+            frameInterval
+        ).select(function (x) {
             return x + frameInterval;
         });
-        var toAddFrameCountArray = convertToProgrammeIndex(toAddFrameCount).toArray();
+        var toAddFrameCountArray =
+            convertToProgrammeIndex(toAddFrameCount).toArray();
 
         log.debug('toAddFrameCount', toAddFrameCount.toArray());
 
@@ -121,9 +128,7 @@ require(['checkUtil', 'loglevel', 'xmlPanelUtil', 'linqUtil', 'Constants', 'laye
             // 扩展帧数
             var numFrames = toAddFrameCountArray[i];
             timeline.insertFrames(numFrames, false, FRAME_1);
-
         }
-
     }
 
     Main();

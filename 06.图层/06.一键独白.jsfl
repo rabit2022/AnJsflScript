@@ -7,11 +7,14 @@
  * @description:
  */
 
-require(['checkUtil', 'loglevel', 'frameRangeUtil', 'selectionUtil','filterUtil'],
-    function(checkUtil, log, frUtil, sel,filterUtil) {
+require(['checkUtil', 'loglevel', 'frameRangeUtil', 'filterUtil'], function (
+    checkUtil,
+    log,
+    frUtil,
+    filterUtil
+) {
     const { CheckDom, CheckSelection } = checkUtil;
-    const { SelectBefore } = sel;
-    const {addFilterToFrame} = filterUtil;
+    const { addFilterToFrame } = filterUtil;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!CheckDom(doc)) return;
@@ -31,7 +34,6 @@ require(['checkUtil', 'loglevel', 'frameRangeUtil', 'selectionUtil','filterUtil'
         // 检查选择的元件
         if (!CheckSelection(selection, 'selectElement', 'No limit')) return;
 
-
         // 设置关键帧
         frUtil.convertToKeyframesSafety(timeline, [curFrameIndex]);
 
@@ -39,23 +41,21 @@ require(['checkUtil', 'loglevel', 'frameRangeUtil', 'selectionUtil','filterUtil'
 
         // 滤镜--发光--blurX=blurY=15,intensity=100,quality=medium
         var glowFilter = {
-            "name": "glowFilter",
-            "enabled": true,
-            "angle": 45,
-            "blurX": 15,
-            "blurY": 15,
-            "distance": 4,
-            "color": "#FFFFFF",
-            "quality": "medium",
-            "inner": false,
-            "knockout": false,
-            "hideObject": false,
-            "strength": 100
+            name: 'glowFilter',
+            enabled: true,
+            angle: 45,
+            blurX: 15,
+            blurY: 15,
+            distance: 4,
+            color: '#FFFFFF',
+            quality: 'medium',
+            inner: false,
+            knockout: false,
+            hideObject: false,
+            strength: 100
         };
 
         addFilterToFrame(curLayer, curFrameIndex, glowFilter);
-
-
     }
 
     Main();

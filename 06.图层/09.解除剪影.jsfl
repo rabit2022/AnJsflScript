@@ -7,7 +7,11 @@
  * @description:
  */
 
-require(['checkUtil', 'loglevel', 'promptUtil'], function(checkUtil, log, promptUtil) {
+require(['checkUtil', 'loglevel', 'promptUtil'], function (
+    checkUtil,
+    log,
+    promptUtil
+) {
     const { CheckDom, CheckSelection } = checkUtil;
 
     var doc = fl.getDocumentDOM(); //文档
@@ -29,7 +33,6 @@ require(['checkUtil', 'loglevel', 'promptUtil'], function(checkUtil, log, prompt
         if (!CheckSelection(selection, 'selectElement', 'No limit')) return;
 
         doc.setElementProperty('colorMode', 'none');
-
     }
 
     Main();

@@ -39,10 +39,9 @@ define(['linq'], function (Enumerable) {
      */
     LinqUtil.addOffset = function (enumerable, offset) {
         // 使用 linq.js 的 Enumerable 类
-        return enumerable
-            .select(function (item) {
-                return item + offset;
-            });
+        return enumerable.select(function (item) {
+            return item + offset;
+        });
     };
 
     /**

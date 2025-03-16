@@ -7,7 +7,7 @@
  * @description:
  */
 
-require(['checkUtil', 'loglevel'], function(checkUtil, log) {
+require(['checkUtil', 'loglevel'], function (checkUtil, log) {
     const { CheckDom, CheckSelection } = checkUtil;
 
     var doc = fl.getDocumentDOM(); //文档
@@ -34,7 +34,7 @@ require(['checkUtil', 'loglevel'], function(checkUtil, log) {
             log.info('当前帧上没有滤镜');
             return;
         }
-        log.info('当前帧上滤镜：',filters);
+        log.info('当前帧上滤镜：', filters);
     }
 
     Main();

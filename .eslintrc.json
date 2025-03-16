@@ -1,22 +1,48 @@
 ﻿{
+  "root": true,  // 表示这是项目的根配置文件
 //  "parser": "@typescript-eslint/parser",
+  "env": {  // 定义代码运行环境
+    "browser": false,  // 浏览器环境
+    "node": false,     // Node.js 环境
+    "es6": true       // ES6 语法支持
+  },
   "extends": [
-    "airbnb", // 使用 Airbnb 的基础 JavaScript 配置
-    "prettier" // 使用 Prettier 格式化规则
+//    "airbnb", // 使用 Airbnb 的基础 JavaScript 配置
+//    "prettier" // 使用 Prettier 格式化规则
+    "eslint:recommended",  // 使用 ESLint 推荐的规则
+    "plugin:prettier/recommended"  // 集成 Prettier 并关闭 ESLint 中与 Prettier 冲突的规则
   ],
   "plugins": [
     "prettier" // Prettier 插件
   ],
   "parserOptions": {
     "ecmaVersion": 6, // 支持的 ECMAScript 版本
-    "sourceType": "module"
+    "sourceType": "script"
   },
   "rules": {
+    "prettier/prettier": "error",  // 将 Prettier 规则设置为错误级别
     "max-classes-per-file": "error",
-//    "max-classes-per-file": ["error", 10],  // 允许每个文件最多有 5 个类
-//    "no-unused-vars": "off",// 没有使用的变量可以不用声明
-//    "lines-between-class-members": "off"   // 类成员之间不用空行
-    "comma-dangle": ["error", "never"] // 禁止末尾的逗号
+    "comma-dangle": ["error", "never"], // 禁止末尾的逗号
+    "indent": ["off", 4],  // 强制使用 4 空格缩进
+
+//    "strict": "error",  // 强制使用严格模式
+    "no-undef": "off",  // 禁止使用未声明的变量
+    "no-unused-vars": "off",  // 禁止声明未使用的变量
+    "no-eval": "error",  // 禁止使用 eval
+    "no-redeclare": "error",  // 禁止重复声明变量
+    "no-global-assign": "error" , // 禁止修改全局变量
+    //    "no-console": "warn",         // 禁止使用 console，警告级别
+    "no-debugger": "error"  ,     // 禁止使用 debugger
+    "no-with": "off",
+//    "eqeqeq": ["error", "always"] ,  // 强制使用严格等于操作符 === 和 !==
+
+//    "space-before-function-paren": ["error", "always"],// 函数定义时括号前面要有空格,与prettier一致，不可关闭
+
+    "semi": "off",                // 关闭 ESLint 中的分号规则，由 Prettier 控制
+    "quotes": "off",              // 关闭 ESLint 中的引号规则，由 Prettier 控制
+    "arrow-parens": "off",        // 关闭 ESLint 中的箭头函数括号规则，由 Prettier 控制
+    "no-trailing-spaces": "off",  // 关闭 ESLint 中的尾随空格规则，由 Prettier 控制
+    "object-curly-spacing": "off" // 关闭 ESLint 中的对象大括号间距规则，由 Prettier 控制
   },
   "ignorePatterns": ["**/*.d.ts"]
 }

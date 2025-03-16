@@ -76,19 +76,3 @@ flash = fl = App = app = animate = an = new Flash();
  * @bug 如果第三方库，使用了html5的document，会出现跳进不正常的分支的情况,容易出现bug。
  */
 document = fl.getDocumentDOM(); //文档
-
-/**
- * 废弃的语法,虽然可以运行，但是编辑器会提示错误。
- * @deprecated for each(param in [$type, $level]) {} </br>
- * 建议
- * // 使用 for...of  es6
- * for (const param of [$type, $level]) {
- *     console.log(param);
- * }
- *
- * // 或者使用 forEach  es5
- * [$type, $level].forEach(param => {
- *     console.log(param);
- * });
- */
-each = function (param) {};

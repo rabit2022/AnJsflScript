@@ -7,7 +7,14 @@
  * @description:
  */
 
-require(['checkUtil', 'loglevel', 'promptUtil', 'frameRangeUtil', 'selectionUtil', 'elementUtil'], function(checkUtil, log, promptUtil, frUtil, selUtil, elementUtil) {
+require([
+    'checkUtil',
+    'loglevel',
+    'promptUtil',
+    'frameRangeUtil',
+    'selectionUtil',
+    'elementUtil'
+], function (checkUtil, log, promptUtil, frUtil, selUtil, elementUtil) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { SelectBefore } = selUtil;
 
@@ -28,19 +35,22 @@ require(['checkUtil', 'loglevel', 'promptUtil', 'frameRangeUtil', 'selectionUtil
     var curFrameIndex = timeline.currentFrame; //当前帧索引
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
-
     function Main() {
         // 检查选择的元件
         if (!CheckSelection(selection, 'selectElement', 'No limit')) return;
 
         // 请选择模式（1-人白景黑，2人黑景白)：
-        var mode = promptUtil.parseNumber('请选择模式（1-人白景黑，2人黑景白）', 1, '请输入  1或2');
+        var mode = promptUtil.parseNumber(
+            '请选择模式（1-人白景黑，2人黑景白）',
+            1,
+            '请输入  1或2'
+        );
         if (mode === null) return;
 
         log.info('选择模式：' + mode);
 
         // 色彩效果--亮度--人白景黑(100%),人黑景白(-100%)
-        var brightness = (function(mode) {
+        var brightness = (function (mode) {
             switch (mode) {
                 case 1:
                     return 100;
@@ -53,10 +63,8 @@ require(['checkUtil', 'loglevel', 'promptUtil', 'frameRangeUtil', 'selectionUtil
 
         log.info('亮度：' + brightness);
 
-
         // 设置关键帧
         frUtil.convertToKeyframesSafety(timeline, [curFrameIndex]);
-
 
         SelectBefore(selection);
 
@@ -66,8 +74,6 @@ require(['checkUtil', 'loglevel', 'promptUtil', 'frameRangeUtil', 'selectionUtil
         // doc.setElementProperty('brightness', brightness);
 
         doc.setInstanceBrightness(brightness);
-
-
     }
 
     Main();

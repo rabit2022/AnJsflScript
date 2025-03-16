@@ -87,7 +87,6 @@ define(['elementUtil'], function (elementUtil) {
         doc.deleteSelection();
     }
 
-
     /**
      * 在当前帧，选中 之前帧 选中的元素
      * @param {Element[]} selection 选中的元件数组
@@ -113,7 +112,6 @@ define(['elementUtil'], function (elementUtil) {
         }
 
         SelectStart(lastSelection);
-
     }
 
     return {

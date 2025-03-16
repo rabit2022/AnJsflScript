@@ -78,7 +78,6 @@ require([
                 blurY,
                 'high'
             );
-
         }
 
         // 消失效果
