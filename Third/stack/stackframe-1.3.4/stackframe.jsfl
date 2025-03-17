@@ -1,4 +1,4 @@
-(function(root, factory) {
+(function (root, factory) {
     'use strict';
     // Universal Module Definition (UMD) to support AMD, CommonJS/Node.js, Rhino, and browsers.
 
@@ -10,7 +10,7 @@
     } else {
         root.StackFrame = factory();
     }
-}(this, function() {
+})(this, function () {
     'use strict';
     function _isNumber(n) {
         return !isNaN(parseFloat(n)) && isFinite(n);
@@ -21,7 +21,7 @@
     }
 
     function _getter(p) {
-        return function() {
+        return function () {
             return this[p];
         };
     }
@@ -32,7 +32,12 @@
     var arrayProps = ['args'];
     var objectProps = ['evalOrigin'];
 
-    var props = booleanProps.concat(numericProps, stringProps, arrayProps, objectProps);
+    var props = booleanProps.concat(
+        numericProps,
+        stringProps,
+        arrayProps,
+        objectProps
+    );
 
     function StackFrame(obj) {
         if (!obj) return;
@@ -44,42 +49,61 @@
     }
 
     StackFrame.prototype = {
-        getArgs: function() {
+        getArgs: function () {
             return this.args;
         },
-        setArgs: function(v) {
+        setArgs: function (v) {
             if (Object.prototype.toString.call(v) !== '[object Array]') {
                 throw new TypeError('Args must be an Array');
             }
             this.args = v;
         },
 
-        getEvalOrigin: function() {
+        getEvalOrigin: function () {
             return this.evalOrigin;
         },
-        setEvalOrigin: function(v) {
+        setEvalOrigin: function (v) {
             if (v instanceof StackFrame) {
                 this.evalOrigin = v;
             } else if (v instanceof Object) {
                 this.evalOrigin = new StackFrame(v);
             } else {
-                throw new TypeError('Eval Origin must be an Object or StackFrame');
+                throw new TypeError(
+                    'Eval Origin must be an Object or StackFrame'
+                );
             }
         },
 
-        toString: function() {
+        toString: function () {
             var fileName = this.getFileName() || '';
             var lineNumber = this.getLineNumber() || '';
             var columnNumber = this.getColumnNumber() || '';
             var functionName = this.getFunctionName() || '';
             if (this.getIsEval()) {
                 if (fileName) {
-                    return '[eval] (' + fileName + ':' + lineNumber + ':' + columnNumber + ')';
+                    return (
+                        '[eval] (' +
+                        fileName +
+                        ':' +
+                        lineNumber +
+                        ':' +
+                        columnNumber +
+                        ')'
+                    );
                 }
                 return '[eval]:' + lineNumber + ':' + columnNumber;
             }
             if (functionName) {
-                return functionName + ' (' + fileName + ':' + lineNumber + ':' + columnNumber + ')';
+                return (
+                    functionName +
+                    ' (' +
+                    fileName +
+                    ':' +
+                    lineNumber +
+                    ':' +
+                    columnNumber +
+                    ')'
+                );
             }
             return fileName + ':' + lineNumber + ':' + columnNumber;
         }
@@ -94,7 +118,10 @@
         var locationString = str.substring(argsEndIndex + 1);
 
         if (locationString.indexOf('@') === 0) {
-            var parts = /@(.+?)(?::(\d+))?(?::(\d+))?$/.exec(locationString, '');
+            var parts = /@(.+?)(?::(\d+))?(?::(\d+))?$/.exec(
+                locationString,
+                ''
+            );
             var fileName = parts[1];
             var lineNumber = parts[2];
             var columnNumber = parts[3];
@@ -110,18 +137,26 @@
     };
 
     for (var i = 0; i < booleanProps.length; i++) {
-        StackFrame.prototype['get' + _capitalize(booleanProps[i])] = _getter(booleanProps[i]);
-        StackFrame.prototype['set' + _capitalize(booleanProps[i])] = (function(p) {
-            return function(v) {
+        StackFrame.prototype['get' + _capitalize(booleanProps[i])] = _getter(
+            booleanProps[i]
+        );
+        StackFrame.prototype['set' + _capitalize(booleanProps[i])] = (function (
+            p
+        ) {
+            return function (v) {
                 this[p] = Boolean(v);
             };
         })(booleanProps[i]);
     }
 
     for (var j = 0; j < numericProps.length; j++) {
-        StackFrame.prototype['get' + _capitalize(numericProps[j])] = _getter(numericProps[j]);
-        StackFrame.prototype['set' + _capitalize(numericProps[j])] = (function(p) {
-            return function(v) {
+        StackFrame.prototype['get' + _capitalize(numericProps[j])] = _getter(
+            numericProps[j]
+        );
+        StackFrame.prototype['set' + _capitalize(numericProps[j])] = (function (
+            p
+        ) {
+            return function (v) {
                 if (!_isNumber(v)) {
                     throw new TypeError(p + ' must be a Number');
                 }
@@ -131,13 +166,17 @@
     }
 
     for (var k = 0; k < stringProps.length; k++) {
-        StackFrame.prototype['get' + _capitalize(stringProps[k])] = _getter(stringProps[k]);
-        StackFrame.prototype['set' + _capitalize(stringProps[k])] = (function(p) {
-            return function(v) {
+        StackFrame.prototype['get' + _capitalize(stringProps[k])] = _getter(
+            stringProps[k]
+        );
+        StackFrame.prototype['set' + _capitalize(stringProps[k])] = (function (
+            p
+        ) {
+            return function (v) {
                 this[p] = String(v);
             };
         })(stringProps[k]);
     }
 
     return StackFrame;
-}));
+});

@@ -1,5 +1,5 @@
-stackframe 
-==========
+# stackframe
+
 ## JS Object representation of a stack frame
 
 [![Build Status](https://img.shields.io/github/workflow/status/stacktracejs/stackframe/Continuous%20Integration/master?logo=github&style=flat-square)](https://github.com/stacktracejs/stackframe/actions?query=workflow%3AContinuous+Integration+branch%3Amaster)
@@ -15,6 +15,7 @@ Underlies functionality of other modules within [stacktrace.js](https://www.stac
 Written to closely resemble StackFrame representations in [Gecko](http://mxr.mozilla.org/mozilla-central/source/xpcom/base/nsIException.idl#14) and [V8](https://github.com/v8/v8/wiki/Stack%20Trace%20API)
 
 ## Usage
+
 ```js
 // Create StackFrame and set properties
 var stackFrame = new StackFrame({
@@ -22,7 +23,7 @@ var stackFrame = new StackFrame({
     args: ['args'],
     fileName: 'http://localhost:3000/file.js',
     lineNumber: 1,
-    columnNumber: 3288, 
+    columnNumber: 3288,
     isEval: true,
     isNative: false,
     source: 'ORIGINAL_STACK_LINE'
@@ -38,7 +39,7 @@ stackFrame.setArgs([])
 stackFrame.getArgs()         // => []
 
 stackFrame.fileName          // => 'http://localhost:3000/file.min.js'
-stackFrame.setFileName('http://localhost:3000/file.js')  
+stackFrame.setFileName('http://localhost:3000/file.js')
 stackFrame.getFileName()     // => 'http://localhost:3000/file.js'
 
 stackFrame.lineNumber        // => 1
@@ -69,9 +70,11 @@ stackFrame.toString() // => 'funName(args)@http://localhost:3000/file.js:325:20'
 ```
 
 ## Browser Support
+
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/stacktracejs.svg)](https://saucelabs.com/u/stacktracejs)
 
 ## Installation
+
 ```
 npm install stackframe
 bower install stackframe

@@ -3,7 +3,7 @@
 // Definitions by: Eric Wendelin <https://www.eriwen.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace StackFrame;  // global for non-module UMD users
+export as namespace StackFrame; // global for non-module UMD users
 
 export = StackFrame;
 

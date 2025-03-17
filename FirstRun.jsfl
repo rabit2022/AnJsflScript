@@ -72,30 +72,34 @@
                 ? path
                 : curWorkingDirectory + '/' + path;
 
-            // fl.trace('[importFlashScripts] Imported script file [' + scriptURI + ']');
+            // 结尾没有后缀名时，添加.jsfl后缀名
+            if (!/\.jsfl$/.test(scriptURI)) {
+                scriptURI += '.jsfl';
+            }
+
             // 执行脚本
             var exists = fileExists(scriptURI);
             if (exists) {
                 fl.runScript(scriptURI);
             } else {
-                fl.trace(
+                var message =
                     '[importFlashScripts] Error: Cannot find script file [' +
-                        scriptURI +
-                        ']'
-                );
-                throw new Error(
-                    '[importFlashScripts] Error: Cannot find script file [' +
-                        scriptURI +
-                        ']'
-                );
+                    scriptURI +
+                    ']';
+                fl.trace(message);
+                throw new Error(message);
             }
         });
     }
 
     function Main() {
         window.importFlashScripts = importFlashScripts;
+
+        var config = {
+            require: 'Third/modules/requirejs-2.3.7/require'
+        };
         // 导入模块,相对路径导入
-        importFlashScripts('Third/requirejs-2.3.7/require.jsfl');
+        importFlashScripts(config.require);
 
         /**
          * 项目文件夹路径
@@ -108,7 +112,6 @@
             './require-config',
 
             // 导入shims, 避免其他模块依赖时报错
-            // corejs部分方法，如Object.create,String.prototype.includes等方法，有bug,无法使用
             'es5-shim',
             'es5-sham',
             'es6-shim',
@@ -127,7 +130,6 @@
         });
 
         // 导入完成
-        // print('=============Core modules imported.=============');
         console.info('=============Core modules imported.=============');
     }
 
