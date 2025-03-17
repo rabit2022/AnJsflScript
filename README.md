@@ -4,7 +4,7 @@
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)]()
 [![Adobe Animate 2024](https://badgen.net/badge/Adobe%20Animate/2024/blue?icon=adobe&labelColor=black)](https://www.adobe.com/products/animate.html)
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Documentation](https://badgen.net/badge/Documentation/Available/orange)](https://github.com/rabit2022/AnJsflScript#readme)
+[![Documentation](https://badgen.net/badge/Documentation/Available/orange)](https://github.com/rabit2022/AnJsflScript/tree/tools)
 
 ---
 
@@ -102,10 +102,7 @@
 
 ### **文档** 文件夹
 
-- **功能**：
-    - 存放与脚本相关的文档文件，例如使用说明、API 文档、教程、例子等。这些文档为用户提供脚本的详细功能描述、使用方法和示例，帮助用户更好地理解和使用脚本。
-- **使用方法**：
-    - 建议开发者阅读，用户可以根据需要阅读文档。
+* 已经移动到 [新的分支](https://github.com/rabit2022/AnJsflScript/tree/tools)
 
 ---
 
@@ -164,7 +161,7 @@
 以下代码展示了在 Adobe Animate 2024 中可以使用的 ES6 特性：
 
 ```javascript
-(function () {
+(function() {
     const fruits = ['apple', 'banana', 'cherry'];
     const [firstFruit, secondFruit] = fruits;
     console.log(firstFruit); // 输出: apple
@@ -184,6 +181,7 @@
   ![访问统计](https://profile-counter.glitch.me/AnJsflScript/count.svg)
 
 ---
+
 
 希望这份文档能帮助你更好地了解和使用 AnJsflScript。如果你有任何疑问或建议，请随时与我们联系。感谢你的支持！
 
