@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RequireJS 示例</title>
+    <script data-main="js/app.js" src="js/require.js"></script>
+    <style>
+        #output {
+            width: 100%;
+            height: 200px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 10px;
+            font-family: monospace;
+            background-color: #f9f9f9;
+            white-space: pre-wrap; /* 保留空白和换行 */
+        }
+    </style>
+</head>
+<body>
+    <h1>RequireJS 示例</h1>
+    <div id="output"></div>
+
+    <script>
+        // 创建一个简单的日志输出函数
+        function log(message) {
+            var output = document.getElementById('output');
+            output.innerHTML += message.replace(/\n/g, '<br>') + '<br>';
+        }
+
+        // 模拟日志输出
+        // log('Loading app.js');
+    </script>
+</body>
+</html>
