@@ -4,7 +4,11 @@ export function IsNullOrEmpty(value: any): boolean;
 
 export function IsEmpty(value: any): boolean;
 
-// export function INHERIT_MACRO(subCls_CLASS: Function, superCls_CLASS: Function): void;
+export function INHERIT_MACRO(
+    child: Function,
+    $parent: Function,
+    $properties?: object
+): void;
 
 export function OF_MACRO<T>(
     iterable: T[],

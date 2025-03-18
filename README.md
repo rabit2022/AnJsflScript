@@ -102,7 +102,7 @@
 
 ### **文档** 文件夹
 
-* 已经移动到 [新的分支](https://github.com/rabit2022/AnJsflScript/tree/tools)
+- 已经移动到 [新的分支](https://github.com/rabit2022/AnJsflScript/tree/tools)
 
 ---
 
@@ -128,6 +128,7 @@
 
 [![WindowSWF](https://img.shields.io/badge/WindowSWF-Gitee-4caf50)](https://gitee.com/ninge/WindowSWF/tree/master/)
 [![xJSFL](https://img.shields.io/badge/xJSFL-GitHub-2196f3)](https://github.com/davestewart/xJSFL)
+[![FlashTool](https://img.shields.io/badge/FlashTool-GitHub-2196f3)](https://github.com/hufang360/FlashTool)
 
 [![SAT.js](https://img.shields.io/badge/SAT.js-v0.9.0-f44336)](https://github.com/jriecken/sat-js)
 [![RequireJS](https://img.shields.io/badge/RequireJS-v2.3.7-ffeb3b)](https://github.com/requirejs/requirejs)
@@ -161,7 +162,7 @@
 以下代码展示了在 Adobe Animate 2024 中可以使用的 ES6 特性：
 
 ```javascript
-(function() {
+(function () {
     const fruits = ['apple', 'banana', 'cherry'];
     const [firstFruit, secondFruit] = fruits;
     console.log(firstFruit); // 输出: apple
@@ -181,7 +182,6 @@
   ![访问统计](https://profile-counter.glitch.me/AnJsflScript/count.svg)
 
 ---
-
 
 希望这份文档能帮助你更好地了解和使用 AnJsflScript。如果你有任何疑问或建议，请随时与我们联系。感谢你的支持！
 

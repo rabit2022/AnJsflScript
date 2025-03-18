@@ -153,15 +153,32 @@ define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
 
     /**
      * 检查文档是否存在
-     * @param {Document} doc
-     * @returns {boolean}
+     * @param {Document} [doc] - 文档对象。
+     * @returns {Document}
      */
     function CheckDom(doc) {
+        if (doc === undefined) doc = fl.getDocumentDOM();
+
         if (doc == null) {
-            alert('请打开 [.fla] 文件');
-            return false;
+            alert('请打开 一个 [.fla] 文件 或者 创建一个新文档');
+            return;
         }
-        return true;
+        return doc;
+    }
+
+    /**
+     * 检查时间轴是否存在
+     * @param {Timeline} [timeline] - 时间轴对象。
+     * @returns {Timeline}
+     */
+    function CheckTimeline(timeline) {
+        var doc = CheckDom();
+        if (timeline === undefined) timeline = doc.getTimeline();
+        if (timeline == null) {
+            alert('当前文档没有时间轴');
+            return;
+        }
+        return timeline;
     }
 
     /**
@@ -182,6 +199,7 @@ define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
     return {
         CheckSelection: CheckSelection,
         CheckDom: CheckDom,
+        CheckTimeline: CheckTimeline,
         CheckSelectedFrames: CheckSelectedFrames
     };
 });

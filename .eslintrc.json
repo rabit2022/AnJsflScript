@@ -35,6 +35,7 @@
     "no-debugger": "error"  ,     // 禁止使用 debugger
     "no-with": "off",
 //    "eqeqeq": ["error", "always"] ,  // 强制使用严格等于操作符 === 和 !==
+    "no-inner-declarations": "off",
 
 //    "space-before-function-paren": ["error", "always"],// 函数定义时括号前面要有空格,与prettier一致，不可关闭
 

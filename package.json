@@ -21,7 +21,8 @@
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-prettier": "^5.2.3",
-    "prettier": "^3.5.2"
+    "prettier": "^3.5.2",
+    "tape": "^5.9.0"
   },
   "scripts": {
     "format": "prettier --write \"**/*.{js,ts,css,md,jsfl}\"",

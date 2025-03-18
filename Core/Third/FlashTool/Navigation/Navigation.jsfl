@@ -7,114 +7,98 @@
  * @description:
  */
 
-define(['Class'], function(Class) {
-    // function Navigation() {
-    // }
-    //
-    // /**
-    //  * 移动到开头 (Home)
-    //  */
-    // Navigation.home = function() {
-    //     throw new Error('Not implemented');
-    // };
-    //
-    // /**
-    //  * 移动到结尾 (End)
-    //  */
-    // Navigation.end = function() {
-    //     throw new Error('Not implemented');
-    //
-    // };
-    //
-    // /**
-    //  * 移动到上一个关键帧 (Page Up)
-    //  */
-    // Navigation.pageUp = function() {
-    //     throw new Error('Not implemented');
-    // };
-    //
-    // /**
-    //  * 移动到下一个关键帧 (Page Down)
-    //  */
-    // Navigation.pageDown = function() {
-    //     throw new Error('Not implemented');
-    // };
-    //
-    // /**
-    //  * 移动到当前图层的上一个关键帧 (Shift + Page Up)
-    //  */
-    // Navigation.shiftPageUp = function() {
-    //     throw new Error('Not implemented');
-    // };
-    //
-    // /**
-    //  * 移动到当前图层的下一个关键帧 (Shift + Page Down)
-    //  */
-    // Navigation.shiftPageDown = function() {
-    //     throw new Error('Not implemented');
-    // };
-    Navigation = {
-        home: function() {
-            throw new Error('Not implemented');
-        },
-        end: function() {
-            throw new Error('Not implemented');
-        },
-        pageUp: function() {
-            throw new Error('Not implemented');
-        },
-        pageDown: function() {
-            throw new Error('Not implemented');
-        },
-        shiftPageUp: function() {
-            throw new Error('Not implemented');
-        },
-        shiftPageDown: function() {
-            throw new Error('Not implemented');
-        }
+define(['Class', 'checkUtil', 'ErrorDefinitions'], function (
+    Class,
+    checkUtil,
+    ErrorDefinitions
+) {
+    const { CheckTimeline } = checkUtil;
+    const { NotImplementedError } = ErrorDefinitions;
+
+    // region Navigation
+    /**
+     * 导航类
+     * @class NavigationAbs
+     * @constructor
+     * @abstract
+     */
+    function NavigationAbs() {}
+
+    /**
+     * 移动到开头 (Home)
+     */
+    NavigationAbs.home = function () {
+        throw new NotImplementedError();
     };
 
-    Navigation = Class.extend(Navigation);
-
-    function TimelineNavigation() {
-    }
-
-    // 静态方法：检查文档和时间轴是否可用
-    TimelineNavigation.checkDocumentAndTimeline = function() {
-        const doc = fl.getDocumentDOM();
-        if (!doc) {
-            alert('请打开fla文档');
-            return null;
-        }
-
-        const timeline = doc.getTimeline();
-        if (!timeline) {
-            alert('没有时间轴');
-            return null;
-        }
-
-        return { doc: doc, timeline: timeline };
+    /**
+     * 移动到结尾 (End)
+     */
+    NavigationAbs.end = function () {
+        throw new NotImplementedError();
     };
+
+    /**
+     * 移动到上一个关键帧 (Page Up)
+     */
+    NavigationAbs.pageUp = function () {
+        throw new NotImplementedError();
+    };
+
+    /**
+     * 移动到下一个关键帧 (Page Down)
+     */
+    NavigationAbs.pageDown = function () {
+        throw new NotImplementedError();
+    };
+
+    /**
+     * 移动到当前图层的上一个关键帧 (Shift + Page Up)
+     */
+    NavigationAbs.shiftPageUp = function () {
+        throw new NotImplementedError();
+    };
+
+    /**
+     * 移动到当前图层的下一个关键帧 (Shift + Page Down)
+     */
+    NavigationAbs.shiftPageDown = function () {
+        throw new NotImplementedError();
+    };
+
+    NavigationAbs = Class.extend(NavigationAbs);
+
+    // endregion Navigation
+
+    /**
+     * 时间轴导航类
+     * @class TimelineNavigation
+     * @constructor
+     // * @extends NavigationAbs
+     * @see https://github.com/hufang360/FlashTool
+     * @note 适合做一个单独的面板使用，不建议在脚本中使用
+     */
+    function TimelineNavigation() {}
 
     // 静态方法：移动到时间轴开头 (Home)
-    TimelineNavigation.home = function() {
-        const { timeline } = TimelineNavigation.checkDocumentAndTimeline();
+    TimelineNavigation.home = function () {
+        const timeline = CheckTimeline();
         if (!timeline) return;
 
         timeline.currentFrame = 0;
     };
 
     // 静态方法：移动到时间轴末尾 (End)
-    TimelineNavigation.end = function() {
-        const { timeline } = TimelineNavigation.checkDocumentAndTimeline();
+    TimelineNavigation.end = function () {
+        const timeline = CheckTimeline();
         if (!timeline) return;
 
         timeline.currentFrame = timeline.frameCount - 1;
     };
 
     // 静态方法：移动到前一个关键帧（所有图层） (Page Up)
-    TimelineNavigation.pageUp = function() {
-        const { timeline } = TimelineNavigation.checkDocumentAndTimeline();
+    TimelineNavigation.pageUp = function () {
+        const timeline = CheckTimeline();
         if (!timeline) return;
 
         var key = 0;
@@ -157,8 +141,8 @@ define(['Class'], function(Class) {
     };
 
     // 静态方法：移动到下一个关键帧（所有图层） (Page Down)
-    TimelineNavigation.pageDown = function() {
-        const { timeline } = TimelineNavigation.checkDocumentAndTimeline();
+    TimelineNavigation.pageDown = function () {
+        const timeline = CheckTimeline();
         if (!timeline) return;
 
         var key = timeline.frameCount - 1;
@@ -205,8 +189,8 @@ define(['Class'], function(Class) {
     };
 
     // 静态方法：移动到当前图层的前一个关键帧 (Shift + Page Up)
-    TimelineNavigation.shiftPageUp = function() {
-        const { timeline } = TimelineNavigation.checkDocumentAndTimeline();
+    TimelineNavigation.shiftPageUp = function () {
+        const timeline = CheckTimeline();
         if (!timeline) return;
 
         const layer = timeline.layers[timeline.currentLayer];
@@ -223,8 +207,8 @@ define(['Class'], function(Class) {
     };
 
     // 静态方法：移动到当前图层的下一个关键帧 (Shift + Page Down)
-    TimelineNavigation.shiftPageDown = function() {
-        const { timeline } = TimelineNavigation.checkDocumentAndTimeline();
+    TimelineNavigation.shiftPageDown = function () {
+        const timeline = CheckTimeline();
         if (!timeline) return;
 
         const layer = timeline.layers[timeline.currentLayer];
@@ -244,10 +228,9 @@ define(['Class'], function(Class) {
         }
     };
 
-    // TimelineNavigation = Navigation.extend(TimelineNavigation);
+    TimelineNavigation = NavigationAbs.extend(TimelineNavigation);
 
     return {
-        Navigation: Navigation,
         TimelineNavigation: TimelineNavigation
     };
 });

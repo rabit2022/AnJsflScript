@@ -22,20 +22,6 @@
 
 /// <reference path="SAT.d.ts" />
 
-/**
- * @param {*} root - The global scope
- * @param {Function} factory - Factory that creates SAT module
- */
-// (function (root, factory) {
-//     'use strict';
-//     if (typeof define === 'function' && define['amd']) {
-//         define(factory);
-//     } else if (typeof exports === 'object') {
-//         module['exports'] = factory();
-//     } else {
-//         root['SAT'] = factory();
-//     }
-// })(this, function () {
 define(['FUNC', 'sprintf'], function (FUNC, sp) {
     const sprintf = sp.sprintf;
     const PROPERTY = FUNC.PROPERTY;

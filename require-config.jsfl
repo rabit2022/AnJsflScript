@@ -29,14 +29,16 @@ require.config({
         lodash: 'Third/utils/lodash-4.17.21/lodash',
         sprintf: 'Third/utils/sprintf-js-1.1.3/sprintf',
 
-        // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Core\Third\Navigation\Navigation.jsfl
-        Navigation: 'Core/Third/Navigation/Navigation',
         Constants: 'Core/Constants/Constants',
+        ErrorDefinitions: 'Core/myShim/ErrorDefinitions',
         FUNC: 'Core/myShim/FUNC',
         frameRange: 'Core/Object/frameRange',
         frameRangeUtil: 'Core/Object/frameRangeUtil',
         moreElement: 'Core/Object/moreElement',
         moreElementUtil: 'Core/Object/moreElementUtil',
+        LayerManager: 'Core/Third/FlashTool/LayerManager',
+        LibraryManager: 'Core/Third/FlashTool/LibraryManager',
+        Navigation: 'Core/Third/FlashTool/Navigation/Navigation',
         linqUtil: 'Core/Third/linqUtil',
         SAT: 'Core/Third/sat-js-0.9.0/SAT',
         satUtil: 'Core/Third/satUtil',

@@ -29,7 +29,12 @@ define(['sprintf'], function (sp) {
         if (value == null) return true;
 
         // 检查空字符串
-        if (typeof value === 'string' && value.trim() === '') return true;
+        var STRING_BLACK = / \n\r\t/g;
+        if (
+            typeof value === 'string' &&
+            value.trim().replace(STRING_BLACK, '').length === 0
+        )
+            return true;
 
         // 检查空数组
         if (Array.isArray(value) && value.length === 0) return true;
@@ -45,66 +50,83 @@ define(['sprintf'], function (sp) {
         return false; // 其他情况视为非空
     }
 
-    // /**
-    //  * 封装继承函数，用于实现子类继承父类。
-    //  * @param {Function} subCls_CLASS - 子类的构造函数（类名称）
-    //  * @param {Function} superCls_CLASS - 父类的构造函数（类名称）
-    //  * @note
-    //  * 如何在子类中模拟 `super` 的行为：
-    //  * 1. 在子类构造函数中调用父类构造函数：
-    //  *    使用 `superCls_CLASS.call(this, ...args)` 调用父类构造函数。
-    //  *    示例：`superCls_CLASS.call(this, name);`
-    //  *
-    //  * 2. 在子类方法中调用父类方法：
-    //  *    使用 `this._super.methodName.call(this, ...args)` 调用父类方法。
-    //  *    示例：`this._super.sayHello.call(this);`
-    //  *
-    //  * 命名约定：
-    //  * - `_MACRO` 或 `_M`：类似宏的函数，表示这是一个工具函数。
-    //  * - `_CLASS` 或 `_Cls`：表示参数类型是类（构造函数）。
-    //  * - `_Proto` 或 `_Prototype`：强调这个构造函数是基于原型链实现的。
-    //  * @example
-    //  * // 定义父类
-    //  * function SuperClass(name) {
-    //  *   this.name = name;
-    //  * }
-    //  *
-    //  * SuperClass.prototype.sayHello = function () {
-    //  *   return "Hello, my name is " + this.name + ".";
-    //  * };
-    //  *
-    //  * // 定义子类
-    //  * function SubClass(name, age) {
-    //  *   SuperClass.call(this, name); // 调用父类构造函数
-    //  *   this.age = age;
-    //  * }
-    //  *
-    //  * // 使用 INHERIT_MACRO 实现继承
-    //  * INHERIT_MACRO(SubClass, SuperClass);
-    //  *
-    //  * // 重写父类方法
-    //  * SubClass.prototype.sayHello = function () {
-    //  *   var parentMessage = this._super.sayHello.call(this); // 调用父类方法
-    //  *   return parentMessage + " I am " + this.age + " years old.";
-    //  * };
-    //  *
-    //  * // 测试
-    //  * var instance = new SubClass("John", 25);
-    //  * console.writeToLog(instance.sayHello()); // 输出：Hello, my name is John. I am 25 years old.
-    //  */
-    // function INHERIT_MACRO(subCls_CLASS, superCls_CLASS) {
-    //     // 创建一个临时构造函数用于继承父类的原型
-    //     function TempConstructor() {}
-    //
-    //     TempConstructor.prototype = superCls_CLASS.prototype;
-    //
-    //     // 将子类的原型指向父类的原型
-    //     subCls_CLASS.prototype = new TempConstructor();
-    //     subCls_CLASS.prototype.constructor = subCls_CLASS; // 修复子类的 constructor 指针
-    //
-    //     // 保留对父类原型的引用，方便调用父类方法
-    //     subCls_CLASS.prototype._super = superCls_CLASS.prototype;
-    // }
+    /**
+     * Subclasses an class from a parent class (note that $ arguments can be passed in any order)
+     * 封装继承函数，用于实现子类继承父类。
+     * @param    {Function}    child            The child class
+     * @param    {Function}    $parent            The parent class
+     * @param    {Object}    $properties        Properties to add to the chlid class
+     * @see https://github.com/davestewart/xJSFL
+     * @note
+     * 如何在子类中模拟 `super` 的行为：
+     * 1. 在子类构造函数中调用父类构造函数：
+     *    使用 `superCls_CLASS.call(this, ...args)` 调用父类构造函数。
+     *    示例：`superCls_CLASS.call(this, name);`
+     *
+     * 2. 在子类方法中调用父类方法：
+     *    使用 `this._super.methodName.call(this, ...args)` 调用父类方法。
+     *    示例：`this._super.sayHello.call(this);`
+     *
+     * 命名约定：
+     * - `_MACRO` 或 `_M`：类似宏的函数，表示这是一个工具函数。
+     * - `_CLASS` 或 `_Cls`：表示参数类型是类（构造函数）。
+     * - `_Proto` 或 `_Prototype`：强调这个构造函数是基于原型链实现的。
+     */
+    function INHERIT_MACRO(child, $parent, $properties) {
+        // variables
+        var parent, properties;
+
+        // grab correct arguments
+        // for each(var arg in [$parent, $properties])
+        [$parent, $properties].forEach(function (arg) {
+            if (typeof arg === 'function') parent = arg;
+            else if (typeof arg === 'object') properties = arg;
+        });
+
+        // extend child from a parent
+        if (parent) {
+            // set up the inheritance chain
+            function Inheritance() {
+                //this.superConstructor		= parent;
+                //this.superClass				= parent.prototype;
+            }
+
+            Inheritance.prototype = parent.prototype;
+            child.prototype = new Inheritance();
+            child.prototype.constructor = child;
+
+            // create references to parent
+            child.superConstructor = parent;
+            child.superClass = parent.prototype;
+
+            // create super methods
+            // can this be done?
+        }
+
+        // add properties to child
+        if (properties) {
+            for (var name in properties) {
+                // check for accessors
+                var getter = properties.__lookupGetter__(name);
+                var setter = properties.__lookupSetter__(name);
+
+                // assign accessors
+                if (getter || setter) {
+                    if (getter) {
+                        child.prototype.__defineGetter__(name, getter);
+                    }
+                    if (setter) {
+                        child.prototype.__defineSetter__(name, setter);
+                    }
+                }
+
+                // assign vanilla properties
+                else {
+                    child.prototype[name] = properties[name];
+                }
+            }
+        }
+    }
 
     /**
      * 遍历可迭代对象（数组、类数组对象、普通对象、字典对象），并对每个元素执行回调函数。
@@ -288,7 +310,7 @@ define(['sprintf'], function (sp) {
     return {
         IsNullOrEmpty: IsNullOrEmpty,
         IsEmpty: IsEmpty,
-        // INHERIT_MACRO: INHERIT_MACRO,
+        INHERIT_MACRO: INHERIT_MACRO,
         OF_MACRO: OF_MACRO,
         PROPERTY: PROPERTY,
         DYNAMIC_PARAMS: DYNAMIC_PARAMS

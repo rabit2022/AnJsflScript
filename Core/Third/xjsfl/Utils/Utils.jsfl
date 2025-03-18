@@ -184,113 +184,6 @@ define(function() {
                 return chain;
             },
 
-            // /**
-            //  * Get the arguments of a function as an Array
-            //  * @param	{Arguments}	args		An arguments object
-            //  * @param	{Number}	startIndex	Optional index of the argument from which to start from
-            //  * @param	{Number}	endIndex	Optional index of the argument at which to end
-            //  * @returns	{Array}					An Array of parameters
-            //  */
-            // getArguments:function(args, startIndex, endIndex)
-            // {
-            // 	return params = Array.slice.apply(this, [args, startIndex || 0, endIndex || args.length]);
-            // },
-            //
-            // /**
-            //  * Get the arguments of a function as an Object
-            //  * @param	{Function}	fn		A function
-            //  * @param	{Arguments}	args	The function instance's arguments
-            //  * @returns	{Object}			An object containing the named function arguments
-            //  */
-            // getParams:function(fn, args)
-            // {
-            // 	var source		= Utils.parseFunction(fn);
-            // 	var args		= Utils.getArguments(args);
-            // 	return Utils.combine(source.params, args);
-            // },
-
-            /**
-             * Subclasses an class from a parent class (note that $ arguments can be passed in any order)
-             * @param    {Function}    child            The child class
-             * @param    {Function}    $parent            The parent class
-             * @param    {Object}    $properties        Properties to add to the chlid class
-             */
-            makeClass: function(child, $parent, $properties) {
-                // variables
-                var parent, properties;
-
-                // grab correct arguments
-                for each(var arg in [$parent, $properties])
-                {
-                    if (typeof arg === 'function')
-                        parent = arg;
-                    else if (typeof arg === 'child')
-                        properties = arg;
-                }
-
-                // extend child from a parent
-                if (parent) {
-                    // set up the inheritance chain
-                    function Inheritance() {
-                        //this.superConstructor		= parent;
-                        //this.superClass				= parent.prototype;
-                    }
-
-                    Inheritance.prototype = parent.prototype;
-                    child.prototype = new Inheritance();
-                    child.prototype.constructor = child;
-
-                    // create references to parent
-                    child.superConstructor = parent;
-                    child.superClass = parent.prototype;
-
-                    // create super methods
-                    // can this be done?
-                }
-
-                // add properties to child
-                if (properties) {
-                    for (var name in properties) {
-                        // check for accessors
-                        var getter = properties.__lookupGetter__(name);
-                        var setter = properties.__lookupSetter__(name);
-
-                        // assign accessors
-                        if (getter || setter) {
-                            if (getter) {
-                                child.prototype.__defineGetter__(name, getter);
-                            }
-                            if (setter) {
-                                child.prototype.__defineSetter__(name, setter);
-                            }
-                        }
-
-                        // assign vanilla properties
-                        else {
-                            child.prototype[name] = properties[name];
-                        }
-                    }
-                }
-
-            },
-
-            // /**
-            //  * Parses a function source into an object
-            //  * @param	{Function}	fn		A reference to a function
-            //  * @param	{String}	name	An optional name for anonymous functions
-            //  * @returns	{Object}			An Object with name and params properties
-            //  */
-            // parseFunction:function(fn, name)
-            // {
-            // 	var matches		= fn.toSource().match(/function\s*((\w*)\s*\(([^\)]*)\))/);
-            // 	if(matches)
-            // 	{
-            // 		var params = matches[3].match(/([$\w]+)/g);
-            // 		return {signature:matches[0].replace(/function (\w+)/, '$1'), name:matches[2] || name, params:params};
-            // 	}
-            // 	return {name:null, params:[], signature:''};
-            // },
-
 
             // ---------------------------------------------------------------------------------------------------------------
             // # File and URI methods
@@ -669,4 +562,5 @@ define(function() {
             }
         };
 
+    return Utils;
 });
