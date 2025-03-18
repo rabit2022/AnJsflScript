@@ -12,7 +12,6 @@ require.config({
     baseUrl: window.$ProjectFileDir$, // 设置模块的基础路径
     // baseUrl: '.', // 设置模块的基础路径
     paths: {
-        'core-js': 'Third/shims/core-js-3.41.0',
         loglevel: 'Third/log/loglevel-1.9.2/loglevel',
         'path-browserify':
             'Third/modules/path-browserify-1.0.1/path-browserify',
@@ -21,12 +20,14 @@ require.config({
         'es5-shim': 'Third/shims/es5-shim-4.6.7/es5-shim',
         'es6-sham': 'Third/shims/es6-shim-0.35.4/es6-sham',
         'es6-shim': 'Third/shims/es6-shim-0.35.4/es6-shim',
+        'es7-shim': 'Third/shims/es7-shim-6.0.0/es7-shim',
         json3: 'Third/shims/json3-3.3.3/json3',
         'error-stack-parser':
             'Third/stack/error-stack-parser-3.0.0/error-stack-parser',
         stackframe: 'Third/stack/stackframe-1.3.4/stackframe',
         linq: 'Third/utils/linq-4.0.3/linq',
         lodash: 'Third/utils/lodash-4.17.21/lodash',
+        rxjs: 'Third/utils/rxjs-7.8.2/rxjs.umd',
         sprintf: 'Third/utils/sprintf-js-1.1.3/sprintf',
 
         Constants: 'Core/Constants/Constants',

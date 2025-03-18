@@ -10,8 +10,8 @@
 
 define([
     'sprintf',
-    'error-stack-parser',
-    'core-js/stable/object/entries'
+    'error-stack-parser'
+    // 'core-js/stable/object/entries'
 ], function ({ sprintf }, ErrorStackParser) {
     // --------------------------------------------------------------------------------
     // Log constants
