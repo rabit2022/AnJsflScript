@@ -307,12 +307,47 @@ define(['sprintf'], function (sp) {
         return result;
     }
 
+    /**
+     * 安全获取对象属性值，如果属性不存在则返回默认值。
+     * 模仿  es2020 的?. 运算符。
+     * @template T 泛型
+     * @param {Object} rootObj - 根对象
+     * @param {...string} safeGetProp - 安全获取属性路径
+     * @param {T} defaultValue - 默认值
+     * @returns {T} - 属性值或默认值
+     */
+    function SAFE_GET_MACRO() {
+        // 获取所有参数
+        var args = Array.prototype.slice.call(arguments);
+        var props = args.slice(1); // 去掉第一个参数，剩下的都是属性路径或默认值
+
+        // 最后一个参数作为默认值
+        var defaultValue = args[args.length - 1];
+        // 去除最后一个参数
+        props.pop();
+
+        // 如果根对象为空，直接返回默认值
+        if (!rootObj) return defaultValue;
+
+        // 遍历属性路径
+        var current = rootObj;
+        for (var i = 0; i < props.length; i++) {
+            if (current[props[i]] === undefined) {
+                return defaultValue;
+            }
+            current = current[props[i]];
+        }
+
+        return current;
+    }
+
     return {
         IsNullOrEmpty: IsNullOrEmpty,
         IsEmpty: IsEmpty,
         INHERIT_MACRO: INHERIT_MACRO,
         OF_MACRO: OF_MACRO,
         PROPERTY: PROPERTY,
-        DYNAMIC_PARAMS: DYNAMIC_PARAMS
+        DYNAMIC_PARAMS: DYNAMIC_PARAMS,
+        SAFE_GET_MACRO: SAFE_GET_MACRO
     };
 });

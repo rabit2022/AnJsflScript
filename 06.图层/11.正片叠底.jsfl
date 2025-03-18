@@ -79,7 +79,8 @@ require([
             // 某一个图层的 选中的帧范围
             var selectedFr = frs[i];
             // 某一个图层的 关键帧范围 列表
-            var keyFrameRanges = frUtil.getKeyFrameRanges(layers, selectedFr);
+            var _layer = layers[selectedFr.layerIndex];
+            var keyFrameRanges = frUtil.getKeyFrameRanges(layers, _layer);
 
             // 选中范围 包含的 关键帧范围
             var keyFr = frUtil.getSplitFrs(selectedFr, keyFrameRanges);

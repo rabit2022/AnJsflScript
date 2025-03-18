@@ -1,6 +1,6 @@
-define(['checkUtil', 'FUNC'], function (checkUtil, FUNC) {
+define(['checkUtil', 'FUNC', 'loglevel'], function (checkUtil, FUNC, log) {
     const { CheckDom, CheckTimeline } = checkUtil;
-    const { IsEmpty } = FUNC;
+    const { IsEmpty, SAFE_GET_MACRO } = FUNC;
 
     //设置根据曾名称要忽略的层
     var IGNORE_LAYER_BY_NAME =
@@ -22,11 +22,12 @@ define(['checkUtil', 'FUNC'], function (checkUtil, FUNC) {
         doc.save();
 
         emptyLayers.reverse();
-        for (let i = 0; i < emptyLayers.length; i++) {
-            tl.deleteLayer(emptyLayers[i]);
+        for (var i = 0; i < emptyLayers.length; i++) {
+            tl.devareLayer(emptyLayers[i]);
         }
 
-        alert(`已删除 ${emptyLayers.length} 个空白图层`);
+        // alert(`已删除 ${emptyLayers.length} 个空白图层`);
+        console.info('已删除 %d 个空白图层', emptyLayers.length);
     };
 
     // 静态方法：获取空白图层的索引列表
@@ -34,7 +35,7 @@ define(['checkUtil', 'FUNC'], function (checkUtil, FUNC) {
         const total = tl.layers.length;
         const emptyLayers = [];
 
-        for (let i = 0; i < total; i++) {
+        for (var i = 0; i < total; i++) {
             const layer = tl.layers[i];
             // 忽略特定名称的图层
             if (IGNORE_LAYER_BY_NAME.test(layer.name)) {
@@ -61,13 +62,18 @@ define(['checkUtil', 'FUNC'], function (checkUtil, FUNC) {
     // 静态方法：检查图层是否为空
     LayerManager.isLayerBlank = function (layer) {
         const lastFrame = layer.frames[layer.frames.length - 1].startFrame;
-        let frameId = lastFrame;
+        var frameId = lastFrame;
 
         while (frameId >= 0) {
             if (!LayerManager.isFrameBlank(layer.frames[frameId])) {
                 return false;
             }
-            frameId = layer.frames[frameId - 1]?.startFrame || -1;
+            // frameId = layer.frames[frameId - 1]?.startFrame || -1;
+            frameId = SAFE_GET_MACRO(
+                layer.frames[frameId - 1],
+                'startFrame',
+                -1
+            );
         }
 
         return true;
@@ -78,23 +84,72 @@ define(['checkUtil', 'FUNC'], function (checkUtil, FUNC) {
         return frame.elements.length === 0 && IsEmpty(frame.actionScript);
     };
 
-    // 检查图层是否包含声音
-    LayerManager.hasSound = function (layer) {
-        for (var f = 0; f < layer.frames.length; f++) {
+    /**
+     * 检查图层是否包含声音
+     * @param {Layer} layer 图层
+     * @param {number} [startFrame=0] 开始帧
+     * @param {number} [endFrame=layer.frames.length - 1] 结束帧
+     * @returns {boolean} 是否包含声音
+     */
+    LayerManager.hasSound = function (layer, startFrame, endFrame) {
+        if (startFrame === undefined) startFrame = 0;
+        if (endFrame === undefined) endFrame = layer.frames.length - 1;
+
+        // for (var f = 0; f < layer.frames.length; f++) {
+        for (var f = startFrame; f <= endFrame; f++) {
             var frame = layer.frames[f];
+            // undefined 可能是因为 空白帧
+            if (frame === undefined) continue;
+            // if (frame.getSoundEnvelope()) {
             if (frame.soundLibraryItem) {
                 return true; // 发现声音对象
             }
         }
-        return false; // 无声音
+        return false; // 没有声音对象
     };
 
+    LayerManager.getKeyFrameSoundName = function (layer, startFrame, endFrame) {
+        if (startFrame === undefined) startFrame = 0;
+        if (endFrame === undefined) endFrame = layer.frames.length - 1;
+
+        // for (var f = 0; f < layer.frames.length; f++) {
+        for (var f = startFrame; f <= endFrame; f++) {
+            var frame = layer.frames[f];
+            // undefined 可能是因为 空白帧
+            if (frame === undefined) continue;
+            // if (frame.getSoundEnvelope()) {
+            if (frame.soundLibraryItem) {
+                return frame.soundName; // 发现声音对象
+            }
+        }
+        return null; // 没有声音对象
+    };
+    LayerManager.getKeyFrameSoundRange = function (
+        layer,
+        startFrame,
+        endFrame
+    ) {
+        if (startFrame === undefined) startFrame = 0;
+        if (endFrame === undefined) endFrame = layer.frames.length - 1;
+
+        // for (var f = 0; f < layer.frames.length; f++) {
+        for (var f = startFrame; f <= endFrame; f++) {
+            var frame = layer.frames[f];
+            // undefined 可能是因为 空白帧
+            if (frame === undefined) continue;
+            // if (frame.getSoundEnvelope()) {
+            if (frame.soundLibraryItem) {
+                return frame.getSoundEnvelopeLimits(); // 发现声音对象
+            }
+        }
+        return null; // 没有声音对象
+    };
     // 静态方法：检查文件夹是否为空
     LayerManager.isEmptyFolder = function (tl, folderID) {
         const folder = tl.layers[folderID];
         const endLayer = folderID + LayerManager.countChild(tl, folderID);
 
-        for (let i = folderID + 1; i <= endLayer; i++) {
+        for (var i = folderID + 1; i <= endLayer; i++) {
             const child = tl.layers[i];
             if (!child) return true;
 
@@ -122,8 +177,10 @@ define(['checkUtil', 'FUNC'], function (checkUtil, FUNC) {
     };
 
     // 静态方法：计算子图层数量
-    LayerManager.countChild = function (tl, fatherID, noDeep = false) {
-        let lid = fatherID + 1;
+    LayerManager.countChild = function (tl, fatherID, noDeep) {
+        if (noDeep === undefined) noDeep = false;
+
+        var lid = fatherID + 1;
         const len = tl.layers.length;
 
         while (lid < len) {
@@ -152,4 +209,6 @@ define(['checkUtil', 'FUNC'], function (checkUtil, FUNC) {
 
         return LayerManager.isMyChild(tl, father, child.parentLayer);
     };
+
+    return LayerManager;
 });

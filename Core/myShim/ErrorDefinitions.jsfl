@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['FUNC'], function(FUNC) {
+define(['FUNC'], function (FUNC) {
     const { INHERIT_MACRO } = FUNC;
 
     // Not implemented'
@@ -21,7 +21,6 @@ define(['FUNC'], function(FUNC) {
 
     // 继承 Error 的原型
     INHERIT_MACRO(NotImplementedError, Error);
-
 
     // throw new NotImplementedError('Not implemented,please implement it by yourself.');
     return {

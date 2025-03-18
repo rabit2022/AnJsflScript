@@ -8,7 +8,11 @@
  * @see: https://github.com/davestewart/xJSFL
  */
 
-define(['sprintf', 'core-js/stable/object/entries'], function ({ sprintf }) {
+define([
+    'sprintf',
+    'error-stack-parser',
+    'core-js/stable/object/entries'
+], function ({ sprintf }, ErrorStackParser) {
     // --------------------------------------------------------------------------------
     // Log constants
 
@@ -193,6 +197,15 @@ define(['sprintf', 'core-js/stable/object/entries'], function ({ sprintf }) {
         //     fl.trace(output.replace(/[ \t]+/g, ' ').replace(/\r/g, ''));
         //     this.__writeToLog(message, Log.TRACE, level);
         // },
+
+        stack: function (message) {
+            try {
+                throw new Error(message || 'Default stack trace');
+            } catch (e) {
+                var stack = ErrorStackParser.parse(e);
+                console.info(stack);
+            }
+        },
 
         trace: function () {
             var message = this.__formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments

@@ -125,26 +125,23 @@ define([
     /**
      * 获取选中元件的关键帧范围
      * @param {Array.<Layer>} layers 图层数组
-     * @param {FrameRange} selectedFr 选中范围
+     * @param {Layer} curLayer 当前图层
      * @return {FrameRange[]} 帧范围数组
      */
-    FrameRangeUtil.getKeyFrameRanges = function (layers, selectedFr) {
+    FrameRangeUtil.getKeyFrameRanges = function (layers, curLayer) {
         // var layers = timeline.layers;//图层
 
         // 关键帧范围
-        var layer = layers[selectedFr.layerIndex];
-        var keyFrames = this.getKeyFrames(layer);
+        // var layer = layers[selectedFr.layerIndex];
+        var keyFrames = this.getKeyFrames(curLayer);
 
         // 缺少最后一段，补上
-        var lastKf = layer.frameCount; // 开区间
+        var lastKf = curLayer.frameCount; // 开区间
         keyFrames.push(lastKf);
 
-        var keyFrameRanges = this.wrapKeyFrames(
-            layers,
-            selectedFr.layerIndex,
-            keyFrames
-        );
+        var keyFrameRanges = this.wrapKeyFrames(layers, curLayer, keyFrames);
         if (keyFrameRanges.length < 1) return null;
+
         return keyFrameRanges;
     };
 

@@ -7,8 +7,9 @@
  * @description:
  */
 
-define(['sprintf'], function (sp) {
+define(['sprintf', 'FUNC'], function (sp, FUNC) {
     const sprintf = sp.sprintf;
+    const { PROPERTY } = FUNC;
 
     /**
      * 帧范围类
@@ -22,8 +23,19 @@ define(['sprintf'], function (sp) {
         this.startFrame = startFrame;
         this.endFrame = endFrame;
 
-        this.duration = endFrame - startFrame;
+        // this.duration = endFrame - startFrame;
     }
+
+    /**
+     * 帧范围的持续时间
+     * @property {number} duration
+     * @type {number}
+     */
+    PROPERTY(FrameRange, 'duration', {
+        get: function () {
+            return this.endFrame - this.startFrame;
+        }
+    });
 
     /**
      * 判断两个帧范围是否有重叠
