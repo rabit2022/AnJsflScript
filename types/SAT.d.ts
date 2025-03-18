@@ -184,15 +184,16 @@ interface SizeLike {
 export class Size {
     width: number;
     height: number;
-    max_size: number;
-    min_size: number;
-    ratio: number;
+
+    readonly max_size: number;
+    readonly min_size: number;
+    readonly ratio: number;
 
     constructor(width: number, height: number);
 
-    getRatioWidth(): number;
+    getRatioWidth(nowHeight: number): number;
 
-    getRatioHeight(): number;
+    getRatioHeight(nowWidth: number): number;
 
     toString(): string;
 

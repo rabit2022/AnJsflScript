@@ -12,17 +12,20 @@ define(['checkUtil'], function (checkUtil) {
         if (!pName) return;
 
         const lib = doc.library;
-        let counter = 1;
+        var counter = 1;
 
-        for (const folder in lib) {
-            for (const item of lib[folder]) {
+        for (var folder in lib) {
+            // for (var item of lib[folder]) {
+            lib[folder].forEach(function (item) {
                 if (item.itemType !== 'folder') {
-                    item.name = `${pName}-${counter++}`;
+                    // item.name = `${pName}-${counter++}`;
+                    item.name = pName + '-' + counter++;
                 }
-            }
+            });
         }
 
-        alert(`库元件重命名完成，共处理了 ${counter - 1} 个项目`);
+        // alert(`库元件重命名完成，共处理了 ${counter - 1} 个项目`);
+        alert('库元件重命名完成，共处理了 ' + (counter - 1) + ' 个项目');
     };
 
     // 静态方法：替换库中选中元件的名称
@@ -48,8 +51,9 @@ define(['checkUtil'], function (checkUtil) {
             return;
         }
 
-        let failedItems = [];
-        for (const item of libSelection) {
+        var failedItems = [];
+        // for (const item of libSelection) {
+        libSelection.forEach(function (item) {
             const originalName = item.name;
             const newName = originalName.replace(searchStr, replaceStr);
 
@@ -58,11 +62,13 @@ define(['checkUtil'], function (checkUtil) {
             } else {
                 item.name = newName;
             }
-        }
+        });
 
         if (failedItems.length > 0) {
             alert(
-                `部分元件名替换后会有重名情况，故未命名：\n${failedItems.join('、')}`
+                // `部分元件名替换后会有重名情况，故未命名：\n${failedItems.join('、')}`
+                '部分元件名替换后会有重名情况，故未命名：\n' +
+                    failedItems.join('、')
             );
         } else {
             alert('替换完成！');
@@ -71,7 +77,8 @@ define(['checkUtil'], function (checkUtil) {
 
     // 静态方法：设置选中的位图元件为无损压缩
     LibraryManager.BitmapLossless = function () {
-        const doc = LibraryManager.checkDocument();
+        // const doc = LibraryManager.checkDocument();
+        const doc = CheckDom();
         if (!doc) return;
 
         const libSelection = doc.library.getSelectedItems();
@@ -80,25 +87,28 @@ define(['checkUtil'], function (checkUtil) {
             return;
         }
 
-        let count = 0;
-        for (const item of libSelection) {
+        var count = 0;
+        // for (const item of libSelection) {
+        libSelection.forEach(function (item) {
             if (item.itemType === 'bitmap') {
                 item.allowSmoothing = false;
                 item.compressionType = 'lossless';
                 count++;
             }
-        }
+        });
 
         if (count === 0) {
             alert('选中的库元件都不是位图元件！');
         } else {
-            alert(`已设置 ${count} 个位图元件为无损压缩`);
+            // alert(`已设置 ${count} 个位图元件为无损压缩`);
+            alert('已设置' + count + '个位图元件为无损压缩');
         }
     };
 
     // 静态方法：按类型整理库
     LibraryManager.Organize = function () {
-        const doc = LibraryManager.checkDocument();
+        // const doc = LibraryManager.checkDocument();
+        const doc = CheckDom();
         if (!doc) return;
 
         const confirmResult = confirm(
@@ -133,7 +143,10 @@ define(['checkUtil'], function (checkUtil) {
         };
 
         // 获取库中的所有项目并分类
-        for (const item of lib.items) {
+        // for (const item of lib.items) {
+        // lib.items.forEach(function (item) {
+        for (var i = 0; i < lib.items.length; i++) {
+            const item = lib.items[i];
             const itemName = item.name.replace(/\/.+/g, '');
             if (folderNames.includes(itemName)) continue;
 
@@ -144,26 +157,30 @@ define(['checkUtil'], function (checkUtil) {
         }
 
         // 创建文件夹并移动项目
-        for (const folderName of folderNames) {
+        // for (const folderName of folderNames) {
+        folderNames.forEach(function (folderName) {
             if (!lib.getFolderByName(folderName)) {
                 lib.newFolder(folderName);
             }
-        }
+        });
 
-        for (const [type, items] of Object.entries(itemTypeMap)) {
-            const folderName = folderNames.find((name) =>
-                name.toLowerCase().includes(type)
-            );
+        // for (const [type, items] of Object.entries(itemTypeMap)) {
+        Object.entries(itemTypeMap).forEach(function (entry) {
+            const folderName = folderNames.find(function (name) {
+                return name.toLowerCase().includes(type);
+            });
             if (folderName && items.length > 0) {
-                for (const item of items) {
+                // for (const item of items) {
+                items.forEach(function (item) {
                     lib.selectItem(item.name);
                     lib.moveToFolder(folderName);
-                }
+                });
             }
-        }
+        });
 
         // 清理空文件夹
-        for (const folder of lib.items) {
+        // for (const folder of lib.items) {
+        lib.items.forEach(function (folder) {
             if (folder.itemType === 'folder' && folder.items.length === 0) {
                 try {
                     lib.selectItem(folder.name);
@@ -172,7 +189,7 @@ define(['checkUtil'], function (checkUtil) {
                     // Ignore errors during deletion
                 }
             }
-        }
+        });
 
         alert('库整理完成！');
     };

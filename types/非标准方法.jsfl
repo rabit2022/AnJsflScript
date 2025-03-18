@@ -29,8 +29,7 @@ each = function (param) {};
 
 /**
  *  with语句
- *  @deprecated with(obj) { } </br>
- *  @note 建议使用 let 或者 const 声明变量，或者使用 Object.create() 方法创建新对象。</br>
+ *  @deprecated 建议使用 let 或者 const 声明变量。</br>
  *  @example
  *  // 建议使用 let 或者 const 声明变量
  *  let obj = {

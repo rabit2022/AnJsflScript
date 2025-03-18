@@ -1030,20 +1030,36 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
         this.width = width;
         this.height = height;
 
-        this.max_size = Math.max(width, height);
-        this.min_size = Math.min(width, height);
-        this.ratio = width / height;
+        // this.max_size = Math.max(width, height);
+        // this.min_size = Math.min(width, height);
+        // this.ratio = width / height;
     }
+
+    PROPERTY(Size, 'max_size', {
+        get: function () {
+            return Math.max(this.width, this.height);
+        }
+    });
+    PROPERTY(Size, 'min_size', {
+        get: function () {
+            return Math.min(this.width, this.height);
+        }
+    });
+    PROPERTY(Size, 'ratio', {
+        get: function () {
+            return this.width / this.height;
+        }
+    });
 
     SAT['Size'] = Size;
     SAT['S'] = Size;
 
-    Size.prototype.getRatioWidth = function () {
-        return this.ratio * this.height;
+    Size.prototype.getRatioWidth = function (nowHeight) {
+        return this.ratio * nowHeight;
     };
 
-    Size.prototype.getRatioHeight = function () {
-        return this.width / this.ratio;
+    Size.prototype.getRatioHeight = function (nowWidth) {
+        return nowWidth / this.ratio;
     };
 
     Size.prototype.toString = function () {
