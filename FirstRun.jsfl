@@ -77,6 +77,9 @@
                 scriptURI += '.jsfl';
             }
 
+            // var message =
+            //     '[importFlashScripts] Run script file [' + scriptURI + ']';
+            // fl.trace(message);
             // 执行脚本
             var exists = fileExists(scriptURI);
             if (exists) {
@@ -112,10 +115,12 @@
             './require-config',
 
             // 导入shims, 避免其他模块依赖时报错
-            'es5-shim',
+            'es5-shim', // es5,es2009
             'es5-sham',
-            'es6-shim',
+            'es6-shim', // es6,es2015
             'es6-sham',
+            'es7-shim', // es7,es2016
+            'es2017', // es8,es2017
 
             // corejs没有完整的实现JSON的polyfill, 所以需要导入json3
             'json3',

@@ -15,8 +15,13 @@ require([
     'libUtil',
     'Constants'
 ], function (checkUtil, ele, frUtil, curve, libUtil, Constants) {
-    const { checkDom, checkSelection, checkSelectedFrames } = checkUtil;
+    const {
+        CheckDom: checkDom,
+        CheckSelection: checkSelection,
+        CheckSelectedFrames: checkSelectedFrames
+    } = checkUtil;
     const { FRAME_1, FRAME_3, FRAME_6 } = Constants;
+    console.log('libUtil', libUtil);
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;

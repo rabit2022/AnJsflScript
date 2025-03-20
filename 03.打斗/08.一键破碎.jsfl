@@ -120,7 +120,7 @@ require([
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'No limit')) return;
+        if (!checkSelection(selection, 'selectElement', 'Only one')) return;
 
         // 碎片
         if (!ele.splinterSymbol(doc.selection[0], '一键爆炸_')) return;

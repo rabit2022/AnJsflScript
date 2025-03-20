@@ -29,6 +29,8 @@ require.config({
         lodash: 'Third/utils/lodash-4.17.21/lodash',
         rxjs: 'Third/utils/rxjs-7.8.2/rxjs.umd',
         sprintf: 'Third/utils/sprintf-js-1.1.3/sprintf',
+        // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\shims\pollyfill\es2017.jsfl
+        es2017: 'Third/shims/pollyfill/es2017',
 
         Constants: 'Core/Constants/Constants',
         ErrorDefinitions: 'Core/myShim/ErrorDefinitions',

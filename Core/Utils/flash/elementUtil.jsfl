@@ -13,7 +13,7 @@ define([
     'libUtil',
     'layerUtil',
     'os',
-    'selectionUtil', // 'moreElementUtil',
+    'selectionUtil',
     'builtInP',
     'loglevel',
     'moreElement'
@@ -34,6 +34,7 @@ define([
         wrapSize = sat.GLOBALS.wrapSize,
         getOrigin = sat.GLOBALS.getOrigin,
         getTopLeft = sat.GLOBALS.getTopLeft;
+    // console.log(sel);
 
     var rectUtil = satUtil.RectUtil;
 

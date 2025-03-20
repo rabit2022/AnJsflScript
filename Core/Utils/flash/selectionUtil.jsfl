@@ -7,8 +7,9 @@
  * @description:
  */
 
-define(['elementUtil'], function (elementUtil) {
-    const { getName } = elementUtil;
+define(function () {
+    // ['elementUtil'], function (elementUtil) {
+    // const { getName } = elementUtil;
 
     /**
      * 选中当前元件
@@ -95,6 +96,16 @@ define(['elementUtil'], function (elementUtil) {
      *        如果不使用这个函数，doc.selection 会一直为空,出现bug
      */
     function SelectBefore(selection) {
+        // pollyfill
+        // bug:ElementUtil.getName  循环引用的问题
+        getName = function (element) {
+            if (element.elementType === 'instance') {
+                return element.libraryItem.name;
+            } else {
+                return element.name;
+            }
+        };
+
         var doc = fl.getDocumentDOM(); //文档
         var selectionNames = selection.map(getName); //选择的元件名称
 

@@ -23,22 +23,12 @@ require([], function () {
         });
         console.log(moduleNames);
 
-        require(moduleNames, function () {
-            // var modules = arguments;
-
-            // 打印加载的模块
-            moduleNames.forEach(function (moduleName, index) {
-                try {
-                    // console.log(
-                    //     'Module "' + moduleName + '" loaded:',
-                    //     arguments[index]
-                    // );
-                    console.log(
-                        'Module "%s" loaded: %s',
-                        moduleName,
-                        moduleNames[index]
-                    );
-                } catch (e) {}
+        // 加载所有模块
+        moduleNames.forEach(function (moduleName) {
+            console.log('Loading module "%s"...', moduleName);
+            require([moduleName], function (module) {
+                // console.log('Module "%s" loaded: %s', moduleName, module);
+                console.log('Module "%s" loaded.', moduleName);
             });
         });
     }

@@ -14,8 +14,18 @@ require([
     'selectionUtil',
     'curveUtil',
     'frameRangeUtil',
-    'Constants'
-], function (checkUtil, linqUtil, filterUtil, sel, curve, frUtil, Constants) {
+    'Constants',
+    'loglevel'
+], function (
+    checkUtil,
+    linqUtil,
+    filterUtil,
+    sel,
+    curve,
+    frUtil,
+    Constants,
+    log
+) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
@@ -39,6 +49,8 @@ require([
 
     // 关键帧
     var KEY_FRAMES = linqUtil.convertToProgrammeIndex([1, 2, 3, 4, 5, 9]);
+    log.info('关键帧', KEY_FRAMES);
+
     // 滤镜效果
     // 1    0,255 高
     // 3    0,191.3  高
@@ -97,6 +109,7 @@ require([
         // 获取allKeyFrames first,last
         var firstF = KEY_FRAMES[0];
         var lastF = KEY_FRAMES[KEY_FRAMES.length - 1];
+        log.info('firstF:', firstF, 'lastF:', lastF);
         // 选中所有帧
         timeline.setSelectedFrames(firstF, lastF, true);
 

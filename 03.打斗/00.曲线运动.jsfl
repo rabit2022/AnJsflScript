@@ -7,8 +7,6 @@
  * @description:
  */
 
-import { FRAME_30 } from 'Constants';
-
 require([
     'checkUtil',
     'libUtil',

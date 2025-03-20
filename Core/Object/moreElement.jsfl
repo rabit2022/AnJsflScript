@@ -22,6 +22,8 @@ define(['SAT', 'sprintf'], function (sat, sp) {
      */
     function MoreElement(element, horizontalSpacing, verticalSpacing) {
         this.element = element;
+        // console.log(element);
+        // console.stack(element);
         this.positioin = new Vector(element.x, element.y);
 
         if (horizontalSpacing === undefined) {
@@ -185,6 +187,10 @@ define(['SAT', 'sprintf'], function (sat, sp) {
             this.Offset,
             this.Rect
         );
+    };
+
+    MoreElement.toString = function () {
+        return '[object MoreElement]';
     };
 
     return MoreElement;

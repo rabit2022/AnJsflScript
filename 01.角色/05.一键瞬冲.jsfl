@@ -24,7 +24,11 @@ require([
     frUtil,
     Constants
 ) {
-    const { checkDom, checkSelection, checkSelectedFrames } = checkUtil;
+    const {
+        CheckDom: checkDom,
+        CheckSelection: checkSelection,
+        CheckSelectedFrames: checkSelectedFrames
+    } = checkUtil;
     const { FRAME_1, FRAME_7, FRAME_11 } = Constants;
 
     var doc = fl.getDocumentDOM(); //文档

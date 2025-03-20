@@ -51,7 +51,7 @@ define(function () {
 
     // 将动态生成的帧索引添加到模块的公共接口中
     for (var key in frames) {
-        if (frames.hasOwnProperty(key)) {
+        if (Object.prototype.hasOwnProperty.call(frames, key)) {
             moduleExports[key] = frames[key];
         }
     }

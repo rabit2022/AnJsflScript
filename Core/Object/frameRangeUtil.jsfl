@@ -10,8 +10,8 @@
 define([
     'layerUtil',
     'frameRange',
-    'selectionUtil',
-    'core-js/actual/array/includes'
+    'selectionUtil'
+    // 'core-js/actual/array/includes'
 ], function (layerUtil, FrameRange, sel) {
     function FrameRangeUtil() {}
 

@@ -15,7 +15,11 @@ require([
     'frameRangeUtil',
     'Constants'
 ], function (checkUtil, linqUtil, ele, curve, frUtil, Constants) {
-    const { checkDom, checkSelection, checkSelectedFrames } = checkUtil;
+    const {
+        CheckDom: checkDom,
+        CheckSelection: checkSelection,
+        CheckSelectedFrames: checkSelectedFrames
+    } = checkUtil;
     const { FRAME_1, FRAME_3, FRAME_6 } = Constants;
 
     var doc = fl.getDocumentDOM(); //文档
