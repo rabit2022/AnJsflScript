@@ -5,6 +5,8 @@ test/**
 # 配置文件
 .idea/**
 .run/**
+
+# 依赖包
 node_modules/**
 
 # 日志文件
@@ -12,6 +14,7 @@ Logs/**
 
 # 缓存文件
 cache/**
+.eslintcache
 
 
 # 清除缓存
