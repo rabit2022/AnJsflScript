@@ -1,6 +1,6 @@
 /* global window, exports, define */
 
-!(function () {
+!(function() {
     'use strict';
 
     var re = {
@@ -95,79 +95,79 @@
                 }
 
                 switch (ph.type) {
-                    case 'b':
-                        arg = parseInt(arg, 10).toString(2);
-                        break;
-                    case 'c':
-                        arg = String.fromCharCode(parseInt(arg, 10));
-                        break;
-                    case 'd':
-                    case 'i':
-                        arg = parseInt(arg, 10);
-                        break;
-                    case 'j':
-                        arg = JSON.stringify(
-                            arg,
-                            null,
-                            ph.width ? parseInt(ph.width) : 0
-                        );
-                        break;
-                    case 'e':
-                        arg = ph.precision
-                            ? parseFloat(arg).toExponential(ph.precision)
-                            : parseFloat(arg).toExponential();
-                        break;
-                    case 'f':
-                        arg = ph.precision
-                            ? parseFloat(arg).toFixed(ph.precision)
-                            : parseFloat(arg);
-                        break;
-                    case 'g':
-                        arg = ph.precision
-                            ? String(Number(arg.toPrecision(ph.precision)))
-                            : parseFloat(arg);
-                        break;
-                    case 'o':
-                        arg = (parseInt(arg, 10) >>> 0).toString(8);
-                        break;
-                    case 's':
-                        arg = String(arg);
-                        arg = ph.precision
-                            ? arg.substring(0, ph.precision)
-                            : arg;
-                        break;
-                    case 't':
-                        arg = String(!!arg);
-                        arg = ph.precision
-                            ? arg.substring(0, ph.precision)
-                            : arg;
-                        break;
-                    case 'T':
-                        arg = Object.prototype.toString
-                            .call(arg)
-                            .slice(8, -1)
-                            .toLowerCase();
-                        arg = ph.precision
-                            ? arg.substring(0, ph.precision)
-                            : arg;
-                        break;
-                    case 'u':
-                        arg = parseInt(arg, 10) >>> 0;
-                        break;
-                    case 'v':
-                        arg = arg.valueOf();
-                        arg = ph.precision
-                            ? arg.substring(0, ph.precision)
-                            : arg;
-                        break;
-                    case 'x':
-                        arg = (parseInt(arg, 10) >>> 0).toString(16);
-                        break;
-                    case 'X':
-                        arg = (parseInt(arg, 10) >>> 0)
-                            .toString(16)
-                            .toUpperCase();
-                        break;
+                case 'b':
+                    arg = parseInt(arg, 10).toString(2);
+                    break;
+                case 'c':
+                    arg = String.fromCharCode(parseInt(arg, 10));
+                    break;
+                case 'd':
+                case 'i':
+                    arg = parseInt(arg, 10);
+                    break;
+                case 'j':
+                    arg = JSON.stringify(
+                        arg,
+                        null,
+                        ph.width ? parseInt(ph.width) : 0
+                    );
+                    break;
+                case 'e':
+                    arg = ph.precision
+                        ? parseFloat(arg).toExponential(ph.precision)
+                        : parseFloat(arg).toExponential();
+                    break;
+                case 'f':
+                    arg = ph.precision
+                        ? parseFloat(arg).toFixed(ph.precision)
+                        : parseFloat(arg);
+                    break;
+                case 'g':
+                    arg = ph.precision
+                        ? String(Number(arg.toPrecision(ph.precision)))
+                        : parseFloat(arg);
+                    break;
+                case 'o':
+                    arg = (parseInt(arg, 10) >>> 0).toString(8);
+                    break;
+                case 's':
+                    arg = String(arg);
+                    arg = ph.precision
+                        ? arg.substring(0, ph.precision)
+                        : arg;
+                    break;
+                case 't':
+                    arg = String(!!arg);
+                    arg = ph.precision
+                        ? arg.substring(0, ph.precision)
+                        : arg;
+                    break;
+                case 'T':
+                    arg = Object.prototype.toString
+                        .call(arg)
+                        .slice(8, -1)
+                        .toLowerCase();
+                    arg = ph.precision
+                        ? arg.substring(0, ph.precision)
+                        : arg;
+                    break;
+                case 'u':
+                    arg = parseInt(arg, 10) >>> 0;
+                    break;
+                case 'v':
+                    arg = arg.valueOf();
+                    arg = ph.precision
+                        ? arg.substring(0, ph.precision)
+                        : arg;
+                    break;
+                case 'x':
+                    arg = (parseInt(arg, 10) >>> 0).toString(16);
+                    break;
+                case 'X':
+                    arg = (parseInt(arg, 10) >>> 0)
+                        .toString(16)
+                        .toUpperCase();
+                    break;
                 }
                 if (re.json.test(ph.type)) {
                     output += arg;
@@ -192,8 +192,8 @@
                     output += ph.align
                         ? sign + arg + pad
                         : pad_character === '0'
-                          ? sign + pad + arg
-                          : pad + sign + arg;
+                            ? sign + pad + arg
+                            : pad + sign + arg;
                 }
             }
         }
@@ -230,7 +230,7 @@
                             (replacement_field = replacement_field.substring(
                                 field_match[0].length
                             )) !== ''
-                        ) {
+                            ) {
                             if (
                                 (field_match =
                                     re.key_access.exec(replacement_field)) !==
@@ -287,22 +287,39 @@
      * export to either browser or node.js
      */
     /* eslint-disable quote-props */
+    // umd
     if (typeof exports !== 'undefined') {
         exports['sprintf'] = sprintf;
         exports['vsprintf'] = vsprintf;
-    }
-    if (typeof window !== 'undefined') {
+    } else if (typeof define === 'function' && define['amd']) {
+        define(function() {
+            return {
+                sprintf: sprintf,
+                vsprintf: vsprintf
+            };
+        });
+    } else if (typeof window !== 'undefined') {
         window['sprintf'] = sprintf;
         window['vsprintf'] = vsprintf;
-
-        if (typeof define === 'function' && define['amd']) {
-            define(function () {
-                return {
-                    sprintf: sprintf,
-                    vsprintf: vsprintf
-                };
-            });
-        }
     }
+
+
+    // if (typeof exports !== 'undefined') {
+    //     exports['sprintf'] = sprintf;
+    //     exports['vsprintf'] = vsprintf;
+    // }
+    // if (typeof window !== 'undefined') {
+    //     window['sprintf'] = sprintf;
+    //     window['vsprintf'] = vsprintf;
+    //
+    //     if (typeof define === 'function' && define['amd']) {
+    //         define(function () {
+    //             return {
+    //                 sprintf: sprintf,
+    //                 vsprintf: vsprintf
+    //             };
+    //         });
+    //     }
+    // }
     /* eslint-enable quote-props */
 })(); // eslint-disable-line

@@ -7,12 +7,7 @@
  * @description:
  */
 
-// import "core-js/stable/string/pad-start";
-define([
-    'random',
-    'sprintf'
-    // , 'core-js/stable/string/pad-start'
-], function (random, sp) {
+define(['random', 'sprintf'], function (random, sp) {
     const sprintf = sp.sprintf;
     /**
      * 添加在 name 后面的随机数的位数，保证名称的唯一性。

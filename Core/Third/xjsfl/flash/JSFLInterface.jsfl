@@ -131,6 +131,5 @@ define(function () {
         }
     };
 
-    // xjsfl.classes.register('JSFLInterface', JSFLInterface);
     return JSFLInterface;
 });

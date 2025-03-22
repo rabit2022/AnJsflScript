@@ -8,11 +8,10 @@
  * @see: https://github.com/davestewart/xJSFL
  */
 
-define([
-    'sprintf',
-    'error-stack-parser'
-    // 'core-js/stable/object/entries'
-], function ({ sprintf }, ErrorStackParser) {
+define(['sprintf', 'error-stack-parser'], function (
+    { sprintf },
+    ErrorStackParser
+) {
     // --------------------------------------------------------------------------------
     // Log constants
 
@@ -183,20 +182,6 @@ define([
                 return formattedArgs.join('') + '\t';
             }
         },
-
-        // /**
-        //  * Traces an "> xjsfl:" message to the Output panel
-        //  * @param    {String}    message        The message to log
-        //  * @param    {Number}    [level]        An optional Number to accentuate the message. 1 = capitals, 2 = horizontal rule & capitals
-        //  */
-        // trace: function(message, level) {
-        //     if (level === undefined) level = 0;
-        //     // var message = this.__formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
-        //
-        //     var output = this.__formatLine('> xjsfl: ', message, level);
-        //     fl.trace(output.replace(/[ \t]+/g, ' ').replace(/\r/g, ''));
-        //     this.__writeToLog(message, Log.TRACE, level);
-        // },
 
         stack: function (message) {
             try {
@@ -383,6 +368,5 @@ define([
     };
 
     window.console = console;
-
-    // return console;
+    return console;
 });

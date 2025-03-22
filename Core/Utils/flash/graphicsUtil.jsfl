@@ -9,7 +9,6 @@
 define(['SAT'], function (sat) {
     var Vector = sat.Vector,
         Rectangle = sat.Rectangle;
-    // var wrapRectByRadius=sat.GLOBALS.wrapRectByRadius;
     function GraphicsUtil() {}
 
     /**
@@ -72,8 +71,6 @@ define(['SAT'], function (sat) {
         // 选中圆形
         // bug: bContactSensitiveSelection接触感应选择模式。必须设置为true，否则可能无法选中圆形，导致后面的代码出错。
         doc.setSelectionRect(circleRect.toObj(), true, true);
-        // var circleCenter = circleRect.getCenterVector();
-        // doc.mouseClick(circleCenter.getCenter().toObj(), true, true);//选中所有
 
         // 分离到Shape
         doc.breakApart();

@@ -37,6 +37,8 @@ export const FRAME_1: number,
     FRAME_28: number,
     FRAME_29: number,
     FRAME_30: number;
+
+export { frames };
 export const SECOND_FRAME: number;
 export const MINUTE_FRAME: number;
 export const MAX_BLUR: number;

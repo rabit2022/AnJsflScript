@@ -22,7 +22,6 @@ define(['FUNC'], function (FUNC) {
     // 继承 Error 的原型
     INHERIT_MACRO(NotImplementedError, Error);
 
-    // throw new NotImplementedError('Not implemented,please implement it by yourself.');
     return {
         NotImplementedError: NotImplementedError
     };

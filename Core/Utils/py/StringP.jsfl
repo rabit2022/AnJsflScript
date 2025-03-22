@@ -4,9 +4,7 @@
  * @param {string} str - 初始化字符串。
  */
 
-define([
-    // 'core-js/stable/string/includes'
-], function () {
+define(function () {
     function StringP(str) {
         if (typeof str !== 'string') {
             throw new TypeError('Expected a string');

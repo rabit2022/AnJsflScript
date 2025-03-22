@@ -137,12 +137,6 @@ Object.prototype.__lookupGetter__ = function (prop) {};
  */
 Object.prototype.__lookupSetter__ = function (prop) {};
 
-// __count__	返回直接在用户定义的对象上的可枚举属性的数量。	Object.keys()
-// __parent__	指向对象的上下文	没有直接的替换方法
-// __iterator__	和遗留的生成器和迭代器一起使用。	Symbol.iterator 和新的迭代协议
-// __noSuchMethod__	当一个不存在的属性被作为方法调用时，这个方法被调用。	Proxy
-// 获取源文本  数组、数字、字符串等的 toSource() 方法和 uneval() 全局函数已经过时。使用 toString()，或者编写你自己的序列化方法来代替
-
 /**
  * 返回直接在用户定义的对象上的可枚举属性的数量。
  * @returns {number} - 直接在用户定义的对象上的可枚举属性的数量。
@@ -237,14 +231,15 @@ uneval = function (obj) {};
  * const iterable = [1, 2, 3];
  * const result = [for (x of iterable) x * 2];
  * console.log(result); // 输出: [2, 4, 6]
+ * @note
+ * 遗留的数组推导式
+ * [for (x of iterable) x]
+ * [for (x of iterable) if (condition) x]
+ * [for (x of iterable) for (y of iterable) x + y]
+ *
+ * // 遗留的生成器推导式
+ * (for (x of iterable) x)
+ * (for (x of iterable) if (condition) x)
+ * (for (x of iterable) for (y of iterable) x + y)
  */
-// 遗留的数组推导式
-// [for (x of iterable) x]
-// [for (x of iterable) if (condition) x]
-// [for (x of iterable) for (y of iterable) x + y]
-//
-// // 遗留的生成器推导式
-// (for (x of iterable) x)
-// (for (x of iterable) if (condition) x)
-// (for (x of iterable) for (y of iterable) x + y)
 var $for = function (iterable, callback) {};

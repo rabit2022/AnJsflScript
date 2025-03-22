@@ -152,7 +152,7 @@ define(function () {
     Random.weibullvariate = function (alpha, beta) {
         return alpha * Math.pow(-Math.log(1 - this.uniform(0, 1)), 1 / beta);
     };
-    Random.get_random_color = function () {
+    Random.$get_random_color = function () {
         const r = Math.floor(Math.random() * 256);
         const g = Math.floor(Math.random() * 256);
         const b = Math.floor(Math.random() * 256);

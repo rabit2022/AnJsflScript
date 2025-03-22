@@ -66,11 +66,6 @@ define(['sprintf'], function (sp) {
      * 2. 在子类方法中调用父类方法：
      *    使用 `this._super.methodName.call(this, ...args)` 调用父类方法。
      *    示例：`this._super.sayHello.call(this);`
-     *
-     * 命名约定：
-     * - `_MACRO` 或 `_M`：类似宏的函数，表示这是一个工具函数。
-     * - `_CLASS` 或 `_Cls`：表示参数类型是类（构造函数）。
-     * - `_Proto` 或 `_Prototype`：强调这个构造函数是基于原型链实现的。
      */
     function INHERIT_MACRO(child, $parent, $properties) {
         // variables

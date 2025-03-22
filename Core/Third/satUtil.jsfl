@@ -9,7 +9,6 @@
 
 define(['SAT', 'random'], function (sat, random) {
     var wrapPosition = sat.GLOBALS.wrapPosition;
-    // var wrapRectByElement = sat.GLOBALS.wrapRectByElement;
     var Vector = sat.Vector,
         Rectangle = sat.Rectangle;
 

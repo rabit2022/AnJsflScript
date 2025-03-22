@@ -29,7 +29,7 @@ require(['checkUtil', 'os'], function (checkUtil, os) {
         // 检查选择的元件
         if (!checkSelection(selection, 'selectElement', 'No limit')) return;
 
-        os.startfile(os.path.PLUGIN_PATH);
+        os.startfile(os.path.$PLUGIN_PATH);
     }
 
     Main();

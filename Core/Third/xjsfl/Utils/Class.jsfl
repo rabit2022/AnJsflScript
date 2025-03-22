@@ -111,9 +111,6 @@ define(function () {
 
         return Class;
     };
-    // // --------------------------------------------------------------------------------
-    // // register class
-    //
-    // xjsfl.classes.register('Class', Class);
+
     return Class;
 });

@@ -31,15 +31,7 @@ export function PROPERTY(
     descriptor: PropertyDescriptor
 ): void;
 
-// /**
-//  * 安全获取对象属性值，如果属性不存在则返回默认值。
-//  * 模仿  es2020 的?. 运算符。
-//  * @param {Object} rootObj - 根对象
-//  * @param {string} safeGetProp - 安全获取属性路径
-//  * @param {T} defaultValue - 默认值
-//  * @returns {T} - 属性值或默认值
-//  */
-// function SAFE_GET_MACRO(rootObj, safeGetProp, defaultValue) {
+// TODO: 待补充 function DYNAMIC_PARAMS(args, options)
 
 export function SAFE_GET_MACRO<T>(
     rootObj: any,

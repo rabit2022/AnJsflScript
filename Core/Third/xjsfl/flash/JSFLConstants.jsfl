@@ -438,5 +438,4 @@ define(function () {
     };
 
     return JSFLConstants;
-    // xjsfl.classes.register('JSFLConstants', JSFLConstants, this);
 });

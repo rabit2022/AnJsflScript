@@ -8,9 +8,6 @@
  */
 
 define(function () {
-    // ['elementUtil'], function (elementUtil) {
-    // const { getName } = elementUtil;
-
     /**
      * 选中当前元件
      * @param element
@@ -96,7 +93,7 @@ define(function () {
      *        如果不使用这个函数，doc.selection 会一直为空,出现bug
      */
     function SelectBefore(selection) {
-        // pollyfill
+        // polyfill
         // bug:ElementUtil.getName  循环引用的问题
         getName = function (element) {
             if (element.elementType === 'instance') {

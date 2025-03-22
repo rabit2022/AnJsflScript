@@ -16,14 +16,14 @@ define(['loglevel', 'path-browserify'], function (log, path) {
      * @readonly
      * @static
      */
-    OSPath.PLUGIN_PATH = fl.configURI + 'WindowSWF';
+    OSPath.$PLUGIN_PATH = fl.configURI + 'WindowSWF';
     /**
      * 命令位置
      * @type {string}
      * @readonly
      * @static
      */
-    OSPath.COMMAND_PATH = fl.configURI + 'Commands';
+    OSPath.$COMMAND_PATH = fl.configURI + 'Commands';
 
     OSPath.abspath = function (relativePath) {
         const currentWorkingDirectory = OS.getcwd();
@@ -50,7 +50,7 @@ define(['loglevel', 'path-browserify'], function (log, path) {
      */
     OSPath.normcase = function (_path) {
         // 在 Windows 上，将路径中的所有字符都转换为小写，并将正斜杠转换为反斜杠
-        if (OS.isWindows()) {
+        if (OS.$isWindows()) {
             _path = _path.toLowerCase().replace(/\\/g, '/');
             return _path;
         }
@@ -132,7 +132,7 @@ define(['loglevel', 'path-browserify'], function (log, path) {
      * @param {string} _path - 要处理的文件路径。
      * @return {string} - 去除后缀的文件基本名称。
      */
-    OSPath.basenameWithoutExt = function (_path) {
+    OSPath.$basenameWithoutExt = function (_path) {
         const [root] = this.splitext(path.basename(_path));
         return root;
     };
@@ -141,7 +141,7 @@ define(['loglevel', 'path-browserify'], function (log, path) {
 
     OS.path = OSPath;
 
-    OS.isMac = function () {
+    OS.$isMac = function () {
         return fl.version.search(/mac/i) > -1;
     };
 
@@ -150,7 +150,7 @@ define(['loglevel', 'path-browserify'], function (log, path) {
      * WIN 24,0,0,305
      * @returns {boolean}
      */
-    OS.isWindows = function () {
+    OS.$isWindows = function () {
         return fl.version.search(/win/i) > -1;
     };
 
@@ -211,7 +211,7 @@ define(['loglevel', 'path-browserify'], function (log, path) {
         // 构建命令
         var cmd;
 
-        if (this.isMac()) {
+        if (this.$isMac()) {
             // macOS 使用 `open` 命令
             cmd = 'open "' + uri + '"';
 
@@ -229,7 +229,7 @@ define(['loglevel', 'path-browserify'], function (log, path) {
             if (cwd_uri) {
                 cmd += ' --cwd "' + cwd_uri + '"';
             }
-        } else if (this.isWindows()) {
+        } else if (this.$isWindows()) {
             // Windows 使用 `start` 或 `explorer.exe` 命令
             switch (operation) {
                 case 'open':

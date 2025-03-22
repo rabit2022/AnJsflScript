@@ -32,7 +32,7 @@ require(['checkUtil', 'xmlPanelUtil', 'os'], function (
     var [folder_name, basename] = os.path.split(fl.scriptURI);
     // console.log(folder_name);
     // console.log(basename);
-    var onlyName = os.path.basenameWithoutExt(fl.scriptURI);
+    var onlyName = os.path.$basenameWithoutExt(fl.scriptURI);
     var XMLFOLDER = '02.排兵布阵';
 
     function Main() {

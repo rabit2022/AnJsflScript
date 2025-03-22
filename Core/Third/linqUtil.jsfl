@@ -17,8 +17,6 @@ define(['linq'], function (Enumerable) {
      * @return {Array.<number>} 程序员索引数组
      */
     LinqUtil.convertToProgrammeIndex = function (arr) {
-        // return this.addOffset(enumerable, -1);
-        // enumerable = Enumerable.from(enumerable);
         return LinqUtil.addOffset(arr, -1);
     };
 
@@ -29,7 +27,6 @@ define(['linq'], function (Enumerable) {
      * @return {Array.<number>} 人类可读索引数组
      */
     LinqUtil.convertToHumanIndex = function (arr) {
-        // enumerable = Enumerable.from(enumerable);
         return LinqUtil.addOffset(arr, 1);
     };
 
@@ -41,7 +38,6 @@ define(['linq'], function (Enumerable) {
      */
     LinqUtil.addOffset = function (arr, offset) {
         // 使用 linq.js 的 Enumerable 类
-        // enumerable = Enumerable.from(enumerable);
         return Enumerable.from(arr)
             .select(function (item) {
                 return item + offset;
