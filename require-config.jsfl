@@ -12,6 +12,12 @@ require.config({
     baseUrl: window.$ProjectFileDir$, // 设置模块的基础路径
     // baseUrl: '.', // 设置模块的基础路径
     paths: {
+        // 没有发布到npm的模块，可以直接指定路径
+        Class: 'Third/Class/Class.js-0.0.1/Class',
+        Interface: 'Third/Class/Class.js-0.0.1/Interface',
+
+
+        // 发布到npm的模块，由node_modules文件夹进行代码补全
         loglevel: 'Third/log/loglevel-1.9.2/loglevel',
         'path-browserify':
             'Third/modules/path-browserify-1.0.1/path-browserify',
@@ -31,6 +37,8 @@ require.config({
         sprintf: 'Third/utils/sprintf-js-1.1.3/sprintf',
         es2017: 'Third/shims/pollyfill/es2017',
 
+
+        // 自定义模块
         Constants: 'Core/Constants/Constants',
         ErrorDefinitions: 'Core/myShim/ErrorDefinitions',
         FUNC: 'Core/myShim/FUNC',
@@ -47,7 +55,7 @@ require.config({
         console: 'Core/Third/xjsfl/console',
         JSFLConstants: 'Core/Third/xjsfl/flash/JSFLConstants',
         JSFLInterface: 'Core/Third/xjsfl/flash/JSFLInterface',
-        Class: 'Core/Third/xjsfl/Utils/Class',
+        // Class: 'Core/Third/xjsfl/Utils/Class',
         Utils: 'Core/Third/xjsfl/Utils/Utils',
         checkUtil: 'Core/Utils/flash/checkUtil',
         curveUtil: 'Core/Utils/flash/curveUtil',
@@ -64,25 +72,5 @@ require.config({
         random: 'Core/Utils/py/random',
         StringP: 'Core/Utils/py/StringP'
     },
-    packages: [
-        // {
-        //     name: 'core-js/stable/json',
-        //     location: 'Third/core-js-3.41.0/stable/json',
-        //     main: 'index'
-        // }, {
-        //     name: 'core-js/es/json',
-        //     location: 'Third/core-js-3.41.0/es/json',
-        //     main: 'index'
-        // }
-        // 'core-js/stable/promise'
-        // {
-        //     name: 'core-js/stable/promise',
-        //     location: 'Third/core-js-3.41.0/stable/promise',
-        //     main: 'index'
-        // }, {
-        //     name: 'core-js/es/promise',
-        //     location: 'Third/core-js-3.41.0/es/promise',
-        //     main: 'index'
-        // }
-    ]
+    packages: []
 });

@@ -6,7 +6,6 @@
  * @project: AnJsflScript
  * @description:
  */
-// import 'core-js/stable/object/keys';
 require([], function () {
     function Main() {
         // 假设 require.s.contexts._.config 已经定义
@@ -36,4 +35,4 @@ require([], function () {
     Main();
 });
 
-(function () {})();
+

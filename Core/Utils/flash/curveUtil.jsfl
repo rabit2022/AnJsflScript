@@ -181,5 +181,26 @@ define(function () {
         timeline.setFrameProperty('tweenType', 'shape');
     };
 
+    /**
+     * 创建智能补间
+     * @param {Frame} frame 帧对象
+     * @see https://community.adobe.com/t5/animate-discussions/intelligent-tween-jsfl/m-p/12875796
+     */
+    Curve.createTweenIntelligent = function (frame) {
+        if (frame.elements.length > 1) return;
+        var element = frame.elements[0];
+
+        if (element.elementType === 'shape') {
+            frame.tweenType = 'shape';
+        } else if (element.elementType === 'instance') {
+            frame.tweenType = 'motion';
+            frame.motionTweenScale = true;
+            frame.motionTweenRotate = 'auto';
+            frame.motionTweenOrientToPath = false;
+            frame.motionTweenSync = false;
+            frame.motionTweenSnap = false;
+        }
+    }
+
     return Curve;
 });

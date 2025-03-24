@@ -3,22 +3,6 @@
 // Released under the MIT License.
 
 /* eslint-disable*/
-
-// declare module 'module.SAT' {
-//     let mod: {
-//         Vector: typeof Vector;
-//         Rectangle: typeof Rectangle;
-//         Size: typeof Size;
-//         Transform: typeof Transform;
-//         GLOBALS: typeof GLOBALS;
-//         V: typeof Vector;
-//         R: typeof Rectangle;
-//         S: typeof Size;
-//         T: typeof Transform;
-//     };
-//     export = mod;
-// }
-
 type Corner =
     | 'top right'
     | 'top left'
@@ -37,10 +21,9 @@ interface VectorLike {
 }
 
 // declare module 'module.SAT' {
-export class Vector {
-    x: number;
-
-    y: number;
+export class Vector extends VectorLike {
+    // x: number;
+    // y: number;
 
     constructor(x?: number, y?: number);
 
@@ -127,11 +110,11 @@ interface RectangleLike {
     bottom: number;
 }
 
-export class Rectangle {
-    left: number;
-    top: number;
-    right: number;
-    bottom: number;
+export class Rectangle extends RectangleLike {
+    // left: number;
+    // top: number;
+    // right: number;
+    // bottom: number;
 
     readonly width: number;
     readonly height: number;
@@ -181,9 +164,9 @@ interface SizeLike {
     height: number;
 }
 
-export class Size {
-    width: number;
-    height: number;
+export class Size extends SizeLike {
+    // width: number;
+    // height: number;
 
     readonly max_size: number;
     readonly min_size: number;
@@ -204,25 +187,33 @@ export class Size {
     static toString(): string;
 }
 
-export class Transform {
-    element: Element;
+interface TransformLike {
     rotation: number;
-    scale: Vector;
-    position: Vector;
-    size: Size;
-    skew: Vector;
+    scale: VectorLike;
+    position: VectorLike;
+    size: SizeLike;
+    skew: VectorLike;
+}
+
+export class Transform extends TransformLike {
+    element: Element;
+    // rotation: number;
+    // scale: Vector;
+    // position: Vector;
+    // size: Size;
+    // skew: Vector;
 
     constructor(element: any);
 
-    setRotation(rotation: number): Transform;
+    setRotation(rotation: number): this;
 
-    setScale(scale: Vector): Transform;
+    setScale(scale: Vector): this;
 
-    setPosition(position: Vector): Transform;
+    setPosition(position: Vector): this;
 
-    setSize(size: Size): Transform;
+    setSize(size: Size): this;
 
-    setSkew(skew: Vector): Transform;
+    setSkew(skew: Vector): this;
 
     toString(): string;
 

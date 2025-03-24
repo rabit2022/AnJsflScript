@@ -12,9 +12,12 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "SAT": ["types/SAT.d.ts"],
-      "Constants": ["types/Constants.d.ts"],
-      "FUNC": ["types/FUNC.d.ts"],
+
+      "Constants": ["types/Constants/Constants.d.ts"],
+      "FUNC": ["types/myShim/FUNC.d.ts"],
+      "Class": ["types/Third/Class/Class.js-0.0.1/Class.d.ts"],
+      "Interface": ["types/Third/Class/Class.js-0.0.1/Interface.d.ts"],
+      "SAT": ["types/Third/sat-js-0.9.0/SAT.d.ts"],
 
       "ErrorDefinitions": ["Core/myShim/ErrorDefinitions"],
       "frameRange": ["Core/Object/frameRange"],
@@ -29,7 +32,6 @@
       "console": ["Core/Third/xjsfl/console"],
       "JSFLConstants": ["Core/Third/xjsfl/flash/JSFLConstants"],
       "JSFLInterface": ["Core/Third/xjsfl/flash/JSFLInterface"],
-      "Class": ["Core/Third/xjsfl/Utils/Class"],
       "Utils": ["Core/Third/xjsfl/Utils/Utils"],
       "checkUtil": ["Core/Utils/flash/checkUtil"],
       "curveUtil": ["Core/Utils/flash/curveUtil"],
