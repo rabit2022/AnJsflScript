@@ -1,20 +1,20 @@
-(function(globalNamespace) {
+(function (globalNamespace) {
     'use strict';
 
     function applyMethodName(method, name) {
-        method.toString = function() {
+        method.toString = function () {
             return name;
         };
     }
 
     function applyConstructorName(NewClass, name) {
-        NewClass.toString = function() {
+        NewClass.toString = function () {
             return name;
         };
     }
 
     function applyClassNameToPrototype(NewClass, name) {
-        NewClass.prototype.toString = function() {
+        NewClass.prototype.toString = function () {
             return name;
         };
     }
@@ -29,11 +29,17 @@
      * @returns {function()} constructor The constructor of the created class
      * @expose
      */
-    var Class = function(classPath, classDefinition, local) {
-        var SuperClass, implementations, className, Initialize, ClassConstructor;
+    var Class = function (classPath, classDefinition, local) {
+        var SuperClass,
+            implementations,
+            className,
+            Initialize,
+            ClassConstructor;
 
         if (typeof classPath !== 'string') {
-            throw new Error('Please give your class a name. Pass "true" as last parameter to avoid global namespace pollution');
+            throw new Error(
+                'Please give your class a name. Pass "true" as last parameter to avoid global namespace pollution'
+            );
         }
 
         SuperClass = classDefinition['Extends'] || null;
@@ -48,20 +54,24 @@
         if (!Initialize) {
             if (SuperClass) {
                 // invoke constructor of superclass by default
-                Initialize = function() {
+                Initialize = function () {
                     SuperClass.apply(this, arguments);
                 };
             } else {
                 // there is no super class, default constructor is no-op method
-                Initialize = function() {
-                };
+                Initialize = function () {};
             }
         }
 
         className = classPath.substr(classPath.lastIndexOf('.') + 1);
 
         /*jslint evil: true */
-        ClassConstructor = new Function('initialize', 'return function ' + className + '() { initialize.apply(this, arguments); }')(Initialize);
+        ClassConstructor = new Function(
+            'initialize',
+            'return function ' +
+                className +
+                '() { initialize.apply(this, arguments); }'
+        )(Initialize);
 
         applyConstructorName(ClassConstructor, classPath);
 
@@ -72,10 +82,17 @@
         applyClassNameToPrototype(ClassConstructor, classPath);
 
         // 处理访问器属性
-        Object.keys(classDefinition).forEach(function(key) {
-            var descriptor = Object.getOwnPropertyDescriptor(classDefinition, key);
+        Object.keys(classDefinition).forEach(function (key) {
+            var descriptor = Object.getOwnPropertyDescriptor(
+                classDefinition,
+                key
+            );
             if (descriptor && (descriptor.get || descriptor.set)) {
-                Object.defineProperty(ClassConstructor.prototype, key, descriptor);
+                Object.defineProperty(
+                    ClassConstructor.prototype,
+                    key,
+                    descriptor
+                );
             } else {
                 ClassConstructor.prototype[key] = classDefinition[key];
             }
@@ -89,11 +106,10 @@
 
         ClassKeys[classPath] = ClassConstructor;
 
-
         return ClassConstructor;
     };
 
-    Class['getClass'] = function(classPath) {
+    Class['getClass'] = function (classPath) {
         return ClassKeys[classPath];
     };
 
@@ -106,26 +122,32 @@
      * @param  {boolean} shouldOverride
      * @return {undefined}
      */
-    Class['augment'] = function(target, extension, shouldOverride) {
-
-        var propertyName, property, targetHasProperty,
-            propertyWouldNotBeOverriden, extensionIsPlainObject, className;
+    Class['augment'] = function (target, extension, shouldOverride) {
+        var propertyName,
+            property,
+            targetHasProperty,
+            propertyWouldNotBeOverriden,
+            extensionIsPlainObject,
+            className;
 
         for (propertyName in extension) {
-
             if (extension.hasOwnProperty(propertyName)) {
-
                 targetHasProperty = target.hasOwnProperty(propertyName);
 
                 if (shouldOverride || !targetHasProperty) {
-
                     property = target[propertyName] = extension[propertyName];
 
                     if (typeof property === 'function') {
-                        extensionIsPlainObject = (extension.toString === Object.prototype.toString);
-                        className = extensionIsPlainObject ? target.constructor : extension.constructor;
+                        extensionIsPlainObject =
+                            extension.toString === Object.prototype.toString;
+                        className = extensionIsPlainObject
+                            ? target.constructor
+                            : extension.constructor;
 
-                        applyMethodName(property, className + '::' + propertyName);
+                        applyMethodName(
+                            property,
+                            className + '::' + propertyName
+                        );
                     }
                 }
             }
@@ -142,13 +164,15 @@
      *
      * @expose
      */
-    Class['extend'] = function(TargetClass, extension, shouldOverride) {
-
+    Class['extend'] = function (TargetClass, extension, shouldOverride) {
         if (extension['STATIC']) {
-
             if (TargetClass.Super) {
                 // add static properties of the super class to the class namespace
-                Class['augment'](TargetClass, TargetClass.Super['_STATIC_'], true);
+                Class['augment'](
+                    TargetClass,
+                    TargetClass.Super['_STATIC_'],
+                    true
+                );
             }
 
             // add static properties and methods to the class namespace
@@ -173,12 +197,10 @@
      * @param  {Function} SuperClass
      * @return {undefined}
      */
-    Class['inherit'] = function(SubClass, SuperClass) {
-
+    Class['inherit'] = function (SubClass, SuperClass) {
         if (SuperClass) {
             /** @constructor */
-            var SuperClassProxy = function() {
-            };
+            var SuperClassProxy = function () {};
             SuperClassProxy.prototype = SuperClass.prototype;
 
             SubClass.prototype = new SuperClassProxy();
@@ -199,15 +221,18 @@
      * @param  {Function|Array} implementations
      * @return {undefined}
      */
-    Class['implement'] = function(TargetClass, implementations) {
-
+    Class['implement'] = function (TargetClass, implementations) {
         if (implementations) {
             var index;
             if (typeof implementations === 'function') {
                 implementations = [implementations];
             }
             for (index = 0; index < implementations.length; index += 1) {
-                Class['augment'](TargetClass.prototype, implementations[index].prototype, false);
+                Class['augment'](
+                    TargetClass.prototype,
+                    implementations[index].prototype,
+                    false
+                );
             }
         }
     };
@@ -224,9 +249,13 @@
      * @param  {Object} exposedObject
      * @return {undefined}
      */
-    Class['namespace'] = function(namespacePath, exposedObject) {
+    Class['namespace'] = function (namespacePath, exposedObject) {
         if (typeof globalNamespace['define'] === 'undefined') {
-            var classPathArray, className, currentNamespace, currentPathItem, index;
+            var classPathArray,
+                className,
+                currentNamespace,
+                currentPathItem,
+                index;
 
             classPathArray = namespacePath.split('.');
             className = classPathArray[classPathArray.length - 1];
@@ -249,7 +278,7 @@
 
     // Return as AMD module or attach to head object
     if (typeof define !== 'undefined') {
-        define('Class', [], function() {
+        define('Class', [], function () {
             return Class;
         });
     }
@@ -259,5 +288,5 @@
         globalNamespace['Class'] = Class;
     }
 
-// }(typeof define !== "undefined" || typeof window === "undefined" ? exports : window));
-}(this));
+    // }(typeof define !== "undefined" || typeof window === "undefined" ? exports : window));
+})(this);

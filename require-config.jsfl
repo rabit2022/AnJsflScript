@@ -12,12 +12,11 @@ require.config({
     baseUrl: window.$ProjectFileDir$, // 设置模块的基础路径
     // baseUrl: '.', // 设置模块的基础路径
     paths: {
-        // 没有发布到npm的模块，可以直接指定路径
+        // 发布到npm的模块，由node_modules文件夹进行代码补全
         Class: 'Third/Class/Class.js-0.0.1/Class',
         Interface: 'Third/Class/Class.js-0.0.1/Interface',
-
-
-        // 发布到npm的模块，由node_modules文件夹进行代码补全
+        eventemitter3: 'Third/event/eventemitter3-5.0.1/eventemitter3',
+        rxjs: 'Third/event/rxjs-7.8.2/rxjs.umd',
         loglevel: 'Third/log/loglevel-1.9.2/loglevel',
         'path-browserify':
             'Third/modules/path-browserify-1.0.1/path-browserify',
@@ -28,15 +27,13 @@ require.config({
         'es6-shim': 'Third/shims/es6-shim-0.35.4/es6-shim',
         'es7-shim': 'Third/shims/es7-shim-6.0.0/es7-shim',
         json3: 'Third/shims/json3-3.3.3/json3',
+        es2017: 'Third/shims/pollyfill/es2017',
         'error-stack-parser':
             'Third/stack/error-stack-parser-3.0.0/error-stack-parser',
         stackframe: 'Third/stack/stackframe-1.3.4/stackframe',
         linq: 'Third/utils/linq-4.0.3/linq',
         lodash: 'Third/utils/lodash-4.17.21/lodash',
-        rxjs: 'Third/utils/rxjs-7.8.2/rxjs.umd',
         sprintf: 'Third/utils/sprintf-js-1.1.3/sprintf',
-        es2017: 'Third/shims/pollyfill/es2017',
-
 
         // 自定义模块
         Constants: 'Core/Constants/Constants',

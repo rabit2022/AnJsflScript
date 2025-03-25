@@ -1,29 +1,40 @@
 (function (globalNamespace) {
-    "use strict";
+    'use strict';
 
     function defineInterfaceModule(Class) {
         /**
          * @constructor
          */
-        var ImplementationMissingError = function(message) {
-            this.name = "ImplementationMissingError";
-            this.message = (message || "");
+        var ImplementationMissingError = function (message) {
+            this.name = 'ImplementationMissingError';
+            this.message = message || '';
         };
 
         ImplementationMissingError.prototype = Error.prototype;
 
-        function createExceptionThrower(interfaceName, methodName, expectedType) {
-            return function() {
-                var message = 'Missing implementation for <' + this + '::' + methodName + '> defined by interface ' + interfaceName;
+        function createExceptionThrower(
+            interfaceName,
+            methodName,
+            expectedType
+        ) {
+            return function () {
+                var message =
+                    'Missing implementation for <' +
+                    this +
+                    '::' +
+                    methodName +
+                    '> defined by interface ' +
+                    interfaceName;
 
                 throw new ImplementationMissingError(message);
             };
         }
 
-        var Interface = function(path, definition, local) {
-
+        var Interface = function (path, definition, local) {
             if (typeof path !== 'string') {
-                throw new Error('Please give your interface a name. Pass "true" as last parameter to avoid global namespace pollution');
+                throw new Error(
+                    'Please give your interface a name. Pass "true" as last parameter to avoid global namespace pollution'
+                );
             }
 
             var interfaceName = path.substr(path.lastIndexOf('.') + 1),
@@ -31,15 +42,16 @@
                 property;
 
             /*jslint evil: true */
-            var InterfaceConstructor = new Function('return function ' + interfaceName + '() {}')();
+            var InterfaceConstructor = new Function(
+                'return function ' + interfaceName + '() {}'
+            )();
 
             for (methodName in definition) {
-
                 if (definition.hasOwnProperty(methodName)) {
-
                     property = definition[methodName];
 
-                    InterfaceConstructor.prototype[methodName] = createExceptionThrower(path, methodName, property);
+                    InterfaceConstructor.prototype[methodName] =
+                        createExceptionThrower(path, methodName, property);
                 }
             }
 
@@ -47,7 +59,7 @@
                 Class['namespace'](path, InterfaceConstructor);
             }
 
-            InterfaceConstructor.toString = function() {
+            InterfaceConstructor.toString = function () {
                 return interfaceName;
             };
 
@@ -60,15 +72,17 @@
     }
 
     // Return as AMD module or attach to head object
-    if (typeof define !== "undefined") {
-        define('Interface', ['Class'], function(Class) {
+    if (typeof define !== 'undefined') {
+        define('Interface', ['Class'], function (Class) {
             return defineInterfaceModule(Class);
         });
     }
     // expose on global namespace (browser)
-    else if (typeof window !== "undefined") {
+    else if (typeof window !== 'undefined') {
         /** @expose */
-        globalNamespace['Interface'] = defineInterfaceModule(globalNamespace['Class']);
+        globalNamespace['Interface'] = defineInterfaceModule(
+            globalNamespace['Class']
+        );
     }
     // expose on global namespace (node)
     else {
@@ -76,5 +90,5 @@
         globalNamespace.Interface = defineInterfaceModule(Class);
     }
 
-// }(typeof define !== "undefined" || typeof window === "undefined" ? exports : window));
-}(this));
+    // }(typeof define !== "undefined" || typeof window === "undefined" ? exports : window));
+})(this);

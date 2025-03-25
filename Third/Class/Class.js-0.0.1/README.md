@@ -1,23 +1,23 @@
-Class.jsfl
-========
+# Class.jsfl
 
-***Lightning fast JavaScript class system in 1.4KB (638 bytes gzipped)***
+**_Lightning fast JavaScript class system in 1.4KB (638 bytes gzipped)_**
 
 100% no wrappers, same performance as hand-written pure JS classes. Exposes a beautiful API and gives classes and methods speaking names for debugging!
 
 inspired by [my.Class.jsfl] (https://github.com/jiem/my-class) -> Heavily optimized for google closure advanced compilation.
 
 more details to performance:
-* [instantiation perfs] (http://jsperf.com/moo-resig-ender-my)
-* [inheritance perfs - calling super constructor] (http://jsperf.com/moo-resig-ender-my/2)
-* [inheritance perfs - calling super method] (http://jsperf.com/moo-resig-ender-my/3) 
 
-Create a class
---------------
+- [instantiation perfs] (http://jsperf.com/moo-resig-ender-my)
+- [inheritance perfs - calling super constructor] (http://jsperf.com/moo-resig-ender-my/2)
+- [inheritance perfs - calling super method] (http://jsperf.com/moo-resig-ender-my/3)
+
+## Create a class
+
 ```JavaScript
 
 (function() {
-    
+
   Class('lib.Person', {
 
     STATIC: {
@@ -46,19 +46,19 @@ john.sayHello(); //log "Hello from John!"
 john.drinkAlcohol(); //log "Too young! Drink milk instead!"
 ```
 
-Extend and Implement other Classes
-----------------------------------
+## Extend and Implement other Classes
+
 ```JavaScript
 (function() {
   Class('lib.Dreamy', {
     dream: 'default',
-      
+
     describeDream: function() {
       return "..it is about: " + this.dream;
     }
   });
 })();
-    
+
 (function() {
   Class('lib.Awakable', {
     wakeUp: function() {
@@ -66,9 +66,9 @@ Extend and Implement other Classes
     }
   });
 })();
-    
+
 (function() {
-  var Dreamer = Class('lib.Dreamer', { 
+  var Dreamer = Class('lib.Dreamer', {
     Extends: lib.Person, // person is super class (prototypal inheritance)
     Implements: [lib.Dreamy, lib.Awakable], // mixin prototypes of other classes
 
@@ -89,15 +89,15 @@ sylvester.sayHello(); //log "Hello from Sylvester! I dream of eating Tweety!"
 sylvester.wakeUp(); //log "Wake up!"
 ```
 
-Afraid to forget the `new` operator?
-------------------------------------
+## Afraid to forget the `new` operator?
+
 ```JavaScript
 var Person = Class({
 
   // you can now call the constructor with or without new
   initialize: function(name, city) {
     if (!(this instanceof Person)) return new Person(name, city);
-    
+
     this.name = name;
     this.city = citye;
   }
@@ -105,14 +105,14 @@ var Person = Class({
 });
 ```
 
-Inheritance of static properties
---------------------------------
+## Inheritance of static properties
+
 Static properties of the super class are automatically copied to the subclass and then merged with the static properties defined by the subclass. This is what most programmers would expect from traditional inheritance.
 
 ```JavaScript
 (function() {
-      var Spaceship = Class('lib.Spaceship', { 
-        
+      var Spaceship = Class('lib.Spaceship', {
+
         STATIC: {
           MIN_SPEED: 0,
           MAX_SPEED: 100,
@@ -123,8 +123,8 @@ Static properties of the super class are automatically copied to the subclass an
         }
       });
 
-      var Enterprise = Class('lib.Enterprise', { 
-        
+      var Enterprise = Class('lib.Enterprise', {
+
         Extends: lib.Spaceship,
 
         STATIC: {
@@ -142,23 +142,23 @@ Static properties of the super class are automatically copied to the subclass an
     var enterprise = new lib.Enterprise(); // logs: Enterprise speed min: 0 max: 99999
 ```
 
-Addon: Interfaces
---------------------------------
+## Addon: Interfaces
+
 Optionally you can also include Interface.jsfl after Class.jsfl in your code and start
 defining interfaces for your classes. These add simple runtime checks if you defined
 all required methods on your class. Does not slow down your code because if you define
 the methods they will simply override the ones of the interface.
 
 ```JavaScript
-Interface('ICommand', { 
-      
+Interface('ICommand', {
+
   execute: Function,
   undo: Function
-  
+
 });
 
-var Command = Class({ 
-  
+var Command = Class({
+
   Implements: ICommand,
 
   execute: function() {
@@ -177,8 +177,7 @@ try {
 }
 ```
 
-AMD Usage
---------------------------------------
+## AMD Usage
 
 Using Class.jsfl in AMD will look like the following:
 

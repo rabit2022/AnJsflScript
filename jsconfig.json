@@ -12,7 +12,6 @@
     ],
     "baseUrl": ".",
     "paths": {
-
       "Constants": ["types/Constants/Constants.d.ts"],
       "FUNC": ["types/myShim/FUNC.d.ts"],
       "Class": ["types/Third/Class/Class.js-0.0.1/Class.d.ts"],

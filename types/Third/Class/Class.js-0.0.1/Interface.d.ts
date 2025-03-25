@@ -9,12 +9,14 @@ interface InterfaceDefinition {
 }
 
 export class Interface {
-    constructor(interfacePath: string, interfaceDefinition: InterfaceDefinition, local?: boolean): Function;
+    constructor(
+        interfacePath: string,
+        interfaceDefinition: InterfaceDefinition,
+        local?: boolean
+    ): Function;
 
     static ImplementationMissingError: ImplementationMissingError;
-
 }
-
 
 // // 如果在 Node.js 环境中，将 Interface 暴露为模块
 // declare module 'Interface' {

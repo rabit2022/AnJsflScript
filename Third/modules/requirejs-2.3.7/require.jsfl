@@ -2255,45 +2255,22 @@ var requirejs, require, define;
                 );
             }
         } else if (isFlash) {
-            // .js--.jsfl 只匹配最后一个.js
-            var scriptURI = url.replace(/\.js(\?|$)/, '.jsfl');
-
-            // In a flash environment, use importFlashScripts to load the script.
-            importFlashScripts(scriptURI);
-
-            //Account for anonymous modules
-            context.completeLoad(moduleName);
             try {
-                // // .js--.jsfl 只匹配最后一个.js
-                // var scriptURI = url.replace(/\.js(\?|$)/, '.jsfl');
-                //
-                // // In a flash environment, use importFlashScripts to load the script.
-                // importFlashScripts(scriptURI);
-                //
-                // //Account for anonymous modules
-                // context.completeLoad(moduleName);
+                // In a flash environment, use importFlashScripts to load the script.
+                importFlashScripts(url);
+
+                //Account for anonymous modules
+                context.completeLoad(moduleName);
             } catch (e) {
-                fl.trace(
-                    '[Error] failed to load script for flash [' +
-                        moduleName +
-                        '] at [' +
-                        scriptURI +
-                        ']'
-                );
-                context.onError(
-                    makeError(
-                        'flash',
-                        'Flash loading failed for ' +
-                            moduleName +
-                            ' at ' +
-                            scriptURI,
-                        e,
-                        [moduleName]
-                    )
-                );
+                var message =
+                    '[Error] Flash loading failed for ' +
+                    moduleName +
+                    'at' +
+                    url;
+                fl.trace(message);
+                context.onError(makeError('flash', message, e, [moduleName]));
             }
         } else {
-            // throw new Error('Unsupported environment');
             context.onError(
                 makeError('notsupported', 'Not supported', null, [moduleName])
             );

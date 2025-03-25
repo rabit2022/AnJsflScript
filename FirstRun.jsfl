@@ -28,8 +28,12 @@
         // region polyfills
 
         // String.prototype.startswith
-        function String_startsWith(str, prefix) {
+        function startsWith(str, prefix) {
             return str.indexOf(prefix) === 0;
+        }
+        // String.prototype.endsWith
+        function endsWith(str, suffix) {
+            return str.lastIndexOf(suffix) === str.length - suffix.length;
         }
 
         // 获取当前脚本文件的所在文件夹路径
@@ -57,7 +61,7 @@
             assertPath(path);
             // return path.length > 0 && path.charCodeAt(0) === 47 /*/*/;
             var ABSOLUTE_FLAG = 'file:///';
-            return path.length > 0 && String_startsWith(path, ABSOLUTE_FLAG);
+            return path.length > 0 && startsWith(path, ABSOLUTE_FLAG);
         }
 
         // endregion polyfills
@@ -72,14 +76,18 @@
                 ? path
                 : curWorkingDirectory + '/' + path;
 
-            // 结尾没有后缀名时，添加.jsfl后缀名
+            // 结尾是.js后缀名时，替换为.jsfl后缀名
+            if (endsWith(scriptURI, '.js')) {
+                scriptURI = scriptURI.replace(/(\.[^.]*)?$/, '.jsfl');
+            }
+            // 结尾没有.jsfl后缀名时，添加.jsfl后缀名
             if (!/\.jsfl$/.test(scriptURI)) {
                 scriptURI += '.jsfl';
             }
 
-            var message =
-                '[importFlashScripts] Run script file [' + scriptURI + ']';
-            fl.trace(message);
+            // var message =
+            //     '[importFlashScripts] Run script file [' + scriptURI + ']';
+            // fl.trace(message);
             // 执行脚本
             var exists = fileExists(scriptURI);
             if (exists) {
@@ -96,19 +104,19 @@
     }
 
     function Main() {
+        // 全局变量
         window.importFlashScripts = importFlashScripts;
+        /**
+         * 项目文件夹路径
+         * @type {string}
+         */
+        window.$ProjectFileDir$ = getcwd();
 
         var config = {
             require: 'Third/modules/requirejs-2.3.7/require'
         };
         // 导入模块,相对路径导入
         importFlashScripts(config.require);
-
-        /**
-         * 项目文件夹路径
-         * @type {string}
-         */
-        window.$ProjectFileDir$ = getcwd();
 
         require([
             // 导入配置文件
@@ -122,7 +130,6 @@
             'es7-shim', // es7,es2016
             'es2017', // es8,es2017
 
-            // corejs没有完整的实现JSON的polyfill, 所以需要导入json3
             'json3',
 
             // 补全console模块, 避免其他模块依赖console时报错

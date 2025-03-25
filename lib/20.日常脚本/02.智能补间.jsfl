@@ -8,7 +8,12 @@
  * @see : https://community.adobe.com/t5/animate-discussions/intelligent-tween-jsfl/m-p/12875796
  */
 
-require(['checkUtil', 'loglevel', 'frameRangeUtil', 'curveUtil'], function(checkUtil, log, frUtil, curveUtil) {
+require(['checkUtil', 'loglevel', 'frameRangeUtil', 'curveUtil'], function (
+    checkUtil,
+    log,
+    frUtil,
+    curveUtil
+) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
     const { IsKeyFrame } = frUtil;
     const { createTweenIntelligent } = curveUtil;
@@ -37,10 +42,10 @@ require(['checkUtil', 'loglevel', 'frameRangeUtil', 'curveUtil'], function(check
         // 检查选择的元件
         if (!CheckSelection(selection, 'selectElement', 'No limit')) return;
 
-        var selectedLayers = frs.map(function(fr) {
+        var selectedLayers = frs.map(function (fr) {
             return timeline.layers[fr.layerIndex];
         });
-        var startEndFrames = frs.map(function(fr) {
+        var startEndFrames = frs.map(function (fr) {
             return [fr.startFrame, fr.endFrame];
         });
         for (var i = 0; i < selectedLayers.length; i++) {

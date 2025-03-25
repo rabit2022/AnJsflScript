@@ -7,26 +7,23 @@
  * @description:
  */
 
-define([
-    'Class',
-    'Interface',
-    'checkUtil',
-    'ErrorDefinitions'
-], function(Class, Interface, checkUtil, ErrorDefinitions) {
+define(['Class', 'Interface', 'checkUtil', 'ErrorDefinitions'], function (
+    Class,
+    Interface,
+    checkUtil,
+    ErrorDefinitions
+) {
     const { CheckTimeline } = checkUtil;
     const { NotImplementedError } = ErrorDefinitions;
 
-
     var NavigationAbs = Interface('NavigationAbs', {
-            home: Function,
-            end: Function,
-            pageUp: Function,
-            pageDown: Function,
-            shiftPageUp: Function,
-            shiftPageDown: Function
-        }
-    );
-
+        home: Function,
+        end: Function,
+        pageUp: Function,
+        pageDown: Function,
+        shiftPageUp: Function,
+        shiftPageDown: Function
+    });
 
     /**
      * 时间轴导航类
@@ -40,9 +37,8 @@ define([
         Implements: NavigationAbs,
 
         STATIC: {
-
             // 静态方法：移动到时间轴开头 (Home)
-            home: function() {
+            home: function () {
                 const timeline = CheckTimeline();
                 if (!timeline) return;
 
@@ -50,7 +46,7 @@ define([
             },
 
             // 静态方法：移动到时间轴末尾 (End)
-            end: function() {
+            end: function () {
                 const timeline = CheckTimeline();
                 if (!timeline) return;
 
@@ -58,7 +54,7 @@ define([
             },
 
             // 静态方法：移动到前一个关键帧（所有图层） (Page Up)
-            pageUp: function() {
+            pageUp: function () {
                 const timeline = CheckTimeline();
                 if (!timeline) return;
 
@@ -75,10 +71,14 @@ define([
                         ) {
                             sf = layer.frames[timeline.currentFrame].startFrame;
                             if (sf == timeline.currentFrame) {
-                                sf = layer.frames[timeline.currentFrame - 1].startFrame;
+                                sf =
+                                    layer.frames[timeline.currentFrame - 1]
+                                        .startFrame;
                             }
                         } else if (layer.layerType != 'folder') {
-                            sf = layer.frames[layer.frames.length - 1].startFrame;
+                            sf =
+                                layer.frames[layer.frames.length - 1]
+                                    .startFrame;
                         }
                         if (sf > key) {
                             klayers = [j];
@@ -102,7 +102,7 @@ define([
             },
 
             // 静态方法：移动到下一个关键帧（所有图层） (Page Down)
-            pageDown: function() {
+            pageDown: function () {
                 const timeline = CheckTimeline();
                 if (!timeline) return;
 
@@ -112,7 +112,8 @@ define([
                 if (timeline.currentFrame < key) {
                     for (var j = 0; j < timeline.layers.length; j++) {
                         if (
-                            timeline.currentFrame <= timeline.layers[j].frames.length &&
+                            timeline.currentFrame <=
+                                timeline.layers[j].frames.length &&
                             timeline.layers[j].layerType != 'folder'
                         ) {
                             var dura =
@@ -120,8 +121,9 @@ define([
                                     .duration;
                             if (dura == 0) {
                                 dura =
-                                    timeline.layers[j].frames[timeline.currentFrame + 1]
-                                        .duration + 1;
+                                    timeline.layers[j].frames[
+                                        timeline.currentFrame + 1
+                                    ].duration + 1;
                             }
                             var sf =
                                 timeline.layers[j].frames[timeline.currentFrame]
@@ -137,7 +139,10 @@ define([
                         }
                     }
                     if (klayers.length > 0) {
-                        if (timeline.layers[klayers[0]].frames[key].startFrame == key) {
+                        if (
+                            timeline.layers[klayers[0]].frames[key]
+                                .startFrame == key
+                        ) {
                             timeline.setSelectedLayers(klayers[0], true);
                             for (var j = 1; j < klayers.length; j++) {
                                 timeline.setSelectedLayers(klayers[j], false);
@@ -150,7 +155,7 @@ define([
             },
 
             // 静态方法：移动到当前图层的前一个关键帧 (Shift + Page Up)
-            shiftPageUp: function() {
+            shiftPageUp: function () {
                 const timeline = CheckTimeline();
                 if (!timeline) return;
 
@@ -161,7 +166,8 @@ define([
                     startframe === timeline.currentFrame &&
                     timeline.currentFrame > 0
                 ) {
-                    startframe = layer.frames[timeline.currentFrame - 1].startFrame;
+                    startframe =
+                        layer.frames[timeline.currentFrame - 1].startFrame;
                 }
                 timeline.currentFrame = startframe >= 0 ? startframe : 0;
                 timeline.setSelectedFrames(
@@ -171,7 +177,7 @@ define([
             },
 
             // 静态方法：移动到当前图层的下一个关键帧 (Shift + Page Down)
-            shiftPageDown: function() {
+            shiftPageDown: function () {
                 const timeline = CheckTimeline();
                 if (!timeline) return;
 
@@ -194,9 +200,7 @@ define([
         }
     });
 
-
     return {
         TimelineNavigation: TimelineNavigation
     };
 });
-

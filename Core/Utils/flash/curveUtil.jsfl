@@ -200,7 +200,7 @@ define(function () {
             frame.motionTweenSync = false;
             frame.motionTweenSnap = false;
         }
-    }
+    };
 
     return Curve;
 });
