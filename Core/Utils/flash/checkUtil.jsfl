@@ -144,6 +144,7 @@ define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
             var message = exTips
                 ? defaultMessage + '(' + exTips + ')'
                 : defaultMessage;
+
             alert(message);
             return false;
         }
@@ -184,15 +185,16 @@ define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
     /**
      * 检查选中的帧是否符合指定的条件
      * @param {Timeline} timeline - 时间轴对象。
+     * @param {string} [exTips] - 额外提示信息。
      * @param {'No limit'|'Not Zero'|'Zero'|'Only one'|'Only two'|'More'|
      * '>0'|'=0'|'=1'|'=2'|'>1'} [condition="Not Zero"] - 检查条件
      * @returns {FrameRange[]}
      */
-    function CheckSelectedFrames(timeline, condition) {
+    function CheckSelectedFrames(timeline, exTips, condition) {
         if (condition === undefined) condition = 'Not Zero';
 
         var frs = frUtil.getSelectedFrs(timeline);
-        if (!CheckSelection(frs, 'selectFrame', condition)) return null;
+        if (!CheckSelection(frs, 'selectFrame', condition, exTips)) return null;
         return frs;
     }
 
