@@ -7,19 +7,32 @@
  * @description:
  */
 
+// import _ from 'lodash';
+
 require([
     'checkUtil',
     'frameRangeUtil',
     'frameRange',
     'loglevel',
-    'FUNC'
-], function (checkUtil, frUtil, FrameRange, log, FUNC) {
+    'lodash',
+    'KeyFrameMode',
+    'JSFLConstants'
+    // 'FUNC'
+], function (
+    checkUtil,
+    frUtil,
+    FrameRange,
+    log,
+    _,
+    KeyFrameMode,
+    JSFLConstants
+) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
         CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
-    const { OF_MACRO } = FUNC;
+    // const { OF_MACRO } = FUNC;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -35,76 +48,23 @@ require([
     var curFrameIndex = timeline.currentFrame; //当前帧索引
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
-    // 获取第一帧
-    var frs = checkSelectedFrames(timeline);
-    if (frs === null) return;
-    var firstLayer = layers[frs[0].layerIndex];
-    var firstFrame = frs[0].startFrame;
+    const MULTIPLY = JSFLConstants.symbol.blendMode.multiply;
 
-    /**
-     * 按照图层索引分类，将FrameRange数组转换为对象
-     * @param {FrameRange[]} arr
-     * @returns {{number: number[]}}
-     */
-    function convertArrayToObject(arr) {
-        const result = {};
-        for (var i = 0; i < arr.length; i++) {
-            // const [layerIndex, start, end] = arr[i];
-            const fr = arr[i];
-            if (!result[fr.layerIndex]) {
-                result[fr.layerIndex] = [];
-            }
-            result[fr.layerIndex].push(fr.startFrame);
-        }
-        return result;
+    // 正片叠底
+    function setBlendMode(layer, frameIndex, blendMode) {
+        layer.setBlendModeAtFrame(frameIndex, blendMode);
     }
 
     function Main() {
         // 检查选择的元件
         if (!checkSelection(selection, 'selectElement', 'No limit')) return;
 
-        // doc.setBlendMode('multiply');
-
-        // var blendMode = curLayer.getBlendModeAtFrame(frameIndex);
-        // print(blendMode);
-        // curLayer.setBlendModeAtFrame(curFrameIndex, "multiply");
-
-        //============分裂 选中范围 ，按照关键帧范围分裂 ===================
-        /**
-         *
-         * @type {FrameRange[]}
-         */
-        var splitFrs = [];
-        for (var i = 0; i < frs.length; i++) {
-            // 某一个图层的 选中的帧范围
-            var selectedFr = frs[i];
-            // 某一个图层的 关键帧范围 列表
-            var _layer = layers[selectedFr.layerIndex];
-            var keyFrameRanges = frUtil.getKeyFrameRanges(layers, _layer);
-
-            // 选中范围 包含的 关键帧范围
-            var keyFr = frUtil.getSplitFrs(selectedFr, keyFrameRanges);
-            splitFrs = splitFrs.concat(keyFr);
-        }
-
-        /**
-         * layerIndex: startFrame[]
-         * @type {{number: number[]}}
-         */
-        var frDict = convertArrayToObject(splitFrs);
-
-        // for (var [layerIndex, frameIndexes] of Object.entries(frDict)) {
-        OF_MACRO(frDict, function (layerIndex, frameIndexes) {
-            // 在这里执行逻辑处理
-            log.info(
-                'layerIndex:' + layerIndex,
-                'frameIndexes:' + frameIndexes
-            );
-
-            var curLayer = layers[layerIndex]; //当前图层
-            frameIndexes.forEach(function (frameIndex) {
-                curLayer.setBlendModeAtFrame(frameIndex, 'multiply');
-            });
+        var mode = KeyFrameMode();
+        if (!mode) return;
+        mode.forEach(function (item) {
+            var { layer, frameIndex } = item;
+            // silentFrame(frame);
+            setBlendMode(layer, frameIndex, MULTIPLY);
         });
     }
 

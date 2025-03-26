@@ -7,7 +7,11 @@
  * @description:
  */
 
-require(['checkUtil', 'loglevel', 'frameRangeUtil'], function(checkUtil, log, frUtil) {
+require(['checkUtil', 'loglevel', 'frameRangeUtil'], function (
+    checkUtil,
+    log,
+    frUtil
+) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
     // region doc
@@ -35,6 +39,8 @@ require(['checkUtil', 'loglevel', 'frameRangeUtil'], function(checkUtil, log, fr
     const firstFrameDuration = frs[0].duration; // 第一帧持续时间
     log.info('firstFrameDuration: %s', firstFrameDuration);
 
+    // 1472 = 1frame魔法数字，表示1帧持续时间
+    const EnvelopeDuration = 1472; // 拆分长度，单位：帧
     /**
      * 根据关键帧长度设置音频播放范围
      * @param {number} curFrameIndex - 进行音频拆分的关键帧位置
@@ -59,7 +65,8 @@ require(['checkUtil', 'loglevel', 'frameRangeUtil'], function(checkUtil, log, fr
         timeline.insertKeyframe(curFrameIndex);
 
         //打双帧拆分
-        var newStart = soundEnvelopeLimits.start + (curFrameIndex - startFrame) * 1472;
+        var newStart =
+            soundEnvelopeLimits.start + (curFrameIndex - startFrame) * 1472;
         log.info(
             'curFrameIndex: %s  startFrame: %s  newStart: %s',
             curFrameIndex,
@@ -70,7 +77,6 @@ require(['checkUtil', 'loglevel', 'frameRangeUtil'], function(checkUtil, log, fr
         soundEnvelopeLimits.start = newStart;
 
         curFrameIndex += duration;
-
 
         timeline.insertKeyframe(curFrameIndex);
         var nextFrame = curLayer.frames[curFrameIndex];

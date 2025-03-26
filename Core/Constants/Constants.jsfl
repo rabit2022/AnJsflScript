@@ -39,6 +39,16 @@ define(function () {
     const MAX_CHANNEL = 32768;
 
     /**
+     * 音轨拆分长度
+     * @type {number}
+     * @description 音轨拆分长度，单位：帧
+     *              var soundEnvelopeLimits = frame.getSoundEnvelopeLimits();
+     */
+    const ENVELOPE_FRAME = 1472;
+
+    const MAX_ENVELOPE = 1073741823;
+
+    /**
      * 模块导出对象
      * @type {Object}
      */
@@ -46,7 +56,8 @@ define(function () {
         SECOND_FRAME: SECOND_FRAME,
         MINUTE_FRAME: MINUTE_FRAME,
         MAX_BLUR: MAX_BLUR,
-        MAX_CHANNEL: MAX_CHANNEL
+        MAX_CHANNEL: MAX_CHANNEL,
+        ENVELOPE_FRAME: ENVELOPE_FRAME
     };
 
     // 将动态生成的帧索引添加到模块的公共接口中

@@ -64,7 +64,7 @@ require([
             log.info('没有找到调整颜色滤镜，添加一个');
 
             var adjustColorFilter = {
-                name: 'adjustColorFilter',
+                name: ADJUST_COLOR_FILTER,
                 enabled: true,
                 brightness: 0,
                 contrast: 0,

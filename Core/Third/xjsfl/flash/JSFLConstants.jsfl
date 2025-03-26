@@ -10,7 +10,7 @@
 //
 // ------------------------------------------------------------------------------------------------------------------------
 // JSFLConstants
-// @see: https://github.com/davestewart/xJSFL
+// @link: https://github.com/davestewart/xJSFL
 
 define(function () {
     /**

@@ -7,7 +7,7 @@
  * @description:
  */
 
-require(['checkUtil', 'loglevel'], function(checkUtil, log) {
+require(['checkUtil', 'loglevel'], function (checkUtil, log) {
     const { CheckDom, CheckSelection } = checkUtil;
 
     // region doc
@@ -31,7 +31,6 @@ require(['checkUtil', 'loglevel'], function(checkUtil, log) {
         if (!CheckSelection(selection, 'selectElement', 'No limit')) return;
 
         timeline.pasteFrames();
-
     }
 
     Main();

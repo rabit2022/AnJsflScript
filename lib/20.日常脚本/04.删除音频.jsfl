@@ -1,14 +1,19 @@
 /**
- * @file: 00.复制多帧.jsfl
+ * @file: 04.删除音频.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
- * @date: 2025/3/25 23:28
+ * @date: 2025/3/26 16:21
  * @project: AnJsflScript
  * @description:
  */
 
-require(['checkUtil', 'loglevel'], function (checkUtil, log) {
-    const { CheckDom, CheckSelection } = checkUtil;
+require(['checkUtil', 'loglevel', 'frameRangeUtil', 'KeyFrameMode'], function (
+    checkUtil,
+    log,
+    frUtil,
+    KeyFrameMode
+) {
+    const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -26,11 +31,20 @@ require(['checkUtil', 'loglevel'], function (checkUtil, log) {
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
     // endregion doc
 
+    function clearSound(curFrame) {
+        // 清空音频
+        curFrame.soundLibraryItem = null;
+    }
     function Main() {
         // 检查选择的元件
         if (!CheckSelection(selection, 'selectElement', 'No limit')) return;
 
-        timeline.copyFrames();
+        var mode = KeyFrameMode();
+        if (!mode) return;
+        mode.forEach(function (item) {
+            var { frame } = item;
+            clearSound(frame);
+        });
     }
 
     Main();

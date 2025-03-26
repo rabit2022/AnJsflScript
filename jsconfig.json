@@ -17,6 +17,7 @@
       "Class": ["types/Third/Class/Class.js-0.0.1/Class.d.ts"],
       "Interface": ["types/Third/Class/Class.js-0.0.1/Interface.d.ts"],
       "SAT": ["types/Third/sat-js-0.9.0/SAT.d.ts"],
+      "KeyFrameMode": ["Core/Utils/mode/KeyFrameMode"],
 
       "ErrorDefinitions": ["Core/myShim/ErrorDefinitions"],
       "frameRange": ["Core/Object/frameRange"],

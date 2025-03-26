@@ -80,6 +80,9 @@ require(['checkUtil', 'loglevel', 'LayerManager', 'frameRangeUtil'], function (
 
             if (soundRange) {
                 log.info('range %d-%d', soundRange.start, soundRange.end);
+                if (soundRange.start === 0 && soundRange.end === 0) {
+                    hasSound = false;
+                }
             }
 
             // log.info('音频名称 %s', soundName);
@@ -88,7 +91,7 @@ require(['checkUtil', 'loglevel', 'LayerManager', 'frameRangeUtil'], function (
                 keyFrame.startFrame,
                 keyFrame.endFrame,
                 hasSound ? '有' : '没有',
-                soundName ? soundName : ''
+                hasSound && soundName ? soundName : ''
             );
             if (hasSound) {
                 soundObjs[keyFrame.startFrame + '-' + keyFrame.endFrame] =

@@ -17,19 +17,62 @@ define(['Class', 'Interface', 'checkUtil', 'ErrorDefinitions'], function (
     const { NotImplementedError } = ErrorDefinitions;
 
     var NavigationAbs = Interface('NavigationAbs', {
-        home: Function,
-        end: Function,
-        pageUp: Function,
-        pageDown: Function,
-        shiftPageUp: Function,
-        shiftPageDown: Function
+        STATIC: {
+            /**
+             * 移动到当前上下文的开头（例如文档、时间轴的起始位置）。
+             * 通常相当于按下 Home 键。
+             */
+            home: Function,
+
+            /**
+             * 移动到当前上下文的末尾（例如文档、时间轴的结束位置）。
+             * 通常相当于按下 End 键。
+             */
+            end: Function,
+
+            /**
+             * 在当前上下文中向上翻一页（例如文档、时间轴）。
+             * 通常相当于按下 PageUp 键。
+             */
+            pageUp: Function,
+
+            /**
+             * 在当前上下文中向下翻一页（例如文档、时间轴）。
+             * 通常相当于按下 PageDown 键。
+             */
+            pageDown: Function,
+
+            /**
+             * 在当前上下文中向上翻一页，并选择从当前位置到新位置之间的内容。
+             * 通常相当于按下 Shift + PageUp 组合键。
+             */
+            shiftPageUp: Function,
+
+            /**
+             * 在当前上下文中向下翻一页，并选择从当前位置到新位置之间的内容。
+             * 通常相当于按下 Shift + PageDown 组合键。
+             */
+            shiftPageDown: Function,
+
+            /**
+             * 移动到当前上下文的开头，并选择从当前位置到开头的所有内容。
+             * 通常相当于按下 Shift + Home 组合键。
+             */
+            shiftHome: Function,
+
+            /**
+             * 移动到当前上下文的末尾，并选择从当前位置到末尾的所有内容。
+             * 通常相当于按下 Shift + End 组合键。
+             */
+            shiftEnd: Function
+        }
     });
 
     /**
      * 时间轴导航类
      * @class TimelineNavigation
      * @constructor
-     // * @extends NavigationAbs
+     * @extends NavigationAbs
      * @see https://github.com/hufang360/FlashTool
      * @note 适合做一个单独的面板使用，不建议在脚本中使用
      */
@@ -54,7 +97,7 @@ define(['Class', 'Interface', 'checkUtil', 'ErrorDefinitions'], function (
             },
 
             // 静态方法：移动到前一个关键帧（所有图层） (Page Up)
-            pageUp: function () {
+            pageUpGlobal: function () {
                 const timeline = CheckTimeline();
                 if (!timeline) return;
 
@@ -102,7 +145,7 @@ define(['Class', 'Interface', 'checkUtil', 'ErrorDefinitions'], function (
             },
 
             // 静态方法：移动到下一个关键帧（所有图层） (Page Down)
-            pageDown: function () {
+            pageDownGlobal: function () {
                 const timeline = CheckTimeline();
                 if (!timeline) return;
 
@@ -155,7 +198,7 @@ define(['Class', 'Interface', 'checkUtil', 'ErrorDefinitions'], function (
             },
 
             // 静态方法：移动到当前图层的前一个关键帧 (Shift + Page Up)
-            shiftPageUp: function () {
+            pageUp: function () {
                 const timeline = CheckTimeline();
                 if (!timeline) return;
 
@@ -177,7 +220,7 @@ define(['Class', 'Interface', 'checkUtil', 'ErrorDefinitions'], function (
             },
 
             // 静态方法：移动到当前图层的下一个关键帧 (Shift + Page Down)
-            shiftPageDown: function () {
+            pageDown: function () {
                 const timeline = CheckTimeline();
                 if (!timeline) return;
 
@@ -196,11 +239,137 @@ define(['Class', 'Interface', 'checkUtil', 'ErrorDefinitions'], function (
                         timeline.currentFrame + 1
                     );
                 }
+            },
+
+            // 静态方法：选择 当前帧 到 开头的所有帧 (Shift + Home)
+            shiftHome: function () {
+                const timeline = CheckTimeline();
+                if (!timeline) return;
+
+                timeline.setSelectedFrames(0, timeline.currentFrame + 1);
+            },
+
+            // 静态方法：选择 当前帧 到 末尾的所有帧 (Shift + End)
+            shiftEnd: function () {
+                const timeline = CheckTimeline();
+                if (!timeline) return;
+
+                timeline.setSelectedFrames(
+                    timeline.currentFrame,
+                    timeline.frameCount
+                );
+            },
+
+            // 静态方法：选择 当前帧 到 当前图层的前一个关键帧 的所有帧 (Shift + Page Up)
+            shiftPageUp: function () {
+                const timeline = CheckTimeline();
+                if (!timeline) return;
+
+                const layer = timeline.layers[timeline.currentLayer];
+                var startframe = layer.frames[timeline.currentFrame].startFrame;
+
+                if (
+                    startframe === timeline.currentFrame &&
+                    timeline.currentFrame > 0
+                ) {
+                    startframe =
+                        layer.frames[timeline.currentFrame - 1].startFrame;
+                }
+                // timeline.currentFrame = startframe >= 0 ? startframe : 0;
+                startframe = startframe >= 0 ? startframe : 0;
+
+                timeline.setSelectedFrames(
+                    startframe,
+                    timeline.currentFrame + 1
+                );
+            },
+
+            // 静态方法：选择 当前帧 到 当前图层的下一个关键帧 的所有帧 (Shift + Page Down)
+            shiftPageDown: function () {
+                const timeline = CheckTimeline();
+                if (!timeline) return;
+
+                const layer = timeline.layers[timeline.currentLayer];
+                var key =
+                    layer.frames[timeline.currentFrame].startFrame +
+                    layer.frames[timeline.currentFrame].duration;
+
+                if (key < layer.frames.length) {
+                    timeline.setSelectedFrames(timeline.currentFrame, key + 1);
+                } else {
+                    timeline.setSelectedFrames(
+                        timeline.currentFrame,
+                        layer.frames.length
+                    );
+                }
+            }
+        }
+    });
+
+    /**
+     * 声音导航类
+     * @class SoundNavigation
+     * @constructor
+     * @extends NavigationAbs
+     * @see https://github.com/hufang360/FlashTool
+     * @note 适合做一个单独的面板使用，不建议在脚本中使用
+     */
+    var SoundNavigation = Class('SoundNavigation', {
+        Implements: NavigationAbs,
+
+        STATIC: {
+            // 静态方法：移动到声音开头 (Home)
+            home: function () {
+                var curFrame = curLayer.frames[curFrameIndex]; //当前帧
+                var soundEnvelopeLimits = curFrame.getSoundEnvelopeLimits();
+                soundEnvelopeLimits.start = 0;
+
+                curFrame.setSoundEnvelopeLimits(soundEnvelopeLimits);
+            },
+            // 静态方法：移动到声音末尾 (End)
+            end: function () {
+                var curFrame = curLayer.frames[curFrameIndex]; //当前帧
+                var soundEnvelopeLimits = curFrame.getSoundEnvelopeLimits();
+                soundEnvelopeLimits.start = soundEnvelopeLimits.end;
+
+                curFrame.setSoundEnvelopeLimits(soundEnvelopeLimits);
+            },
+            // 静态方法：声音的进度 +10帧 (Page Up)
+            pageUp: function () {
+                // +10帧
+                var curFrame = curLayer.frames[curFrameIndex]; //当前帧
+                var soundEnvelopeLimits = curFrame.getSoundEnvelopeLimits();
+                soundEnvelopeLimits.start += 10 * ENVELOPE_FRAME;
+
+                curFrame.setSoundEnvelopeLimits(soundEnvelopeLimits);
+            },
+            // 静态方法：声音的进度 -10帧 (Page Down)
+            pageDown: function () {
+                // -10帧
+                var curFrame = curLayer.frames[curFrameIndex]; //当前帧
+                var soundEnvelopeLimits = curFrame.getSoundEnvelopeLimits();
+                soundEnvelopeLimits.start -= 10 * ENVELOPE_FRAME;
+
+                curFrame.setSoundEnvelopeLimits(soundEnvelopeLimits);
+            },
+            // 其他方法：暂时没有
+            shiftPageUp: function () {
+                throw new NotImplementedError();
+            },
+            shiftPageDown: function () {
+                throw new NotImplementedError();
+            },
+            shiftHome: function () {
+                throw new NotImplementedError();
+            },
+            shiftEnd: function () {
+                throw new NotImplementedError();
             }
         }
     });
 
     return {
-        TimelineNavigation: TimelineNavigation
+        TimelineNavigation: TimelineNavigation,
+        SoundNavigation: SoundNavigation
     };
 });

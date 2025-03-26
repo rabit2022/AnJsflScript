@@ -43,3 +43,4 @@ export const SECOND_FRAME: number;
 export const MINUTE_FRAME: number;
 export const MAX_BLUR: number;
 export const MAX_CHANNEL: number;
+export const ENVELOPE_FRAME: number;

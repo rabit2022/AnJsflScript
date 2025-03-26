@@ -40,7 +40,7 @@ define(function () {
      * @param {Number} blurX x轴模糊值
      * @param {Number} blurY y轴模糊值
      * @param {'low'|'medium'|'high'} strength 可选品质
-     * @see https://gitee.com/ninge/WindowSWF/tree/master/
+     * @link https://gitee.com/ninge/WindowSWF/tree/master/
      */
     FilterUtil.addBlurFilterToFrame = function (
         layer,

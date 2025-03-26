@@ -5,7 +5,7 @@
  * @date: 2025/2/21 17:59
  * @project: AnJsflScript
  * @description:
- * @see: https://github.com/davestewart/xJSFL
+ * @link: https://github.com/davestewart/xJSFL
  */
 
 define(['sprintf', 'error-stack-parser'], function (

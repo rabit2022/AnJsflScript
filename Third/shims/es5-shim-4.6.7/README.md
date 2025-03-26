@@ -93,9 +93,9 @@ simply `npm install` and `npm test`.
     not been replaced. If your object was created like this, it won't
     work:
 
-            function Foo() {
-            }
-            Foo.prototype = {};
+              function Foo() {
+              }
+              Foo.prototype = {};
 
     Because the prototype reassignment destroys the constructor
     property.

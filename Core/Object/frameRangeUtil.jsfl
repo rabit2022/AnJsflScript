@@ -68,7 +68,7 @@ define([
      * 快速抽取关键帧索引-注意是索引， 不是frame对象
      * @param {Layer} layer 图层
      * @return {number[]} 关键帧索引数组
-     * @see https://gitee.com/ninge/WindowSWF/tree/master/
+     * @link https://gitee.com/ninge/WindowSWF/tree/master/
      * @private
      */
     FrameRangeUtil.getKeyFrames = function (layer) {
@@ -151,6 +151,7 @@ define([
      * @param {FrameRange} selectedFrBigger 选中范围
      * @param {FrameRange[]} keyFrameRanges 关键帧范围数组
      * @return {FrameRange[]} 帧范围数组
+     * @private
      */
     FrameRangeUtil.getSplitFrs = function (selectedFrBigger, keyFrameRanges) {
         var keyFrs = [];
@@ -177,6 +178,52 @@ define([
             }
         }
         return keyFrs;
+    };
+
+    /**
+     * 选中范围 拆分为多个帧范围
+     * 可能有多个帧范围
+     * @param {Array.<Layer>} layers 图层数组
+     * @param {FrameRange[]} frs 选中范围数组
+     * @return {FrameRange[]} 帧范围数组
+     */
+    FrameRangeUtil.getSplitFrsFromSl = function (layers, frs) {
+        //============分裂 选中范围 ，按照关键帧范围分裂 ===================
+        /**
+         *
+         * @type {FrameRange[]}
+         */
+        var splitFrs = [];
+        for (var i = 0; i < frs.length; i++) {
+            // 某一个图层的 选中的帧范围
+            var selectedFr = frs[i];
+            // 某一个图层的 关键帧范围 列表
+            var _layer = layers[selectedFr.layerIndex];
+            var keyFrameRanges = FrameRangeUtil.getKeyFrameRanges(
+                layers,
+                _layer
+            );
+
+            // 选中范围 包含的 关键帧范围
+            var keyFr = FrameRangeUtil.getSplitFrs(selectedFr, keyFrameRanges);
+            splitFrs = splitFrs.concat(keyFr);
+        }
+        return splitFrs;
+    };
+
+    /**
+     * 按照图层索引分类，获取startFrame,返回对象
+     * @param {FrameRange[]} arr - 包含图层索引和帧范围的数组
+     * @returns {{number: number[]}} - 按图层索引分类的对象
+     */
+    FrameRangeUtil.groupByLayerIndex = function (arr) {
+        return arr.reduce(function (result, fr) {
+            if (!result[fr.layerIndex]) {
+                result[fr.layerIndex] = [];
+            }
+            result[fr.layerIndex].push(fr.startFrame);
+            return result;
+        }, {});
     };
 
     /**

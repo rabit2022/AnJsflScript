@@ -36,6 +36,8 @@ require.config({
         sprintf: 'Third/utils/sprintf-js-1.1.3/sprintf',
 
         // 自定义模块
+        // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Core\Utils\mode\KeyFrameMode.jsfl
+        KeyFrameMode: 'Core/Utils/mode/KeyFrameMode',
         Constants: 'Core/Constants/Constants',
         ErrorDefinitions: 'Core/myShim/ErrorDefinitions',
         FUNC: 'Core/myShim/FUNC',

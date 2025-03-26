@@ -124,78 +124,6 @@ define(['sprintf'], function (sp) {
     }
 
     /**
-     * 遍历可迭代对象（数组、类数组对象、普通对象、字典对象），并对每个元素执行回调函数。
-     * @param {Array|Object|Dict} iterable - 可迭代对象。
-     * @param {Function} callback - 回调函数。
-     * @note
-     * - 对于数组、类数组对象，回调函数将接收两个参数：索引和元素值。
-     * - 对于普通对象、字典对象，回调函数将接收两个参数：键和元素值。
-     * - 如果可迭代对象为空，则不会执行回调函数。
-     * @example
-     * // 遍历数组
-     * var arr = [1, 2, 3];
-     * OF_MACRO(arr, function (index, value) {
-     *   console.writeToLog(index + ": " + value);
-     * });
-     * // 输出：0: 1
-     * //       1: 2
-     * //       2: 3
-     *
-     * // 遍历类数组对象
-     * var obj = {0: "a", 1: "b", 2: "c"};
-     * OF_MACRO(obj, function (index, value) {
-     *   console.writeToLog(index + ": " + value);
-     * });
-     * // 输出：0: a
-     * //       1: b
-     * //       2: c
-     *
-     * // 遍历普通对象
-     * var obj = {a: 1, b: 2, c: 3};
-     * OF_MACRO(obj, function (key, value) {
-     *   console.writeToLog(key + ": " + value);
-     * });
-     * // 输出：a: 1
-     * //       b: 2
-     * //       c: 3
-     *
-     * // 遍历字典对象
-     * var obj = {a: 1, b: 2, c: 3};
-     * OF_MACRO(obj, function (key, value) {
-     *   console.writeToLog(key + ": " + value);
-     * });
-     * // 输出：a: 1
-     * //       b: 2
-     * //       c: 3
-     */
-    function OF_MACRO(iterable, callback) {
-        // 检查是否是数组或类数组对象
-        if (
-            Array.isArray(iterable) ||
-            (typeof iterable === 'object' &&
-                iterable !== null &&
-                typeof iterable.length === 'number')
-        ) {
-            for (var i = 0; i < iterable.length; i++) {
-                callback(i, iterable[i]); // 传递值和索引
-            }
-        }
-        // 检查是否是普通对象或字典对象
-        else if (typeof iterable === 'object' && iterable !== null) {
-            var keys = Object.keys(iterable); // 获取对象的键
-            for (var i = 0; i < keys.length; i++) {
-                var key = keys[i];
-                var value = iterable[key];
-                callback(key, value); // 传递值和键
-            }
-        }
-        // 其他情况抛出错误
-        else {
-            throw new TypeError('The provided value is not iterable');
-        }
-    }
-
-    /**
      * 定义属性
      * @param {Function} CLASS - 目标对象
      * @param {string} name - 属性名
@@ -253,53 +181,145 @@ define(['sprintf'], function (sp) {
     /**
      * 动态解析参数并分配到指定的变量中
      * 使得函数可以接收不同类型的参数，不用按照顺序指定参数类型，并自动分配到指定的变量中。
-     * @param {Array} args - 传入的参数数组
-     * @param {Object} options - 参数处理选项
+     * @param {...*|Array} args - 传入的参数数组
+     * @param {Options} options - 参数处理选项
      * @returns {Object} - 解析后的参数对象
+     * @note undefined 类型参数将被忽略
+     * @example:
+     * function test() {
+     *     // 定义配置对象
+     *     var config = {
+     *         types: {
+     *             'number': ['num1', 'num2'],
+     *             'boolean': ['bool1', 'bool2'],
+     *             'string': ['str1', 'str2'],
+     *             'object': ['obj1', 'obj2'],
+     *             'Array': ['arr1', 'arr2'],
+     *             'function': ['func1', 'func2'],
+     *             'undefined': ['undef1', 'undef2'],
+     *             'null': ['null1', 'null2'],
+     *             'any': ['any1', 'any2']
+     *         },
+     *         required: ['num1']
+     *     };
+     *
+     *     // 将 arguments 转换为数组，并将 config 作为最后一个参数传入
+     *     var argsArray = Array.prototype.slice.call(arguments);
+     *     argsArray.push(config);
+     *     var options = DYNAMIC_PARAMS.apply(null, argsArray);
+     *     console.log(options);
+     * }
+     *
+     * // 测试调用
+     * test(1, true, 'hello', null, undefined, [1, 2, 3],{key: 'value'});
      */
-    function DYNAMIC_PARAMS(args, options) {
-        const result = {};
-        const { types, required } = options;
+    function DYNAMIC_PARAMS() {
+        // 获取所有传入的参数
+        var thisArgs = Array.prototype.slice.call(arguments);
+        if (!thisArgs || thisArgs.length === 0) {
+            throw new Error('No arguments provided.');
+        }
+        var args, config;
+        // args:Array, config
+        if (thisArgs.length === 2) {
+            args = thisArgs[0];
+            config = thisArgs[1];
+        } else if (thisArgs.length > 2) {
+            // 获取最后一个参数作为配置对象
+            config = thisArgs.pop();
+            args = thisArgs;
+        } else {
+            throw new Error('Invalid arguments provided.');
+        }
 
-        // 遍历参数数组，根据类型分配到对应的变量
-        for (var i = 0; i < args.length; i++) {
-            const arg = args[i];
-            const type = typeof arg;
-
-            // 检查是否支持该类型
-            if (!types[type]) {
-                throw new TypeError('Unsupported argument type:' + type);
-            }
-
-            // 获取当前参数的分配目标
-            const targets = types[type];
-            if (!Array.isArray(targets)) {
-                // throw new Error(`Invalid targets for type ${type}. Expected an array.`);
+        // 验证配置对象是否有效
+        function validateConfig(config) {
+            if (
+                !config ||
+                typeof config !== 'object' ||
+                !config.types ||
+                !config.required
+            ) {
                 throw new Error(
-                    'Invalid targets for type ' + type + '. Expected an array.'
+                    'Invalid config object. It must contain `types` and `required` properties.'
                 );
             }
+        }
 
-            // 分配参数到对应的属性
-            const target = targets.shift(); // 从数组中取出第一个目标
-            if (!target) {
-                // throw new Error(`Too many arguments of type ${type}.`);
-                throw new Error('Too many arguments of type ' + type + '.');
+        // 检查类型映射表中的目标是否有效
+        function validateTargets(context, targets, paramType) {
+            // 如果 targets 是字符串，先将其转换为数组
+            if (typeof targets === 'string') {
+                context.typeMap[paramType] = [targets];
+                targets = context.typeMap[paramType];
             }
 
-            result[target] = arg;
+            if (!Array.isArray(targets)) {
+                throw new Error(
+                    'Invalid targets for type ' +
+                        paramType +
+                        '. Expected a string or an array.'
+                );
+            }
+        }
+
+        // 获取目标变量名
+        function getTargetVariable(targets) {
+            if (!Array.isArray(targets) || targets.length === 0) {
+                throw new Error('No available target variables for this type.');
+            }
+            return targets.shift();
+        }
+
+        // 根据类型分配参数到目标变量
+        function assignParam(context, param) {
+            var paramType = typeof param;
+            if (param === null) {
+                paramType = 'null'; // 特殊处理 null
+            } else if (paramType === 'undefined') {
+                paramType = 'undefined'; // 特殊处理 undefined
+            }
+
+            var targets = context.typeMap[paramType];
+            if (!targets) {
+                throw new TypeError('Unsupported argument type: ' + paramType);
+            }
+
+            // 检差 types 映射表中的 paramType 对应的 value 是否有效
+            validateTargets(context, targets, paramType);
+
+            var target = getTargetVariable(targets);
+            context.parsedParams[target] = param;
         }
 
         // 检查是否缺少必需的参数
-        // for (const key of required) {
-        required.forEach(function (key) {
-            if (result[key] === undefined) {
-                // throw new Error(`Missing required argument: ${key}`);
-                throw new Error('Missing required argument:' + key);
-            }
+        function checkRequiredParams(context) {
+            context.requiredParams.forEach(function (paramName) {
+                if (context.parsedParams[paramName] === undefined) {
+                    throw new Error('Missing required argument: ' + paramName);
+                }
+            });
+        }
+
+        // 主逻辑
+        validateConfig(config);
+
+        var context = {
+            parsedParams: {}, // 解析后的参数对象
+            typeMap: config.types, // 类型映射表
+            requiredParams: config.required // 必需的参数变量名
+        };
+
+        // 遍历参数数组，根据类型分配到对应的变量
+        args.forEach(function (param) {
+            console.log(param);
+            assignParam(context, param);
         });
 
-        return result;
+        // 检查是否缺少必需的参数
+        checkRequiredParams(context);
+
+        return context.parsedParams;
     }
 
     /**
@@ -340,7 +360,6 @@ define(['sprintf'], function (sp) {
         IsNullOrEmpty: IsNullOrEmpty,
         IsEmpty: IsEmpty,
         INHERIT_MACRO: INHERIT_MACRO,
-        OF_MACRO: OF_MACRO,
         PROPERTY: PROPERTY,
         DYNAMIC_PARAMS: DYNAMIC_PARAMS,
         SAFE_GET_MACRO: SAFE_GET_MACRO

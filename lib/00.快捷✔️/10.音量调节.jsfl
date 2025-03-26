@@ -30,8 +30,8 @@ require(['checkUtil', 'Constants'], function (checkUtil, Constants) {
         // 检查选择的元件
         if (!checkSelection(selection, 'selectElement', 'No limit')) return;
 
-        var curFrame =
-            timeline.layers[timeline.currentLayer].frames[curFrameIndex];
+        // var curFrame =
+        //     timeline.layers[timeline.currentLayer].frames[curFrameIndex];
         //优先检查当前段上有没有音频文件
         var soundEnvelope = curFrame.getSoundEnvelope();
         if (soundEnvelope === null || soundEnvelope.length < 1) {
