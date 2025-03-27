@@ -7,10 +7,9 @@
  * @description:
  */
 
-require(['checkUtil', 'loglevel', 'frameRangeUtil', 'KeyFrameMode'], function (
+require(['checkUtil', 'loglevel', 'KeyFrameMode'], function(
     checkUtil,
     log,
-    frUtil,
     KeyFrameMode
 ) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
@@ -35,13 +34,14 @@ require(['checkUtil', 'loglevel', 'frameRangeUtil', 'KeyFrameMode'], function (
         // 清空音频
         curFrame.soundLibraryItem = null;
     }
+
     function Main() {
         // 检查选择的元件
         if (!CheckSelection(selection, 'selectElement', 'No limit')) return;
 
         var mode = KeyFrameMode();
         if (!mode) return;
-        mode.forEach(function (item) {
+        mode.forEach(function(item) {
             var { frame } = item;
             clearSound(frame);
         });

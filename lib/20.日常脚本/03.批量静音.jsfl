@@ -11,10 +11,9 @@
 require([
     'checkUtil',
     'loglevel',
-    'frameRangeUtil',
     'KeyFrameMode',
     'JSFLConstants'
-], function (checkUtil, log, frUtil, KeyFrameMode, JSFLConstants) {
+], function (checkUtil, log, KeyFrameMode, JSFLConstants) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
     // const MAX_CHANNEL = JSFLConstants.Numerics.sound.channel.MAX_CHANNEL;
     const MIN_CHANNEL = JSFLConstants.Numerics.sound.channel.MIN_CHANNEL;

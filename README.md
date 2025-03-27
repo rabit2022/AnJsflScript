@@ -59,7 +59,7 @@
 
 #### **脚本位置**
 
-- 除了 `脚本功能说明` 的脚本和文件夹外，其他脚本通常位于以数字开头的文件夹中，例如 `00.快捷/00.跨域剪切.jsfl` 等。
+- `lib` 文件夹：存放 具体功能的脚本。
 
 #### **使用方法**
 
@@ -82,12 +82,12 @@
 - **使用方法**：如果你修改了 `core` 文件夹中的模块，并希望这些修改生效，必须清除 `requirejs` 缓存。运行 `ReRun.jsfl`
   脚本后，再运行 `FirstRun.jsfl` 脚本。建议在 IDE 中配置实现这一过程，以提高效率。
 
-### Core 文件夹
+### **Core** 文件夹
 
 - **功能**：存放核心脚本，包括各种工具类脚本。这些脚本是 AnJsflScript 的基础功能模块。
 - **使用方法**：通过 `requirejs` 加载。你可以根据需要调用这些工具类脚本，实现各种自动化任务。
 
-### Third 文件夹
+### **Third** 文件夹
 
 - **功能**：存放第三方库脚本，例如 `requirejs` 和 `es5-shim` 等。这些库为 AnJsflScript 提供了必要的支持。
 - **使用方法**：同样通过 `requirejs` 加载。这些第三方库在初始化时由 `FirstRun.jsfl` 脚本加载，为其他脚本提供支持。
@@ -103,6 +103,11 @@
 ### **文档** 文件夹
 
 - 已经移动到 [新的分支](https://github.com/rabit2022/AnJsflScript/tree/tools)
+
+### **lib** 文件夹
+
+- **功能**：存放具体功能的脚本。
+- **使用方法**：通过 `requirejs` 加载。你可以根据需要调用这些脚本，实现各种自动化任务。
 
 ---
 
@@ -162,7 +167,7 @@
 以下代码展示了在 Adobe Animate 2024 中可以使用的 ES6 特性：
 
 ```javascript
-(function () {
+(function() {
     const fruits = ['apple', 'banana', 'cherry'];
     const [firstFruit, secondFruit] = fruits;
     console.log(firstFruit); // 输出: apple
