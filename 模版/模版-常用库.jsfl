@@ -21,8 +21,8 @@
         curFrame = curLayer.frames[curFrameIndex]; //当前帧
     }
 
-    var doc = fl.getDocumentDOM(); //文档
-    if (!checkDom(doc)) return;
+    var doc = CheckDom(); //文档
+    if (doc === null) return;
 
     var selection = doc.selection; //选择
     var library = doc.library; //库文件

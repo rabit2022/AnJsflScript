@@ -10,8 +10,12 @@
 require(['checkUtil', 'loglevel'], function (checkUtil, log) {
     const { CheckDom, CheckSelection } = checkUtil;
 
-    var doc = fl.getDocumentDOM(); //文档
-    if (!CheckDom(doc)) return;
+    var doc = CheckDom(); //文档
+    if (doc === null) return;
+
+    // region doc
+    var doc = CheckDom(); //文档
+    if (doc === null) return;
 
     var selection = doc.selection; //选择
     var library = doc.library; //库文件
@@ -23,6 +27,7 @@ require(['checkUtil', 'loglevel'], function (checkUtil, log) {
 
     var curFrameIndex = timeline.currentFrame; //当前帧索引
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
+    // endregion doc
 
     function Main() {
         // 检查选择的元件

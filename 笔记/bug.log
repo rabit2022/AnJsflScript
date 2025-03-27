@@ -1,8 +1,0 @@
-1,"core-js/stable/string/includes"在当前环境，只会返回true, 所以使用es6-shim提前导入
-测试在其他环境没有问题，可能是flash环境问题
-但是es6-shim依赖与object.create,define等方法，所以不能直接导入，需要先导入es5-sham
-
-导入'es5-shim','es5-sham','es6-sham', 'es6-shim',
-
-2,core-js/stable/object/keys在当前环境，只会返回空数组，所以使用es6-shim提前导入
-

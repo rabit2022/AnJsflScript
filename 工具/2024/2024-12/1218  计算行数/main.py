@@ -85,9 +85,14 @@ exclude_folders = exclude_folders + [r"F:\04_ps\沙雕动画\_素材库\WindowSW
                                      ]
 plist = FolderTraverser(folderPath, extensions, exclude_folders).FilePaths
 
+# print(plist)
+# for l in plist:
+#     print(l)
+
 # 未完成，带"#"：3
 # 排兵布阵  多文件排除：3
-exclude_count = 6
+# first run:3
+exclude_count = 9
 
 print("- **脚本数量**:", len(plist) - exclude_count)
 # print(plist)
