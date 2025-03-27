@@ -13,14 +13,15 @@ require([
     'linqUtil',
     'curveUtil',
     'elementUtil',
-    'Constants'
-], function (checkUtil, frUtil, linqUtil, curve, ele, Constants) {
+    'JSFLConstants'
+], function (checkUtil, frUtil, linqUtil, curve, ele, JSFLConstants) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
         CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
-    const { FRAME_1, FRAME_3, FRAME_6 } = Constants;
+    const { FRAME_1, FRAME_3, FRAME_6 } =
+        JSFLConstants.Numerics.frame.frameList;
 
     var descriptions = {
         file: '06.一键震惊.jsfl',

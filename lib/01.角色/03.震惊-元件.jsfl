@@ -13,14 +13,15 @@ require([
     'frameRangeUtil',
     'curveUtil',
     'libUtil',
-    'Constants'
-], function (checkUtil, ele, frUtil, curve, libUtil, Constants) {
+    'JSFLConstants'
+], function (checkUtil, ele, frUtil, curve, libUtil, JSFLConstants) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
         CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
-    const { FRAME_1, FRAME_3, FRAME_6 } = Constants;
+    const { FRAME_1, FRAME_3, FRAME_6 } =
+        JSFLConstants.Numerics.frame.frameList;
     console.log('libUtil', libUtil);
 
     var doc = fl.getDocumentDOM(); //文档

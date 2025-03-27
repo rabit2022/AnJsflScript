@@ -8,13 +8,16 @@
  * @see:    lib\00.快捷✔️\10.音量调节.jsfl
  */
 
-require(['checkUtil', 'loglevel', 'frameRangeUtil', 'KeyFrameMode'], function (
-    checkUtil,
-    log,
-    frUtil,
-    KeyFrameMode
-) {
+require([
+    'checkUtil',
+    'loglevel',
+    'frameRangeUtil',
+    'KeyFrameMode',
+    'JSFLConstants'
+], function (checkUtil, log, frUtil, KeyFrameMode, JSFLConstants) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
+    // const MAX_CHANNEL = JSFLConstants.Numerics.sound.channel.MAX_CHANNEL;
+    const MIN_CHANNEL = JSFLConstants.Numerics.sound.channel.MIN_CHANNEL;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -43,8 +46,8 @@ require(['checkUtil', 'loglevel', 'frameRangeUtil', 'KeyFrameMode'], function (
         var envelopeElement = soundEnvelope[0];
         var newSoundEnvelope = [
             {
-                leftChannel: 0,
-                rightChannel: 0,
+                leftChannel: MIN_CHANNEL,
+                rightChannel: MIN_CHANNEL,
                 mark: envelopeElement.mark
             }
         ];
@@ -58,7 +61,7 @@ require(['checkUtil', 'loglevel', 'frameRangeUtil', 'KeyFrameMode'], function (
         var mode = KeyFrameMode();
         if (!mode) return;
         mode.forEach(function (item) {
-            var { layer, frame } = item;
+            var { frame } = item;
             silentFrame(frame);
         });
     }

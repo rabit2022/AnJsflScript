@@ -41,7 +41,7 @@ require([
     /**
      * 获取剪切板文本
      * @returns {string} 剪切板文本
-     * @link https://gitee.com/ninge/WindowSWF/tree/master/
+     * @see https://gitee.com/ninge/WindowSWF/tree/master/
      */
     function getStringFromClipboard() {
         const doc = fl.getDocumentDOM(); //文档

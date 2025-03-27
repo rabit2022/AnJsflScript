@@ -16,8 +16,8 @@ require([
     'SAT',
     'graphicsUtil',
     'curveUtil',
-    'Constants',
-    'loglevel'
+    'loglevel',
+    'JSFLConstants'
 ], function (
     checkUtil,
     ele,
@@ -27,8 +27,8 @@ require([
     sat,
     graphics,
     curve,
-    Constants,
-    log
+    log,
+    JSFLConstants
 ) {
     const {
         CheckDom: checkDom,
@@ -36,7 +36,8 @@ require([
         CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
     const { Rectangle } = sat;
-    const { FRAME_1, FRAME_9, FRAME_17, FRAME_18 } = Constants;
+    const { FRAME_1, FRAME_9, FRAME_17, FRAME_18 } =
+        JSFLConstants.Numerics.frame.frameList;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;

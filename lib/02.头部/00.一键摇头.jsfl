@@ -12,8 +12,8 @@ require([
     'promptUtil',
     'libUtil',
     'frameRangeUtil',
-    'Constants'
-], function (checkUtil, promptUtil, libUtil, frameRangeUtil, Constants) {
+    'JSFLConstants'
+], function (checkUtil, promptUtil, libUtil, frameRangeUtil, JSFLConstants) {
     var descriptions = {
         file: '00.一键摇头.jsfl',
         'file description': '输出 摇头动作的元件,说话时的头部动作',
@@ -32,7 +32,7 @@ require([
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     // const {convertToKeyframesSafety}=frameRangeUtil;
-    const { FRAME_4, FRAME_6 } = Constants;
+    const { FRAME_4, FRAME_6 } = JSFLConstants.Numerics.frame.frameList;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;

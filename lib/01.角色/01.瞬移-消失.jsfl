@@ -14,15 +14,24 @@ require([
     'selectionUtil',
     'curveUtil',
     'frameRangeUtil',
-    'Constants'
-], function (checkUtil, linqUtil, filterUtil, sel, curve, frUtil, Constants) {
+    'JSFLConstants'
+], function (
+    checkUtil,
+    linqUtil,
+    filterUtil,
+    sel,
+    curve,
+    frUtil,
+    JSFLConstants
+) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
         CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
-    const { FRAME_5, FRAME_7, FRAME_9, FRAME_6, FRAME_8, FRAME_10, MAX_BLUR } =
-        Constants;
+    const { FRAME_5, FRAME_7, FRAME_9, FRAME_6, FRAME_8, FRAME_10 } =
+        JSFLConstants.Numerics.frame.frameList;
+    const { MAX_BLUR, MIN_BLUR } = JSFLConstants.Numerics.filter.blur;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -71,7 +80,7 @@ require([
             filterUtil.addBlurFilterToFrame(
                 firstLayer,
                 blurfilterframe,
-                0,
+                MIN_BLUR,
                 blurY,
                 'high'
             );

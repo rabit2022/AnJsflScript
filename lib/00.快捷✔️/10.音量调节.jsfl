@@ -7,10 +7,11 @@
  * @description:
  */
 
-require(['checkUtil', 'Constants'], function (checkUtil, Constants) {
+require(['checkUtil', 'JSFLConstants'], function (checkUtil, JSFLConstants) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
-    const { MAX_CHANNEL } = Constants;
+    // const { MAX_CHANNEL } = Constants;
+    const MAX_CHANNEL = JSFLConstants.Numerics.sound.channel.MAX_CHANNEL;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;

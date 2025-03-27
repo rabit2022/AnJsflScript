@@ -7,14 +7,17 @@
  * @description:
  */
 
-define(['Class', 'Interface', 'checkUtil', 'ErrorDefinitions'], function (
-    Class,
-    Interface,
-    checkUtil,
-    ErrorDefinitions
-) {
+define([
+    'Class',
+    'Interface',
+    'checkUtil',
+    'ErrorDefinitions',
+    'JSFLConstants'
+], function (Class, Interface, checkUtil, ErrorDefinitions, JSFLConstants) {
     const { CheckTimeline } = checkUtil;
     const { NotImplementedError } = ErrorDefinitions;
+    const ENVELOPE_PER_FRAME =
+        JSFLConstants.Numerics.sound.envelope.ENVELOPE_PER_FRAME;
 
     var NavigationAbs = Interface('NavigationAbs', {
         STATIC: {
@@ -339,7 +342,7 @@ define(['Class', 'Interface', 'checkUtil', 'ErrorDefinitions'], function (
                 // +10帧
                 var curFrame = curLayer.frames[curFrameIndex]; //当前帧
                 var soundEnvelopeLimits = curFrame.getSoundEnvelopeLimits();
-                soundEnvelopeLimits.start += 10 * ENVELOPE_FRAME;
+                soundEnvelopeLimits.start += 10 * ENVELOPE_PER_FRAME;
 
                 curFrame.setSoundEnvelopeLimits(soundEnvelopeLimits);
             },
@@ -348,7 +351,7 @@ define(['Class', 'Interface', 'checkUtil', 'ErrorDefinitions'], function (
                 // -10帧
                 var curFrame = curLayer.frames[curFrameIndex]; //当前帧
                 var soundEnvelopeLimits = curFrame.getSoundEnvelopeLimits();
-                soundEnvelopeLimits.start -= 10 * ENVELOPE_FRAME;
+                soundEnvelopeLimits.start -= 10 * ENVELOPE_PER_FRAME;
 
                 curFrame.setSoundEnvelopeLimits(soundEnvelopeLimits);
             },

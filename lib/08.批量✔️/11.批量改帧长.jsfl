@@ -50,7 +50,7 @@ require([
 
             // 选中范围 包含的 关键帧范围
             var keyFr = frUtil.getKfrFromSlLittle(selectedFr, keyFrameRanges);
-            if (keyFr == null) continue;
+            if (keyFr === null) continue;
             // fl.trace("选中范围：" + keyFr.toString());
 
             // 设置选中图层

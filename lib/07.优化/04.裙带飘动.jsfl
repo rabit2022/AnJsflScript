@@ -14,7 +14,7 @@ require([
     'libUtil',
     'xmlPanelUtil',
     'curveUtil',
-    'Constants',
+    'JSFLConstants',
     'frameRangeUtil'
 ], function (
     checkUtil,
@@ -23,12 +23,12 @@ require([
     libUtil,
     xmlPanelUtil,
     curve,
-    Constants,
+    JSFLConstants,
     frUtil
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
-    const { FRAME_15, FRAME_30 } = Constants;
+    const { FRAME_15, FRAME_30 } = JSFLConstants.Numerics.frame.frameList;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;

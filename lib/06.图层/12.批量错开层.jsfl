@@ -12,12 +12,12 @@ require([
     'loglevel',
     'xmlPanelUtil',
     'linqUtil',
-    'Constants',
+    'JSFLConstants',
     'layerUtil'
-], function (checkUtil, log, xmlPanelUtil, linqUtil, Constants, layerUtil) {
+], function (checkUtil, log, xmlPanelUtil, linqUtil, JSFLConstants, layerUtil) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { range, convertToProgrammeIndex } = linqUtil;
-    const { FRAME_1 } = Constants;
+    const { FRAME_1 } = JSFLConstants.Numerics.frame.frameList;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!CheckDom(doc)) return;

@@ -14,8 +14,8 @@ require([
     'selectionUtil',
     'curveUtil',
     'frameRangeUtil',
-    'Constants',
-    'loglevel'
+    'loglevel',
+    'JSFLConstants'
 ], function (
     checkUtil,
     linqUtil,
@@ -23,15 +23,16 @@ require([
     sel,
     curve,
     frUtil,
-    Constants,
-    log
+    log,
+    JSFLConstants
 ) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
         CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
-    const { FRAME_1, FRAME_2, FRAME_3, FRAME_4, FRAME_5 } = Constants;
+    const { FRAME_1, FRAME_2, FRAME_3, FRAME_4, FRAME_5 } =
+        JSFLConstants.Numerics.frame.frameList;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;

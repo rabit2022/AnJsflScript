@@ -14,7 +14,7 @@ require([
     'graphicsUtil',
     'selectionUtil',
     'SAT',
-    'Constants',
+    'JSFLConstants',
     'frameRangeUtil'
 ], function (
     checkUtil,
@@ -23,13 +23,13 @@ require([
     graphics,
     sel,
     sat,
-    Constants,
+    JSFLConstants,
     frameRangeUtil
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     var Vector = sat.Vector;
-    const { FRAME_1, FRAME_30 } = Constants;
+    const { FRAME_1, FRAME_30 } = JSFLConstants.Numerics.frame.frameList;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;

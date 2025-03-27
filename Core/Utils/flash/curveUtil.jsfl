@@ -184,7 +184,7 @@ define(function () {
     /**
      * 创建智能补间
      * @param {Frame} frame 帧对象
-     * @link https://community.adobe.com/t5/animate-discussions/intelligent-tween-jsfl/m-p/12875796
+     * @see https://community.adobe.com/t5/animate-discussions/intelligent-tween-jsfl/m-p/12875796
      */
     Curve.createTweenIntelligent = function (frame) {
         if (frame.elements.length > 1) return;

@@ -7,14 +7,14 @@
  * @description:
  */
 
-require(['checkUtil', 'selectionUtil', 'Constants'], function (
+require(['checkUtil', 'selectionUtil', 'JSFLConstants'], function (
     checkUtil,
     sel,
-    Constants
+    JSFLConstants
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
-    const { MINUTE_FRAME } = Constants;
+    const FPM = JSFLConstants.Numerics.frame.frameRate.FPM;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -35,7 +35,7 @@ require(['checkUtil', 'selectionUtil', 'Constants'], function (
         if (!checkSelection(selection, 'selectElement', 'No limit')) return;
 
         // 给所有图层加帧
-        timeline.insertFrames(MINUTE_FRAME, true, curFrameIndex);
+        timeline.insertFrames(FPM, true, curFrameIndex);
 
         // 回到最开始选择的帧
         timeline.currentFrame = curFrameIndex;

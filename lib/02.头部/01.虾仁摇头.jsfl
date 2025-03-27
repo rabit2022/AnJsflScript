@@ -14,8 +14,8 @@ require([
     'satUtil',
     'curveUtil',
     'selectionUtil',
-    'Constants',
-    'frameRangeUtil'
+    'frameRangeUtil',
+    'JSFLConstants'
 ], function (
     checkUtil,
     xmlPanelUtil,
@@ -23,14 +23,15 @@ require([
     satUtil,
     curve,
     sel,
-    Constants,
-    frUtil
+    frUtil,
+    JSFLConstants
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     var pointUtil = satUtil.PointUtil,
         rectUtil = satUtil.RectUtil;
-    const { FRAME_1, FRAME_4, FRAME_7 } = Constants;
+    const { FRAME_1, FRAME_4, FRAME_7 } =
+        JSFLConstants.Numerics.frame.frameList;
 
     var descriptions = {
         file: '01.虾仁摇头.jsfl',

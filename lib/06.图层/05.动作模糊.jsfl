@@ -10,22 +10,14 @@
 require([
     'checkUtil',
     'loglevel',
-    'Constants',
     'frameRangeUtil',
     'linqUtil',
     'filterUtil',
     'JSFLConstants'
-], function (
-    checkUtil,
-    log,
-    Constants,
-    frUtil,
-    linqUtil,
-    filterUtil,
-    JSFLConstants
-) {
+], function (checkUtil, log, frUtil, linqUtil, filterUtil, JSFLConstants) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
-    const { FRAME_1, FRAME_2, FRAME_3, FRAME_4 } = Constants;
+    const { FRAME_1, FRAME_2, FRAME_3, FRAME_4 } =
+        JSFLConstants.Numerics.frame.frameList;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -59,7 +51,7 @@ require([
     KEY_FRAMES = linqUtil.addOffset(KEY_FRAMES, firstFrame);
     BLUR_FILTER_FRAMES = linqUtil.addOffset(BLUR_FILTER_FRAMES, firstFrame);
 
-    const BLUR_FILTER = JSFLConstants.filter.name.BLUR_FILTER;
+    const BLUR_FILTER = JSFLConstants.Constants.filter.name.BLUR_FILTER;
     function Main() {
         // 检查选择的元件
         if (!CheckSelection(selection, 'elementOnFrame', 'Not Zero')) return;

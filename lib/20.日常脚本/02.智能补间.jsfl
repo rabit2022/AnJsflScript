@@ -5,7 +5,7 @@
  * @date: 2025/3/24 23:47
  * @project: AnJsflScript
  * @description:
- * @link : https://community.adobe.com/t5/animate-discussions/intelligent-tween-jsfl/m-p/12875796
+ * @see : https://community.adobe.com/t5/animate-discussions/intelligent-tween-jsfl/m-p/12875796
  */
 
 require(['checkUtil', 'loglevel', 'frameRangeUtil', 'curveUtil'], function (

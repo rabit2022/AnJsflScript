@@ -11,12 +11,13 @@ require([
     'checkUtil',
     'promptUtil',
     'libUtil',
-    'Constants',
-    'frameRangeUtil'
-], function (checkUtil, promptUtil, libUtil, Constants, frUtil) {
+    'frameRangeUtil',
+    'JSFLConstants'
+], function (checkUtil, promptUtil, libUtil, frUtil, JSFLConstants) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
-    const { FRAME_1, FRAME_4, FRAME_7, FRAME_10, FRAME_12 } = Constants;
+    const { FRAME_1, FRAME_4, FRAME_7, FRAME_10, FRAME_12 } =
+        JSFLConstants.Numerics.frame.frameList;
 
     var descriptions = {
         file: '02.一键点头.jsfl',

@@ -13,15 +13,15 @@ require([
     'satUtil',
     'frameRangeUtil',
     'curveUtil',
-    'Constants'
-], function (checkUtil, promptUtil, satUtil, frUtil, curve, Constants) {
+    'JSFLConstants'
+], function (checkUtil, promptUtil, satUtil, frUtil, curve, JSFLConstants) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
         CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
     const { pointUtil, rectUtil } = satUtil;
-    const { FRAME_1, FRAME_11 } = Constants;
+    const { FRAME_1, FRAME_11 } = JSFLConstants.Numerics.frame.frameList;
 
     var descriptions = {
         file: '07.一键甩头.jsfl',

@@ -13,7 +13,6 @@ require([
     'elementUtil',
     'libUtil',
     'selectionUtil',
-    'Constants',
     'layerUtil',
     'frameRangeUtil',
     'JSFLConstants',
@@ -24,7 +23,6 @@ require([
     elementUtil,
     libUtil,
     selectionUtil,
-    Constants,
     layerUtil,
     frUtil,
     JSFLConstants,
@@ -33,7 +31,7 @@ require([
     const { CheckDom, CheckSelection } = checkUtil;
     const { IsSymbol, IsShape, getName } = elementUtil;
     const { SelectAll } = selectionUtil;
-    const { FRAME_1, FRAME_30 } = Constants;
+    const { FRAME_1, FRAME_30 } = JSFLConstants.Numerics.frame.frameList;
 
     const doc = fl.getDocumentDOM(); //文档
     if (!CheckDom(doc)) return;
@@ -135,10 +133,11 @@ require([
 
         // 设置遮罩层0
         // timeline.currentLayer = MASK_LAYER_INDEX;
-        layers[MASK_LAYER_INDEX].layerType = JSFLConstants.layer.layerType.MASK;
+        layers[MASK_LAYER_INDEX].layerType =
+            JSFLConstants.Constants.layer.layerType.MASK;
         // timeline.currentLayer = TARGET_LAYER_INDEX;
         layers[TARGET_LAYER_INDEX].layerType =
-            JSFLConstants.layer.layerType.MASKED;
+            JSFLConstants.Constants.layer.layerType.MASKED;
 
         // 传统补间，元件1
         timeline.currentLayer = TARGET_LAYER_INDEX;
