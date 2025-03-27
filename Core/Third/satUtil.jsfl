@@ -85,10 +85,7 @@ define(['SAT', 'random'], function (sat, random) {
             newMoveVector.x = Math.min(moveVector.x, maxOffsetRect.left);
             if (maxOffsetRect.right > 0) {
                 //small 在 big 的边界 右边
-                newMoveVector.x = Math.max(
-                    newMoveVector.x,
-                    maxOffsetRect.right
-                );
+                newMoveVector.x = Math.max(newMoveVector.x, maxOffsetRect.right);
             }
         }
         if (moveVector.y < 0) {
@@ -103,10 +100,7 @@ define(['SAT', 'random'], function (sat, random) {
             newMoveVector.y = Math.min(moveVector.y, maxOffsetRect.top);
             if (maxOffsetRect.bottom > 0) {
                 //small 在 big 的边界下面
-                newMoveVector.y = Math.max(
-                    newMoveVector.y,
-                    maxOffsetRect.bottom
-                );
+                newMoveVector.y = Math.max(newMoveVector.y, maxOffsetRect.bottom);
             }
         }
 
@@ -138,12 +132,7 @@ define(['SAT', 'random'], function (sat, random) {
             gridSize = 5;
         }
 
-        const {
-            max_size: longerSide,
-            min_size: shorterSide,
-            width,
-            height
-        } = rectSize;
+        const { max_size: longerSide, min_size: shorterSide, width, height } = rectSize;
 
         // 计算每个网格块的长边尺寸
         const blockLongerSide = longerSide / gridSize;
@@ -157,20 +146,10 @@ define(['SAT', 'random'], function (sat, random) {
         // 根据矩形的宽高比例返回结果
         if (width > height) {
             // 宽度为长边
-            return [
-                blockLongerSide,
-                blockShorterSide,
-                gridSize,
-                shorterMaxCount
-            ];
+            return [blockLongerSide, blockShorterSide, gridSize, shorterMaxCount];
         } else {
             // 高度为长边
-            return [
-                blockShorterSide,
-                blockLongerSide,
-                shorterMaxCount,
-                gridSize
-            ];
+            return [blockShorterSide, blockLongerSide, shorterMaxCount, gridSize];
         }
     };
 

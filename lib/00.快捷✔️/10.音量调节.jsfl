@@ -50,11 +50,7 @@ require(['checkUtil', 'JSFLConstants'], function (checkUtil, JSFLConstants) {
         curVolume = Math.ceil(curVolume);
 
         var inputPercent = prompt('请输入百分比 (0-100):', curVolume);
-        if (
-            inputPercent === null ||
-            inputPercent === '' ||
-            isNaN(Number(inputPercent))
-        ) {
+        if (inputPercent === null || inputPercent === '' || isNaN(Number(inputPercent))) {
             return;
         }
         inputPercent = parseInt(inputPercent);

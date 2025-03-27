@@ -31,10 +31,7 @@
                 typeof error['opera#sourceloc'] !== 'undefined'
             ) {
                 return this.parseOpera(error);
-            } else if (
-                error.stack &&
-                error.stack.match(CHROME_IE_STACK_REGEXP)
-            ) {
+            } else if (error.stack && error.stack.match(CHROME_IE_STACK_REGEXP)) {
                 return this.parseV8OrIE(error);
             } else if (error.stack && typeof fl !== 'undefined') {
                 return this.parseFlash(error);
@@ -166,8 +163,7 @@
                 } else {
                     var functionNameRegex = /((.*".+"[^@]*)?[^@]*)(?:@)/;
                     var matches = line.match(functionNameRegex);
-                    var functionName =
-                        matches && matches[1] ? matches[1] : undefined;
+                    var functionName = matches && matches[1] ? matches[1] : undefined;
                     var locationParts = this.extractLocation(
                         line.replace(functionNameRegex, '')
                     );
@@ -187,8 +183,7 @@
             if (
                 !e.stacktrace ||
                 (e.message.indexOf('\n') > -1 &&
-                    e.message.split('\n').length >
-                        e.stacktrace.split('\n').length)
+                    e.message.split('\n').length > e.stacktrace.split('\n').length)
             ) {
                 return this.parseOpera9(e);
             } else if (!e.stack) {
@@ -220,8 +215,7 @@
         },
 
         parseOpera10: function ErrorStackParser$$parseOpera10(e) {
-            var lineRE =
-                /Line (\d+).*script (?:in )?(\S+)(?:: In function (\S+))?$/i;
+            var lineRE = /Line (\d+).*script (?:in )?(\S+)(?:: In function (\S+))?$/i;
             var lines = e.stacktrace.split('\n');
             var result = [];
 
@@ -264,8 +258,7 @@
                     argsRaw = functionCall.replace(/^[^(]+\(([^)]*)\)$/, '$1');
                 }
                 var args =
-                    argsRaw === undefined ||
-                    argsRaw === '[arguments not available]'
+                    argsRaw === undefined || argsRaw === '[arguments not available]'
                         ? undefined
                         : argsRaw.split(',');
 

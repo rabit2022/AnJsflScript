@@ -133,13 +133,13 @@ define([
 
         // 关键帧范围
         // var layer = layers[selectedFr.layerIndex];
-        var keyFrames = this.getKeyFrames(curLayer);
+        var keyFrames = FrameRangeUtil.getKeyFrames(curLayer);
 
         // 缺少最后一段，补上
         var lastKf = curLayer.frameCount; // 开区间
         keyFrames.push(lastKf);
 
-        var keyFrameRanges = this.wrapKeyFrames(layers, curLayer, keyFrames);
+        var keyFrameRanges = FrameRangeUtil.wrapKeyFrames(layers, curLayer, keyFrames);
         if (keyFrameRanges.length < 1) return null;
 
         return keyFrameRanges;
@@ -152,10 +152,7 @@ define([
      * @param {FrameRange[]} keyFrameRanges 关键帧范围数组
      * @return {FrameRange} 帧范围
      */
-    FrameRangeUtil.getKfrFromSlLittle = function (
-        selectedFrLittle,
-        keyFrameRanges
-    ) {
+    FrameRangeUtil.getKfrFromSlLittle = function (selectedFrLittle, keyFrameRanges) {
         var keyFr = null;
         for (var i = 0; i < keyFrameRanges.length; i++) {
             var keyFrameRange = keyFrameRanges[i];
@@ -174,10 +171,7 @@ define([
      * @param {Timeline} timeline 时间线
      * @param {number[]} keyFramesIndex 帧数组
      */
-    FrameRangeUtil.convertToKeyframesSafety = function (
-        timeline,
-        keyFramesIndex
-    ) {
+    FrameRangeUtil.convertToKeyframesSafety = function (timeline, keyFramesIndex) {
         // timeline.convertToKeyframes(frame_1);
         var layers = timeline.layers; //图层
         var curLayerIndex = timeline.currentLayer; //当前图层索引

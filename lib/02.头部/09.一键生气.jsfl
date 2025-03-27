@@ -91,10 +91,7 @@ require(['checkUtil', 'curveUtil', 'frameRangeUtil'], function (
         // 0,2,3,5,6,8,9,11,12,14,15,17,18,20,21,23,24,26,27,29,30
         // 0,2
         // 2    104.7,104.9
-        var { allKeyFrames, alteredKeyFrames } = generateKfs(
-            MAX_KEYFRAME,
-            firstFrame
-        );
+        var { allKeyFrames, alteredKeyFrames } = generateKfs(MAX_KEYFRAME, firstFrame);
 
         // 关键帧
         frUtil.convertToKeyframesSafety(timeline, allKeyFrames);

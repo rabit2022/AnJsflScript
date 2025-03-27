@@ -7,14 +7,14 @@
  * @description:此功能需要相应的网站支持，暂时只有函数的实现,请查看代码
  */
 
-require([
-    'checkUtil',
-    'loglevel',
-    'libUtil',
-    'os',
-    'sprintf',
-    'selectionUtil'
-], function (checkUtil, log, libUtil, os, { sprintf }, selectionUtil) {
+require(['checkUtil', 'loglevel', 'libUtil', 'os', 'sprintf', 'selectionUtil'], function (
+    checkUtil,
+    log,
+    libUtil,
+    os,
+    { sprintf },
+    selectionUtil
+) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
     const { SelectAll } = selectionUtil;
 

@@ -38,9 +38,7 @@ require(['checkUtil', 'SAT'], function (checkUtil, sat) {
         var screenCenterPoint = new Vector(screenWidth / 2, screenHeight / 2);
 
         // 获取选中内容的边界
-        var boundsCenterPoint = new Rectangle(
-            doc.getSelectionRect()
-        ).getCenterVector();
+        var boundsCenterPoint = new Rectangle(doc.getSelectionRect()).getCenterVector();
 
         // 计算偏移量
         var offset = screenCenterPoint.clone().sub(boundsCenterPoint);

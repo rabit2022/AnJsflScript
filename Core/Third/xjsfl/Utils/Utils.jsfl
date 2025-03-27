@@ -151,9 +151,7 @@ define(function () {
             }
 
             // otherwise, attempt to parse the constructor source
-            var matches = value.constructor
-                .toSource()
-                .match(/^function\s*(\w+)/);
+            var matches = value.constructor.toSource().match(/^function\s*(\w+)/);
             if (matches && matches.length == 2) {
                 // fail if the return value is an anonymous / wrapped Function
                 if (matches[1] != 'Function') {
@@ -257,9 +255,7 @@ define(function () {
 
             function process(element, index) {
                 // callback
-                var state = callback
-                    ? callback(element, index, depth, indent)
-                    : null;
+                var state = callback ? callback(element, index, depth, indent) : null;
 
                 // return immediately if the callback returned true
                 if (state === true) {
@@ -533,9 +529,8 @@ define(function () {
          */
         getStack: function (error, shorten) {
             // error
-            var strStack = (
-                error instanceof Error ? error : new Error('Stack trace')
-            ).stack;
+            var strStack = (error instanceof Error ? error : new Error('Stack trace'))
+                .stack;
 
             // parse stack
             var rxParts = /^(.*)?@(.*?):(\d+)$/gm;

@@ -14,20 +14,9 @@ define([
     'layerUtil',
     'os',
     'selectionUtil',
-    'builtInP',
     'loglevel',
     'moreElement'
-], function (
-    sat,
-    satUtil,
-    libUtil,
-    layerUtil,
-    os,
-    sel,
-    builtInP,
-    log,
-    MoreElement
-) {
+], function (sat, satUtil, libUtil, layerUtil, os, sel, log, MoreElement) {
     var Vector = sat.V,
         Rectangle = sat.R,
         wrapPosition = sat.GLOBALS.wrapPosition,
@@ -50,10 +39,7 @@ define([
      * @returns {boolean} 是否是 元件
      */
     ElementUtil.IsSymbol = function (element) {
-        return (
-            element.elementType === 'instance' &&
-            element.instanceType === 'symbol'
-        );
+        return element.elementType === 'instance' && element.instanceType === 'symbol';
     };
 
     /**
@@ -62,10 +48,7 @@ define([
      * @returns {boolean} 是否是 位图
      */
     ElementUtil.IsBitmap = function (element) {
-        return (
-            element.elementType === 'instance' &&
-            element.instanceType === 'bitmap'
-        );
+        return element.elementType === 'instance' && element.instanceType === 'bitmap';
     };
     ElementUtil.IsShape = function (element) {
         return element.elementType === 'shape';
@@ -331,10 +314,7 @@ define([
             var DELETE_LAYER_NAME = '图层';
 
             // 查找 名字中包含 "图层" 的 layer
-            var findLayers = layerUtil.getLayersIndexByName(
-                layers,
-                DELETE_LAYER_NAME
-            );
+            var findLayers = layerUtil.getLayersIndexByName(layers, DELETE_LAYER_NAME);
             log.info('findLayers:' + findLayers);
 
             // 删除图层
@@ -386,7 +366,10 @@ define([
                 return;
             }
 
-            var isAllShape = builtInP.all(selection, function (item) {
+            // var isAllShape = builtInP.all(selection, function (item) {
+            //     return ElementUtil.IsShape(item);
+            // });
+            var isAllShape = selection.every(function (item) {
                 return ElementUtil.IsShape(item);
             });
             if (isAllShape) {

@@ -452,18 +452,14 @@
     function __extends(d, b) {
         if (typeof b !== 'function' && b !== null)
             throw new TypeError(
-                'Class extends value ' +
-                    String(b) +
-                    ' is not a constructor or null'
+                'Class extends value ' + String(b) + ' is not a constructor or null'
             );
         extendStatics(d, b);
         function __() {
             this.constructor = d;
         }
         d.prototype =
-            b === null
-                ? Object.create(b)
-                : ((__.prototype = b.prototype), new __());
+            b === null ? Object.create(b) : ((__.prototype = b.prototype), new __());
     }
 
     var __assign = function () {
@@ -473,8 +469,7 @@
                 for (var s, i = 1, n = arguments.length; i < n; i++) {
                     s = arguments[i];
                     for (var p in s)
-                        if (Object.prototype.hasOwnProperty.call(s, p))
-                            t[p] = s[p];
+                        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
                 }
                 return t;
             };
@@ -487,11 +482,7 @@
             if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
                 t[p] = s[p];
         if (s != null && typeof Object.getOwnPropertySymbols === 'function')
-            for (
-                var i = 0, p = Object.getOwnPropertySymbols(s);
-                i < p.length;
-                i++
-            ) {
+            for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
                 if (
                     e.indexOf(p[i]) < 0 &&
                     Object.prototype.propertyIsEnumerable.call(s, p[i])
@@ -529,9 +520,7 @@
                     ? resolve(result.value)
                     : adopt(result.value).then(fulfilled, rejected);
             }
-            step(
-                (generator = generator.apply(thisArg, _arguments || [])).next()
-            );
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     }
 
@@ -573,8 +562,7 @@
                                 op[0] & 2
                                     ? y['return']
                                     : op[0]
-                                      ? y['throw'] ||
-                                        ((t = y['return']) && t.call(y), 0)
+                                      ? y['throw'] || ((t = y['return']) && t.call(y), 0)
                                       : y.next) &&
                             !(t = t.call(y, op[1])).done)
                     )
@@ -599,17 +587,13 @@
                             continue;
                         default:
                             if (
-                                !((t = _.trys),
-                                (t = t.length > 0 && t[t.length - 1])) &&
+                                !((t = _.trys), (t = t.length > 0 && t[t.length - 1])) &&
                                 (op[0] === 6 || op[0] === 2)
                             ) {
                                 _ = 0;
                                 continue;
                             }
-                            if (
-                                op[0] === 3 &&
-                                (!t || (op[1] > t[0] && op[1] < t[3]))
-                            ) {
+                            if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) {
                                 _.label = op[1];
                                 break;
                             }
@@ -664,8 +648,7 @@
             ar = [],
             e;
         try {
-            while ((n === void 0 || n-- > 0) && !(r = i.next()).done)
-                ar.push(r.value);
+            while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
         } catch (error) {
             e = { error: error };
         } finally {
@@ -747,10 +730,7 @@
             i;
         return m
             ? m.call(o)
-            : ((o =
-                  typeof __values === 'function'
-                      ? __values(o)
-                      : o[Symbol.iterator]()),
+            : ((o = typeof __values === 'function' ? __values(o) : o[Symbol.iterator]()),
               (i = {}),
               verb('next'),
               verb('throw'),
@@ -863,8 +843,7 @@
                     try {
                         initialFinalizer();
                     } catch (e) {
-                        errors =
-                            e instanceof UnsubscriptionError ? e.errors : [e];
+                        errors = e instanceof UnsubscriptionError ? e.errors : [e];
                     }
                 }
                 var _finalizers = this._finalizers;
@@ -882,9 +861,7 @@
                                 execFinalizer(finalizer);
                             } catch (err) {
                                 errors =
-                                    errors !== null && errors !== void 0
-                                        ? errors
-                                        : [];
+                                    errors !== null && errors !== void 0 ? errors : [];
                                 if (err instanceof UnsubscriptionError) {
                                     errors = __spreadArray(
                                         __spreadArray([], __read(errors)),
@@ -928,9 +905,9 @@
                         teardown._addParent(this);
                     }
                     (this._finalizers =
-                        (_a = this._finalizers) !== null && _a !== void 0
-                            ? _a
-                            : []).push(teardown);
+                        (_a = this._finalizers) !== null && _a !== void 0 ? _a : []).push(
+                        teardown
+                    );
                 }
             }
         };
@@ -1005,11 +982,7 @@
                 args[_i - 2] = arguments[_i];
             }
             var delegate = timeoutProvider.delegate;
-            if (
-                delegate === null || delegate === void 0
-                    ? void 0
-                    : delegate.setTimeout
-            ) {
+            if (delegate === null || delegate === void 0 ? void 0 : delegate.setTimeout) {
                 return delegate.setTimeout.apply(
                     delegate,
                     __spreadArray([handler, timeout], __read(args))
@@ -1209,12 +1182,9 @@
                         observerOrNext !== null && observerOrNext !== void 0
                             ? observerOrNext
                             : undefined,
-                    error:
-                        error !== null && error !== void 0 ? error : undefined,
+                    error: error !== null && error !== void 0 ? error : undefined,
                     complete:
-                        complete !== null && complete !== void 0
-                            ? complete
-                            : undefined
+                        complete !== null && complete !== void 0 ? complete : undefined
                 };
             } else {
                 var context_1;
@@ -1224,12 +1194,9 @@
                         return _this.unsubscribe();
                     };
                     partialObserver = {
-                        next:
-                            observerOrNext.next &&
-                            bind(observerOrNext.next, context_1),
+                        next: observerOrNext.next && bind(observerOrNext.next, context_1),
                         error:
-                            observerOrNext.error &&
-                            bind(observerOrNext.error, context_1),
+                            observerOrNext.error && bind(observerOrNext.error, context_1),
                         complete:
                             observerOrNext.complete &&
                             bind(observerOrNext.complete, context_1)
@@ -1268,10 +1235,7 @@
     };
 
     var observable = (function () {
-        return (
-            (typeof Symbol === 'function' && Symbol.observable) ||
-            '@@observable'
-        );
+        return (typeof Symbol === 'function' && Symbol.observable) || '@@observable';
     })();
 
     function identity(x) {
@@ -1311,11 +1275,7 @@
             observable$$1.operator = operator;
             return observable$$1;
         };
-        Observable.prototype.subscribe = function (
-            observerOrNext,
-            error,
-            complete
-        ) {
+        Observable.prototype.subscribe = function (observerOrNext, error, complete) {
             var _this = this;
             var subscriber = isSubscriber(observerOrNext)
                 ? observerOrNext
@@ -1424,9 +1384,7 @@
     }
 
     function hasLift(source) {
-        return isFunction(
-            source === null || source === void 0 ? void 0 : source.lift
-        );
+        return isFunction(source === null || source === void 0 ? void 0 : source.lift);
     }
     function operate(init) {
         return function (source) {
@@ -1528,21 +1486,14 @@
                 undefined,
                 undefined,
                 function () {
-                    if (
-                        !source ||
-                        source._refCount <= 0 ||
-                        0 < --source._refCount
-                    ) {
+                    if (!source || source._refCount <= 0 || 0 < --source._refCount) {
                         connection = null;
                         return;
                     }
                     var sharedConnection = source._connection;
                     var conn = connection;
                     connection = null;
-                    if (
-                        sharedConnection &&
-                        (!conn || sharedConnection === conn)
-                    ) {
+                    if (sharedConnection && (!conn || sharedConnection === conn)) {
                         sharedConnection.unsubscribe();
                     }
                     subscriber.unsubscribe();
@@ -1646,9 +1597,7 @@
                 callback(timestamp);
             });
             return new Subscription(function () {
-                return cancel === null || cancel === void 0
-                    ? void 0
-                    : cancel(handle);
+                return cancel === null || cancel === void 0 ? void 0 : cancel(handle);
             });
         },
         requestAnimationFrame: function () {
@@ -1754,8 +1703,7 @@
                     }
                     try {
                         for (
-                            var _b = __values(_this.currentObservers),
-                                _c = _b.next();
+                            var _b = __values(_this.currentObservers), _c = _b.next();
                             !_c.done;
                             _c = _b.next()
                         ) {
@@ -1874,18 +1822,16 @@
         AnonymousSubject.prototype.next = function (value) {
             var _a, _b;
             (_b =
-                (_a = this.destination) === null || _a === void 0
-                    ? void 0
-                    : _a.next) === null || _b === void 0
+                (_a = this.destination) === null || _a === void 0 ? void 0 : _a.next) ===
+                null || _b === void 0
                 ? void 0
                 : _b.call(_a, value);
         };
         AnonymousSubject.prototype.error = function (err) {
             var _a, _b;
             (_b =
-                (_a = this.destination) === null || _a === void 0
-                    ? void 0
-                    : _a.error) === null || _b === void 0
+                (_a = this.destination) === null || _a === void 0 ? void 0 : _a.error) ===
+                null || _b === void 0
                 ? void 0
                 : _b.call(_a, err);
         };
@@ -1925,10 +1871,7 @@
             configurable: true
         });
         BehaviorSubject.prototype._subscribe = function (subscriber) {
-            var subscription = _super.prototype._subscribe.call(
-                this,
-                subscriber
-            );
+            var subscription = _super.prototype._subscribe.call(this, subscriber);
             !subscription.closed && subscriber.next(this._value);
             return subscription;
         };
@@ -2018,19 +1961,14 @@
                 _timestampProvider = _a._timestampProvider,
                 _buffer = _a._buffer,
                 _infiniteTimeWindow = _a._infiniteTimeWindow;
-            var adjustedBufferSize =
-                (_infiniteTimeWindow ? 1 : 2) * _bufferSize;
+            var adjustedBufferSize = (_infiniteTimeWindow ? 1 : 2) * _bufferSize;
             _bufferSize < Infinity &&
                 adjustedBufferSize < _buffer.length &&
                 _buffer.splice(0, _buffer.length - adjustedBufferSize);
             if (!_infiniteTimeWindow) {
                 var now = _timestampProvider.now();
                 var last = 0;
-                for (
-                    var i = 1;
-                    i < _buffer.length && _buffer[i] <= now;
-                    i += 2
-                ) {
+                for (var i = 1; i < _buffer.length && _buffer[i] <= now; i += 2) {
                     last = i;
                 }
                 last && _buffer.splice(0, last + 1);
@@ -2042,8 +1980,7 @@
     var AsyncSubject = (function (_super) {
         __extends(AsyncSubject, _super);
         function AsyncSubject() {
-            var _this =
-                (_super !== null && _super.apply(this, arguments)) || this;
+            var _this = (_super !== null && _super.apply(this, arguments)) || this;
             _this._value = null;
             _this._hasValue = false;
             _this._isComplete = false;
@@ -2106,9 +2043,7 @@
             }
             var delegate = intervalProvider.delegate;
             if (
-                delegate === null || delegate === void 0
-                    ? void 0
-                    : delegate.setInterval
+                delegate === null || delegate === void 0 ? void 0 : delegate.setInterval
             ) {
                 return delegate.setInterval.apply(
                     delegate,
@@ -2162,11 +2097,7 @@
                     : this.requestAsyncId(scheduler, this.id, delay);
             return this;
         };
-        AsyncAction.prototype.requestAsyncId = function (
-            scheduler,
-            _id,
-            delay
-        ) {
+        AsyncAction.prototype.requestAsyncId = function (scheduler, _id, delay) {
             if (delay === void 0) {
                 delay = 0;
             }
@@ -2175,19 +2106,11 @@
                 delay
             );
         };
-        AsyncAction.prototype.recycleAsyncId = function (
-            _scheduler,
-            id,
-            delay
-        ) {
+        AsyncAction.prototype.recycleAsyncId = function (_scheduler, id, delay) {
             if (delay === void 0) {
                 delay = 0;
             }
-            if (
-                delay != null &&
-                this.delay === delay &&
-                this.pending === false
-            ) {
+            if (delay != null && this.delay === delay && this.pending === false) {
                 return id;
             }
             if (id != null) {
@@ -2214,9 +2137,7 @@
                 this.work(state);
             } catch (e) {
                 errored = true;
-                errorValue = e
-                    ? e
-                    : new Error('Scheduled action threw falsy error');
+                errorValue = e ? e : new Error('Scheduled action threw falsy error');
             }
             if (errored) {
                 this.unsubscribe();
@@ -2308,12 +2229,7 @@
                 delay = 0;
             }
             if (delay !== null && delay > 0) {
-                return _super.prototype.requestAsyncId.call(
-                    this,
-                    scheduler,
-                    id,
-                    delay
-                );
+                return _super.prototype.requestAsyncId.call(this, scheduler, id, delay);
             }
             scheduler.actions.push(this);
             return (
@@ -2329,12 +2245,7 @@
                 delay = 0;
             }
             if (delay != null ? delay > 0 : this.delay > 0) {
-                return _super.prototype.recycleAsyncId.call(
-                    this,
-                    scheduler,
-                    id,
-                    delay
-                );
+                return _super.prototype.recycleAsyncId.call(this, scheduler, id, delay);
             }
             var actions = scheduler.actions;
             if (
@@ -2365,10 +2276,7 @@
             if (delay === void 0) {
                 delay = 0;
             }
-            return new this.schedulerActionCtor(this, work).schedule(
-                state,
-                delay
-            );
+            return new this.schedulerActionCtor(this, work).schedule(state, delay);
         };
         Scheduler.now = dateTimestampProvider.now;
         return Scheduler;
@@ -2425,11 +2333,7 @@
                 if ((error = action.execute(action.state, action.delay))) {
                     break;
                 }
-            } while (
-                (action = actions[0]) &&
-                action.id === flushId &&
-                actions.shift()
-            );
+            } while ((action = actions[0]) && action.id === flushId && actions.shift());
             this._active = false;
             if (error) {
                 while (
@@ -2480,16 +2384,8 @@
             if (delay === void 0) {
                 delay = 0;
             }
-            if (
-                (delay != null && delay > 0) ||
-                (delay == null && this.delay > 0)
-            ) {
-                return _super.prototype.requestAsyncId.call(
-                    this,
-                    scheduler,
-                    id,
-                    delay
-                );
+            if ((delay != null && delay > 0) || (delay == null && this.delay > 0)) {
+                return _super.prototype.requestAsyncId.call(this, scheduler, id, delay);
             }
             scheduler.flush(this);
             return 0;
@@ -2516,47 +2412,30 @@
             _this.work = work;
             return _this;
         }
-        AnimationFrameAction.prototype.requestAsyncId = function (
-            scheduler,
-            id,
-            delay
-        ) {
+        AnimationFrameAction.prototype.requestAsyncId = function (scheduler, id, delay) {
             if (delay === void 0) {
                 delay = 0;
             }
             if (delay !== null && delay > 0) {
-                return _super.prototype.requestAsyncId.call(
-                    this,
-                    scheduler,
-                    id,
-                    delay
-                );
+                return _super.prototype.requestAsyncId.call(this, scheduler, id, delay);
             }
             scheduler.actions.push(this);
             return (
                 scheduler._scheduled ||
-                (scheduler._scheduled =
-                    animationFrameProvider.requestAnimationFrame(function () {
+                (scheduler._scheduled = animationFrameProvider.requestAnimationFrame(
+                    function () {
                         return scheduler.flush(undefined);
-                    }))
+                    }
+                ))
             );
         };
-        AnimationFrameAction.prototype.recycleAsyncId = function (
-            scheduler,
-            id,
-            delay
-        ) {
+        AnimationFrameAction.prototype.recycleAsyncId = function (scheduler, id, delay) {
             var _a;
             if (delay === void 0) {
                 delay = 0;
             }
             if (delay != null ? delay > 0 : this.delay > 0) {
-                return _super.prototype.recycleAsyncId.call(
-                    this,
-                    scheduler,
-                    id,
-                    delay
-                );
+                return _super.prototype.recycleAsyncId.call(this, scheduler, id, delay);
             }
             var actions = scheduler.actions;
             if (
@@ -2595,11 +2474,7 @@
                 if ((error = action.execute(action.state, action.delay))) {
                     break;
                 }
-            } while (
-                (action = actions[0]) &&
-                action.id === flushId &&
-                actions.shift()
-            );
+            } while ((action = actions[0]) && action.id === flushId && actions.shift());
             this._active = false;
             if (error) {
                 while (
@@ -2615,9 +2490,7 @@
         return AnimationFrameScheduler;
     })(AsyncScheduler);
 
-    var animationFrameScheduler = new AnimationFrameScheduler(
-        AnimationFrameAction
-    );
+    var animationFrameScheduler = new AnimationFrameScheduler(AnimationFrameAction);
     var animationFrame = animationFrameScheduler;
 
     var VirtualTimeScheduler = (function (_super) {
@@ -2691,11 +2564,7 @@
                 return Subscription.EMPTY;
             }
         };
-        VirtualAction.prototype.requestAsyncId = function (
-            scheduler,
-            id,
-            delay
-        ) {
+        VirtualAction.prototype.requestAsyncId = function (scheduler, id, delay) {
             if (delay === void 0) {
                 delay = 0;
             }
@@ -2705,11 +2574,7 @@
             actions.sort(VirtualAction.sortActions);
             return 1;
         };
-        VirtualAction.prototype.recycleAsyncId = function (
-            scheduler,
-            id,
-            delay
-        ) {
+        VirtualAction.prototype.recycleAsyncId = function (scheduler, id, delay) {
             if (delay === void 0) {
                 delay = 0;
             }
@@ -2774,9 +2639,7 @@
     };
 
     function isPromise(value) {
-        return isFunction(
-            value === null || value === void 0 ? void 0 : value.then
-        );
+        return isFunction(value === null || value === void 0 ? void 0 : value.then);
     }
 
     function isInteropObservable(input) {
@@ -2787,9 +2650,7 @@
         return (
             Symbol.asyncIterator &&
             isFunction(
-                obj === null || obj === void 0
-                    ? void 0
-                    : obj[Symbol.asyncIterator]
+                obj === null || obj === void 0 ? void 0 : obj[Symbol.asyncIterator]
             )
         );
     }
@@ -2813,9 +2674,7 @@
     var iterator = getSymbolIterator();
 
     function isIterable(input) {
-        return isFunction(
-            input === null || input === void 0 ? void 0 : input[iterator]
-        );
+        return isFunction(input === null || input === void 0 ? void 0 : input[iterator]);
     }
 
     function readableStreamLikeToAsyncGenerator(readableStream) {
@@ -2835,9 +2694,7 @@
                         case 2:
                             return [4, __await(reader.read())];
                         case 3:
-                            (_a = _b.sent()),
-                                (value = _a.value),
-                                (done = _a.done);
+                            (_a = _b.sent()), (value = _a.value), (done = _a.done);
                             if (!done) return [3, 5];
                             return [4, __await(void 0)];
                         case 4:
@@ -2862,9 +2719,7 @@
         );
     }
     function isReadableStreamLike(obj) {
-        return isFunction(
-            obj === null || obj === void 0 ? void 0 : obj.getReader
-        );
+        return isFunction(obj === null || obj === void 0 ? void 0 : obj.getReader);
     }
 
     function innerFrom(input) {
@@ -2934,8 +2789,7 @@
             var e_1, _a;
             try {
                 for (
-                    var iterable_1 = __values(iterable),
-                        iterable_1_1 = iterable_1.next();
+                    var iterable_1 = __values(iterable), iterable_1_1 = iterable_1.next();
                     !iterable_1_1.done;
                     iterable_1_1 = iterable_1.next()
                 ) {
@@ -2949,11 +2803,7 @@
                 e_1 = { error: e_1_1 };
             } finally {
                 try {
-                    if (
-                        iterable_1_1 &&
-                        !iterable_1_1.done &&
-                        (_a = iterable_1.return)
-                    )
+                    if (iterable_1_1 && !iterable_1_1.done && (_a = iterable_1.return))
                         _a.call(iterable_1);
                 } finally {
                     if (e_1) throw e_1.error;
@@ -2970,9 +2820,7 @@
         });
     }
     function fromReadableStreamLike(readableStream) {
-        return fromAsyncIterable(
-            readableStreamLikeToAsyncGenerator(readableStream)
-        );
+        return fromAsyncIterable(readableStreamLikeToAsyncGenerator(readableStream));
     }
     function process(asyncIterable, subscriber) {
         var asyncIterable_1, asyncIterable_1_1;
@@ -2988,10 +2836,7 @@
                     case 1:
                         return [4, asyncIterable_1.next()];
                     case 2:
-                        if (
-                            !((asyncIterable_1_1 = _b.sent()),
-                            !asyncIterable_1_1.done)
-                        )
+                        if (!((asyncIterable_1_1 = _b.sent()), !asyncIterable_1_1.done))
                             return [3, 4];
                         value = asyncIterable_1_1.value;
                         subscriber.next(value);
@@ -3036,13 +2881,7 @@
         });
     }
 
-    function executeSchedule(
-        parentSubscription,
-        scheduler,
-        work,
-        delay,
-        repeat
-    ) {
+    function executeSchedule(parentSubscription, scheduler, work, delay, repeat) {
         if (delay === void 0) {
             delay = 0;
         }
@@ -3120,17 +2959,11 @@
     }
 
     function scheduleObservable(input, scheduler) {
-        return innerFrom(input).pipe(
-            subscribeOn(scheduler),
-            observeOn(scheduler)
-        );
+        return innerFrom(input).pipe(subscribeOn(scheduler), observeOn(scheduler));
     }
 
     function schedulePromise(input, scheduler) {
-        return innerFrom(input).pipe(
-            subscribeOn(scheduler),
-            observeOn(scheduler)
-        );
+        return innerFrom(input).pipe(subscribeOn(scheduler), observeOn(scheduler));
     }
 
     function scheduleArray(input, scheduler) {
@@ -3315,16 +3148,10 @@
                     ? void 0
                     : completeHandler();
         };
-        Notification.prototype.accept = function (
-            nextOrObserver,
-            error,
-            complete
-        ) {
+        Notification.prototype.accept = function (nextOrObserver, error, complete) {
             var _a;
             return isFunction(
-                (_a = nextOrObserver) === null || _a === void 0
-                    ? void 0
-                    : _a.next
+                (_a = nextOrObserver) === null || _a === void 0 ? void 0 : _a.next
             )
                 ? this.observe(nextOrObserver)
                 : this.do(nextOrObserver, error, complete);
@@ -3535,8 +3362,7 @@
                 createOperatorSubscriber(
                     subscriber,
                     function (value) {
-                        timerSubscription === null ||
-                        timerSubscription === void 0
+                        timerSubscription === null || timerSubscription === void 0
                             ? void 0
                             : timerSubscription.unsubscribe();
                         seen++;
@@ -3547,13 +3373,11 @@
                     undefined,
                     function () {
                         if (
-                            !(timerSubscription === null ||
-                            timerSubscription === void 0
+                            !(timerSubscription === null || timerSubscription === void 0
                                 ? void 0
                                 : timerSubscription.closed)
                         ) {
-                            timerSubscription === null ||
-                            timerSubscription === void 0
+                            timerSubscription === null || timerSubscription === void 0
                                 ? void 0
                                 : timerSubscription.unsubscribe();
                         }
@@ -3598,12 +3422,7 @@
         });
     }
 
-    function bindCallbackInternals(
-        isNodeStyle,
-        callbackFunc,
-        resultSelector,
-        scheduler
-    ) {
+    function bindCallbackInternals(isNodeStyle, callbackFunc, resultSelector, scheduler) {
         if (resultSelector) {
             if (isScheduler(resultSelector)) {
                 scheduler = resultSelector;
@@ -3613,11 +3432,7 @@
                     for (var _i = 0; _i < arguments.length; _i++) {
                         args[_i] = arguments[_i];
                     }
-                    return bindCallbackInternals(
-                        isNodeStyle,
-                        callbackFunc,
-                        scheduler
-                    )
+                    return bindCallbackInternals(isNodeStyle, callbackFunc, scheduler)
                         .apply(this, args)
                         .pipe(mapOneOrManyArgs(resultSelector));
                 };
@@ -3663,9 +3478,7 @@
                                         return;
                                     }
                                 }
-                                subject.next(
-                                    1 < results.length ? results : results[0]
-                                );
+                                subject.next(1 < results.length ? results : results[0]);
                                 isComplete_1 = true;
                                 if (isAsync_1) {
                                     subject.complete();
@@ -3684,21 +3497,11 @@
     }
 
     function bindCallback(callbackFunc, resultSelector, scheduler) {
-        return bindCallbackInternals(
-            false,
-            callbackFunc,
-            resultSelector,
-            scheduler
-        );
+        return bindCallbackInternals(false, callbackFunc, resultSelector, scheduler);
     }
 
     function bindNodeCallback(callbackFunc, resultSelector, scheduler) {
-        return bindCallbackInternals(
-            true,
-            callbackFunc,
-            resultSelector,
-            scheduler
-        );
+        return bindCallbackInternals(true, callbackFunc, resultSelector, scheduler);
     }
 
     var isArray$1 = Array.isArray;
@@ -3724,11 +3527,7 @@
         return { args: args, keys: null };
     }
     function isPOJO(obj) {
-        return (
-            obj &&
-            typeof obj === 'object' &&
-            getPrototypeOf(obj) === objectProto
-        );
+        return obj && typeof obj === 'object' && getPrototypeOf(obj) === objectProto;
     }
 
     function createObject(keys, values) {
@@ -3761,9 +3560,7 @@
                     : identity
             )
         );
-        return resultSelector
-            ? result.pipe(mapOneOrManyArgs(resultSelector))
-            : result;
+        return resultSelector ? result.pipe(mapOneOrManyArgs(resultSelector)) : result;
     }
     function combineLatestInit(observables, scheduler, valueTransform) {
         if (valueTransform === void 0) {
@@ -3794,9 +3591,7 @@
                                             }
                                             if (!remainingFirstValues) {
                                                 subscriber.next(
-                                                    valueTransform(
-                                                        values.slice()
-                                                    )
+                                                    valueTransform(values.slice())
                                                 );
                                             }
                                         },
@@ -3881,9 +3676,7 @@
                                             subscriber,
                                             innerSubScheduler,
                                             function () {
-                                                return doInnerSub(
-                                                    bufferedValue
-                                                );
+                                                return doInnerSub(bufferedValue);
                                             }
                                         );
                                     } else {
@@ -4030,9 +3823,7 @@
                             if (!remainingCompletions || !hasValue) {
                                 if (!remainingEmissions) {
                                     subscriber.next(
-                                        keys
-                                            ? createObject(keys, values)
-                                            : values
+                                        keys ? createObject(keys, values) : values
                                     );
                                 }
                                 subscriber.complete();
@@ -4045,9 +3836,7 @@
                 _loop_1(sourceIndex);
             }
         });
-        return resultSelector
-            ? result.pipe(mapOneOrManyArgs(resultSelector))
-            : result;
+        return resultSelector ? result.pipe(mapOneOrManyArgs(resultSelector)) : result;
     }
 
     var nodeEventEmitterMethods = ['addListener', 'removeListener'];
@@ -4067,11 +3856,7 @@
                 isEventTarget(target)
                     ? eventTargetMethods.map(function (methodName) {
                           return function (handler) {
-                              return target[methodName](
-                                  eventName,
-                                  handler,
-                                  options
-                              );
+                              return target[methodName](eventName, handler, options);
                           };
                       })
                     : isNodeStyleEventEmitter(target)
@@ -4079,9 +3864,7 @@
                             toCommonHandlerRegistry(target, eventName)
                         )
                       : isJQueryStyleEventEmitter(target)
-                        ? jqueryMethods.map(
-                              toCommonHandlerRegistry(target, eventName)
-                          )
+                        ? jqueryMethods.map(toCommonHandlerRegistry(target, eventName))
                         : [],
                 2
             ),
@@ -4119,17 +3902,14 @@
         };
     }
     function isNodeStyleEventEmitter(target) {
-        return (
-            isFunction(target.addListener) && isFunction(target.removeListener)
-        );
+        return isFunction(target.addListener) && isFunction(target.removeListener);
     }
     function isJQueryStyleEventEmitter(target) {
         return isFunction(target.on) && isFunction(target.off);
     }
     function isEventTarget(target) {
         return (
-            isFunction(target.addEventListener) &&
-            isFunction(target.removeEventListener)
+            isFunction(target.addEventListener) && isFunction(target.removeEventListener)
         );
     }
 
@@ -4176,10 +3956,7 @@
                 (scheduler = _a.scheduler);
         } else {
             initialState = initialStateOrOptions;
-            if (
-                !resultSelectorOrScheduler ||
-                isScheduler(resultSelectorOrScheduler)
-            ) {
+            if (!resultSelectorOrScheduler || isScheduler(resultSelectorOrScheduler)) {
                 resultSelector = identity;
                 scheduler = resultSelectorOrScheduler;
             } else {
@@ -4238,9 +4015,7 @@
             }
         }
         return new Observable(function (subscriber) {
-            var due = isValidDate(dueTime)
-                ? +dueTime - scheduler.now()
-                : dueTime;
+            var due = isValidDate(dueTime) ? +dueTime - scheduler.now() : dueTime;
             if (due < 0) {
                 due = 0;
             }
@@ -4345,8 +4120,7 @@
             source.subscribe(
                 createOperatorSubscriber(subscriber, function (value) {
                     return (
-                        predicate.call(thisArg, value, index++) &&
-                        subscriber.next(value)
+                        predicate.call(thisArg, value, index++) && subscriber.next(value)
                     );
                 })
             );
@@ -4473,27 +4247,20 @@
                                           return buffer.length;
                                       })
                                   ) {
-                                      var result = buffers.map(
-                                          function (buffer) {
-                                              return buffer.shift();
-                                          }
-                                      );
+                                      var result = buffers.map(function (buffer) {
+                                          return buffer.shift();
+                                      });
                                       subscriber.next(
                                           resultSelector
                                               ? resultSelector.apply(
                                                     void 0,
-                                                    __spreadArray(
-                                                        [],
-                                                        __read(result)
-                                                    )
+                                                    __spreadArray([], __read(result))
                                                 )
                                               : result
                                       );
                                       if (
                                           buffers.some(function (buffer, i) {
-                                              return (
-                                                  !buffer.length && completed[i]
-                                              );
+                                              return !buffer.length && completed[i];
                                           })
                                       ) {
                                           subscriber.complete();
@@ -4502,8 +4269,7 @@
                               },
                               function () {
                                   completed[sourceIndex] = true;
-                                  !buffers[sourceIndex].length &&
-                                      subscriber.complete();
+                                  !buffers[sourceIndex].length && subscriber.complete();
                               }
                           )
                       );
@@ -4563,9 +4329,7 @@
                     },
                     function () {
                         isComplete = true;
-                        (!hasValue ||
-                            !durationSubscriber ||
-                            durationSubscriber.closed) &&
+                        (!hasValue || !durationSubscriber || durationSubscriber.closed) &&
                             subscriber.complete();
                     }
                 )
@@ -4774,10 +4538,7 @@
                     );
                 }
             };
-            if (
-                bufferCreationInterval !== null &&
-                bufferCreationInterval >= 0
-            ) {
+            if (bufferCreationInterval !== null && bufferCreationInterval >= 0) {
                 executeSchedule(
                     subscriber,
                     scheduler,
@@ -4829,8 +4590,7 @@
                     ) {
                         subscriber.next(bufferRecords.shift().buffer);
                     }
-                    bufferTimeSubscriber === null ||
-                    bufferTimeSubscriber === void 0
+                    bufferTimeSubscriber === null || bufferTimeSubscriber === void 0
                         ? void 0
                         : bufferTimeSubscriber.unsubscribe();
                     subscriber.complete();
@@ -4862,11 +4622,7 @@
                         };
                         closingSubscription.add(
                             innerFrom(closingSelector(openValue)).subscribe(
-                                createOperatorSubscriber(
-                                    subscriber,
-                                    emitBuffer,
-                                    noop
-                                )
+                                createOperatorSubscriber(subscriber, emitBuffer, noop)
                             )
                         );
                     },
@@ -4987,13 +4743,7 @@
         });
     }
 
-    function scanInternals(
-        accumulator,
-        seed,
-        hasSeed,
-        emitOnNext,
-        emitBeforeComplete
-    ) {
+    function scanInternals(accumulator, seed, hasSeed, emitOnNext, emitBeforeComplete) {
         return function (source, subscriber) {
             var hasState = hasSeed;
             var state = seed;
@@ -5057,10 +4807,7 @@
         var resultSelector = popResultSelector(args);
         return resultSelector
             ? pipe(
-                  combineLatest$1.apply(
-                      void 0,
-                      __spreadArray([], __read(args))
-                  ),
+                  combineLatest$1.apply(void 0, __spreadArray([], __read(args))),
                   mapOneOrManyArgs(resultSelector)
               )
             : operate(function (source, subscriber) {
@@ -5075,10 +4822,7 @@
         for (var _i = 0; _i < arguments.length; _i++) {
             otherSources[_i] = arguments[_i];
         }
-        return combineLatest$1.apply(
-            void 0,
-            __spreadArray([], __read(otherSources))
-        );
+        return combineLatest$1.apply(void 0, __spreadArray([], __read(otherSources)));
     }
 
     function concatMap(project, resultSelector) {
@@ -5104,9 +4848,9 @@
         }
         var scheduler = popScheduler(args);
         return operate(function (source, subscriber) {
-            concatAll()(
-                from(__spreadArray([source], __read(args)), scheduler)
-            ).subscribe(subscriber);
+            concatAll()(from(__spreadArray([source], __read(args)), scheduler)).subscribe(
+                subscriber
+            );
         });
     }
 
@@ -5136,9 +4880,7 @@
         var connector = config.connector;
         return operate(function (source, subscriber) {
             var subject = connector();
-            innerFrom(selector(fromSubscribable(subject))).subscribe(
-                subscriber
-            );
+            innerFrom(selector(fromSubscribable(subject))).subscribe(subscriber);
             subscriber.add(source.subscribe(subject));
         });
     }
@@ -5170,8 +4912,7 @@
                 createOperatorSubscriber(
                     subscriber,
                     function (value) {
-                        durationSubscriber === null ||
-                        durationSubscriber === void 0
+                        durationSubscriber === null || durationSubscriber === void 0
                             ? void 0
                             : durationSubscriber.unsubscribe();
                         hasValue = true;
@@ -5181,9 +4922,7 @@
                             emit,
                             noop
                         );
-                        innerFrom(durationSelector(value)).subscribe(
-                            durationSubscriber
-                        );
+                        innerFrom(durationSelector(value)).subscribe(durationSubscriber);
                     },
                     function () {
                         emit();
@@ -5232,10 +4971,7 @@
                         lastValue = value;
                         lastTime = scheduler.now();
                         if (!activeTask) {
-                            activeTask = scheduler.schedule(
-                                emitWhenIdle,
-                                dueTime
-                            );
+                            activeTask = scheduler.schedule(emitWhenIdle, dueTime);
                             subscriber.add(activeTask);
                         }
                     },
@@ -5372,9 +5108,7 @@
             keySelector = identity;
         }
         comparator =
-            comparator !== null && comparator !== void 0
-                ? comparator
-                : defaultCompare;
+            comparator !== null && comparator !== void 0 ? comparator : defaultCompare;
         return operate(function (source, subscriber) {
             var previousKey;
             var first = true;
@@ -5452,10 +5186,7 @@
             values[_i] = arguments[_i];
         }
         return function (source) {
-            return concat(
-                source,
-                of.apply(void 0, __spreadArray([], __read(values)))
-            );
+            return concat(source, of.apply(void 0, __spreadArray([], __read(values))));
         };
     }
 
@@ -5511,9 +5242,7 @@
                                     isComplete && subscriber.complete();
                                 }
                             );
-                            innerFrom(project(outerValue, index++)).subscribe(
-                                innerSub
-                            );
+                            innerFrom(project(outerValue, index++)).subscribe(innerSub);
                         }
                     },
                     function () {
@@ -5639,32 +5368,26 @@
                         if (!group_1) {
                             groups.set(
                                 key_1,
-                                (group_1 = connector
-                                    ? connector()
-                                    : new Subject())
+                                (group_1 = connector ? connector() : new Subject())
                             );
-                            var grouped = createGroupedObservable(
-                                key_1,
-                                group_1
-                            );
+                            var grouped = createGroupedObservable(key_1, group_1);
                             subscriber.next(grouped);
                             if (duration) {
-                                var durationSubscriber_1 =
-                                    createOperatorSubscriber(
-                                        group_1,
-                                        function () {
-                                            group_1.complete();
-                                            durationSubscriber_1 === null ||
-                                            durationSubscriber_1 === void 0
-                                                ? void 0
-                                                : durationSubscriber_1.unsubscribe();
-                                        },
-                                        undefined,
-                                        undefined,
-                                        function () {
-                                            return groups.delete(key_1);
-                                        }
-                                    );
+                                var durationSubscriber_1 = createOperatorSubscriber(
+                                    group_1,
+                                    function () {
+                                        group_1.complete();
+                                        durationSubscriber_1 === null ||
+                                        durationSubscriber_1 === void 0
+                                            ? void 0
+                                            : durationSubscriber_1.unsubscribe();
+                                    },
+                                    undefined,
+                                    undefined,
+                                    function () {
+                                        return groups.delete(key_1);
+                                    }
+                                );
                                 groupBySourceSubscriber.add(
                                     innerFrom(duration(grouped)).subscribe(
                                         durationSubscriber_1
@@ -6021,9 +5744,7 @@
         if (selectorOrScheduler && !isFunction(selectorOrScheduler)) {
             timestampProvider = selectorOrScheduler;
         }
-        var selector = isFunction(selectorOrScheduler)
-            ? selectorOrScheduler
-            : undefined;
+        var selector = isFunction(selectorOrScheduler) ? selectorOrScheduler : undefined;
         return function (source) {
             return multicast(
                 new ReplaySubject(bufferSize, windowTime, timestampProvider),
@@ -6040,9 +5761,7 @@
         return !otherSources.length
             ? identity
             : operate(function (source, subscriber) {
-                  raceInit(__spreadArray([source], __read(otherSources)))(
-                      subscriber
-                  );
+                  raceInit(__spreadArray([source], __read(otherSources)))(subscriber);
               });
     }
 
@@ -6091,21 +5810,17 @@
                   var subscribeToSource = function () {
                       var syncUnsub = false;
                       sourceSub = source.subscribe(
-                          createOperatorSubscriber(
-                              subscriber,
-                              undefined,
-                              function () {
-                                  if (++soFar < count) {
-                                      if (sourceSub) {
-                                          resubscribe();
-                                      } else {
-                                          syncUnsub = true;
-                                      }
+                          createOperatorSubscriber(subscriber, undefined, function () {
+                              if (++soFar < count) {
+                                  if (sourceSub) {
+                                      resubscribe();
                                   } else {
-                                      subscriber.complete();
+                                      syncUnsub = true;
                                   }
+                              } else {
+                                  subscriber.complete();
                               }
-                          )
+                          })
                       );
                       if (syncUnsub) {
                           resubscribe();
@@ -6124,9 +5839,7 @@
             var isMainComplete = false;
             var checkComplete = function () {
                 return (
-                    isMainComplete &&
-                    isNotifierComplete &&
-                    (subscriber.complete(), true)
+                    isMainComplete && isNotifierComplete && (subscriber.complete(), true)
                 );
             };
             var getCompletionSubject = function () {
@@ -6154,14 +5867,10 @@
             var subscribeForRepeatWhen = function () {
                 isMainComplete = false;
                 innerSub = source.subscribe(
-                    createOperatorSubscriber(
-                        subscriber,
-                        undefined,
-                        function () {
-                            isMainComplete = true;
-                            !checkComplete() && getCompletionSubject().next();
-                        }
-                    )
+                    createOperatorSubscriber(subscriber, undefined, function () {
+                        isMainComplete = true;
+                        !checkComplete() && getCompletionSubject().next();
+                    })
                 );
                 if (syncResub) {
                     innerSub.unsubscribe();
@@ -6223,9 +5932,7 @@
                                           var notifier =
                                               typeof delay === 'number'
                                                   ? timer(delay)
-                                                  : innerFrom(
-                                                        delay(err, soFar)
-                                                    );
+                                                  : innerFrom(delay(err, soFar));
                                           var notifierSubscriber_1 =
                                               createOperatorSubscriber(
                                                   subscriber,
@@ -6237,9 +5944,7 @@
                                                       subscriber.complete();
                                                   }
                                               );
-                                          notifier.subscribe(
-                                              notifierSubscriber_1
-                                          );
+                                          notifier.subscribe(notifierSubscriber_1);
                                       } else {
                                           resub_1();
                                       }
@@ -6274,14 +5979,11 @@
                             if (!errors$) {
                                 errors$ = new Subject();
                                 innerFrom(notifier(errors$)).subscribe(
-                                    createOperatorSubscriber(
-                                        subscriber,
-                                        function () {
-                                            return innerSub
-                                                ? subscribeForRetryWhen()
-                                                : (syncResub = true);
-                                        }
-                                    )
+                                    createOperatorSubscriber(subscriber, function () {
+                                        return innerSub
+                                            ? subscribeForRetryWhen()
+                                            : (syncResub = true);
+                                    })
                                 );
                             }
                             if (errors$) {
@@ -6336,9 +6038,7 @@
     }
 
     function scan(accumulator, seed) {
-        return operate(
-            scanInternals(accumulator, seed, arguments.length >= 2, true)
-        );
+        return operate(scanInternals(accumulator, seed, arguments.length >= 2, true));
     }
 
     function sequenceEqual(compareTo, comparator) {
@@ -6436,9 +6136,7 @@
                     cancelReset();
                 }
                 var dest = (subject =
-                    subject !== null && subject !== void 0
-                        ? subject
-                        : connector());
+                    subject !== null && subject !== void 0 ? subject : connector());
                 subscriber.add(function () {
                     refCount--;
                     if (refCount === 0 && !hasErrored && !hasCompleted) {
@@ -6457,20 +6155,13 @@
                         error: function (err) {
                             hasErrored = true;
                             cancelReset();
-                            resetConnection = handleReset(
-                                reset,
-                                resetOnError,
-                                err
-                            );
+                            resetConnection = handleReset(reset, resetOnError, err);
                             dest.error(err);
                         },
                         complete: function () {
                             hasCompleted = true;
                             cancelReset();
-                            resetConnection = handleReset(
-                                reset,
-                                resetOnComplete
-                            );
+                            resetConnection = handleReset(reset, resetOnComplete);
                             dest.complete();
                         }
                     });
@@ -6497,9 +6188,9 @@
                 reset();
             }
         });
-        return innerFrom(
-            on.apply(void 0, __spreadArray([], __read(args)))
-        ).subscribe(onSubscriber);
+        return innerFrom(on.apply(void 0, __spreadArray([], __read(args)))).subscribe(
+            onSubscriber
+        );
     }
 
     function shareReplay(configOrBufferSize, windowTime, scheduler) {
@@ -6544,9 +6235,7 @@
                         if (!predicate || predicate(value, index++, source)) {
                             hasValue &&
                                 subscriber.error(
-                                    new SequenceError(
-                                        'Too many matching values'
-                                    )
+                                    new SequenceError('Too many matching values')
                                 );
                             hasValue = true;
                             singleValue = value;
@@ -6786,8 +6475,7 @@
                           function () {
                               var _a;
                               isUnsub = false;
-                              (_a = tapObserver.complete) === null ||
-                              _a === void 0
+                              (_a = tapObserver.complete) === null || _a === void 0
                                   ? void 0
                                   : _a.call(tapObserver);
                               subscriber.complete();
@@ -6803,13 +6491,11 @@
                           function () {
                               var _a, _b;
                               if (isUnsub) {
-                                  (_a = tapObserver.unsubscribe) === null ||
-                                  _a === void 0
+                                  (_a = tapObserver.unsubscribe) === null || _a === void 0
                                       ? void 0
                                       : _a.call(tapObserver);
                               }
-                              (_b = tapObserver.finalize) === null ||
-                              _b === void 0
+                              (_b = tapObserver.finalize) === null || _b === void 0
                                   ? void 0
                                   : _b.call(tapObserver);
                           }
@@ -6845,14 +6531,8 @@
                 isComplete && subscriber.complete();
             };
             var startThrottle = function (value) {
-                return (throttled = innerFrom(
-                    durationSelector(value)
-                ).subscribe(
-                    createOperatorSubscriber(
-                        subscriber,
-                        endThrottling,
-                        cleanupThrottling
-                    )
+                return (throttled = innerFrom(durationSelector(value)).subscribe(
+                    createOperatorSubscriber(subscriber, endThrottling, cleanupThrottling)
                 ));
             };
             var send = function () {
@@ -6875,12 +6555,8 @@
                     },
                     function () {
                         isComplete = true;
-                        !(
-                            trailing &&
-                            hasValue &&
-                            throttled &&
-                            !throttled.closed
-                        ) && subscriber.complete();
+                        !(trailing && hasValue && throttled && !throttled.closed) &&
+                            subscriber.complete();
                     }
                 )
             );
@@ -6925,8 +6601,7 @@
         var first;
         var each;
         var _with;
-        scheduler =
-            scheduler !== null && scheduler !== void 0 ? scheduler : async;
+        scheduler = scheduler !== null && scheduler !== void 0 ? scheduler : async;
         if (isValidDate(due)) {
             first = due;
         } else if (typeof due === 'number') {
@@ -6971,8 +6646,7 @@
                 createOperatorSubscriber(
                     subscriber,
                     function (value) {
-                        return windowSubject === null ||
-                            windowSubject === void 0
+                        return windowSubject === null || windowSubject === void 0
                             ? void 0
                             : windowSubject.next(value);
                     },
@@ -7117,10 +6791,7 @@
                     );
                 }
             };
-            if (
-                windowCreationInterval !== null &&
-                windowCreationInterval >= 0
-            ) {
+            if (windowCreationInterval !== null && windowCreationInterval >= 0) {
                 executeSchedule(
                     subscriber,
                     scheduler,
@@ -7149,8 +6820,7 @@
                     function (value) {
                         loop(function (record) {
                             record.window.next(value);
-                            maxWindowSize <= ++record.seen &&
-                                closeWindow(record);
+                            maxWindowSize <= ++record.seen && closeWindow(record);
                         });
                     },
                     function () {
@@ -7194,9 +6864,7 @@
                         };
                         var closingNotifier;
                         try {
-                            closingNotifier = innerFrom(
-                                closingSelector(openValue)
-                            );
+                            closingNotifier = innerFrom(closingSelector(openValue));
                         } catch (err) {
                             handleError(err);
                             return;
@@ -7276,9 +6944,7 @@
                 closingSubscriber === null || closingSubscriber === void 0
                     ? void 0
                     : closingSubscriber.unsubscribe();
-                window === null || window === void 0
-                    ? void 0
-                    : window.complete();
+                window === null || window === void 0 ? void 0 : window.complete();
                 window = new Subject();
                 subscriber.next(window.asObservable());
                 var closingNotifier;
@@ -7310,8 +6976,7 @@
                     },
                     handleError,
                     function () {
-                        closingSubscriber === null ||
-                        closingSubscriber === void 0
+                        closingSubscriber === null || closingSubscriber === void 0
                             ? void 0
                             : closingSubscriber.unsubscribe();
                         window = null;
@@ -7342,8 +7007,7 @@
                             otherValues[i] = value;
                             if (!ready && !hasValue[i]) {
                                 hasValue[i] = true;
-                                (ready = hasValue.every(identity)) &&
-                                    (hasValue = null);
+                                (ready = hasValue.every(identity)) && (hasValue = null);
                             }
                         },
                         noop
@@ -7356,16 +7020,10 @@
             source.subscribe(
                 createOperatorSubscriber(subscriber, function (value) {
                     if (ready) {
-                        var values = __spreadArray(
-                            [value],
-                            __read(otherValues)
-                        );
+                        var values = __spreadArray([value], __read(otherValues));
                         subscriber.next(
                             project
-                                ? project.apply(
-                                      void 0,
-                                      __spreadArray([], __read(values))
-                                  )
+                                ? project.apply(void 0, __spreadArray([], __read(values)))
                                 : values
                         );
                     }
@@ -7384,10 +7042,9 @@
             sources[_i] = arguments[_i];
         }
         return operate(function (source, subscriber) {
-            zip.apply(
-                void 0,
-                __spreadArray([source], __read(sources))
-            ).subscribe(subscriber);
+            zip.apply(void 0, __spreadArray([source], __read(sources))).subscribe(
+                subscriber
+            );
         });
     }
 
@@ -7413,10 +7070,7 @@
         for (var _i = 0; _i < arguments.length; _i++) {
             args[_i] = arguments[_i];
         }
-        return raceWith.apply(
-            void 0,
-            __spreadArray([], __read(argsOrArgArray(args)))
-        );
+        return raceWith.apply(void 0, __spreadArray([], __read(argsOrArgArray(args))));
     }
 
     var _operators = /*#__PURE__*/ Object.freeze({
@@ -7637,9 +7291,7 @@
                     subject.logUnsubscribedFrame(index);
                 })
             );
-            subscription.add(
-                _super.prototype._subscribe.call(this, subscriber)
-            );
+            subscription.add(_super.prototype._subscribe.call(this, subscriber));
             return subscription;
         };
         HotObservable.prototype.setup = function () {
@@ -7667,8 +7319,7 @@
     var TestScheduler = (function (_super) {
         __extends(TestScheduler, _super);
         function TestScheduler(assertDeepEqual) {
-            var _this =
-                _super.call(this, VirtualAction, defaultMaxFrame) || this;
+            var _this = _super.call(this, VirtualAction, defaultMaxFrame) || this;
             _this.assertDeepEqual = assertDeepEqual;
             _this.hotObservables = [];
             _this.coldObservables = [];
@@ -7687,20 +7338,12 @@
             }
             return indexOf * TestScheduler.frameTimeFactor;
         };
-        TestScheduler.prototype.createColdObservable = function (
-            marbles,
-            values,
-            error
-        ) {
+        TestScheduler.prototype.createColdObservable = function (marbles, values, error) {
             if (marbles.indexOf('^') !== -1) {
-                throw new Error(
-                    'cold observable cannot have subscription offset "^"'
-                );
+                throw new Error('cold observable cannot have subscription offset "^"');
             }
             if (marbles.indexOf('!') !== -1) {
-                throw new Error(
-                    'cold observable cannot have unsubscription marker "!"'
-                );
+                throw new Error('cold observable cannot have unsubscription marker "!"');
             }
             var messages = TestScheduler.parseMarbles(
                 marbles,
@@ -7713,15 +7356,9 @@
             this.coldObservables.push(cold);
             return cold;
         };
-        TestScheduler.prototype.createHotObservable = function (
-            marbles,
-            values,
-            error
-        ) {
+        TestScheduler.prototype.createHotObservable = function (marbles, values, error) {
             if (marbles.indexOf('!') !== -1) {
-                throw new Error(
-                    'hot observable cannot have unsubscription marker "!"'
-                );
+                throw new Error('hot observable cannot have unsubscription marker "!"');
             }
             var messages = TestScheduler.parseMarbles(
                 marbles,
@@ -7787,10 +7424,7 @@
                     next: function (x) {
                         var value =
                             x instanceof Observable
-                                ? _this.materializeInnerObservable(
-                                      x,
-                                      _this.frame
-                                  )
+                                ? _this.materializeInnerObservable(x, _this.frame)
                                 : x;
                         actual.push({
                             frame: _this.frame,
@@ -7837,10 +7471,7 @@
                             next: function (x) {
                                 var value =
                                     x instanceof Observable
-                                        ? _this.materializeInnerObservable(
-                                              x,
-                                              _this.frame
-                                          )
+                                        ? _this.materializeInnerObservable(x, _this.frame)
                                         : x;
                                 flushTest.expected.push({
                                     frame: _this.frame,
@@ -7864,9 +7495,7 @@
                 }
             };
         };
-        TestScheduler.prototype.expectSubscriptions = function (
-            actualSubscriptionLogs
-        ) {
+        TestScheduler.prototype.expectSubscriptions = function (actualSubscriptionLogs) {
             var flushTest = { actual: actualSubscriptionLogs, ready: false };
             this.flushTests.push(flushTest);
             var runMode = this.runMode;
@@ -7905,10 +7534,7 @@
                 return true;
             });
         };
-        TestScheduler.parseMarblesAsSubscriptions = function (
-            marbles,
-            runMode
-        ) {
+        TestScheduler.parseMarblesAsSubscriptions = function (marbles, runMode) {
             var _this = this;
             if (runMode === void 0) {
                 runMode = false;
@@ -7952,8 +7578,7 @@
                                     'subscription marble diagram. There can only be one.'
                             );
                         }
-                        subscriptionFrame =
-                            groupStart > -1 ? groupStart : frame;
+                        subscriptionFrame = groupStart > -1 ? groupStart : frame;
                         advanceFrameBy(1);
                         break;
                     case '!':
@@ -7963,8 +7588,7 @@
                                     'subscription marble diagram. There can only be one.'
                             );
                         }
-                        unsubscriptionFrame =
-                            groupStart > -1 ? groupStart : frame;
+                        unsubscriptionFrame = groupStart > -1 ? groupStart : frame;
                         break;
                     default:
                         if (runMode && c.match(/^[0-9]$/)) {
@@ -7991,9 +7615,7 @@
                                         default:
                                             break;
                                     }
-                                    advanceFrameBy(
-                                        durationInMs / this_1.frameTimeFactor
-                                    );
+                                    advanceFrameBy(durationInMs / this_1.frameTimeFactor);
                                     break;
                                 }
                             }
@@ -8017,10 +7639,7 @@
             if (unsubscriptionFrame < 0) {
                 return new SubscriptionLog(subscriptionFrame);
             } else {
-                return new SubscriptionLog(
-                    subscriptionFrame,
-                    unsubscriptionFrame
-                );
+                return new SubscriptionLog(subscriptionFrame, unsubscriptionFrame);
             }
         };
         TestScheduler.parseMarbles = function (
@@ -8125,9 +7744,7 @@
                                         default:
                                             break;
                                     }
-                                    advanceFrameBy(
-                                        durationInMs / this_2.frameTimeFactor
-                                    );
+                                    advanceFrameBy(durationInMs / this_2.frameTimeFactor);
                                     break;
                                 }
                             }
@@ -8163,9 +7780,7 @@
             var delegate = {
                 requestAnimationFrame: function (callback) {
                     if (!map) {
-                        throw new Error(
-                            'animate() was not called within run()'
-                        );
+                        throw new Error('animate() was not called within run()');
                     }
                     var handle = ++lastHandle;
                     map.set(handle, callback);
@@ -8173,9 +7788,7 @@
                 },
                 cancelAnimationFrame: function (handle) {
                     if (!map) {
-                        throw new Error(
-                            'animate() was not called within run()'
-                        );
+                        throw new Error('animate() was not called within run()');
                     }
                     map.delete(handle);
                 }
@@ -8214,8 +7827,7 @@
                             try {
                                 for (
                                     var callbacks_1 =
-                                            ((e_2 = void 0),
-                                            __values(callbacks)),
+                                            ((e_2 = void 0), __values(callbacks)),
                                         callbacks_1_1 = callbacks_1.next();
                                     !callbacks_1_1.done;
                                     callbacks_1_1 = callbacks_1.next()
@@ -8263,12 +7875,10 @@
             var run = function () {
                 var now = _this.now();
                 var scheduledRecords = Array.from(scheduleLookup.values());
-                var scheduledRecordsDue = scheduledRecords.filter(
-                    function (_a) {
-                        var due = _a.due;
-                        return due <= now;
-                    }
-                );
+                var scheduledRecordsDue = scheduledRecords.filter(function (_a) {
+                    var due = _a.due;
+                    return due <= now;
+                });
                 var dueImmediates = scheduledRecordsDue.filter(function (_a) {
                     var type = _a.type;
                     return type === 'immediate';
@@ -8290,10 +7900,7 @@
                     var duration = firstDueInterval.duration,
                         handler = firstDueInterval.handler;
                     firstDueInterval.due = now + duration;
-                    firstDueInterval.subscription = _this.schedule(
-                        run,
-                        duration
-                    );
+                    firstDueInterval.subscription = _this.schedule(run, duration);
                     handler();
                     return;
                 }
@@ -8470,9 +8077,7 @@
                 responseType = xhr.responseType;
             this.status = status !== null && status !== void 0 ? status : 0;
             this.responseType =
-                responseType !== null && responseType !== void 0
-                    ? responseType
-                    : '';
+                responseType !== null && responseType !== void 0 ? responseType : '';
             var allHeaders = xhr.getAllResponseHeaders();
             this.responseHeaders = allHeaders
                 ? allHeaders.split('\n').reduce(function (headers, line) {
@@ -8601,11 +8206,9 @@
                         throw new TypeError('invalid url');
                     }
                     searchParams_1 = new URLSearchParams(parts[1]);
-                    new URLSearchParams(queryParams).forEach(
-                        function (value, key) {
-                            return searchParams_1.set(key, value);
-                        }
-                    );
+                    new URLSearchParams(queryParams).forEach(function (value, key) {
+                        return searchParams_1.set(key, value);
+                    });
                     url = parts[0] + '?' + searchParams_1;
                 } else {
                     searchParams_1 = new URLSearchParams(queryParams);
@@ -8627,11 +8230,7 @@
             var withCredentials = config.withCredentials,
                 xsrfCookieName = config.xsrfCookieName,
                 xsrfHeaderName = config.xsrfHeaderName;
-            if (
-                (withCredentials || !crossDomain) &&
-                xsrfCookieName &&
-                xsrfHeaderName
-            ) {
+            if ((withCredentials || !crossDomain) && xsrfCookieName && xsrfHeaderName) {
                 var xsrfCookie =
                     (_b =
                         (_a =
@@ -8639,9 +8238,7 @@
                                 ? void 0
                                 : document.cookie.match(
                                       new RegExp(
-                                          '(^|;\\s*)(' +
-                                              xsrfCookieName +
-                                              ')=([^;]*)'
+                                          '(^|;\\s*)(' + xsrfCookieName + ')=([^;]*)'
                                       )
                                   )) === null || _a === void 0
                             ? void 0
@@ -8652,10 +8249,7 @@
                     headers[xsrfHeaderName] = xsrfCookie;
                 }
             }
-            var body = extractContentTypeAndMaybeSerializeBody(
-                configuredBody,
-                headers
-            );
+            var body = extractContentTypeAndMaybeSerializeBody(configuredBody, headers);
             var _request = __assign(__assign({}, config), {
                 url: url,
                 headers: headers,
@@ -8677,8 +8271,7 @@
                             progressSubscriber_1 === null ||
                             progressSubscriber_1 === void 0
                                 ? void 0
-                                : progressSubscriber_1.error) === null ||
-                        _a === void 0
+                                : progressSubscriber_1.error) === null || _a === void 0
                             ? void 0
                             : _a.call(progressSubscriber_1, error);
                         destination.error(error);
@@ -8716,8 +8309,7 @@
                                 progressSubscriber_1 === null ||
                                 progressSubscriber_1 === void 0
                                     ? void 0
-                                    : progressSubscriber_1.next) === null ||
-                                _a === void 0
+                                    : progressSubscriber_1.next) === null || _a === void 0
                                 ? void 0
                                 : _a.call(progressSubscriber_1, e);
                         });
@@ -8735,11 +8327,9 @@
                 xhr.addEventListener('error', function (e) {
                     var _a;
                     (_a =
-                        progressSubscriber_1 === null ||
-                        progressSubscriber_1 === void 0
+                        progressSubscriber_1 === null || progressSubscriber_1 === void 0
                             ? void 0
-                            : progressSubscriber_1.error) === null ||
-                    _a === void 0
+                            : progressSubscriber_1.error) === null || _a === void 0
                         ? void 0
                         : _a.call(progressSubscriber_1, e);
                     emitError_1();
@@ -8752,8 +8342,7 @@
                             progressSubscriber_1 === null ||
                             progressSubscriber_1 === void 0
                                 ? void 0
-                                : progressSubscriber_1.complete) === null ||
-                        _a === void 0
+                                : progressSubscriber_1.complete) === null || _a === void 0
                             ? void 0
                             : _a.call(progressSubscriber_1);
                         var response = void 0;
@@ -8770,8 +8359,7 @@
                             progressSubscriber_1 === null ||
                             progressSubscriber_1 === void 0
                                 ? void 0
-                                : progressSubscriber_1.error) === null ||
-                        _b === void 0
+                                : progressSubscriber_1.error) === null || _b === void 0
                             ? void 0
                             : _b.call(progressSubscriber_1, event);
                         emitError_1(status);
@@ -8856,16 +8444,10 @@
         return typeof FormData !== 'undefined' && body instanceof FormData;
     }
     function isURLSearchParams(body) {
-        return (
-            typeof URLSearchParams !== 'undefined' &&
-            body instanceof URLSearchParams
-        );
+        return typeof URLSearchParams !== 'undefined' && body instanceof URLSearchParams;
     }
     function isReadableStream(body) {
-        return (
-            typeof ReadableStream !== 'undefined' &&
-            body instanceof ReadableStream
-        );
+        return typeof ReadableStream !== 'undefined' && body instanceof ReadableStream;
     }
 
     var _ajax = /*#__PURE__*/ Object.freeze({
@@ -8895,10 +8477,7 @@
                 _this.destination = destination;
                 _this.source = urlConfigOrSource;
             } else {
-                var config = (_this._config = __assign(
-                    {},
-                    DEFAULT_WEBSOCKET_CONFIG
-                ));
+                var config = (_this._config = __assign({}, DEFAULT_WEBSOCKET_CONFIG));
                 _this._output = new Subject();
                 if (typeof urlConfigOrSource === 'string') {
                     config.url = urlConfigOrSource;
@@ -9029,9 +8608,7 @@
                             socket.close(err.code, err.reason);
                         } else {
                             observer.error(
-                                new TypeError(
-                                    WEBSOCKETSUBJECT_INVALID_ERROR_OBJECT
-                                )
+                                new TypeError(WEBSOCKETSUBJECT_INVALID_ERROR_OBJECT)
                             );
                         }
                         _this._resetState();
@@ -9102,10 +8679,7 @@
         };
         WebSocketSubject.prototype.unsubscribe = function () {
             var _socket = this._socket;
-            if (
-                _socket &&
-                (_socket.readyState === 1 || _socket.readyState === 0)
-            ) {
+            if (_socket && (_socket.readyState === 1 || _socket.readyState === 0)) {
                 _socket.close();
             }
             this._resetState();

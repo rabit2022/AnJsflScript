@@ -12,13 +12,13 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "Constants": ["types/Constants/Constants.d.ts"],
       "FUNC": ["types/myShim/FUNC.d.ts"],
       "Class": ["types/Third/Class/Class.js-0.0.1/Class.d.ts"],
       "Interface": ["types/Third/Class/Class.js-0.0.1/Interface.d.ts"],
       "SAT": ["types/Third/sat-js-0.9.0/SAT.d.ts"],
       "KeyFrameMode": ["Core/Utils/mode/KeyFrameMode"],
 
+      "open": ["Core/Utils/py/open"],
       "ErrorDefinitions": ["Core/myShim/ErrorDefinitions"],
       "frameRange": ["Core/Object/frameRange"],
       "frameRangeUtil": ["Core/Object/frameRangeUtil"],
@@ -43,7 +43,6 @@
       "promptUtil": ["Core/Utils/flash/promptUtil"],
       "selectionUtil": ["Core/Utils/flash/selectionUtil"],
       "xmlPanelUtil": ["Core/Utils/flash/xmlPanelUtil"],
-      "builtInP": ["Core/Utils/py/builtInP"],
       "os": ["Core/Utils/py/os"],
       "random": ["Core/Utils/py/random"],
       "StringP": ["Core/Utils/py/StringP"]

@@ -67,8 +67,7 @@ define(['checkUtil'], function (checkUtil) {
         if (failedItems.length > 0) {
             alert(
                 // `部分元件名替换后会有重名情况，故未命名：\n${failedItems.join('、')}`
-                '部分元件名替换后会有重名情况，故未命名：\n' +
-                    failedItems.join('、')
+                '部分元件名替换后会有重名情况，故未命名：\n' + failedItems.join('、')
             );
         } else {
             alert('替换完成！');

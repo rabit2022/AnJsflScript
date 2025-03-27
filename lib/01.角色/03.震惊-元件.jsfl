@@ -20,8 +20,7 @@ require([
         CheckSelection: checkSelection,
         CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
-    const { FRAME_1, FRAME_3, FRAME_6 } =
-        JSFLConstants.Numerics.frame.frameList;
+    const { FRAME_1, FRAME_3, FRAME_6 } = JSFLConstants.Numerics.frame.frameList;
     console.log('libUtil', libUtil);
 
     var doc = fl.getDocumentDOM(); //文档

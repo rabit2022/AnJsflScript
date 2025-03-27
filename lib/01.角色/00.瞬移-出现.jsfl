@@ -16,16 +16,7 @@ require([
     'frameRangeUtil',
     'loglevel',
     'JSFLConstants'
-], function (
-    checkUtil,
-    linqUtil,
-    filterUtil,
-    sel,
-    curve,
-    frUtil,
-    log,
-    JSFLConstants
-) {
+], function (checkUtil, linqUtil, filterUtil, sel, curve, frUtil, log, JSFLConstants) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,

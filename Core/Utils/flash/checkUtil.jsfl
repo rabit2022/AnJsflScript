@@ -44,12 +44,7 @@ define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
         condition = condition || 'No limit';
 
         // 定义模式
-        var modes = [
-            'selectElement',
-            'selectFrame',
-            'elementOnFrame',
-            'selectLibItem'
-        ];
+        var modes = ['selectElement', 'selectFrame', 'elementOnFrame', 'selectLibItem'];
 
         // 定义条件列表（主条件列表和其他别名列表）
         var conditions = [
@@ -141,9 +136,7 @@ define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
         // 检查条件并返回结果
         if (!checkCondition(conditionIndex, selection.length)) {
             var defaultMessage = messages[modeIndex][conditionIndex];
-            var message = exTips
-                ? defaultMessage + '(' + exTips + ')'
-                : defaultMessage;
+            var message = exTips ? defaultMessage + '(' + exTips + ')' : defaultMessage;
 
             alert(message);
             return false;

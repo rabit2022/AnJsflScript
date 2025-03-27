@@ -102,9 +102,7 @@ declare namespace EventEmitter {
      */
     export type ValidEventTypes = string | symbol | object;
 
-    export type EventNames<T extends ValidEventTypes> = T extends
-        | string
-        | symbol
+    export type EventNames<T extends ValidEventTypes> = T extends string | symbol
         ? T
         : keyof T;
 
@@ -122,10 +120,7 @@ declare namespace EventEmitter {
     > = T extends string | symbol
         ? (...args: any[]) => void
         : (
-              ...args: ArgumentMap<Exclude<T, string | symbol>>[Extract<
-                  K,
-                  keyof T
-              >]
+              ...args: ArgumentMap<Exclude<T, string | symbol>>[Extract<K, keyof T>]
           ) => void;
 
     export type EventArgs<

@@ -132,41 +132,31 @@
                         break;
                     case 's':
                         arg = String(arg);
-                        arg = ph.precision
-                            ? arg.substring(0, ph.precision)
-                            : arg;
+                        arg = ph.precision ? arg.substring(0, ph.precision) : arg;
                         break;
                     case 't':
                         arg = String(!!arg);
-                        arg = ph.precision
-                            ? arg.substring(0, ph.precision)
-                            : arg;
+                        arg = ph.precision ? arg.substring(0, ph.precision) : arg;
                         break;
                     case 'T':
                         arg = Object.prototype.toString
                             .call(arg)
                             .slice(8, -1)
                             .toLowerCase();
-                        arg = ph.precision
-                            ? arg.substring(0, ph.precision)
-                            : arg;
+                        arg = ph.precision ? arg.substring(0, ph.precision) : arg;
                         break;
                     case 'u':
                         arg = parseInt(arg, 10) >>> 0;
                         break;
                     case 'v':
                         arg = arg.valueOf();
-                        arg = ph.precision
-                            ? arg.substring(0, ph.precision)
-                            : arg;
+                        arg = ph.precision ? arg.substring(0, ph.precision) : arg;
                         break;
                     case 'x':
                         arg = (parseInt(arg, 10) >>> 0).toString(16);
                         break;
                     case 'X':
-                        arg = (parseInt(arg, 10) >>> 0)
-                            .toString(16)
-                            .toUpperCase();
+                        arg = (parseInt(arg, 10) >>> 0).toString(16).toUpperCase();
                         break;
                 }
                 if (re.json.test(ph.type)) {
@@ -222,9 +212,7 @@
                     var field_list = [],
                         replacement_field = match[2],
                         field_match = [];
-                    if (
-                        (field_match = re.key.exec(replacement_field)) !== null
-                    ) {
+                    if ((field_match = re.key.exec(replacement_field)) !== null) {
                         field_list.push(field_match[1]);
                         while (
                             (replacement_field = replacement_field.substring(
@@ -232,15 +220,13 @@
                             )) !== ''
                         ) {
                             if (
-                                (field_match =
-                                    re.key_access.exec(replacement_field)) !==
+                                (field_match = re.key_access.exec(replacement_field)) !==
                                 null
                             ) {
                                 field_list.push(field_match[1]);
                             } else if (
                                 (field_match =
-                                    re.index_access.exec(replacement_field)) !==
-                                null
+                                    re.index_access.exec(replacement_field)) !== null
                             ) {
                                 field_list.push(field_match[1]);
                             } else {

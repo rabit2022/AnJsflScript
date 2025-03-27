@@ -69,9 +69,7 @@ require(['checkUtil', 'xmlPanelUtil', 'libUtil', 'SAT'], function (
         var verticalShift = initial + amplitude * 2;
 
         // 计算正弦波的y值
-        var y =
-            amplitude * 2 * Math.sin(frequency * x + phaseShift) +
-            verticalShift;
+        var y = amplitude * 2 * Math.sin(frequency * x + phaseShift) + verticalShift;
 
         return y;
     }

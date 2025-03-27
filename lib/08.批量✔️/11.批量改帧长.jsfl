@@ -76,11 +76,7 @@ require([
                         timeline.removeFrames(startFrame, endFrame);
                     } else if (keyFr.duration < num) {
                         var toAddFrames = num - keyFr.duration;
-                        timeline.insertFrames(
-                            toAddFrames,
-                            false,
-                            keyFr.startFrame
-                        );
+                        timeline.insertFrames(toAddFrames, false, keyFr.startFrame);
                     }
                     break;
                 default:

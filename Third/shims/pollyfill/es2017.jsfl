@@ -12,8 +12,7 @@
 
     function isSymbol(s) {
         return (
-            typeof s === 'symbol' ||
-            ('Symbol' in global && s instanceof global.Symbol)
+            typeof s === 'symbol' || ('Symbol' in global && s instanceof global.Symbol)
         );
     }
 
@@ -23,15 +22,8 @@
         if (typeof v === 'function') {
             // Sanity check that functions are appropriately named (where possible)
             console.assert(
-                isSymbol(p) ||
-                    !('name' in v) ||
-                    v.name === p ||
-                    v.name === p + '_',
-                'Expected function name "' +
-                    p.toString() +
-                    '", was "' +
-                    v.name +
-                    '"'
+                isSymbol(p) || !('name' in v) || v.name === p || v.name === p + '_',
+                'Expected function name "' + p.toString() + '", was "' + v.name + '"'
             );
             Object.defineProperty(o, p, {
                 value: v,
@@ -129,25 +121,21 @@
     });
 
     // 19.1.2.8 Object.getOwnPropertyDescriptors ( O )
-    define(
-        Object,
-        'getOwnPropertyDescriptors',
-        function getOwnPropertyDescriptors(o) {
-            var obj = ToObject(o);
-            // ReturnIfAbrupt(obj)
-            var keys = Object.getOwnPropertyNames(obj);
-            // ReturnIfAbrupt(keys)
-            var descriptors = {};
-            for (var i = 0; i < keys.length; ++i) {
-                var nextKey = keys[i];
-                var descriptor = Object.getOwnPropertyDescriptor(obj, nextKey);
-                // ReturnIfAbrupt(desc)
-                // ReturnIfAbrupt(descriptor)
-                CreateDataProperty(descriptors, nextKey, descriptor);
-            }
-            return descriptors;
+    define(Object, 'getOwnPropertyDescriptors', function getOwnPropertyDescriptors(o) {
+        var obj = ToObject(o);
+        // ReturnIfAbrupt(obj)
+        var keys = Object.getOwnPropertyNames(obj);
+        // ReturnIfAbrupt(keys)
+        var descriptors = {};
+        for (var i = 0; i < keys.length; ++i) {
+            var nextKey = keys[i];
+            var descriptor = Object.getOwnPropertyDescriptor(obj, nextKey);
+            // ReturnIfAbrupt(desc)
+            // ReturnIfAbrupt(descriptor)
+            CreateDataProperty(descriptors, nextKey, descriptor);
         }
-    );
+        return descriptors;
+    });
 
     // 19.1.2.21 Object.values
     define(Object, 'values', function values(o) {
@@ -180,8 +168,7 @@
         if (intMaxLength <= stringLength) return s;
         var fillLen = intMaxLength - stringLength;
         var stringFiller = '';
-        while (stringFiller.length < fillLen)
-            stringFiller = stringFiller + fillStr;
+        while (stringFiller.length < fillLen) stringFiller = stringFiller + fillStr;
         return s + stringFiller.substring(0, fillLen);
     });
 
@@ -203,8 +190,7 @@
         if (intMaxLength <= stringLength) return s;
         var fillLen = intMaxLength - stringLength;
         var stringFiller = '';
-        while (stringFiller.length < fillLen)
-            stringFiller = stringFiller + fillStr;
+        while (stringFiller.length < fillLen) stringFiller = stringFiller + fillStr;
         return stringFiller.substring(0, fillLen) + s;
     });
 })(this);

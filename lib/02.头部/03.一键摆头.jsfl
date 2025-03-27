@@ -14,18 +14,10 @@ require([
     'libUtil',
     'frameRangeUtil',
     'JSFLConstants'
-], function (
-    checkUtil,
-    promptUtil,
-    filterUtil,
-    libUtil,
-    frUtil,
-    JSFLConstants
-) {
+], function (checkUtil, promptUtil, filterUtil, libUtil, frUtil, JSFLConstants) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
-    const { FRAME_1, FRAME_4, FRAME_6 } =
-        JSFLConstants.Numerics.frame.frameList;
+    const { FRAME_1, FRAME_4, FRAME_6 } = JSFLConstants.Numerics.frame.frameList;
 
     var descriptions = {
         file: '03.一键摆头.jsfl',

@@ -82,10 +82,7 @@ define(function () {
      * @type {string}
      */
     StringP.printable =
-        StringP.digits +
-        StringP.ascii_letters +
-        StringP.punctuation +
-        StringP.whitespace;
+        StringP.digits + StringP.ascii_letters + StringP.punctuation + StringP.whitespace;
 
     /**
      * 所有关键字。
@@ -488,12 +485,7 @@ define(function () {
     };
 
     StringP.prototype.isalnum = function () {
-        return (
-            this.isalpha() ||
-            this.isdecimal() ||
-            this.isdigit() ||
-            this.isnumeric()
-        );
+        return this.isalpha() || this.isdecimal() || this.isdigit() || this.isnumeric();
     };
 
     StringP.prototype.isascii = function () {
@@ -668,11 +660,7 @@ define(function () {
         if (index === -1) {
             return [this.str, '', ''];
         } else {
-            return [
-                this.str.slice(0, index),
-                sep,
-                this.str.slice(index + sep.length)
-            ];
+            return [this.str.slice(0, index), sep, this.str.slice(index + sep.length)];
         }
     };
 

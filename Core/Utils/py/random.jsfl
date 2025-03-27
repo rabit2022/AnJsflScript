@@ -35,9 +35,7 @@ define(function () {
         if (step < 1) {
             throw new Error('Step must be 1 or greater');
         }
-        const num = Math.floor(
-            Math.random() * Math.ceil((stop - start) / step)
-        );
+        const num = Math.floor(Math.random() * Math.ceil((stop - start) / step));
         return start + num * step;
     };
     Random.randint = function (a, b) {
@@ -57,9 +55,7 @@ define(function () {
             }
         }
         if (cum_weights.length !== weights.length) {
-            throw new Error(
-                'The number of weights does not match the population'
-            );
+            throw new Error('The number of weights does not match the population');
         }
         if (k === null) {
             k = 1;
@@ -93,9 +89,7 @@ define(function () {
             counts = new Array(population.length).fill(1);
         }
         if (counts.length !== population.length) {
-            throw new Error(
-                'The number of counts does not match the population'
-            );
+            throw new Error('The number of counts does not match the population');
         }
         const result = [];
         for (var i = 0; i < k; i++) {

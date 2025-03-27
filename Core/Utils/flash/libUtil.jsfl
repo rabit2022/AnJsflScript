@@ -99,10 +99,7 @@ define(['random', 'sprintf'], function (random, sp) {
         while (this.findDuplicateNameInLib(name)) {
             var info0 = sprintf('lastCount:%s 重复了！', this.lastCount);
             this.lastCount = this.getPaddingNum();
-            var info1 = sprintf(
-                '已经重新生成了新的名称！ lastCount:%s',
-                this.lastCount
-            );
+            var info1 = sprintf('已经重新生成了新的名称！ lastCount:%s', this.lastCount);
             name = baseName + '' + this.lastCount;
             fl.trace(info0 + info1);
         }

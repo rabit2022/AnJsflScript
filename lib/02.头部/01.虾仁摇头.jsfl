@@ -30,8 +30,7 @@ require([
         checkSelection = checkUtil.CheckSelection;
     var pointUtil = satUtil.PointUtil,
         rectUtil = satUtil.RectUtil;
-    const { FRAME_1, FRAME_4, FRAME_7 } =
-        JSFLConstants.Numerics.frame.frameList;
+    const { FRAME_1, FRAME_4, FRAME_7 } = JSFLConstants.Numerics.frame.frameList;
 
     var descriptions = {
         file: '01.虾仁摇头.jsfl',

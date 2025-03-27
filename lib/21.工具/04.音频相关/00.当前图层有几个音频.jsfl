@@ -94,15 +94,11 @@ require(['checkUtil', 'loglevel', 'LayerManager', 'frameRangeUtil'], function (
                 hasSound && soundName ? soundName : ''
             );
             if (hasSound) {
-                soundObjs[keyFrame.startFrame + '-' + keyFrame.endFrame] =
-                    soundName;
+                soundObjs[keyFrame.startFrame + '-' + keyFrame.endFrame] = soundName;
             }
         });
 
-        console.info(
-            '当前图层关键帧音频数量 %d',
-            Object.keys(soundObjs).length
-        );
+        console.info('当前图层关键帧音频数量 %d', Object.keys(soundObjs).length);
 
         // console.info('当前图层关键帧音频列表 ', soundObjs);
 

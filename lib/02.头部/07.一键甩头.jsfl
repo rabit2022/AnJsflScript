@@ -59,10 +59,11 @@ require([
         if (frs === null) return;
         var firstFrame = frs[0].startFrame;
 
-        var direction = promptUtil.parseDirection(
-            '输入头部朝向(默认为右，空格为左)：',
-            { 右: 1, ' ': -1, 左: -1 }
-        );
+        var direction = promptUtil.parseDirection('输入头部朝向(默认为右，空格为左)：', {
+            右: 1,
+            ' ': -1,
+            左: -1
+        });
         if (direction === null) {
             return;
         }

@@ -17,10 +17,7 @@ define(['SAT'], function (sat) {
      * @param {number}radius 半径
      * @deprecated 建议使用 {@link GraphicsUtil.drawCircleLineWithoutFill} ,效果更好
      */
-    GraphicsUtil.drawCircleLineWithoutFill_deprecated = function (
-        centerPos,
-        radius
-    ) {
+    GraphicsUtil.drawCircleLineWithoutFill_deprecated = function (centerPos, radius) {
         var doc = fl.getDocumentDOM(); //文档
 
         var circleRect = new Rectangle(centerPos, radius);

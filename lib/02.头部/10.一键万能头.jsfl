@@ -119,8 +119,7 @@ require([
             // timeline.convertToKeyframes(frameIndex);
             frUtil.convertToKeyframesSafety(timeline, frameIndex);
 
-            var frame_element =
-                timeline.layers[0].frames[frameIndex].elements[0];
+            var frame_element = timeline.layers[0].frames[frameIndex].elements[0];
             // 交换元素
             var name = SELECTION_NAMES[i];
             sel.OnlySelectCurrent(frame_element);

@@ -107,8 +107,7 @@ require([
     function getBeforeAfterElement(frameIndex) {
         timeline.currentFrame = frameIndex;
         var FRAME_0_Elements = firstLayer.frames[frameIndex].elements;
-        if (!checkSelection(FRAME_0_Elements, 'elementOnFrame', 'Only two'))
-            return;
+        if (!checkSelection(FRAME_0_Elements, 'elementOnFrame', 'Only two')) return;
         // 变身后：最右边的元素
         // 变身前：最左边的元素
         var AFTER_Element = ele.getMaxRight(FRAME_0_Elements);
@@ -180,10 +179,7 @@ require([
         // 删除所有元素
         sel.DeleteSelection(MIDDLE_SHAPE_Elements);
         // 画圆形
-        graphics.drawCircleWithoutLine(
-            MIDDLE_SHAPE_CENTER,
-            MIDDLE_SHAPE_RADIUS
-        );
+        graphics.drawCircleWithoutLine(MIDDLE_SHAPE_CENTER, MIDDLE_SHAPE_RADIUS);
 
         // 补间动画
         // 获取allKeyFrames first,last

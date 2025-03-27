@@ -35,10 +35,7 @@
             } catch (e) {
                 // Missing bind shim or IE8 + Modernizr, fallback to wrapping
                 return function () {
-                    return Function.prototype.apply.apply(method, [
-                        obj,
-                        arguments
-                    ]);
+                    return Function.prototype.apply.apply(method, [obj, arguments]);
                 };
             }
         }
@@ -51,10 +48,7 @@
                 console.log.apply(console, arguments);
             } else {
                 // In old IE, native console methods themselves don't have apply().
-                Function.prototype.apply.apply(console.log, [
-                    console,
-                    arguments
-                ]);
+                Function.prototype.apply.apply(console.log, [console, arguments]);
             }
         }
         if (console.trace) console.trace();
@@ -90,9 +84,7 @@
         for (var i = 0; i < logMethods.length; i++) {
             var methodName = logMethods[i];
             this[methodName] =
-                i < level
-                    ? noop
-                    : this.methodFactory(methodName, level, this.name);
+                i < level ? noop : this.methodFactory(methodName, level, this.name);
         }
 
         // Define log.log as an alias for log.debug
@@ -230,16 +222,10 @@
             ) {
                 level = self.levels[level.toUpperCase()];
             }
-            if (
-                typeof level === 'number' &&
-                level >= 0 &&
-                level <= self.levels.SILENT
-            ) {
+            if (typeof level === 'number' && level >= 0 && level <= self.levels.SILENT) {
                 return level;
             } else {
-                throw new TypeError(
-                    'log.setLevel() called with invalid level: ' + input
-                );
+                throw new TypeError('log.setLevel() called with invalid level: ' + input);
             }
         }
 
@@ -337,21 +323,13 @@
     defaultLogger = new Logger();
 
     defaultLogger.getLogger = function getLogger(name) {
-        if (
-            (typeof name !== 'symbol' && typeof name !== 'string') ||
-            name === ''
-        ) {
-            throw new TypeError(
-                'You must supply a name when creating a logger.'
-            );
+        if ((typeof name !== 'symbol' && typeof name !== 'string') || name === '') {
+            throw new TypeError('You must supply a name when creating a logger.');
         }
 
         var logger = _loggersByName[name];
         if (!logger) {
-            logger = _loggersByName[name] = new Logger(
-                name,
-                defaultLogger.methodFactory
-            );
+            logger = _loggersByName[name] = new Logger(name, defaultLogger.methodFactory);
         }
         return logger;
     };

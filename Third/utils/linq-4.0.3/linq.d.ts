@@ -3,9 +3,7 @@ declare namespace Enumerable {
         createLambda(expression: null): (x: unknown) => unknown;
         createLambda(expression: string): (...params: unknown[]) => unknown;
         createLambda<T>(expression?: T): T;
-        createEnumerable<T>(
-            getEnumerator: () => IEnumerator<T>
-        ): IEnumerable<T>;
+        createEnumerable<T>(getEnumerator: () => IEnumerator<T>): IEnumerable<T>;
         createEnumerator<T>(
             initialize: () => void,
             tryGetNext: () => boolean,
@@ -30,10 +28,7 @@ declare namespace Enumerable {
     export function from<T>(obj: T[]): IEnumerable<T>;
     export function from<T>(obj: Iterator<T>): IEnumerable<T>;
     export function from<T>(obj: Iterable<T>): IEnumerable<T>;
-    export function from<T>(obj: {
-        length: number;
-        [x: number]: T;
-    }): IEnumerable<T>;
+    export function from<T>(obj: { length: number; [x: number]: T }): IEnumerable<T>;
     export function from<K extends PropertyKey, T>(
         obj: Record<K, T>
     ): IEnumerable<{ key: K; value: T }>;
@@ -74,10 +69,7 @@ declare namespace Enumerable {
 
     export function generate<T>(func: () => T, count?: number): IEnumerable<T>;
 
-    export function toInfinity(
-        start?: number,
-        step?: number
-    ): IEnumerable<number>;
+    export function toInfinity(start?: number, step?: number): IEnumerable<number>;
 
     export function toNegativeInfinity(
         start?: number,
@@ -86,9 +78,7 @@ declare namespace Enumerable {
 
     export function unfold<T>(seed: T, func: (value: T) => T): IEnumerable<T>;
 
-    export function defer<T>(
-        enumerableFactory: () => IEnumerable<T>
-    ): IEnumerable<T>;
+    export function defer<T>(enumerableFactory: () => IEnumerable<T>): IEnumerable<T>;
 
     export interface IEnumerable<T> {
         (getEnumerator: () => IEnumerator<T>): void;
@@ -130,17 +120,11 @@ declare namespace Enumerable {
         ): IEnumerable<TResult>;
 
         selectMany<TOther>(
-            collectionSelector: (
-                element: T,
-                index: number
-            ) => IEnumerable<TOther>
+            collectionSelector: (element: T, index: number) => IEnumerable<TOther>
         ): IEnumerable<TOther>;
 
         selectMany<TCollection, TResult>(
-            collectionSelector: (
-                element: T,
-                index: number
-            ) => IEnumerable<TCollection>,
+            collectionSelector: (element: T, index: number) => IEnumerable<TCollection>,
             resultSelector: (outer: T, inner: TCollection) => TResult
         ): IEnumerable<TResult>;
 
@@ -172,9 +156,7 @@ declare namespace Enumerable {
             predicate: (element: T, index: number) => element is TOther
         ): IEnumerable<TOther>;
 
-        where(
-            predicate: (element: T, index: number) => boolean
-        ): IEnumerable<T>;
+        where(predicate: (element: T, index: number) => boolean): IEnumerable<T>;
 
         choose(selector: (element: T, index: number) => T): IEnumerable<T>;
 
@@ -197,11 +179,7 @@ declare namespace Enumerable {
 
         zip<TResult>(...params: unknown[]): IEnumerable<TResult>; // last one is selector
         merge(
-            ...params: (
-                | T[]
-                | IEnumerable<T>
-                | { length: number; [x: number]: T }
-            )[]
+            ...params: (T[] | IEnumerable<T> | { length: number; [x: number]: T })[]
         ): IEnumerable<T>;
 
         join<TInner, TKey, TResult>(
@@ -283,26 +261,16 @@ declare namespace Enumerable {
         isEmpty(): boolean;
 
         concat(
-            ...sequences: (
-                | T[]
-                | IEnumerable<T>
-                | { length: number; [x: number]: T }
-            )[]
+            ...sequences: (T[] | IEnumerable<T> | { length: number; [x: number]: T })[]
         ): IEnumerable<T>;
 
         insert(index: number, second: IEnumerable<T>): IEnumerable<T>;
 
-        insert(
-            index: number,
-            second: { length: number; [x: number]: T }
-        ): IEnumerable<T>;
+        insert(index: number, second: { length: number; [x: number]: T }): IEnumerable<T>;
 
         alternate(alternateValue: T): IEnumerable<T>;
 
-        alternate(alternateSequence: {
-            length: number;
-            [x: number]: T;
-        }): IEnumerable<T>;
+        alternate(alternateSequence: { length: number; [x: number]: T }): IEnumerable<T>;
 
         alternate(alternateSequence: IEnumerable<T>): IEnumerable<T>;
 
@@ -310,18 +278,13 @@ declare namespace Enumerable {
 
         contains(value: T): boolean;
 
-        contains<TCompare>(
-            value: T,
-            compareSelector?: (element: T) => TCompare
-        ): boolean;
+        contains<TCompare>(value: T, compareSelector?: (element: T) => TCompare): boolean;
 
         defaultIfEmpty(defaultValue?: T): IEnumerable<T>;
 
         distinct(): IEnumerable<T>;
 
-        distinct<TCompare>(
-            compareSelector: (element: T) => TCompare
-        ): IEnumerable<T>;
+        distinct<TCompare>(compareSelector: (element: T) => TCompare): IEnumerable<T>;
 
         distinctUntilChanged(): IEnumerable<T>;
 
@@ -420,9 +383,7 @@ declare namespace Enumerable {
             comparer: (first: TKey, second: TKey) => number
         ): IOrderedEnumerable<T>;
 
-        orderByDescending<TKey>(
-            keySelector: (element: T) => TKey
-        ): IOrderedEnumerable<T>;
+        orderByDescending<TKey>(keySelector: (element: T) => TKey): IOrderedEnumerable<T>;
 
         orderByDescending<TKey>(
             keySelector: (element: T) => TKey,
@@ -435,9 +396,7 @@ declare namespace Enumerable {
 
         weightedSample(weightSelector: (element: T) => number): IEnumerable<T>;
 
-        groupBy<TKey>(
-            keySelector: (element: T) => TKey
-        ): IEnumerable<IGrouping<TKey, T>>;
+        groupBy<TKey>(keySelector: (element: T) => TKey): IEnumerable<IGrouping<TKey, T>>;
 
         groupBy<TKey, TElement>(
             keySelector: (element: T) => TKey,
@@ -447,19 +406,13 @@ declare namespace Enumerable {
         groupBy<TKey, TElement, TResult>(
             keySelector: (element: T) => TKey,
             elementSelector: (element: T) => TElement,
-            resultSelector: (
-                key: TKey,
-                element: IEnumerable<TElement>
-            ) => TResult
+            resultSelector: (key: TKey, element: IEnumerable<TElement>) => TResult
         ): IEnumerable<TResult>;
 
         groupBy<TKey, TElement, TResult, TCompare>(
             keySelector: (element: T) => TKey,
             elementSelector: (element: T) => TElement,
-            resultSelector: (
-                key: TKey,
-                element: IEnumerable<TElement>
-            ) => TResult,
+            resultSelector: (key: TKey, element: IEnumerable<TElement>) => TResult,
             compareSelector: (element: TKey) => TCompare
         ): IEnumerable<TResult>;
 
@@ -475,19 +428,13 @@ declare namespace Enumerable {
         partitionBy<TKey, TElement, TResult>(
             keySelector: (element: T) => TKey,
             elementSelector: (element: T) => TElement,
-            resultSelector: (
-                key: TKey,
-                element: IEnumerable<TElement>
-            ) => TResult
+            resultSelector: (key: TKey, element: IEnumerable<TElement>) => TResult
         ): IEnumerable<TResult>;
 
         partitionBy<TKey, TElement, TResult, TCompare>(
             keySelector: (element: T) => TKey,
             elementSelector: (element: T) => TElement,
-            resultSelector: (
-                key: TKey,
-                element: IEnumerable<TElement>
-            ) => TResult,
+            resultSelector: (key: TKey, element: IEnumerable<TElement>) => TResult,
             compareSelector: (element: TKey) => TCompare
         ): IEnumerable<TResult>;
 
@@ -544,9 +491,7 @@ declare namespace Enumerable {
             predicate: (element: T, index: number) => element is TOther
         ): TOther | undefined;
 
-        firstOrDefault(
-            predicate: (element: T, index: number) => boolean
-        ): T | undefined;
+        firstOrDefault(predicate: (element: T, index: number) => boolean): T | undefined;
 
         firstOrDefault<TDefault>(defaultValue: TDefault): T | TDefault;
 
@@ -572,9 +517,7 @@ declare namespace Enumerable {
             predicate: (element: T, index: number) => element is TOther
         ): TOther | undefined;
 
-        lastOrDefault(
-            predicate: (element: T, index: number) => boolean
-        ): T | undefined;
+        lastOrDefault(predicate: (element: T, index: number) => boolean): T | undefined;
 
         lastOrDefault<TDefault>(defaultValue: TDefault): T | TDefault;
 
@@ -600,9 +543,7 @@ declare namespace Enumerable {
             predicate: (element: T, index: number) => element is TOther
         ): TOther | undefined;
 
-        singleOrDefault(
-            predicate: (element: T, index: number) => boolean
-        ): T | undefined;
+        singleOrDefault(predicate: (element: T, index: number) => boolean): T | undefined;
 
         singleOrDefault<TDefault>(defaultValue: TDefault): T | TDefault;
 
@@ -610,15 +551,11 @@ declare namespace Enumerable {
 
         skip(count: number): IEnumerable<T>;
 
-        skipWhile(
-            predicate: (element: T, index: number) => boolean
-        ): IEnumerable<T>;
+        skipWhile(predicate: (element: T, index: number) => boolean): IEnumerable<T>;
 
         take(count: number): IEnumerable<T>;
 
-        takeWhile(
-            predicate: (element: T, index: number) => boolean
-        ): IEnumerable<T>;
+        takeWhile(predicate: (element: T, index: number) => boolean): IEnumerable<T>;
 
         takeExceptLast(count?: number): IEnumerable<T>;
 
@@ -656,9 +593,7 @@ declare namespace Enumerable {
             elementSelector?: (element: T) => TElement
         ): Record<TKey, TElement>;
 
-        toDictionary<TKey>(
-            keySelector: (element: T) => TKey
-        ): IDictionary<TKey, T>;
+        toDictionary<TKey>(keySelector: (element: T) => TKey): IDictionary<TKey, T>;
 
         toDictionary<TKey, TValue>(
             keySelector: (element: T) => TKey,
@@ -676,10 +611,7 @@ declare namespace Enumerable {
             space?: string | number
         ): string;
 
-        toJSONString(
-            replacer?: (string | number)[],
-            space?: string | number
-        ): string;
+        toJSONString(replacer?: (string | number)[], space?: string | number): string;
 
         toJoinedString(separator?: string): string;
 
@@ -690,9 +622,7 @@ declare namespace Enumerable {
 
         doAction(action: (element: T, index: number) => void): IEnumerable<T>;
 
-        doAction(
-            action: (element: T, index: number) => boolean
-        ): IEnumerable<T>;
+        doAction(action: (element: T, index: number) => boolean): IEnumerable<T>;
 
         forEach(action: (element: T, index: number) => void): void;
 
@@ -719,9 +649,7 @@ declare namespace Enumerable {
 
         memoize(): IDisposableEnumerable<T>;
 
-        catchError(
-            handler: string | ((exception: unknown) => void)
-        ): IEnumerable<T>;
+        catchError(handler: string | ((exception: unknown) => void)): IEnumerable<T>;
 
         finallyAction(finallyAction: () => void): IEnumerable<T>;
 
@@ -731,10 +659,7 @@ declare namespace Enumerable {
 
         trace(message?: string): IEnumerable<T>;
 
-        trace<TValue>(
-            message: string,
-            selector: (element: T) => TValue
-        ): IEnumerable<T>;
+        trace<TValue>(message: string, selector: (element: T) => TValue): IEnumerable<T>;
     }
 
     export interface IEnumerator<T> {
@@ -759,9 +684,7 @@ declare namespace Enumerable {
             comparer: (first: TKey, second: TKey) => number
         ): IOrderedEnumerable<T>;
 
-        thenByDescending<TKey>(
-            keySelector: (element: T) => TKey
-        ): IOrderedEnumerable<T>;
+        thenByDescending<TKey>(keySelector: (element: T) => TKey): IOrderedEnumerable<T>;
 
         thenByDescending<TKey>(
             keySelector: (element: T) => TKey,

@@ -80,11 +80,7 @@
         var copyDescriptors = function (target, source) {
             // define into target descriptors from source
             getOwnPropertyNames(source).forEach(function (key) {
-                defineProperty(
-                    target,
-                    key,
-                    getOwnPropertyDescriptor(source, key)
-                );
+                defineProperty(target, key, getOwnPropertyDescriptor(source, key));
             });
             return target;
         };

@@ -228,9 +228,7 @@
 
                     module.exports = function includes(searchElement) {
                         var fromIndex =
-                            arguments.length > 1
-                                ? ES.ToInteger(arguments[1])
-                                : 0;
+                            arguments.length > 1 ? ES.ToInteger(arguments[1]) : 0;
                         if (
                             indexOf &&
                             !$isNaN(searchElement) &&
@@ -246,9 +244,7 @@
                             return false;
                         }
                         var k =
-                            fromIndex >= 0
-                                ? fromIndex
-                                : Math.max(0, length + fromIndex);
+                            fromIndex >= 0 ? fromIndex : Math.max(0, length + fromIndex);
                         while (k < length) {
                             if (ES.SameValueZero(searchElement, O[k])) {
                                 return true;
@@ -285,10 +281,7 @@
                 var slice = Array.prototype.slice;
 
                 /* eslint-disable no-unused-vars */
-                var boundIncludesShim = function includes(
-                    array,
-                    searchElement
-                ) {
+                var boundIncludesShim = function includes(array, searchElement) {
                     /* eslint-enable no-unused-vars */
                     ES.RequireObjectCoercible(array);
                     return polyfill.apply(array, slice.call(arguments, 1));
@@ -316,15 +309,13 @@
                 var keys = require('object-keys');
                 var foreach = require('foreach');
                 var hasSymbols =
-                    typeof Symbol === 'function' &&
-                    typeof Symbol() === 'symbol';
+                    typeof Symbol === 'function' && typeof Symbol() === 'symbol';
 
                 var toStr = Object.prototype.toString;
 
                 var isFunction = function (fn) {
                     return (
-                        typeof fn === 'function' &&
-                        toStr.call(fn) === '[object Function]'
+                        typeof fn === 'function' && toStr.call(fn) === '[object Function]'
                     );
                 };
 
@@ -350,10 +341,7 @@
                     Object.defineProperty && arePropertyDescriptorsSupported();
 
                 var defineProperty = function (object, name, value, predicate) {
-                    if (
-                        name in object &&
-                        (!isFunction(predicate) || !predicate())
-                    ) {
+                    if (name in object && (!isFunction(predicate) || !predicate())) {
                         return;
                     }
                     if (supportsDescriptors) {
@@ -375,12 +363,7 @@
                         props = props.concat(Object.getOwnPropertySymbols(map));
                     }
                     foreach(props, function (name) {
-                        defineProperty(
-                            object,
-                            name,
-                            map[name],
-                            predicates[name]
-                        );
+                        defineProperty(object, name, map[name], predicates[name]);
                     });
                 };
 
@@ -435,15 +418,10 @@
                     },
                     ToUint16: function ToUint16(value) {
                         var number = this.ToNumber(value);
-                        if (
-                            $isNaN(number) ||
-                            number === 0 ||
-                            !$isFinite(number)
-                        ) {
+                        if ($isNaN(number) || number === 0 || !$isFinite(number)) {
                             return 0;
                         }
-                        var posInt =
-                            sign(number) * Math.floor(Math.abs(number));
+                        var posInt = sign(number) * Math.floor(Math.abs(number));
                         return mod(posInt, 0x10000);
                     },
                     ToString: function ToString(value) {
@@ -494,11 +472,8 @@
 
                 var toStr = Object.prototype.toString;
                 var hasSymbols =
-                    typeof Symbol === 'function' &&
-                    typeof Symbol.iterator === 'symbol';
-                var symbolToStr = hasSymbols
-                    ? Symbol.prototype.toString
-                    : toStr;
+                    typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol';
+                var symbolToStr = hasSymbols ? Symbol.prototype.toString : toStr;
 
                 var $isNaN =
                     Number.isNaN ||
@@ -506,8 +481,7 @@
                         return a !== a;
                     };
                 var $isFinite = require('./helpers/isFinite');
-                var MAX_SAFE_INTEGER =
-                    Number.MAX_SAFE_INTEGER || Math.pow(2, 53) - 1;
+                var MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || Math.pow(2, 53) - 1;
 
                 var assign = require('./helpers/assign');
                 var sign = require('./helpers/sign');
@@ -548,14 +522,8 @@
                     '\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028',
                     '\u2029\uFEFF'
                 ].join('');
-                var trimRegex = new RegExp(
-                    '(^[' + ws + ']+)|([' + ws + ']+$)',
-                    'g'
-                );
-                var replace = bind.call(
-                    Function.call,
-                    String.prototype.replace
-                );
+                var trimRegex = new RegExp('(^[' + ws + ']+)|([' + ws + ']+$)', 'g');
+                var replace = bind.call(Function.call, String.prototype.replace);
                 var trim = function (value) {
                     return replace(value, trimRegex, '');
                 };
@@ -593,17 +561,10 @@
                         }
                         if (typeof value === 'string') {
                             if (isBinary(value)) {
-                                return this.ToNumber(
-                                    parseInteger(strSlice(value, 2), 2)
-                                );
+                                return this.ToNumber(parseInteger(strSlice(value, 2), 2));
                             } else if (isOctal(value)) {
-                                return this.ToNumber(
-                                    parseInteger(strSlice(value, 2), 8)
-                                );
-                            } else if (
-                                hasNonWS(value) ||
-                                isInvalidHexLiteral(value)
-                            ) {
+                                return this.ToNumber(parseInteger(strSlice(value, 2), 8));
+                            } else if (hasNonWS(value) || isInvalidHexLiteral(value)) {
                                 return NaN;
                             } else {
                                 var trimmed = trim(value);
@@ -627,9 +588,7 @@
                     // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-toint16
                     ToInt16: function ToInt16(argument) {
                         var int16bit = this.ToUint16(argument);
-                        return int16bit >= 0x8000
-                            ? int16bit - 0x10000
-                            : int16bit;
+                        return int16bit >= 0x8000 ? int16bit - 0x10000 : int16bit;
                     },
 
                     // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-touint16
@@ -644,15 +603,10 @@
                     // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-touint8
                     ToUint8: function ToUint8(argument) {
                         var number = this.ToNumber(argument);
-                        if (
-                            $isNaN(number) ||
-                            number === 0 ||
-                            !$isFinite(number)
-                        ) {
+                        if ($isNaN(number) || number === 0 || !$isFinite(number)) {
                             return 0;
                         }
-                        var posInt =
-                            sign(number) * Math.floor(Math.abs(number));
+                        var posInt = sign(number) * Math.floor(Math.abs(number));
                         return mod(posInt, 0x100);
                     },
 
@@ -715,19 +669,20 @@
                     },
 
                     // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-canonicalnumericindexstring
-                    CanonicalNumericIndexString:
-                        function CanonicalNumericIndexString(argument) {
-                            if (toStr.call(argument) !== '[object String]') {
-                                throw new TypeError('must be a string');
-                            }
-                            if (argument === '-0') {
-                                return -0;
-                            }
-                            var n = this.ToNumber(argument);
-                            if (this.SameValue(this.ToString(n), argument)) {
-                                return n;
-                            }
-                        },
+                    CanonicalNumericIndexString: function CanonicalNumericIndexString(
+                        argument
+                    ) {
+                        if (toStr.call(argument) !== '[object String]') {
+                            throw new TypeError('must be a string');
+                        }
+                        if (argument === '-0') {
+                            return -0;
+                        }
+                        var n = this.ToNumber(argument);
+                        if (this.SameValue(this.ToString(n), argument)) {
+                            return n;
+                        }
+                    },
 
                     // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-requireobjectcoercible
                     RequireObjectCoercible: ES5.CheckObjectCoercible,
@@ -774,8 +729,7 @@
                     // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-ispropertykey
                     IsPropertyKey: function IsPropertyKey(argument) {
                         return (
-                            typeof argument === 'string' ||
-                            typeof argument === 'symbol'
+                            typeof argument === 'string' || typeof argument === 'symbol'
                         );
                     },
 
@@ -860,8 +814,7 @@
                 module.exports = function isPrimitive(value) {
                     return (
                         value === null ||
-                        (typeof value !== 'function' &&
-                            typeof value !== 'object')
+                        (typeof value !== 'function' && typeof value !== 'object')
                     );
                 };
             },
@@ -898,10 +851,7 @@
                 var ES5internalSlots = {
                     '[[DefaultValue]]': function (O, hint) {
                         var actualHint =
-                            hint ||
-                            (toStr.call(O) === '[object Date]'
-                                ? String
-                                : Number);
+                            hint || (toStr.call(O) === '[object Date]' ? String : Number);
 
                         if (actualHint === String || actualHint === Number) {
                             var methods =
@@ -919,9 +869,7 @@
                             }
                             throw new TypeError('No default value');
                         }
-                        throw new TypeError(
-                            'invalid [[DefaultValue]] hint supplied'
-                        );
+                        throw new TypeError('invalid [[DefaultValue]] hint supplied');
                     }
                 };
 
@@ -930,10 +878,7 @@
                     if (isPrimitive(input)) {
                         return input;
                     }
-                    return ES5internalSlots['[[DefaultValue]]'](
-                        input,
-                        PreferredType
-                    );
+                    return ES5internalSlots['[[DefaultValue]]'](input, PreferredType);
                 };
             },
             { './helpers/isPrimitive': 25, 'is-callable': 29 }
@@ -943,18 +888,14 @@
                 'use strict';
 
                 var hasSymbols =
-                    typeof Symbol === 'function' &&
-                    typeof Symbol.iterator === 'symbol';
+                    typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol';
 
                 var isPrimitive = require('./helpers/isPrimitive');
                 var isCallable = require('is-callable');
                 var isDate = require('is-date-object');
                 var isSymbol = require('is-symbol');
 
-                var ordinaryToPrimitive = function OrdinaryToPrimitive(
-                    O,
-                    hint
-                ) {
+                var ordinaryToPrimitive = function OrdinaryToPrimitive(O, hint) {
                     if (typeof O === 'undefined' || O === null) {
                         throw new TypeError('Cannot call method on ' + O);
                     }
@@ -962,9 +903,7 @@
                         typeof hint !== 'string' ||
                         (hint !== 'number' && hint !== 'string')
                     ) {
-                        throw new TypeError(
-                            'hint must be "string" or "number"'
-                        );
+                        throw new TypeError('hint must be "string" or "number"');
                     }
                     var methodNames =
                         hint === 'string'
@@ -1031,10 +970,7 @@
                             'unable to convert exotic object to primitive'
                         );
                     }
-                    if (
-                        hint === 'default' &&
-                        (isDate(input) || isSymbol(input))
-                    ) {
+                    if (hint === 'default' && (isDate(input) || isSymbol(input))) {
                         hint = 'string';
                     }
                     return ordinaryToPrimitive(
@@ -1083,18 +1019,14 @@
         ],
         27: [
             function (require, module, exports) {
-                var ERROR_MESSAGE =
-                    'Function.prototype.bind called on incompatible ';
+                var ERROR_MESSAGE = 'Function.prototype.bind called on incompatible ';
                 var slice = Array.prototype.slice;
                 var toStr = Object.prototype.toString;
                 var funcType = '[object Function]';
 
                 module.exports = function bind(that) {
                     var target = this;
-                    if (
-                        typeof target !== 'function' ||
-                        toStr.call(target) !== funcType
-                    ) {
+                    if (typeof target !== 'function' || toStr.call(target) !== funcType) {
                         throw new TypeError(ERROR_MESSAGE + target);
                     }
                     var args = slice.call(arguments, 1);
@@ -1111,10 +1043,7 @@
                             }
                             return this;
                         } else {
-                            return target.apply(
-                                that,
-                                args.concat(slice.call(arguments))
-                            );
+                            return target.apply(that, args.concat(slice.call(arguments)));
                         }
                     };
 
@@ -1197,10 +1126,7 @@
                     if (!value) {
                         return false;
                     }
-                    if (
-                        typeof value !== 'function' &&
-                        typeof value !== 'object'
-                    ) {
+                    if (typeof value !== 'function' && typeof value !== 'object') {
                         return false;
                     }
                     if (hasToStringTag) {
@@ -1282,8 +1208,7 @@
 
                 var toStr = Object.prototype.toString;
                 var hasSymbols =
-                    typeof Symbol === 'function' &&
-                    typeof Symbol() === 'symbol';
+                    typeof Symbol === 'function' && typeof Symbol() === 'symbol';
 
                 if (hasSymbols) {
                     var symToStr = Symbol.prototype.toString;
@@ -1325,12 +1250,8 @@
                 var toStr = Object.prototype.toString;
                 var slice = Array.prototype.slice;
                 var isArgs = require('./isArguments');
-                var hasDontEnumBug = !{ toString: null }.propertyIsEnumerable(
-                    'toString'
-                );
-                var hasProtoEnumBug = function () {}.propertyIsEnumerable(
-                    'prototype'
-                );
+                var hasDontEnumBug = !{ toString: null }.propertyIsEnumerable('toString');
+                var hasProtoEnumBug = function () {}.propertyIsEnumerable('prototype');
                 var dontEnums = [
                     'toString',
                     'toLocaleString',
@@ -1382,10 +1303,7 @@
                 })();
                 var equalsConstructorPrototypeIfNotBuggy = function (o) {
                     /* global window */
-                    if (
-                        typeof window === 'undefined' ||
-                        !hasAutomationEqualityBug
-                    ) {
+                    if (typeof window === 'undefined' || !hasAutomationEqualityBug) {
                         return equalsConstructorPrototype(o);
                     }
                     try {
@@ -1396,18 +1314,14 @@
                 };
 
                 var keysShim = function keys(object) {
-                    var isObject =
-                        object !== null && typeof object === 'object';
+                    var isObject = object !== null && typeof object === 'object';
                     var isFunction = toStr.call(object) === '[object Function]';
                     var isArguments = isArgs(object);
-                    var isString =
-                        isObject && toStr.call(object) === '[object String]';
+                    var isString = isObject && toStr.call(object) === '[object String]';
                     var theKeys = [];
 
                     if (!isObject && !isFunction && !isArguments) {
-                        throw new TypeError(
-                            'Object.keys called on a non-object'
-                        );
+                        throw new TypeError('Object.keys called on a non-object');
                     }
 
                     var skipProto = hasProtoEnumBug && isFunction;
@@ -1438,10 +1352,7 @@
 
                         for (var k = 0; k < dontEnums.length; ++k) {
                             if (
-                                !(
-                                    skipConstructor &&
-                                    dontEnums[k] === 'constructor'
-                                ) &&
+                                !(skipConstructor && dontEnums[k] === 'constructor') &&
                                 has.call(object, dontEnums[k])
                             ) {
                                 theKeys.push(dontEnums[k]);
@@ -1812,8 +1723,7 @@
                       }
                     : getOwnNames;
 
-                var isES5 =
-                    ES.IsCallable(getDescriptor) && ES.IsCallable(getOwnNames);
+                var isES5 = ES.IsCallable(getDescriptor) && ES.IsCallable(getOwnNames);
 
                 var safePut = function put(obj, prop, val) {
                     if (defineProperty && prop in obj) {
@@ -2018,8 +1928,7 @@
                 var implementation = require('./implementation');
 
                 module.exports = function getPolyfill() {
-                    return typeof Object.getOwnPropertyDescriptors ===
-                        'function'
+                    return typeof Object.getOwnPropertyDescriptors === 'function'
                         ? Object.getOwnPropertyDescriptors
                         : implementation;
                 };
@@ -2040,10 +1949,7 @@
                         { getOwnPropertyDescriptors: polyfill },
                         {
                             getOwnPropertyDescriptors: function () {
-                                return (
-                                    Object.getOwnPropertyDescriptors !==
-                                    polyfill
-                                );
+                                return Object.getOwnPropertyDescriptors !== polyfill;
                             }
                         }
                     );
@@ -2305,8 +2211,7 @@
                     var nextIndex = position + 1;
                     var len = 1;
                     // Check if it’s the start of a surrogate pair.
-                    var isHighSurrogate =
-                        cuFirst >= 0xd800 && cuFirst <= 0xdbff;
+                    var isHighSurrogate = cuFirst >= 0xd800 && cuFirst <= 0xdbff;
                     if (
                         isHighSurrogate &&
                         size > nextIndex /* there is a next code unit */
@@ -2506,9 +2411,7 @@
                         fillString = arguments[1];
                     }
                     var filler =
-                        typeof fillString === 'undefined'
-                            ? ''
-                            : ES.ToString(fillString);
+                        typeof fillString === 'undefined' ? '' : ES.ToString(fillString);
                     if (filler === '') {
                         filler = ' ';
                     }
@@ -2527,9 +2430,7 @@
                     }
 
                     var truncatedStringFiller =
-                        filler.length > fillLen
-                            ? slice(filler, 0, fillLen)
-                            : filler;
+                        filler.length > fillLen ? slice(filler, 0, fillLen) : filler;
                     return S + truncatedStringFiller;
                 };
             },
@@ -2779,9 +2680,7 @@
                         fillString = arguments[1];
                     }
                     var filler =
-                        typeof fillString === 'undefined'
-                            ? ''
-                            : ES.ToString(fillString);
+                        typeof fillString === 'undefined' ? '' : ES.ToString(fillString);
                     if (filler === '') {
                         filler = ' ';
                     }
@@ -2800,9 +2699,7 @@
                     }
 
                     var truncatedStringFiller =
-                        filler.length > fillLen
-                            ? slice(filler, 0, fillLen)
-                            : filler;
+                        filler.length > fillLen ? slice(filler, 0, fillLen) : filler;
                     return truncatedStringFiller + S;
                 };
             },
@@ -3040,10 +2937,7 @@
                 'use strict';
 
                 var bind = require('function-bind');
-                var replace = bind.call(
-                    Function.call,
-                    String.prototype.replace
-                );
+                var replace = bind.call(Function.call, String.prototype.replace);
 
                 var leftWhitespace =
                     /^[\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029\uFEFF]*/;
@@ -3166,10 +3060,7 @@
                 'use strict';
 
                 var bind = require('function-bind');
-                var replace = bind.call(
-                    Function.call,
-                    String.prototype.replace
-                );
+                var replace = bind.call(Function.call, String.prototype.replace);
 
                 var rightWhitespace =
                     /[\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029\uFEFF]*$/;

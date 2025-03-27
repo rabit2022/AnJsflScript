@@ -7,11 +7,7 @@
  * @description:
  */
 
-require(['checkUtil', 'loglevel', 'frameRangeUtil'], function (
-    checkUtil,
-    log,
-    frUtil
-) {
+require(['checkUtil', 'loglevel', 'frameRangeUtil'], function (checkUtil, log, frUtil) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
     // region doc
@@ -65,8 +61,7 @@ require(['checkUtil', 'loglevel', 'frameRangeUtil'], function (
         timeline.insertKeyframe(curFrameIndex);
 
         //打双帧拆分
-        var newStart =
-            soundEnvelopeLimits.start + (curFrameIndex - startFrame) * 1472;
+        var newStart = soundEnvelopeLimits.start + (curFrameIndex - startFrame) * 1472;
         log.info(
             'curFrameIndex: %s  startFrame: %s  newStart: %s',
             curFrameIndex,

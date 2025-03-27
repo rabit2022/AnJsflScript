@@ -16,8 +16,7 @@ require([
     'JSFLConstants'
 ], function (checkUtil, log, frUtil, linqUtil, filterUtil, JSFLConstants) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
-    const { FRAME_1, FRAME_2, FRAME_3, FRAME_4 } =
-        JSFLConstants.Numerics.frame.frameList;
+    const { FRAME_1, FRAME_2, FRAME_3, FRAME_4 } = JSFLConstants.Numerics.frame.frameList;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -65,11 +64,7 @@ require([
             var blurX = (blurY = BLUR[i]);
 
             if (
-                filterUtil.getFilterByName(
-                    curLayer,
-                    curFrameIndex,
-                    BLUR_FILTER
-                ) === null
+                filterUtil.getFilterByName(curLayer, curFrameIndex, BLUR_FILTER) === null
             ) {
                 filterUtil.addBlurFilterToFrame(
                     firstLayer,

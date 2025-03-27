@@ -30,11 +30,7 @@
      * @expose
      */
     var Class = function (classPath, classDefinition, local) {
-        var SuperClass,
-            implementations,
-            className,
-            Initialize,
-            ClassConstructor;
+        var SuperClass, implementations, className, Initialize, ClassConstructor;
 
         if (typeof classPath !== 'string') {
             throw new Error(
@@ -68,9 +64,7 @@
         /*jslint evil: true */
         ClassConstructor = new Function(
             'initialize',
-            'return function ' +
-                className +
-                '() { initialize.apply(this, arguments); }'
+            'return function ' + className + '() { initialize.apply(this, arguments); }'
         )(Initialize);
 
         applyConstructorName(ClassConstructor, classPath);
@@ -83,16 +77,9 @@
 
         // 处理访问器属性
         Object.keys(classDefinition).forEach(function (key) {
-            var descriptor = Object.getOwnPropertyDescriptor(
-                classDefinition,
-                key
-            );
+            var descriptor = Object.getOwnPropertyDescriptor(classDefinition, key);
             if (descriptor && (descriptor.get || descriptor.set)) {
-                Object.defineProperty(
-                    ClassConstructor.prototype,
-                    key,
-                    descriptor
-                );
+                Object.defineProperty(ClassConstructor.prototype, key, descriptor);
             } else {
                 ClassConstructor.prototype[key] = classDefinition[key];
             }
@@ -144,10 +131,7 @@
                             ? target.constructor
                             : extension.constructor;
 
-                        applyMethodName(
-                            property,
-                            className + '::' + propertyName
-                        );
+                        applyMethodName(property, className + '::' + propertyName);
                     }
                 }
             }
@@ -168,11 +152,7 @@
         if (extension['STATIC']) {
             if (TargetClass.Super) {
                 // add static properties of the super class to the class namespace
-                Class['augment'](
-                    TargetClass,
-                    TargetClass.Super['_STATIC_'],
-                    true
-                );
+                Class['augment'](TargetClass, TargetClass.Super['_STATIC_'], true);
             }
 
             // add static properties and methods to the class namespace
@@ -251,11 +231,7 @@
      */
     Class['namespace'] = function (namespacePath, exposedObject) {
         if (typeof globalNamespace['define'] === 'undefined') {
-            var classPathArray,
-                className,
-                currentNamespace,
-                currentPathItem,
-                index;
+            var classPathArray, className, currentNamespace, currentPathItem, index;
 
             classPathArray = namespacePath.split('.');
             className = classPathArray[classPathArray.length - 1];

@@ -44,9 +44,7 @@ var requirejs, require, define;
                 : /^(complete|loaded)$/,
         defContextName = '_',
         //Oh the tragedy, detecting opera. See the usage of isOpera for reason.
-        isOpera =
-            typeof opera !== 'undefined' &&
-            opera.toString() === '[object Opera]',
+        isOpera = typeof opera !== 'undefined' && opera.toString() === '[object Opera]',
         contexts = {},
         cfg = {},
         globalDefQueue = [],
@@ -187,9 +185,7 @@ var requirejs, require, define;
      * @returns {Error}
      */
     function makeError(id, msg, err, requireModules) {
-        var e = new Error(
-            msg + '\nhttps://requirejs.org/docs/errors.html#' + id
-        );
+        var e = new Error(msg + '\nhttps://requirejs.org/docs/errors.html#' + id);
         e.requireType = id;
         e.requireModules = requireModules;
         if (err) {
@@ -273,11 +269,7 @@ var requirejs, require, define;
                     // still work when converted to a path, even though
                     // as an ID it is less than ideal. In larger point
                     // releases, may be better to just kick out an error.
-                    if (
-                        i === 0 ||
-                        (i === 1 && ary[2] === '..') ||
-                        ary[i - 1] === '..'
-                    ) {
+                    if (i === 0 || (i === 1 && ary[2] === '..') || ary[i - 1] === '..') {
                         continue;
                     } else if (i > 0) {
                         ary.splice(i - 1, 2);
@@ -323,14 +315,8 @@ var requirejs, require, define;
                 // of IDs. Have to do this here, and not in nameToUrl
                 // because node allows either .js or non .js to map
                 // to same file.
-                if (
-                    config.nodeIdCompat &&
-                    jsSuffixRegExp.test(name[lastIndex])
-                ) {
-                    name[lastIndex] = name[lastIndex].replace(
-                        jsSuffixRegExp,
-                        ''
-                    );
+                if (config.nodeIdCompat && jsSuffixRegExp.test(name[lastIndex])) {
+                    name[lastIndex] = name[lastIndex].replace(jsSuffixRegExp, '');
                 }
 
                 // Starts with a '.' so need the baseName
@@ -340,10 +326,7 @@ var requirejs, require, define;
                     //module. For instance, baseName of 'one/two/three', maps to
                     //'one/two/three.js', but we want the directory, 'one/two' for
                     //this normalization.
-                    normalizedBaseParts = baseParts.slice(
-                        0,
-                        baseParts.length - 1
-                    );
+                    normalizedBaseParts = baseParts.slice(0, baseParts.length - 1);
                     name = normalizedBaseParts.concat(name);
                 }
 
@@ -362,10 +345,7 @@ var requirejs, require, define;
                         //Find the longest baseName segment match in the config.
                         //So, do joins on the biggest to smallest lengths of baseParts.
                         for (j = baseParts.length; j > 0; j -= 1) {
-                            mapValue = getOwn(
-                                map,
-                                baseParts.slice(0, j).join('/')
-                            );
+                            mapValue = getOwn(map, baseParts.slice(0, j).join('/'));
 
                             //baseName segment has config, find if it has one for
                             //this name.
@@ -384,11 +364,7 @@ var requirejs, require, define;
                     //Check for a star map match, but just hold on to it,
                     //if there is a shorter segment match later in a matching
                     //config, then favor over this star map.
-                    if (
-                        !foundStarMap &&
-                        starMap &&
-                        getOwn(starMap, nameSegment)
-                    ) {
+                    if (!foundStarMap && starMap && getOwn(starMap, nameSegment)) {
                         foundStarMap = getOwn(starMap, nameSegment);
                         starI = i;
                     }
@@ -416,8 +392,7 @@ var requirejs, require, define;
             if (isBrowser) {
                 each(scripts(), function (scriptNode) {
                     if (
-                        scriptNode.getAttribute('data-requiremodule') ===
-                            name &&
+                        scriptNode.getAttribute('data-requiremodule') === name &&
                         scriptNode.getAttribute('data-requirecontext') ===
                             context.contextName
                     ) {
@@ -508,12 +483,9 @@ var requirejs, require, define;
                         normalizedName = name;
                     } else if (pluginModule && pluginModule.normalize) {
                         //Plugin is loaded, use its normalize method.
-                        normalizedName = pluginModule.normalize(
-                            name,
-                            function (name) {
-                                return normalize(name, parentName, applyMap);
-                            }
-                        );
+                        normalizedName = pluginModule.normalize(name, function (name) {
+                            return normalize(name, parentName, applyMap);
+                        });
                     } else {
                         // If nested plugin references, then do not try to
                         // normalize, as it will not normalize correctly. This
@@ -559,9 +531,7 @@ var requirejs, require, define;
                 url: url,
                 originalName: originalName,
                 isDefine: isDefine,
-                id:
-                    (prefix ? prefix + '!' + normalizedName : normalizedName) +
-                    suffix
+                id: (prefix ? prefix + '!' + normalizedName : normalizedName) + suffix
             };
         }
 
@@ -1011,15 +981,9 @@ var requirejs, require, define;
                             if (req.onResourceLoad) {
                                 var resLoadMaps = [];
                                 each(this.depMaps, function (depMap) {
-                                    resLoadMaps.push(
-                                        depMap.normalizedMap || depMap
-                                    );
+                                    resLoadMaps.push(depMap.normalizedMap || depMap);
                                 });
-                                req.onResourceLoad(
-                                    context,
-                                    this.map,
-                                    resLoadMaps
-                                );
+                                req.onResourceLoad(context, this.map, resLoadMaps);
                             }
                         }
 
@@ -1075,11 +1039,7 @@ var requirejs, require, define;
                             if (plugin.normalize) {
                                 name =
                                     plugin.normalize(name, function (name) {
-                                        return normalize(
-                                            name,
-                                            parentName,
-                                            true
-                                        );
+                                        return normalize(name, parentName, true);
                                     }) || '';
                             }
 
@@ -1158,10 +1118,7 @@ var requirejs, require, define;
                             //Remove temp unnormalized modules for this module,
                             //since they will never be resolved otherwise now.
                             eachProp(registry, function (mod) {
-                                if (
-                                    mod.map.id.indexOf(id + '_unnormalized') ===
-                                    0
-                                ) {
+                                if (mod.map.id.indexOf(id + '_unnormalized') === 0) {
                                     cleanRegistry(mod.map.id);
                                 }
                             });
@@ -1206,10 +1163,7 @@ var requirejs, require, define;
                                 return onError(
                                     makeError(
                                         'fromtexteval',
-                                        'fromText eval for ' +
-                                            id +
-                                            ' failed: ' +
-                                            e,
+                                        'fromText eval for ' + id + ' failed: ' + e,
                                         e,
                                         [id]
                                     )
@@ -1264,9 +1218,7 @@ var requirejs, require, define;
                             //and wired up to this module.
                             depMap = makeModuleMap(
                                 depMap,
-                                this.map.isDefine
-                                    ? this.map
-                                    : this.map.parentMap,
+                                this.map.isDefine ? this.map : this.map.parentMap,
                                 false,
                                 !this.skipMap
                             );
@@ -1362,10 +1314,7 @@ var requirejs, require, define;
         function callGetModule(args) {
             //Skip modules already defined.
             if (!hasProp(defined, args[0])) {
-                getModule(makeModuleMap(args[0], null, true)).init(
-                    args[1],
-                    args[2]
-                );
+                getModule(makeModuleMap(args[0], null, true)).init(args[1], args[2]);
             }
         }
 
@@ -1397,12 +1346,7 @@ var requirejs, require, define;
             var node = evt.currentTarget || evt.srcElement;
 
             //Remove the listeners once here.
-            removeListener(
-                node,
-                context.onScriptLoad,
-                'load',
-                'onreadystatechange'
-            );
+            removeListener(node, context.onScriptLoad, 'load', 'onreadystatechange');
             removeListener(node, context.onScriptError, 'error');
 
             return {
@@ -1524,10 +1468,7 @@ var requirejs, require, define;
                     each(cfg.packages, function (pkgObj) {
                         var location, name;
 
-                        pkgObj =
-                            typeof pkgObj === 'string'
-                                ? { name: pkgObj }
-                                : pkgObj;
+                        pkgObj = typeof pkgObj === 'string' ? { name: pkgObj } : pkgObj;
 
                         name = pkgObj.name;
                         location = pkgObj.location;
@@ -1587,11 +1528,7 @@ var requirejs, require, define;
                 function localRequire(deps, callback, errback) {
                     var id, map, requireMod;
 
-                    if (
-                        options.enableBuildCallback &&
-                        callback &&
-                        isFunction(callback)
-                    ) {
+                    if (options.enableBuildCallback && callback && isFunction(callback)) {
                         callback.__requireJsBuild = true;
                     }
 
@@ -1599,10 +1536,7 @@ var requirejs, require, define;
                         if (isFunction(callback)) {
                             //Invalid call
                             return onError(
-                                makeError(
-                                    'requireargs',
-                                    'Invalid require call'
-                                ),
+                                makeError('requireargs', 'Invalid require call'),
                                 errback
                             );
                         }
@@ -1685,18 +1619,11 @@ var requirejs, require, define;
                                 index,
                                 moduleNamePlusExt.length
                             );
-                            moduleNamePlusExt = moduleNamePlusExt.substring(
-                                0,
-                                index
-                            );
+                            moduleNamePlusExt = moduleNamePlusExt.substring(0, index);
                         }
 
                         return context.nameToUrl(
-                            normalize(
-                                moduleNamePlusExt,
-                                relMap && relMap.id,
-                                true
-                            ),
+                            normalize(moduleNamePlusExt, relMap && relMap.id, true),
                             ext,
                             true
                         );
@@ -1810,16 +1737,8 @@ var requirejs, require, define;
                 //of those calls/init calls changes the registry.
                 mod = getOwn(registry, moduleName);
 
-                if (
-                    !found &&
-                    !hasProp(defined, moduleName) &&
-                    mod &&
-                    !mod.inited
-                ) {
-                    if (
-                        config.enforceDefine &&
-                        (!shExports || !getGlobal(shExports))
-                    ) {
+                if (!found && !hasProp(defined, moduleName) && mod && !mod.inited) {
+                    if (config.enforceDefine && (!shExports || !getGlobal(shExports))) {
                         if (hasPathFallback(moduleName)) {
                             return;
                         } else {
@@ -1835,11 +1754,7 @@ var requirejs, require, define;
                     } else {
                         //A script that does not call define(), so just simulate
                         //the call for it.
-                        callGetModule([
-                            moduleName,
-                            shim.deps || [],
-                            shim.exportsFn
-                        ]);
+                        callGetModule([moduleName, shim.deps || [], shim.exportsFn]);
                     }
                 }
 
@@ -1908,10 +1823,7 @@ var requirejs, require, define;
                     //Join the path parts together, then figure out if baseUrl is needed.
                     url = syms.join('/');
                     url +=
-                        ext ||
-                        (/^data\:|^blob\:|\?/.test(url) || skipExt
-                            ? ''
-                            : '.js');
+                        ext || (/^data\:|^blob\:|\?/.test(url) || skipExt ? '' : '.js');
                     url =
                         (url.charAt(0) === '/' || url.match(/^[\w\+\.\-]+:/)
                             ? ''
@@ -1952,9 +1864,7 @@ var requirejs, require, define;
                 //to support and still makes sense.
                 if (
                     evt.type === 'load' ||
-                    readyRegExp.test(
-                        (evt.currentTarget || evt.srcElement).readyState
-                    )
+                    readyRegExp.test((evt.currentTarget || evt.srcElement).readyState)
                 ) {
                     //Reset interactive script so a script node is not held onto for
                     //to long.
@@ -2130,10 +2040,7 @@ var requirejs, require, define;
      */
     req.createNode = function (config, moduleName, url) {
         var node = config.xhtml
-            ? document.createElementNS(
-                  'http://www.w3.org/1999/xhtml',
-                  'html:script'
-              )
+            ? document.createElementNS('http://www.w3.org/1999/xhtml', 'html:script')
             : document.createElement('script');
         node.type = config.scriptType || 'text/javascript';
         node.charset = 'utf-8';
@@ -2263,10 +2170,7 @@ var requirejs, require, define;
                 context.completeLoad(moduleName);
             } catch (e) {
                 var message =
-                    '[Error] Flash loading failed for ' +
-                    moduleName +
-                    'at' +
-                    url;
+                    '[Error] Flash loading failed for ' + moduleName + 'at' + url;
                 fl.trace(message);
                 context.onError(makeError('flash', message, e, [moduleName]));
             }
@@ -2278,10 +2182,7 @@ var requirejs, require, define;
     };
 
     function getInteractiveScript() {
-        if (
-            interactiveScript &&
-            interactiveScript.readyState === 'interactive'
-        ) {
+        if (interactiveScript && interactiveScript.readyState === 'interactive') {
             return interactiveScript;
         }
 
@@ -2334,9 +2235,7 @@ var requirejs, require, define;
                 }
 
                 //Put the data-main script in the files to load.
-                cfg.deps = cfg.deps
-                    ? cfg.deps.concat(mainScript)
-                    : [mainScript];
+                cfg.deps = cfg.deps ? cfg.deps.concat(mainScript) : [mainScript];
 
                 return true;
             }
@@ -2388,9 +2287,7 @@ var requirejs, require, define;
                 //REQUIRES the function to expect the CommonJS variables in the
                 //order listed below.
                 deps = (
-                    callback.length === 1
-                        ? ['require']
-                        : ['require', 'exports', 'module']
+                    callback.length === 1 ? ['require'] : ['require', 'exports', 'module']
                 ).concat(deps);
             }
         }

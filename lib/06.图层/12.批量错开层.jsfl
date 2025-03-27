@@ -106,15 +106,12 @@ require([
         timeline.copyLayers();
 
         // 生成需要添加的空帧的帧数
-        var toAddFrameCount = range(
-            0,
-            frameInterval * copyCount,
-            frameInterval
-        ).select(function (x) {
-            return x + frameInterval;
-        });
-        var toAddFrameCountArray =
-            convertToProgrammeIndex(toAddFrameCount).toArray();
+        var toAddFrameCount = range(0, frameInterval * copyCount, frameInterval).select(
+            function (x) {
+                return x + frameInterval;
+            }
+        );
+        var toAddFrameCountArray = convertToProgrammeIndex(toAddFrameCount).toArray();
 
         log.debug('toAddFrameCount', toAddFrameCount.toArray());
 

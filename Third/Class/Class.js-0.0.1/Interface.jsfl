@@ -12,11 +12,7 @@
 
         ImplementationMissingError.prototype = Error.prototype;
 
-        function createExceptionThrower(
-            interfaceName,
-            methodName,
-            expectedType
-        ) {
+        function createExceptionThrower(interfaceName, methodName, expectedType) {
             return function () {
                 var message =
                     'Missing implementation for <' +
@@ -50,8 +46,11 @@
                 if (definition.hasOwnProperty(methodName)) {
                     property = definition[methodName];
 
-                    InterfaceConstructor.prototype[methodName] =
-                        createExceptionThrower(path, methodName, property);
+                    InterfaceConstructor.prototype[methodName] = createExceptionThrower(
+                        path,
+                        methodName,
+                        property
+                    );
                 }
             }
 
@@ -80,9 +79,7 @@
     // expose on global namespace (browser)
     else if (typeof window !== 'undefined') {
         /** @expose */
-        globalNamespace['Interface'] = defineInterfaceModule(
-            globalNamespace['Class']
-        );
+        globalNamespace['Interface'] = defineInterfaceModule(globalNamespace['Class']);
     }
     // expose on global namespace (node)
     else {

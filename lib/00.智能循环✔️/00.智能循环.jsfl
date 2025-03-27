@@ -38,8 +38,7 @@ require(['checkUtil'], function (checkUtil) {
             // 获取关键帧的起始帧
             var startFrame = layer.frames[element.firstFrame].startFrame;
             element.firstFrame = startFrame;
-            element.lastFrame =
-                layer.frames[startFrame].duration + startFrame - 1;
+            element.lastFrame = layer.frames[startFrame].duration + startFrame - 1;
         }
     }
 

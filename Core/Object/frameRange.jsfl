@@ -43,10 +43,7 @@ define(['sprintf', 'FUNC'], function (sp, FUNC) {
      * @return {boolean} 是否有重叠
      */
     FrameRange.prototype.intersects = function (other) {
-        return (
-            this.startFrame <= other.endFrame &&
-            other.startFrame <= this.endFrame
-        );
+        return this.startFrame <= other.endFrame && other.startFrame <= this.endFrame;
     };
 
     FrameRange.prototype.clone = function () {
@@ -75,9 +72,7 @@ define(['sprintf', 'FUNC'], function (sp, FUNC) {
         if (this.layerIndex !== fr2.layerIndex) {
             return false;
         }
-        return (
-            this.startFrame <= fr2.startFrame && this.endFrame >= fr2.endFrame
-        );
+        return this.startFrame <= fr2.startFrame && this.endFrame >= fr2.endFrame;
     };
 
     /**

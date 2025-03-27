@@ -17,11 +17,7 @@ define(function () {
      * @param {string} [alertMessage="请重新输入。"] 输入错误时的提示信息
      * @returns {number} 输入的数字
      */
-    PromptUtil.parseNumber = function (
-        promptMessage,
-        defaultValue,
-        alertMessage
-    ) {
+    PromptUtil.parseNumber = function (promptMessage, defaultValue, alertMessage) {
         if (defaultValue === null) {
             defaultValue = 0;
         }
@@ -52,9 +48,7 @@ define(function () {
     ) {
         // 设置默认值
         defaultValue =
-            defaultValue === undefined || defaultValue === null
-                ? 0
-                : defaultValue;
+            defaultValue === undefined || defaultValue === null ? 0 : defaultValue;
         alertMessage =
             alertMessage === undefined || alertMessage === null
                 ? '请重新输入合法的数字。'
@@ -114,9 +108,7 @@ define(function () {
     PromptUtil.parseNumberWithMode = function (defaultValue) {
         // 设置默认值
         defaultValue =
-            defaultValue === undefined || defaultValue === null
-                ? 0
-                : defaultValue;
+            defaultValue === undefined || defaultValue === null ? 0 : defaultValue;
 
         // 提示用户输入关键帧持续帧数
         var config = PromptUtil.parseNumberWithSign(
@@ -129,11 +121,7 @@ define(function () {
         if (config === null) return null;
 
         // 根据输入的符号判断模式
-        var mode = config.hasSign
-            ? config.num < 0
-                ? 'decrease'
-                : 'increase'
-            : 'unify';
+        var mode = config.hasSign ? (config.num < 0 ? 'decrease' : 'increase') : 'unify';
 
         return {
             num: config.num,

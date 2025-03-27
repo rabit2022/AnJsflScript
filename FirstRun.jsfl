@@ -51,9 +51,7 @@
 
         function assertPath(path) {
             if (typeof path !== 'string') {
-                throw new TypeError( // 'Path must be a string. Received ' + JSON.stringify(path)
-                    'Path must be a string. Received ' + path + '.'
-                );
+                throw new TypeError('Path must be a string. Received ' + path + '.'); // 'Path must be a string. Received ' + JSON.stringify(path)
             }
         }
 
@@ -72,9 +70,7 @@
 
         paths.forEach(function (path) {
             // 转换为绝对路径
-            var scriptURI = isAbsolute(path)
-                ? path
-                : curWorkingDirectory + '/' + path;
+            var scriptURI = isAbsolute(path) ? path : curWorkingDirectory + '/' + path;
 
             // 结尾是.js后缀名时，替换为.jsfl后缀名
             if (endsWith(scriptURI, '.js')) {

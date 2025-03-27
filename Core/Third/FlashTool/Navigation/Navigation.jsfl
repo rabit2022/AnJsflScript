@@ -16,8 +16,7 @@ define([
 ], function (Class, Interface, checkUtil, ErrorDefinitions, JSFLConstants) {
     const { CheckTimeline } = checkUtil;
     const { NotImplementedError } = ErrorDefinitions;
-    const ENVELOPE_PER_FRAME =
-        JSFLConstants.Numerics.sound.envelope.ENVELOPE_PER_FRAME;
+    const ENVELOPE_PER_FRAME = JSFLConstants.Numerics.sound.envelope.ENVELOPE_PER_FRAME;
 
     var NavigationAbs = Interface('NavigationAbs', {
         STATIC: {
@@ -117,14 +116,10 @@ define([
                         ) {
                             sf = layer.frames[timeline.currentFrame].startFrame;
                             if (sf == timeline.currentFrame) {
-                                sf =
-                                    layer.frames[timeline.currentFrame - 1]
-                                        .startFrame;
+                                sf = layer.frames[timeline.currentFrame - 1].startFrame;
                             }
                         } else if (layer.layerType != 'folder') {
-                            sf =
-                                layer.frames[layer.frames.length - 1]
-                                    .startFrame;
+                            sf = layer.frames[layer.frames.length - 1].startFrame;
                         }
                         if (sf > key) {
                             klayers = [j];
@@ -158,18 +153,15 @@ define([
                 if (timeline.currentFrame < key) {
                     for (var j = 0; j < timeline.layers.length; j++) {
                         if (
-                            timeline.currentFrame <=
-                                timeline.layers[j].frames.length &&
+                            timeline.currentFrame <= timeline.layers[j].frames.length &&
                             timeline.layers[j].layerType != 'folder'
                         ) {
                             var dura =
-                                timeline.layers[j].frames[timeline.currentFrame]
-                                    .duration;
+                                timeline.layers[j].frames[timeline.currentFrame].duration;
                             if (dura == 0) {
                                 dura =
-                                    timeline.layers[j].frames[
-                                        timeline.currentFrame + 1
-                                    ].duration + 1;
+                                    timeline.layers[j].frames[timeline.currentFrame + 1]
+                                        .duration + 1;
                             }
                             var sf =
                                 timeline.layers[j].frames[timeline.currentFrame]
@@ -185,10 +177,7 @@ define([
                         }
                     }
                     if (klayers.length > 0) {
-                        if (
-                            timeline.layers[klayers[0]].frames[key]
-                                .startFrame == key
-                        ) {
+                        if (timeline.layers[klayers[0]].frames[key].startFrame == key) {
                             timeline.setSelectedLayers(klayers[0], true);
                             for (var j = 1; j < klayers.length; j++) {
                                 timeline.setSelectedLayers(klayers[j], false);
@@ -208,12 +197,8 @@ define([
                 const layer = timeline.layers[timeline.currentLayer];
                 var startframe = layer.frames[timeline.currentFrame].startFrame;
 
-                if (
-                    startframe === timeline.currentFrame &&
-                    timeline.currentFrame > 0
-                ) {
-                    startframe =
-                        layer.frames[timeline.currentFrame - 1].startFrame;
+                if (startframe === timeline.currentFrame && timeline.currentFrame > 0) {
+                    startframe = layer.frames[timeline.currentFrame - 1].startFrame;
                 }
                 timeline.currentFrame = startframe >= 0 ? startframe : 0;
                 timeline.setSelectedFrames(
@@ -257,10 +242,7 @@ define([
                 const timeline = CheckTimeline();
                 if (!timeline) return;
 
-                timeline.setSelectedFrames(
-                    timeline.currentFrame,
-                    timeline.frameCount
-                );
+                timeline.setSelectedFrames(timeline.currentFrame, timeline.frameCount);
             },
 
             // 静态方法：选择 当前帧 到 当前图层的前一个关键帧 的所有帧 (Shift + Page Up)
@@ -271,20 +253,13 @@ define([
                 const layer = timeline.layers[timeline.currentLayer];
                 var startframe = layer.frames[timeline.currentFrame].startFrame;
 
-                if (
-                    startframe === timeline.currentFrame &&
-                    timeline.currentFrame > 0
-                ) {
-                    startframe =
-                        layer.frames[timeline.currentFrame - 1].startFrame;
+                if (startframe === timeline.currentFrame && timeline.currentFrame > 0) {
+                    startframe = layer.frames[timeline.currentFrame - 1].startFrame;
                 }
                 // timeline.currentFrame = startframe >= 0 ? startframe : 0;
                 startframe = startframe >= 0 ? startframe : 0;
 
-                timeline.setSelectedFrames(
-                    startframe,
-                    timeline.currentFrame + 1
-                );
+                timeline.setSelectedFrames(startframe, timeline.currentFrame + 1);
             },
 
             // 静态方法：选择 当前帧 到 当前图层的下一个关键帧 的所有帧 (Shift + Page Down)

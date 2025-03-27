@@ -222,8 +222,7 @@
         rsComboMarksRange = '\\u0300-\\u036f',
         reComboHalfMarksRange = '\\ufe20-\\ufe2f',
         rsComboSymbolsRange = '\\u20d0-\\u20ff',
-        rsComboRange =
-            rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange,
+        rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange,
         rsDingbatRange = '\\u2700-\\u27bf',
         rsLowerRange = 'a-z\\xdf-\\xf6\\xf8-\\xff',
         rsMathOpRange = '\\xac\\xb1\\xd7\\xf7',
@@ -233,8 +232,7 @@
             ' \\t\\x0b\\f\\xa0\\ufeff\\n\\r\\u2028\\u2029\\u1680\\u180e\\u2000\\u2001\\u2002\\u2003\\u2004\\u2005\\u2006\\u2007\\u2008\\u2009\\u200a\\u202f\\u205f\\u3000',
         rsUpperRange = 'A-Z\\xc0-\\xd6\\xd8-\\xde',
         rsVarRange = '\\ufe0e\\ufe0f',
-        rsBreakRange =
-            rsMathOpRange + rsNonCharRange + rsPunctuationRange + rsSpaceRange;
+        rsBreakRange = rsMathOpRange + rsNonCharRange + rsPunctuationRange + rsSpaceRange;
 
     /** Used to compose unicode capture groups. */
     var rsApos = "['\u2019]",
@@ -280,17 +278,12 @@
         rsOrdLower = '\\d*(?:1st|2nd|3rd|(?![123])\\dth)(?=\\b|[A-Z_])',
         rsOrdUpper = '\\d*(?:1ST|2ND|3RD|(?![123])\\dTH)(?=\\b|[a-z_])',
         rsSeq = rsOptVar + reOptMod + rsOptJoin,
-        rsEmoji =
-            '(?:' + [rsDingbat, rsRegional, rsSurrPair].join('|') + ')' + rsSeq,
+        rsEmoji = '(?:' + [rsDingbat, rsRegional, rsSurrPair].join('|') + ')' + rsSeq,
         rsSymbol =
             '(?:' +
-            [
-                rsNonAstral + rsCombo + '?',
-                rsCombo,
-                rsRegional,
-                rsSurrPair,
-                rsAstral
-            ].join('|') +
+            [rsNonAstral + rsCombo + '?', rsCombo, rsRegional, rsSurrPair, rsAstral].join(
+                '|'
+            ) +
             ')';
 
     /** Used to match apostrophes. */
@@ -303,10 +296,7 @@
     var reComboMark = RegExp(rsCombo, 'g');
 
     /** Used to match [string symbols](https://mathiasbynens.be/notes/javascript-unicode). */
-    var reUnicode = RegExp(
-        rsFitz + '(?=' + rsFitz + ')|' + rsSymbol + rsSeq,
-        'g'
-    );
+    var reUnicode = RegExp(rsFitz + '(?=' + rsFitz + ')|' + rsSymbol + rsSeq, 'g');
 
     /** Used to match complex or compound words. */
     var reUnicodeWord = RegExp(
@@ -435,10 +425,7 @@
         cloneableTags[uint16Tag] =
         cloneableTags[uint32Tag] =
             true;
-    cloneableTags[errorTag] =
-        cloneableTags[funcTag] =
-        cloneableTags[weakMapTag] =
-            false;
+    cloneableTags[errorTag] = cloneableTags[funcTag] = cloneableTags[weakMapTag] = false;
 
     /** Used to map Latin Unicode letters to basic Latin letters. */
     var deburredLetters = {
@@ -670,14 +657,10 @@
 
     /** Detect free variable `global` from Node.js. */
     var freeGlobal =
-        typeof global == 'object' &&
-        global &&
-        global.Object === Object &&
-        global;
+        typeof global == 'object' && global && global.Object === Object && global;
 
     /** Detect free variable `self`. */
-    var freeSelf =
-        typeof self == 'object' && self && self.Object === Object && self;
+    var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
 
     /** Used as a reference to the global object. */
     var root = freeGlobal || freeSelf || Function('return this')();
@@ -688,11 +671,7 @@
 
     /** Detect free variable `module`. */
     var freeModule =
-        freeExports &&
-        typeof module == 'object' &&
-        module &&
-        !module.nodeType &&
-        module;
+        freeExports && typeof module == 'object' && module && !module.nodeType && module;
 
     /** Detect the popular CommonJS extension `module.exports`. */
     var moduleExports = freeModule && freeModule.exports === freeExports;
@@ -705,20 +684,14 @@
         try {
             // Use `util.types` for Node.js 10+.
             var types =
-                freeModule &&
-                freeModule.require &&
-                freeModule.require('util').types;
+                freeModule && freeModule.require && freeModule.require('util').types;
 
             if (types) {
                 return types;
             }
 
             // Legacy `process.binding('util')` for Node.js < 10.
-            return (
-                freeProcess &&
-                freeProcess.binding &&
-                freeProcess.binding('util')
-            );
+            return freeProcess && freeProcess.binding && freeProcess.binding('util');
         } catch (e) {}
     })();
 
@@ -1185,13 +1158,7 @@
      * @param {Function} eachFunc The function to iterate over `collection`.
      * @returns {*} Returns the accumulated value.
      */
-    function baseReduce(
-        collection,
-        iteratee,
-        accumulator,
-        initAccum,
-        eachFunc
-    ) {
+    function baseReduce(collection, iteratee, accumulator, initAccum, eachFunc) {
         eachFunc(collection, function (value, index, collection) {
             accumulator = initAccum
                 ? ((initAccum = false), value)
@@ -1286,9 +1253,7 @@
      */
     function baseTrim(string) {
         return string
-            ? string
-                  .slice(0, trimmedEndIndex(string) + 1)
-                  .replace(reTrimStart, '')
+            ? string.slice(0, trimmedEndIndex(string) + 1).replace(reTrimStart, '')
             : string;
     }
 
@@ -1346,10 +1311,7 @@
         var index = -1,
             length = strSymbols.length;
 
-        while (
-            ++index < length &&
-            baseIndexOf(chrSymbols, strSymbols[index], 0) > -1
-        ) {}
+        while (++index < length && baseIndexOf(chrSymbols, strSymbols[index], 0) > -1) {}
         return index;
     }
 
@@ -1621,9 +1583,7 @@
      * @returns {Array} Returns the converted array.
      */
     function stringToArray(string) {
-        return hasUnicode(string)
-            ? unicodeToArray(string)
-            : asciiToArray(string);
+        return hasUnicode(string) ? unicodeToArray(string) : asciiToArray(string);
     }
 
     /**
@@ -1722,11 +1682,7 @@
         context =
             context == null
                 ? root
-                : _.defaults(
-                      root.Object(),
-                      context,
-                      _.pick(root, contextProps)
-                  );
+                : _.defaults(root.Object(), context, _.pick(root, contextProps));
 
         /** Built-in constructor references. */
         var Array = context.Array,
@@ -1759,8 +1715,7 @@
         /** Used to detect methods masquerading as native. */
         var maskSrcKey = (function () {
             var uid = /[^.]+$/.exec(
-                (coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO) ||
-                    ''
+                (coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO) || ''
             );
             return uid ? 'Symbol(src)_1.' + uid : '';
         })();
@@ -1814,11 +1769,9 @@
 
         /** Mocked built-ins. */
         var ctxClearTimeout =
-                context.clearTimeout !== root.clearTimeout &&
-                context.clearTimeout,
+                context.clearTimeout !== root.clearTimeout && context.clearTimeout,
             ctxNow = Date && Date.now !== root.Date.now && Date.now,
-            ctxSetTimeout =
-                context.setTimeout !== root.setTimeout && context.setTimeout;
+            ctxSetTimeout = context.setTimeout !== root.setTimeout && context.setTimeout;
 
         /* Built-in method references for those with the same name as other `lodash` methods. */
         var nativeCeil = Math.ceil,
@@ -2192,10 +2145,7 @@
                 resIndex = 0,
                 takeCount = nativeMin(length, this.__takeCount__);
 
-            if (
-                !isArr ||
-                (!isRight && arrLength == length && takeCount == length)
-            ) {
+            if (!isArr || (!isRight && arrLength == length && takeCount == length)) {
                 return baseWrapperValue(array, this.__actions__);
             }
             var result = [];
@@ -2326,8 +2276,7 @@
         function hashSet(key, value) {
             var data = this.__data__;
             this.size += this.has(key) ? 0 : 1;
-            data[key] =
-                nativeCreate && value === undefined ? HASH_UNDEFINED : value;
+            data[key] = nativeCreate && value === undefined ? HASH_UNDEFINED : value;
             return this;
         }
 
@@ -3024,28 +2973,14 @@
             if (isSet(value)) {
                 value.forEach(function (subValue) {
                     result.add(
-                        baseClone(
-                            subValue,
-                            bitmask,
-                            customizer,
-                            subValue,
-                            value,
-                            stack
-                        )
+                        baseClone(subValue, bitmask, customizer, subValue, value, stack)
                     );
                 });
             } else if (isMap(value)) {
                 value.forEach(function (subValue, key) {
                     result.set(
                         key,
-                        baseClone(
-                            subValue,
-                            bitmask,
-                            customizer,
-                            key,
-                            value,
-                            stack
-                        )
+                        baseClone(subValue, bitmask, customizer, key, value, stack)
                     );
                 });
             }
@@ -3107,10 +3042,7 @@
                     predicate = source[key],
                     value = object[key];
 
-                if (
-                    (value === undefined && !(key in object)) ||
-                    !predicate(value)
-                ) {
+                if ((value === undefined && !(key in object)) || !predicate(value)) {
                     return false;
                 }
             }
@@ -3327,13 +3259,7 @@
                 if (depth > 0 && predicate(value)) {
                     if (depth > 1) {
                         // Recursively flatten arrays (susceptible to call stack limits).
-                        baseFlatten(
-                            value,
-                            depth - 1,
-                            predicate,
-                            isStrict,
-                            result
-                        );
+                        baseFlatten(value, depth - 1, predicate, isStrict, result);
                     } else {
                         arrayPush(result, value);
                     }
@@ -3441,9 +3367,7 @@
          */
         function baseGetAllKeys(object, keysFunc, symbolsFunc) {
             var result = keysFunc(object);
-            return isArray(object)
-                ? result
-                : arrayPush(result, symbolsFunc(object));
+            return isArray(object) ? result : arrayPush(result, symbolsFunc(object));
         }
 
         /**
@@ -3509,10 +3433,7 @@
          * @returns {boolean} Returns `true` if `number` is in the range, else `false`.
          */
         function baseInRange(number, start, end) {
-            return (
-                number >= nativeMin(start, end) &&
-                number < nativeMax(start, end)
-            );
+            return number >= nativeMin(start, end) && number < nativeMax(start, end);
         }
 
         /**
@@ -3541,8 +3462,7 @@
                 }
                 maxLength = nativeMin(array.length, maxLength);
                 caches[othIndex] =
-                    !comparator &&
-                    (iteratee || (length >= 120 && array.length >= 120))
+                    !comparator && (iteratee || (length >= 120 && array.length >= 120))
                         ? new SetCache(othIndex && array)
                         : undefined;
             }
@@ -3567,11 +3487,7 @@
                         if (
                             !(cache
                                 ? cacheHas(cache, computed)
-                                : includes(
-                                      arrays[othIndex],
-                                      computed,
-                                      comparator
-                                  ))
+                                : includes(arrays[othIndex], computed, comparator))
                         ) {
                             continue outer;
                         }
@@ -3678,14 +3594,7 @@
             ) {
                 return value !== value && other !== other;
             }
-            return baseIsEqualDeep(
-                value,
-                other,
-                bitmask,
-                customizer,
-                baseIsEqual,
-                stack
-            );
+            return baseIsEqualDeep(value, other, bitmask, customizer, baseIsEqual, stack);
         }
 
         /**
@@ -3702,14 +3611,7 @@
          * @param {Object} [stack] Tracks traversed `object` and `other` objects.
          * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
          */
-        function baseIsEqualDeep(
-            object,
-            other,
-            bitmask,
-            customizer,
-            equalFunc,
-            stack
-        ) {
+        function baseIsEqualDeep(object, other, bitmask, customizer, equalFunc, stack) {
             var objIsArr = isArray(object),
                 othIsArr = isArray(other),
                 objTag = objIsArr ? arrayTag : getTag(object),
@@ -3732,14 +3634,7 @@
             if (isSameTag && !objIsObj) {
                 stack || (stack = new Stack());
                 return objIsArr || isTypedArray(object)
-                    ? equalArrays(
-                          object,
-                          other,
-                          bitmask,
-                          customizer,
-                          equalFunc,
-                          stack
-                      )
+                    ? equalArrays(object, other, bitmask, customizer, equalFunc, stack)
                     : equalByTag(
                           object,
                           other,
@@ -3751,10 +3646,8 @@
                       );
             }
             if (!(bitmask & COMPARE_PARTIAL_FLAG)) {
-                var objIsWrapped =
-                        objIsObj && hasOwnProperty.call(object, '__wrapped__'),
-                    othIsWrapped =
-                        othIsObj && hasOwnProperty.call(other, '__wrapped__');
+                var objIsWrapped = objIsObj && hasOwnProperty.call(object, '__wrapped__'),
+                    othIsWrapped = othIsObj && hasOwnProperty.call(other, '__wrapped__');
 
                 if (objIsWrapped || othIsWrapped) {
                     var objUnwrapped = objIsWrapped ? object.value() : object,
@@ -3774,14 +3667,7 @@
                 return false;
             }
             stack || (stack = new Stack());
-            return equalObjects(
-                object,
-                other,
-                bitmask,
-                customizer,
-                equalFunc,
-                stack
-            );
+            return equalObjects(object, other, bitmask, customizer, equalFunc, stack);
         }
 
         /**
@@ -4011,9 +3897,7 @@
          */
         function baseMap(collection, iteratee) {
             var index = -1,
-                result = isArrayLike(collection)
-                    ? Array(collection.length)
-                    : [];
+                result = isArrayLike(collection) ? Array(collection.length) : [];
 
             baseEach(collection, function (value, key, collection) {
                 result[++index] = iteratee(value, key, collection);
@@ -4031,15 +3915,10 @@
         function baseMatches(source) {
             var matchData = getMatchData(source);
             if (matchData.length == 1 && matchData[0][2]) {
-                return matchesStrictComparable(
-                    matchData[0][0],
-                    matchData[0][1]
-                );
+                return matchesStrictComparable(matchData[0][0], matchData[0][1]);
             }
             return function (object) {
-                return (
-                    object === source || baseIsMatch(object, source, matchData)
-                );
+                return object === source || baseIsMatch(object, source, matchData);
             };
         }
 
@@ -4151,14 +4030,7 @@
                 return;
             }
             var newValue = customizer
-                ? customizer(
-                      objValue,
-                      srcValue,
-                      key + '',
-                      object,
-                      source,
-                      stack
-                  )
+                ? customizer(objValue, srcValue, key + '', object, source, stack)
                 : undefined;
 
             var isCommon = newValue === undefined;
@@ -4343,12 +4215,7 @@
                     computed = iteratee ? iteratee(value) : value;
 
                 while (
-                    (fromIndex = indexOf(
-                        seen,
-                        computed,
-                        fromIndex,
-                        comparator
-                    )) > -1
+                    (fromIndex = indexOf(seen, computed, fromIndex, comparator)) > -1
                 ) {
                     if (seen !== array) {
                         splice.call(seen, fromIndex, 1);
@@ -4511,19 +4378,13 @@
                 var key = toKey(path[index]),
                     newValue = value;
 
-                if (
-                    key === '__proto__' ||
-                    key === 'constructor' ||
-                    key === 'prototype'
-                ) {
+                if (key === '__proto__' || key === 'constructor' || key === 'prototype') {
                     return object;
                 }
 
                 if (index != lastIndex) {
                     var objValue = nested[key];
-                    newValue = customizer
-                        ? customizer(objValue, key, nested)
-                        : undefined;
+                    newValue = customizer ? customizer(objValue, key, nested) : undefined;
                     if (newValue === undefined) {
                         newValue = isObject(objValue)
                             ? objValue
@@ -4711,10 +4572,7 @@
                 } else if (valIsUndefined) {
                     setLow = othIsReflexive && (retHighest || othIsDefined);
                 } else if (valIsNull) {
-                    setLow =
-                        othIsReflexive &&
-                        othIsDefined &&
-                        (retHighest || !othIsNull);
+                    setLow = othIsReflexive && othIsDefined && (retHighest || !othIsNull);
                 } else if (valIsSymbol) {
                     setLow =
                         othIsReflexive &&
@@ -4886,12 +4744,7 @@
          * @returns {Object} Returns `object`.
          */
         function baseUpdate(object, path, updater, customizer) {
-            return baseSet(
-                object,
-                path,
-                updater(baseGet(object, path)),
-                customizer
-            );
+            return baseSet(object, path, updater(baseGet(object, path)), customizer);
         }
 
         /**
@@ -4915,16 +4768,8 @@
             ) {}
 
             return isDrop
-                ? baseSlice(
-                      array,
-                      fromRight ? 0 : index,
-                      fromRight ? index + 1 : length
-                  )
-                : baseSlice(
-                      array,
-                      fromRight ? index + 1 : 0,
-                      fromRight ? length : index
-                  );
+                ? baseSlice(array, fromRight ? 0 : index, fromRight ? index + 1 : length)
+                : baseSlice(array, fromRight ? index + 1 : 0, fromRight ? length : index);
         }
 
         /**
@@ -5046,9 +4891,7 @@
             if (isArray(value)) {
                 return value;
             }
-            return isKey(value, object)
-                ? [value]
-                : stringToPath(toString(value));
+            return isKey(value, object) ? [value] : stringToPath(toString(value));
         }
 
         /**
@@ -5074,9 +4917,7 @@
         function castSlice(array, start, end) {
             var length = array.length;
             end = end === undefined ? length : end;
-            return !start && end >= length
-                ? array
-                : baseSlice(array, start, end);
+            return !start && end >= length ? array : baseSlice(array, start, end);
         }
 
         /**
@@ -5134,9 +4975,7 @@
          * @returns {Object} Returns the cloned data view.
          */
         function cloneDataView(dataView, isDeep) {
-            var buffer = isDeep
-                ? cloneArrayBuffer(dataView.buffer)
-                : dataView.buffer;
+            var buffer = isDeep ? cloneArrayBuffer(dataView.buffer) : dataView.buffer;
             return new dataView.constructor(
                 buffer,
                 dataView.byteOffset,
@@ -5152,10 +4991,7 @@
          * @returns {Object} Returns the cloned regexp.
          */
         function cloneRegExp(regexp) {
-            var result = new regexp.constructor(
-                regexp.source,
-                reFlags.exec(regexp)
-            );
+            var result = new regexp.constructor(regexp.source, reFlags.exec(regexp));
             result.lastIndex = regexp.lastIndex;
             return result;
         }
@@ -5180,9 +5016,7 @@
          * @returns {Object} Returns the cloned typed array.
          */
         function cloneTypedArray(typedArray, isDeep) {
-            var buffer = isDeep
-                ? cloneArrayBuffer(typedArray.buffer)
-                : typedArray.buffer;
+            var buffer = isDeep ? cloneArrayBuffer(typedArray.buffer) : typedArray.buffer;
             return new typedArray.constructor(
                 buffer,
                 typedArray.byteOffset,
@@ -5211,10 +5045,7 @@
                     othIsSymbol = isSymbol(other);
 
                 if (
-                    (!othIsNull &&
-                        !othIsSymbol &&
-                        !valIsSymbol &&
-                        value > other) ||
+                    (!othIsNull && !othIsSymbol && !valIsSymbol && value > other) ||
                     (valIsSymbol &&
                         othIsDefined &&
                         othIsReflexive &&
@@ -5227,10 +5058,7 @@
                     return 1;
                 }
                 if (
-                    (!valIsNull &&
-                        !valIsSymbol &&
-                        !othIsSymbol &&
-                        value < other) ||
+                    (!valIsNull && !valIsSymbol && !othIsSymbol && value < other) ||
                     (othIsSymbol &&
                         valIsDefined &&
                         valIsReflexive &&
@@ -5268,10 +5096,7 @@
                 ordersLength = orders.length;
 
             while (++index < length) {
-                var result = compareAscending(
-                    objCriteria[index],
-                    othCriteria[index]
-                );
+                var result = compareAscending(objCriteria[index], othCriteria[index]);
                 if (result) {
                     if (index >= ordersLength) {
                         return result;
@@ -5451,17 +5276,10 @@
          */
         function createAggregator(setter, initializer) {
             return function (collection, iteratee) {
-                var func = isArray(collection)
-                        ? arrayAggregator
-                        : baseAggregator,
+                var func = isArray(collection) ? arrayAggregator : baseAggregator,
                     accumulator = initializer ? initializer() : {};
 
-                return func(
-                    collection,
-                    setter,
-                    getIteratee(iteratee, 2),
-                    accumulator
-                );
+                return func(collection, setter, getIteratee(iteratee, 2), accumulator);
             };
         }
 
@@ -5567,10 +5385,7 @@
                 Ctor = createCtor(func);
 
             function wrapper() {
-                var fn =
-                    this && this !== root && this instanceof wrapper
-                        ? Ctor
-                        : func;
+                var fn = this && this !== root && this instanceof wrapper ? Ctor : func;
                 return fn.apply(isBind ? thisArg : this, arguments);
             }
             return wrapper;
@@ -5587,9 +5402,7 @@
             return function (string) {
                 string = toString(string);
 
-                var strSymbols = hasUnicode(string)
-                    ? stringToArray(string)
-                    : undefined;
+                var strSymbols = hasUnicode(string) ? stringToArray(string) : undefined;
 
                 var chr = strSymbols ? strSymbols[0] : string.charAt(0);
 
@@ -5644,13 +5457,7 @@
                     case 4:
                         return new Ctor(args[0], args[1], args[2], args[3]);
                     case 5:
-                        return new Ctor(
-                            args[0],
-                            args[1],
-                            args[2],
-                            args[3],
-                            args[4]
-                        );
+                        return new Ctor(args[0], args[1], args[2], args[3], args[4]);
                     case 6:
                         return new Ctor(
                             args[0],
@@ -5723,10 +5530,7 @@
                         arity - length
                     );
                 }
-                var fn =
-                    this && this !== root && this instanceof wrapper
-                        ? Ctor
-                        : func;
+                var fn = this && this !== root && this instanceof wrapper ? Ctor : func;
                 return apply(fn, this, args);
             }
             return wrapper;
@@ -5786,8 +5590,7 @@
                     func = funcs[index];
 
                     var funcName = getFuncName(func),
-                        data =
-                            funcName == 'wrapper' ? getData(func) : undefined;
+                        data = funcName == 'wrapper' ? getData(func) : undefined;
 
                     if (
                         data &&
@@ -5800,10 +5603,7 @@
                         !data[4].length &&
                         data[9] == 1
                     ) {
-                        wrapper = wrapper[getFuncName(data[0])].apply(
-                            wrapper,
-                            data[3]
-                        );
+                        wrapper = wrapper[getFuncName(data[0])].apply(wrapper, data[3]);
                     } else {
                         wrapper =
                             func.length == 1 && isLaziable(func)
@@ -5819,9 +5619,7 @@
                         return wrapper.plant(value).value();
                     }
                     var index = 0,
-                        result = length
-                            ? funcs[index].apply(this, args)
-                            : value;
+                        result = length ? funcs[index].apply(this, args) : value;
 
                     while (++index < length) {
                         result = funcs[index].call(this, result);
@@ -5885,12 +5683,7 @@
                     args = composeArgs(args, partials, holders, isCurried);
                 }
                 if (partialsRight) {
-                    args = composeArgsRight(
-                        args,
-                        partialsRight,
-                        holdersRight,
-                        isCurried
-                    );
+                    args = composeArgsRight(args, partialsRight, holdersRight, isCurried);
                 }
                 length -= holdersCount;
                 if (isCurried && length < arity) {
@@ -6011,10 +5804,7 @@
             if (charsLength < 2) {
                 return charsLength ? baseRepeat(chars, length) : chars;
             }
-            var result = baseRepeat(
-                chars,
-                nativeCeil(length / stringSize(chars))
-            );
+            var result = baseRepeat(chars, nativeCeil(length / stringSize(chars)));
             return hasUnicode(chars)
                 ? castSlice(stringToArray(result), 0, length).join('')
                 : result.slice(0, length);
@@ -6042,10 +5832,7 @@
                     leftIndex = -1,
                     leftLength = partials.length,
                     args = Array(leftLength + argsLength),
-                    fn =
-                        this && this !== root && this instanceof wrapper
-                            ? Ctor
-                            : func;
+                    fn = this && this !== root && this instanceof wrapper ? Ctor : func;
 
                 while (++leftIndex < leftLength) {
                     args[leftIndex] = partials[leftIndex];
@@ -6067,11 +5854,7 @@
          */
         function createRange(fromRight) {
             return function (start, end, step) {
-                if (
-                    step &&
-                    typeof step != 'number' &&
-                    isIterateeCall(start, end, step)
-                ) {
+                if (step && typeof step != 'number' && isIterateeCall(start, end, step)) {
                     end = step = undefined;
                 }
                 // Ensure the sign of `-0` is preserved.
@@ -6082,12 +5865,7 @@
                 } else {
                     end = toFinite(end);
                 }
-                step =
-                    step === undefined
-                        ? start < end
-                            ? 1
-                            : -1
-                        : toFinite(step);
+                step = step === undefined ? (start < end ? 1 : -1) : toFinite(step);
                 return baseRange(start, end, step, fromRight);
             };
         }
@@ -6182,10 +5960,7 @@
             var func = Math[methodName];
             return function (number, precision) {
                 number = toNumber(number);
-                precision =
-                    precision == null
-                        ? 0
-                        : nativeMin(toInteger(precision), 292);
+                precision = precision == null ? 0 : nativeMin(toInteger(precision), 292);
                 if (precision && nativeIsFinite(number)) {
                     // Shift with exponential notation to avoid floating-point issues.
                     // See [MDN](https://mdn.io/round#Examples) for more details.
@@ -6321,10 +6096,7 @@
             }
             if (!bitmask || bitmask == WRAP_BIND_FLAG) {
                 var result = createBind(func, bitmask, thisArg);
-            } else if (
-                bitmask == WRAP_CURRY_FLAG ||
-                bitmask == WRAP_CURRY_RIGHT_FLAG
-            ) {
+            } else if (bitmask == WRAP_CURRY_FLAG || bitmask == WRAP_CURRY_RIGHT_FLAG) {
                 result = createCurry(func, bitmask, arity);
             } else if (
                 (bitmask == WRAP_PARTIAL_FLAG ||
@@ -6354,8 +6126,7 @@
         function customDefaultsAssignIn(objValue, srcValue, key, object) {
             if (
                 objValue === undefined ||
-                (eq(objValue, objectProto[key]) &&
-                    !hasOwnProperty.call(object, key))
+                (eq(objValue, objectProto[key]) && !hasOwnProperty.call(object, key))
             ) {
                 return srcValue;
             }
@@ -6376,24 +6147,11 @@
          *  counterparts.
          * @returns {*} Returns the value to assign.
          */
-        function customDefaultsMerge(
-            objValue,
-            srcValue,
-            key,
-            object,
-            source,
-            stack
-        ) {
+        function customDefaultsMerge(objValue, srcValue, key, object, source, stack) {
             if (isObject(objValue) && isObject(srcValue)) {
                 // Recursively merge objects and arrays (susceptible to call stack limits).
                 stack.set(srcValue, objValue);
-                baseMerge(
-                    objValue,
-                    srcValue,
-                    undefined,
-                    customDefaultsMerge,
-                    stack
-                );
+                baseMerge(objValue, srcValue, undefined, customDefaultsMerge, stack);
                 stack['delete'](srcValue);
             }
             return objValue;
@@ -6425,22 +6183,12 @@
          * @param {Object} stack Tracks traversed `array` and `other` objects.
          * @returns {boolean} Returns `true` if the arrays are equivalent, else `false`.
          */
-        function equalArrays(
-            array,
-            other,
-            bitmask,
-            customizer,
-            equalFunc,
-            stack
-        ) {
+        function equalArrays(array, other, bitmask, customizer, equalFunc, stack) {
             var isPartial = bitmask & COMPARE_PARTIAL_FLAG,
                 arrLength = array.length,
                 othLength = other.length;
 
-            if (
-                arrLength != othLength &&
-                !(isPartial && othLength > arrLength)
-            ) {
+            if (arrLength != othLength && !(isPartial && othLength > arrLength)) {
                 return false;
             }
             // Check that cyclic values are equal.
@@ -6451,10 +6199,7 @@
             }
             var index = -1,
                 result = true,
-                seen =
-                    bitmask & COMPARE_UNORDERED_FLAG
-                        ? new SetCache()
-                        : undefined;
+                seen = bitmask & COMPARE_UNORDERED_FLAG ? new SetCache() : undefined;
 
             stack.set(array, other);
             stack.set(other, array);
@@ -6466,22 +6211,8 @@
 
                 if (customizer) {
                     var compared = isPartial
-                        ? customizer(
-                              othValue,
-                              arrValue,
-                              index,
-                              other,
-                              array,
-                              stack
-                          )
-                        : customizer(
-                              arrValue,
-                              othValue,
-                              index,
-                              array,
-                              other,
-                              stack
-                          );
+                        ? customizer(othValue, arrValue, index, other, array, stack)
+                        : customizer(arrValue, othValue, index, array, other, stack);
                 }
                 if (compared !== undefined) {
                     if (compared) {
@@ -6515,13 +6246,7 @@
                 } else if (
                     !(
                         arrValue === othValue ||
-                        equalFunc(
-                            arrValue,
-                            othValue,
-                            bitmask,
-                            customizer,
-                            stack
-                        )
+                        equalFunc(arrValue, othValue, bitmask, customizer, stack)
                     )
                 ) {
                     result = false;
@@ -6550,15 +6275,7 @@
          * @param {Object} stack Tracks traversed `object` and `other` objects.
          * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
          */
-        function equalByTag(
-            object,
-            other,
-            tag,
-            bitmask,
-            customizer,
-            equalFunc,
-            stack
-        ) {
+        function equalByTag(object, other, tag, bitmask, customizer, equalFunc, stack) {
             switch (tag) {
                 case dataViewTag:
                     if (
@@ -6573,10 +6290,7 @@
                 case arrayBufferTag:
                     if (
                         object.byteLength != other.byteLength ||
-                        !equalFunc(
-                            new Uint8Array(object),
-                            new Uint8Array(other)
-                        )
+                        !equalFunc(new Uint8Array(object), new Uint8Array(other))
                     ) {
                         return false;
                     }
@@ -6590,10 +6304,7 @@
                     return eq(+object, +other);
 
                 case errorTag:
-                    return (
-                        object.name == other.name &&
-                        object.message == other.message
-                    );
+                    return object.name == other.name && object.message == other.message;
 
                 case regexpTag:
                 case stringTag:
@@ -6634,10 +6345,7 @@
 
                 case symbolTag:
                     if (symbolValueOf) {
-                        return (
-                            symbolValueOf.call(object) ==
-                            symbolValueOf.call(other)
-                        );
+                        return symbolValueOf.call(object) == symbolValueOf.call(other);
                     }
             }
             return false;
@@ -6656,14 +6364,7 @@
          * @param {Object} stack Tracks traversed `object` and `other` objects.
          * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
          */
-        function equalObjects(
-            object,
-            other,
-            bitmask,
-            customizer,
-            equalFunc,
-            stack
-        ) {
+        function equalObjects(object, other, bitmask, customizer, equalFunc, stack) {
             var isPartial = bitmask & COMPARE_PARTIAL_FLAG,
                 objProps = getAllKeys(object),
                 objLength = objProps.length,
@@ -6676,11 +6377,7 @@
             var index = objLength;
             while (index--) {
                 var key = objProps[index];
-                if (
-                    !(isPartial
-                        ? key in other
-                        : hasOwnProperty.call(other, key))
-                ) {
+                if (!(isPartial ? key in other : hasOwnProperty.call(other, key))) {
                     return false;
                 }
             }
@@ -6702,34 +6399,14 @@
 
                 if (customizer) {
                     var compared = isPartial
-                        ? customizer(
-                              othValue,
-                              objValue,
-                              key,
-                              other,
-                              object,
-                              stack
-                          )
-                        : customizer(
-                              objValue,
-                              othValue,
-                              key,
-                              object,
-                              other,
-                              stack
-                          );
+                        ? customizer(othValue, objValue, key, other, object, stack)
+                        : customizer(objValue, othValue, key, object, other, stack);
                 }
                 // Recursively compare objects (susceptible to call stack limits).
                 if (
                     !(compared === undefined
                         ? objValue === othValue ||
-                          equalFunc(
-                              objValue,
-                              othValue,
-                              bitmask,
-                              customizer,
-                              stack
-                          )
+                          equalFunc(objValue, othValue, bitmask, customizer, stack)
                         : compared)
                 ) {
                     result = false;
@@ -6818,9 +6495,7 @@
         function getFuncName(func) {
             var result = func.name + '',
                 array = realNames[result],
-                length = hasOwnProperty.call(realNames, result)
-                    ? array.length
-                    : 0;
+                length = hasOwnProperty.call(realNames, result) ? array.length : 0;
 
             while (length--) {
                 var data = array[length],
@@ -6840,9 +6515,7 @@
          * @returns {*} Returns the placeholder value.
          */
         function getHolder(func) {
-            var object = hasOwnProperty.call(lodash, 'placeholder')
-                ? lodash
-                : func;
+            var object = hasOwnProperty.call(lodash, 'placeholder') ? lodash : func;
             return object.placeholder;
         }
 
@@ -6860,9 +6533,7 @@
         function getIteratee() {
             var result = lodash.iteratee || iteratee;
             result = result === iteratee ? baseIteratee : result;
-            return arguments.length
-                ? result(arguments[0], arguments[1])
-                : result;
+            return arguments.length ? result(arguments[0], arguments[1]) : result;
         }
 
         /**
@@ -6954,12 +6625,9 @@
                       return [];
                   }
                   object = Object(object);
-                  return arrayFilter(
-                      nativeGetSymbols(object),
-                      function (symbol) {
-                          return propertyIsEnumerable.call(object, symbol);
-                      }
-                  );
+                  return arrayFilter(nativeGetSymbols(object), function (symbol) {
+                      return propertyIsEnumerable.call(object, symbol);
+                  });
               };
 
         /**
@@ -6991,8 +6659,7 @@
 
         // Fallback for data views, maps, sets, and weak maps in IE 11 and promises in Node.js < 6.
         if (
-            (DataView &&
-                getTag(new DataView(new ArrayBuffer(1))) != dataViewTag) ||
+            (DataView && getTag(new DataView(new ArrayBuffer(1))) != dataViewTag) ||
             (Map && getTag(new Map()) != mapTag) ||
             (Promise && getTag(Promise.resolve()) != promiseTag) ||
             (Set && getTag(new Set()) != setTag) ||
@@ -7135,8 +6802,7 @@
          * @returns {Object} Returns the initialized clone.
          */
         function initCloneObject(object) {
-            return typeof object.constructor == 'function' &&
-                !isPrototype(object)
+            return typeof object.constructor == 'function' && !isPrototype(object)
                 ? baseCreate(getPrototype(object))
                 : {};
         }
@@ -7246,8 +6912,7 @@
 
             return (
                 !!length &&
-                (type == 'number' ||
-                    (type != 'symbol' && reIsUint.test(value))) &&
+                (type == 'number' || (type != 'symbol' && reIsUint.test(value))) &&
                 value > -1 &&
                 value % 1 == 0 &&
                 value < length
@@ -7337,10 +7002,7 @@
             var funcName = getFuncName(func),
                 other = lodash[funcName];
 
-            if (
-                typeof other != 'function' ||
-                !(funcName in LazyWrapper.prototype)
-            ) {
+            if (typeof other != 'function' || !(funcName in LazyWrapper.prototype)) {
                 return false;
             }
             if (func === other) {
@@ -7379,9 +7041,7 @@
          */
         function isPrototype(value) {
             var Ctor = value && value.constructor,
-                proto =
-                    (typeof Ctor == 'function' && Ctor.prototype) ||
-                    objectProto;
+                proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto;
 
             return value === proto;
         }
@@ -7460,8 +7120,7 @@
                 srcBitmask = source[1],
                 newBitmask = bitmask | srcBitmask,
                 isCommon =
-                    newBitmask <
-                    (WRAP_BIND_FLAG | WRAP_BIND_KEY_FLAG | WRAP_ARY_FLAG);
+                    newBitmask < (WRAP_BIND_FLAG | WRAP_BIND_KEY_FLAG | WRAP_ARY_FLAG);
 
             var isCombo =
                 (srcBitmask == WRAP_ARY_FLAG && bitmask == WRAP_CURRY_FLAG) ||
@@ -7480,30 +7139,21 @@
             if (srcBitmask & WRAP_BIND_FLAG) {
                 data[2] = source[2];
                 // Set when currying a bound function.
-                newBitmask |=
-                    bitmask & WRAP_BIND_FLAG ? 0 : WRAP_CURRY_BOUND_FLAG;
+                newBitmask |= bitmask & WRAP_BIND_FLAG ? 0 : WRAP_CURRY_BOUND_FLAG;
             }
             // Compose partial arguments.
             var value = source[3];
             if (value) {
                 var partials = data[3];
-                data[3] = partials
-                    ? composeArgs(partials, value, source[4])
-                    : value;
-                data[4] = partials
-                    ? replaceHolders(data[3], PLACEHOLDER)
-                    : source[4];
+                data[3] = partials ? composeArgs(partials, value, source[4]) : value;
+                data[4] = partials ? replaceHolders(data[3], PLACEHOLDER) : source[4];
             }
             // Compose partial right arguments.
             value = source[5];
             if (value) {
                 partials = data[5];
-                data[5] = partials
-                    ? composeArgsRight(partials, value, source[6])
-                    : value;
-                data[6] = partials
-                    ? replaceHolders(data[5], PLACEHOLDER)
-                    : source[6];
+                data[5] = partials ? composeArgsRight(partials, value, source[6]) : value;
+                data[6] = partials ? replaceHolders(data[5], PLACEHOLDER) : source[6];
             }
             // Use source `argPos` if available.
             value = source[7];
@@ -7512,8 +7162,7 @@
             }
             // Use source `ary` if it's smaller.
             if (srcBitmask & WRAP_ARY_FLAG) {
-                data[8] =
-                    data[8] == null ? source[8] : nativeMin(data[8], source[8]);
+                data[8] = data[8] == null ? source[8] : nativeMin(data[8], source[8]);
             }
             // Use source `arity` if one is not provided.
             if (data[9] == null) {
@@ -7595,9 +7244,7 @@
          * @returns {*} Returns the parent value.
          */
         function parent(object, path) {
-            return path.length < 2
-                ? object
-                : baseGet(object, baseSlice(path, 0, -1));
+            return path.length < 2 ? object : baseGet(object, baseSlice(path, 0, -1));
         }
 
         /**
@@ -7617,9 +7264,7 @@
 
             while (length--) {
                 var index = indexes[length];
-                array[length] = isIndex(index, arrLength)
-                    ? oldArray[index]
-                    : undefined;
+                array[length] = isIndex(index, arrLength) ? oldArray[index] : undefined;
             }
             return array;
         }
@@ -7771,16 +7416,11 @@
             if (string.charCodeAt(0) === 46 /* . */) {
                 result.push('');
             }
-            string.replace(
-                rePropName,
-                function (match, number, quote, subString) {
-                    result.push(
-                        quote
-                            ? subString.replace(reEscapeChar, '$1')
-                            : number || match
-                    );
-                }
-            );
+            string.replace(rePropName, function (match, number, quote, subString) {
+                result.push(
+                    quote ? subString.replace(reEscapeChar, '$1') : number || match
+                );
+            });
             return result;
         });
 
@@ -7847,10 +7487,7 @@
             if (wrapper instanceof LazyWrapper) {
                 return wrapper.clone();
             }
-            var result = new LodashWrapper(
-                wrapper.__wrapped__,
-                wrapper.__chain__
-            );
+            var result = new LodashWrapper(wrapper.__wrapped__, wrapper.__chain__);
             result.__actions__ = copyArray(wrapper.__actions__);
             result.__index__ = wrapper.__index__;
             result.__values__ = wrapper.__values__;
@@ -7881,9 +7518,7 @@
          * // => [['a', 'b', 'c'], ['d']]
          */
         function chunk(array, size, guard) {
-            if (
-                guard ? isIterateeCall(array, size, guard) : size === undefined
-            ) {
+            if (guard ? isIterateeCall(array, size, guard) : size === undefined) {
                 size = 1;
             } else {
                 size = nativeMax(toInteger(size), 0);
@@ -7995,10 +7630,7 @@
          */
         var difference = baseRest(function (array, values) {
             return isArrayLikeObject(array)
-                ? baseDifference(
-                      array,
-                      baseFlatten(values, 1, isArrayLikeObject, true)
-                  )
+                ? baseDifference(array, baseFlatten(values, 1, isArrayLikeObject, true))
                 : [];
         });
 
@@ -8630,8 +8262,7 @@
             var comparator = last(arrays),
                 mapped = arrayMap(arrays, castArrayLikeObject);
 
-            comparator =
-                typeof comparator == 'function' ? comparator : undefined;
+            comparator = typeof comparator == 'function' ? comparator : undefined;
             if (comparator) {
                 mapped.pop();
             }
@@ -8739,9 +8370,7 @@
          * // => 'c';
          */
         function nth(array, n) {
-            return array && array.length
-                ? baseNth(array, toInteger(n))
-                : undefined;
+            return array && array.length ? baseNth(array, toInteger(n)) : undefined;
         }
 
         /**
@@ -8988,11 +8617,7 @@
             if (!length) {
                 return [];
             }
-            if (
-                end &&
-                typeof end != 'number' &&
-                isIterateeCall(array, start, end)
-            ) {
+            if (end && typeof end != 'number' && isIterateeCall(array, start, end)) {
                 start = 0;
                 end = length;
             } else {
@@ -9127,12 +8752,7 @@
          * // => 1
          */
         function sortedLastIndexBy(array, value, iteratee) {
-            return baseSortedIndexBy(
-                array,
-                value,
-                getIteratee(iteratee, 2),
-                true
-            );
+            return baseSortedIndexBy(array, value, getIteratee(iteratee, 2), true);
         }
 
         /**
@@ -9449,8 +9069,7 @@
          */
         var unionWith = baseRest(function (arrays) {
             var comparator = last(arrays);
-            comparator =
-                typeof comparator == 'function' ? comparator : undefined;
+            comparator = typeof comparator == 'function' ? comparator : undefined;
             return baseUniq(
                 baseFlatten(arrays, 1, isArrayLikeObject, true),
                 undefined,
@@ -9504,9 +9123,7 @@
          * // => [{ 'x': 1 }, { 'x': 2 }]
          */
         function uniqBy(array, iteratee) {
-            return array && array.length
-                ? baseUniq(array, getIteratee(iteratee, 2))
-                : [];
+            return array && array.length ? baseUniq(array, getIteratee(iteratee, 2)) : [];
         }
 
         /**
@@ -9530,11 +9147,8 @@
          * // => [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }]
          */
         function uniqWith(array, comparator) {
-            comparator =
-                typeof comparator == 'function' ? comparator : undefined;
-            return array && array.length
-                ? baseUniq(array, undefined, comparator)
-                : [];
+            comparator = typeof comparator == 'function' ? comparator : undefined;
+            return array && array.length ? baseUniq(array, undefined, comparator) : [];
         }
 
         /**
@@ -9627,9 +9241,7 @@
          * // => [3]
          */
         var without = baseRest(function (array, values) {
-            return isArrayLikeObject(array)
-                ? baseDifference(array, values)
-                : [];
+            return isArrayLikeObject(array) ? baseDifference(array, values) : [];
         });
 
         /**
@@ -9711,13 +9323,8 @@
          */
         var xorWith = baseRest(function (arrays) {
             var comparator = last(arrays);
-            comparator =
-                typeof comparator == 'function' ? comparator : undefined;
-            return baseXor(
-                arrayFilter(arrays, isArrayLikeObject),
-                undefined,
-                comparator
-            );
+            comparator = typeof comparator == 'function' ? comparator : undefined;
+            return baseXor(arrayFilter(arrays, isArrayLikeObject), undefined, comparator);
         });
 
         /**
@@ -9802,9 +9409,7 @@
                 iteratee = length > 1 ? arrays[length - 1] : undefined;
 
             iteratee =
-                typeof iteratee == 'function'
-                    ? (arrays.pop(), iteratee)
-                    : undefined;
+                typeof iteratee == 'function' ? (arrays.pop(), iteratee) : undefined;
             return unzipWith(arrays, iteratee);
         });
 
@@ -9938,14 +9543,12 @@
                 args: [interceptor],
                 thisArg: undefined
             });
-            return new LodashWrapper(value, this.__chain__).thru(
-                function (array) {
-                    if (length && !array.length) {
-                        array.push(undefined);
-                    }
-                    return array;
+            return new LodashWrapper(value, this.__chain__).thru(function (array) {
+                if (length && !array.length) {
+                    array.push(undefined);
                 }
-            );
+                return array;
+            });
         });
 
         /**
@@ -10546,9 +10149,7 @@
          * // => true
          */
         function includes(collection, value, fromIndex, guard) {
-            collection = isArrayLike(collection)
-                ? collection
-                : values(collection);
+            collection = isArrayLike(collection) ? collection : values(collection);
             fromIndex = fromIndex && !guard ? toInteger(fromIndex) : 0;
 
             var length = collection.length;
@@ -10556,8 +10157,7 @@
                 fromIndex = nativeMax(length + fromIndex, 0);
             }
             return isString(collection)
-                ? fromIndex <= length &&
-                      collection.indexOf(value, fromIndex) > -1
+                ? fromIndex <= length && collection.indexOf(value, fromIndex) > -1
                 : !!length && baseIndexOf(collection, value, fromIndex) > -1;
         }
 
@@ -10587,9 +10187,7 @@
         var invokeMap = baseRest(function (collection, path, args) {
             var index = -1,
                 isFunc = typeof path == 'function',
-                result = isArrayLike(collection)
-                    ? Array(collection.length)
-                    : [];
+                result = isArrayLike(collection) ? Array(collection.length) : [];
 
             baseEach(collection, function (value) {
                 result[++index] = isFunc
@@ -10930,9 +10528,7 @@
          * // => [2, 3, 1]
          */
         function sampleSize(collection, n, guard) {
-            if (
-                guard ? isIterateeCall(collection, n, guard) : n === undefined
-            ) {
+            if (guard ? isIterateeCall(collection, n, guard) : n === undefined) {
                 n = 1;
             } else {
                 n = toInteger(n);
@@ -10987,9 +10583,7 @@
                 return 0;
             }
             if (isArrayLike(collection)) {
-                return isString(collection)
-                    ? stringSize(collection)
-                    : collection.length;
+                return isString(collection) ? stringSize(collection) : collection.length;
             }
             var tag = getTag(collection);
             if (tag == mapTag || tag == setTag) {
@@ -11076,10 +10670,7 @@
                 return [];
             }
             var length = iteratees.length;
-            if (
-                length > 1 &&
-                isIterateeCall(collection, iteratees[0], iteratees[1])
-            ) {
+            if (length > 1 && isIterateeCall(collection, iteratees[0], iteratees[1])) {
                 iteratees = [];
             } else if (
                 length > 2 &&
@@ -11502,8 +11093,7 @@
                 maxWait = maxing
                     ? nativeMax(toNumber(options.maxWait) || 0, wait)
                     : maxWait;
-                trailing =
-                    'trailing' in options ? !!options.trailing : trailing;
+                trailing = 'trailing' in options ? !!options.trailing : trailing;
             }
 
             function invokeFunc(time) {
@@ -11846,10 +11436,7 @@
             transforms =
                 transforms.length == 1 && isArray(transforms[0])
                     ? arrayMap(transforms[0], baseUnary(getIteratee()))
-                    : arrayMap(
-                          baseFlatten(transforms, 1),
-                          baseUnary(getIteratee())
-                      );
+                    : arrayMap(baseFlatten(transforms, 1), baseUnary(getIteratee()));
 
             var funcsLength = transforms.length;
             return baseRest(function (args) {
@@ -11898,13 +11485,7 @@
          */
         var partial = baseRest(function (func, partials) {
             var holders = replaceHolders(partials, getHolder(partial));
-            return createWrap(
-                func,
-                WRAP_PARTIAL_FLAG,
-                undefined,
-                partials,
-                holders
-            );
+            return createWrap(func, WRAP_PARTIAL_FLAG, undefined, partials, holders);
         });
 
         /**
@@ -12119,8 +11700,7 @@
             }
             if (isObject(options)) {
                 leading = 'leading' in options ? !!options.leading : leading;
-                trailing =
-                    'trailing' in options ? !!options.trailing : trailing;
+                trailing = 'trailing' in options ? !!options.trailing : trailing;
             }
             return debounce(func, wait, {
                 leading: leading,
@@ -12279,8 +11859,7 @@
          * // => 0
          */
         function cloneWith(value, customizer) {
-            customizer =
-                typeof customizer == 'function' ? customizer : undefined;
+            customizer = typeof customizer == 'function' ? customizer : undefined;
             return baseClone(value, CLONE_SYMBOLS_FLAG, customizer);
         }
 
@@ -12335,13 +11914,8 @@
          * // => 20
          */
         function cloneDeepWith(value, customizer) {
-            customizer =
-                typeof customizer == 'function' ? customizer : undefined;
-            return baseClone(
-                value,
-                CLONE_DEEP_FLAG | CLONE_SYMBOLS_FLAG,
-                customizer
-            );
+            customizer = typeof customizer == 'function' ? customizer : undefined;
+            return baseClone(value, CLONE_DEEP_FLAG | CLONE_SYMBOLS_FLAG, customizer);
         }
 
         /**
@@ -12369,9 +11943,7 @@
          * // => false
          */
         function conformsTo(object, source) {
-            return (
-                source == null || baseConformsTo(object, source, keys(source))
-            );
+            return source == null || baseConformsTo(object, source, keys(source));
         }
 
         /**
@@ -12566,9 +12138,7 @@
          * // => false
          */
         function isArrayLike(value) {
-            return (
-                value != null && isLength(value.length) && !isFunction(value)
-            );
+            return value != null && isLength(value.length) && !isFunction(value);
         }
 
         /**
@@ -12681,11 +12251,7 @@
          * // => false
          */
         function isElement(value) {
-            return (
-                isObjectLike(value) &&
-                value.nodeType === 1 &&
-                !isPlainObject(value)
-            );
+            return isObjectLike(value) && value.nodeType === 1 && !isPlainObject(value);
         }
 
         /**
@@ -12816,8 +12382,7 @@
          * // => true
          */
         function isEqualWith(value, other, customizer) {
-            customizer =
-                typeof customizer == 'function' ? customizer : undefined;
+            customizer = typeof customizer == 'function' ? customizer : undefined;
             var result = customizer ? customizer(value, other) : undefined;
             return result === undefined
                 ? baseIsEqual(value, other, undefined, customizer)
@@ -12910,12 +12475,7 @@
             // The use of `Object#toString` avoids issues with the `typeof` operator
             // in Safari 9 which returns 'object' for typed arrays and other constructors.
             var tag = baseGetTag(value);
-            return (
-                tag == funcTag ||
-                tag == genTag ||
-                tag == asyncTag ||
-                tag == proxyTag
-            );
+            return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
         }
 
         /**
@@ -13089,10 +12649,7 @@
          * // => false
          */
         function isMatch(object, source) {
-            return (
-                object === source ||
-                baseIsMatch(object, source, getMatchData(source))
-            );
+            return object === source || baseIsMatch(object, source, getMatchData(source));
         }
 
         /**
@@ -13128,14 +12685,8 @@
          * // => true
          */
         function isMatchWith(object, source, customizer) {
-            customizer =
-                typeof customizer == 'function' ? customizer : undefined;
-            return baseIsMatch(
-                object,
-                source,
-                getMatchData(source),
-                customizer
-            );
+            customizer = typeof customizer == 'function' ? customizer : undefined;
+            return baseIsMatch(object, source, getMatchData(source), customizer);
         }
 
         /**
@@ -13320,8 +12871,7 @@
             if (proto === null) {
                 return true;
             }
-            var Ctor =
-                hasOwnProperty.call(proto, 'constructor') && proto.constructor;
+            var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
             return (
                 typeof Ctor == 'function' &&
                 Ctor instanceof Ctor &&
@@ -13422,9 +12972,7 @@
         function isString(value) {
             return (
                 typeof value == 'string' ||
-                (!isArray(value) &&
-                    isObjectLike(value) &&
-                    baseGetTag(value) == stringTag)
+                (!isArray(value) && isObjectLike(value) && baseGetTag(value) == stringTag)
             );
         }
 
@@ -13616,20 +13164,13 @@
                 return [];
             }
             if (isArrayLike(value)) {
-                return isString(value)
-                    ? stringToArray(value)
-                    : copyArray(value);
+                return isString(value) ? stringToArray(value) : copyArray(value);
             }
             if (symIterator && value[symIterator]) {
                 return iteratorToArray(value[symIterator]());
             }
             var tag = getTag(value),
-                func =
-                    tag == mapTag
-                        ? mapToArray
-                        : tag == setTag
-                          ? setToArray
-                          : values;
+                func = tag == mapTag ? mapToArray : tag == setTag ? setToArray : values;
 
             return func(value);
         }
@@ -13699,11 +13240,7 @@
             var result = toFinite(value),
                 remainder = result % 1;
 
-            return result === result
-                ? remainder
-                    ? result - remainder
-                    : result
-                : 0;
+            return result === result ? (remainder ? result - remainder : result) : 0;
         }
 
         /**
@@ -13768,10 +13305,7 @@
                 return NAN;
             }
             if (isObject(value)) {
-                var other =
-                    typeof value.valueOf == 'function'
-                        ? value.valueOf()
-                        : value;
+                var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
                 value = isObject(other) ? other + '' : other;
             }
             if (typeof value != 'string') {
@@ -13840,11 +13374,7 @@
          */
         function toSafeInteger(value) {
             return value
-                ? baseClamp(
-                      toInteger(value),
-                      -MAX_SAFE_INTEGER,
-                      MAX_SAFE_INTEGER
-                  )
+                ? baseClamp(toInteger(value), -MAX_SAFE_INTEGER, MAX_SAFE_INTEGER)
                 : value === 0
                   ? value
                   : 0;
@@ -14019,11 +13549,9 @@
          * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
          * // => { 'a': 1, 'b': 2 }
          */
-        var assignWith = createAssigner(
-            function (object, source, srcIndex, customizer) {
-                copyObject(source, keys(source), object, customizer);
-            }
-        );
+        var assignWith = createAssigner(function (object, source, srcIndex, customizer) {
+            copyObject(source, keys(source), object, customizer);
+        });
 
         /**
          * Creates an array of values corresponding to `paths` of `object`.
@@ -14127,8 +13655,7 @@
 
                     if (
                         value === undefined ||
-                        (eq(value, objectProto[key]) &&
-                            !hasOwnProperty.call(object, key))
+                        (eq(value, objectProto[key]) && !hasOwnProperty.call(object, key))
                     ) {
                         object[key] = source[key];
                     }
@@ -14237,11 +13764,7 @@
          * // => 'pebbles'
          */
         function findLastKey(object, predicate) {
-            return baseFindKey(
-                object,
-                getIteratee(predicate, 3),
-                baseForOwnRight
-            );
+            return baseFindKey(object, getIteratee(predicate, 3), baseForOwnRight);
         }
 
         /**
@@ -14630,9 +14153,7 @@
          * // => ['0', '1']
          */
         function keys(object) {
-            return isArrayLike(object)
-                ? arrayLikeKeys(object)
-                : baseKeys(object);
+            return isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object);
         }
 
         /**
@@ -14659,9 +14180,7 @@
          * // => ['a', 'b', 'c'] (iteration order is not guaranteed)
          */
         function keysIn(object) {
-            return isArrayLike(object)
-                ? arrayLikeKeys(object, true)
-                : baseKeysIn(object);
+            return isArrayLike(object) ? arrayLikeKeys(object, true) : baseKeysIn(object);
         }
 
         /**
@@ -14799,11 +14318,9 @@
          * _.mergeWith(object, other, customizer);
          * // => { 'a': [1, 3], 'b': [2, 4] }
          */
-        var mergeWith = createAssigner(
-            function (object, source, srcIndex, customizer) {
-                baseMerge(object, source, srcIndex, customizer);
-            }
-        );
+        var mergeWith = createAssigner(function (object, source, srcIndex, customizer) {
+            baseMerge(object, source, srcIndex, customizer);
+        });
 
         /**
          * The opposite of `_.pick`; this method creates an object composed of the
@@ -14968,8 +14485,7 @@
                 object = undefined;
             }
             while (++index < length) {
-                var value =
-                    object == null ? undefined : object[toKey(path[index])];
+                var value = object == null ? undefined : object[toKey(path[index])];
                 if (value === undefined) {
                     index = length;
                     value = defaultValue;
@@ -15036,11 +14552,8 @@
          * // => { '0': { '1': 'a' } }
          */
         function setWith(object, path, value, customizer) {
-            customizer =
-                typeof customizer == 'function' ? customizer : undefined;
-            return object == null
-                ? object
-                : baseSet(object, path, value, customizer);
+            customizer = typeof customizer == 'function' ? customizer : undefined;
+            return object == null ? object : baseSet(object, path, value, customizer);
         }
 
         /**
@@ -15142,12 +14655,9 @@
                     accumulator = {};
                 }
             }
-            (isArrLike ? arrayEach : baseForOwn)(
-                object,
-                function (value, index, object) {
-                    return iteratee(accumulator, value, index, object);
-                }
-            );
+            (isArrLike ? arrayEach : baseForOwn)(object, function (value, index, object) {
+                return iteratee(accumulator, value, index, object);
+            });
             return accumulator;
         }
 
@@ -15240,8 +14750,7 @@
          * // => { '0': { '1': 'a' } }
          */
         function updateWith(object, path, updater, customizer) {
-            customizer =
-                typeof customizer == 'function' ? customizer : undefined;
+            customizer = typeof customizer == 'function' ? customizer : undefined;
             return object == null
                 ? object
                 : baseUpdate(object, path, castFunction(updater), customizer);
@@ -15464,9 +14973,7 @@
                         rand *
                             (upper -
                                 lower +
-                                freeParseFloat(
-                                    '1e-' + ((rand + '').length - 1)
-                                )),
+                                freeParseFloat('1e-' + ((rand + '').length - 1))),
                     upper
                 );
             }
@@ -15540,8 +15047,7 @@
         function deburr(string) {
             string = toString(string);
             return (
-                string &&
-                string.replace(reLatin, deburrLetter).replace(reComboMark, '')
+                string && string.replace(reLatin, deburrLetter).replace(reComboMark, '')
             );
         }
 
@@ -15843,10 +15349,7 @@
             } else if (radix) {
                 radix = +radix;
             }
-            return nativeParseInt(
-                toString(string).replace(reTrimStart, ''),
-                radix || 0
-            );
+            return nativeParseInt(toString(string).replace(reTrimStart, ''), radix || 0);
         }
 
         /**
@@ -16027,9 +15530,7 @@
         function startsWith(string, target, position) {
             string = toString(string);
             position =
-                position == null
-                    ? 0
-                    : baseClamp(toInteger(position), 0, string.length);
+                position == null ? 0 : baseClamp(toInteger(position), 0, string.length);
 
             target = baseToString(target);
             return string.slice(position, position + target.length) == target;
@@ -16149,12 +15650,7 @@
                 options = undefined;
             }
             string = toString(string);
-            options = assignInWith(
-                {},
-                options,
-                settings,
-                customDefaultsAssignIn
-            );
+            options = assignInWith({}, options, settings, customDefaultsAssignIn);
 
             var imports = assignInWith(
                     {},
@@ -16177,8 +15673,7 @@
                     '|' +
                     interpolate.source +
                     '|' +
-                    (interpolate === reInterpolate ? reEsTemplate : reNoMatch)
-                        .source +
+                    (interpolate === reInterpolate ? reEsTemplate : reNoMatch).source +
                     '|' +
                     (options.evaluate || reNoMatch).source +
                     '|$',
@@ -16240,8 +15735,7 @@
 
             // If `variable` is not specified wrap a with-statement around the generated
             // code to add the data object to the top of the scope chain.
-            var variable =
-                hasOwnProperty.call(options, 'variable') && options.variable;
+            var variable = hasOwnProperty.call(options, 'variable') && options.variable;
             if (!variable) {
                 source = 'with (obj) {\n' + source + '\n}\n';
             }
@@ -16252,9 +15746,7 @@
             }
 
             // Cleanup code by stripping empty strings.
-            source = (
-                isEvaluating ? source.replace(reEmptyStringLeading, '') : source
-            )
+            source = (isEvaluating ? source.replace(reEmptyStringLeading, '') : source)
                 .replace(reEmptyStringMiddle, '$1')
                 .replace(reEmptyStringTrailing, '$1;');
 
@@ -16274,10 +15766,10 @@
                 'return __p\n}';
 
             var result = attempt(function () {
-                return Function(
-                    importsKeys,
-                    sourceURL + 'return ' + source
-                ).apply(undefined, importsValues);
+                return Function(importsKeys, sourceURL + 'return ' + source).apply(
+                    undefined,
+                    importsValues
+                );
             });
 
             // Provide the compiled function's source by its `toString` method or
@@ -16485,14 +15977,10 @@
                 omission = DEFAULT_TRUNC_OMISSION;
 
             if (isObject(options)) {
-                var separator =
-                    'separator' in options ? options.separator : separator;
-                length =
-                    'length' in options ? toInteger(options.length) : length;
+                var separator = 'separator' in options ? options.separator : separator;
+                length = 'length' in options ? toInteger(options.length) : length;
                 omission =
-                    'omission' in options
-                        ? baseToString(options.omission)
-                        : omission;
+                    'omission' in options ? baseToString(options.omission) : omission;
             }
             string = toString(string);
 
@@ -16533,10 +16021,7 @@
                     while ((match = separator.exec(substring))) {
                         var newEnd = match.index;
                     }
-                    result = result.slice(
-                        0,
-                        newEnd === undefined ? end : newEnd
-                    );
+                    result = result.slice(0, newEnd === undefined ? end : newEnd);
                 }
             } else if (string.indexOf(baseToString(separator), end) != end) {
                 var index = result.lastIndexOf(separator);
@@ -16640,9 +16125,7 @@
             pattern = guard ? undefined : pattern;
 
             if (pattern === undefined) {
-                return hasUnicodeWord(string)
-                    ? unicodeWords(string)
-                    : asciiWords(string);
+                return hasUnicodeWord(string) ? unicodeWords(string) : asciiWords(string);
             }
             return string.match(pattern) || [];
         }
@@ -16954,9 +16437,7 @@
          */
         function iteratee(func) {
             return baseIteratee(
-                typeof func == 'function'
-                    ? func
-                    : baseClone(func, CLONE_DEEP_FLAG)
+                typeof func == 'function' ? func : baseClone(func, CLONE_DEEP_FLAG)
             );
         }
 
@@ -17033,10 +16514,7 @@
          * // => [{ 'a': 1, 'b': 2, 'c': 3 }, { 'a': 4, 'b': 5, 'c': 6 }]
          */
         function matchesProperty(path, srcValue) {
-            return baseMatchesProperty(
-                path,
-                baseClone(srcValue, CLONE_DEEP_FLAG)
-            );
+            return baseMatchesProperty(path, baseClone(srcValue, CLONE_DEEP_FLAG));
         }
 
         /**
@@ -17147,9 +16625,7 @@
                 object = this;
                 methodNames = baseFunctions(source, keys(source));
             }
-            var chain =
-                    !(isObject(options) && 'chain' in options) ||
-                    !!options.chain,
+            var chain = !(isObject(options) && 'chain' in options) || !!options.chain,
                 isFunc = isFunction(object);
 
             arrayEach(methodNames, function (methodName) {
@@ -17172,10 +16648,7 @@
                             result.__chain__ = chainAll;
                             return result;
                         }
-                        return func.apply(
-                            object,
-                            arrayPush([this.value()], arguments)
-                        );
+                        return func.apply(object, arrayPush([this.value()], arguments));
                     };
                 }
             });
@@ -17352,9 +16825,7 @@
          * // => [1, 2]
          */
         function property(path) {
-            return isKey(path)
-                ? baseProperty(toKey(path))
-                : basePropertyDeep(path);
+            return isKey(path) ? baseProperty(toKey(path)) : basePropertyDeep(path);
         }
 
         /**
@@ -17618,9 +17089,7 @@
             if (isArray(value)) {
                 return arrayMap(value, toKey);
             }
-            return isSymbol(value)
-                ? [value]
-                : copyArray(stringToPath(toString(value)));
+            return isSymbol(value) ? [value] : copyArray(stringToPath(toString(value)));
         }
 
         /**
@@ -17985,9 +17454,7 @@
          * // => 20
          */
         function sumBy(array, iteratee) {
-            return array && array.length
-                ? baseSum(array, getIteratee(iteratee, 2))
-                : 0;
+            return array && array.length ? baseSum(array, getIteratee(iteratee, 2)) : 0;
         }
 
         /*------------------------------------------------------------------------*/
@@ -18337,14 +17804,7 @@
 
         // Assign default placeholders.
         arrayEach(
-            [
-                'bind',
-                'bindKey',
-                'curry',
-                'curryRight',
-                'partial',
-                'partialRight'
-            ],
+            ['bind', 'bindKey', 'curry', 'curryRight', 'partial', 'partialRight'],
             function (methodName) {
                 lodash[methodName].placeholder = lodash;
             }
@@ -18356,9 +17816,7 @@
                 n = n === undefined ? 1 : nativeMax(toInteger(n), 0);
 
                 var result =
-                    this.__filtered__ && !index
-                        ? new LazyWrapper(this)
-                        : this.clone();
+                    this.__filtered__ && !index ? new LazyWrapper(this) : this.clone();
 
                 if (result.__filtered__) {
                     result.__takeCount__ = nativeMin(n, result.__takeCount__);
@@ -18406,9 +17864,7 @@
             var dropName = 'drop' + (index ? '' : 'Right');
 
             LazyWrapper.prototype[methodName] = function () {
-                return this.__filtered__
-                    ? new LazyWrapper(this)
-                    : this[dropName](1);
+                return this.__filtered__ ? new LazyWrapper(this) : this[dropName](1);
             };
         });
 
@@ -18451,8 +17907,7 @@
             }
             if (end !== undefined) {
                 end = toInteger(end);
-                result =
-                    end < 0 ? result.dropRight(-end) : result.take(end - start);
+                result = end < 0 ? result.dropRight(-end) : result.take(end - start);
             }
             return result;
         };
@@ -18467,9 +17922,7 @@
 
         // Add `LazyWrapper` methods to `lodash.prototype`.
         baseForOwn(LazyWrapper.prototype, function (func, methodName) {
-            var checkIteratee = /^(?:filter|find|map|reject)|While$/.test(
-                    methodName
-                ),
+            var checkIteratee = /^(?:filter|find|map|reject)|While$/.test(methodName),
                 isTaker = /^(?:head|last)$/.test(methodName),
                 lodashFunc =
                     lodash[
@@ -18490,10 +17943,7 @@
                     useLazy = isLazy || isArray(value);
 
                 var interceptor = function (value) {
-                    var result = lodashFunc.apply(
-                        lodash,
-                        arrayPush([value], args)
-                    );
+                    var result = lodashFunc.apply(lodash, arrayPush([value], args));
                     return isTaker && chainAll ? result[0] : result;
                 };
 
@@ -18607,11 +18057,7 @@
     var _ = runInContext();
 
     // Some AMD build optimizers, like r.js, check for condition patterns like:
-    if (
-        typeof define == 'function' &&
-        typeof define.amd == 'object' &&
-        define.amd
-    ) {
+    if (typeof define == 'function' && typeof define.amd == 'object' && define.amd) {
         // Expose Lodash on the global object to prevent errors when Lodash is
         // loaded by a script tag in the presence of an AMD loader.
         // See http://requirejs.org/docs/errors.html#mismatch for more details.

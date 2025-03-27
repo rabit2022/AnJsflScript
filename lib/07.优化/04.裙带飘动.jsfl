@@ -16,16 +16,7 @@ require([
     'curveUtil',
     'JSFLConstants',
     'frameRangeUtil'
-], function (
-    checkUtil,
-    sel,
-    ele,
-    libUtil,
-    xmlPanelUtil,
-    curve,
-    JSFLConstants,
-    frUtil
-) {
+], function (checkUtil, sel, ele, libUtil, xmlPanelUtil, curve, JSFLConstants, frUtil) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     const { FRAME_15, FRAME_30 } = JSFLConstants.Numerics.frame.frameList;

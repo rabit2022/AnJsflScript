@@ -32,25 +32,16 @@ define(['loglevel', 'sprintf'], function (log, { sprintf }) {
      * @param {Boolean} [returnIndices=false] 是否返回图层索引而不是图层对象
      * @return {Array.<Layer>|Array.<Number>} 匹配的图层数组或索引数组
      */
-    LayerUtil._getLayersOrIndicesByName = function (
-        layers,
-        layerName,
-        returnIndices
-    ) {
+    LayerUtil._getLayersOrIndicesByName = function (layers, layerName, returnIndices) {
         returnIndices =
-            returnIndices === undefined || returnIndices === null
-                ? false
-                : returnIndices;
+            returnIndices === undefined || returnIndices === null ? false : returnIndices;
         log.debug(returnIndices);
 
         var result = [];
         for (var i = 0; i < layers.length; i++) {
             if (layers[i].name.includes(layerName)) {
                 log.debug(
-                    'layers[i].name: ' +
-                        layers[i].name +
-                        '   layerName: ' +
-                        layerName
+                    'layers[i].name: ' + layers[i].name + '   layerName: ' + layerName
                 );
                 result.push(returnIndices ? i : layers[i]);
             }

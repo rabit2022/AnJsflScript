@@ -84,8 +84,7 @@ define(function () {
                         lastSegmentLength = 2;
                     }
                 } else {
-                    if (res.length > 0)
-                        res += '/' + path.slice(lastSlash + 1, i);
+                    if (res.length > 0) res += '/' + path.slice(lastSlash + 1, i);
                     else res = path.slice(lastSlash + 1, i);
                     lastSegmentLength = i - lastSlash - 1;
                 }
@@ -102,8 +101,7 @@ define(function () {
 
     function _format(sep, pathObject) {
         var dir = pathObject.dir || pathObject.root;
-        var base =
-            pathObject.base || (pathObject.name || '') + (pathObject.ext || '');
+        var base = pathObject.base || (pathObject.name || '') + (pathObject.ext || '');
         if (!dir) {
             return base;
         }
@@ -120,11 +118,7 @@ define(function () {
             var resolvedAbsolute = false;
             var cwd;
 
-            for (
-                var i = arguments.length - 1;
-                i >= -1 && !resolvedAbsolute;
-                i--
-            ) {
+            for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
                 var path;
                 if (i >= 0) path = arguments[i];
                 else {
@@ -147,10 +141,7 @@ define(function () {
             // handle relative paths to be safe (might happen when process.cwd() fails)
 
             // Normalize the path
-            resolvedPath = normalizeStringPosix(
-                resolvedPath,
-                !resolvedAbsolute
-            );
+            resolvedPath = normalizeStringPosix(resolvedPath, !resolvedAbsolute);
 
             if (resolvedAbsolute) {
                 if (resolvedPath.length > 0) return '/' + resolvedPath;
@@ -168,8 +159,7 @@ define(function () {
             if (path.length === 0) return '.';
 
             var isAbsolute = path.charCodeAt(0) === 47; /*/*/
-            var trailingSeparator =
-                path.charCodeAt(path.length - 1) === 47; /*/*/
+            var trailingSeparator = path.charCodeAt(path.length - 1) === 47; /*/*/
 
             // Normalize the path
             path = normalizeStringPosix(path, !isAbsolute);
@@ -322,11 +312,7 @@ define(function () {
             var matchedSlash = true;
             var i;
 
-            if (
-                ext !== undefined &&
-                ext.length > 0 &&
-                ext.length <= path.length
-            ) {
+            if (ext !== undefined && ext.length > 0 && ext.length <= path.length) {
                 if (ext.length === path.length && ext === path) return '';
                 var extIdx = ext.length - 1;
                 var firstNonSlashEnd = -1;
@@ -432,9 +418,7 @@ define(function () {
                 // We saw a non-dot character immediately before the dot
                 preDotState === 0 ||
                 // The (right-most) trimmed path component is exactly '..'
-                (preDotState === 1 &&
-                    startDot === end - 1 &&
-                    startDot === startPart + 1)
+                (preDotState === 1 && startDot === end - 1 && startDot === startPart + 1)
             ) {
                 return '';
             }
@@ -510,9 +494,7 @@ define(function () {
                 // We saw a non-dot character immediately before the dot
                 preDotState === 0 ||
                 // The (right-most) trimmed path component is exactly '..'
-                (preDotState === 1 &&
-                    startDot === end - 1 &&
-                    startDot === startPart + 1)
+                (preDotState === 1 && startDot === end - 1 && startDot === startPart + 1)
             ) {
                 if (end !== -1) {
                     if (startPart === 0 && isAbsolute)

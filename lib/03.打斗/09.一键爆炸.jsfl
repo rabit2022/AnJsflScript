@@ -55,19 +55,13 @@ require([
         var biggerSize = size.max;
         var smallerSize = size.min;
         var ratioX = biggerSize / smallerSize;
-        var ratioY =
-            0.08 * ratioX * ratioX - ratioX + 5 + random.uniform(-0.3, 0.3);
+        var ratioY = 0.08 * ratioX * ratioX - ratioX + 5 + random.uniform(-0.3, 0.3);
 
         var rectHeight = biggerSize * ratioY;
         var rectWidth = rectHeight * (2 + random.uniform(-0.5, 0.5));
 
         var originPos = getOrigin();
-        var rect = wrapRectByCenter(
-            originPos.x,
-            originPos.y,
-            rectWidth,
-            rectHeight
-        );
+        var rect = wrapRectByCenter(originPos.x, originPos.y, rectWidth, rectHeight);
         return rect;
     }
 

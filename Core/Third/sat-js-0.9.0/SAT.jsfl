@@ -161,9 +161,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param {Vector} other The unit vector to project onto.
      * @return {Vector} This for chaining.
      */
-    Vector.prototype['projectN'] = Vector.prototype.projectN = function (
-        other
-    ) {
+    Vector.prototype['projectN'] = Vector.prototype.projectN = function (other) {
         var amt = this.dot(other);
         this['x'] = amt * other['x'];
         this['y'] = amt * other['y'];
@@ -301,34 +299,36 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param {'top right'|'top left'|'bottom right'|'bottom left'|'top center'|'right center'|'bottom center'|'left center'|'center'} whichCorner 方向
      * @returns {boolean}
      */
-    Vector.prototype['IsInDirectionOf'] = Vector.prototype.IsInDirectionOf =
-        function (point, whichCorner) {
-            var deltaX = this.x - point.x;
-            var deltaY = this.y - point.y;
-            // y轴向下，x轴向右
-            switch (whichCorner) {
-                case 'top right':
-                    return deltaX > 0 && deltaY < 0;
-                case 'top left':
-                    return deltaX < 0 && deltaY < 0;
-                case 'bottom right':
-                    return deltaX > 0 && deltaY > 0;
-                case 'bottom left':
-                    return deltaX < 0 && deltaY > 0;
-                case 'top center':
-                    return deltaY < 0;
-                case 'right center':
-                    return deltaX > 0;
-                case 'bottom center':
-                    return deltaY > 0;
-                case 'left center':
-                    return deltaX < 0;
-                case 'center':
-                    return deltaX === 0 && deltaY === 0;
-                default:
-                    throw new Error('Invalid direction: ' + whichCorner);
-            }
-        };
+    Vector.prototype['IsInDirectionOf'] = Vector.prototype.IsInDirectionOf = function (
+        point,
+        whichCorner
+    ) {
+        var deltaX = this.x - point.x;
+        var deltaY = this.y - point.y;
+        // y轴向下，x轴向右
+        switch (whichCorner) {
+            case 'top right':
+                return deltaX > 0 && deltaY < 0;
+            case 'top left':
+                return deltaX < 0 && deltaY < 0;
+            case 'bottom right':
+                return deltaX > 0 && deltaY > 0;
+            case 'bottom left':
+                return deltaX < 0 && deltaY > 0;
+            case 'top center':
+                return deltaY < 0;
+            case 'right center':
+                return deltaX > 0;
+            case 'bottom center':
+                return deltaY > 0;
+            case 'left center':
+                return deltaX < 0;
+            case 'center':
+                return deltaX === 0 && deltaY === 0;
+            default:
+                throw new Error('Invalid direction: ' + whichCorner);
+        }
+    };
 
     /**
      * 计算两个向量之间的角度
@@ -348,9 +348,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param {Vector} other - 另一个向量
      * @returns {number} 距离值，单位为像素
      */
-    Vector.prototype['distanceTo'] = Vector.prototype.distanceTo = function (
-        other
-    ) {
+    Vector.prototype['distanceTo'] = Vector.prototype.distanceTo = function (other) {
         var x = this.x - other.x;
         var y = this.y - other.y;
         return Math.sqrt(x * x + y * y);
@@ -363,10 +361,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param {number} f - 0-1之间的数值，表示插值比例
      * @returns {Vector} 两个向量的插值
      */
-    Vector.prototype['interpolate'] = Vector.prototype.interpolate = function (
-        other,
-        f
-    ) {
+    Vector.prototype['interpolate'] = Vector.prototype.interpolate = function (other, f) {
         f = typeof f === 'undefined' ? 1 : f;
         return new Vector((this.x + other.x) * f, (this.y + other.y) * f);
     };
@@ -569,10 +564,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
                 }
 
                 // Element (element bounds)
-                else if (
-                    args[0] instanceof Element ||
-                    args[0] instanceof SymbolItem
-                ) {
+                else if (args[0] instanceof Element || args[0] instanceof SymbolItem) {
                     this.left = args[0].left;
                     this.top = args[0].top;
                     this.right = args[0].left + args[0].width;
@@ -603,18 +595,12 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
 
             // (width, height),(centerPos, radius)
             case 2:
-                if (
-                    typeof args[0] === 'number' &&
-                    typeof args[1] === 'number'
-                ) {
+                if (typeof args[0] === 'number' && typeof args[1] === 'number') {
                     this.left = 0;
                     this.top = 0;
                     this.right = args[0];
                     this.bottom = args[1];
-                } else if (
-                    args[0] instanceof Vector &&
-                    typeof args[1] === 'number'
-                ) {
+                } else if (args[0] instanceof Vector && typeof args[1] === 'number') {
                     var radiusRect = new Rectangle(args[1]);
                     var centerPos = args[0];
                     var addRect = radiusRect.addOffset(centerPos);
@@ -702,10 +688,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @returns {Vector} 点
      */
     Rectangle.prototype.getCenterVector = function () {
-        return new Vector(
-            (this.left + this.right) / 2,
-            (this.top + this.bottom) / 2
-        );
+        return new Vector((this.left + this.right) / 2, (this.top + this.bottom) / 2);
     };
 
     /**
@@ -774,11 +757,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @returns {Rectangle} - 返回一个新矩形对象，表示提取的部分。
      * @throws {Error} - 如果 `whichPart` 参数无效，将抛出错误。
      */
-    Rectangle.prototype.getPart = function (
-        whichPart,
-        widthRatio,
-        heightRatio
-    ) {
+    Rectangle.prototype.getPart = function (whichPart, widthRatio, heightRatio) {
         if (typeof widthRatio === 'undefined') {
             widthRatio = 0.5;
         }
@@ -812,12 +791,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
                     top + heightPart
                 );
             case 'top left':
-                return new Rectangle(
-                    left,
-                    top,
-                    left + widthPart,
-                    top + heightPart
-                );
+                return new Rectangle(left, top, left + widthPart, top + heightPart);
             case 'bottom right':
                 return new Rectangle(
                     right - widthInversePart,
@@ -870,12 +844,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
             case 'top':
                 return new Rectangle(left, top, right, top + heightPart);
             case 'right':
-                return new Rectangle(
-                    right - widthInversePart,
-                    top,
-                    right,
-                    bottom
-                );
+                return new Rectangle(right - widthInversePart, top, right, bottom);
             case 'bottom':
                 return new Rectangle(left, bottom - heightPart, right, bottom);
             case 'left':

@@ -63,10 +63,7 @@ require(['checkUtil', 'selectionUtil'], function (checkUtil, selectionUtil) {
             // 计算一个点在不同坐标系之间的相对位置。
             // 例如，如果你有一个在世界坐标系下的点，通过乘以观察矩阵，你可以得到这个点在相机坐标系下的位置。
             // 然后，通过乘以逆观察矩阵，你可以将这个点转换回世界坐标系
-            var worldMatrix = fl.Math.concatMatrix(
-                worldViewMatrixAnti,
-                localViewMatrix
-            ); //矩阵相乘
+            var worldMatrix = fl.Math.concatMatrix(worldViewMatrixAnti, localViewMatrix); //矩阵相乘
             var finalMatrix = fl.Math.concatMatrix(element.matrix, worldMatrix);
 
             element.matrix = finalMatrix;

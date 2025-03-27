@@ -67,12 +67,7 @@ define(function () {
             throw Error('缓动类型不存在！');
         }
         // timeline.createMotionTween();
-        timeline.setFrameProperty(
-            'easeType',
-            easeData[0],
-            easeData[1],
-            easeData[2]
-        );
+        timeline.setFrameProperty('easeType', easeData[0], easeData[1], easeData[2]);
     };
 
     /**
@@ -132,10 +127,7 @@ define(function () {
 
         // timeline.createMotionTween();
         timeline.setFrameProperty('motionTweenRotate', motionTweenRotate);
-        timeline.setFrameProperty(
-            'motionTweenRotateTimes',
-            motionTweenRotateTimes
-        );
+        timeline.setFrameProperty('motionTweenRotateTimes', motionTweenRotateTimes);
     };
 
     /**

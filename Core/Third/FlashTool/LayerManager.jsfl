@@ -3,8 +3,7 @@ define(['checkUtil', 'FUNC', 'loglevel'], function (checkUtil, FUNC, log) {
     const { IsEmpty, SAFE_GET_MACRO } = FUNC;
 
     //设置根据曾名称要忽略的层
-    var IGNORE_LAYER_BY_NAME =
-        /^(actionscript|as|label|assist|soundtrack|sound)$/i;
+    var IGNORE_LAYER_BY_NAME = /^(actionscript|as|label|assist|soundtrack|sound)$/i;
     //扩展 folder 的定义范围
     var FOLDER_TYPE = /^(folder|mask|guide)$/; //--;
     //all layer type: "normal"、"guide"、"guided"、"mask"、"masked" 和 "folder"。
@@ -69,11 +68,7 @@ define(['checkUtil', 'FUNC', 'loglevel'], function (checkUtil, FUNC, log) {
                 return false;
             }
             // frameId = layer.frames[frameId - 1]?.startFrame || -1;
-            frameId = SAFE_GET_MACRO(
-                layer.frames[frameId - 1],
-                'startFrame',
-                -1
-            );
+            frameId = SAFE_GET_MACRO(layer.frames[frameId - 1], 'startFrame', -1);
         }
 
         return true;
@@ -124,11 +119,7 @@ define(['checkUtil', 'FUNC', 'loglevel'], function (checkUtil, FUNC, log) {
         }
         return null; // 没有声音对象
     };
-    LayerManager.getKeyFrameSoundRange = function (
-        layer,
-        startFrame,
-        endFrame
-    ) {
+    LayerManager.getKeyFrameSoundRange = function (layer, startFrame, endFrame) {
         if (startFrame === undefined) startFrame = 0;
         if (endFrame === undefined) endFrame = layer.frames.length - 1;
 

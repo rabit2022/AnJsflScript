@@ -38,9 +38,7 @@ require(['checkUtil', 'selectionUtil', 'SAT'], function (checkUtil, sel, sat) {
             sel.OnlySelectCurrent(element);
 
             var elePos = wrapPosition(element);
-            var symbolCenter = wrapRect(
-                doc.getSelectionRect()
-            ).getCenterVector();
+            var symbolCenter = wrapRect(doc.getSelectionRect()).getCenterVector();
 
             var offset = symbolCenter.clone().sub(elePos);
 

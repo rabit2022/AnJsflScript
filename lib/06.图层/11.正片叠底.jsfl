@@ -9,21 +9,9 @@
 
 // import _ from 'lodash';
 
-require([
-    'checkUtil',
-    'frameRangeUtil',
-    'frameRange',
-    'loglevel',
-    'lodash',
-    'KeyFrameMode',
-    'JSFLConstants'
-    // 'FUNC'
-], function (
+require(['checkUtil', 'loglevel', 'KeyFrameMode', 'JSFLConstants'], function (
     checkUtil,
-    frUtil,
-    FrameRange,
     log,
-    _,
     KeyFrameMode,
     JSFLConstants
 ) {
@@ -32,7 +20,6 @@ require([
         CheckSelection: checkSelection,
         CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
-    // const { OF_MACRO } = FUNC;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -48,7 +35,7 @@ require([
     var curFrameIndex = timeline.currentFrame; //当前帧索引
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
-    const MULTIPLY = JSFLConstants.symbol.blendMode.multiply;
+    const MULTIPLY = JSFLConstants.Constants.symbol.blendMode.multiply;
 
     // 正片叠底
     function setBlendMode(layer, frameIndex, blendMode) {

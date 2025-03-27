@@ -61,12 +61,7 @@ export class Vector extends VectorLike {
 
     equals(other: Vector): boolean;
 
-    orbit(
-        pt: Vector,
-        arcWidth: number,
-        arcHeight: number,
-        degrees: number
-    ): Vector;
+    orbit(pt: Vector, arcWidth: number, arcHeight: number, degrees: number): Vector;
 
     getCenter(): Vector;
 
@@ -140,11 +135,7 @@ export class Rectangle extends RectangleLike {
 
     getCorner(whichCorner: Corner): Vector;
 
-    getPart(
-        whichPart: Part,
-        widthRatio?: number,
-        heightRatio?: number
-    ): Rectangle;
+    getPart(whichPart: Part, widthRatio?: number, heightRatio?: number): Rectangle;
 
     copy(rect: Rectangle): Rectangle;
 
@@ -221,23 +212,17 @@ export class Transform extends TransformLike {
 }
 
 export namespace GLOBALS {
-    export function wrapPosition(
-        element: VectorLike | Element | Vector
-    ): Vector;
+    export function wrapPosition(element: VectorLike | Element | Vector): Vector;
 
     export function wrapScale(
         element: { scaleX: number; scaleY: number } | Element
     ): Vector;
 
-    export function wrapSkew(
-        element: { skewX: number; skewY: number } | Element
-    ): Vector;
+    export function wrapSkew(element: { skewX: number; skewY: number } | Element): Vector;
 
     export function getOrigin(): Vector;
 
-    export function getTopLeft(
-        element: { left: number; top: number } | Element
-    ): Vector;
+    export function getTopLeft(element: { left: number; top: number } | Element): Vector;
 
     export function wrapRectByTopLeft(
         left: number,

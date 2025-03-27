@@ -7,11 +7,7 @@
  * @description:
  */
 
-require(['checkUtil', 'xmlPanelUtil', 'os'], function (
-    checkUtil,
-    xmlPanelUtil,
-    os
-) {
+require(['checkUtil', 'xmlPanelUtil', 'os'], function (checkUtil, xmlPanelUtil, os) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
 

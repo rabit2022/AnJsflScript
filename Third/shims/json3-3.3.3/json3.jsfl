@@ -130,14 +130,12 @@
                                 '"-000001-01-01T00:00:00.000Z"' &&
                             // Safari <= 5.1.5 and Opera >= 10.53 incorrectly serialize millisecond
                             // values less than 1000. Credits: @Yaffle.
-                            stringify(new Date(-1)) ==
-                                '"1969-12-31T23:59:59.999Z"';
+                            stringify(new Date(-1)) == '"1969-12-31T23:59:59.999Z"';
                     });
                 }
             } else {
                 var value,
-                    serialized =
-                        '{"a":[1,true,false,null,"\\u0000\\b\\n\\f\\r\\t"]}';
+                    serialized = '{"a":[1,true,false,null,"\\u0000\\b\\n\\f\\r\\t"]}';
                 // Test `JSON.stringify`.
                 if (name == 'json-stringify') {
                     var stringify = exports.stringify,
@@ -189,18 +187,11 @@
                                     // Simple serialization test. FF 3.1b1 uses Unicode escape sequences
                                     // where character escape codes are expected (e.g., `\b` => `\u0008`).
                                     stringify({
-                                        a: [
-                                            value,
-                                            true,
-                                            false,
-                                            null,
-                                            '\x00\b\n\f\r\t'
-                                        ]
+                                        a: [value, true, false, null, '\x00\b\n\f\r\t']
                                     }) == serialized &&
                                     // FF 3.1b1 and b2 ignore the `filter` and `width` arguments.
                                     stringify(null, value) === '1' &&
-                                    stringify([1, 2], null, 1) ==
-                                        '[\n 1,\n 2\n]';
+                                    stringify([1, 2], null, 1) == '[\n 1,\n 2\n]';
                             },
                             function () {
                                 stringifySupported = false;
@@ -223,8 +214,7 @@
                                     // Simple parsing test.
                                     value = parse(serialized);
                                     parseSupported =
-                                        value['a'].length == 5 &&
-                                        value['a'][0] === 1;
+                                        value['a'].length == 5 && value['a'][0] === 1;
                                     if (parseSupported) {
                                         attempt(function () {
                                             // Safari <= 5.1.2 and FF 3.1b1 allow unescaped tabs in strings.
@@ -235,8 +225,7 @@
                                                 // FF 4.0 and 4.0.1 allow leading `+` signs and leading
                                                 // decimal points. FF 4.0, 4.0.1, and IE 9-10 also allow
                                                 // certain octal literals.
-                                                parseSupported =
-                                                    parse('01') !== 1;
+                                                parseSupported = parse('01') !== 1;
                                             });
                                         }
                                         if (parseSupported) {
@@ -244,8 +233,7 @@
                                                 // FF 4.0, 4.0.1, and Rhino 1.7R3-R4 allow trailing decimal
                                                 // points. These environments, along with FF 3.1b1 and 2,
                                                 // also allow trailing commas in JSON objects and arrays.
-                                                parseSupported =
-                                                    parse('1.') !== 1;
+                                                parseSupported = parse('1.') !== 1;
                                             });
                                         }
                                     }
@@ -422,8 +410,7 @@
                         // A mapping between the months of the year and the number of days between
                         // January 1st and the first of the respective month.
                         var Months = [
-                            0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304,
-                            334
+                            0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334
                         ];
                         // Internal: Calculates the number of days between the Unix epoch and the
                         // first day of the given month.
@@ -431,9 +418,7 @@
                             return (
                                 Months[month] +
                                 365 * (year - 1970) +
-                                floor(
-                                    (year - 1969 + (month = +(month > 1))) / 4
-                                ) -
+                                floor((year - 1969 + (month = +(month > 1))) / 4) -
                                 floor((year - 1901 + month) / 100) +
                                 floor((year - 1601 + month) / 400)
                             );
@@ -551,10 +536,7 @@
                         if (escaped) {
                             return escaped;
                         }
-                        return (
-                            unicodePrefix +
-                            toPaddedString(2, charCode.toString(16))
-                        );
+                        return unicodePrefix + toPaddedString(2, charCode.toString(16));
                     };
                     var reEscape = /[\x00-\x1f\x22\x5c]/g;
                     var quote = function (value) {
@@ -684,34 +666,31 @@
                                 // Recursively serialize object members. Members are selected from
                                 // either a user-specified list of property names, or the object
                                 // itself.
-                                forOwn(
-                                    properties || value,
-                                    function (property) {
-                                        var element = serialize(
-                                            property,
-                                            value,
-                                            callback,
-                                            properties,
-                                            whitespace,
-                                            indentation,
-                                            stack
+                                forOwn(properties || value, function (property) {
+                                    var element = serialize(
+                                        property,
+                                        value,
+                                        callback,
+                                        properties,
+                                        whitespace,
+                                        indentation,
+                                        stack
+                                    );
+                                    if (element !== undefined) {
+                                        // According to ES 5.1 section 15.12.3: "If `gap` {whitespace}
+                                        // is not the empty string, let `member` {quote(property) + ":"}
+                                        // be the concatenation of `member` and the `space` character."
+                                        // The "`space` character" refers to the literal space
+                                        // character, not the `space` {width} argument provided to
+                                        // `JSON.stringify`.
+                                        results.push(
+                                            quote(property) +
+                                                ':' +
+                                                (whitespace ? ' ' : '') +
+                                                element
                                         );
-                                        if (element !== undefined) {
-                                            // According to ES 5.1 section 15.12.3: "If `gap` {whitespace}
-                                            // is not the empty string, let `member` {quote(property) + ":"}
-                                            // be the concatenation of `member` and the `space` character."
-                                            // The "`space` character" refers to the literal space
-                                            // character, not the `space` {width} argument provided to
-                                            // `JSON.stringify`.
-                                            results.push(
-                                                quote(property) +
-                                                    ':' +
-                                                    (whitespace ? ' ' : '') +
-                                                    element
-                                            );
-                                        }
                                     }
-                                );
+                                });
                                 result = results.length
                                     ? whitespace
                                         ? '{\n' +
@@ -740,9 +719,7 @@
                                 // Convert the property names array into a makeshift set.
                                 properties = {};
                                 for (
-                                    var index = 0,
-                                        length = filter.length,
-                                        value;
+                                    var index = 0, length = filter.length, value;
                                     index < length;
 
                                 ) {
@@ -766,19 +743,13 @@
                                     if (width > 10) {
                                         width = 10;
                                     }
-                                    for (
-                                        whitespace = '';
-                                        whitespace.length < width;
-
-                                    ) {
+                                    for (whitespace = ''; whitespace.length < width; ) {
                                         whitespace += ' ';
                                     }
                                 }
                             } else if (className == stringClass) {
                                 whitespace =
-                                    width.length <= 10
-                                        ? width
-                                        : width.slice(0, 10);
+                                    width.length <= 10 ? width : width.slice(0, 10);
                             }
                         }
                         // Opera <= 7.54u2 discards the values associated with empty string keys
@@ -897,20 +868,15 @@
                                                     Index < position;
                                                     Index++
                                                 ) {
-                                                    charCode =
-                                                        source.charCodeAt(
-                                                            Index
-                                                        );
+                                                    charCode = source.charCodeAt(Index);
                                                     // A valid sequence comprises four hexdigits (case-
                                                     // insensitive) that form a single hexadecimal value.
                                                     if (
                                                         !(
                                                             (charCode >= 48 &&
-                                                                charCode <=
-                                                                    57) ||
+                                                                charCode <= 57) ||
                                                             (charCode >= 97 &&
-                                                                charCode <=
-                                                                    102) ||
+                                                                charCode <= 102) ||
                                                             (charCode >= 65 &&
                                                                 charCode <= 70)
                                                         )
@@ -921,11 +887,7 @@
                                                 }
                                                 // Revive the escaped character.
                                                 value += fromCharCode(
-                                                    '0x' +
-                                                        source.slice(
-                                                            begin,
-                                                            Index
-                                                        )
+                                                    '0x' + source.slice(begin, Index)
                                                 );
                                                 break;
                                             default:
@@ -946,9 +908,7 @@
                                             charCode != 92 &&
                                             charCode != 34
                                         ) {
-                                            charCode = source.charCodeAt(
-                                                ++Index
-                                            );
+                                            charCode = source.charCodeAt(++Index);
                                         }
                                         // Append the string as-is.
                                         value += source.slice(begin, Index);
@@ -974,9 +934,7 @@
                                     // Leading zeroes are interpreted as octal literals.
                                     if (
                                         charCode == 48 &&
-                                        ((charCode = source.charCodeAt(
-                                            Index + 1
-                                        )),
+                                        ((charCode = source.charCodeAt(Index + 1)),
                                         charCode >= 48 && charCode <= 57)
                                     ) {
                                         // Illegal octal literal.
@@ -997,12 +955,8 @@
                                         position = ++Index;
                                         // Parse the decimal component.
                                         for (; position < length; position++) {
-                                            charCode =
-                                                source.charCodeAt(position);
-                                            if (
-                                                charCode < 48 ||
-                                                charCode > 57
-                                            ) {
+                                            charCode = source.charCodeAt(position);
+                                            if (charCode < 48 || charCode > 57) {
                                                 break;
                                             }
                                         }
@@ -1028,12 +982,8 @@
                                             position < length;
                                             position++
                                         ) {
-                                            charCode =
-                                                source.charCodeAt(position);
-                                            if (
-                                                charCode < 48 ||
-                                                charCode > 57
-                                            ) {
+                                            charCode = source.charCodeAt(position);
+                                            if (charCode < 48 || charCode > 57) {
                                                 break;
                                             }
                                         }
@@ -1082,9 +1032,7 @@
                         abort();
                     }
                     if (typeof value == 'string') {
-                        if (
-                            (charIndexBuggy ? value.charAt(0) : value[0]) == '@'
-                        ) {
+                        if ((charIndexBuggy ? value.charAt(0) : value[0]) == '@') {
                             // Remove the sentinel `@` character.
                             return value.slice(1);
                         }
@@ -1153,9 +1101,8 @@
                                 if (
                                     value == ',' ||
                                     typeof value != 'string' ||
-                                    (charIndexBuggy
-                                        ? value.charAt(0)
-                                        : value[0]) != '@' ||
+                                    (charIndexBuggy ? value.charAt(0) : value[0]) !=
+                                        '@' ||
                                     lex() != ':'
                                 ) {
                                     abort();
@@ -1192,13 +1139,7 @@
                         // for array indices (e.g., `![1, 2, 3].hasOwnProperty("0")`).
                         if (getClass.call(value) == arrayClass) {
                             for (length = value.length; length--; ) {
-                                update(
-                                    getClass,
-                                    forOwn,
-                                    value,
-                                    length,
-                                    callback
-                                );
+                                update(getClass, forOwn, value, length, callback);
                             }
                         } else {
                             forOwn(value, function (property) {
@@ -1222,11 +1163,7 @@
                     // Reset the parser state.
                     Index = Source = null;
                     return callback && getClass.call(callback) == functionClass
-                        ? walk(
-                              ((value = {}), (value[''] = result), value),
-                              '',
-                              callback
-                          )
+                        ? walk(((value = {}), (value[''] = result), value), '', callback)
                         : result;
                 };
             }

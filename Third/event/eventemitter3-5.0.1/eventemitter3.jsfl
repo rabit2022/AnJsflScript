@@ -120,8 +120,7 @@
         if (this._eventsCount === 0) return names;
 
         for (name in (events = this._events)) {
-            if (has.call(events, name))
-                names.push(prefix ? name.slice(1) : name);
+            if (has.call(events, name)) names.push(prefix ? name.slice(1) : name);
         }
 
         if (Object.getOwnPropertySymbols) {
@@ -186,8 +185,7 @@
             i;
 
         if (listeners.fn) {
-            if (listeners.once)
-                this.removeListener(event, listeners.fn, undefined, true);
+            if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);
 
             switch (len) {
                 case 1:
@@ -197,26 +195,11 @@
                 case 3:
                     return listeners.fn.call(listeners.context, a1, a2), true;
                 case 4:
-                    return (
-                        listeners.fn.call(listeners.context, a1, a2, a3), true
-                    );
+                    return listeners.fn.call(listeners.context, a1, a2, a3), true;
                 case 5:
-                    return (
-                        listeners.fn.call(listeners.context, a1, a2, a3, a4),
-                        true
-                    );
+                    return listeners.fn.call(listeners.context, a1, a2, a3, a4), true;
                 case 6:
-                    return (
-                        listeners.fn.call(
-                            listeners.context,
-                            a1,
-                            a2,
-                            a3,
-                            a4,
-                            a5
-                        ),
-                        true
-                    );
+                    return listeners.fn.call(listeners.context, a1, a2, a3, a4, a5), true;
             }
 
             for (i = 1, args = new Array(len - 1); i < len; i++) {
@@ -230,12 +213,7 @@
 
             for (i = 0; i < length; i++) {
                 if (listeners[i].once)
-                    this.removeListener(
-                        event,
-                        listeners[i].fn,
-                        undefined,
-                        true
-                    );
+                    this.removeListener(event, listeners[i].fn, undefined, true);
 
                 switch (len) {
                     case 1:
@@ -252,11 +230,7 @@
                         break;
                     default:
                         if (!args)
-                            for (
-                                j = 1, args = new Array(len - 1);
-                                j < len;
-                                j++
-                            ) {
+                            for (j = 1, args = new Array(len - 1); j < len; j++) {
                                 args[j - 1] = arguments[j];
                             }
 
@@ -329,11 +303,7 @@
                 clearEvent(this, evt);
             }
         } else {
-            for (
-                var i = 0, events = [], length = listeners.length;
-                i < length;
-                i++
-            ) {
+            for (var i = 0, events = [], length = listeners.length; i < length; i++) {
                 if (
                     listeners[i].fn !== fn ||
                     (once && !listeners[i].once) ||
@@ -361,9 +331,7 @@
      * @returns {EventEmitter} `this`.
      * @public
      */
-    EventEmitter.prototype.removeAllListeners = function removeAllListeners(
-        event
-    ) {
+    EventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {
         var evt;
 
         if (event) {

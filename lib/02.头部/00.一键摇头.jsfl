@@ -52,10 +52,11 @@ require([
         // 检查选择的元件
         if (!checkSelection(selection, 'selectElement', 'Only one')) return;
 
-        var direction = promptUtil.parseDirection(
-            '输入头部朝向(默认为右，空格为左)：',
-            { 右: 1, ' ': -1, 左: -1 }
-        );
+        var direction = promptUtil.parseDirection('输入头部朝向(默认为右，空格为左)：', {
+            右: 1,
+            ' ': -1,
+            左: -1
+        });
         if (direction === null) {
             return;
         }

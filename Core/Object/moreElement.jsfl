@@ -154,11 +154,7 @@ define(['SAT', 'sprintf'], function (sat, sp) {
      */
     MoreElement.prototype.StaggeredOffset = function (x, y) {
         // 获取交错排列的偏移量
-        var staggeredOffset = this._getOffset(
-            x,
-            y,
-            MoreElement.MODES.STAGGERED
-        );
+        var staggeredOffset = this._getOffset(x, y, MoreElement.MODES.STAGGERED);
 
         // 计算最终位置：初始位置 + 交错偏移量
         var finalPosition = this.positioin.clone().add(staggeredOffset);

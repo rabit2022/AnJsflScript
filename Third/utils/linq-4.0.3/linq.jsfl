@@ -72,14 +72,10 @@
                     funcCache[expression] = f;
                     return f;
                 } else {
-                    const expr = expression.match(
-                        /^[(\s]*([^()]*?)[)\s]*=>(.*)/
-                    );
+                    const expr = expression.match(/^[(\s]*([^()]*?)[)\s]*=>(.*)/);
                     f = new Function(
                         expr[1],
-                        expr[2].match(/\breturn\b/)
-                            ? expr[2]
-                            : 'return ' + expr[2]
+                        expr[2].match(/\breturn\b/) ? expr[2] : 'return ' + expr[2]
                     );
                     funcCache[expression] = f;
                     return f;
@@ -107,8 +103,7 @@
 
         hasNativeIteratorSupport: function () {
             return (
-                typeof Symbol !== 'undefined' &&
-                typeof Symbol.iterator !== 'undefined'
+                typeof Symbol !== 'undefined' && typeof Symbol.iterator !== 'undefined'
             );
         }
     };
@@ -191,11 +186,7 @@
         return new Enumerable(getEnumerator);
     };
 
-    Enumerable.Utils.createEnumerator = function (
-        initialize,
-        tryGetNext,
-        dispose
-    ) {
+    Enumerable.Utils.createEnumerator = function (initialize, tryGetNext, dispose) {
         return new IEnumerator(initialize, tryGetNext, dispose);
     };
 
@@ -250,10 +241,7 @@
 
             if (typeProto[methodName + 'ByLinq']) {
                 delete typeProto[methodName + 'ByLinq'];
-            } else if (
-                typeProto[methodName] == func &&
-                func instanceof Function
-            ) {
+            } else if (typeProto[methodName] == func && func instanceof Function) {
                 delete typeProto[methodName];
             }
         }
@@ -380,9 +368,7 @@
                         },
                         function () {
                             var next = iterator.next();
-                            return next.done
-                                ? false
-                                : this.yieldReturn(next.value);
+                            return next.done ? false : this.yieldReturn(next.value);
                         },
                         Functions.Blank
                     );
@@ -396,9 +382,7 @@
                         Functions.Blank,
                         function () {
                             var next = obj.next();
-                            return next.done
-                                ? false
-                                : this.yieldReturn(next.value);
+                            return next.done ? false : this.yieldReturn(next.value);
                         },
                         Functions.Blank
                     );
@@ -524,9 +508,7 @@
                     },
                     function () {
                         var next = (value += step);
-                        return next <= to
-                            ? this.yieldReturn(next)
-                            : this.yieldBreak();
+                        return next <= to ? this.yieldReturn(next) : this.yieldBreak();
                     },
                     Functions.Blank
                 );
@@ -541,9 +523,7 @@
                     },
                     function () {
                         var next = (value -= step);
-                        return next >= to
-                            ? this.yieldReturn(next)
-                            : this.yieldBreak();
+                        return next >= to ? this.yieldReturn(next) : this.yieldBreak();
                     },
                     Functions.Blank
                 );
@@ -678,8 +658,7 @@
 
             return new IEnumerator(
                 function () {
-                    enumerator =
-                        Enumerable.from(enumerableFactory()).getEnumerator();
+                    enumerator = Enumerable.from(enumerableFactory()).getEnumerator();
                 },
                 function () {
                     return enumerator.moveNext()
@@ -702,10 +681,7 @@
     // Overload:function(func)
     // Overload:function(func, resultSelector<element>)
     // Overload:function(func, resultSelector<element, nestLevel>)
-    Enumerable.prototype.traverseBreadthFirst = function (
-        func,
-        resultSelector
-    ) {
+    Enumerable.prototype.traverseBreadthFirst = function (func, resultSelector) {
         var source = this;
         func = Utils.createLambda(func);
         resultSelector = Utils.createLambda(resultSelector);
@@ -728,11 +704,9 @@
                             );
                         }
 
-                        const next = Enumerable.from(buffer).selectMany(
-                            function (x) {
-                                return func(x);
-                            }
-                        );
+                        const next = Enumerable.from(buffer).selectMany(function (x) {
+                            return func(x);
+                        });
                         if (!next.any()) {
                             return false;
                         } else {
@@ -813,9 +787,7 @@
                     while (true) {
                         if (middleEnumerator != null) {
                             if (middleEnumerator.moveNext()) {
-                                return this.yieldReturn(
-                                    middleEnumerator.current()
-                                );
+                                return this.yieldReturn(middleEnumerator.current());
                             } else {
                                 middleEnumerator = null;
                             }
@@ -824,9 +796,7 @@
                         if (enumerator.moveNext()) {
                             if (enumerator.current() instanceof Array) {
                                 Utils.dispose(middleEnumerator);
-                                middleEnumerator = Enumerable.from(
-                                    enumerator.current()
-                                )
+                                middleEnumerator = Enumerable.from(enumerator.current())
                                     .selectMany(Functions.Identity)
                                     .flatten()
                                     .getEnumerator();
@@ -902,9 +872,7 @@
                         isFirst = false;
                         if (!isUseSeed) {
                             if (enumerator.moveNext()) {
-                                return this.yieldReturn(
-                                    (value = enumerator.current())
-                                );
+                                return this.yieldReturn((value = enumerator.current()));
                             }
                         } else {
                             return this.yieldReturn((value = seed));
@@ -912,9 +880,7 @@
                     }
 
                     return enumerator.moveNext()
-                        ? this.yieldReturn(
-                              (value = func(value, enumerator.current()))
-                          )
+                        ? this.yieldReturn((value = func(value, enumerator.current())))
                         : false;
                 },
                 function () {
@@ -944,9 +910,7 @@
                     },
                     function () {
                         return enumerator.moveNext()
-                            ? this.yieldReturn(
-                                  selector(enumerator.current(), index++)
-                              )
+                            ? this.yieldReturn(selector(enumerator.current(), index++))
                             : false;
                     },
                     function () {
@@ -961,10 +925,7 @@
     // Overload:function(collectionSelector<element,index>)
     // Overload:function(collectionSelector<element>,resultSelector)
     // Overload:function(collectionSelector<element,index>,resultSelector)
-    Enumerable.prototype.selectMany = function (
-        collectionSelector,
-        resultSelector
-    ) {
+    Enumerable.prototype.selectMany = function (collectionSelector, resultSelector) {
         var source = this;
         collectionSelector = Utils.createLambda(collectionSelector);
         if (resultSelector == null)
@@ -992,8 +953,7 @@
                                 enumerator.current(),
                                 index++
                             );
-                            middleEnumerator =
-                                Enumerable.from(middleSeq).getEnumerator();
+                            middleEnumerator = Enumerable.from(middleSeq).getEnumerator();
                         }
                         if (middleEnumerator.moveNext()) {
                             return this.yieldReturn(
@@ -1129,14 +1089,10 @@
                 return new IEnumerator(
                     function () {
                         firstEnumerator = source.getEnumerator();
-                        secondEnumerator =
-                            Enumerable.from(second).getEnumerator();
+                        secondEnumerator = Enumerable.from(second).getEnumerator();
                     },
                     function () {
-                        if (
-                            firstEnumerator.moveNext() &&
-                            secondEnumerator.moveNext()
-                        ) {
+                        if (firstEnumerator.moveNext() && secondEnumerator.moveNext()) {
                             return this.yieldReturn(
                                 selector(
                                     firstEnumerator.current(),
@@ -1187,9 +1143,7 @@
                                 })
                                 .toArray();
                             array.push(index++);
-                            return this.yieldReturn(
-                                selector.apply(null, array)
-                            );
+                            return this.yieldReturn(selector.apply(null, array));
                         } else {
                             return this.yieldBreak();
                         }
@@ -1292,9 +1246,7 @@
                         }
 
                         if (outerEnumerator.moveNext()) {
-                            const key = outerKeySelector(
-                                outerEnumerator.current()
-                            );
+                            const key = outerKeySelector(outerEnumerator.current());
                             innerElements = lookup.get(key).toArray();
                         } else {
                             return false;
@@ -1356,20 +1308,12 @@
                         }
 
                         if (outerEnumerator.moveNext()) {
-                            const key = outerKeySelector(
-                                outerEnumerator.current()
-                            );
+                            const key = outerKeySelector(outerEnumerator.current());
                             innerElements = lookup.get(key).toArray();
                             // execute once if innerElements is NULL
-                            if (
-                                innerElements == null ||
-                                innerElements.length == 0
-                            ) {
+                            if (innerElements == null || innerElements.length == 0) {
                                 return this.yieldReturn(
-                                    resultSelector(
-                                        outerEnumerator.current(),
-                                        null
-                                    )
+                                    resultSelector(outerEnumerator.current(), null)
                                 );
                             }
                         } else {
@@ -1487,11 +1431,8 @@
                     function () {
                         if (secondEnumerator == null) {
                             if (firstEnumerator.moveNext())
-                                return this.yieldReturn(
-                                    firstEnumerator.current()
-                                );
-                            secondEnumerator =
-                                Enumerable.from(second).getEnumerator();
+                                return this.yieldReturn(firstEnumerator.current());
+                            secondEnumerator = Enumerable.from(second).getEnumerator();
                         }
                         if (secondEnumerator.moveNext())
                             return this.yieldReturn(secondEnumerator.current());
@@ -1515,9 +1456,7 @@
                 return new IEnumerator(
                     function () {
                         enumerators = Enumerable.make(source)
-                            .concat(
-                                Enumerable.from(args).select(Enumerable.from)
-                            )
+                            .concat(Enumerable.from(args).select(Enumerable.from))
                             .select(function (x) {
                                 return x.getEnumerator();
                             })
@@ -1602,9 +1541,7 @@
                             Enumerable.from(alternateValueOrSequence).toArray()
                         ); // freeze
                     } else {
-                        alternateSequence = Enumerable.make(
-                            alternateValueOrSequence
-                        );
+                        alternateSequence = Enumerable.make(alternateValueOrSequence);
                     }
                     enumerator = source.getEnumerator();
                     if (enumerator.moveNext()) buffer = enumerator.current();
@@ -1613,9 +1550,7 @@
                     while (true) {
                         if (alternateEnumerator != null) {
                             if (alternateEnumerator.moveNext()) {
-                                return this.yieldReturn(
-                                    alternateEnumerator.current()
-                                );
+                                return this.yieldReturn(alternateEnumerator.current());
                             } else {
                                 alternateEnumerator = null;
                             }
@@ -1623,8 +1558,7 @@
 
                         if (buffer == null && enumerator.moveNext()) {
                             buffer = enumerator.current(); // hasNext
-                            alternateEnumerator =
-                                alternateSequence.getEnumerator();
+                            alternateEnumerator = alternateSequence.getEnumerator();
                             continue; // GOTO
                         } else if (buffer != null) {
                             const retVal = buffer;
@@ -1653,8 +1587,7 @@
         var enumerator = this.getEnumerator();
         try {
             while (enumerator.moveNext()) {
-                if (compareSelector(enumerator.current()) === value)
-                    return true;
+                if (compareSelector(enumerator.current()) === value) return true;
             }
             return false;
         } finally {
@@ -1862,8 +1795,7 @@
                                 return this.yieldReturn(current);
                             }
                         }
-                        secondEnumerator =
-                            Enumerable.from(second).getEnumerator();
+                        secondEnumerator = Enumerable.from(second).getEnumerator();
                     }
                     while (secondEnumerator.moveNext()) {
                         current = secondEnumerator.current();
@@ -1909,9 +1841,7 @@
                     index = buffer.length;
                 },
                 function () {
-                    return index > 0
-                        ? this.yieldReturn(buffer[--index])
-                        : false;
+                    return index > 0 ? this.yieldReturn(buffer[--index]) : false;
                 },
                 Functions.Blank
             );
@@ -1962,8 +1892,7 @@
                 },
                 function () {
                     if (sortedByBound.length > 0) {
-                        const draw =
-                            Math.floor(Math.random() * totalWeight) + 1;
+                        const draw = Math.floor(Math.random() * totalWeight) + 1;
 
                         var lower = -1;
                         var upper = sortedByBound.length;
@@ -2002,8 +1931,7 @@
         var source = this;
         keySelector = Utils.createLambda(keySelector);
         elementSelector = Utils.createLambda(elementSelector);
-        if (resultSelector != null)
-            resultSelector = Utils.createLambda(resultSelector);
+        if (resultSelector != null) resultSelector = Utils.createLambda(resultSelector);
         compareSelector = Utils.createLambda(compareSelector);
 
         return new Enumerable(function () {
@@ -2165,8 +2093,7 @@
     // Overload:function()
     // Overload:function(predicate)
     Enumerable.prototype.count = function (predicate) {
-        predicate =
-            predicate == null ? Functions.True : Utils.createLambda(predicate);
+        predicate = predicate == null ? Functions.True : Utils.createLambda(predicate);
 
         var count = 0;
         this.forEach(function (x, i) {
@@ -2265,8 +2192,7 @@
             return false;
         });
 
-        if (!found)
-            throw new Error('first:No element satisfies the condition.');
+        if (!found) throw new Error('first:No element satisfies the condition.');
         return value;
     };
 
@@ -2276,10 +2202,7 @@
                 typeof predicate === Types.Function ||
                 typeof Utils.createLambda(predicate) === Types.Function
             ) {
-                return this.where(predicate).firstOrDefault(
-                    undefined,
-                    defaultValue
-                );
+                return this.where(predicate).firstOrDefault(undefined, defaultValue);
             }
             defaultValue = predicate;
         }
@@ -2316,10 +2239,7 @@
                 typeof predicate === Types.Function ||
                 typeof Utils.createLambda(predicate) === Types.Function
             ) {
-                return this.where(predicate).lastOrDefault(
-                    undefined,
-                    defaultValue
-                );
+                return this.where(predicate).lastOrDefault(undefined, defaultValue);
             }
             defaultValue = predicate;
         }
@@ -2344,14 +2264,10 @@
             if (!found) {
                 found = true;
                 value = x;
-            } else
-                throw new Error(
-                    'single:sequence contains more than one element.'
-                );
+            } else throw new Error('single:sequence contains more than one element.');
         });
 
-        if (!found)
-            throw new Error('single:No element satisfies the condition.');
+        if (!found) throw new Error('single:No element satisfies the condition.');
         return value;
     };
 
@@ -2368,10 +2284,7 @@
             if (!found) {
                 found = true;
                 value = x;
-            } else
-                throw new Error(
-                    'single:sequence contains more than one element.'
-                );
+            } else throw new Error('single:sequence contains more than one element.');
         });
 
         return !found ? defaultValue : value;
@@ -2829,9 +2742,7 @@
                         index++;
                         if (cache.length <= index) {
                             return enumerator.moveNext()
-                                ? this.yieldReturn(
-                                      (cache[index] = enumerator.current())
-                                  )
+                                ? this.yieldReturn((cache[index] = enumerator.current()))
                                 : false;
                         }
 
@@ -2961,13 +2872,7 @@
     ///////////
     // Private
 
-    var OrderedEnumerable = function (
-        source,
-        keySelector,
-        comparer,
-        descending,
-        parent
-    ) {
+    var OrderedEnumerable = function (source, keySelector, comparer, descending, parent) {
         this.source = source;
         this.keySelector = Utils.createLambda(keySelector);
         this.descending = descending;
@@ -2995,10 +2900,7 @@
         return this.createOrderedEnumerable(keySelector, comparer, false);
     };
 
-    OrderedEnumerable.prototype.thenByDescending = function (
-        keySelector,
-        comparer
-    ) {
+    OrderedEnumerable.prototype.thenByDescending = function (keySelector, comparer) {
         return this.createOrderedEnumerable(keySelector, comparer, true);
     };
 
@@ -3108,15 +3010,10 @@
             : Enumerable.prototype.elementAt.apply(this, arguments);
     };
 
-    ArrayEnumerable.prototype.elementAtOrDefault = function (
-        index,
-        defaultValue
-    ) {
+    ArrayEnumerable.prototype.elementAtOrDefault = function (index, defaultValue) {
         if (defaultValue === undefined) defaultValue = null;
         var source = this.getSource();
-        return 0 <= index && index < source.length
-            ? source[index]
-            : defaultValue;
+        return 0 <= index && index < source.length ? source[index] : defaultValue;
     };
 
     ArrayEnumerable.prototype.first = function (predicate) {
@@ -3126,10 +3023,7 @@
             : Enumerable.prototype.first.apply(this, arguments);
     };
 
-    ArrayEnumerable.prototype.firstOrDefault = function (
-        predicate,
-        defaultValue
-    ) {
+    ArrayEnumerable.prototype.firstOrDefault = function (predicate, defaultValue) {
         if (predicate !== undefined) {
             return Enumerable.prototype.firstOrDefault.apply(this, arguments);
         }
@@ -3146,10 +3040,7 @@
             : Enumerable.prototype.last.apply(this, arguments);
     };
 
-    ArrayEnumerable.prototype.lastOrDefault = function (
-        predicate,
-        defaultValue
-    ) {
+    ArrayEnumerable.prototype.lastOrDefault = function (predicate, defaultValue) {
         if (predicate !== undefined) {
             return Enumerable.prototype.lastOrDefault.apply(this, arguments);
         }
@@ -3199,19 +3090,14 @@
                     index = source.length;
                 },
                 function () {
-                    return index > 0
-                        ? this.yieldReturn(source[--index])
-                        : false;
+                    return index > 0 ? this.yieldReturn(source[--index]) : false;
                 },
                 Functions.Blank
             );
         });
     };
 
-    ArrayEnumerable.prototype.sequenceEqual = function (
-        second,
-        compareSelector
-    ) {
+    ArrayEnumerable.prototype.sequenceEqual = function (second, compareSelector) {
         if (
             (second instanceof ArrayEnumerable || second instanceof Array) &&
             compareSelector == null &&
@@ -3276,11 +3162,7 @@
         selector = Utils.createLambda(selector);
 
         return selector.length <= 1
-            ? new WhereSelectEnumerable(
-                  this.prevSource,
-                  this.prevPredicate,
-                  selector
-              )
+            ? new WhereSelectEnumerable(this.prevSource, this.prevPredicate, selector)
             : Enumerable.prototype.select.call(this, selector);
     };
 
@@ -3494,8 +3376,7 @@
 
                 var array = this.buckets[hash];
                 for (var i = 0; i < array.length; i++) {
-                    if (this.compareSelector(array[i].key) === compareKey)
-                        return true;
+                    if (this.compareSelector(array[i].key) === compareKey) return true;
                 }
                 return false;
             },

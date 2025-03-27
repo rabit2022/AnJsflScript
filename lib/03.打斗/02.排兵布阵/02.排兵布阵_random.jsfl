@@ -71,12 +71,7 @@ require([
         var rectWidth = random.uniform(1.4, 1.7) * rectHeight;
         // var rectSize = new Size(rectWidth, rectHeight);
         // fl.trace("矩形:"+rectSize.toString());
-        var rect = wrapRectByCenter(
-            initialPos.x,
-            initialPos.y,
-            rectWidth,
-            rectHeight
-        );
+        var rect = wrapRectByCenter(initialPos.x, initialPos.y, rectWidth, rectHeight);
         return rect;
     }
     function Main() {

@@ -8,11 +8,7 @@ export function Class(
 
 export function getClass(classPath: string): Function;
 
-export function augment(
-    target: any,
-    extension: any,
-    shouldOverride?: boolean
-): void;
+export function augment(target: any, extension: any, shouldOverride?: boolean): void;
 
 export function extend(
     TargetClass: Function,

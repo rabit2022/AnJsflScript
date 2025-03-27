@@ -55,11 +55,8 @@ require([
         doc.setInstanceAlpha(alpha);
 
         if (
-            filterUtil.getFilterByName(
-                curLayer,
-                curFrameIndex,
-                'adjustColorFilter'
-            ) === null
+            filterUtil.getFilterByName(curLayer, curFrameIndex, 'adjustColorFilter') ===
+            null
         ) {
             log.info('没有找到调整颜色滤镜，添加一个');
 
@@ -72,11 +69,7 @@ require([
                 hue: 0
             };
 
-            filterUtil.addFilterToFrame(
-                curLayer,
-                curFrameIndex,
-                adjustColorFilter
-            );
+            filterUtil.addFilterToFrame(curLayer, curFrameIndex, adjustColorFilter);
         }
 
         // 重置选中帧

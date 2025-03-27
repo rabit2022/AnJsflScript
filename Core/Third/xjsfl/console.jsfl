@@ -8,10 +8,7 @@
  * @see: https://github.com/davestewart/xJSFL
  */
 
-define(['sprintf', 'error-stack-parser'], function (
-    { sprintf },
-    ErrorStackParser
-) {
+define(['sprintf', 'error-stack-parser'], function ({ sprintf }, ErrorStackParser) {
     // --------------------------------------------------------------------------------
     // Log constants
 
@@ -65,8 +62,7 @@ define(['sprintf', 'error-stack-parser'], function (
          */
         __formatLine: function (prefix, message, level, addNewline) {
             // new line
-            var newLine =
-                fl.version.substr(0, 3).toLowerCase() === 'win' ? '\r\n' : '\n';
+            var newLine = fl.version.substr(0, 3).toLowerCase() === 'win' ? '\r\n' : '\n';
             var output = '';
 
             // level
@@ -92,9 +88,7 @@ define(['sprintf', 'error-stack-parser'], function (
             }
 
             // return
-            return (
-                (level > 0 ? newLine : '') + output + prefix + '\t' + message
-            );
+            return (level > 0 ? newLine : '') + output + prefix + '\t' + message;
         },
 
         /**
@@ -128,12 +122,7 @@ define(['sprintf', 'error-stack-parser'], function (
 
             // log to main
             // var uri = LOG_FOLDER + 'main.log';
-            var output = this.__formatLine(
-                time,
-                type + '\t' + message,
-                level,
-                true
-            );
+            var output = this.__formatLine(time, type + '\t' + message, level, true);
             FLfile.write(MAIN_LOG, output, 'append');
 
             // extra logging for file
@@ -266,8 +255,7 @@ define(['sprintf', 'error-stack-parser'], function (
             }
 
             // 判断数据类型：普通数组或对象数组
-            const isSimpleArray =
-                Array.isArray(data) && typeof data[0] !== 'object';
+            const isSimpleArray = Array.isArray(data) && typeof data[0] !== 'object';
 
             // 获取所有列名（即对象的键）
             const columns = new Set();
@@ -299,9 +287,7 @@ define(['sprintf', 'error-stack-parser'], function (
                     // 处理对象数组
                     return columnNames
                         .map(function (column) {
-                            return item[column] !== undefined
-                                ? String(item[column])
-                                : '';
+                            return item[column] !== undefined ? String(item[column]) : '';
                         })
                         .join('\t');
                 }
@@ -345,9 +331,7 @@ define(['sprintf', 'error-stack-parser'], function (
             }
             counters[label]++;
             // console.log(`"${label}" was called ${counters[label]} times.`);
-            this.info(
-                sprintf('"%s" was called %s times.', label, counters[label])
-            );
+            this.info(sprintf('"%s" was called %s times.', label, counters[label]));
         },
         countReset: function (label) {
             if (label === undefined) label = 'default';

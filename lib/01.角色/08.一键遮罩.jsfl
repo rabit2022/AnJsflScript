@@ -97,20 +97,14 @@ require([
 
         refreshTimeline();
 
-        var maskShape =
-            layers[MASK_LAYER_INDEX].frames[curFrameIndex].elements[0]; //遮罩形状
-        var targetShape =
-            layers[TARGET_LAYER_INDEX].frames[curFrameIndex].elements[0]; //被遮层
+        var maskShape = layers[MASK_LAYER_INDEX].frames[curFrameIndex].elements[0]; //遮罩形状
+        var targetShape = layers[TARGET_LAYER_INDEX].frames[curFrameIndex].elements[0]; //被遮层
 
         if (IsShape(maskShape) && IsSymbol(targetShape)) {
             // 正确顺序
         } else {
             // 交换位置
-            layerUtil.swapLayers(
-                timeline,
-                MASK_LAYER_INDEX,
-                TARGET_LAYER_INDEX
-            );
+            layerUtil.swapLayers(timeline, MASK_LAYER_INDEX, TARGET_LAYER_INDEX);
 
             refreshTimeline();
         }
@@ -133,8 +127,7 @@ require([
 
         // 设置遮罩层0
         // timeline.currentLayer = MASK_LAYER_INDEX;
-        layers[MASK_LAYER_INDEX].layerType =
-            JSFLConstants.Constants.layer.layerType.MASK;
+        layers[MASK_LAYER_INDEX].layerType = JSFLConstants.Constants.layer.layerType.MASK;
         // timeline.currentLayer = TARGET_LAYER_INDEX;
         layers[TARGET_LAYER_INDEX].layerType =
             JSFLConstants.Constants.layer.layerType.MASKED;
@@ -155,23 +148,14 @@ require([
 
     function Main() {
         // 请同时选中两个对象！(遮罩形状+被遮对象)
-        if (
-            !CheckSelection(
-                selection,
-                'selectElement',
-                'Only two',
-                '遮罩形状+被遮对象'
-            )
-        )
+        if (!CheckSelection(selection, 'selectElement', 'Only two', '遮罩形状+被遮对象'))
             return;
 
         const mt = checkMaskTarget();
         if (!mt) return;
 
         const { mask, target } = mt;
-        log.info(
-            '遮罩对象：' + getName(mask) + '，被遮对象：' + getName(target)
-        );
+        log.info('遮罩对象：' + getName(mask) + '，被遮对象：' + getName(target));
 
         // 转为元件
         var symbolName = libUtil.generateNameUntilUnique('一键遮罩_');

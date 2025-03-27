@@ -61,11 +61,7 @@ define(function () {
                 var str = '<array>';
                 for (var i = 0; i < arr.length; i++) {
                     str +=
-                        '<property id="' +
-                        i +
-                        '">' +
-                        valueToXML(arr[i]) +
-                        '</property>';
+                        '<property id="' + i + '">' + valueToXML(arr[i]) + '</property>';
                 }
                 stack.pop();
                 return str + '</array>';
@@ -110,9 +106,7 @@ define(function () {
                     } else if (type == 'string') {
                         return '<string>' + escapeXML(value) + '</string>';
                     } else if (type == 'xml') {
-                        return (
-                            '<xml>' + escapeXML(value.toXMLString()) + '</xml>'
-                        );
+                        return '<xml>' + escapeXML(value.toXMLString()) + '</xml>';
                     } else if (type == 'undefined') {
                         return '<undefined />';
                     }

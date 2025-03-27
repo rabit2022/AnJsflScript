@@ -7,13 +7,13 @@
  * @description:
  */
 
-require([
-    'checkUtil',
-    'selectionUtil',
-    'layerUtil',
-    'satUtil',
-    'SAT'
-], function (checkUtil, sel, layerUtil, satUtil, sat) {
+require(['checkUtil', 'selectionUtil', 'layerUtil', 'satUtil', 'SAT'], function (
+    checkUtil,
+    sel,
+    layerUtil,
+    satUtil,
+    sat
+) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     var Vector = sat.Vector,
@@ -93,9 +93,7 @@ require([
 
         // 摄像机
         // 摄像机位置,左上角坐标
-        var cameraPos = wrapPosition(
-            timeline.camera.getPosition(curFrameIndex)
-        );
+        var cameraPos = wrapPosition(timeline.camera.getPosition(curFrameIndex));
         var cameraRect = getCameraRect(cameraPos);
         var cameraCenter = cameraRect.getCenterVector();
 
@@ -110,11 +108,7 @@ require([
 
         if (bgRect) {
             // 最大移动向量
-            cameraOffset = rectUtil.moveRectSafety(
-                bgRect,
-                cameraRect,
-                cameraOffset
-            );
+            cameraOffset = rectUtil.moveRectSafety(bgRect, cameraRect, cameraOffset);
         }
 
         var newCameraPos = cameraPos.clone().add(cameraOffset);
@@ -122,11 +116,7 @@ require([
         newCameraPos = newCameraPos.round().noZero();
 
         // 移动摄像机
-        timeline.camera.setPosition(
-            curFrameIndex,
-            newCameraPos.x,
-            newCameraPos.y
-        );
+        timeline.camera.setPosition(curFrameIndex, newCameraPos.x, newCameraPos.y);
 
         sel.SelectStart(selection);
     }

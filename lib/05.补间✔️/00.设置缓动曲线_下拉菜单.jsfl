@@ -44,10 +44,7 @@ require(['checkUtil', 'xmlPanelUtil', 'curveUtil'], function (
             return null;
         }
 
-        var intensity = xmlPanelUtil.parseNumber(
-            panel.intensity,
-            '请设置缓动强度'
-        );
+        var intensity = xmlPanelUtil.parseNumber(panel.intensity, '请设置缓动强度');
         if (intensity === null) return null;
 
         return {
