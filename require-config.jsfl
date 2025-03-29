@@ -32,13 +32,12 @@ require.config({
         linq: 'Third/utils/linq-4.0.3/linq',
         lodash: 'Third/utils/lodash-4.17.21/lodash',
         sprintf: 'Third/utils/sprintf-js-1.1.3/sprintf',
+        xmldom: 'Third/xml/xmldom-0.6.0/xmldom',
+        jquery: 'Third/xml/jquery-4.0.0-beta.2/jquery.slim',
 
         // 自定义模块
-        // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Core\Utils\py\open.jsfl
         open: 'Core/Utils/py/open',
-        // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Core\Utils\mode\KeyFrameMode.jsfl
         KeyFrameMode: 'Core/Utils/mode/KeyFrameMode',
-        // Constants: 'Core/Constants/Constants',
         ErrorDefinitions: 'Core/myShim/ErrorDefinitions',
         FUNC: 'Core/myShim/FUNC',
         frameRange: 'Core/Object/frameRange',
@@ -54,7 +53,6 @@ require.config({
         console: 'Core/Third/xjsfl/console',
         JSFLConstants: 'Core/Third/xjsfl/flash/JSFLConstants',
         JSFLInterface: 'Core/Third/xjsfl/flash/JSFLInterface',
-        // Class: 'Core/Third/xjsfl/Utils/Class',
         Utils: 'Core/Third/xjsfl/Utils/Utils',
         checkUtil: 'Core/Utils/flash/checkUtil',
         curveUtil: 'Core/Utils/flash/curveUtil',
@@ -66,7 +64,6 @@ require.config({
         promptUtil: 'Core/Utils/flash/promptUtil',
         selectionUtil: 'Core/Utils/flash/selectionUtil',
         xmlPanelUtil: 'Core/Utils/flash/xmlPanelUtil',
-        // builtInP: 'Core/Utils/py/builtInP',
         os: 'Core/Utils/py/os',
         random: 'Core/Utils/py/random',
         StringP: 'Core/Utils/py/StringP'

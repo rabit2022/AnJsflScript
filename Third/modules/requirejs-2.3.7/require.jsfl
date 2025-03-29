@@ -2162,15 +2162,19 @@ var requirejs, require, define;
                 );
             }
         } else if (isFlash) {
-            try {
-                // In a flash environment, use importFlashScripts to load the script.
-                importFlashScripts(url);
+            // In a flash environment, use importFlashScripts to load the script.
+            importFlashScripts(url);
 
-                //Account for anonymous modules
-                context.completeLoad(moduleName);
+            //Account for anonymous modules
+            context.completeLoad(moduleName);
+            try {
             } catch (e) {
                 var message =
-                    '[Error] Flash loading failed for ' + moduleName + 'at' + url;
+                    '[Error] Flash loading failed for [' +
+                    moduleName +
+                    '] at [' +
+                    url +
+                    ']';
                 fl.trace(message);
                 context.onError(makeError('flash', message, e, [moduleName]));
             }

@@ -8,12 +8,12 @@
  * @see:    lib\00.快捷✔️\10.音量调节.jsfl
  */
 
-require([
-    'checkUtil',
-    'loglevel',
-    'KeyFrameMode',
-    'JSFLConstants'
-], function (checkUtil, log, KeyFrameMode, JSFLConstants) {
+require(['checkUtil', 'loglevel', 'KeyFrameMode', 'JSFLConstants'], function (
+    checkUtil,
+    log,
+    KeyFrameMode,
+    JSFLConstants
+) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
     // const MAX_CHANNEL = JSFLConstants.Numerics.sound.channel.MAX_CHANNEL;
     const MIN_CHANNEL = JSFLConstants.Numerics.sound.channel.MIN_CHANNEL;

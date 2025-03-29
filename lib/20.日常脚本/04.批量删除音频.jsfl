@@ -7,7 +7,7 @@
  * @description:
  */
 
-require(['checkUtil', 'loglevel', 'KeyFrameMode'], function(
+require(['checkUtil', 'loglevel', 'KeyFrameMode'], function (
     checkUtil,
     log,
     KeyFrameMode
@@ -41,7 +41,7 @@ require(['checkUtil', 'loglevel', 'KeyFrameMode'], function(
 
         var mode = KeyFrameMode();
         if (!mode) return;
-        mode.forEach(function(item) {
+        mode.forEach(function (item) {
             var { frame } = item;
             clearSound(frame);
         });

@@ -1,0 +1,7 @@
+# .prettierignore
+Third/
+node_modules/
+test/
+types/
+
+
