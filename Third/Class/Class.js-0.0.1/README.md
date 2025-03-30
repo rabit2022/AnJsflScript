@@ -1,4 +1,4 @@
-# Class.jsfl
+# Class.js
 
 **_Lightning fast JavaScript class system in 1.4KB (638 bytes gzipped)_**
 

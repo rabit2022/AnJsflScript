@@ -319,9 +319,19 @@
             exports.XMLSerializer = require('./dom').XMLSerializer;
             exports.DOMParser = DOMParser;
             exports.__DOMHandler = DOMHandler;
-            // exports.Document =   require('./dom').Document;
-            exports.document = new exports.DOMParser("");
-            // documentElement
+
+            // shim jquery
+            exports.document = new exports.DOMParser().parseFromString("<!DOCTYPE html>\n" +
+                "<html lang=\"en\">\n" +
+                "<head>\n" +
+                "    <meta charset=\"UTF-8\"/>\n" +
+                "    <title>Title</title>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "<script src=\"app.js\"></script>\n" +
+                "\n" +
+                "</body>\n" +
+                "</html>");
             exports.documentElement = exports.document.documentElement;
 
 

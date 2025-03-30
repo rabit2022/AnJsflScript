@@ -131,23 +131,48 @@
 
 ## 6. 参考项目
 
+
+[//]: # ([![CoreJS]&#40;https://img.shields.io/badge/CoreJS-v3.41.0-ff9800&#41;]&#40;https://github.com/zloirock/core-js&#41;)
+
+class:
+[![Class.js](https://img.shields.io/badge/Class.js-v0.0.1-4caf50)](https://github.com/DominikGuzei/Class.js)
+
+event:
+[![EventEmitter3](https://img.shields.io/badge/EventEmitter3-v5.0.1-ffeb3b)](https://github.com/primus/eventemitter3)
+[![RxJS](https://img.shields.io/badge/RxJS-v7.8.2-ff9800)](https://github.com/ReactiveX/RxJS)
+
+log:
+[![loglevel](https://img.shields.io/badge/loglevel-v1.9.2-4caf50)](https://github.com/pimterry/loglevel)
+
+modules:
+[![path-browserify](https://img.shields.io/badge/path--browserify-v1.0.1-ffeb3b)](https://github.com/browserify/path-browserify)
+[![requirejs](https://img.shields.io/badge/requirejs-v2.3.7-ffeb3b)](https://github.com/requirejs/requirejs)
+
+polyfill:
+[![ES5-Shim](https://img.shields.io/badge/ES5--Shim-v4.6.7-9c27b0)](https://github.com/es-shims/es5-shim)
+[![ES6-Shim](https://img.shields.io/badge/ES6--Shim-v0.35.4-ff9800)](https://github.com/es-shims/es6-shim)
+[![ES7-Shim](https://img.shields.io/badge/ES7--Shim-v6.0.0-ff9800)](https://github.com/es-shims/es7-shim)
+[![json3](https://img.shields.io/badge/json3-v3.3.3-blue)](https://github.com/bestiejs/json3)
+[![polyfill](https://img.shields.io/badge/polyfill-v0.1.43-2196f3)](https://github.com/inexorabletash/polyfill)
+
+stack:
+[![error-stack-parser](https://img.shields.io/badge/error--stack--parser-v3.0.0-2196f3)](https://github.com/stacktracejs/error-stack-parser)
+[![stackframe](https://img.shields.io/badge/stackframe-v1.3.4-2196f3)](https://github.com/stacktracejs/stackframe)
+
+utils:
+[![LINQ.js](https://img.shields.io/badge/LINQ.js-v4.0.3-9c27b0)](https://github.com/neuecc/linq.js)
+[![Lodash](https://img.shields.io/badge/Lodash-v4.17.21-2196f3)](https://github.com/lodash/lodash)
+[![sprintf-js](https://img.shields.io/badge/sprintf.js-v1.1.3-green)](https://github.com/alexei/sprintf.js)
+
+xml:
+[![jquery](https://img.shields.io/badge/jquery-v3.7.1-2196f3)](https://github.com/jquery/jquery)
+[![xmldom](https://img.shields.io/badge/xmldom-v0.6.0-2196f3)](https://github.com/xmldom/xmldom)
+
+others:
 [![WindowSWF](https://img.shields.io/badge/WindowSWF-Gitee-4caf50)](https://gitee.com/ninge/WindowSWF/tree/master/)
 [![xJSFL](https://img.shields.io/badge/xJSFL-GitHub-2196f3)](https://github.com/davestewart/xJSFL)
 [![FlashTool](https://img.shields.io/badge/FlashTool-GitHub-2196f3)](https://github.com/hufang360/FlashTool)
-
 [![SAT.js](https://img.shields.io/badge/SAT.js-v0.9.0-f44336)](https://github.com/jriecken/sat-js)
-[![RequireJS](https://img.shields.io/badge/RequireJS-v2.3.7-ffeb3b)](https://github.com/requirejs/requirejs)
-
-[![CoreJS](https://img.shields.io/badge/CoreJS-v3.41.0-ff9800)](https://github.com/zloirock/core-js)
-[![LINQ.js](https://img.shields.io/badge/LINQ.js-v4.0.3-9c27b0)](https://github.com/neuecc/linq.js)
-[![Lodash](https://img.shields.io/badge/Lodash-v4.17.21-2196f3)](https://github.com/lodash/lodash)
-[![Loglevel](https://img.shields.io/badge/Loglevel-v1.9.2-4caf50)](https://github.com/pimterry/loglevel)
-[![Path-Browserify](https://img.shields.io/badge/Path--Browserify-v1.0.1-ffeb3b)](https://github.com/browserify/path-browserify)
-
-[![ES5-Shim](https://img.shields.io/badge/ES5--Shim-v4.6.7-9c27b0)](https://github.com/es-shims/es5-shim)
-[![ES6-Shim](https://img.shields.io/badge/ES6--Shim-v0.35.4-ff9800)](https://github.com/es-shims/es6-shim)
-[![json3-3.3.3](https://img.shields.io/badge/json3-3.3.3-blue)](https://github.com/bestiejs/json3)
-[![sprintf-js-1.1.3](https://img.shields.io/badge/sprintf.js-v1.1.3-green)](https://github.com/alexei/sprintf.js)
 
 ##### 为了使得以上项目能够在 Adobe Animate 中正常运行，部分进行了大量的修改，并且全部更改为 requirejs 模块化加载。
 
@@ -179,10 +204,10 @@
 
 ## 8. 项目规模
 
-- **代码行数**: 9016
-- **字符数量**: 213776
-- **脚本数量**: 67
-- **第三方库数量**：17
+- **代码行数**: 9130
+- **字符数量**: 224965
+- **脚本数量**: 73
+- **第三方库数量**：22
 - **界面访问量**：
   ![访问统计](https://profile-counter.glitch.me/AnJsflScript/count.svg)
 

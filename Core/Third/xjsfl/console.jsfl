@@ -157,13 +157,27 @@ define(['sprintf', 'error-stack-parser'], function ({ sprintf }, ErrorStackParse
                 // 如果不是模板字符串，处理复杂类型
                 var formattedArgs = args.map(function (arg) {
                     if (typeof arg === 'object' && arg !== null) {
-                        // 如果是对象或数组，使用 JSON.stringify 格式化为字符串
-                        var json = JSON.stringify(arg, null, 2);
-                        return '\n' + json + '\n';
-                    } else {
-                        // 其他类型直接返回字符串形式
-                        return String(arg) + '\t';
+                        // 检查对象是否具有自定义的 toString 方法
+                        // bug:如果传入的是object对象，但是toString非object,JSON会报错,所以增加了判断
+                        if (typeof arg.toString === 'function' && arg.toString !== Object.prototype.toString) {
+                            // 调用自定义的 toString 方法
+                            var customToString = arg.toString();
+                            // 如果返回值是对象，使用 JSON.stringify 格式化
+                            if (typeof customToString === 'object') {
+                                return '\n' + JSON.stringify(customToString, null, 2) + '\n';
+                            }
+                            // 如果返回值是字符串，直接返回
+                            return String(arg) + '\t';
+                        }else if (typeof arg.toString === 'function' && arg.toString === Object.prototype.toString) {
+                            // [object Object]
+                            return String(arg) + '\t';
+                        }
+
+                        // 使用 JSON.stringify
+                        return '\n' + JSON.stringify(arg, null, 2) + '\n';
                     }
+                    // 其他类型直接返回字符串形式
+                    return String(arg) + '\t';
                 });
 
                 // 使用制表符连接所有参数
