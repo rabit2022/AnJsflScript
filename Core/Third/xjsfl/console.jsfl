@@ -8,7 +8,7 @@
  * @see: https://github.com/davestewart/xJSFL
  */
 
-define(['sprintf', 'error-stack-parser'], function ({ sprintf }, ErrorStackParser) {
+define(function() {
     // --------------------------------------------------------------------------------
     // Log constants
 
@@ -46,9 +46,135 @@ define(['sprintf', 'error-stack-parser'], function ({ sprintf }, ErrorStackParse
     const MAIN_LOG = LOG_FOLDER + 'main.log';
     const FILE_LOG = LOG_FOLDER + 'file.log';
 
-    // 存储计时器的起始时间
+    // region formatMessage
+    const FormatMessageType = {
+        TEMPLATE_STRING: 'TEMPLATE_STRING', // 模板字符串情况
+        CUSTOM_TO_STRING: 'CUSTOM_TO_STRING', // 具有自定义 toString 方法的对象
+        OBJECT: 'OBJECT', // 普通对象
+        ARRAY: 'ARRAY', // 数组
+        DATE: 'DATE', // Date 对象
+        REGEXP: 'REGEXP', // RegExp 对象
+        SIMPLE_TYPE: 'SIMPLE_TYPE',// 简单类型情况
+        IAGUEMENT: 'IAGUEMENT'// 多参数情况
+    };
+
+    function IsTemplateString(str) {
+        return typeof str === 'string' && str.includes('%');
+    }
+
+    function analyzeFormatMessageType(arg) {
+        // if (typeof arg === IAguement) {
+        if (Object.prototype.toString.call(arg) === '[object Arguments]') {
+            return FormatMessageType.IAGUEMENT;
+        }
+            // else if (typeof arg[0] === 'string' && arg[0].includes('%')) {
+            //     return FormatMessageType.TEMPLATE_STRING;
+        // }
+        else if (Array.isArray(arg)) {
+            return FormatMessageType.ARRAY;
+        } else if (arg instanceof Date) {
+            return FormatMessageType.DATE;
+        } else if (arg instanceof RegExp) {
+            return FormatMessageType.REGEXP;
+        } else if (typeof arg === 'object' && arg !== null) {
+            if (typeof arg.toString === 'function') {
+                if (arg.toString !== Object.prototype.toString) {
+                    return FormatMessageType.CUSTOM_TO_STRING;
+                } else {
+                    // arg.toString === [object Object]
+                    return FormatMessageType.OBJECT;
+                }
+            } else {
+                return FormatMessageType.OBJECT;
+            }
+        } else {
+            return FormatMessageType.SIMPLE_TYPE;
+        }
+    }
+
+    function useCircularJson(arg) {
+        // Cyclic structures cannot be serialized by `JSON.stringify`.
+        // json的循环引用问题
+        if ($continue === undefined) {
+            $continue = confirm('无法序列化对象。是否要使用 circular-json 代替？这可能导致性能下降，这个选项将会一直使用,结果可能并非你所期望。除非 运行 ReRun.jsfl 文件 ');
+        }
+        if (!$continue) {
+            return arg.toString() + '\n';
+        }
+
+        require(['circular-json'], function(CircularJSON) {
+            return CircularJSON.stringify(arg);
+        });
+    }
+
+    var $continue;
+
+    function formatArgument(arg) {
+        const messageType = analyzeFormatMessageType(arg);
+        // fl.trace(messageType);
+
+        switch (messageType) {
+        case FormatMessageType.IAGUEMENT:
+            arg = Array.prototype.map.call(arg, formatArgument);
+            // return arg;
+
+        case FormatMessageType.ARRAY:
+            try {
+                return '\n' + JSON.stringify(arg, null, 2) + '\n';
+            } catch (e) {
+                return useCircularJson(arg);
+            }
+        case FormatMessageType.DATE:
+            return arg.toISOString() + '\n';
+        case FormatMessageType.REGEXP:
+            return arg.toString() + '\n';
+        case FormatMessageType.CUSTOM_TO_STRING:
+            return arg.toString() + '\n';
+        case FormatMessageType.OBJECT:
+            try {
+                return '\n' + JSON.stringify(arg, null, 2) + '\n';
+            } catch (e) {
+                return useCircularJson(arg);
+            }
+        case FormatMessageType.SIMPLE_TYPE:
+            return String(arg) + '\n';
+        default:
+            throw new Error('Unknown message type');
+        }
+    }
+
+    /**
+     * 处理参数
+     * 1,,支持多个字符串参数
+     * 2, 支持 sprintf 模板化字符串
+     * 3, 支持复杂类型参数(对象、数组,字典)，会自动使用 JSON.stringify 格式化为字符串
+     * 4，其他类型参数(null, undefined, boolean, number, function)，直接使用 String() 转换为字符串
+     * @param    {...*}    args    The arguments to log
+     * @returns {string}
+     * @private
+     */
+    function formatMessage() {
+        var args = Array.prototype.slice.call(arguments); // 将 arguments 转换为数组
+
+        if (IsTemplateString(args[0])) {
+            require(['sprintf-js'], function({ sprintf }) {
+                // 使用 sprintf 格式化模板字符串
+                var formattedMessage = sprintf.apply(null, args);
+                return formattedMessage + '\t';
+            });
+        } else {
+            // 处理参数
+            var formattedArgs = args.map(formatArgument);
+            return formattedArgs.join('\n');
+        }
+    }
+
+
+    // endregion formatMessage
+
+// 存储计时器的起始时间
     const timers = {};
-    // 存储计数器的计数
+// 存储计数器的计数
     const counters = {};
     var console = {
         /**
@@ -60,7 +186,7 @@ define(['sprintf', 'error-stack-parser'], function ({ sprintf }, ErrorStackParse
          * @returns    {String}                The created message
          * @private
          */
-        __formatLine: function (prefix, message, level, addNewline) {
+        __formatLine: function(prefix, message, level, addNewline) {
             // new line
             var newLine = fl.version.substr(0, 3).toLowerCase() === 'win' ? '\r\n' : '\n';
             var output = '';
@@ -71,14 +197,10 @@ define(['sprintf', 'error-stack-parser'], function ({ sprintf }, ErrorStackParse
                     message = message.toUpperCase();
                 }
                 if (level >= 2) {
-                    output =
-                        '----------------------------------------------------------------------------------------------------' +
-                        newLine;
+                    output = '----------------------------------------------------------------------------------------------------' + newLine;
                 }
                 if (level === 3) {
-                    message +=
-                        '----------------------------------------------------------------------------------------------------' +
-                        newLine;
+                    message += '----------------------------------------------------------------------------------------------------' + newLine;
                 }
             }
 
@@ -101,12 +223,10 @@ define(['sprintf', 'error-stack-parser'], function ({ sprintf }, ErrorStackParse
          *           如果开发者需要创建日志文件，请在项目的主目录下创建 Logs 文件夹
          * @private
          */
-        __writeToLog: function (message, $type, $level) {
+        __writeToLog: function(message, $type, $level) {
             // parameters
-            var params = [$type, $level],
-                type,
-                level;
-            params.forEach(function (param) {
+            var params = [$type, $level], type, level;
+            params.forEach(function(param) {
                 if (typeof param === 'string') type = param;
                 if (typeof param === 'number') level = param;
                 if (typeof param === 'boolean') level = param === true ? 1 : 0;
@@ -115,10 +235,7 @@ define(['sprintf', 'error-stack-parser'], function ({ sprintf }, ErrorStackParse
 
             // date
             var date = new Date();
-            var time =
-                date.toString().match(/\d{2}:\d{2}:\d{2}/) +
-                ':' +
-                (date.getMilliseconds() / 1000).toFixed(3).substr(2);
+            var time = date.toString().match(/\d{2}:\d{2}:\d{2}/) + ':' + (date.getMilliseconds() / 1000).toFixed(3).substr(2);
 
             // log to main
             // var uri = LOG_FOLDER + 'main.log';
@@ -135,101 +252,49 @@ define(['sprintf', 'error-stack-parser'], function ({ sprintf }, ErrorStackParse
             }
         },
 
-        /**
-         * 处理参数
-         * 1,,支持多个字符串参数
-         * 2, 支持 sprintf 模板化字符串
-         * 3, 支持复杂类型参数(对象、数组,字典)，会自动使用 JSON.stringify 格式化为字符串
-         * 4，其他类型参数(null, undefined, boolean, number, function)，直接使用 String() 转换为字符串
-         * @param    {...*}    args    The arguments to log
-         * @returns {string}
-         * @private
-         */
-        __formatMessage: function () {
-            var args = Array.prototype.slice.call(arguments); // 将 arguments 转换为数组
-
-            // 检查是否使用了 sprintf 的模板化字符串
-            if (typeof args[0] === 'string' && args[0].includes('%')) {
-                // 使用 sprintf 格式化模板字符串
-                var formattedMessage = sprintf.apply(null, args);
-                return formattedMessage + '\t';
-            } else {
-                // 如果不是模板字符串，处理复杂类型
-                var formattedArgs = args.map(function (arg) {
-                    if (typeof arg === 'object' && arg !== null) {
-                        // 检查对象是否具有自定义的 toString 方法
-                        // bug:如果传入的是object对象，但是toString非object,JSON会报错,所以增加了判断
-                        if (typeof arg.toString === 'function' && arg.toString !== Object.prototype.toString) {
-                            // 调用自定义的 toString 方法
-                            var customToString = arg.toString();
-                            // 如果返回值是对象，使用 JSON.stringify 格式化
-                            if (typeof customToString === 'object') {
-                                return '\n' + JSON.stringify(customToString, null, 2) + '\n';
-                            }
-                            // 如果返回值是字符串，直接返回
-                            return String(arg) + '\t';
-                        }else if (typeof arg.toString === 'function' && arg.toString === Object.prototype.toString) {
-                            // [object Object]
-                            return String(arg) + '\t';
-                        }
-
-                        // 使用 JSON.stringify
-                        return '\n' + JSON.stringify(arg, null, 2) + '\n';
-                    }
-                    // 其他类型直接返回字符串形式
-                    return String(arg) + '\t';
-                });
-
-                // 使用制表符连接所有参数
-                // return formattedArgs.join('\t');
-                return formattedArgs.join('') + '\t';
-            }
+        stack: function(message) {
+            define(['error-stack-parser'], function(ErrorStackParser) {
+                try {
+                    throw new Error(message || 'Default stack trace');
+                } catch (e) {
+                    var stack = ErrorStackParser.parse(e);
+                    console.info(stack);
+                }
+            });
         },
 
-        stack: function (message) {
-            try {
-                throw new Error(message || 'Default stack trace');
-            } catch (e) {
-                var stack = ErrorStackParser.parse(e);
-                console.info(stack);
-            }
-        },
-
-        trace: function () {
-            var message = this.__formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
+        trace: function() {
+            var message = formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
 
             trace('\n⚡admin  TRACE  ❯❯ ' + message + '\n');
             this.__writeToLog(message + '\n', Log.TRACE, 3);
         },
 
-        debug: function () {
-            var message = this.__formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
+        debug: function() {
+            var message = formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
 
             trace('\n⚡admin  DEBUG  ❯❯ ' + message + '\n');
             this.__writeToLog(message + '\n', Log.DEBUG, 3);
         },
 
-        log: function () {
-            var message = this.__formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
+        log: function() {
+            var message = formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
 
             trace('\n⚡admin  LOG  ❯❯ ' + message + '\n');
             this.__writeToLog(message + '\n', Log.LOG, 3);
-        },
-        info: function () {
-            var message = this.__formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
+        }, info: function() {
+            var message = formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
 
             trace('\n⚡admin  INFO  ❯❯ ' + message + '\n');
             this.__writeToLog(message + '\n', Log.INFO, 3);
-        },
-        warn: function () {
-            var message = this.__formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
+        }, warn: function() {
+            var message = formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
 
             trace('\n⚡admin  WARNING  ❯❯ ' + message + '\n');
             alert('WARNING  ❯❯ ' + message + '\n');
             this.__writeToLog(message + '\n', Log.WARN, 3);
-        },
-        error: function () {
-            var message = this.__formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
+        }, error: function() {
+            var message = formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
 
             trace('\n⚡admin  ERROR  ❯❯ ' + message + '\n');
             alert('⚡⚡⚡ ERROR ⚡⚡⚡ ' + message + '\n');
@@ -240,13 +305,17 @@ define(['sprintf', 'error-stack-parser'], function ({ sprintf }, ErrorStackParse
          * Clears a log file
          * @param    {String}    type    The type of log file to reset
          */
-        clear: function (type) {
+        clear: function(type) {
+            // 清空控制台
+            fl.output.clear();
+
+            // 清空日志文件
             var name = type === Log.FILE ? 'file' : 'main';
             FLfile.remove(LOG_FOLDER + name + '.log');
             trace(name + '.log reset');
         },
 
-        table: function (data) {
+        table: function(data) {
             // 检查输入是否为数组或对象
             if (!Array.isArray(data) && typeof data !== 'object') {
                 throw new Error('table expects an array or an object');
@@ -254,12 +323,10 @@ define(['sprintf', 'error-stack-parser'], function ({ sprintf }, ErrorStackParse
 
             // 如果是对象，将其转换为键值对数组
             if (typeof data === 'object' && !Array.isArray(data)) {
-                data = Object.entries(data).map(
-                    // ([key, value]) => ({ key, value }));
-                    function ([key, value]) {
+                data = Object.entries(data).map(// ([key, value]) => ({ key, value }));
+                    function([key, value]) {
                         return { key: key, value: value };
-                    }
-                );
+                    });
             }
 
             // 检查数据是否为空
@@ -274,9 +341,9 @@ define(['sprintf', 'error-stack-parser'], function ({ sprintf }, ErrorStackParse
             // 获取所有列名（即对象的键）
             const columns = new Set();
             if (!isSimpleArray) {
-                data.forEach(function (item) {
+                data.forEach(function(item) {
                     if (typeof item === 'object') {
-                        Object.keys(item).forEach(function (key) {
+                        Object.keys(item).forEach(function(key) {
                             columns.add(key);
                         });
                     }
@@ -293,14 +360,14 @@ define(['sprintf', 'error-stack-parser'], function ({ sprintf }, ErrorStackParse
             const header = columnNames.join('\t');
 
             // 构建表格的每一行
-            const rows = data.map(function (item, index) {
+            const rows = data.map(function(item, index) {
                 if (isSimpleArray) {
                     // 处理普通数组
                     return [index, item].join('\t');
                 } else {
                     // 处理对象数组
                     return columnNames
-                        .map(function (column) {
+                        .map(function(column) {
                             return item[column] !== undefined ? String(item[column]) : '';
                         })
                         .join('\t');
@@ -314,51 +381,47 @@ define(['sprintf', 'error-stack-parser'], function ({ sprintf }, ErrorStackParse
             this.info(table);
         },
 
-        time: function (label) {
+        time: function(label) {
             if (label === undefined) label = 'default';
             if (timers[label]) {
                 // console.warn(`Timer "${label}" already exists.`);
-                this.warn(sprintf('Timer "%s" already exists.', label));
+                this.warn('Timer "%s" already exists.', label);
                 return;
             }
             timers[label] = Date.now();
             // console.log(`Timer "${label}" started.`);
-            this.info(sprintf('Timer "%s" started.', label));
-        },
-        timeEnd: function (label) {
+            this.info('Timer "%s" started.', label);
+        }, timeEnd: function(label) {
             if (label === undefined) label = 'default';
             if (!timers[label]) {
                 // console.warn(`Timer "${label}" does not exist.`);
-                this.warn(sprintf('Timer "%s" does not exist.', label));
+                this.warn('Timer "%s" does not exist.', label);
                 return;
             }
             const endTime = Date.now();
             const duration = endTime - timers[label];
             delete timers[label];
             // console.log(`Timer "${label}": ${duration}ms`);
-            this.info(sprintf('Timer "%s": %sms', label, duration));
-        },
-        count: function (label) {
+            this.info('Timer "%s": %sms', label, duration);
+        }, count: function(label) {
             if (label === undefined) label = 'default';
             if (!counters[label]) {
                 counters[label] = 0;
             }
             counters[label]++;
             // console.log(`"${label}" was called ${counters[label]} times.`);
-            this.info(sprintf('"%s" was called %s times.', label, counters[label]));
-        },
-        countReset: function (label) {
+            this.info('"%s" was called %s times.', label, counters[label]);
+        }, countReset: function(label) {
             if (label === undefined) label = 'default';
             if (!counters[label]) {
                 // console.warn(`Counter "${label}" does not exist.`);
-                this.warn(sprintf('Counter "%s" does not exist.', label));
+                this.warn('Counter "%s" does not exist.', label);
                 return;
             }
             delete counters[label];
             // console.log(`Counter "${label}" has been reset.`);
-            this.info(sprintf('Counter "%s" has been reset.', label));
-        },
-        assert: function (expression, message) {
+            this.info('Counter "%s" has been reset.', label);
+        }, assert: function(expression, message) {
             if (!expression) {
                 throw new Error(message || 'Assertion failed');
             }

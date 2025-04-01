@@ -30,6 +30,8 @@
 				return factory( w );
 			};
 	} else if ( typeof define === "function" && define.amd ) {
+		// bug append无效,flash 环境下,无法添加元素
+		alert("[jquery] 由于flash 环境下,很多功能与预期不符,例如: 无法添加元素,请使用xmldom 库");
 		// AMD. Register as an anonymous module.
 		define( [ "xmldom" ], factory );
 	}
@@ -6090,6 +6092,7 @@ jQuery.fn.extend( {
 
 	append: function() {
 		return domManip( this, arguments, function( elem ) {
+			// console.log( "this.nodeType: ", this.nodeType );
 			if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
 				var target = manipulationTarget( this, elem );
 				target.appendChild( elem );

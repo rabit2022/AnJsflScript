@@ -7,51 +7,54 @@
  * @description: 简单的测试框架
  */
 
-define(function() {
-
+define(function () {
     // 自定义测试框架
     var assert = {
-        equal: function(actual, expected, message) {
+        equal: function (actual, expected, message) {
             if (actual !== expected) {
-                throw new Error(message || '期望值为 ' + expected + '，但实际值为 ' + actual);
+                throw new Error(
+                    message || '期望值为 ' + expected + '，但实际值为 ' + actual
+                );
             }
         },
-        notEqual: function(actual, expected, message) {
+        notEqual: function (actual, expected, message) {
             if (actual === expected) {
-                throw new Error(message || '期望值不为 ' + expected + '，但实际值为 ' + actual);
+                throw new Error(
+                    message || '期望值不为 ' + expected + '，但实际值为 ' + actual
+                );
             }
         },
-        True: function(value, message) {
+        True: function (value, message) {
             if (!value) {
                 throw new Error(message || '期望值为 true，但实际值为 ' + value);
             }
         },
-        False: function(value, message) {
+        False: function (value, message) {
             if (value) {
                 throw new Error(message || '期望值为 false，但实际值为 ' + value);
             }
         },
-        Null: function(value, message) {
+        Null: function (value, message) {
             if (value !== null) {
                 throw new Error(message || '期望值为 null，但实际值为 ' + value);
             }
         },
-        NotNull: function(value, message) {
+        NotNull: function (value, message) {
             if (value === null) {
                 throw new Error(message || '期望值不为 null，但实际值为 ' + value);
             }
         },
-        Undefined: function(value, message) {
+        Undefined: function (value, message) {
             if (value !== undefined) {
                 throw new Error(message || '期望值为 undefined，但实际值为 ' + value);
             }
         },
-        NotUndefined: function(value, message) {
+        NotUndefined: function (value, message) {
             if (value === undefined) {
                 throw new Error(message || '期望值不为 undefined，但实际值为 ' + value);
             }
         },
-        Throws: function(fn, message) {
+        Throws: function (fn, message) {
             try {
                 fn();
                 throw new Error(message || '期望函数抛出错误，但未抛出');
@@ -64,7 +67,7 @@ define(function() {
     var testResults = {
         passed: 0,
         failed: 0,
-        reset: function() {
+        reset: function () {
             this.passed = 0;
             this.failed = 0;
         }

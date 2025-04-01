@@ -6,7 +6,7 @@
  * @project: AnJsflScript
  * @description:
  */
-require([], function () {
+require(function () {
     function Main() {
         // 假设 require.s.contexts._.config 已经定义
         const config = require.s.contexts._.config || {};

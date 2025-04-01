@@ -25,7 +25,7 @@ require.config({
         'es6-sham': 'Third/polyfill/es6-shim-0.35.4/es6-sham',
         'es6-shim': 'Third/polyfill/es6-shim-0.35.4/es6-shim',
         'es7-shim': 'Third/polyfill/es7-shim-6.0.0/es7-shim',
-        json3: 'Third/polyfill/json3-3.3.3/json3',
+        json3: 'Third/json/json3-3.3.3/json3',
         es2017: 'Third/polyfill/polyfill-0.1.43/es2017',
         'error-stack-parser': 'Third/stack/error-stack-parser-3.0.0/error-stack-parser',
         stackframe: 'Third/stack/stackframe-1.3.4/stackframe',
@@ -34,6 +34,10 @@ require.config({
         sprintf: 'Third/utils/sprintf-js-1.1.3/sprintf',
         xmldom: 'Third/xml/xmldom-0.6.0/xmldom',
         jquery: 'Third/xml/jquery-3.7.1/jquery.slim',
+        'circular-json': 'Third/json/circular-json-0.5.9/circular-json.amd',
+        'fast-xml-parser': 'Third/xml/fast-xml-parser-5.0.9/fast-xml-parser',
+        xpath: 'Third/xml/xpath-0.0.34/xpath',
+
 
         // 自定义模块
         test: 'Core/test/test',
