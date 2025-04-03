@@ -38,7 +38,6 @@ require.config({
         'fast-xml-parser': 'Third/xml/fast-xml-parser-5.0.9/fast-xml-parser',
         xpath: 'Third/xml/xpath-0.0.34/xpath',
 
-
         // 自定义模块
         test: 'Core/test/test',
         open: 'Core/Utils/py/open',

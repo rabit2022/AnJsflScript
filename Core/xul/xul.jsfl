@@ -7,7 +7,7 @@
  * @description:
  */
 
-require(['checkUtil', 'loglevel'], function(checkUtil, log) {
+require(['checkUtil', 'loglevel'], function (checkUtil, log) {
     const { CheckDom, CheckSelection } = checkUtil;
 
     // region doc
@@ -29,8 +29,6 @@ require(['checkUtil', 'loglevel'], function(checkUtil, log) {
     function Main() {
         // 检查选择的元件
         if (!CheckSelection(selection, 'selectElement', 'No limit')) return;
-
-
     }
 
     Main();

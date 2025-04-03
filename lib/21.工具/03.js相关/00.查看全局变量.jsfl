@@ -8,8 +8,8 @@
  */
 
 (function () {
-    // var PROPERTY = window;
-    var PROPERTY = document;
+    var PROPERTY = window;
+    // var PROPERTY = document;
     function Main() {
         fl.trace('All properties:[' + PROPERTY + ']');
         // 创建两个数组，分别存储普通属性和函数
