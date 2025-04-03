@@ -99,6 +99,14 @@
     }
 
     function Main() {
+
+        // doc没有打开时，无法获取DOM元素，因此需要先打开doc
+        if (!fl.getDocumentDOM()) {
+            alert('【温馨提示】请打开一个【.fla】文件，再尝试运行这个文件。\n作者：b站 @穹的兔兔');
+            return;
+        }
+
+
         // 全局变量
         window.importFlashScripts = importFlashScripts;
         /**
@@ -137,7 +145,10 @@
         });
 
         // 导入完成
-        console.info('=============Core modules imported.=============');
+        // console.info('=============Core modules imported.=============');
+        var message='【温馨提示】导入成功！！！\n 如果有bug,或者建议，请@我。\n作者：b站 @穹的兔兔';
+        alert(message);
+        // console.info(message);
     }
 
     Main();
