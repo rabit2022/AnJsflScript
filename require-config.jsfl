@@ -39,6 +39,7 @@ require.config({
         xpath: 'Third/xml/xpath-0.0.34/xpath',
 
         // 自定义模块
+        XUL: 'Core/xul/XUL',
         test: 'Core/test/test',
         open: 'Core/Utils/py/open',
         KeyFrameMode: 'Core/Utils/mode/KeyFrameMode',
