@@ -95,6 +95,17 @@
  * Initial version: June 14, 2004
  */
 
+(function webpackUniversalModuleDefinition(root, factory) {
+    if(typeof exports === 'object' && typeof module === 'object')
+        module.exports = factory();
+    else if(typeof define === 'function' && define.amd)
+        define([], factory);
+    else if(typeof exports === 'object')
+        exports["xpath"] = factory();
+    else
+        root["xpath"] = factory();
+})(this, function() {
+
 // non-node wrapper
 var xpath = (typeof exports === 'undefined') ? {} : exports;
 
@@ -5039,3 +5050,7 @@ var xpath = (typeof exports === 'undefined') ? {} : exports;
     );
     // end non-node wrapper
 })(xpath);
+
+return xpath;
+
+});

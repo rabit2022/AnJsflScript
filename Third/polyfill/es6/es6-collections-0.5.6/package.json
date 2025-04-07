@@ -1,0 +1,59 @@
+{
+  "name": "es6-collections",
+  "version": "0.5.6",
+  "description": "ES6 Harmony like collections such Map, WeakMap, and Set",
+  "homepage": "https://github.com/WebReflection/es6-collections",
+  "keywords": [
+    "WeakMap",
+    "Map",
+    "Set",
+    "shim",
+    "polyfill",
+    "ES6",
+    "Harmony"
+  ],
+  "author": "Andrea Giammarchi <andrea.giammarchi@gmail.com> (http://webreflection.blogspot.com/)",
+  "contributors": [
+    {
+      "name": "Dmitry Ivanov",
+      "email": "df.creative@gmail.com",
+      "url": "http://github.com/dfcreative"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/WebReflection/es6-collections.git"
+  },
+  "main": "es6-collections.jsfl",
+  "engines": {
+    "node": ">= 0.4.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "closurecompiler": "~1.3.2",
+    "better-assert": "~1.0.1",
+    "mocha": "~1.21.4",
+    "browserify": "~5.12.0"
+  },
+  "license": "MIT",
+  "optionalDependencies": {},
+  "scripts": {
+    "build": "npm run minify && npm run test",
+    "minify": "./node_modules/closurecompiler/bin/ccjs es6-collections.jsfl > es6-collections.js",
+    "test": "./node_modules/mocha/bin/mocha"
+  },
+  "testling": {
+    "files": "test/*.js",
+    "browsers": [
+      "ie/6..latest",
+      "chrome/22..latest",
+      "firefox/16..latest",
+      "safari/latest",
+      "opera/11.0..latest",
+      "iphone/6",
+      "ipad/6",
+      "android-browser/latest"
+    ],
+    "harness": "mocha-bdd"
+  }
+}

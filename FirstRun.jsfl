@@ -148,8 +148,8 @@
         // console.info('=============Core modules imported.=============');
         var message =
             '【温馨提示】导入成功！！！\n 如果有bug,或者建议，请@我。\n作者：b站 @穹的兔兔';
-        alert(message);
-        // console.info(message);
+        // alert(message);
+        console.info(message);
     }
 
     Main();

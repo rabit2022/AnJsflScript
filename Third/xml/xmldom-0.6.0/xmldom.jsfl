@@ -82,6 +82,7 @@
                     sax.parse(source, defaultNSMap, entityMap);
                 } else {
                     sax.errorHandler.error('invalid doc source');
+                    // console.stack('invalid doc source');
                 }
                 return domBuilder.doc;
             };

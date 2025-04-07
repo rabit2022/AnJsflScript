@@ -9,6 +9,7 @@
 				<column flex="2" />
 			</columns>
 
+
 			<rows id="controls">
 
 			</rows>
@@ -17,13 +18,13 @@
 
 	</content>
 
-	<script>
-		<![CDATA[
-			if(window.xjsfl)
-			{
-				xjsfl.ui.handleEvent({xulid}, 'initialize');
-			}
-		]]>
-	</script>
+<!--	<script>-->
+<!--		<![CDATA[-->
+<!--			if(window.xjsfl)-->
+<!--			{-->
+<!--				xjsfl.ui.handleEvent({xulid}, 'initialize');-->
+<!--			}-->
+<!--		]]>-->
+<!--	</script>-->
 
 </dialog>

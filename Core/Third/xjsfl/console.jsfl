@@ -253,7 +253,7 @@ define(function() {
         },
 
         stack: function(message) {
-            define(['error-stack-parser'], function(ErrorStackParser) {
+            require(['error-stack-parser'], function(ErrorStackParser) {
                 try {
                     throw new Error(message || 'Default stack trace');
                 } catch (e) {

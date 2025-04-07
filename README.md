@@ -134,41 +134,41 @@
 
 [//]: # ([![CoreJS]&#40;https://img.shields.io/badge/CoreJS-v3.41.0-ff9800&#41;]&#40;https://github.com/zloirock/core-js&#41;)
 
-class:
+[//]: # (class:)
 [![Class.js](https://img.shields.io/badge/Class.js-v0.0.1-4caf50)](https://github.com/DominikGuzei/Class.js)
 
-event:
+[//]: # (event:)
 [![EventEmitter3](https://img.shields.io/badge/EventEmitter3-v5.0.1-ffeb3b)](https://github.com/primus/eventemitter3)
 [![RxJS](https://img.shields.io/badge/RxJS-v7.8.2-ff9800)](https://github.com/ReactiveX/RxJS)
 
-log:
+[//]: # (log:)
 [![loglevel](https://img.shields.io/badge/loglevel-v1.9.2-4caf50)](https://github.com/pimterry/loglevel)
 
-modules:
+[//]: # (modules:)
 [![path-browserify](https://img.shields.io/badge/path--browserify-v1.0.1-ffeb3b)](https://github.com/browserify/path-browserify)
 [![requirejs](https://img.shields.io/badge/requirejs-v2.3.7-ffeb3b)](https://github.com/requirejs/requirejs)
 
-polyfill:
+[//]: # (polyfill:)
 [![ES5-Shim](https://img.shields.io/badge/ES5--Shim-v4.6.7-9c27b0)](https://github.com/es-shims/es5-shim)
 [![ES6-Shim](https://img.shields.io/badge/ES6--Shim-v0.35.4-ff9800)](https://github.com/es-shims/es6-shim)
 [![ES7-Shim](https://img.shields.io/badge/ES7--Shim-v6.0.0-ff9800)](https://github.com/es-shims/es7-shim)
 [![json3](https://img.shields.io/badge/json3-v3.3.3-blue)](https://github.com/bestiejs/json3)
 [![polyfill](https://img.shields.io/badge/polyfill-v0.1.43-2196f3)](https://github.com/inexorabletash/polyfill)
 
-stack:
+[//]: # (stack:)
 [![error-stack-parser](https://img.shields.io/badge/error--stack--parser-v3.0.0-2196f3)](https://github.com/stacktracejs/error-stack-parser)
 [![stackframe](https://img.shields.io/badge/stackframe-v1.3.4-2196f3)](https://github.com/stacktracejs/stackframe)
 
-utils:
+[//]: # (utils:)
 [![LINQ.js](https://img.shields.io/badge/LINQ.js-v4.0.3-9c27b0)](https://github.com/neuecc/linq.js)
 [![Lodash](https://img.shields.io/badge/Lodash-v4.17.21-2196f3)](https://github.com/lodash/lodash)
 [![sprintf-js](https://img.shields.io/badge/sprintf.js-v1.1.3-green)](https://github.com/alexei/sprintf.js)
 
-xml:
+[//]: # (xml:)
 [![jquery](https://img.shields.io/badge/jquery-v3.7.1-2196f3)](https://github.com/jquery/jquery)
 [![xmldom](https://img.shields.io/badge/xmldom-v0.6.0-2196f3)](https://github.com/xmldom/xmldom)
 
-others:
+[//]: # (others:)
 [![WindowSWF](https://img.shields.io/badge/WindowSWF-Gitee-4caf50)](https://gitee.com/ninge/WindowSWF/tree/master/)
 [![xJSFL](https://img.shields.io/badge/xJSFL-GitHub-2196f3)](https://github.com/davestewart/xJSFL)
 [![FlashTool](https://img.shields.io/badge/FlashTool-GitHub-2196f3)](https://github.com/hufang360/FlashTool)

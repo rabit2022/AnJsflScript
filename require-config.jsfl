@@ -22,8 +22,8 @@ require.config({
         require: 'Third/modules/requirejs-2.3.7/require',
         'es5-sham': 'Third/polyfill/es5-shim-4.6.7/es5-sham',
         'es5-shim': 'Third/polyfill/es5-shim-4.6.7/es5-shim',
-        'es6-sham': 'Third/polyfill/es6-shim-0.35.4/es6-sham',
-        'es6-shim': 'Third/polyfill/es6-shim-0.35.4/es6-shim',
+        'es6-sham': 'Third/polyfill/es6/es6-shim-0.35.4/es6-sham',
+        'es6-shim': 'Third/polyfill/es6/es6-shim-0.35.4/es6-shim',
         'es7-shim': 'Third/polyfill/es7-shim-6.0.0/es7-shim',
         json3: 'Third/json/json3-3.3.3/json3',
         es2017: 'Third/polyfill/polyfill-0.1.43/es2017',
@@ -37,6 +37,8 @@ require.config({
         'circular-json': 'Third/json/circular-json-0.5.9/circular-json.amd',
         'fast-xml-parser': 'Third/xml/fast-xml-parser-5.0.9/fast-xml-parser',
         xpath: 'Third/xml/xpath-0.0.34/xpath',
+        'xml-pollyfill': 'Third/xml/xml-pollyfill',
+        'es6-collections': 'Third/polyfill/es6/es6-collections-0.5.6/es6-collections',
 
         // 自定义模块
         XUL: 'Core/xul/XUL',
