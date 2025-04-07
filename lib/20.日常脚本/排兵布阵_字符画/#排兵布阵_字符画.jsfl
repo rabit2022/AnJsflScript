@@ -7,7 +7,7 @@
  * @description:
  */
 
-require(['checkUtil', 'loglevel', 'os', 'open', 'XUL'], function (
+require(['checkUtil', 'loglevel', 'os', 'open', 'XUL'], function(
     checkUtil,
     log,
     os,
@@ -40,31 +40,20 @@ require(['checkUtil', 'loglevel', 'os', 'open', 'XUL'], function (
         // 检查选择的元件
         if (!CheckSelection(selection, 'selectElement', 'No limit')) return;
 
-        // var ascii = prompt(
-        //     '请输入排列的文字：(必须资源文件夹下存在同名的字符画文件)',
-        //     '一万人'
-        // );
-        //
-        // var asciiFilePath = os.path.join(ASCII_ART_LIBRARY_PATH, ascii + '.txt');
-        // log.info('asciiFilePath:', asciiFilePath);
-        //
-        // with (open(asciiFilePath, 'r')) {
-        //     log.info('文件内容：', f.read());
-        //     var lines = f.readLines();
-        //     log.info('文件内容：', lines);
-        //     log.info('文件行数：', lines.length);
-        // }
+        // 注意，未完成
+        var ok = confirm('【温馨提示】这个脚本 由于导入了XUL库，属于重型库，可能会导致卡顿异常，闪退，不兼容等情况，是否继续');
+        if (!ok) return;
 
         var listdir = os.listdir(ASCII_ART_LIBRARY_PATH);
         log.info('listdir:', listdir);
 
         // 获取.txt文件列表
-        var txtFileList = listdir.filter(function (file) {
+        var txtFileList = listdir.filter(function(file) {
             return file.endsWith('.txt');
         });
         log.info('txtFileList:', txtFileList);
 
-        var menuItems = txtFileList.map(function (file) {
+        var menuItems = txtFileList.map(function(file) {
             return {
                 label: file.replace('.txt', ''),
                 value: os.path.join(ASCII_ART_LIBRARY_PATH, file)
@@ -72,12 +61,14 @@ require(['checkUtil', 'loglevel', 'os', 'open', 'XUL'], function (
         });
         log.info('menuItems:', menuItems);
 
-        var xul = new XUL('排兵布阵_字符画').addMenuList(
-            '选择字符画',
-            'ascii-art-menu',
-            {},
-            menuItems
-        );
+        var xul = new XUL('排兵布阵_字符画')
+            .addMenuList('bug', 'bug', {}, [
+                {
+                    label: '只能tab选中,第一个无法被鼠标选中,',
+                    value: 'bug'
+                }
+            ])
+            .addMenuList('选择字符画', 'ascii-art-menu', {}, menuItems);
         log.info('xmlFileList:', xul.xml);
 
         var dialog = fl.xmlPanelFromString(xul.xml);
@@ -89,6 +80,19 @@ require(['checkUtil', 'loglevel', 'os', 'open', 'XUL'], function (
         }
 
         log.info('dialog:', dialog);
+
+        var asciiFilePath = dialog['ascii-art-menu'];
+        log.info('asciiFilePath:', asciiFilePath);
+
+        // eslint-disable-next-line no-with
+        with (open(asciiFilePath, 'r')) {
+            log.info('文件内容：', f.read());
+            var lines = f.readLines();
+            log.info('文件内容：', lines);
+            log.info('文件行数：', lines.length);
+        }
+
+
     }
 
     Main();

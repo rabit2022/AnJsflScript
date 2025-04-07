@@ -5241,9 +5241,9 @@
                                 {
                                     key: 'build',
                                     value: function build(title, content, columns) {
-                                        if (!content.startsWith('<row>')) {
-                                            content = '<row>'.concat(content, '</row>');
-                                        }
+                                        // if (!content.startsWith('<row>')) {
+                                        //     content = '<row>'.concat(content, '</row>');
+                                        // }
                                         var xmlObj = this.parser.parse(this.xml);
 
                                         // 设置标题
