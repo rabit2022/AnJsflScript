@@ -1,16 +1,20 @@
 /**
- * @file: 03.自动说话.jsfl
+ * @file: 05.批量选中.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
- * @date: 2025/3/26 0:31
+ * @date: 2025/4/8 22:55
  * @project: AnJsflScript
- * @description:
+ * @description:选中  selection 中 与 当前选中的元件 相同的元件
  */
 
-require(['checkUtil', 'loglevel', 'frameRangeUtil'], function (checkUtil, log, frUtil) {
+require(['checkUtil', 'loglevel', 'elementUtil', 'selectionUtil'], function (
+    checkUtil,
+    log,
+    eleUtil,
+    selectionUtil
+) {
     const { CheckDom, CheckSelection } = checkUtil;
-    // getSelectedLayers
-    const { getSelectedLayers } = frUtil;
+    const { SelectSameName } = selectionUtil;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -29,16 +33,11 @@ require(['checkUtil', 'loglevel', 'frameRangeUtil'], function (checkUtil, log, f
     // endregion doc
 
     function Main() {
-        var selectedLayers = getSelectedLayers(timeline);
         // 检查选择的元件
-        if (!CheckSelection(selectedLayers, 'selectLayer', 'Only two')) return;
+        if (!CheckSelection(selection, 'selectElement', 'Only one')) return;
 
-        log.info('selectedLayers:', selectedLayers);
-        // 1,区分嘴的图层 ,声音的图层
-
-        // 2,获取声音图层的关键帧
-
-        // 3,复制声音图层的关键帧到嘴的图层
+        var firstElement = selection[0];
+        SelectSameName(firstElement);
     }
 
     Main();

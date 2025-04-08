@@ -46,7 +46,7 @@ define([
      */
     FrameRangeUtil.getSelectedFrs = function (timeline) {
         var selectedFrames = timeline.getSelectedFrames();
-        return this.wrapFrFromSl(selectedFrames);
+        return FrameRangeUtil.wrapFrFromSl(selectedFrames);
     };
 
     /**
@@ -193,6 +193,34 @@ define([
         var frame = layer.frames[frameIndex];
         if (!frame) return false;
         return frame.startFrame === frameIndex;
+    };
+
+    /**
+     * 获取选中图层的索引数组
+     * @param {Timeline} timeline 时间线
+     * @return {number[]} 图层索引数组
+     */
+    FrameRangeUtil.getSelectedLayers = function (timeline) {
+        var frs = FrameRangeUtil.getSelectedFrs(timeline);
+        // log.info(frs);
+
+        // 创建一个Set来存储不重复的layerIndex
+        var uniqueLayerIndexesSet = new Set();
+
+        // 遍历输入数组
+        for (var i = 0; i < frs.length; i++) {
+            var layerIndex = frs[i].layerIndex;
+            uniqueLayerIndexesSet.add(layerIndex); // 添加到Set中，自动去重
+        }
+
+        // 将Set转换为数组
+        var uniqueLayerIndexes = [];
+        uniqueLayerIndexesSet.forEach(function (layerIndex) {
+            uniqueLayerIndexes.push(layerIndex);
+        });
+
+        // console.log(uniqueLayerIndexes); // 输出：[0, 1]
+        return uniqueLayerIndexes;
     };
 
     return FrameRangeUtil;

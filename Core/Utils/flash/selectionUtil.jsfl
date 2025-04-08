@@ -93,16 +93,6 @@ define(function () {
      *        如果不使用这个函数，doc.selection 会一直为空,出现bug
      */
     function SelectBefore(selection) {
-        // polyfill
-        // bug:ElementUtil.getName  循环引用的问题
-        getName = function (element) {
-            if (element.elementType === 'instance') {
-                return element.libraryItem.name;
-            } else {
-                return element.name;
-            }
-        };
-
         var doc = fl.getDocumentDOM(); //文档
         var selectionNames = selection.map(getName); //选择的元件名称
 
@@ -122,6 +112,40 @@ define(function () {
         SelectStart(lastSelection);
     }
 
+    /**
+     * 选中相同名称的元件
+     * @param {Element} firstElement 第一个元件
+     */
+    function SelectSameName(firstElement) {
+        var doc = fl.getDocumentDOM(); //文档
+
+        var Name = getName(firstElement);
+        // log.info('当前选中的元件名称：' + Name);
+
+        SelectAll();
+        var selection = doc.selection; //选择
+        for (var i = 0; i < selection.length; i++) {
+            var element = selection[i];
+
+            var name = getName(element);
+            // log.info('选择的元件名称：' + name);
+
+            if (name === Name) {
+                element.selected = true;
+            }
+        }
+    }
+
+    // polyfill
+    // bug:ElementUtil.getName  循环引用的问题
+    var getName = function (element) {
+        if (element.elementType === 'instance') {
+            return element.libraryItem.name;
+        } else {
+            return element.name;
+        }
+    };
+
     return {
         OnlySelectCurrent: OnlySelectCurrent,
         SelectStart: SelectStart,
@@ -130,6 +154,7 @@ define(function () {
         SelectNoneTl: SelectNoneTl,
         SelectAllTl: SelectAllTl,
         DeleteSelection: DeleteSelection,
-        SelectBefore: SelectBefore
+        SelectBefore: SelectBefore,
+        SelectSameName: SelectSameName
     };
 });

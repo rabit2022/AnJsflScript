@@ -12,7 +12,7 @@ define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
      * 检查选择的元件或帧是否符合指定的模式和条件。
      *
      * @param {Array} selection - 选择的元件或帧数组。
-     * @param {'selectElement'|'selectFrame'|'elementOnFrame'|'selectLibItem'} [mode="selectElement"] - 检查模式，默认值为 "selectElement"。
+     * @param {'selectElement'|'selectFrame'|'elementOnFrame'|'selectLibItem'|'selectLayer'} [mode="selectElement"] - 检查模式，默认值为 "selectElement"。
      * @param {'No limit'|'Not Zero'|'Zero'|'Only one'|'Only two'|'More'|'=0'|'=1'|'=2'|'>=2'} [condition="No limit"] - 检查条件，默认值为 "No limit"。
      * @param {string} [exTips] - 额外提示信息。
      * @returns {boolean} - 如果选择符合指定条件，则返回 true，否则返回 false。
@@ -23,6 +23,11 @@ define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
      * - 如果传入 `null`，函数将终止执行并提示用户。
      */
     function CheckSelection(selection, mode, condition, exTips) {
+        // bug:不清楚为什么在 CheckSelection 后面，重新  定义 selection 变量，会导致 selection 为 undefined
+        // selection.length  报错
+        //  var selection = doc.selection; //选择
+        // var _selection=_.cloneDeep(selection); // 克隆选择
+
         // 检查 mode 是否为 null
         if (mode === null) {
             // console.error("CheckSelection: 模式不能为 null，请指定一个有效的模式！");
@@ -44,7 +49,13 @@ define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
         condition = condition || 'No limit';
 
         // 定义模式
-        var modes = ['selectElement', 'selectFrame', 'elementOnFrame', 'selectLibItem'];
+        var modes = [
+            'selectElement',
+            'selectFrame',
+            'elementOnFrame',
+            'selectLibItem',
+            'selectLayer'
+        ];
 
         // 定义条件列表（主条件列表和其他别名列表）
         var conditions = [
@@ -67,7 +78,7 @@ define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
                 '请选择一个帧。',
                 '请至少选择一个帧。',
                 '请只选择一个帧。',
-                '请只选择两个帧。',
+                '请同时选择两个帧。',
                 '请选择多个帧。'
             ],
             [
@@ -83,8 +94,16 @@ define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
                 '请选择库中的一个项目。',
                 '请至少选择一个库项目。',
                 '请只选择一个库项目。',
-                '请只选择两个库项目。',
+                '请同时选择两个库项目。',
                 '请选择多个库项目。'
+            ],
+            [
+                null,
+                '请选择一个图层。',
+                '请至少选择一个图层。',
+                '请只选择一个图层。',
+                '请同时选择两个图层。',
+                '请选择多个图层。'
             ]
         ];
 

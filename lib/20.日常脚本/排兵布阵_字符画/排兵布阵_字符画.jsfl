@@ -7,14 +7,16 @@
  * @description:
  */
 
-require(['checkUtil', 'loglevel', 'os', 'open', 'XUL'], function(
-    checkUtil,
-    log,
-    os,
-    open,
-    XUL
-) {
+require([
+    'checkUtil',
+    'loglevel',
+    'os',
+    'open',
+    'moreElement',
+    'selectionUtil'
+], function (checkUtil, log, os, open, MoreElement, selectionUtil) {
     const { CheckDom, CheckSelection } = checkUtil;
+    const { SelectSameName } = selectionUtil;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -41,19 +43,30 @@ require(['checkUtil', 'loglevel', 'os', 'open', 'XUL'], function(
         if (!CheckSelection(selection, 'selectElement', 'No limit')) return;
 
         // 注意，未完成
-        var ok = confirm('【温馨提示】这个脚本 由于导入了XUL库，属于重型库，可能会导致卡顿异常，闪退，不兼容等情况，是否继续');
+        var ok = confirm(
+            '【温馨提示】\n1.这个脚本 由于导入了XUL库，属于重型库，可能会导致卡顿异常，闪退，不兼容等情况\n2.这个脚本 会生成多个元件，用于组成字符画，以保证效果的完美，可能造成画面过于复杂，导出时可能出现问题。\n\n请确认是否继续!!!'
+        );
         if (!ok) return;
+
+        var XUL;
+        require(['XUL'], function (xul) {
+            XUL = xul;
+        });
+        if (XUL === undefined) {
+            alert('XUL 模块加载失败');
+            return;
+        }
 
         var listdir = os.listdir(ASCII_ART_LIBRARY_PATH);
         log.info('listdir:', listdir);
 
         // 获取.txt文件列表
-        var txtFileList = listdir.filter(function(file) {
+        var txtFileList = listdir.filter(function (file) {
             return file.endsWith('.txt');
         });
         log.info('txtFileList:', txtFileList);
 
-        var menuItems = txtFileList.map(function(file) {
+        var menuItems = txtFileList.map(function (file) {
             return {
                 label: file.replace('.txt', ''),
                 value: os.path.join(ASCII_ART_LIBRARY_PATH, file)
@@ -84,15 +97,57 @@ require(['checkUtil', 'loglevel', 'os', 'open', 'XUL'], function(
         var asciiFilePath = dialog['ascii-art-menu'];
         log.info('asciiFilePath:', asciiFilePath);
 
+        var content_2d = [];
         // eslint-disable-next-line no-with
         with (open(asciiFilePath, 'r')) {
             log.info('文件内容：', f.read());
             var lines = f.readLines();
             log.info('文件内容：', lines);
             log.info('文件行数：', lines.length);
+            // content_2d.push(Array.from(lines[0]));
+            lines.forEach(function (line) {
+                content_2d.push(Array.from(line));
+            });
         }
 
+        log.info('content_2d:', content_2d);
 
+        var firstElement = selection[0],
+            horizontalSpacing = 0.5,
+            verticalSpacing = 0.5,
+            horizontalCount = content_2d[0].length,
+            verticalCount = content_2d.length;
+
+        var moreElement = new MoreElement(
+            firstElement,
+            horizontalSpacing,
+            verticalSpacing
+        );
+        doc.clipCopy();
+
+        for (var i = 0; i < horizontalCount; i++) {
+            for (var j = 0; j < verticalCount; j++) {
+                if (i === 0 && j === 0) {
+                    doc.deleteSelection();
+                    continue;
+                }
+
+                var character = content_2d[j][i];
+                if (character === '#') {
+                    var nextPoint = moreElement.NeatOffset(i, j);
+
+                    // 复制粘贴
+                    doc.clipPaste();
+
+                    // 移动元件
+                    var newElement = doc.selection[0];
+                    newElement.x = nextPoint.x;
+                    newElement.y = nextPoint.y;
+                }
+            }
+        }
+
+        SelectSameName(firstElement);
     }
 
     Main();
