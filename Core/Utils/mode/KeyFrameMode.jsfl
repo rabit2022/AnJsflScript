@@ -4,7 +4,7 @@
  * @email: 3101829204@qq.com
  * @date: 2025/3/26 17:24
  * @project: AnJsflScript
- * @description: 处理 选择范围内 的关键帧 的首帧,
+ * @description: 处理 选择范围内 的关键帧,
  *               用于 与frame有关的操作,当前帧的操作相当于 当前帧所在的整个关键帧上的操作
  *               例如：滤镜的添加,声音的调整
  * @version: 1.0.0

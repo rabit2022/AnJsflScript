@@ -93,6 +93,7 @@
                     scriptURI +
                     ']';
                 fl.trace(message);
+                console.stack(message);
                 throw new Error(message);
             }
         });

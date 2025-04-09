@@ -12,8 +12,9 @@ define([
     'frameRange',
     'selectionUtil'
     // 'core-js/actual/array/includes'
-], function (layerUtil, FrameRange, sel) {
-    function FrameRangeUtil() {}
+], function(layerUtil, FrameRange, sel) {
+    function FrameRangeUtil() {
+    }
 
     /**
      * 获取选中元件的帧范围
@@ -21,7 +22,7 @@ define([
      * @return {FrameRange[]} 帧范围数组
      * @private
      */
-    FrameRangeUtil.wrapFrFromSl = function (selectedFrames) {
+    FrameRangeUtil.wrapFrFromSl = function(selectedFrames) {
         /**
          * 获取选中元件的帧范围
          * @type {FrameRange[]}
@@ -44,7 +45,7 @@ define([
      * var selectedFrames = timeline.getSelectedFrames();
      * @return {FrameRange[]} 帧范围数组
      */
-    FrameRangeUtil.getSelectedFrs = function (timeline) {
+    FrameRangeUtil.getSelectedFrs = function(timeline) {
         var selectedFrames = timeline.getSelectedFrames();
         return FrameRangeUtil.wrapFrFromSl(selectedFrames);
     };
@@ -54,7 +55,7 @@ define([
      * @param {Timeline} timeline 时间线
      * @param {FrameRange[]} frs 帧范围数组
      */
-    FrameRangeUtil.resetSelectedFrames = function (timeline, frs) {
+    FrameRangeUtil.resetSelectedFrames = function(timeline, frs) {
         sel.SelectNoneTl(timeline);
         for (var i = 0; i < frs.length; i++) {
             var fr = frs[i];
@@ -71,7 +72,7 @@ define([
      * @see https://gitee.com/ninge/WindowSWF/tree/master/
      * @private
      */
-    FrameRangeUtil.getKeyFrames = function (layer) {
+    FrameRangeUtil.getKeyFrames = function(layer) {
         var frames = layer.frames;
 
         /**
@@ -87,7 +88,7 @@ define([
             i = startFrame; // 跳过 100-95序列
             keyFrames.push(startFrame); //95帧关键帧记录，//索引加1
         }
-        keyFrames.sort(function (a, b) {
+        keyFrames.sort(function(a, b) {
             return a - b;
         });
         return keyFrames;
@@ -101,7 +102,7 @@ define([
      * @return {FrameRange[]} 帧范围数组
      * @private
      */
-    FrameRangeUtil.wrapKeyFrames = function (layers, layer, keyFrames) {
+    FrameRangeUtil.wrapKeyFrames = function(layers, layer, keyFrames) {
         // 获取图层索引
         var layerIndex = layerUtil.convertToLayerIndex(layers, layer);
 
@@ -128,7 +129,7 @@ define([
      * @param {Layer} curLayer 当前图层
      * @return {FrameRange[]} 帧范围数组
      */
-    FrameRangeUtil.getKeyFrameRanges = function (layers, curLayer) {
+    FrameRangeUtil.getKeyFrameRanges = function(layers, curLayer) {
         // var layers = timeline.layers;//图层
 
         // 关键帧范围
@@ -152,7 +153,7 @@ define([
      * @param {FrameRange[]} keyFrameRanges 关键帧范围数组
      * @return {FrameRange} 帧范围
      */
-    FrameRangeUtil.getKfrFromSlLittle = function (selectedFrLittle, keyFrameRanges) {
+    FrameRangeUtil.getKfrFromSlLittle = function(selectedFrLittle, keyFrameRanges) {
         var keyFr = null;
         for (var i = 0; i < keyFrameRanges.length; i++) {
             var keyFrameRange = keyFrameRanges[i];
@@ -170,15 +171,23 @@ define([
      * @bug(当前帧已经是关键帧，再次转换会把下一帧也变成关键帧)
      * @param {Timeline} timeline 时间线
      * @param {number[]} keyFramesIndex 帧数组
+     * @param {Layer|number} [selectedLayer = curLayer]选中的图层
      */
-    FrameRangeUtil.convertToKeyframesSafety = function (timeline, keyFramesIndex) {
+    FrameRangeUtil.convertToKeyframesSafety = function(timeline, keyFramesIndex, selectedLayer) {
         // timeline.convertToKeyframes(frame_1);
         var layers = timeline.layers; //图层
         var curLayerIndex = timeline.currentLayer; //当前图层索引
         var curLayer = layers[curLayerIndex]; //当前图层
 
-        // var layer_ = layerUtil.convertToLayer(layers, layer);
-        var keyFrames = this.getKeyFrames(curLayer);
+        if (selectedLayer === undefined) {
+            selectedLayer = curLayer;
+        } else {
+            selectedLayer = layerUtil.convertToLayer(layers, selectedLayer);
+            var layerIndex = layerUtil.convertToLayerIndex(layers, selectedLayer);
+            timeline.currentLayer = layerIndex;
+        }
+
+        var keyFrames = FrameRangeUtil.getKeyFrames(selectedLayer);
 
         for (var i = 0; i < keyFramesIndex.length; i++) {
             var fr = keyFramesIndex[i];
@@ -189,7 +198,7 @@ define([
         }
     };
 
-    FrameRangeUtil.IsKeyFrame = function (layer, frameIndex) {
+    FrameRangeUtil.IsKeyFrame = function(layer, frameIndex) {
         var frame = layer.frames[frameIndex];
         if (!frame) return false;
         return frame.startFrame === frameIndex;
@@ -200,7 +209,7 @@ define([
      * @param {Timeline} timeline 时间线
      * @return {number[]} 图层索引数组
      */
-    FrameRangeUtil.getSelectedLayers = function (timeline) {
+    FrameRangeUtil.getSelectedLayers = function(timeline) {
         var frs = FrameRangeUtil.getSelectedFrs(timeline);
         // log.info(frs);
 
@@ -215,7 +224,7 @@ define([
 
         // 将Set转换为数组
         var uniqueLayerIndexes = [];
-        uniqueLayerIndexesSet.forEach(function (layerIndex) {
+        uniqueLayerIndexesSet.forEach(function(layerIndex) {
             uniqueLayerIndexes.push(layerIndex);
         });
 

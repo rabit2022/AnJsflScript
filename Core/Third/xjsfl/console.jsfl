@@ -157,11 +157,12 @@ define(function() {
         var args = Array.prototype.slice.call(arguments); // 将 arguments 转换为数组
 
         if (IsTemplateString(args[0])) {
-            require(['sprintf-js'], function({ sprintf }) {
+            var formattedMessage='';
+            require(['sprintf'], function({ sprintf }) {
                 // 使用 sprintf 格式化模板字符串
-                var formattedMessage = sprintf.apply(null, args);
-                return formattedMessage + '\t';
+                formattedMessage = sprintf.apply(null, args);
             });
+            return formattedMessage + '\t';
         } else {
             // 处理参数
             var formattedArgs = args.map(formatArgument);
