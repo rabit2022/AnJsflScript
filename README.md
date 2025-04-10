@@ -24,8 +24,8 @@
 
 ### 2.1 下载项目
 
-- **下载最新版本**：访问本项目的 [GitHub 仓库](https://github.com/rabit2022/AnJsflScript/tags) 并下载最新发布的 tag
-  版本。tag 版本经过相对稳定，适合大多数用户使用。当前项目可能会进行重构等操作，因此建议始终使用最新发布的 tag 版本。
+- **下载最新版本**：访问本项目的 [GitHub 仓库](https://github.com/rabit2022/AnJsflScript) 并下载最新发布的 [tag版本](https://github.com/rabit2022/AnJsflScript/tags)
+  。tag 版本经过相对稳定，适合大多数用户使用。当前项目可能会进行重构等操作，因此建议始终使用最新发布的 tag 版本。
 - **解压到本地**：将下载的文件解压到本地的一个合适位置，例如 `C:\AnJsflScript`。
 
 ### 2.2 打开 Adobe Animate 并新建或打开文档

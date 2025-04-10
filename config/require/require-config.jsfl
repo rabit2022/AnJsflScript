@@ -16,7 +16,7 @@ require.config({
         Class: 'Third/Class/Class.js-0.0.1/Class',
         Interface: 'Third/Class/Class.js-0.0.1/Interface',
         SAT: 'Third/custom/sat-js-0.9.0/SAT',
-        XUL: 'Third/custom/xul/XUL',
+        XUL: 'Third/xml/xul/XUL',
         eventemitter3: 'Third/event/eventemitter3-5.0.1/eventemitter3',
         rxjs: 'Third/event/rxjs-7.8.2/rxjs.umd',
         'circular-json': 'Third/json/circular-json-0.5.9/circular-json.amd',
