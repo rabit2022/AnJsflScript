@@ -4,11 +4,11 @@
   "env": {  // 定义代码运行环境
     "browser": false,  // 浏览器环境
     "node": false,     // Node.js 环境
-    "es6": true       // ES6 语法支持
+    "flash": true,     // Adobe Flash 环境
+    "es6": true,       // ES6 语法支持
+    "amd": true     // AMD 环境
   },
   "extends": [
-//    "airbnb", // 使用 Airbnb 的基础 JavaScript 配置
-//    "prettier" // 使用 Prettier 格式化规则
     "eslint:recommended",  // 使用 ESLint 推荐的规则
     "plugin:prettier/recommended"  // 集成 Prettier 并关闭 ESLint 中与 Prettier 冲突的规则
   ],

@@ -13,9 +13,14 @@ require(['checkUtil', 'loglevel', 'frameRangeUtil', 'LayerManager'], function (
     frUtil,
     LayerManager
 ) {
-    const { CheckDom, CheckSelection,CheckSelectedFrames } = checkUtil;
+    const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
     // getSelectedLayers
-    const { getSelectedLayers,getKeyFrames ,convertToKeyframesSafety,resetSelectedFrames} = frUtil;
+    const {
+        getSelectedLayers,
+        getKeyFrames,
+        convertToKeyframesSafety,
+        resetSelectedFrames
+    } = frUtil;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -38,7 +43,6 @@ require(['checkUtil', 'loglevel', 'frameRangeUtil', 'LayerManager'], function (
     if (frs === null) return;
     var firstLayer = layers[frs[0].layerIndex];
     var firstFrame = frs[0].startFrame;
-
 
     // 定义 LayerInfo 类
     /**

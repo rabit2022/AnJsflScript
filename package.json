@@ -16,7 +16,6 @@
     "Design"
   ],
   "devDependencies": {
-    "@types/core-js": "2.5.8",
     "@types/error-stack-parser": "2.0.2",
     "@types/eventemitter3": "2.0.4",
     "@types/json3": "3.3.4",
@@ -34,13 +33,17 @@
     "eslint-plugin-jsx-a11y": "6.10.2",
     "eslint-plugin-prettier": "5.2.3",
     "prettier": "3.5.2",
-    "rxjs": "7.8.2",
-    "tape": "5.9.0"
+    "rxjs": "7.8.2"
   },
   "scripts": {
     "format": "prettier --write \"**/*.{js,ts,jsfl}\" --ignore-path .prettierignore",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "open-an": "powershell -File config/start/open-an.ps1",
+    "open-test-file": "powershell -File config/start/open-test-file.ps1",
+    "FirstRun": "powershell -File config/start/FirstRun.ps1",
+    "ReRun": "powershell -File config/start/ReRun.ps1",
+    "run-current-file": "powershell -File config/start/run-current-file.ps1"
   },
   "repository": {
     "type": "git",

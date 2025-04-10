@@ -16,15 +16,15 @@
       "Class": ["types/Third/Class/Class.js-0.0.1/Class.d.ts"],
       "Interface": ["types/Third/Class/Class.js-0.0.1/Interface.d.ts"],
       "SAT": ["types/Third/sat-js-0.9.0/SAT.d.ts"],
-      "KeyFrameMode": ["Core/Utils/mode/KeyFrameMode"],
       "XUL": ["types/Core/xul/XUL.d.ts"],
 
-      "open": ["Core/Utils/py/open"],
+
       "ErrorDefinitions": ["Core/myShim/ErrorDefinitions"],
       "frameRange": ["Core/Object/frameRange"],
       "frameRangeUtil": ["Core/Object/frameRangeUtil"],
       "moreElement": ["Core/Object/moreElement"],
       "moreElementUtil": ["Core/Object/moreElementUtil"],
+      "test": ["Core/test/test"],
       "LayerManager": ["Core/Third/FlashTool/LayerManager"],
       "LibraryManager": ["Core/Third/FlashTool/LibraryManager"],
       "Navigation": ["Core/Third/FlashTool/Navigation/Navigation"],
@@ -44,6 +44,8 @@
       "promptUtil": ["Core/Utils/flash/promptUtil"],
       "selectionUtil": ["Core/Utils/flash/selectionUtil"],
       "xmlPanelUtil": ["Core/Utils/flash/xmlPanelUtil"],
+      "KeyFrameMode": ["Core/Utils/mode/KeyFrameMode"],
+      "open": ["Core/Utils/py/open"],
       "os": ["Core/Utils/py/os"],
       "random": ["Core/Utils/py/random"],
       "StringP": ["Core/Utils/py/StringP"]

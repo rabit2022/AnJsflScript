@@ -124,7 +124,7 @@
 
         require([
             // 导入配置文件
-            './require-config',
+            './config/require/require-config',
 
             // 导入shims, 避免其他模块依赖时报错
             'es5-shim', // es5,es2009
