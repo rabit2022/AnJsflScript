@@ -1,5 +1,5 @@
 /**
- * @file: FrameRange.jsfl
+ * @file: frameRange.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
  * @date: 2024/12/17 22:56
