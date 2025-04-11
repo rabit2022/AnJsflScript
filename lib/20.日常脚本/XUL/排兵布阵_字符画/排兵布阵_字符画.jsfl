@@ -7,13 +7,20 @@
  * @description:
  */
 
+if (typeof require === 'undefined') {
+    var msg =
+        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+    fl.trace(msg);
+    throw new Error(msg);
+}
 require([
     'checkUtil',
     'loglevel',
     'os',
     'open',
     'moreElement',
-    'selectionUtil','TryLoad'
+    'selectionUtil',
+    'TryLoad'
 ], function (checkUtil, log, os, open, MoreElement, selectionUtil, TryLoad) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { SelectSameName } = selectionUtil;

@@ -7,6 +7,12 @@
  * @description:打印当前帧的所有元件pos
  */
 
+if (typeof require === 'undefined') {
+    var msg =
+        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+    fl.trace(msg);
+    throw new Error(msg);
+}
 require(['checkUtil', 'SAT'], function (checkUtil, sat) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;

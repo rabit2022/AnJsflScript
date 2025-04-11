@@ -7,8 +7,18 @@
  * @description:
  */
 
-require(['checkUtil', 'loglevel', 'elementUtil','TryLoad'],
-    function (checkUtil, log, elementUtil, TryLoad) {
+if (typeof require === 'undefined') {
+    var msg =
+        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+    fl.trace(msg);
+    throw new Error(msg);
+}
+require(['checkUtil', 'loglevel', 'elementUtil', 'TryLoad'], function (
+    checkUtil,
+    log,
+    elementUtil,
+    TryLoad
+) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { IsSymbol } = elementUtil;
 
@@ -58,7 +68,6 @@ require(['checkUtil', 'loglevel', 'elementUtil','TryLoad'],
                 value: name
             };
         });
-        
 
         var XUL = TryLoad('XUL');
         if (!XUL) return;

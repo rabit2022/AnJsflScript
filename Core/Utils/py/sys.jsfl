@@ -7,11 +7,11 @@
  * @description:
  */
 
-define(function() {
+define(function () {
     var sys = {};
     sys.platform = 'AnJsflScript';
     sys.version = '1.0.0';
-    sys.exit = function(msg) {
+    sys.exit = function (msg) {
         fl.trace(msg);
         throw new Error(msg);
     };

@@ -117,7 +117,7 @@
         window.$ProjectFileDir$ = getcwd();
 
         var config = {
-            'require-js': 'Third/modules/requirejs-2.3.7/require-js',
+            'require-js': 'Third/modules/requirejs-2.3.7/require-js'
         };
         // 导入模块,相对路径导入
         importFlashScripts(config['require-js']);
@@ -140,7 +140,7 @@
             'console'
         ]);
 
-        require(['loglevel','TryLoad'], function (log, TryLoad) {
+        require(['loglevel', 'TryLoad'], function (log, TryLoad) {
             // 禁用log
             log.setDefaultLevel(log.levels.SILENT);
 

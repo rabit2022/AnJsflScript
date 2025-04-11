@@ -7,6 +7,12 @@
  * @description:选中  selection 中 与 当前选中的元件 相同的元件
  */
 
+if (typeof require === 'undefined') {
+    var msg =
+        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+    fl.trace(msg);
+    throw new Error(msg);
+}
 require(['checkUtil', 'loglevel', 'elementUtil', 'selectionUtil'], function (
     checkUtil,
     log,
