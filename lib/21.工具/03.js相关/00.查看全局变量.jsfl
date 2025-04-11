@@ -1,5 +1,5 @@
 ﻿/**
- * @file: 打印所有属性.jsfl
+ * @file: 00.查看全局变量.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
  * @date: 2025/2/12 16:44

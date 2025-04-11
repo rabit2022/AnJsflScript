@@ -1,5 +1,5 @@
 ﻿/**
- * @file: 01.瞬间-消失.jsfl
+ * @file: 01.瞬移-消失.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
  * @date: 2025/1/30 13:40
