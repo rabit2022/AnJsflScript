@@ -114,8 +114,9 @@ $ fxparser some.xml
 ```
 
 In a node js project
+
 ```js
-const { XMLParser, XMLBuilder, XMLValidator} = require("fast-xml-parser");
+const { XMLParser, XMLBuilder, XMLValidator } = require("Third/xml/fast-xml-parser-5.0.9/fast-xml-parser.jsfl");
 
 const parser = new XMLParser();
 let jObj = parser.parse(XMLdata);

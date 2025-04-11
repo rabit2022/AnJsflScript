@@ -2,7 +2,7 @@
 
 function _typeof2(o) { "@babel/helpers - typeof"; return _typeof2 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof2(o); }
 (function webpackUniversalModuleDefinition(root, factory) {
-  if ((typeof exports === "undefined" ? "undefined" : _typeof2(exports)) === 'object' && (typeof module === "undefined" ? "undefined" : _typeof2(module)) === 'object') module.exports = factory(require("eventemitter3"), require("fast-xml-parser"), require("xmldom"), require("xpath"));else if (typeof define === 'function' && define.amd) define("XUL", ["eventemitter3", "fast-xml-parser", "xmldom", "xpath", "xml-pollyfill"], factory);else if ((typeof exports === "undefined" ? "undefined" : _typeof2(exports)) === 'object') exports["XUL"] = factory(require("eventemitter3"), require("fast-xml-parser"), require("xmldom"), require("xpath"));else root["XUL"] = factory(root["eventemitter3"], root["fast-xml-parser"], root["xmldom"], root["xpath"]);
+  if ((typeof exports === "undefined" ? "undefined" : _typeof2(exports)) === 'object' && (typeof module === "undefined" ? "undefined" : _typeof2(module)) === 'object') module.exports = factory(require("eventemitter3"), require("fast-xml-parser"), require("xmldom"), require("xpath"));else if (typeof define === 'function' && define.amd) define("XUL", ["eventemitter3", "fast-xml-parser", "xmldom", "xpath"], factory);else if ((typeof exports === "undefined" ? "undefined" : _typeof2(exports)) === 'object') exports["XUL"] = factory(require("eventemitter3"), require("fast-xml-parser"), require("xmldom"), require("xpath"));else root["XUL"] = factory(root["eventemitter3"], root["fast-xml-parser"], root["xmldom"], root["xpath"]);
 })(void 0, function (__WEBPACK_EXTERNAL_MODULE_eventemitter3__, __WEBPACK_EXTERNAL_MODULE_fast_xml_parser__, __WEBPACK_EXTERNAL_MODULE_xmldom__, __WEBPACK_EXTERNAL_MODULE_xpath__) {
   return /******/function () {
     // webpackBootstrap
@@ -116,18 +116,16 @@ function _typeof2(o) { "@babel/helpers - typeof"; return _typeof2 = "function" =
                 // const path = require("path");
                 var path = __webpack_require__(/*! path */"?3f59");
                 var fs = __webpack_require__(/*! fs */"?569f");
-                var templatePath = path.join(__dirname, './templates/', templateName);
-                return fs.readFileSync(templatePath, 'utf-8');
+                var _templatePath = path.join(__dirname, './templates/', templateName);
+                return fs.readFileSync(_templatePath, 'utf-8');
               } else if (isFlash) {
                 var dirname = $ProjectFileDir$;
+
+                // requirejs + text! 加载模板文件
                 var template = '';
-                requirejs(['os', 'open'], function (os, open) {
-                  var templatePath = os.path.join(dirname, './config/xul/', templateName);
-                  // with (open(templatePath, 'r')) {
-                  //     template = f.read();
-                  // }
-                  // 使用eval来执行非严格模式的代码
-                  eval("\n                        with (open(\"".concat(templatePath, "\", 'r')) {\n                            template = f.read();\n                        }\n                    "));
+                var templatePath = 'text!./config/xul/' + templateName;
+                requirejs([templatePath], function (tm) {
+                  template = tm;
                 });
                 return template;
               } else {
@@ -187,19 +185,6 @@ function _typeof2(o) { "@babel/helpers - typeof"; return _typeof2 = "function" =
           }
           return ("string" === r ? String : Number)(t);
         }
-        function _classPrivateMethodInitSpec(e, a) {
-          _checkPrivateRedeclaration(e, a), a.add(e);
-        }
-        function _checkPrivateRedeclaration(e, t) {
-          if (t.has(e)) throw new TypeError("Cannot initialize the same private elements twice on an object");
-        }
-        function _classPrivateGetter(s, r, a) {
-          return a(_assertClassBrand(s, r));
-        }
-        function _assertClassBrand(e, t, n) {
-          if ("function" == typeof e ? e === t : e.has(t)) return arguments.length < 3 ? t : n;
-          throw new TypeError("Private element is not present on this object");
-        }
         var DialogBuilder = __webpack_require__(/*! ./core/DialogBuilder */"./src/core/DialogBuilder.js");
         var ControlManager = __webpack_require__(/*! ./core/ControlManager */"./src/core/ControlManager.js");
         var ControlFactory = __webpack_require__(/*! ./core/ControlFactory */"./src/core/ControlFactory.js");
@@ -207,12 +192,10 @@ function _typeof2(o) { "@babel/helpers - typeof"; return _typeof2 = "function" =
         var Config = __webpack_require__(/*! ./Config */"./src/Config.js");
 
         // const DialogManager = require("./core/DialogManager");
-        var _XUL_brand = /*#__PURE__*/new WeakSet();
         var XUL = /*#__PURE__*/function () {
           function XUL() {
             var title = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'xJSFL';
             _classCallCheck(this, XUL);
-            _classPrivateMethodInitSpec(this, _XUL_brand);
             // super();
 
             this.parser = Config.parser;
@@ -241,8 +224,38 @@ function _typeof2(o) { "@babel/helpers - typeof"; return _typeof2 = "function" =
           return _createClass(XUL, [{
             key: "xml",
             get: function get() {
-              return this.dialogBuilder.build(this.title, _classPrivateGetter(_XUL_brand, this, _get_content), this.columns);
+              return this.dialogBuilder.build(this.title, this._content, this.columns);
             }
+          }, {
+            key: "_content",
+            get: function get() {
+              var _content = '';
+              var controls = this.controlManager.controls;
+              // 遍历controls对象的每个键值对
+              for (var key in controls) {
+                if (controls.hasOwnProperty(key)) {
+                  // 确保是对象自身的属性，而不是继承的属性
+                  var control = controls[key];
+                  _content += control.xml;
+
+                  // 处理事件
+                  var eventType = EventManager.EventType.CREATE;
+                  var controlId = control.id;
+                  this.eventManager.trigger(eventType, controlId, {
+                    control: control
+                  });
+                }
+              }
+              return _content;
+            }
+
+            // region simple controls
+
+            /**
+             * 工厂方法，创建XUL实例
+             * @param {Object} props - 控件定义或函数
+             * @returns {XUL} XUL实例
+             */
           }, {
             key: "updateControl",
             value: function updateControl(id, label, attributes, items) {
@@ -254,16 +267,6 @@ function _typeof2(o) { "@babel/helpers - typeof"; return _typeof2 = "function" =
               var type = origionalControl.type;
               var xml = this.templates[type];
               var newControl = ControlFactory.create(type, id, label, this, xml, attributes, items);
-              // // 更新控件的属性
-              // var newControl = origionalControl;
-              // newControl.label = label;
-              // newControl.attributes = attributes;
-              // if (items) {
-              //     newControl.items = items;
-              // }
-              //
-              // newControl._setNewAttributes();
-
               this.controlManager.updateControl(newControl);
 
               // 如果需要触发事件，则触发事件
@@ -279,53 +282,64 @@ function _typeof2(o) { "@babel/helpers - typeof"; return _typeof2 = "function" =
 
             // region 控件创建方法
           }, {
+            key: "_addControl",
+            value: function _addControl(type, id, label, attributes, items) {
+              var xml = this.templates[type];
+              var control = ControlFactory.create(type, id, label, this, xml, attributes, items);
+              if (!control.id) {
+                throw new Error('Invalid control id');
+              }
+              this.controlManager.addControl(control);
+              return this;
+            }
+          }, {
             key: "addLabel",
             value: function addLabel(label, id) {
-              return _assertClassBrand(_XUL_brand, this, _addControl).call(this, 'label', id, label);
+              return this._addControl('label', id, label);
             }
           }, {
             key: "addTextbox",
             value: function addTextbox(label, id, attributes) {
-              return _assertClassBrand(_XUL_brand, this, _addControl).call(this, 'textbox', id, label, attributes);
+              return this._addControl('textbox', id, label, attributes);
             }
           }, {
             key: "addColorchip",
             value: function addColorchip(label, id, attributes) {
-              return _assertClassBrand(_XUL_brand, this, _addControl).call(this, 'colorchip', id, label, attributes);
+              return this._addControl('colorchip', id, label, attributes);
             }
           }, {
             key: "addPopupSlider",
             value: function addPopupSlider(label, id, attributes) {
-              return _assertClassBrand(_XUL_brand, this, _addControl).call(this, 'popupslider', id, label, attributes);
+              return this._addControl('popupslider', id, label, attributes);
             }
           }, {
             key: "addCheckbox",
             value: function addCheckbox(label, id, attributes) {
-              return _assertClassBrand(_XUL_brand, this, _addControl).call(this, 'checkbox', id, label, attributes);
+              return this._addControl('checkbox', id, label, attributes);
             }
 
             // endregion simple controls
           }, {
             key: "addButton",
             value: function addButton(label, id, attributes) {
-              return _assertClassBrand(_XUL_brand, this, _addControl).call(this, 'button', id, label, attributes);
+              return this._addControl('button', id, label, attributes);
             }
           }, {
             key: "addTargetList",
             value: function addTargetList(label, id, attributes) {
-              return _assertClassBrand(_XUL_brand, this, _addControl).call(this, 'targetlist', id, label, attributes);
+              return this._addControl('targetlist', id, label, attributes);
             }
           }, {
             key: "addChooseFile",
             value: function addChooseFile(label, id, attributes) {
-              return _assertClassBrand(_XUL_brand, this, _addControl).call(this, 'choosefile', id, label, attributes);
+              return this._addControl('choosefile', id, label, attributes);
             }
 
             // region compound controls
           }, {
             key: "addListbox",
             value: function addListbox(label, id, attributes, items) {
-              return _assertClassBrand(_XUL_brand, this, _addControl).call(this, 'listbox', id, label, attributes, items);
+              return this._addControl('listbox', id, label, attributes, items);
             }
 
             // endregion compound controls
@@ -334,22 +348,22 @@ function _typeof2(o) { "@babel/helpers - typeof"; return _typeof2 = "function" =
           }, {
             key: "addMenuList",
             value: function addMenuList(label, id, attributes, items) {
-              return _assertClassBrand(_XUL_brand, this, _addControl).call(this, 'menulist', id, label, attributes, items);
+              return this._addControl('menulist', id, label, attributes, items);
             }
           }, {
             key: "addRadioGroup",
             value: function addRadioGroup(label, id, attributes, items) {
-              return _assertClassBrand(_XUL_brand, this, _addControl).call(this, 'radiogroup', id, label, attributes, items);
+              return this._addControl('radiogroup', id, label, attributes, items);
             }
           }, {
             key: "addCheckboxGroup",
             value: function addCheckboxGroup(label, id, attributes, items) {
-              return _assertClassBrand(_XUL_brand, this, _addControl).call(this, 'checkboxgroup', id, label, attributes, items);
+              return this._addControl('checkboxgroup', id, label, attributes, items);
             }
           }, {
             key: "addSeparator",
             value: function addSeparator(id) {
-              return _assertClassBrand(_XUL_brand, this, _addControl).call(this, 'separator', id);
+              return this._addControl('separator', id);
             }
 
             // endregion NON-VISUAL CONTROLS
@@ -358,19 +372,19 @@ function _typeof2(o) { "@babel/helpers - typeof"; return _typeof2 = "function" =
           }, {
             key: "addSpacer",
             value: function addSpacer(id) {
-              return _assertClassBrand(_XUL_brand, this, _addControl).call(this, 'spacer', id);
+              return this._addControl('spacer', id);
             }
 
             // endregion 控件创建方法
           }, {
             key: "addProperty",
             value: function addProperty(id) {
-              return _assertClassBrand(_XUL_brand, this, _addControl).call(this, 'property', id);
+              return this._addControl('property', id);
             }
           }, {
             key: "addScript",
             value: function addScript(id, content) {
-              return _assertClassBrand(_XUL_brand, this, _addControl).call(this, 'script', id, '', {
+              return this._addControl('script', id, '', {
                 content: content
               });
             }
@@ -379,7 +393,7 @@ function _typeof2(o) { "@babel/helpers - typeof"; return _typeof2 = "function" =
           }, {
             key: "addFlash",
             value: function addFlash(id, attributes) {
-              return _assertClassBrand(_XUL_brand, this, _addControl).call(this, 'flash', id, '', attributes);
+              return this._addControl('flash', id, '', attributes);
             }
 
             /**
@@ -426,7 +440,7 @@ function _typeof2(o) { "@babel/helpers - typeof"; return _typeof2 = "function" =
               var match = handlerString.match(/function\s*\([^)]*\)\s*\{([\s\S]*)\}/);
               if (match && match[1]) {
                 var functionBody = match[1].trim();
-                console.log("函数体内容:", functionBody);
+                // console.log("函数体内容:", functionBody);
                 var functionBodyWithoutComments = functionBody.replace(/"/g, "'");
                 return functionBodyWithoutComments;
               } else {
@@ -435,15 +449,7 @@ function _typeof2(o) { "@babel/helpers - typeof"; return _typeof2 = "function" =
             }
           }], [{
             key: "factory",
-            value:
-            // region simple controls
-
-            /**
-             * 工厂方法，创建XUL实例
-             * @param {Object} props - 控件定义或函数
-             * @returns {XUL} XUL实例
-             */
-            function factory(props) {
+            value: function factory(props) {
               var xul = new XUL();
               if (!xul.dialogBuilder.xml || !props) throw new Error('DialogBuilder not initialized or props not provided');
               if (_typeof(props) === 'object' && props.name && props.params) {
@@ -459,35 +465,6 @@ function _typeof2(o) { "@babel/helpers - typeof"; return _typeof2 = "function" =
             }
           }]);
         }();
-        function _get_content(_this) {
-          var _content = '';
-          var controls = _this.controlManager.controls;
-          // 遍历controls对象的每个键值对
-          for (var key in controls) {
-            if (controls.hasOwnProperty(key)) {
-              // 确保是对象自身的属性，而不是继承的属性
-              var control = controls[key];
-              _content += control.xml;
-
-              // 处理事件
-              var eventType = EventManager.EventType.CREATE;
-              var controlId = control.id;
-              _this.eventManager.trigger(eventType, controlId, {
-                control: control
-              });
-            }
-          }
-          return _content;
-        }
-        function _addControl(type, id, label, attributes, items) {
-          var xml = this.templates[type];
-          var control = ControlFactory.create(type, id, label, this, xml, attributes, items);
-          if (!control.id) {
-            throw new Error('Invalid control id');
-          }
-          this.controlManager.addControl(control);
-          return this;
-        }
         module.exports = XUL;
 
         /***/

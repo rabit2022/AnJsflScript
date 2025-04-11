@@ -38,7 +38,7 @@ require.config({
         sprintf: 'Third/utils/sprintf-js-1.1.3/sprintf',
         'fast-xml-parser': 'Third/xml/fast-xml-parser-5.0.9/fast-xml-parser',
         jquery: 'Third/xml/jquery-3.7.1/jquery.slim',
-        'xml-pollyfill': 'Third/xml/xml-pollyfill',
+        // 'xml-pollyfill': 'Third/xml/xml-pollyfill',
         xmldom: 'Third/xml/xmldom-0.6.0/xmldom',
         xpath: 'Third/xml/xpath-0.0.34/xpath',
         text: 'Third/modules/text-2.0.16/text',
