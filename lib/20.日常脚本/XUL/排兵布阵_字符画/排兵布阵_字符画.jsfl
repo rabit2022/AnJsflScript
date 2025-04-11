@@ -40,7 +40,7 @@ require([
 
     function Main() {
         // 检查选择的元件
-        if (!CheckSelection(selection, 'selectElement', 'No limit')) return;
+        if (!CheckSelection(selection, 'selectElement', 'Not Zero')) return;
 
         var XUL = TryLoad('XUL');
         if (!XUL) return;

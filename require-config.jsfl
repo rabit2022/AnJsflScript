@@ -38,13 +38,13 @@ require.config({
         sprintf: 'Third/utils/sprintf-js-1.1.3/sprintf',
         'fast-xml-parser': 'Third/xml/fast-xml-parser-5.0.9/fast-xml-parser',
         jquery: 'Third/xml/jquery-3.7.1/jquery.slim',
-        // 'xml-pollyfill': 'Third/xml/xml-pollyfill',
         xmldom: 'Third/xml/xmldom-0.6.0/xmldom',
         xpath: 'Third/xml/xpath-0.0.34/xpath',
         text: 'Third/modules/text-2.0.16/text',
 
         // 自定义模块
-        // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Core\Utils\module\TryLoad.jsfl
+        sys: 'Core/Utils/py/sys',
+
         TryLoad: 'Core/Utils/module/TryLoad',
         ErrorDefinitions: 'Core/myShim/ErrorDefinitions',
         FUNC: 'Core/myShim/FUNC',

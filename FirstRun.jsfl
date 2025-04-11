@@ -140,17 +140,13 @@
             'console'
         ]);
 
-        require(['loglevel'], function (log) {
+        require(['loglevel','TryLoad'], function (log, TryLoad) {
             // 禁用log
             log.setDefaultLevel(log.levels.SILENT);
-        });
 
-        // 导入完成
-        // console.info('=============Core modules imported.=============');
-        var message =
-            '【温馨提示】导入成功！！！\n 如果有bug,或者建议，请@我。\n作者：b站 @穹的兔兔';
-        // alert(message);
-        console.info(message);
+            var success = TryLoad('success!');
+            console.log(success);
+        });
     }
 
     Main();
