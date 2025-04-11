@@ -23,7 +23,7 @@ require.config({
         json3: 'Third/json/json3-3.3.3/json3',
         loglevel: 'Third/log/loglevel-1.9.2/loglevel',
         'path-browserify': 'Third/modules/path-browserify-1.0.1/path-browserify',
-        require: 'Third/modules/requirejs-2.3.7/require',
+        'require-js': 'Third/modules/requirejs-2.3.7/require-js',
         'es5-sham': 'Third/polyfill/es5-shim-4.6.7/es5-sham',
         'es5-shim': 'Third/polyfill/es5-shim-4.6.7/es5-shim',
         'es6-collections': 'Third/polyfill/es6/es6-collections-0.5.6/es6-collections',
@@ -41,6 +41,7 @@ require.config({
         'xml-pollyfill': 'Third/xml/xml-pollyfill',
         xmldom: 'Third/xml/xmldom-0.6.0/xmldom',
         xpath: 'Third/xml/xpath-0.0.34/xpath',
+        text: 'Third/modules/text-2.0.16/text',
 
         // 自定义模块
         ErrorDefinitions: 'Core/myShim/ErrorDefinitions',
@@ -49,7 +50,7 @@ require.config({
         frameRangeUtil: 'Core/Object/frameRangeUtil',
         moreElement: 'Core/Object/moreElement',
         moreElementUtil: 'Core/Object/moreElementUtil',
-        test: 'Core/test/test',
+        'test-module': 'Core/test/test-module',
         LayerManager: 'Core/Third/FlashTool/LayerManager',
         LibraryManager: 'Core/Third/FlashTool/LibraryManager',
         Navigation: 'Core/Third/FlashTool/Navigation/Navigation',

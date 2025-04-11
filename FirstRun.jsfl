@@ -93,7 +93,7 @@
                     scriptURI +
                     ']';
                 fl.trace(message);
-                console.stack(message);
+                // console.stack(message);
                 throw new Error(message);
             }
         });
@@ -117,14 +117,14 @@
         window.$ProjectFileDir$ = getcwd();
 
         var config = {
-            require: 'Third/modules/requirejs-2.3.7/require'
+            'require-js': 'Third/modules/requirejs-2.3.7/require-js',
         };
         // 导入模块,相对路径导入
-        importFlashScripts(config.require);
+        importFlashScripts(config['require-js']);
 
         require([
             // 导入配置文件
-            './config/require/require-config',
+            './require-config',
 
             // 导入shims, 避免其他模块依赖时报错
             'es5-shim', // es5,es2009
