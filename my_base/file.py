@@ -22,6 +22,8 @@ class File:
     def __init__(self, file_path, callbacks=None):
         self.callbacks = callbacks
         self.file_path = file_path
+        # 提取文件名
+        self.file_name = os.path.basename(file_path)
 
     def read_file(self):
         try:

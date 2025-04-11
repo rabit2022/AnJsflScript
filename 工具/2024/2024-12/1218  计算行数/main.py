@@ -21,17 +21,18 @@ exclude_folders = [r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF
                    r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test",
                    r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\types",
                    r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib\21.工具",
-                   r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib\00.智能循环",
+                   r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib\00.智能循环✔️",
                    # r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Core\Third"
 
                    ]
 plist = FolderTraverser(folderPath, extensions, exclude_folders).FilePaths
 
-toAddFile = [
-    r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Core\Third\sat-js-0.9.0\SAT.jsfl",
-    r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Core\Third\xjsfl\console.jsfl"
 
-    ]
+# toAddFile = [
+#     r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Core\Third\sat-js-0.9.0\SAT.jsfl",
+#     r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Core\Third\xjsfl\console.jsfl"
+#
+# ]
 
 
 # print(len(plist))

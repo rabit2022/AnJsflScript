@@ -22,10 +22,15 @@ class Files:
         for file_obj in self.File_Obj:
             content = file_obj.read_file()
             if callback is not None:
-                content = callback(content)
+                content = callback(content,file_obj)
 
             contents.append(content)
         return contents
+
+    def write_new_content(self, new_contents):
+        for i,fileobj in enumerate(self.File_Obj):
+            content=new_contents[i]
+            fileobj.write_new_content(content)
 
     def read_lines(self, callback=None):
         contents = []
