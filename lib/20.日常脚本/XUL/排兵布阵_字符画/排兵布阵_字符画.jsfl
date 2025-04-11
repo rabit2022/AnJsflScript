@@ -13,8 +13,8 @@ require([
     'os',
     'open',
     'moreElement',
-    'selectionUtil'
-], function (checkUtil, log, os, open, MoreElement, selectionUtil) {
+    'selectionUtil','TryLoad'
+], function (checkUtil, log, os, open, MoreElement, selectionUtil, TryLoad) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { SelectSameName } = selectionUtil;
 
@@ -42,20 +42,8 @@ require([
         // 检查选择的元件
         if (!CheckSelection(selection, 'selectElement', 'No limit')) return;
 
-        // 注意，未完成
-        var ok = confirm(
-            '【温馨提示】\n1.这个脚本 由于导入了XUL库，属于重型库，可能会导致卡顿异常，闪退，不兼容等情况\n2.这个脚本 会生成多个元件，用于组成字符画，以保证效果的完美，可能造成画面过于复杂，导出时可能出现问题。\n\n请确认是否继续!!!'
-        );
-        if (!ok) return;
-
-        var XUL;
-        require(['XUL'], function (xul) {
-            XUL = xul;
-        });
-        if (XUL === undefined) {
-            alert('XUL 模块加载失败');
-            return;
-        }
+        var XUL = TryLoad('XUL');
+        if (!XUL) return;
 
         var listdir = os.listdir(ASCII_ART_LIBRARY_PATH);
         log.info('listdir:', listdir);

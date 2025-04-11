@@ -7,7 +7,8 @@
  * @description:
  */
 
-define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
+// define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
+define(function (require, exports, module) {
     /**
      * 检查选择的元件或帧是否符合指定的模式和条件。
      *
@@ -204,6 +205,8 @@ define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
      */
     function CheckSelectedFrames(timeline, exTips, condition) {
         if (condition === undefined) condition = 'Not Zero';
+        var frUtil = require('frameRangeUtil');
+        var FrameRange = require('frameRange');
 
         var frs = frUtil.getSelectedFrs(timeline);
         if (!CheckSelection(frs, 'selectFrame', condition, exTips)) return null;

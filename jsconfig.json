@@ -19,6 +19,7 @@
       "XUL": ["types/Third/xul/XUL.d.ts"],
 
 
+      "TryLoad": ["Core/Utils/module/TryLoad"],
       "ErrorDefinitions": ["Core/myShim/ErrorDefinitions"],
       "frameRange": ["Core/Object/frameRange"],
       "frameRangeUtil": ["Core/Object/frameRangeUtil"],

@@ -44,6 +44,8 @@ require.config({
         text: 'Third/modules/text-2.0.16/text',
 
         // 自定义模块
+        // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Core\Utils\module\TryLoad.jsfl
+        TryLoad: 'Core/Utils/module/TryLoad',
         ErrorDefinitions: 'Core/myShim/ErrorDefinitions',
         FUNC: 'Core/myShim/FUNC',
         frameRange: 'Core/Object/frameRange',
