@@ -4,7 +4,7 @@
   "env": {  // 定义代码运行环境
     "browser": false,  // 浏览器环境
     "node": false,     // Node.js 环境
-    "flash": true,     // Adobe Flash 环境
+//    "flash": true,     // Adobe Flash 环境
     "es6": true,       // ES6 语法支持
     "amd": true     // AMD 环境
   },

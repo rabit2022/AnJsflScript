@@ -394,14 +394,28 @@
         var ERR_NON_OBJECT_TARGET = 'Object.defineProperty called on non-object: ';
         var ERR_ACCESSORS_NOT_SUPPORTED =
             'getters & setters can not be defined on this javascript engine';
+        var ERR_VALUE_NOT_ALLOWED = "Invalid property descriptor. Cannot both specify accessors and a value or writable attribute."
 
         Object.defineProperty = function defineProperty(object, property, descriptor) {
+            // 检查是否同时包含值属性和访问器属性
+            // if (('value' in descriptor || 'writable' in descriptor) && ('get' in descriptor || 'set' in descriptor)) {
+            //     throw new TypeError(ERR_VALUE_NOT_ALLOWED);
+            // }
             if (isPrimitive(object)) {
                 throw new TypeError(ERR_NON_OBJECT_TARGET + object);
             }
             if (isPrimitive(descriptor)) {
                 throw new TypeError(ERR_NON_OBJECT_DESCRIPTOR + descriptor);
             }
+
+            // 如果 get 或 set 为 undefined，则移除它们
+            if ('get' in descriptor && typeof descriptor.get !== 'function') {
+                delete descriptor.get;
+            }
+            if ('set' in descriptor && typeof descriptor.set !== 'function') {
+                delete descriptor.set;
+            }
+
             // make a valiant attempt to use the real defineProperty
             // for I8's DOM elements.
             if (definePropertyFallback) {

@@ -393,7 +393,9 @@
         },
 
         ToObject: function (o, optMessage) {
-            return Object(ES.RequireObjectCoercible(o, optMessage));
+            // return Object(ES.RequireObjectCoercible(o, optMessage));
+            ES.RequireObjectCoercible(o, optMessage)
+            return Object(o);
         },
 
         IsCallable: isCallable,
