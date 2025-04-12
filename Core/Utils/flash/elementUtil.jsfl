@@ -395,27 +395,66 @@ define([
         doc.enterEditMode('inPlace');
 
         function convertSel2ShapeInner(selection) {
-            // sel.SelectAll();
-            // try {
-            //     doc.breakApart();
-            // } catch (e) {
-            //     return;
-            // }
-            //
-            // var isAllShape = selection.every(function(item) {
-            //     return ElementUtil.IsShape(item);
-            // });
-            // if (isAllShape) {
-            //     return;
-            // } else {
-            //     convertSel2ShapeInner(doc.selection);
-            // }
             SelectAll();
+            // 不断的打散，直到全部转为形状
             while (doc.selection.length > 0) {
                 try {
                     doc.breakApart();
                 } catch (e) {
                     return;
+                }
+            }
+        }
+
+        convertSel2ShapeInner(doc.selection);
+
+        doc.exitEditMode();
+
+        doc.breakApart();
+
+        library.deleteItem(libUtil.LastName);
+    };
+
+
+    /**
+     * 完全的打散，转为  绘制对象
+     * @param {Element} element
+     * @note 完全的打散，如果某些素材，打包，并且在打包的地方  调整颜色，则会导致颜色丢失。
+     */
+    ElementUtil.breakApartToDrawingObject = function (element) {
+        var doc = fl.getDocumentDOM(); //文档
+        var library = doc.library; //库文件
+
+        if (!ElementUtil.IsSymbol(element)) {
+            log.error('请选择元件');
+            return;
+        }
+        // sel.OnlySelectCurrent(element);
+
+        var MIDDLE_NAME = '完全分解-中转';
+
+        ElementUtil.CopySymbol(element, 'auto', MIDDLE_NAME);
+        doc.enterEditMode('inPlace');
+
+        function convertSel2ShapeInner(selection) {
+            // eslint-disable-next-line no-constant-condition
+            while (true) {
+                SelectAll();
+
+                var groups_and_symbols = doc.selection.filter(function(item) {
+                    return ElementUtil.IsGroup(item) || ElementUtil.IsSymbol(item);
+                });
+                // console.log('groups:', groups_and_symbols.length);
+
+                SelectAll(groups_and_symbols);
+                if (groups_and_symbols.length > 0) {
+                    try {
+                        doc.breakApart();
+                    } catch (e) {
+                        return;
+                    }
+                } else {
+                    break;
                 }
             }
         }
