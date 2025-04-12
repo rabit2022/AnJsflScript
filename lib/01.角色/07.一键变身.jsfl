@@ -145,7 +145,7 @@ require([
     function shapeShifting(shifting_element) {
         // 变身
         sel.OnlySelectCurrent(shifting_element);
-        ele.breakApartCompletely(shifting_element);
+        ele.breakApartToShape(shifting_element);
     }
 
     function Main() {

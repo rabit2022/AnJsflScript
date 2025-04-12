@@ -7,7 +7,6 @@
     "es6": true,       // ES6 语法支持
     "amd": true     // AMD 环境
   },
-  "cache": true,
   "extends": [
     "eslint:recommended",  // 使用 ESLint 推荐的规则
     "plugin:prettier/recommended"  // 集成 Prettier 并关闭 ESLint 中与 Prettier 冲突的规则
