@@ -44,7 +44,6 @@ require.config({
 
         // 自定义模块
         sys: 'Core/Utils/py/sys',
-
         TryLoad: 'Core/Utils/module/TryLoad',
         ErrorDefinitions: 'Core/myShim/ErrorDefinitions',
         FUNC: 'Core/myShim/FUNC',
