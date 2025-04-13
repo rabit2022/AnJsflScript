@@ -31,6 +31,7 @@
         function startsWith(str, prefix) {
             return str.indexOf(prefix) === 0;
         }
+
         // String.prototype.endsWith
         function endsWith(str, suffix) {
             return str.lastIndexOf(suffix) === str.length - suffix.length;
@@ -116,6 +117,14 @@
          * @type {string}
          */
         window.$ProjectFileDir$ = getcwd();
+
+        // bug,Temp 未解压
+        if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
+            var msg =
+                '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+            fl.trace(msg);
+            throw new Error(msg);
+        }
 
         var config = {
             'require-js': 'Third/modules/requirejs-2.3.7/require-js'
