@@ -24,6 +24,8 @@ class File:
         self.file_path = file_path
         # 提取文件名
         self.file_name = os.path.basename(file_path)
+        # 文件内容
+        self.content = self.read_file()
 
     def read_file(self):
         try:
