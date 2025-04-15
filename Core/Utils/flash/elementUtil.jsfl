@@ -16,7 +16,7 @@ define([
     'selectionUtil',
     'loglevel',
     'moreElement'
-], function (sat, satUtil, libUtil, layerUtil, os, sel, log, MoreElement) {
+], function(sat, satUtil, libUtil, layerUtil, os, sel, log, MoreElement) {
     var Vector = sat.V,
         Rectangle = sat.R,
         wrapPosition = sat.GLOBALS.wrapPosition,
@@ -32,9 +32,10 @@ define([
      * @class {ElementUtil}
      * @constructor
      */
-    var ElementUtil = function () {};
+    var ElementUtil = function() {
+    };
 
-    ElementUtil.IsGroup = function (element) {
+    ElementUtil.IsGroup = function(element) {
         return element && element.isGroup;
     };
 
@@ -43,7 +44,7 @@ define([
      * @param {Element} element 元素
      * @returns {boolean} 是否是 元件
      */
-    ElementUtil.IsSymbol = function (element) {
+    ElementUtil.IsSymbol = function(element) {
         return (
             // 非空元素，非组
             !ElementUtil.IsGroup(element) &&
@@ -58,7 +59,7 @@ define([
      * @param {Element} element 元素
      * @returns {boolean} 是否是 位图
      */
-    ElementUtil.IsBitmap = function (element) {
+    ElementUtil.IsBitmap = function(element) {
         return (
             !ElementUtil.IsGroup(element) &&
             element.elementType === 'instance' &&
@@ -71,7 +72,7 @@ define([
      * @param {boolean} [strict=false] 是否严格判断，严格判断时，子类 绘制对象 等 都不算形状
      * @returns {boolean} 是否是 形状
      */
-    ElementUtil.IsShape = function (element, strict) {
+    ElementUtil.IsShape = function(element, strict) {
         if (strict === undefined) strict = false;
 
         var isShape = !ElementUtil.IsGroup(element) && element.elementType === 'shape';
@@ -81,7 +82,7 @@ define([
         }
         return isShape && !isChildren;
     };
-    ElementUtil.IsDrawingObject = function (element) {
+    ElementUtil.IsDrawingObject = function(element) {
         return (
             !ElementUtil.IsGroup(element) &&
             (element.elementType === 'shapeObj' || element.isDrawingObject)
@@ -93,7 +94,7 @@ define([
      * @param {Element} element 元素
      * @returns {string} 名称
      */
-    ElementUtil.getName = function (element) {
+    ElementUtil.getName = function(element) {
         if (element.elementType === 'instance') {
             return element.libraryItem.name;
         } else {
@@ -108,7 +109,7 @@ define([
      * @param {string} [newName=origionName] 新元件名称，仅在 mode 为 auto 时有效
      * @constructor
      */
-    ElementUtil.CopySymbol = function (element, mode, newName) {
+    ElementUtil.CopySymbol = function(element, mode, newName) {
         var doc = fl.getDocumentDOM();
         var library = doc.library; //库文件
 
@@ -161,7 +162,7 @@ define([
      * @param {Element[]} elements 元素数组
      * @returns {Element}
      */
-    ElementUtil.getMaxRight = function (elements) {
+    ElementUtil.getMaxRight = function(elements) {
         function getTopRight(element) {
             var rect = new Rectangle(element);
             return rect.getCorner('top right');
@@ -193,7 +194,7 @@ define([
      *             请使用  element.setTransformationPoint(getZeroPoint().toObj());  把元件的变形点设置为 注册点 </br>
      *             这个方法尽量不要使用，因为它会让 元件的注册点 发生变化，导致  设置位置时，出现偏差 </br>
      */
-    ElementUtil.resetRegisterPoint = function (element) {
+    ElementUtil.resetRegisterPoint = function(element) {
         var trPoint = wrapPosition(element.getTransformationPoint());
 
         sel.OnlySelectCurrent(element);
@@ -239,7 +240,7 @@ define([
      * @param {Element} element
      * @param {'top right'|'top left'|'bottom right'|'bottom left'|'top center'|'right center'|'bottom center'|'left center'} whichCorner
      */
-    ElementUtil.setTransformationPoint = function (element, whichCorner) {
+    ElementUtil.setTransformationPoint = function(element, whichCorner) {
         // 变形点 到右上角
         var registerPoint = wrapPosition(element);
 
@@ -259,7 +260,7 @@ define([
      * @param {string} SymbolName="碎片" - 元件的名称。
      * @bug 可能出现 doc.setSelectionRect 出错的情况，原因可能是 选择框对矩形坐标要求太苛刻，由于小数有误差，导致出错。这是能想到的目前切片的最简单方法，只能暂时用这个方法。可以更换位置尝试，目前测试 有概率出现，不是绝对的。
      */
-    ElementUtil.splinterSymbol = function (element, SymbolName) {
+    ElementUtil.splinterSymbol = function(element, SymbolName) {
         var doc = fl.getDocumentDOM(); //文档
 
         sel.OnlySelectCurrent(element);
@@ -293,13 +294,13 @@ define([
             rectUtil.splitRectangle(elementSize);
         log.info(
             'blockWidth:' +
-                blockWidth +
-                ' blockHeight:' +
-                blockHeight +
-                ' blockCountX:' +
-                blockCountX +
-                ' blockCountY:' +
-                blockCountY
+            blockWidth +
+            ' blockHeight:' +
+            blockHeight +
+            ' blockCountX:' +
+            blockCountX +
+            ' blockCountY:' +
+            blockCountY
         );
 
         var moreElement = new MoreElement({
@@ -363,7 +364,7 @@ define([
      * 播放一次
      * @param {Element[]} elements 元素数组
      */
-    ElementUtil.playOnce = function (elements) {
+    ElementUtil.playOnce = function(elements) {
         for (var i = 0; i < elements.length; i++) {
             var element = elements[i];
             if (this.IsSymbol(element)) {
@@ -378,7 +379,7 @@ define([
      * @note 完全的打散，如果某些素材，打包，并且在打包的地方  调整颜色，则会导致颜色丢失。
      *       原本的思路：转为位图，再打散为形状。但是，形状补间动画 无法正常工作。
      */
-    ElementUtil.breakApartToShape = function (element) {
+    ElementUtil.breakApartToShape = function(element) {
         var doc = fl.getDocumentDOM(); //文档
         var library = doc.library; //库文件
 
@@ -419,7 +420,7 @@ define([
      * @param {Element} element
      * @note 完全的打散，如果某些素材，打包，并且在打包的地方  调整颜色，则会导致颜色丢失。
      */
-    ElementUtil.breakApartToDrawingObject = function (element) {
+    ElementUtil.breakApartToDrawingObject = function(element) {
         var doc = fl.getDocumentDOM(); //文档
         var library = doc.library; //库文件
 
@@ -439,8 +440,12 @@ define([
             while (true) {
                 SelectAll();
 
-                var groups_and_symbols = doc.selection.filter(function (item) {
-                    return ElementUtil.IsGroup(item) || ElementUtil.IsSymbol(item);
+                var groups_and_symbols = doc.selection.filter(function(item) {
+                    return (
+                        (ElementUtil.IsGroup(item) || ElementUtil.IsSymbol(item)) &&
+                        // effects:为了效果，必须排除影片剪辑，这样会有部分素材，有透明度的素材，不会石化，更加真实。
+                        item.symbolType !== 'movie clip'
+                    );
                 });
                 // console.log('groups:', groups_and_symbols.length);
 

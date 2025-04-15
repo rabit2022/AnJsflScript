@@ -20,13 +20,21 @@
 // The quoted properties all over the place are used so that the Closure Compiler
 // does not mangle the exposed API in advanced mode.
 
-/// <reference path="SAT.d.ts" />
-
-define(['FUNC', 'sprintf'], function (FUNC, sp) {
-    const sprintf = sp.sprintf;
-    const PROPERTY = FUNC.PROPERTY;
-
-    ('use strict');
+/**
+ * @param {*} root - The global scope
+ * @param {Function} factory - Factory that creates SAT module
+ */
+(function(root, factory) {
+    'use strict';
+    if (typeof define === 'function' && define['amd']) {
+        define(factory);
+    } else if (typeof exports === 'object') {
+        module['exports'] = factory();
+    } else {
+        root['SAT'] = factory();
+    }
+}(this, function() {
+    'use strict';
 
     var SAT = {};
     var SAT_GLOBALS = {};
@@ -64,7 +72,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
     /**
      * @return {Vector} This for chaining.
      */
-    Vector.prototype['perp'] = Vector.prototype.perp = function () {
+    Vector.prototype['perp'] = Vector.prototype.perp = function() {
         var x = this['x'];
         this['x'] = this['y'];
         this['y'] = -x;
@@ -76,7 +84,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param {number} angle The angle to rotate (in radians)
      * @return {Vector} This for chaining.
      */
-    Vector.prototype['rotate'] = Vector.prototype.rotate = function (angle) {
+    Vector.prototype['rotate'] = Vector.prototype.rotate = function(angle) {
         var x = this['x'];
         var y = this['y'];
         this['x'] = x * Math.cos(angle) - y * Math.sin(angle);
@@ -88,7 +96,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
     /**
      * @return {Vector} This for chaining.
      */
-    Vector.prototype['reverse'] = Vector.prototype.reverse = function () {
+    Vector.prototype['reverse'] = Vector.prototype.reverse = function() {
         this['x'] = -this['x'];
         this['y'] = -this['y'];
         return this;
@@ -98,7 +106,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
     /**
      * @return {Vector} This for chaining.
      */
-    Vector.prototype['normalize'] = Vector.prototype.normalize = function () {
+    Vector.prototype['normalize'] = Vector.prototype.normalize = function() {
         var d = this.len();
         if (d > 0) {
             this['x'] = this['x'] / d;
@@ -112,7 +120,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param {Vector} other The other Vector.
      * @return {Vector} This for chaining.
      */
-    Vector.prototype['add'] = Vector.prototype.add = function (other) {
+    Vector.prototype['add'] = Vector.prototype.add = function(other) {
         this['x'] += other['x'];
         this['y'] += other['y'];
         return this;
@@ -123,7 +131,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param {Vector} other The other Vector.
      * @return {Vector} This for chaiing.
      */
-    Vector.prototype['sub'] = Vector.prototype.sub = function (other) {
+    Vector.prototype['sub'] = Vector.prototype.sub = function(other) {
         this['x'] -= other['x'];
         this['y'] -= other['y'];
         return this;
@@ -137,7 +145,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      *   is not specified, the x scaling factor will be used.
      * @return {Vector} This for chaining.
      */
-    Vector.prototype['scale'] = Vector.prototype.scale = function (x, y) {
+    Vector.prototype['scale'] = Vector.prototype.scale = function(x, y) {
         this['x'] *= x;
         this['y'] *= typeof y != 'undefined' ? y : x;
         return this;
@@ -148,7 +156,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param {Vector} other The vector to project onto.
      * @return {Vector} This for chaining.
      */
-    Vector.prototype['project'] = Vector.prototype.project = function (other) {
+    Vector.prototype['project'] = Vector.prototype.project = function(other) {
         var amt = this.dot(other) / other.len2();
         this['x'] = amt * other['x'];
         this['y'] = amt * other['y'];
@@ -161,7 +169,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param {Vector} other The unit vector to project onto.
      * @return {Vector} This for chaining.
      */
-    Vector.prototype['projectN'] = Vector.prototype.projectN = function (other) {
+    Vector.prototype['projectN'] = Vector.prototype.projectN = function(other) {
         var amt = this.dot(other);
         this['x'] = amt * other['x'];
         this['y'] = amt * other['y'];
@@ -173,7 +181,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param {Vector} axis The vector representing the axis.
      * @return {Vector} This for chaining.
      */
-    Vector.prototype['reflect'] = Vector.prototype.reflect = function (axis) {
+    Vector.prototype['reflect'] = Vector.prototype.reflect = function(axis) {
         var x = this['x'];
         var y = this['y'];
         this.project(axis).scale(2);
@@ -188,7 +196,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param {Vector} axis The unit vector representing the axis.
      * @return {Vector} This for chaining.
      */
-    Vector.prototype['reflectN'] = Vector.prototype.reflectN = function (axis) {
+    Vector.prototype['reflectN'] = Vector.prototype.reflectN = function(axis) {
         var x = this['x'];
         var y = this['y'];
         this.projectN(axis).scale(2);
@@ -202,7 +210,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param {Vector}  other The vector to dot this one against.
      * @return {number} The dot product.
      */
-    Vector.prototype['dot'] = Vector.prototype.dot = function (other) {
+    Vector.prototype['dot'] = Vector.prototype.dot = function(other) {
         return this['x'] * other['x'] + this['y'] * other['y'];
     };
 
@@ -210,7 +218,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
     /**
      * @return {number} The length^2 of this vector.
      */
-    Vector.prototype['len2'] = Vector.prototype.len2 = function () {
+    Vector.prototype['len2'] = Vector.prototype.len2 = function() {
         return this.dot(this);
     };
 
@@ -218,7 +226,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
     /**
      * @return {number} The length of this vector.
      */
-    Vector.prototype['len'] = Vector.prototype.len = function () {
+    Vector.prototype['len'] = Vector.prototype.len = function() {
         return Math.sqrt(this.len2());
     };
 
@@ -226,7 +234,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * 四舍五入
      * @returns {Vector}
      */
-    Vector.prototype['round'] = Vector.prototype.round = function () {
+    Vector.prototype['round'] = Vector.prototype.round = function() {
         // return new Vector(Math.round(this.x), Math.round(this.y));
         this['x'] = Math.round(this['x']);
         this['y'] = Math.round(this['y']);
@@ -238,7 +246,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * 要求x,y必须为非0的整数
      * @returns {Vector}
      */
-    Vector.prototype['noZero'] = Vector.prototype.noZero = function () {
+    Vector.prototype['noZero'] = Vector.prototype.noZero = function() {
         this['x'] = this['x'] ? this['x'] : 1;
         this['y'] = this['y'] ? this['y'] : 1;
         return this;
@@ -250,7 +258,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param {Vector} other - 另一个向量
      * @returns {boolean}
      */
-    Vector.prototype['equals'] = Vector.prototype.equals = function (other) {
+    Vector.prototype['equals'] = Vector.prototype.equals = function(other) {
         return this.x === other.x && this.y === other.y;
     };
 
@@ -262,7 +270,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param {Number} degrees - 旋转的角度（0 - 360 度）
      * @returns {Vector} - 返回当前点对象，其坐标已更新为旋转后的新位置
      */
-    Vector.prototype['orbit'] = Vector.prototype.orbit = function (
+    Vector.prototype['orbit'] = Vector.prototype.orbit = function(
         pt,
         arcWidth,
         arcHeight,
@@ -289,7 +297,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * 取中心点
      * @returns {Vector}
      */
-    Vector.prototype['getCenter'] = Vector.prototype.getCenter = function () {
+    Vector.prototype['getCenter'] = Vector.prototype.getCenter = function() {
         return new Vector(this.x / 2, this.y / 2);
     };
 
@@ -299,7 +307,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param {'top right'|'top left'|'bottom right'|'bottom left'|'top center'|'right center'|'bottom center'|'left center'|'center'} whichCorner 方向
      * @returns {boolean}
      */
-    Vector.prototype['IsInDirectionOf'] = Vector.prototype.IsInDirectionOf = function (
+    Vector.prototype['IsInDirectionOf'] = Vector.prototype.IsInDirectionOf = function(
         point,
         whichCorner
     ) {
@@ -307,26 +315,26 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
         var deltaY = this.y - point.y;
         // y轴向下，x轴向右
         switch (whichCorner) {
-            case 'top right':
-                return deltaX > 0 && deltaY < 0;
-            case 'top left':
-                return deltaX < 0 && deltaY < 0;
-            case 'bottom right':
-                return deltaX > 0 && deltaY > 0;
-            case 'bottom left':
-                return deltaX < 0 && deltaY > 0;
-            case 'top center':
-                return deltaY < 0;
-            case 'right center':
-                return deltaX > 0;
-            case 'bottom center':
-                return deltaY > 0;
-            case 'left center':
-                return deltaX < 0;
-            case 'center':
-                return deltaX === 0 && deltaY === 0;
-            default:
-                throw new Error('Invalid direction: ' + whichCorner);
+        case 'top right':
+            return deltaX > 0 && deltaY < 0;
+        case 'top left':
+            return deltaX < 0 && deltaY < 0;
+        case 'bottom right':
+            return deltaX > 0 && deltaY > 0;
+        case 'bottom left':
+            return deltaX < 0 && deltaY > 0;
+        case 'top center':
+            return deltaY < 0;
+        case 'right center':
+            return deltaX > 0;
+        case 'bottom center':
+            return deltaY > 0;
+        case 'left center':
+            return deltaX < 0;
+        case 'center':
+            return deltaX === 0 && deltaY === 0;
+        default:
+            throw new Error('Invalid direction: ' + whichCorner);
         }
     };
 
@@ -335,7 +343,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param {Vector} other - 另一个向量
      * @returns {number} 角度值，单位为弧度
      */
-    Vector.prototype['angleTo'] = Vector.prototype.angleTo = function (other) {
+    Vector.prototype['angleTo'] = Vector.prototype.angleTo = function(other) {
         var dot = this.dot(other);
         var len1 = this.len();
         var len2 = other.len();
@@ -348,7 +356,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param {Vector} other - 另一个向量
      * @returns {number} 距离值，单位为像素
      */
-    Vector.prototype['distanceTo'] = Vector.prototype.distanceTo = function (other) {
+    Vector.prototype['distanceTo'] = Vector.prototype.distanceTo = function(other) {
         var x = this.x - other.x;
         var y = this.y - other.y;
         return Math.sqrt(x * x + y * y);
@@ -361,7 +369,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param {number} f - 0-1之间的数值，表示插值比例
      * @returns {Vector} 两个向量的插值
      */
-    Vector.prototype['interpolate'] = Vector.prototype.interpolate = function (other, f) {
+    Vector.prototype['interpolate'] = Vector.prototype.interpolate = function(other, f) {
         f = typeof f === 'undefined' ? 1 : f;
         return new Vector((this.x + other.x) * f, (this.y + other.y) * f);
     };
@@ -374,7 +382,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param {Vector} other The other Vector.
      * @return {Vector} This for chaining.
      */
-    Vector.prototype['copy'] = Vector.prototype.copy = function (other) {
+    Vector.prototype['copy'] = Vector.prototype.copy = function(other) {
         this['x'] = other['x'];
         this['y'] = other['y'];
         return this;
@@ -384,7 +392,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
     /**
      * @return {Vector} The new cloned vector
      */
-    Vector.prototype['clone'] = Vector.prototype.clone = function () {
+    Vector.prototype['clone'] = Vector.prototype.clone = function() {
         return new Vector(this['x'], this['y']);
     };
 
@@ -392,20 +400,20 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * 字符串
      * @returns {string}
      */
-    Vector.prototype['toString'] = Vector.prototype.toString = function () {
-        // return 'Vector(' + this.x + ', ' + this.y + ')';
-        return sprintf('Vector(%d, %d)', this.x, this.y);
+    Vector.prototype['toString'] = Vector.prototype.toString = function() {
+        return 'Vector(' + this.x + ', ' + this.y + ')';
+        // return sprintf('Vector(%d, %d)', this.x, this.y);
     };
 
     /**
      * 转换为对象
      * @return {{x:number,y:number}}
      */
-    Vector.prototype['toObj'] = Vector.prototype.toObj = function () {
+    Vector.prototype['toObj'] = Vector.prototype.toObj = function() {
         return { x: this.x, y: this.y };
     };
 
-    Vector.toString = function () {
+    Vector.toString = function() {
         return '[class Vector]';
     };
 
@@ -420,7 +428,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param    {Number}    f            A number from 0 to 1
      * @returns    {Vector}                The distance in pixels
      */
-    Vector.interpolate = function (pt1, pt2, f) {
+    Vector.interpolate = function(pt1, pt2, f) {
         f = typeof f === 'undefined' ? 1 : f;
         return new Vector((pt1.x + pt2.x) * f, (pt1.y + pt2.y) * f);
     };
@@ -431,7 +439,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param    {Number}    angle        The angle in degrees to rotate around the origin
      * @returns    {Vector}                    A new Vector object
      */
-    Vector.polar = function (length, angle) {
+    Vector.polar = function(length, angle) {
         return new Vector(length * Math.sin(angle), length * Math.cos(angle));
     };
 
@@ -441,7 +449,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param    {Vector}        pt2            The target Vector
      * @returns    {Number}                The distance in pixels
      */
-    Vector.distance = function (pt1, pt2) {
+    Vector.distance = function(pt1, pt2) {
         var x = pt1.x - pt2.x;
         var y = pt1.y - pt2.y;
         return Math.sqrt(x * x + y * y);
@@ -544,101 +552,96 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
         // switch
         switch (args.length) {
             // 0 arguments, use document size
-            case 0:
-                this.left = 0;
-                this.top = 0;
-                this.right = $dom.width;
-                this.bottom = $dom.height;
-                break;
+        case 0:
+            this.left = 0;
+            this.top = 0;
+            this.right = $dom.width;
+            this.bottom = $dom.height;
+            break;
 
             // 1 argument - should be a document, element, radius, or an Array of Elements (such as a selection)
-            case 1:
-                // Bounds,RectangleLike
-                if (args[0] instanceof Rectangle || IsRectangleLike(args[0])) {
-                    this.copy(args[0]);
-                }
+        case 1:
+            // Bounds,RectangleLike
+            if (args[0] instanceof Rectangle || IsRectangleLike(args[0])) {
+                this.copy(args[0]);
+            }
 
-                // Document
-                else if (args[0] instanceof Document) {
-                    return new Rectangle();
-                }
+            // Document
+            else if (args[0] instanceof Document) {
+                return new Rectangle();
+            }
 
-                // Element (element bounds)
-                else if (args[0] instanceof Element || args[0] instanceof SymbolItem) {
-                    this.left = args[0].left;
-                    this.top = args[0].top;
-                    this.right = args[0].left + args[0].width;
-                    this.bottom = args[0].top + args[0].height;
-                }
+            // Element (element bounds)
+            else if (args[0] instanceof Element || args[0] instanceof SymbolItem) {
+                this.left = args[0].left;
+                this.top = args[0].top;
+                this.right = args[0].left + args[0].width;
+                this.bottom = args[0].top + args[0].height;
+            }
 
-                // Number (radius)
-                else if (typeof args[0] == 'number') {
-                    this.left = -args[0];
-                    this.top = -args[0];
-                    this.right = args[0];
-                    this.bottom = args[0];
-                }
+            // Number (radius)
+            else if (typeof args[0] == 'number') {
+                this.left = -args[0];
+                this.top = -args[0];
+                this.right = args[0];
+                this.bottom = args[0];
+            }
 
                 // Array - selection or list of elements
-                // 找到所有元素的最小矩形
-                else if (args[0] instanceof Array && args[0].length) {
-                    var rect = findBoundingRectangle(args[0]);
-                    this.copy(rect);
-                }
+            // 找到所有元素的最小矩形
+            else if (args[0] instanceof Array && args[0].length) {
+                var rect = findBoundingRectangle(args[0]);
+                this.copy(rect);
+            }
 
-                // other
-                else {
-                    throw new Error('Invalid argument 1');
-                }
+            // other
+            else {
+                throw new Error('Invalid argument 1');
+            }
 
-                break;
+            break;
 
             // (width, height),(centerPos, radius)
-            case 2:
-                if (typeof args[0] === 'number' && typeof args[1] === 'number') {
-                    this.left = 0;
-                    this.top = 0;
-                    this.right = args[0];
-                    this.bottom = args[1];
-                } else if (args[0] instanceof Vector && typeof args[1] === 'number') {
-                    var radiusRect = new Rectangle(args[1]);
-                    var centerPos = args[0];
-                    var addRect = radiusRect.addOffset(centerPos);
-                    this.copy(addRect);
-                } else {
-                    throw new Error('Invalid argument 2');
-                }
-                break;
+        case 2:
+            if (typeof args[0] === 'number' && typeof args[1] === 'number') {
+                this.left = 0;
+                this.top = 0;
+                this.right = args[0];
+                this.bottom = args[1];
+            } else if (args[0] instanceof Vector && typeof args[1] === 'number') {
+                var radiusRect = new Rectangle(args[1]);
+                var centerPos = args[0];
+                var addRect = radiusRect.addOffset(centerPos);
+                this.copy(addRect);
+            } else {
+                throw new Error('Invalid argument 2');
+            }
+            break;
 
             // left, top, right, bottom
-            case 4:
-                this.left = args[0];
-                this.top = args[1];
-                this.right = args[2];
-                this.bottom = args[3];
-                break;
+        case 4:
+            this.left = args[0];
+            this.top = args[1];
+            this.right = args[2];
+            this.bottom = args[3];
+            break;
         }
 
         // this.width = this.right - this.left;
         // this.height = this.bottom - this.top;
     }
 
-    /**
-     * @property {number} width - 矩形宽度
-     */
-    PROPERTY(Rectangle, 'width', {
-        get: function () {
+    Object.defineProperty(Rectangle.prototype, 'width', {
+        get: function() {
             return this.right - this.left;
         }
     });
-    /**
-     * @property {number} height - 矩形高度
-     */
-    PROPERTY(Rectangle, 'height', {
-        get: function () {
+    Object.defineProperty(Rectangle.prototype, 'height', {
+        get: function() {
             return this.bottom - this.top;
         }
     });
+
 
     SAT['Rectangle'] = Rectangle;
     SAT['R'] = Rectangle;
@@ -649,7 +652,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param {Number|Vector|Rectangle} offset 偏移量
      * @returns {Rectangle} 矩形
      */
-    Rectangle.prototype.addOffset = function (offset) {
+    Rectangle.prototype.addOffset = function(offset) {
         if (typeof offset === 'number') {
             offset = new Rectangle(offset, offset, offset, offset);
         } else if (offset instanceof Vector) {
@@ -669,7 +672,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param {Number|Vector|Rectangle} offset 偏移量
      * @returns {Rectangle} 矩形
      */
-    Rectangle.prototype.subOffset = function (offset) {
+    Rectangle.prototype.subOffset = function(offset) {
         if (typeof offset === 'number') {
             offset = new Rectangle(offset, offset, offset, offset);
         } else if (offset instanceof Vector) {
@@ -687,7 +690,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * 矩形中心点
      * @returns {Vector} 点
      */
-    Rectangle.prototype.getCenterVector = function () {
+    Rectangle.prototype.getCenterVector = function() {
         return new Vector((this.left + this.right) / 2, (this.top + this.bottom) / 2);
     };
 
@@ -696,7 +699,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param {Rectangle} rect 矩形
      * @returns {boolean} 包含返回true，否则返回false
      */
-    Rectangle.prototype.contains = function (rect) {
+    Rectangle.prototype.contains = function(rect) {
         return (
             this.left <= rect.left &&
             this.top <= rect.top &&
@@ -710,7 +713,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param {Corner} whichCorner 角点或中心点
      * @returns {Vector} 点
      */
-    Rectangle.prototype.getCorner = function (whichCorner) {
+    Rectangle.prototype.getCorner = function(whichCorner) {
         // 获取矩形的基本属性
         const { left, right, top, bottom } = this;
 
@@ -723,26 +726,26 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
         }
 
         switch (whichCorner) {
-            case 'top right':
-                return createVector(right, top);
-            case 'top left':
-                return createVector(left, top);
-            case 'bottom right':
-                return createVector(right, bottom);
-            case 'bottom left':
-                return createVector(left, bottom);
-            case 'top center':
-                return createVector(centerX, top);
-            case 'right center':
-                return createVector(right, centerY);
-            case 'bottom center':
-                return createVector(centerX, bottom);
-            case 'left center':
-                return createVector(left, centerY);
-            case 'center':
-                return createVector(centerX, centerY);
-            default:
-                throw new Error('参数错误：whichCorner ' + whichCorner);
+        case 'top right':
+            return createVector(right, top);
+        case 'top left':
+            return createVector(left, top);
+        case 'bottom right':
+            return createVector(right, bottom);
+        case 'bottom left':
+            return createVector(left, bottom);
+        case 'top center':
+            return createVector(centerX, top);
+        case 'right center':
+            return createVector(right, centerY);
+        case 'bottom center':
+            return createVector(centerX, bottom);
+        case 'left center':
+            return createVector(left, centerY);
+        case 'center':
+            return createVector(centerX, centerY);
+        default:
+            throw new Error('参数错误：whichCorner ' + whichCorner);
         }
     };
 
@@ -757,7 +760,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @returns {Rectangle} - 返回一个新矩形对象，表示提取的部分。
      * @throws {Error} - 如果 `whichPart` 参数无效，将抛出错误。
      */
-    Rectangle.prototype.getPart = function (whichPart, widthRatio, heightRatio) {
+    Rectangle.prototype.getPart = function(whichPart, widthRatio, heightRatio) {
         if (typeof widthRatio === 'undefined') {
             widthRatio = 0.5;
         }
@@ -783,74 +786,74 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
         const halfHeightPart = heightPart / 2;
 
         switch (whichPart) {
-            case 'top right':
-                return new Rectangle(
-                    right - widthInversePart,
-                    top,
-                    right,
-                    top + heightPart
-                );
-            case 'top left':
-                return new Rectangle(left, top, left + widthPart, top + heightPart);
-            case 'bottom right':
-                return new Rectangle(
-                    right - widthInversePart,
-                    bottom - heightInversePart,
-                    right,
-                    bottom
-                );
-            case 'bottom left':
-                return new Rectangle(
-                    left,
-                    bottom - heightInversePart,
-                    left + widthPart,
-                    bottom
-                );
-            case 'top center':
-                return new Rectangle(
-                    centerX - halfWidthPart,
-                    top,
-                    centerX + halfWidthPart,
-                    top + heightPart
-                );
-            case 'right center':
-                return new Rectangle(
-                    right - widthInversePart,
-                    centerY - halfHeightPart,
-                    right,
-                    centerY + halfHeightPart
-                );
-            case 'bottom center':
-                return new Rectangle(
-                    centerX - halfWidthPart,
-                    bottom - heightPart,
-                    centerX + halfWidthPart,
-                    bottom
-                );
-            case 'left center':
-                return new Rectangle(
-                    left,
-                    centerY - halfHeightPart,
-                    left + widthPart,
-                    centerY + halfHeightPart
-                );
-            case 'center':
-                return new Rectangle(
-                    centerX - halfWidthPart,
-                    centerY - halfHeightPart,
-                    centerX + halfWidthPart,
-                    centerY + halfHeightPart
-                );
-            case 'top':
-                return new Rectangle(left, top, right, top + heightPart);
-            case 'right':
-                return new Rectangle(right - widthInversePart, top, right, bottom);
-            case 'bottom':
-                return new Rectangle(left, bottom - heightPart, right, bottom);
-            case 'left':
-                return new Rectangle(left, top, left + widthPart, bottom);
-            default:
-                throw new Error('whichPart 参数错误');
+        case 'top right':
+            return new Rectangle(
+                right - widthInversePart,
+                top,
+                right,
+                top + heightPart
+            );
+        case 'top left':
+            return new Rectangle(left, top, left + widthPart, top + heightPart);
+        case 'bottom right':
+            return new Rectangle(
+                right - widthInversePart,
+                bottom - heightInversePart,
+                right,
+                bottom
+            );
+        case 'bottom left':
+            return new Rectangle(
+                left,
+                bottom - heightInversePart,
+                left + widthPart,
+                bottom
+            );
+        case 'top center':
+            return new Rectangle(
+                centerX - halfWidthPart,
+                top,
+                centerX + halfWidthPart,
+                top + heightPart
+            );
+        case 'right center':
+            return new Rectangle(
+                right - widthInversePart,
+                centerY - halfHeightPart,
+                right,
+                centerY + halfHeightPart
+            );
+        case 'bottom center':
+            return new Rectangle(
+                centerX - halfWidthPart,
+                bottom - heightPart,
+                centerX + halfWidthPart,
+                bottom
+            );
+        case 'left center':
+            return new Rectangle(
+                left,
+                centerY - halfHeightPart,
+                left + widthPart,
+                centerY + halfHeightPart
+            );
+        case 'center':
+            return new Rectangle(
+                centerX - halfWidthPart,
+                centerY - halfHeightPart,
+                centerX + halfWidthPart,
+                centerY + halfHeightPart
+            );
+        case 'top':
+            return new Rectangle(left, top, right, top + heightPart);
+        case 'right':
+            return new Rectangle(right - widthInversePart, top, right, bottom);
+        case 'bottom':
+            return new Rectangle(left, bottom - heightPart, right, bottom);
+        case 'left':
+            return new Rectangle(left, top, left + widthPart, bottom);
+        default:
+            throw new Error('whichPart 参数错误');
         }
     };
 
@@ -861,7 +864,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param {Rectangle} rect 矩形
      * @returns {Rectangle} 矩形
      */
-    Rectangle.prototype.copy = function (rect) {
+    Rectangle.prototype.copy = function(rect) {
         if (!rect) return this;
         this.left = rect.left;
         this.top = rect.top;
@@ -877,7 +880,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * 克隆一个矩形
      * @returns {Rectangle} 矩形
      */
-    Rectangle.prototype.clone = function () {
+    Rectangle.prototype.clone = function() {
         return new Rectangle(this.left, this.top, this.right, this.bottom);
     };
 
@@ -886,7 +889,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param {Rectangle} other - 要合并的另一个矩形。
      * @return {Rectangle} 合并后的矩形。
      */
-    Rectangle.prototype.union = function (other) {
+    Rectangle.prototype.union = function(other) {
         // 计算合并后的矩形的左上角和右下角坐标
         var minLeft = Math.min(this.left, other.left);
         var minTop = Math.min(this.top, other.top);
@@ -900,25 +903,18 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * 字符串
      * @returns {string} 字符串
      */
-    Rectangle.prototype.toString = function () {
-        // return ('Rectangle(left=' + this.left + ', top=' + this.top + ', right=' + this.right + ', bottom=' + this.bottom + ')');
-        return sprintf(
-            'Rectangle(left=%s, top=%s, right=%s, bottom=%s)',
-            this.left,
-            this.top,
-            this.right,
-            this.bottom
-        );
+    Rectangle.prototype.toString = function() {
+        return ('Rectangle(left=' + this.left + ', top=' + this.top + ', right=' + this.right + ', bottom=' + this.bottom + ')');
     };
 
-    Rectangle.toString = function () {
+    Rectangle.toString = function() {
         return '[class Rectangle]';
     };
     /**
      * 转换为对象
      * @returns {{left:number,top:number,right:number,bottom:number}} 矩形对象
      */
-    Rectangle.prototype.toObj = function () {
+    Rectangle.prototype.toObj = function() {
         return {
             left: this.left,
             top: this.top,
@@ -1004,47 +1000,47 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
         // this.ratio = width / height;
     }
 
-    PROPERTY(Size, 'max_size', {
-        get: function () {
+    Object.defineProperty(Size.prototype, 'ratio', {
+        get: function() {
+            return this.width / this.height;
+        }
+    });
+    Object.defineProperty(Size.prototype, 'max_size', {
+        get: function() {
             return Math.max(this.width, this.height);
         }
     });
-    PROPERTY(Size, 'min_size', {
-        get: function () {
+    Object.defineProperty(Size.prototype, 'min_size', {
+        get: function() {
             return Math.min(this.width, this.height);
-        }
-    });
-    PROPERTY(Size, 'ratio', {
-        get: function () {
-            return this.width / this.height;
         }
     });
 
     SAT['Size'] = Size;
     SAT['S'] = Size;
 
-    Size.prototype.getRatioWidth = function (nowHeight) {
+    Size.prototype.getRatioWidth = function(nowHeight) {
         return this.ratio * nowHeight;
     };
 
-    Size.prototype.getRatioHeight = function (nowWidth) {
+    Size.prototype.getRatioHeight = function(nowWidth) {
         return nowWidth / this.ratio;
     };
 
-    Size.prototype.toString = function () {
-        // return 'Size(' + this.width + ', ' + this.height + ')';
-        return sprintf('Size(width=%s, height=%s)', this.width, this.height);
+    Size.prototype.toString = function() {
+        return 'Size(' + this.width + ', ' + this.height + ')';
+        // return sprintf('Size(width=%s, height=%s)', this.width, this.height);
     };
 
-    Size.prototype.toObj = function () {
+    Size.prototype.toObj = function() {
         return { width: this.width, height: this.height };
     };
 
-    Size.prototype.toPoint = function () {
+    Size.prototype.toVector = function() {
         return new Vector(this.width, this.height);
     };
 
-    Size.toString = function () {
+    Size.toString = function() {
         return '[class Size]';
     };
 
@@ -1095,7 +1091,7 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
     SAT['Transform'] = Transform;
     // SAT["T"]=Transform;
 
-    Transform.prototype.setRotation = function (rotation) {
+    Transform.prototype.setRotation = function(rotation) {
         this.element.rotation = rotation;
         this.rotation = rotation;
         return this;
@@ -1105,43 +1101,36 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
      * @param {Vector} scale 缩放比例
      * @return {Transform} Transform
      */
-    Transform.prototype.setScale = function (scale) {
+    Transform.prototype.setScale = function(scale) {
         this.element.scaleX = scale.x;
         this.element.scaleY = scale.y;
         this.scale = scale;
         return this;
     };
-    Transform.prototype.setPosition = function (position) {
+    Transform.prototype.setPosition = function(position) {
         this.element.x = position.x;
         this.element.y = position.y;
         this.position = position;
         return this;
     };
-    Transform.prototype.setSize = function (size) {
+    Transform.prototype.setSize = function(size) {
         this.element.width = size.width;
         this.element.height = size.height;
         this.size = size;
         return this;
     };
-    Transform.prototype.setSkew = function (skew) {
+    Transform.prototype.setSkew = function(skew) {
         this.element.skewX = skew.x;
         this.element.skewY = skew.y;
         this.skew = skew;
         return this;
     };
 
-    Transform.prototype.toString = function () {
-        return sprintf(
-            'Transform(rotation=%s, scale=%s, position=%s, size=%s, skew=%s)',
-            this.rotation,
-            this.scale,
-            this.position,
-            this.size,
-            this.skew
-        );
+    Transform.prototype.toString = function() {
+        return 'Transform(rotation=' + this.rotation + ', scale=' + this.scale + ', position=' + this.position + ', size=' + this.size + ', skew=' + this.skew + ')';
     };
 
-    Transform.toString = function () {
+    Transform.toString = function() {
         return '[class Transform]';
     };
 
@@ -1159,4 +1148,5 @@ define(['FUNC', 'sprintf'], function (FUNC, sp) {
     SAT['GLOBALS'] = SAT_GLOBALS;
     return SAT;
     // });
-});
+}));
+

@@ -1,6 +1,6 @@
 ﻿{
   "compilerOptions": {
-    "target": "ES6",
+    "target": "ES5",
     "module": "amd",
     "checkJs": true,
     "allowJs": true,
