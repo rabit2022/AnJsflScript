@@ -356,12 +356,111 @@ define(['sprintf'], function (sp) {
         return current;
     }
 
+    /**
+     * A better typeof function
+     * @param    {Object}    value    Any object or value
+     * @returns    {String}            The type of the object
+     * @see                            http://javascriptweblog.wordpress.com/2011/08/08/fixing-the-javascript-typeof-operator/
+     * @see                            https://github.com/davestewart/xJSFL
+     */
+    var getType = function (value) {
+        // slight alteration here, otherwise null and undefined return 'window'
+        if (value === null) return null;
+        if (typeof value === 'undefined') return 'undefined';
+        return Object.prototype.toString
+            .call(value)
+            .match(/\s([a-zA-Z]+)/)[1]
+            .toLowerCase();
+    };
+
+    /**
+     * Get the class of an object as a string
+     *
+     * @param    {value}        value        Any value
+     * @returns    {String}                The class name of the value i.e. 'String', 'Date', 'CustomClass'
+     * @see https://github.com/davestewart/xJSFL
+     */
+    var getClass = function (value) {
+        // return null if the value is not an object
+        if (value === null || typeof value === 'undefined') return null;
+
+        // return the object's class if it's a native type
+        if (typeof value !== 'object') {
+            var $class = Object.prototype.toString.call(value).match(/\s([a-zA-Z]+)/)[1];
+            if ($class !== 'Object') {
+                return $class;
+            }
+        }
+
+        // if the value has a proper toString() method, i.e. "[object ClassName]" and is not a native Object, parse that
+        var matches = value.toString().match(/^\[\w+\s*(\w+)/);
+        if (matches && matches[1] && matches[1] !== 'Object') {
+            return matches[1];
+        }
+
+        // otherwise, attempt to parse the constructor source
+        var matches = value.constructor.toSource().match(/^function\s*(\w+)/);
+        if (matches && matches.length == 2) {
+            // fail if the return value is an anonymous / wrapped Function
+            if (matches[1] != 'Function') {
+                return matches[1];
+            }
+
+            // attempt to grab value.toSource() result
+            else {
+                matches = value.toSource().match(/^function\s*(\w+)/);
+                if (matches && matches[1]) {
+                    return matches[1];
+                }
+            }
+        }
+
+        // if we still can't get it, return 'Object'
+        return 'Object';
+    };
+
+    /**
+     * Gets the prototype chain of an object
+     * @param    {Object}    obj                An instantiated object
+     * @param    {Boolean}    includeSource    An optional Boolean to include the original object
+     * @returns    {Array}                        An Array of the original instantation object
+     * @see https://github.com/davestewart/xJSFL
+     */
+    var getPrototypeChain = function (obj, includeSource) {
+        var chain = includeSource ? [obj] : [];
+        while (obj.__proto__) {
+            obj = obj.__proto__;
+            chain.push(obj);
+        }
+        return chain;
+    };
+
+    // /**
+    //  * Returns the named SWF panel if it exists
+    //  * @param    {String}    name        The panel name
+    //  * @returns    {SWFPanel}                An SWFPanel object
+    //  */
+    // getPanel: function (name) {
+    //     if (name) {
+    //         name = String(name).toLowerCase();
+    //         for (var i = 0; i < fl.swfPanels.length; i++) {
+    //             if (fl.swfPanels[i].name.toLowerCase() === name) {
+    //                 return fl.swfPanels[i];
+    //             }
+    //         }
+    //     }
+    //     return null;
+    // },
+
     return {
         IsNullOrEmpty: IsNullOrEmpty,
         IsEmpty: IsEmpty,
         INHERIT_MACRO: INHERIT_MACRO,
         PROPERTY: PROPERTY,
         DYNAMIC_PARAMS: DYNAMIC_PARAMS,
-        SAFE_GET_MACRO: SAFE_GET_MACRO
+        SAFE_GET_MACRO: SAFE_GET_MACRO,
+        getType: getType,
+        getClass: getClass,
+        getPrototypeChain: getPrototypeChain
     };
 });

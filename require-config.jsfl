@@ -15,8 +15,12 @@ require.config({
         // 发布到npm的模块，由node_modules文件夹进行代码补全
         Class: 'Third/Class/Class.js-0.0.1/Class',
         Interface: 'Third/Class/Class.js-0.0.1/Interface',
+        Context: 'Third/custom/Context/Context',
         SAT: 'Third/custom/sat-js-0.9.0/SAT',
-        XUL: 'Third/xml/xul/XUL',
+        console: 'Third/custom/xjsfl/console',
+        JSFLConstants: 'Third/custom/xjsfl/JSFLConstants',
+        JSFLInterface: 'Third/custom/xjsfl/JSFLInterface',
+        XUL: 'Third/custom/xul/XUL',
         eventemitter3: 'Third/event/eventemitter3-5.0.1/eventemitter3',
         rxjs: 'Third/event/rxjs-7.8.2/rxjs.umd',
         'circular-json': 'Third/json/circular-json-0.5.9/circular-json.amd',
@@ -24,6 +28,7 @@ require.config({
         loglevel: 'Third/log/loglevel-1.9.2/loglevel',
         'path-browserify': 'Third/modules/path-browserify-1.0.1/path-browserify',
         'require-js': 'Third/modules/requirejs-2.3.7/require-js',
+        text: 'Third/modules/text-2.0.16/text',
         'es5-sham': 'Third/polyfill/es5-shim-4.6.7/es5-sham',
         'es5-shim': 'Third/polyfill/es5-shim-4.6.7/es5-shim',
         'es6-collections': 'Third/polyfill/es6/es6-collections-0.5.6/es6-collections',
@@ -40,11 +45,9 @@ require.config({
         jquery: 'Third/xml/jquery-3.7.1/jquery.slim',
         xmldom: 'Third/xml/xmldom-0.6.0/xmldom',
         xpath: 'Third/xml/xpath-0.0.34/xpath',
-        text: 'Third/modules/text-2.0.16/text',
+        FolderTraverser: 'Third/custom/FolderTraverser/FolderTraverser',
 
         // 自定义模块
-        sys: 'Core/Utils/py/sys',
-        TryLoad: 'Core/Utils/module/TryLoad',
         ErrorDefinitions: 'Core/myShim/ErrorDefinitions',
         FUNC: 'Core/myShim/FUNC',
         frameRange: 'Core/Object/frameRange',
@@ -57,10 +60,6 @@ require.config({
         Navigation: 'Core/Third/FlashTool/Navigation/Navigation',
         linqUtil: 'Core/Third/linqUtil',
         satUtil: 'Core/Third/satUtil',
-        console: 'Core/Third/xjsfl/console',
-        JSFLConstants: 'Core/Third/xjsfl/flash/JSFLConstants',
-        JSFLInterface: 'Core/Third/xjsfl/flash/JSFLInterface',
-        Utils: 'Core/Third/xjsfl/Utils/Utils',
         checkUtil: 'Core/Utils/flash/checkUtil',
         curveUtil: 'Core/Utils/flash/curveUtil',
         elementUtil: 'Core/Utils/flash/elementUtil',
@@ -72,10 +71,12 @@ require.config({
         selectionUtil: 'Core/Utils/flash/selectionUtil',
         xmlPanelUtil: 'Core/Utils/flash/xmlPanelUtil',
         KeyFrameMode: 'Core/Utils/mode/KeyFrameMode',
+        TryLoad: 'Core/Utils/module/TryLoad',
         open: 'Core/Utils/py/open',
         os: 'Core/Utils/py/os',
         random: 'Core/Utils/py/random',
-        StringP: 'Core/Utils/py/StringP'
+        StringP: 'Core/Utils/py/StringP',
+        sys: 'Core/Utils/py/sys'
     },
     packages: []
 });

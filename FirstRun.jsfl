@@ -82,8 +82,8 @@
                 scriptURI += '.jsfl';
             }
 
-            // var message = '[importFlashScripts] Run script file [' + scriptURI + ']';
-            // fl.trace(message);
+            var message = '[importFlashScripts] Run script file [' + scriptURI + ']';
+            fl.trace(message);
             // 执行脚本
             var exists = fileExists(scriptURI);
             if (exists) {

@@ -19,22 +19,17 @@
       "XUL": ["types/Third/xul/XUL.d.ts"],
 
 
-      "TryLoad": ["Core/Utils/module/TryLoad"],
       "ErrorDefinitions": ["Core/myShim/ErrorDefinitions"],
       "frameRange": ["Core/Object/frameRange"],
       "frameRangeUtil": ["Core/Object/frameRangeUtil"],
       "moreElement": ["Core/Object/moreElement"],
       "moreElementUtil": ["Core/Object/moreElementUtil"],
-      "test": ["Core/test/test"],
+      "test-module": ["Core/test/test-module"],
       "LayerManager": ["Core/Third/FlashTool/LayerManager"],
       "LibraryManager": ["Core/Third/FlashTool/LibraryManager"],
       "Navigation": ["Core/Third/FlashTool/Navigation/Navigation"],
       "linqUtil": ["Core/Third/linqUtil"],
       "satUtil": ["Core/Third/satUtil"],
-      "console": ["Core/Third/xjsfl/console"],
-      "JSFLConstants": ["Core/Third/xjsfl/flash/JSFLConstants"],
-      "JSFLInterface": ["Core/Third/xjsfl/flash/JSFLInterface"],
-      "Utils": ["Core/Third/xjsfl/Utils/Utils"],
       "checkUtil": ["Core/Utils/flash/checkUtil"],
       "curveUtil": ["Core/Utils/flash/curveUtil"],
       "elementUtil": ["Core/Utils/flash/elementUtil"],
@@ -46,10 +41,12 @@
       "selectionUtil": ["Core/Utils/flash/selectionUtil"],
       "xmlPanelUtil": ["Core/Utils/flash/xmlPanelUtil"],
       "KeyFrameMode": ["Core/Utils/mode/KeyFrameMode"],
+      "TryLoad": ["Core/Utils/module/TryLoad"],
       "open": ["Core/Utils/py/open"],
       "os": ["Core/Utils/py/os"],
       "random": ["Core/Utils/py/random"],
-      "StringP": ["Core/Utils/py/StringP"]
+      "StringP": ["Core/Utils/py/StringP"],
+      "sys": ["Core/Utils/py/sys"]
     },
     "include": [
       "**/*.jsfl"

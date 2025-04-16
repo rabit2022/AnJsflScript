@@ -21,13 +21,14 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'loglevel', 'elementUtil', 'libUtil', 'selectionUtil', 'SAT'], function(
-    checkUtil,
-    log,
-    elementUtil,
-    libUtil, sel,
-    SAT
-) {
+require([
+    'checkUtil',
+    'loglevel',
+    'elementUtil',
+    'libUtil',
+    'selectionUtil',
+    'SAT'
+], function (checkUtil, log, elementUtil, libUtil, sel, SAT) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { SelectAll } = sel;
     const { wrapSize } = SAT.GLOBALS;
@@ -49,7 +50,6 @@ require(['checkUtil', 'loglevel', 'elementUtil', 'libUtil', 'selectionUtil', 'SA
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
     // endregion doc
 
-
     function KFrames() {
         // region inner doc
         var selection = doc.selection; //选择
@@ -62,7 +62,6 @@ require(['checkUtil', 'loglevel', 'elementUtil', 'libUtil', 'selectionUtil', 'SA
 
         var curFrameIndex = timeline.currentFrame; //当前帧索引
         var curFrame = curLayer.frames[curFrameIndex]; //当前帧
-
 
         /**
          * 刷新内部变量
@@ -97,7 +96,6 @@ require(['checkUtil', 'loglevel', 'elementUtil', 'libUtil', 'selectionUtil', 'SA
 
             var symbolName = libUtil.generateNameUseLast('石化_');
             doc.convertToSymbol('graphic', symbolName, 'center');
-
         }
 
         function maskLayer(elementSize) {
@@ -125,7 +123,6 @@ require(['checkUtil', 'loglevel', 'elementUtil', 'libUtil', 'selectionUtil', 'SA
 
         const elementSize = wrapSize(selection[0]);
 
-
         // 复制图层
         timeline.copyLayers(0);
         timeline.pasteLayers(0);
@@ -138,8 +135,6 @@ require(['checkUtil', 'loglevel', 'elementUtil', 'libUtil', 'selectionUtil', 'SA
 
         // 遮罩层
         maskLayer(elementSize);
-
-
     }
 
     function Main() {
