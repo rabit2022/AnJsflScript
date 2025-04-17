@@ -18,6 +18,7 @@ EvalScript error.tmp/**
 # 缓存文件
 cache/**
 .eslintcache
+~$计划更新.xlsx
 
 
 # 清除缓存

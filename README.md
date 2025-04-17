@@ -24,7 +24,8 @@
 
 ### 2.1 下载项目
 
-- **下载最新版本**：访问本项目的 [GitHub 仓库](https://github.com/rabit2022/AnJsflScript) 并下载最新发布的 [tag版本](https://github.com/rabit2022/AnJsflScript/tags)
+- **下载最新版本**：访问本项目的 [GitHub 仓库](https://github.com/rabit2022/AnJsflScript)
+  并下载最新发布的 [tag版本](https://github.com/rabit2022/AnJsflScript/tags)
   。tag 版本经过相对稳定，适合大多数用户使用。当前项目可能会进行重构等操作，因此建议始终使用最新发布的 tag 版本。
 - **解压到本地**：将下载的文件解压到本地的一个合适位置，例如 `C:\AnJsflScript`。
 
@@ -131,7 +132,6 @@
 
 ## 6. 参考项目
 
-
 [//]: # ([![CoreJS]&#40;https://img.shields.io/badge/CoreJS-v3.41.0-ff9800&#41;]&#40;https://github.com/zloirock/core-js&#41;)
 
 [//]: # (class:)
@@ -178,27 +178,16 @@
 
 ---
 
-## 7. 待确认
+## 7. 计划更新
 
-### 1. Adobe Animate 2024 支持的 ES6 特性是否在其他旧版本可用
+* 计划做完石化 后，重构一次，模块的代码 比较混乱,循环引用的问题比较多
+* 部分脚本，由于重构导致无法运行，会在后续 逐个修复
+* 暂时不再添加新功能，先修复现有的bug, 部分脚本 没有添加 关键帧的功能，会陆续添加
+* 多图层的处理，，，会搁置，问题比较多
 
-#### 支持的 ES6 特性
 
-- **`const`**：支持使用 `const` 声明变量，替代传统的 `var`。
-- **解构赋值**：支持数组和对象的解构赋值，简化变量提取过程。
-
-#### 示例代码
-
-以下代码展示了在 Adobe Animate 2024 中可以使用的 ES6 特性：
-
-```javascript
-(function() {
-    const fruits = ['apple', 'banana', 'cherry'];
-    const [firstFruit, secondFruit] = fruits;
-    console.log(firstFruit); // 输出: apple
-    console.log(secondFruit); // 输出: banana
-})();
-```
+* 由于只有一个人，时间有限，后续会慢慢完善，欢迎各位开发者一起参与进来
+* 希望大家可以积极反馈bug，提出意见，共同进步
 
 ---
 

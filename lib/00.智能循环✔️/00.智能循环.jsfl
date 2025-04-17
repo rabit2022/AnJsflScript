@@ -62,8 +62,8 @@ require(['checkUtil', 'frameRangeUtil'], function (checkUtil, frUtil) {
             var element = selection[i];
             element.loop = 'loop';
 
-            var timeline = element.libraryItem.timeline;
-            var layer = timeline.layers[0];
+            var timeline1 = element.libraryItem.timeline;
+            var layer = timeline1.layers[0];
             // 获取关键帧的起始帧
             var startFrame = layer.frames[element.firstFrame].startFrame;
             element.firstFrame = startFrame;

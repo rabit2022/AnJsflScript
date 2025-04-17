@@ -7,9 +7,8 @@
  * @description:
  */
 
-define(['loglevel', 'path-browserify'], function(log, path) {
-    function OSPath() {
-    }
+define(['loglevel', 'path-browserify'], function (log, path) {
+    function OSPath() {}
 
     /**
      * 插件位置
@@ -26,7 +25,7 @@ define(['loglevel', 'path-browserify'], function(log, path) {
      */
     OSPath.$COMMAND_PATH = fl.configURI + 'Commands';
 
-    OSPath.abspath = function(relativePath) {
+    OSPath.abspath = function (relativePath) {
         const currentWorkingDirectory = OS.getcwd();
         return path.resolve(currentWorkingDirectory, relativePath);
     };
@@ -34,11 +33,11 @@ define(['loglevel', 'path-browserify'], function(log, path) {
     OSPath.dirname = path.dirname;
     OSPath.exists = FLfile.exists;
     OSPath.isAbs = path.isAbsolute;
-    OSPath.isfile = function(uri) {
+    OSPath.isfile = function (uri) {
         var [root, ext] = this.splitext(uri);
         return ext.length > 0;
     };
-    OSPath.isdir = function(uri) {
+    OSPath.isdir = function (uri) {
         var [root, ext] = this.splitext(uri);
         return ext.length === 0;
     };
@@ -49,7 +48,7 @@ define(['loglevel', 'path-browserify'], function(log, path) {
      * @param {string} path - 要规范化的路径。
      * @return {string} - 规范化后的路径。
      */
-    OSPath.normcase = function(_path) {
+    OSPath.normcase = function (_path) {
         // 在 Windows 上，将路径中的所有字符都转换为小写，并将正斜杠转换为反斜杠
         if (OS.$isWindows()) {
             _path = _path.toLowerCase().replace(/\\/g, '/');
@@ -74,7 +73,7 @@ define(['loglevel', 'path-browserify'], function(log, path) {
      * join(['/foo', 'bar', 'baz']) 返回 '/foo/bar/baz'
      * join(['/foo/bar', 'baz']) 返回 '/foo/bar/baz'
      */
-    OSPath.join = function() {
+    OSPath.join = function () {
         // 将 arguments 转换为数组
         var paths = Array.prototype.slice.call(arguments);
         // 使用 apply 将数组展开为参数
@@ -102,7 +101,7 @@ define(['loglevel', 'path-browserify'], function(log, path) {
      * OSPath.split('bar') 返回 ['', 'bar']
      * OSPath.split('/foo/bar/') 返回 ['', '']
      */
-    OSPath.split = function(_path) {
+    OSPath.split = function (_path) {
         const base = path.basename(_path);
         const dir = path.dirname(_path);
         return [dir, base];
@@ -120,7 +119,7 @@ define(['loglevel', 'path-browserify'], function(log, path) {
      * splitext('bar') 返回 ['bar', '']，因为没有扩展名。
      * splitext('foo.bar.exe') 返回 ['foo.bar', '.exe']，扩展名包括点。
      */
-    OSPath.splitext = function(_path) {
+    OSPath.splitext = function (_path) {
         const ext = path.extname(_path);
         const root = _path.replace(ext, '');
         return [root, ext];
@@ -133,17 +132,16 @@ define(['loglevel', 'path-browserify'], function(log, path) {
      * @param {string} _path - 要处理的文件路径。
      * @return {string} - 去除后缀的文件基本名称。
      */
-    OSPath.$basenameWithoutExt = function(_path) {
+    OSPath.$basenameWithoutExt = function (_path) {
         const [root] = this.splitext(path.basename(_path));
         return root;
     };
 
-    function OS() {
-    }
+    function OS() {}
 
     OS.path = OSPath;
 
-    OS.$isMac = function() {
+    OS.$isMac = function () {
         return fl.version.search(/mac/i) > -1;
     };
 
@@ -152,7 +150,7 @@ define(['loglevel', 'path-browserify'], function(log, path) {
      * WIN 24,0,0,305
      * @returns {boolean}
      */
-    OS.$isWindows = function() {
+    OS.$isWindows = function () {
         return fl.version.search(/win/i) > -1;
     };
 
@@ -161,7 +159,7 @@ define(['loglevel', 'path-browserify'], function(log, path) {
      *
      * @return {string} - 当前工作目录的路径。
      */
-    OS.getcwd = function() {
+    OS.getcwd = function () {
         // 获取当前脚本文件的完整路径
         var scriptURI = fl.scriptURI;
         // 获取路径中最后一个“/”的位置
@@ -176,7 +174,7 @@ define(['loglevel', 'path-browserify'], function(log, path) {
      *
      * @param {string} uri - 要创建的目录的路径。
      */
-    OS.mkdir = function(uri) {
+    OS.mkdir = function (uri) {
         var success = FLfile.createFolder(uri);
         if (success) {
             log.info('Folder created: ' + uri);
@@ -185,7 +183,7 @@ define(['loglevel', 'path-browserify'], function(log, path) {
         }
     };
 
-    OS.rmdir = function(uri) {
+    OS.rmdir = function (uri) {
         var success = FLfile.remove(uri);
         if (success) {
             log.info('Folder deleted: ' + uri);
@@ -203,7 +201,7 @@ define(['loglevel', 'path-browserify'], function(log, path) {
      * @param {string} [cwd] - 工作目录。
      * @param {number} [show_cmd] - 窗口样式。
      */
-    OS.startfile = function(path, operation, arguments, cwd, show_cmd) {
+    OS.startfile = function (path, operation, arguments, cwd, show_cmd) {
         // 转换路径为平台路径
         var uri = FLfile.uriToPlatformPath(path);
 
@@ -234,24 +232,24 @@ define(['loglevel', 'path-browserify'], function(log, path) {
         } else if (this.$isWindows()) {
             // Windows 使用 `start` 或 `explorer.exe` 命令
             switch (operation) {
-            case 'open':
-                cmd = 'start "" "' + uri + '"';
-                break;
-            case 'printf':
-                cmd = 'start "" /print "' + uri + '"';
-                break;
-            case 'edit':
-                cmd = 'notepad "' + uri + '"';
-                break;
-            case 'explore':
-                cmd = 'explorer.exe /e,"' + uri + '"';
-                break;
-            case 'find':
-                cmd = 'explorer.exe /select,"' + uri + '"';
-                break;
-            default:
-                cmd = 'start "" "' + uri + '"';
-                break;
+                case 'open':
+                    cmd = 'start "" "' + uri + '"';
+                    break;
+                case 'printf':
+                    cmd = 'start "" /print "' + uri + '"';
+                    break;
+                case 'edit':
+                    cmd = 'notepad "' + uri + '"';
+                    break;
+                case 'explore':
+                    cmd = 'explorer.exe /e,"' + uri + '"';
+                    break;
+                case 'find':
+                    cmd = 'explorer.exe /select,"' + uri + '"';
+                    break;
+                default:
+                    cmd = 'start "" "' + uri + '"';
+                    break;
             }
 
             // 添加工作目录
@@ -277,7 +275,7 @@ define(['loglevel', 'path-browserify'], function(log, path) {
      * @param {string} [uri='.'] - 要列出的目录的路径。
      * @returns {string[]} - 包含目录条目的数组。
      */
-    OS.listdir = function(uri) {
+    OS.listdir = function (uri) {
         var files = FLfile.listFolder(uri);
         // console.log(files);
         return files;
