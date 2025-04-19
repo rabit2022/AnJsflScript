@@ -61,43 +61,9 @@ def parser_content(content, fileobj):
 # """
 
 
-
-replace_text = r"""
-    var doc = fl.getDocumentDOM(); //文档
-    if (!CheckDom(doc)) return;
-
-    var selection = doc.selection; //选择
-    var library = doc.library; //库文件
-    var timeline = doc.getTimeline(); //时间轴
-
-    var layers = timeline.layers; //图层
-    var curLayerIndex = timeline.currentLayer; //当前图层索引
-    var curLayer = layers[curLayerIndex]; //当前图层
-
-    var curFrameIndex = timeline.currentFrame; //当前帧索引
-    var curFrame = curLayer.frames[curFrameIndex]; //当前帧
-"""
-to_text = r"""
-// region doc
-var doc = fl.getDocumentDOM(); //文档
-if (!checkDom(doc)) return;
-
-var selection = doc.selection; //选择
-var library = doc.library; //库文件
-var timeline = doc.getTimeline(); //时间轴
-
-var layers = timeline.layers; //图层
-var curLayerIndex = timeline.currentLayer; //当前图层索引
-var curLayer = layers[curLayerIndex]; //当前图层
-
-var curFrameIndex = timeline.currentFrame; //当前帧索引
-var curFrame = curLayer.frames[curFrameIndex]; //当前帧
-// endregion doc
-"""
-
 contents = files.read_files(parser_content)
 # print(content)
-for con in contents:
-    print(con)
+# for con in contents:
+#     print(con)
 
 # files.write_new_content(contents)
