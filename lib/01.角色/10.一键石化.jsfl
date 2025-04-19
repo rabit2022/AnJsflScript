@@ -30,8 +30,9 @@ require([
     'SAT',
     'graphicsUtil',
     'JSFLConstants',
-    'frameRangeUtil', 'curveUtil'
-], function(
+    'frameRangeUtil',
+    'curveUtil'
+], function (
     checkUtil,
     log,
     elementUtil,
@@ -48,8 +49,7 @@ require([
     const { wrapSize, wrapPosition, wrapRectByCenter } = SAT.GLOBALS;
     const { Vector, Rectangle } = SAT;
     const { drawRectangleWithoutLine } = graphicsUtil;
-    const { FRAME_1, FRAME_15 } =
-        JSFLConstants.Numerics.frame.frameList;
+    const { FRAME_1, FRAME_15 } = JSFLConstants.Numerics.frame.frameList;
     const { setClassicEaseCurve } = curve;
     const { playOnce } = elementUtil;
 
@@ -67,7 +67,6 @@ require([
 
     var curFrameIndex = timeline.currentFrame; //当前帧索引
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
-
 
     /**
      * 刷新内部变量
