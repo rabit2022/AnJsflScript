@@ -1,6 +1,6 @@
 # 欢迎来到 AnJsflScript！！！
 
-[![AnJsflScript/v0.1.0](https://badgen.net/badge/AnJsflScript/v0.1.0/green?icon=github&labelColor=black)](https://github.com/rabit2022/AnJsflScript)
+[![AnJsflScript/v0.3.0](https://badgen.net/badge/AnJsflScript/v0.3.0/green?icon=github&labelColor=black)](https://github.com/rabit2022/AnJsflScript)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)]()
 [![Adobe Animate 2024](https://badgen.net/badge/Adobe%20Animate/2024/blue?icon=adobe&labelColor=black)](https://www.adobe.com/products/animate.html)
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
@@ -24,10 +24,18 @@
 
 ### 2.1 下载项目
 
+#### 1. 直接下载
 - **下载最新版本**：访问本项目的 [GitHub 仓库](https://github.com/rabit2022/AnJsflScript)
   并下载最新发布的 [tag版本](https://github.com/rabit2022/AnJsflScript/tags)
   。tag 版本经过相对稳定，适合大多数用户使用。当前项目可能会进行重构等操作，因此建议始终使用最新发布的 tag 版本。
 - **解压到本地**：将下载的文件解压到本地的一个合适位置，例如 `C:\AnJsflScript`。
+
+#### 2. 通过 git 命令下载
+- **git 命令**：也可以通过 git clone 命令下载项目到本地。
+
+```
+git clone https://github.com/rabit2022/AnJsflScript.git
+```
 
 ### 2.2 打开 Adobe Animate 并新建或打开文档
 
