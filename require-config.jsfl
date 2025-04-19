@@ -51,6 +51,8 @@ require.config({
         jquery: 'Third/xml/jquery-3.7.1/jquery.slim',
         xmldom: 'Third/xml/xmldom-0.6.0/xmldom',
         xpath: 'Third/xml/xpath-0.0.34/xpath',
+        // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\custom\assert-node\assert.jsfl
+        assert: 'Third/custom/assert-node/assert',
 
         // 自定义模块
         ErrorDefinitions: 'Core/myShim/ErrorDefinitions',

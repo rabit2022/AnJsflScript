@@ -45,5 +45,20 @@ define(function () {
         return XUL;
     }
 
-    return TryLoad;
+    /**
+     * 检查变量是否被重新声明
+     * @param {any} variable 被重复声明的变量
+     * @param {string} name 变量名
+     */
+    function checkVariableRedeclaration(variable, name) {
+        if (typeof variable === 'undefined') {
+            var msg = '参数 ' + name + '在函数内被重新声明，可能覆盖了外部变量。';
+            console.error(msg);
+            throw new Error(msg);
+        }
+    }
+
+    return {
+        TryLoad: TryLoad
+    };
 });

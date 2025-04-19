@@ -28,7 +28,7 @@ require([
     'open',
     'moreElement',
     'selectionUtil',
-    'TryLoad'
+    '../../../../Core/Utils/module/Tips'
 ], function (checkUtil, log, os, open, MoreElement, selectionUtil, TryLoad) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { SelectSameName } = selectionUtil;

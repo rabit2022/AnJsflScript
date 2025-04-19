@@ -21,12 +21,12 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'loglevel', 'elementUtil', 'TryLoad'], function (
-    checkUtil,
-    log,
-    elementUtil,
-    TryLoad
-) {
+require([
+    'checkUtil',
+    'loglevel',
+    'elementUtil',
+    '../../../Core/Utils/module/Tips'
+], function (checkUtil, log, elementUtil, TryLoad) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { IsSymbol } = elementUtil;
 

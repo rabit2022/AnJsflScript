@@ -142,7 +142,8 @@
             'console'
         ]);
 
-        require(['loglevel', 'TryLoad'], function (log, TryLoad) {
+        require(['loglevel', './Core/Utils/module/Tips'], function (log, Tips) {
+            const { TryLoad } = Tips;
             // 禁用log
             log.setDefaultLevel(log.levels.SILENT);
 
