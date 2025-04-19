@@ -27,20 +27,39 @@ require([
     'elementUtil',
     'libUtil',
     'selectionUtil',
-    'SAT'
-], function (checkUtil, log, elementUtil, libUtil, sel, SAT) {
+    'SAT',
+    'graphicsUtil',
+    'JSFLConstants',
+    'frameRangeUtil', 'curveUtil'
+], function(
+    checkUtil,
+    log,
+    elementUtil,
+    libUtil,
+    sel,
+    SAT,
+    graphicsUtil,
+    JSFLConstants,
+    frUtil,
+    curve
+) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { SelectAll } = sel;
-    const { wrapSize } = SAT.GLOBALS;
-    const { Vector } = SAT;
+    const { wrapSize, wrapPosition, wrapRectByCenter } = SAT.GLOBALS;
+    const { Vector, Rectangle } = SAT;
+    const { drawRectangleWithoutLine } = graphicsUtil;
+    const { FRAME_1, FRAME_15 } =
+        JSFLConstants.Numerics.frame.frameList;
+    const { setClassicEaseCurve } = curve;
+    const { playOnce } = elementUtil;
 
     // region doc
     const doc = fl.getDocumentDOM(); //文档
     if (!CheckDom(doc)) return;
 
-    const selection = doc.selection; //选择
-    const library = doc.library; //库文件
-    const timeline = doc.getTimeline(); //时间轴
+    var selection = doc.selection; //选择
+    var library = doc.library; //库文件
+    var timeline = doc.getTimeline(); //时间轴
 
     var layers = timeline.layers; //图层
     var curLayerIndex = timeline.currentLayer; //当前图层索引
@@ -48,9 +67,30 @@ require([
 
     var curFrameIndex = timeline.currentFrame; //当前帧索引
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
+
+
+    /**
+     * 刷新内部变量
+     * @note: 1,如果在函数内  进行了更改数据的操作(enterEditMode后，timeline变化)，需要调用此函数刷新内部变量
+     *        2,如果需要同时使用 全局变量 和 局部变量，需要 重新 定义
+     */
+    function refreshTimeline() {
+        // 刷新内部变量
+        selection = doc.selection; //选择
+        library = doc.library; //库文件
+        timeline = doc.getTimeline(); //时间轴
+
+        layers = timeline.layers; //图层
+        curLayerIndex = timeline.currentLayer; //当前图层索引
+        curLayer = layers[curLayerIndex]; //当前图层
+
+        curFrameIndex = timeline.currentFrame; //当前帧索引
+        curFrame = curLayer.frames[curFrameIndex]; //当前帧
+    }
+
     // endregion doc
 
-    function KFrames() {
+    function KFrames(worldElement) {
         // region inner doc
         var selection = doc.selection; //选择
         var library = doc.library; //库文件
@@ -98,7 +138,7 @@ require([
             doc.convertToSymbol('graphic', symbolName, 'center');
         }
 
-        function maskLayer(elementSize) {
+        function maskLayer(element) {
             // 遮罩层
             timeline.addNewLayer('遮罩层', 'mask', true);
             curLayer.layerType = 'masked';
@@ -108,20 +148,61 @@ require([
             // width+=addScope
             // height+=addScope
             // pos = 0,height
-            log.info('elementSize:', elementSize);
-            const shape = elementSize.toVector().clone();
+            var rect = new Rectangle(element);
+
+            // log.info('rect:', rect);
+
+            var center = rect.getCenterVector();
+
+            const elementSize = rect.getSize();
+            var newSize = elementSize;
+
             const addScope = elementSize.height * 0.2;
-            shape.add(new Vector(addScope, addScope));
+            const addVector = new Vector(addScope, addScope);
 
-            log.info('shape:', shape);
+            newSize = newSize.toVector().add(addVector).toSize();
 
-            const shapePos = new Vector(0, shape.y);
-            log.info('shapePos:', shapePos);
+            var newRect = wrapRectByCenter(center, newSize);
+            // log.info('newRect:', newRect);
 
-            // doc.addNewRectangle(selectionRect,0);
+            const shapePos = new Vector(0, newSize.height);
+            // log.info('shapePos:', shapePos);
+
+            newRect = newRect.addOffset(shapePos);
+
+            drawRectangleWithoutLine(newRect);
+
+            return {
+                rect: newRect,
+                move: shapePos
+            };
         }
 
-        const elementSize = wrapSize(selection[0]);
+        function KFrameInner(shapeRect, rectMove) {
+            // 添加15帧
+            timeline.insertFrames(FRAME_15, true);
+
+            // 关键帧
+            var KEY_FRAMES = [FRAME_1, FRAME_15];
+            frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES, 0);
+
+            // 移动第15帧的shape
+            doc.setSelectionRect(shapeRect.toObj(), true, true);
+            doc.moveSelectionBy(rectMove.reverse());
+
+            // 选中所有帧
+            // 获取allKeyFrames first,last
+            var firstF = KEY_FRAMES[0];
+            var lastF = KEY_FRAMES[KEY_FRAMES.length - 1];
+            // 选中所有帧
+            timeline.setSelectedFrames(firstF, lastF, true);
+
+            // 传统补间动画
+            setClassicEaseCurve(timeline);
+
+            // // 重置选中帧
+            // frUtil.resetSelectedFrames(timeline, frs);
+        }
 
         // 复制图层
         timeline.copyLayers(0);
@@ -134,7 +215,10 @@ require([
         stoneLayer();
 
         // 遮罩层
-        maskLayer(elementSize);
+        const { rect, move } = maskLayer(worldElement);
+
+        // K Frames
+        KFrameInner(rect, move);
     }
 
     function Main() {
@@ -147,14 +231,21 @@ require([
         // 图层2 ： 遮罩层
         // 图层1 复制 ： 被遮罩层
         // 图层1 ： 原始层
-
         var symbolName = libUtil.generateNameUntilUnique('一键石化_');
         doc.convertToSymbol('graphic', symbolName, 'center');
 
+        refreshTimeline();
+
+        // 播放一次，刷新动画
+        var newSymbol = selection[0];
+        playOnce(newSymbol);
+
         doc.enterEditMode('inPlace');
 
-        KFrames();
-        // doc.exitEditMode();
+        KFrames(newSymbol);
+        doc.exitEditMode();
+
+        alert('石化完成！\n点击播放查看效果！（可双击进入元件修改效果）');
     }
 
     Main();

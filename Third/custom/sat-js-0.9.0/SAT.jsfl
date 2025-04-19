@@ -59,6 +59,9 @@
      * @constructor
      */
     function Vector(x, y) {
+        if (x === undefined || y === undefined) {
+            throw new Error('Both x and y must be defined');
+        }
         this['x'] = x || 0;
         this['y'] = y || 0;
     }
@@ -147,7 +150,7 @@
      */
     Vector.prototype['scale'] = Vector.prototype.scale = function(x, y) {
         this['x'] *= x;
-        this['y'] *= typeof y != 'undefined' ? y : x;
+        this['y'] *= typeof y !== 'undefined' ? y : x;
         return this;
     };
 
@@ -413,6 +416,22 @@
         return { x: this.x, y: this.y };
     };
 
+    /**
+     * 转换为Size对象
+     * @returns {Size}
+     */
+    Vector.prototype['toSize'] = Vector.prototype.toSize = function() {
+        return new Size(this.x, this.y);
+    };
+
+    /**
+     * 转换为Rectangle对象
+     * @returns {Rectangle}
+     */
+    Vector.prototype['toRectangle'] = Vector.prototype.toRectangle = function() {
+        return new Rectangle(0, 0, this.x, this.y);
+    };
+
     Vector.toString = function() {
         return '[class Vector]';
     };
@@ -536,11 +555,6 @@
     /**
      * Rectangle object.
      * Useful for quickly creating objects on the stage
-     *
-     * @param    {Rectangle|Element|Element[]|Number|Vector}  [left]        A Rectangle object
-     * @param    {Number}    [top]        A radius for the bounds
-     * @param    {Number}    [right]        The right position of the bounds
-     * @param    {Number}    [bottom]        The bottom position of the bounds
      * @class Rectangle
      * @constructor
      */
@@ -580,7 +594,7 @@
             }
 
             // Number (radius)
-            else if (typeof args[0] == 'number') {
+            else if (typeof args[0] === 'number') {
                 this.left = -args[0];
                 this.top = -args[0];
                 this.right = args[0];
@@ -594,8 +608,14 @@
                 this.copy(rect);
             }
 
+            // undefined
+            else if (args[0] === undefined) {
+                throw new Error('Rectangle: 请选中一个元件。 ');
+            }
+
             // other
             else {
+                // console.stack('Rectangle: Invalid argument 1');
                 throw new Error('Invalid argument 1');
             }
 
@@ -692,6 +712,15 @@
      */
     Rectangle.prototype.getCenterVector = function() {
         return new Vector((this.left + this.right) / 2, (this.top + this.bottom) / 2);
+    };
+
+    // getSize
+    /**
+     * 矩形大小
+     * @returns {Size} 大小
+     */
+    Rectangle.prototype.getSize = function() {
+        return new Size(this.width, this.height);
     };
 
     /**
@@ -923,17 +952,66 @@
         };
     };
 
-    function wrapRectByTopLeft(left, top, width, height) {
-        return new Rectangle(left, top, left + width, top + height);
+    /**
+     * 由左上角坐标和宽高创建矩形
+     * @returns {Rectangle} 矩形对象
+     */
+    function wrapRectByTopLeft() {
+        // variables
+        var args = arguments;
+        switch (args.length) {
+            // topLeft,size
+        case 2:
+            var topLeft = args[0];
+            var size = args[1];
+            return wrapRectByTopLeft(topLeft.x, topLeft.y, size.width, size.height);
+            // eslint-disable-next-line no-unreachable
+            break;
+        case 4:
+            var left = args[0];
+            var top = args[1];
+            var width = args[2];
+            var height = args[3];
+            return new Rectangle(left, top, left + width, top + height);
+            // eslint-disable-next-line no-unreachable
+            break;
+        default:
+            throw new Error('Invalid arguments');
+        }
+
     }
 
-    function wrapRectByCenter(centerX, centerY, width, height) {
-        return new Rectangle(
-            centerX - width / 2,
-            centerY - height / 2,
-            centerX + width / 2,
-            centerY + height / 2
-        );
+    /**
+     * 由中心点坐标和宽高创建矩形
+     * @returns {Rectangle} 矩形对象
+     */
+    function wrapRectByCenter() {
+        var args = arguments;
+        switch (args.length) {
+            // center,size
+        case 2:
+            var center = args[0];
+            var size = args[1];
+            return wrapRectByCenter(center.x, center.y, size.width, size.height);
+            // eslint-disable-next-line no-unreachable
+            break;
+            // centerX,centerY,width,height
+        case 4:
+            var centerX = args[0];
+            var centerY = args[1];
+            var width = args[2];
+            var height = args[3];
+            return new Rectangle(
+                centerX - width / 2,
+                centerY - height / 2,
+                centerX + width / 2,
+                centerY + height / 2
+            );
+            // eslint-disable-next-line no-unreachable
+            break;
+        default:
+            throw new Error('Invalid arguments');
+        }
     }
 
     /**

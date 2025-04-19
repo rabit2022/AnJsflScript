@@ -9,27 +9,28 @@
 define(['SAT'], function (sat) {
     var Vector = sat.Vector,
         Rectangle = sat.Rectangle;
-    function GraphicsUtil() {}
+    const { wrapRectByTopLeft } = sat.GLOBALS;
 
-    /**
-     * 画圆，不要填充
-     * @param {Vector}centerPos 圆心位置
-     * @param {number}radius 半径
-     * @deprecated 建议使用 {@link GraphicsUtil.drawCircleLineWithoutFill} ,效果更好
-     */
-    GraphicsUtil.drawCircleLineWithoutFill_deprecated = function (centerPos, radius) {
-        var doc = fl.getDocumentDOM(); //文档
-
-        var circleRect = new Rectangle(centerPos, radius);
-        doc.addNewPrimitiveOval(circleRect.toObj(), true);
-
-        // 选中圆形
-        doc.setSelectionRect(circleRect.toObj());
-        // 分离到Shape
-        doc.breakApart();
-
-        return circleRect;
-    };
+    //
+    // /**
+    //  * 画圆，不要填充
+    //  * @param {Vector}centerPos 圆心位置
+    //  * @param {number}radius 半径
+    //  * @deprecated 建议使用 {@link GraphicsUtil.drawCircleLineWithoutFill} ,效果更好
+    //  */
+    // GraphicsUtil.drawCircleLineWithoutFill_deprecated = function (centerPos, radius) {
+    //     var doc = fl.getDocumentDOM(); //文档
+    //
+    //     var circleRect = new Rectangle(centerPos, radius);
+    //     doc.addNewPrimitiveOval(circleRect.toObj(), true);
+    //
+    //     // 选中圆形
+    //     doc.setSelectionRect(circleRect.toObj());
+    //     // 分离到Shape
+    //     doc.breakApart();
+    //
+    //     return circleRect;
+    // };
 
     /**
      * 画圆，删除填充部分，效果更好
@@ -38,7 +39,7 @@ define(['SAT'], function (sat) {
      * @param {number}radius 半径
      * @return {Rectangle} 圆弧所在矩形
      */
-    GraphicsUtil.drawCircleLineWithoutFill = function (centerPos, radius) {
+    function drawCircleLineWithoutFill(centerPos, radius) {
         var doc = fl.getDocumentDOM(); //文档
 
         var circleRect = new Rectangle(centerPos, radius);
@@ -57,9 +58,15 @@ define(['SAT'], function (sat) {
         // 删除中间的圆形部分，只保留曲线部分
         doc.deleteSelection();
         return circleRect;
-    };
+    }
 
-    GraphicsUtil.drawCircleWithoutLine = function (centerPos, radius) {
+    /**
+     * 画圆，删除边线
+     * @param {Vector}centerPos 圆心位置
+     * @param {number}radius 半径
+     * @return {Rectangle} 圆弧所在矩形
+     */
+    function drawCircleWithoutLine(centerPos, radius) {
         var doc = fl.getDocumentDOM(); //文档
 
         var circleRect = new Rectangle(centerPos, radius);
@@ -72,7 +79,26 @@ define(['SAT'], function (sat) {
         // 分离到Shape
         doc.breakApart();
         return circleRect;
-    };
+    }
 
-    return GraphicsUtil;
+    // 矩形
+    /**
+     * 画矩形，删除边线
+     * @param {Rectangle}rect 矩形
+     * @return {Rectangle} 矩形所在矩形
+     */
+    function drawRectangleWithoutLine(rect) {
+        var doc = fl.getDocumentDOM(); //文档
+
+        // const rect = wrapRectByTopLeft(topLeft, size);
+        doc.addNewRectangle(rect.toObj(), 0, false, true);
+
+        return rect;
+    }
+
+    return {
+        drawCircleLineWithoutFill: drawCircleLineWithoutFill,
+        drawCircleWithoutLine: drawCircleWithoutLine,
+        drawRectangleWithoutLine: drawRectangleWithoutLine
+    };
 });

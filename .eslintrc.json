@@ -45,4 +45,6 @@
     "object-curly-spacing": "off" // 关闭 ESLint 中的对象大括号间距规则，由 Prettier 控制
   },
   "ignorePatterns": ["**/*.d.ts"]
+
+  //  eslint . --cache --cache-file .eslintcache
 }

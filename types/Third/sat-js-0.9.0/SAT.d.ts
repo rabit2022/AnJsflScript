@@ -81,6 +81,10 @@ export class Vector extends VectorLike {
 
     toObj(): { x: number; y: number };
 
+    toSize(): Size;
+
+    toRectangle(): Rectangle;
+
     static interpolate(pt1: Vector, pt2: Vector, f?: number): Vector;
 
     static polar(length: number, angle: number): Vector;
@@ -131,6 +135,8 @@ export class Rectangle extends RectangleLike {
 
     getCenterVector(): Vector;
 
+    getSize(): Size;
+
     contains(rect: Rectangle): boolean;
 
     getCorner(whichCorner: Corner): Vector;
@@ -173,7 +179,7 @@ export class Size extends SizeLike {
 
     toObj(): SizeLike;
 
-    toPoint(): Vector;
+    toVector(): Vector;
 
     static toString(): string;
 }
@@ -230,12 +236,20 @@ export namespace GLOBALS {
         width: number,
         height: number
     ): Rectangle;
+    export function wrapRectByTopLeft(
+        leftTop: Vector,
+        size: Size
+    ): Rectangle;
 
     export function wrapRectByCenter(
         centerX: number,
         centerY: number,
         width: number,
         height: number
+    ): Rectangle;
+    export function wrapRectByCenter(
+        center: Vector,
+        size: Size
     ): Rectangle;
 
     export function wrapSize(element: Element): Size;

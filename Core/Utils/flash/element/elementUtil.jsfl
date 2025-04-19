@@ -361,12 +361,16 @@ define([
 
     /**
      * 播放一次
-     * @param {Element[]} elements 元素数组
+     * @param {Element[]|Element} elements 元素数组
      */
     ElementUtil.playOnce = function (elements) {
+        if (!Array.isArray(elements)) {
+            element = elements;
+            elements = [element];
+        }
         for (var i = 0; i < elements.length; i++) {
             var element = elements[i];
-            if (this.IsSymbol(element)) {
+            if (ElementUtil.IsSymbol(element)) {
                 element.loop = 'play once';
             }
         }
