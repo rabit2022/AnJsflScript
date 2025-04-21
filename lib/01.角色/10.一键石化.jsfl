@@ -24,7 +24,8 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
 require([
     'checkUtil',
     'loglevel',
-    'elementUtil',
+    'ElementOperation',
+    'ElementAnim',
     'libUtil',
     'selectionUtil',
     'SAT',
@@ -35,7 +36,8 @@ require([
 ], function (
     checkUtil,
     log,
-    elementUtil,
+    ed,
+    ea,
     libUtil,
     sel,
     SAT,
@@ -51,7 +53,8 @@ require([
     const { drawRectangleWithoutLine } = graphicsUtil;
     const { FRAME_1, FRAME_15 } = JSFLConstants.Numerics.frame.frameList;
     const { setClassicEaseCurve } = curve;
-    const { playOnce } = elementUtil;
+    const { playOnce } = ea;
+    const { breakApartToDrawingObject } = ed;
 
     // region doc
     const doc = fl.getDocumentDOM(); //文档
@@ -130,7 +133,7 @@ require([
             SelectAll(curFrame.elements);
 
             // 石化层
-            elementUtil.breakApartToDrawingObject(curFrame.elements[0]);
+            breakApartToDrawingObject(curFrame.elements[0]);
             doc.setFillColor('#999999');
 
             var symbolName = libUtil.generateNameUseLast('石化_');

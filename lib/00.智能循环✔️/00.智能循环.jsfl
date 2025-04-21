@@ -5,6 +5,7 @@
  * @date: 2024/12/5 22:22
  * @project: AnJsflScript
  * @description:
+ * @see https://gitee.com/ninge/WindowSWF/tree/master/
  */
 
 // bug,FirstRun.jsfl 未运行

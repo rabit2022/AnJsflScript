@@ -21,9 +21,15 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'elementUtil'], function (checkUtil, ele) {
+require(['checkUtil', 'ElementOperation', 'ElementChecker'], function (
+    checkUtil,
+    ed,
+    ec
+) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
+    const { CopySymbol } = ed;
+    const { IsSymbol } = ec;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -47,7 +53,7 @@ require(['checkUtil', 'elementUtil'], function (checkUtil, ele) {
         for (var i = 0; i < selection.length; i++) {
             var item = selection[i];
             // symbol: 打散
-            if (ele.IsSymbol(item)) {
+            if (IsSymbol(item)) {
                 // 打散
                 doc.breakApart();
                 doc.group();
@@ -65,7 +71,7 @@ require(['checkUtil', 'elementUtil'], function (checkUtil, ele) {
         // 检查选择的元件
         if (!checkSelection(selection, 'selectElement', 'Only one')) return;
 
-        ele.CopySymbol(selection[0], 'ask');
+        CopySymbol(selection[0], 'ask');
 
         PackSymbol();
     }

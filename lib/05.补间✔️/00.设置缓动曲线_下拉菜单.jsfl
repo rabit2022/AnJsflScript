@@ -21,13 +21,16 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'xmlPanelUtil', 'curveUtil'], function (
+require(['checkUtil', 'xmlPanelUtil', , 'EaseCurveUtil', 'TweenUtil'], function (
     checkUtil,
     xmlPanelUtil,
-    curve
+    easeCurveUtil,
+    tweenUtil
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
+    const { setEaseCurve, setClassicEaseCurve } = easeCurveUtil;
+    const { createTween } = tweenUtil;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -80,17 +83,17 @@ require(['checkUtil', 'xmlPanelUtil', 'curveUtil'], function (
         var intensity = config.intensity;
 
         if (easeType === 'Classic') {
-            curve.setClassicEaseCurve(timeline, easeInOut, intensity);
+            setClassicEaseCurve(timeline, easeInOut, intensity);
         } else if (easeType === 'No Ease') {
             var easeCurve = easeType;
 
-            curve.createTween(timeline, 'motion tween');
-            curve.setEaseCurve(timeline, easeCurve);
+            createTween(timeline, 'motion tween');
+            setEaseCurve(timeline, easeCurve);
         } else {
             var easeCurve = easeType + ' ' + easeInOut;
 
-            curve.createTween(timeline, 'motion tween');
-            curve.setEaseCurve(timeline, easeCurve);
+            createTween(timeline, 'motion tween');
+            setEaseCurve(timeline, easeCurve);
         }
     }
 

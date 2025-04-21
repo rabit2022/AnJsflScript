@@ -8,11 +8,12 @@
  */
 
 define([
-    'layerUtil',
+    'LayerQuery',
     'frameRange',
     'selectionUtil'
     // 'core-js/actual/array/includes'
-], function (layerUtil, FrameRange, sel) {
+], function (lq, FrameRange, sel) {
+    const { convertToLayerIndex, convertToLayer } = lq;
     function FrameRangeUtil() {}
 
     /**
@@ -103,7 +104,7 @@ define([
      */
     FrameRangeUtil.wrapKeyFrames = function (layers, layer, keyFrames) {
         // 获取图层索引
-        var layerIndex = layerUtil.convertToLayerIndex(layers, layer);
+        var layerIndex = convertToLayerIndex(layers, layer);
 
         /**
          * 关键帧范围数组
@@ -190,8 +191,8 @@ define([
         if (selectedLayer === undefined) {
             selectedLayer = curLayer;
         } else {
-            selectedLayer = layerUtil.convertToLayer(layers, selectedLayer);
-            var layerIndex = layerUtil.convertToLayerIndex(layers, selectedLayer);
+            selectedLayer = convertToLayer(layers, selectedLayer);
+            var layerIndex = convertToLayerIndex(layers, selectedLayer);
             timeline.currentLayer = layerIndex;
         }
 

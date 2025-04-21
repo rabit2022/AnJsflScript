@@ -27,25 +27,27 @@ require([
     'elementUtil',
     'libUtil',
     'selectionUtil',
-    'layerUtil',
+    'LayerOperation',
     'frameRangeUtil',
     'JSFLConstants',
-    'curveUtil'
+    'EaseCurveUtil'
 ], function (
     checkUtil,
     log,
     elementUtil,
     libUtil,
     selectionUtil,
-    layerUtil,
+    lo,
     frUtil,
     JSFLConstants,
-    curveUtil
+    easeCurveUtil
 ) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { IsSymbol, IsShape, getName } = elementUtil;
     const { SelectAll } = selectionUtil;
     const { FRAME_1, FRAME_30 } = JSFLConstants.Numerics.frame.frameList;
+    const { swapLayers } = lo;
+    const { setClassicEaseCurve } = easeCurveUtil;
 
     const doc = fl.getDocumentDOM(); //文档
     if (!CheckDom(doc)) return;
@@ -118,7 +120,7 @@ require([
             // 正确顺序
         } else {
             // 交换位置
-            layerUtil.swapLayers(timeline, MASK_LAYER_INDEX, TARGET_LAYER_INDEX);
+            swapLayers(timeline, MASK_LAYER_INDEX, TARGET_LAYER_INDEX);
 
             refreshTimeline();
         }
@@ -155,7 +157,7 @@ require([
         // 选中所有帧
         timeline.setSelectedFrames(firstF, lastF, true);
 
-        curveUtil.setClassicEaseCurve(timeline);
+        setClassicEaseCurve(timeline);
 
         doc.exitEditMode();
     }

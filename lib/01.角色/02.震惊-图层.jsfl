@@ -24,17 +24,20 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
 require([
     'checkUtil',
     'linqUtil',
-    'elementUtil',
+    'ElementTransform',
     'curveUtil',
     'frameRangeUtil',
-    'JSFLConstants'
-], function (checkUtil, linqUtil, ele, curve, frUtil, JSFLConstants) {
+    'JSFLConstants',
+    'EaseCurveUtil'
+], function (checkUtil, linqUtil, et, curve, frUtil, JSFLConstants, easeCurveUtil) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
         CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
     const { FRAME_1, FRAME_3, FRAME_6 } = JSFLConstants.Numerics.frame.frameList;
+    const { setTransformationPointWithCorner } = et;
+    const { setClassicEaseCurve } = easeCurveUtil;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -71,7 +74,7 @@ require([
         KEY_FRAMES = linqUtil.addOffset(KEY_FRAMES, firstFrame);
         ALTER_HEIGHT_FRAME = ALTER_HEIGHT_FRAME + firstFrame;
 
-        ele.setTransformationPoint(selection[0], 'bottom center');
+        setTransformationPointWithCorner(selection[0], 'bottom center');
 
         // 关键帧
         timeline.currentLayer = frs[0].layerIndex;
@@ -89,7 +92,7 @@ require([
         timeline.setSelectedFrames(firstF, lastF, true);
 
         // 传统补间动画
-        curve.setClassicEaseCurve(timeline);
+        setClassicEaseCurve(timeline);
 
         // 重置选中帧
         frUtil.resetSelectedFrames(timeline, frs);

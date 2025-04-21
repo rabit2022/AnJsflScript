@@ -21,10 +21,10 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'selectionUtil', 'layerUtil', 'satUtil', 'SAT'], function (
+require(['checkUtil', 'selectionUtil', 'LayerQuery', 'satUtil', 'SAT'], function (
     checkUtil,
     sel,
-    layerUtil,
+    lq,
     satUtil,
     sat
 ) {
@@ -35,6 +35,7 @@ require(['checkUtil', 'selectionUtil', 'layerUtil', 'satUtil', 'SAT'], function 
         wrapPosition = sat.GLOBALS.wrapPosition;
     var pointUtil = satUtil.PointUtil,
         rectUtil = satUtil.RectUtil;
+    const { getLayersByName } = lq;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -66,7 +67,7 @@ require(['checkUtil', 'selectionUtil', 'layerUtil', 'satUtil', 'SAT'], function 
 
     function getBgRect() {
         // 背景的边界
-        var bgLayers = layerUtil.getLayersByName(layers, '背景');
+        var bgLayers = getLayersByName(layers, '背景');
         if (bgLayers.length < 1) {
             fl.trace("找不到背景图层,必须包含'背景'关键字");
             return;

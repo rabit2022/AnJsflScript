@@ -24,16 +24,30 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
 require([
     'checkUtil',
     'selectionUtil',
-    'elementUtil',
+    'ElementTransform',
     'libUtil',
     'xmlPanelUtil',
-    'curveUtil',
     'JSFLConstants',
-    'frameRangeUtil'
-], function (checkUtil, sel, ele, libUtil, xmlPanelUtil, curve, JSFLConstants, frUtil) {
+    'frameRangeUtil',
+    'EaseCurveUtil',
+    'TweenUtil'
+], function (
+    checkUtil,
+    sel,
+    et,
+    libUtil,
+    xmlPanelUtil,
+    JSFLConstants,
+    frUtil,
+    easeCurveUtil,
+    tweenUtil
+) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     const { FRAME_15, FRAME_30 } = JSFLConstants.Numerics.frame.frameList;
+    const { setTransformationPointWithCorner } = et;
+    const { setEaseCurve } = easeCurveUtil;
+    const { createTween } = tweenUtil;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -110,8 +124,8 @@ require([
 
         // 创建动效
         // timeline1.createMotionTween();
-        curve.createTween(timeline1, 'motion tween');
-        curve.setEaseCurve(timeline1, 'Sine Ease-In-Out');
+        createTween(timeline1, 'motion tween');
+        setEaseCurve(timeline1, 'Sine Ease-In-Out');
 
         doc.exitEditMode();
     }
@@ -137,7 +151,7 @@ require([
         // ele.resetRegisterPoint(element);
 
         // 变形点 到右上角
-        ele.setTransformationPoint(element, 'top right');
+        setTransformationPointWithCorner(element, 'top right');
 
         // 包装元件
         var symbolName1 = libUtil.generateNameUseLast('裙带飘动_动_');

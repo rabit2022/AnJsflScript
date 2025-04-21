@@ -23,19 +23,21 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
 }
 require([
     'checkUtil',
-    'elementUtil',
+    'ElementTransform',
     'frameRangeUtil',
-    'curveUtil',
     'libUtil',
-    'JSFLConstants'
-], function (checkUtil, ele, frUtil, curve, libUtil, JSFLConstants) {
+    'JSFLConstants',
+    'EaseCurveUtil'
+], function (checkUtil, et, frUtil, libUtil, JSFLConstants, easeCurveUtil) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
         CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
     const { FRAME_1, FRAME_3, FRAME_6 } = JSFLConstants.Numerics.frame.frameList;
-    console.log('libUtil', libUtil);
+    // console.log('libUtil', libUtil);
+    const { setTransformationPointWithCorner } = et;
+    const { setClassicEaseCurve } = easeCurveUtil;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -69,7 +71,7 @@ require([
         var curLayerIndex = timeline.currentLayer; //当前图层索引
         var curLayer = layers[curLayerIndex]; //当前图层
 
-        ele.setTransformationPoint(selection[0], 'bottom center');
+        setTransformationPointWithCorner(selection[0], 'bottom center');
 
         // 关键帧
         frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
@@ -86,7 +88,7 @@ require([
         timeline.setSelectedFrames(firstF, lastF, true);
 
         // 传统补间动画
-        curve.setClassicEaseCurve(timeline);
+        setClassicEaseCurve(timeline);
 
         doc.exitEditMode();
     }

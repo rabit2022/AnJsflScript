@@ -21,9 +21,10 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'layerUtil'], function (checkUtil, layerUtil) {
+require(['checkUtil', 'LayerChecker'], function (checkUtil, lc) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
+    const { IsLayerExists } = lc;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -62,7 +63,7 @@ require(['checkUtil', 'layerUtil'], function (checkUtil, layerUtil) {
         for (var i = 0; i < LAYER_NAME_ARRAY.length; i++) {
             // var layer = layers[i];
             var toAddLayerName = LAYER_NAME_ARRAY[i];
-            if (!layerUtil.IsLayerExists(layers, toAddLayerName)) {
+            if (!IsLayerExists(layers, toAddLayerName)) {
                 timeline.addNewLayer(toAddLayerName, 'normal', false);
             }
         }

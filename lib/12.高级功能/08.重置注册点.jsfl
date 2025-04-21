@@ -21,9 +21,10 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'elementUtil'], function (checkUtil, ele) {
+require(['checkUtil', 'ElementTransform'], function (checkUtil, et) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
+    const { resetRegisterPoint } = et;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -47,7 +48,7 @@ require(['checkUtil', 'elementUtil'], function (checkUtil, ele) {
             // 获取元件的变换点
             var element = selection[i];
 
-            ele.resetRegisterPoint(element);
+            resetRegisterPoint(element);
         }
     }
 

@@ -8,8 +8,8 @@
  */
 
 define(['sprintf', 'FUNC'], function (sp, FUNC) {
-    const sprintf = sp.sprintf;
-    const { PROPERTY } = FUNC;
+    // const sprintf = sp.sprintf;
+    // const { PROPERTY } = FUNC;
 
     /**
      * 帧范围类
@@ -31,7 +31,7 @@ define(['sprintf', 'FUNC'], function (sp, FUNC) {
      * @property {number} duration
      * @type {number}
      */
-    PROPERTY(FrameRange, 'duration', {
+    Object.defineProperty(FrameRange.prototype, 'duration', {
         get: function () {
             return this.endFrame - this.startFrame;
         }
@@ -49,17 +49,12 @@ define(['sprintf', 'FUNC'], function (sp, FUNC) {
     FrameRange.prototype.clone = function () {
         return new FrameRange(this.layerIndex, this.startFrame, this.endFrame);
     };
-    /**
-     * 输出字符串
-     * @return {string} 字符串
-     */
-    FrameRange.prototype.toString = function () {
-        return sprintf(
-            'FrameRange(layerIndex=%d, startFrame=%d, endFrame=%d)',
-            this.layerIndex,
-            this.startFrame,
-            this.endFrame
-        );
+
+    // copy
+    FrameRange.prototype.copy = function (other) {
+        this.layerIndex = other.layerIndex;
+        this.startFrame = other.startFrame;
+        this.endFrame = other.endFrame;
     };
 
     /**
@@ -81,6 +76,25 @@ define(['sprintf', 'FUNC'], function (sp, FUNC) {
      */
     FrameRange.prototype.toArray = function () {
         return [this.layerIndex, this.startFrame, this.endFrame];
+    };
+    /**
+     * 输出字符串
+     * @return {string} 字符串
+     */
+    FrameRange.prototype.toString = function () {
+        return (
+            'FrameRange(layerIndex=' +
+            this.layerIndex +
+            ', startFrame=' +
+            this.startFrame +
+            ', endFrame=' +
+            this.endFrame +
+            ')'
+        );
+    };
+
+    FrameRange.toString = function () {
+        return '[Object FrameRange]';
     };
 
     return FrameRange;

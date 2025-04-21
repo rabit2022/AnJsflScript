@@ -21,9 +21,10 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'elementUtil'], function (checkUtil, ele) {
+require(['checkUtil', 'ElementOperation'], function (checkUtil, ed) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
+    const { CopySymbol } = ed;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -43,7 +44,7 @@ require(['checkUtil', 'elementUtil'], function (checkUtil, ele) {
         // 检查选择的元件
         if (!checkSelection(selection, 'selectElement', 'Only one')) return;
 
-        ele.CopySymbol(selection[0], 'ask');
+        CopySymbol(selection[0], 'ask');
     }
 
     Main();

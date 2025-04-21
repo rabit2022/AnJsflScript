@@ -26,25 +26,26 @@ require([
     'xmlPanelUtil',
     'libUtil',
     'satUtil',
-    'curveUtil',
     'selectionUtil',
     'frameRangeUtil',
-    'JSFLConstants'
+    'JSFLConstants',
+    'EaseCurveUtil'
 ], function (
     checkUtil,
     xmlPanelUtil,
     libUtil,
     satUtil,
-    curve,
     sel,
     frUtil,
-    JSFLConstants
+    JSFLConstants,
+    easeCurveUtil
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     var pointUtil = satUtil.PointUtil,
         rectUtil = satUtil.RectUtil;
     const { FRAME_1, FRAME_4, FRAME_7 } = JSFLConstants.Numerics.frame.frameList;
+    const { setClassicEaseCurve } = easeCurveUtil;
 
     var descriptions = {
         file: '01.虾仁摇头.jsfl',
@@ -128,7 +129,7 @@ require([
 
         sel.SelectAllTl(timeline);
 
-        curve.setClassicEaseCurve(timeline);
+        setClassicEaseCurve(timeline);
 
         doc.exitEditMode();
     }

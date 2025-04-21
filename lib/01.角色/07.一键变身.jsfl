@@ -23,26 +23,30 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
 }
 require([
     'checkUtil',
-    'elementUtil',
+    'ElementQuery',
+    'ElementOperation',
     'linqUtil',
     'frameRangeUtil',
     'selectionUtil',
     'SAT',
     'graphicsUtil',
-    'curveUtil',
+    'TweenUtil',
     'loglevel',
-    'JSFLConstants'
+    'JSFLConstants',
+    'EaseCurveUtil'
 ], function (
     checkUtil,
-    ele,
+    ep,
+    ed,
     linqUtil,
     frUtil,
     sel,
     sat,
     graphics,
-    curve,
+    tweenUtil,
     log,
-    JSFLConstants
+    JSFLConstants,
+    easeCurveUtil
 ) {
     const {
         CheckDom: checkDom,
@@ -52,6 +56,10 @@ require([
     const { Rectangle } = sat;
     const { FRAME_1, FRAME_9, FRAME_17, FRAME_18 } =
         JSFLConstants.Numerics.frame.frameList;
+    const { getMaxRight } = ep;
+    const { breakApartToShape } = ed;
+    const { setEaseCurve } = easeCurveUtil;
+    const { createTween } = tweenUtil;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -124,7 +132,7 @@ require([
         if (!checkSelection(FRAME_0_Elements, 'elementOnFrame', 'Only two')) return;
         // 变身后：最右边的元素
         // 变身前：最左边的元素
-        var AFTER_Element = ele.getMaxRight(FRAME_0_Elements);
+        var AFTER_Element = getMaxRight(FRAME_0_Elements);
         var BEFORE_Element = (function (selection) {
             // 1-index
             if (selection.length === 2) {
@@ -153,7 +161,7 @@ require([
     function shapeShifting(shifting_element) {
         // 变身
         sel.OnlySelectCurrent(shifting_element);
-        ele.breakApartToShape(shifting_element);
+        breakApartToShape(shifting_element);
     }
 
     function Main() {
@@ -202,8 +210,8 @@ require([
         // 选中所有帧
         timeline.setSelectedFrames(firstF, lastF, true);
         // 形状补间动画
-        curve.createTween(timeline, 'shape tween');
-        curve.setEaseCurve(timeline, 'Cubic Ease-Out');
+        createTween(timeline, 'shape tween');
+        setEaseCurve(timeline, 'Cubic Ease-Out');
 
         // 重置选中帧
         frUtil.resetSelectedFrames(timeline, frs);

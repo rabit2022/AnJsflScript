@@ -24,26 +24,30 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
 require([
     'checkUtil',
     'libUtil',
-    'curveUtil',
     'graphicsUtil',
     'selectionUtil',
     'SAT',
     'JSFLConstants',
-    'frameRangeUtil'
+    'frameRangeUtil',
+    'EaseCurveUtil',
+    'TweenUtil'
 ], function (
     checkUtil,
     libUtil,
-    curve,
     graphics,
     sel,
     sat,
     JSFLConstants,
-    frameRangeUtil
+    frameRangeUtil,
+    easeCurveUtil,
+    tweenUtil
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     var Vector = sat.Vector;
     const { FRAME_1, FRAME_30 } = JSFLConstants.Numerics.frame.frameList;
+    const { setEaseCurve } = easeCurveUtil;
+    const { createTween } = tweenUtil;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -110,8 +114,8 @@ require([
 
         // 补间动画
         // timeline.createMotionTween();
-        curve.createTween(timeline, 'motion tween');
-        curve.setEaseCurve(timeline, 'Sine Ease-In-Out');
+        createTween(timeline, 'motion tween');
+        setEaseCurve(timeline, 'Sine Ease-In-Out');
     }
 
     function Main() {

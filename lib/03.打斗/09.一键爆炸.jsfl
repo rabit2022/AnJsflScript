@@ -27,9 +27,10 @@ require([
     'random',
     'satUtil',
     'selectionUtil',
-    'elementUtil',
-    'loglevel'
-], function (checkUtil, sat, random, satUtil, sel, ele, log) {
+    'loglevel',
+    'ElementOperation',
+    'ElementAnim'
+], function (checkUtil, sat, random, satUtil, sel, log, ed, ea) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
 
@@ -40,6 +41,8 @@ require([
         getOrigin = sat.GLOBALS.getOrigin;
     var pointUtil = satUtil.PointUtil,
         rectUtil = satUtil.RectUtil;
+    const { splinterSymbol } = ed;
+    const { playOnce } = ea;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -132,7 +135,7 @@ require([
         if (!checkSelection(selection, 'selectElement', 'Only one')) return;
 
         // 碎片
-        if (!ele.splinterSymbol(doc.selection[0], '一键爆炸_')) return;
+        if (!splinterSymbol(doc.selection[0], '一键爆炸_')) return;
 
         log.info('开始爆炸');
 
@@ -140,7 +143,7 @@ require([
         KFrames(doc.selection[0]);
 
         // 播放一次
-        ele.playOnce(doc.selection);
+        playOnce(doc.selection);
     }
 
     Main();

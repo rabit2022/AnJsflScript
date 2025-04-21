@@ -21,9 +21,15 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'elementUtil'], function (checkUtil, ele) {
+require(['checkUtil', 'ElementOperation', 'ElementChecker'], function (
+    checkUtil,
+    ed,
+    ec
+) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
+    const { CopySymbol } = ed;
+    const { IsSymbol } = ec;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -45,9 +51,9 @@ require(['checkUtil', 'elementUtil'], function (checkUtil, ele) {
 
         for (var i = 0; i < selection.length; i++) {
             var element = selection[i];
-            if (ele.IsSymbol(element)) {
+            if (IsSymbol(element)) {
                 // CopySymbol();
-                ele.CopySymbol(element, 'auto');
+                CopySymbol(element, 'auto');
             }
         }
     }

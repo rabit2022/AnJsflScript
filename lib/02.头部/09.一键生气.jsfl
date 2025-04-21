@@ -21,16 +21,17 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'curveUtil', 'frameRangeUtil'], function (
+require(['checkUtil', 'frameRangeUtil', 'EaseCurveUtil'], function (
     checkUtil,
-    curve,
-    frUtil
+    frUtil,
+    easeCurveUtil
 ) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
         CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
+    const { setClassicEaseCurve } = easeCurveUtil;
 
     var descriptions = {
         file: '09.一键生气.jsfl',
@@ -126,7 +127,7 @@ require(['checkUtil', 'curveUtil', 'frameRangeUtil'], function (
         timeline.setSelectedFrames(firstF, lastF, true);
 
         // 传统补间动画
-        curve.setClassicEaseCurve(timeline);
+        etClassicEaseCurve(timeline);
 
         // 重置选中帧
         frUtil.resetSelectedFrames(timeline, frs);

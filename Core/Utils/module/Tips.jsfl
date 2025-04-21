@@ -16,8 +16,6 @@ define(function () {
 
         // 特殊模块的提示信息
         'default!': '是否加载模块？\n\n 作者：' + author + '\n 模块名：',
-        'success!':
-            '【温馨提示】导入成功！！！\n 如果有bug,或者建议，请@我。\n作者：' + author,
         'failed!': '加载模块失败，请联系作者！！！\n\n 作者：' + author + '\n 模块名：'
     };
 
@@ -25,11 +23,6 @@ define(function () {
         var msg =
             alertMessageConfig[moduleName] || alertMessageConfig['default!'] + moduleName;
         var ok = confirm(msg);
-        // 如果moduleName是 特殊模块，则直接输出提示信息
-        if (moduleName.endsWith('!')) {
-            return msg;
-        }
-
         if (!ok) return;
 
         // 加载模块
@@ -51,14 +44,18 @@ define(function () {
      * @param {string} name 变量名
      */
     function checkVariableRedeclaration(variable, name) {
+        var assert;
+        requirejs(['assert'], function (module) {
+            assert = module;
+        });
         if (typeof variable === 'undefined') {
             var msg = '参数 ' + name + '在函数内被重新声明，可能覆盖了外部变量。';
-            console.error(msg);
-            throw new Error(msg);
+            console.info(msg);
+            assert.fail(variable, undefined, msg, '==', checkVariableRedeclaration);
         }
     }
-
     return {
-        TryLoad: TryLoad
+        TryLoad: TryLoad,
+        checkVariableRedeclaration: checkVariableRedeclaration
     };
 });

@@ -27,11 +27,12 @@ require([
     'xmlPanelUtil',
     'linqUtil',
     'JSFLConstants',
-    'layerUtil'
-], function (checkUtil, log, xmlPanelUtil, linqUtil, JSFLConstants, layerUtil) {
+    'LayerOperation'
+], function (checkUtil, log, xmlPanelUtil, linqUtil, JSFLConstants, lo) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { range, convertToProgrammeIndex } = linqUtil;
     const { FRAME_1 } = JSFLConstants.Numerics.frame.frameList;
+    const { swapLayers } = lo;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!CheckDom(doc)) return;
@@ -93,7 +94,7 @@ require([
                 // 更新当前的length
                 var length = timeline.layers.length - 1;
                 // 最后两个图层  交换顺序
-                layerUtil.swapLayers(timeline, length, length - 1);
+                swapLayers(timeline, length, length - 1);
                 break;
             default:
                 throw new Error('顺序错误');

@@ -142,13 +142,13 @@
             'console'
         ]);
 
-        require(['loglevel', './Core/Utils/module/Tips'], function (log, Tips) {
-            const { TryLoad } = Tips;
+        require(['loglevel'], function (log) {
             // 禁用log
             log.setDefaultLevel(log.levels.SILENT);
 
-            var success = TryLoad('success!');
-            console.log(success);
+            const info =
+                '【温馨提示】导入成功！！！\n 如果有bug,或者建议，请@我。\n\n【注意】这个文件只是导入所需的模块，并没有安装功能。 \n作者：@穹的兔兔';
+            alert(info);
         });
     }
 

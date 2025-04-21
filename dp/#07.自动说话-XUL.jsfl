@@ -4,7 +4,7 @@
  * @email: 3101829204@qq.com
  * @date: 2025/3/26 0:31
  * @project: AnJsflScript
- * @description:
+ * @description:00.当前图层有几个音频   有bug,暂时搁置
  */
 
 // bug,FirstRun.jsfl 未运行

@@ -21,16 +21,13 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'elementUtil', 'frameRangeUtil'], function (
-    checkUtil,
-    ele,
-    frUtil
-) {
+require(['checkUtil', 'frameRangeUtil', 'ElementAnim'], function (checkUtil, frUtil, ea) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
         CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
+    const { playLoop } = ea;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -62,12 +59,7 @@ require(['checkUtil', 'elementUtil', 'frameRangeUtil'], function (
         // 关键帧
         frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
 
-        for (var i = 0; i < selection.length; i++) {
-            var element = selection[i];
-            if (ele.IsSymbol(element)) {
-                element.loop = 'loop';
-            }
-        }
+        playLoop(selection);
     }
 
     Main();

@@ -25,16 +25,18 @@ require([
     'checkUtil',
     'frameRangeUtil',
     'linqUtil',
-    'curveUtil',
-    'elementUtil',
-    'JSFLConstants'
-], function (checkUtil, frUtil, linqUtil, curve, ele, JSFLConstants) {
+    'ElementTransform',
+    'JSFLConstants',
+    'EaseCurveUtil'
+], function (checkUtil, frUtil, linqUtil, et, JSFLConstants, easeCurveUtil) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
         CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
     const { FRAME_1, FRAME_3, FRAME_6 } = JSFLConstants.Numerics.frame.frameList;
+    const { setTransformationPointWithCorner } = et;
+    const { setClassicEaseCurve } = easeCurveUtil;
 
     var descriptions = {
         file: '06.一键震惊.jsfl',
@@ -78,7 +80,7 @@ require([
         var firstLayer = layers[frs[0].layerIndex];
 
         // 变形点
-        ele.setTransformationPoint(selection[0], 'bottom center');
+        setTransformationPointWithCorner(selection[0], 'bottom center');
 
         KEY_FRAMES = linqUtil.addOffset(KEY_FRAMES, firstFrame);
         EFFECT_FRAMES += firstFrame;
@@ -98,7 +100,7 @@ require([
         timeline.setSelectedFrames(firstF, lastF, true);
 
         // 传统补间动画
-        curve.setClassicEaseCurve(timeline);
+        setClassicEaseCurve(timeline);
 
         // 重置选中帧
         frUtil.resetSelectedFrames(timeline, frs);

@@ -28,14 +28,25 @@ require([
     'filterUtil',
     'curveUtil',
     'frameRangeUtil',
-    'JSFLConstants'
-], function (checkUtil, promptUtil, linqUtil, filterUtil, curve, frUtil, JSFLConstants) {
+    'JSFLConstants',
+    'EaseCurveUtil'
+], function (
+    checkUtil,
+    promptUtil,
+    linqUtil,
+    filterUtil,
+    curve,
+    frUtil,
+    JSFLConstants,
+    easeCurveUtil
+) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
         CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
     const { FRAME_1, FRAME_7, FRAME_11 } = JSFLConstants.Numerics.frame.frameList;
+    const { setClassicEaseCurve } = easeCurveUtil;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -107,7 +118,7 @@ require([
         timeline.setSelectedFrames(firstF, lastF, true);
 
         // 传统补间动画
-        curve.setClassicEaseCurve(timeline);
+        setClassicEaseCurve(timeline);
 
         // 重置选中帧
         frUtil.resetSelectedFrames(timeline, frs);

@@ -21,16 +21,19 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'elementUtil', 'frameRangeUtil'], function (
+require(['checkUtil', 'frameRangeUtil', 'ElementAnim', 'ElementChecker'], function (
     checkUtil,
-    ele,
-    frUtil
+    frUtil,
+    ea,
+    ec
 ) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
         CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
+    const { SetLoopMode } = ea;
+    const { IsSymbol } = ec;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -70,7 +73,7 @@ require(['checkUtil', 'elementUtil', 'frameRangeUtil'], function (
         for (var i = 0; i < selection.length; i++) {
             var element = selection[i];
             // 跳过  非元件
-            if (!ele.IsSymbol(element)) {
+            if (!IsSymbol(element)) {
                 continue;
             }
 
@@ -90,12 +93,7 @@ require(['checkUtil', 'elementUtil', 'frameRangeUtil'], function (
         }
 
         // 设置所有选中元素的loop属性
-        for (var i = 0; i < selection.length; i++) {
-            var element = selection[i];
-            if (ele.IsSymbol(element)) {
-                element.loop = targetLoop;
-            }
-        }
+        SetLoopMode(selection, targetLoop);
 
         // // 原始版本
         // var firstElement = selection[0];

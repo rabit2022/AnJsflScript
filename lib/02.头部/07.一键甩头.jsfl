@@ -26,9 +26,18 @@ require([
     'promptUtil',
     'satUtil',
     'frameRangeUtil',
-    'curveUtil',
-    'JSFLConstants'
-], function (checkUtil, promptUtil, satUtil, frUtil, curve, JSFLConstants) {
+    'JSFLConstants',
+    'EaseCurveUtil',
+    'TweenUtil'
+], function (
+    checkUtil,
+    promptUtil,
+    satUtil,
+    frUtil,
+    JSFLConstants,
+    easeCurveUtil,
+    tweenUtil
+) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
@@ -36,6 +45,8 @@ require([
     } = checkUtil;
     const { pointUtil, rectUtil } = satUtil;
     const { FRAME_1, FRAME_11 } = JSFLConstants.Numerics.frame.frameList;
+    const { setClassicEaseCurve } = easeCurveUtil;
+    const { setTweenRotation } = tweenUtil;
 
     var descriptions = {
         file: '07.一键甩头.jsfl',
@@ -99,8 +110,8 @@ require([
         timeline.setSelectedFrames(frame_1, frame_11, true);
 
         // 传统补间，顺时针旋转，1
-        curve.setClassicEaseCurve(timeline);
-        curve.setTweenRotation(timeline, 'clockwise', 1);
+        setClassicEaseCurve(timeline);
+        setTweenRotation(timeline, 'clockwise', 1);
 
         // 重置选中帧
         frUtil.resetSelectedFrames(timeline, frs);
