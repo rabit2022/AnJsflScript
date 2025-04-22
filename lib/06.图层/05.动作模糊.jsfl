@@ -26,11 +26,13 @@ require([
     'loglevel',
     'frameRangeUtil',
     'linqUtil',
-    'filterUtil',
-    'JSFLConstants'
-], function (checkUtil, log, frUtil, linqUtil, filterUtil, JSFLConstants) {
+    'JSFLConstants', 'FilterQuery', 'FilterOperation'
+], function(checkUtil, log, frUtil, linqUtil, JSFLConstants, fq, fo) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
     const { FRAME_1, FRAME_2, FRAME_3, FRAME_4 } = JSFLConstants.Numerics.frame.frameList;
+    const { getFilterByName } = fq;
+    const { addBlurFilterToFrame } = fo;
+
 
     // region doc
     var doc = CheckDom(); //文档
@@ -65,6 +67,7 @@ require([
     BLUR_FILTER_FRAMES = linqUtil.addOffset(BLUR_FILTER_FRAMES, firstFrame);
 
     const BLUR_FILTER = JSFLConstants.Constants.filter.name.BLUR_FILTER;
+
     function Main() {
         // 检查选择的元件
         if (!CheckSelection(selection, 'elementOnFrame', 'Not Zero')) return;
@@ -78,9 +81,9 @@ require([
             var blurX = (blurY = BLUR[i]);
 
             if (
-                filterUtil.getFilterByName(curLayer, curFrameIndex, BLUR_FILTER) === null
+                getFilterByName(curLayer, curFrameIndex, BLUR_FILTER) === null
             ) {
-                filterUtil.addBlurFilterToFrame(
+                addBlurFilterToFrame(
                     firstLayer,
                     blurfilterframe,
                     blurX,

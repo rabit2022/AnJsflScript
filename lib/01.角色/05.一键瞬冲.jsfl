@@ -25,20 +25,18 @@ require([
     'checkUtil',
     'promptUtil',
     'linqUtil',
-    'filterUtil',
     'curveUtil',
     'frameRangeUtil',
     'JSFLConstants',
-    'EaseCurveUtil'
+    'EaseCurve','FilterOperation'
 ], function (
     checkUtil,
     promptUtil,
     linqUtil,
-    filterUtil,
     curve,
     frUtil,
     JSFLConstants,
-    easeCurveUtil
+    curve,fo
 ) {
     const {
         CheckDom: checkDom,
@@ -46,7 +44,8 @@ require([
         CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
     const { FRAME_1, FRAME_7, FRAME_11 } = JSFLConstants.Numerics.frame.frameList;
-    const { setClassicEaseCurve } = easeCurveUtil;
+    const { setClassicEaseCurve } = curve;
+    const { addBlurFilterToFrame } = fo;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -103,7 +102,7 @@ require([
         // 位移
         var frame_element_blur = firstLayer.frames[ALTER_POSITION_BLUR].elements[0];
         frame_element_blur.x += 3 * frame_element_blur.height * direction;
-        filterUtil.addBlurFilterToFrame(
+        addBlurFilterToFrame(
             firstLayer,
             ALTER_POSITION_BLUR,
             BLUR_X,

@@ -28,8 +28,8 @@ require([
     'xmlPanelUtil',
     'JSFLConstants',
     'frameRangeUtil',
-    'EaseCurveUtil',
-    'TweenUtil','FramesSelect'
+    'EaseCurve',
+    'Tween','FramesSelect'
 ], function (
     checkUtil,
     et,
@@ -37,16 +37,16 @@ require([
     xmlPanelUtil,
     JSFLConstants,
     frUtil,
-    easeCurveUtil,
-    tweenUtil,
+    curve,
+    twn,
     fms
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     const { FRAME_15, FRAME_30 } = JSFLConstants.Numerics.frame.frameList;
     const { setTransformationPointWithCorner } = et;
-    const { setEaseCurve } = easeCurveUtil;
-    const { createTween } = tweenUtil;
+    const { setEaseCurve } = curve;
+    const { createTween } = twn;
     const {SelectAllFms}=fms;
 
     var doc = fl.getDocumentDOM(); //文档

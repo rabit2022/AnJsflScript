@@ -1,36 +1,14 @@
-﻿/**
- * @file: filterUtil.jsfl
+/**
+ * @file: FilterOperation.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
- * @date: 2025/1/24 13:25
+ * @date: 2025/4/22 17:57
  * @project: AnJsflScript
  * @description:
  */
-define(function () {
-    function FilterUtil() {}
 
-    /**
-     * 判断指定元素是否有滤镜
-     * @param {Element} element 元素对象
-     * @return {Boolean} 是否有滤镜
-     */
-    FilterUtil.hasFilter = function (element) {
-        var filters = element.filters;
-        if (filters === null || filters === undefined) return false;
-        return filters.length > 0;
-    };
+define(function() {
 
-    FilterUtil.getFilterByName = function (layer, frameIndex, filterName) {
-        // 获取当前帧的滤镜数组，如果不存在则初始化为空数组
-        var filters = layer.getFiltersAtFrame(frameIndex) || [];
-        // 遍历滤镜数组，查找指定名称的滤镜
-        for (var i = 0; i < filters.length; i++) {
-            if (filters[i].name === filterName) {
-                return filters[i];
-            }
-        }
-        return null;
-    };
 
     /**
      * 添加滤镜到指定帧
@@ -42,7 +20,7 @@ define(function () {
      * @param {'low'|'medium'|'high'} strength 可选品质
      * @see https://gitee.com/ninge/WindowSWF/tree/master/
      */
-    FilterUtil.addBlurFilterToFrame = function (
+    function addBlurFilterToFrame(
         layer,
         frameIndex,
         blurX,
@@ -76,7 +54,7 @@ define(function () {
      * @param {Number} frameIndex 帧索引
      * @param {Object} filter 滤镜对象
      */
-    FilterUtil.addFilterToFrame = function (layer, frameIndex, filter) {
+    function addFilterToFrame(layer, frameIndex, filter) {
         // 获取当前帧的滤镜数组，如果不存在则初始化为空数组
         var filters = layer.getFiltersAtFrame(frameIndex) || [];
 
@@ -93,17 +71,21 @@ define(function () {
      * @param {Number} frameIndex 帧索引
      * @param {String} filterName 滤镜名称，如果不指定则清除所有滤镜
      */
-    FilterUtil.clearFilterAtFrame = function (layer, frameIndex, filterName) {
+    function clearFilterAtFrame(layer, frameIndex, filterName) {
         var filters = layer.getFiltersAtFrame(frameIndex) || [];
 
         if (filterName === undefined) {
             filters = [];
         } else {
-            filters = filters.filter(function (filter) {
+            filters = filters.filter(function(filter) {
                 return filter.name !== filterName;
             });
         }
         layer.setFiltersAtFrame(frameIndex, filters);
     };
-    return FilterUtil;
+    return {
+        addBlurFilterToFrame: addBlurFilterToFrame,
+        addFilterToFrame: addFilterToFrame,
+        clearFilterAtFrame: clearFilterAtFrame
+    };
 });

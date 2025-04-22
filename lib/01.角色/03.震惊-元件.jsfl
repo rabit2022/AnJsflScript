@@ -27,8 +27,8 @@ require([
     'frameRangeUtil',
     'libUtil',
     'JSFLConstants',
-    'EaseCurveUtil'
-], function (checkUtil, et, frUtil, libUtil, JSFLConstants, easeCurveUtil) {
+    'EaseCurve'
+], function (checkUtil, et, frUtil, libUtil, JSFLConstants, curve) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
@@ -37,7 +37,7 @@ require([
     const { FRAME_1, FRAME_3, FRAME_6 } = JSFLConstants.Numerics.frame.frameList;
     // console.log('libUtil', libUtil);
     const { setTransformationPointWithCorner } = et;
-    const { setClassicEaseCurve } = easeCurveUtil;
+    const { setClassicEaseCurve } = curve;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;

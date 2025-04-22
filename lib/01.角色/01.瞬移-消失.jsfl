@@ -24,11 +24,10 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
 require([
     'checkUtil',
     'linqUtil',
-    'filterUtil',
     'frameRangeUtil',
     'JSFLConstants',
-    'EaseCurveUtil', 'ElementSelect'
-], function(checkUtil, linqUtil, filterUtil, frUtil, JSFLConstants, easeCurveUtil, es) {
+    'EaseCurve', 'ElementSelect','FilterOperation'
+], function(checkUtil, linqUtil,  frUtil, JSFLConstants, curve, es,fo) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
@@ -37,8 +36,9 @@ require([
     const { FRAME_5, FRAME_7, FRAME_9, FRAME_6, FRAME_8, FRAME_10 } =
         JSFLConstants.Numerics.frame.frameList;
     const { MAX_BLUR, MIN_BLUR } = JSFLConstants.Numerics.filter.blur;
-    const { setClassicEaseCurve } = easeCurveUtil;
+    const { setClassicEaseCurve } = curve;
     const { SelectAll, DeleteSelection } = es;
+    const { addBlurFilterToFrame } = fo;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -84,7 +84,7 @@ require([
             var blurfilterframe = BLUR_FILTER_FRAMES[i];
             var blurY = BLUR_Y[i];
 
-            filterUtil.addBlurFilterToFrame(
+           addBlurFilterToFrame(
                 firstLayer,
                 blurfilterframe,
                 MIN_BLUR,

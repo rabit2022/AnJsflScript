@@ -21,17 +21,17 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'frameRangeUtil', 'EaseCurveUtil'], function (
+require(['checkUtil', 'frameRangeUtil', 'EaseCurve'], function (
     checkUtil,
     frUtil,
-    easeCurveUtil
+    curve
 ) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
         CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
-    const { setClassicEaseCurve } = easeCurveUtil;
+    const { setClassicEaseCurve } = curve;
 
     var descriptions = {
         file: '09.一键生气.jsfl',

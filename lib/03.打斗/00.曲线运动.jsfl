@@ -28,8 +28,8 @@ require([
     'SAT',
     'JSFLConstants',
     'frameRangeUtil',
-    'EaseCurveUtil',
-    'TweenUtil','ElementSelect'
+    'EaseCurve',
+    'Tween','ElementSelect'
 ], function (
     checkUtil,
     libUtil,
@@ -37,15 +37,15 @@ require([
     sat,
     JSFLConstants,
     frameRangeUtil,
-    easeCurveUtil,
-    tweenUtil,es
+    curve,
+    twn,es
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     var Vector = sat.Vector;
     const { FRAME_1, FRAME_30 } = JSFLConstants.Numerics.frame.frameList;
-    const { setEaseCurve } = easeCurveUtil;
-    const { createTween } = tweenUtil;
+    const { setEaseCurve } = curve;
+    const { createTween } = twn;
     const { OnlySelectCurrent } = es;
 
     var doc = fl.getDocumentDOM(); //文档

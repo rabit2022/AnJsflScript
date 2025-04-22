@@ -25,10 +25,10 @@ require([
     'checkUtil',
     'loglevel',
     'frameRangeUtil',
-    'filterUtil',
-    'JSFLConstants'
-], function (checkUtil, log, frUtil, filterUtil, JSFLConstants) {
+    'JSFLConstants','FilterOperation'
+], function (checkUtil, log, frUtil, JSFLConstants,fo) {
     const { CheckDom, CheckSelection } = checkUtil;
+    const { clearFilterAtFrame } = fo;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!CheckDom(doc)) return;
@@ -53,7 +53,7 @@ require([
         // 设置关键帧
         frUtil.convertToKeyframesSafety(timeline, [curFrameIndex]);
 
-        filterUtil.clearFilterAtFrame(curLayer, curFrameIndex, GLOW_FILTER);
+        clearFilterAtFrame(curLayer, curFrameIndex, GLOW_FILTER);
     }
 
     Main();

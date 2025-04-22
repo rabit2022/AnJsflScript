@@ -21,16 +21,16 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'xmlPanelUtil', , 'EaseCurveUtil', 'TweenUtil'], function (
+require(['checkUtil', 'xmlPanelUtil', 'EaseCurve', 'Tween'], function (
     checkUtil,
     xmlPanelUtil,
-    easeCurveUtil,
-    tweenUtil
+    curve,
+    twn
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
-    const { setEaseCurve, setClassicEaseCurve } = easeCurveUtil;
-    const { createTween } = tweenUtil;
+    const { setEaseCurve, setClassicEaseCurve } = curve;
+    const { createTween } = twn;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;

@@ -24,14 +24,14 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
 require([
     'checkUtil',
     'promptUtil',
-    'filterUtil',
     'libUtil',
     'frameRangeUtil',
-    'JSFLConstants'
-], function (checkUtil, promptUtil, filterUtil, libUtil, frUtil, JSFLConstants) {
+    'JSFLConstants', 'FilterOperation'
+], function(checkUtil, promptUtil, libUtil, frUtil, JSFLConstants, fo) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     const { FRAME_1, FRAME_4, FRAME_6 } = JSFLConstants.Numerics.frame.frameList;
+    const { addBlurFilterToFrame } = fo;
 
     var descriptions = {
         file: '03.一键摆头.jsfl',
@@ -62,6 +62,7 @@ require([
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
     const KEY_FRAMES = [FRAME_4];
+
     function KFrames(blurFilterForce) {
         doc.enterEditMode('inPlace');
 
@@ -69,7 +70,7 @@ require([
         var layers = timeline.layers;
 
         // 添加滤镜
-        filterUtil.addBlurFilterToFrame(
+        addBlurFilterToFrame(
             layers[0],
             FRAME_1,
             blurFilterForce,

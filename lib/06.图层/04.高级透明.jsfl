@@ -25,11 +25,12 @@ require([
     'checkUtil',
     'loglevel',
     'promptUtil',
-    'filterUtil',
     'frameRangeUtil',
-    'JSFLConstants'
-], function (checkUtil, log, promptUtil, filterUtil, frUtil, JSFLConstants) {
+    'JSFLConstants','FilterQuery','FilterOperation'
+], function (checkUtil, log, promptUtil,  frUtil, JSFLConstants,fq,fo) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
+    const {getFilterByName}=fq;
+    const {addFilterToFrame}=fo;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -69,7 +70,7 @@ require([
         doc.setInstanceAlpha(alpha);
 
         if (
-            filterUtil.getFilterByName(curLayer, curFrameIndex, 'adjustColorFilter') ===
+            getFilterByName(curLayer, curFrameIndex, 'adjustColorFilter') ===
             null
         ) {
             log.info('没有找到调整颜色滤镜，添加一个');
@@ -83,7 +84,7 @@ require([
                 hue: 0
             };
 
-            filterUtil.addFilterToFrame(curLayer, curFrameIndex, adjustColorFilter);
+            addFilterToFrame(curLayer, curFrameIndex, adjustColorFilter);
         }
 
         // 重置选中帧

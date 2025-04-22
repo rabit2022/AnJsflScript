@@ -27,8 +27,8 @@ require([
     'linqUtil',
     'ElementTransform',
     'JSFLConstants',
-    'EaseCurveUtil'
-], function (checkUtil, frUtil, linqUtil, et, JSFLConstants, easeCurveUtil) {
+    'EaseCurve'
+], function (checkUtil, frUtil, linqUtil, et, JSFLConstants, curve) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
@@ -36,7 +36,7 @@ require([
     } = checkUtil;
     const { FRAME_1, FRAME_3, FRAME_6 } = JSFLConstants.Numerics.frame.frameList;
     const { setTransformationPointWithCorner } = et;
-    const { setClassicEaseCurve } = easeCurveUtil;
+    const { setClassicEaseCurve } = curve;
 
     var descriptions = {
         file: '06.一键震惊.jsfl',

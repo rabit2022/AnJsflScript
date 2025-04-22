@@ -28,7 +28,7 @@ require([
     'satUtil',
     'JSFLConstants',
     'frameRangeUtil',
-    'EaseCurveUtil','FramesSelect'
+    'EaseCurve','FramesSelect'
 ], function (
     checkUtil,
     xmlPanelUtil,
@@ -36,12 +36,12 @@ require([
     satUtil,
     JSFLConstants,
     frUtil,
-    easeCurveUtil,fms
+    curve,fms
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     const { FRAME_4, FRAME_7 } = JSFLConstants.Numerics.frame.frameList;
-    const { setClassicEaseCurve } = easeCurveUtil;
+    const { setClassicEaseCurve } = curve;
     const {SelectAllFms}=fms;
 
     var descriptions = {

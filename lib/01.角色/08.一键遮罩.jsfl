@@ -30,7 +30,7 @@ require([
     'LayerOperation',
     'frameRangeUtil',
     'JSFLConstants',
-    'EaseCurveUtil'
+    'EaseCurve'
 ], function (
     checkUtil,
     log,
@@ -40,14 +40,14 @@ require([
     lo,
     frUtil,
     JSFLConstants,
-    easeCurveUtil
+    curve
 ) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { IsSymbol, IsShape, getName } = elementUtil;
     const { SelectAll } = selectionUtil;
     const { FRAME_1, FRAME_30 } = JSFLConstants.Numerics.frame.frameList;
     const { swapLayers } = lo;
-    const { setClassicEaseCurve } = easeCurveUtil;
+    const { setClassicEaseCurve } = curve;
 
     const doc = fl.getDocumentDOM(); //文档
     if (!CheckDom(doc)) return;

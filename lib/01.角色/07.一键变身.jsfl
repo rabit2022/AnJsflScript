@@ -29,10 +29,10 @@ require([
     'frameRangeUtil',
     'SAT',
     'graphicsUtil',
-    'TweenUtil',
+    'Tween',
     'loglevel',
     'JSFLConstants',
-    'EaseCurveUtil','ElementSelect'
+    'EaseCurve','ElementSelect'
 ], function (
     checkUtil,
     ep,
@@ -41,10 +41,10 @@ require([
     frUtil,
     sat,
     graphics,
-    tweenUtil,
+    twn,
     log,
     JSFLConstants,
-    easeCurveUtil,es
+    curve,es
 ) {
     const {
         CheckDom: checkDom,
@@ -56,8 +56,8 @@ require([
         JSFLConstants.Numerics.frame.frameList;
     const { getMaxRight } = ep;
     const { breakApartToShape } = ed;
-    const { setEaseCurve } = easeCurveUtil;
-    const { createTween } = tweenUtil;
+    const { setEaseCurve } = curve;
+    const { createTween } = twn;
     const { OnlySelectCurrent, DeleteSelection } = es;
 
     var doc = fl.getDocumentDOM(); //文档

@@ -27,16 +27,16 @@ require([
     'satUtil',
     'frameRangeUtil',
     'JSFLConstants',
-    'EaseCurveUtil',
-    'TweenUtil'
+    'EaseCurve',
+    'Tween'
 ], function (
     checkUtil,
     promptUtil,
     satUtil,
     frUtil,
     JSFLConstants,
-    easeCurveUtil,
-    tweenUtil
+    curve,
+    twn
 ) {
     const {
         CheckDom: checkDom,
@@ -45,8 +45,8 @@ require([
     } = checkUtil;
     const { pointUtil, rectUtil } = satUtil;
     const { FRAME_1, FRAME_11 } = JSFLConstants.Numerics.frame.frameList;
-    const { setClassicEaseCurve } = easeCurveUtil;
-    const { setTweenRotation } = tweenUtil;
+    const { setClassicEaseCurve } = curve;
+    const { setTweenRotation } = twn;
 
     var descriptions = {
         file: '07.一键甩头.jsfl',
