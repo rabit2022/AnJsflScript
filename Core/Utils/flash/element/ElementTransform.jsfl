@@ -7,7 +7,9 @@
  * @description:
  */
 
-define(function () {
+define(['ElementSelect'],function (es) {
+    const {OnlySelectCurrent, SelectNone}=es;
+    
     /**
      * 重置注册点
      * 1，新的注册点 是 原来的 变形点 </br>
@@ -21,12 +23,12 @@ define(function () {
     function resetRegisterPoint(element) {
         var trPoint = wrapPosition(element.getTransformationPoint());
 
-        sel.OnlySelectCurrent(element);
+        OnlySelectCurrent(element);
 
         // 重置注册点
         resetRegisterPointWrap(trPoint);
 
-        sel.OnlySelectCurrent(element);
+        OnlySelectCurrent(element);
 
         // 设置形变点为注册点
         element.setTransformationPoint(getOrigin().toObj());
@@ -48,11 +50,11 @@ define(function () {
             for (var i = 0; i < selection.length; i++) {
                 var element = selection[i];
                 // 选中当前元件
-                sel.OnlySelectCurrent(element);
+                OnlySelectCurrent(element);
 
                 doc.moveSelectionBy(transformationPoint.reverse().toObj());
 
-                sel.SelectNone();
+                SelectNone();
             }
 
             doc.exitEditMode();
@@ -68,7 +70,7 @@ define(function () {
         // 变形点 到右上角
         var registerPoint = wrapPosition(element);
 
-        sel.OnlySelectCurrent(element);
+        OnlySelectCurrent(element);
         var doc = fl.getDocumentDOM();
         var rect = new Rectangle(doc.getSelectionRect());
         var topRight = rect.getCorner(whichCorner);

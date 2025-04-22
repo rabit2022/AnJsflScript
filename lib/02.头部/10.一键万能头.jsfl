@@ -26,10 +26,10 @@ require([
     'promptUtil',
     'libUtil',
     'SAT',
-    'selectionUtil',
     'linqUtil',
-    'frameRangeUtil'
-], function (checkUtil, promptUtil, libUtil, sat, sel, linqUtil, frUtil) {
+    'frameRangeUtil','ElementSelect'
+], function (checkUtil, promptUtil, libUtil, sat,  linqUtil,
+    frUtil,es) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
 
@@ -38,6 +38,7 @@ require([
         wrapPosition = sat.GLOBALS.wrapPosition;
 
     var Range = linqUtil.range;
+    const {OnlySelectCurrent, SelectAll, DeleteSelection}=es;
 
     var descriptions = {
         file: '10.一键万能头.jsfl',
@@ -108,7 +109,7 @@ require([
         var Offset = selectCenter.clone().sub(Important_element_position);
         // print("Offset:" + Offset.toString());
 
-        sel.OnlySelectCurrent(Important_element);
+        OnlySelectCurrent(Important_element);
 
         var symbolName = libUtil.generateNameUntilUnique('一键万能头_');
         doc.convertToSymbol('graphic', symbolName, 'center');
@@ -136,18 +137,18 @@ require([
             var frame_element = timeline.layers[0].frames[frameIndex].elements[0];
             // 交换元素
             var name = SELECTION_NAMES[i];
-            sel.OnlySelectCurrent(frame_element);
+            OnlySelectCurrent(frame_element);
             doc.swapElement(name);
         }
 
         doc.exitEditMode();
 
         // 除了第一帧的元素，都删除
-        // sel.SelectAll(TO_DELETE_SELECTION);
+        // SelectAll(TO_DELETE_SELECTION);
         // doc.deleteSelection();
-        sel.DeleteSelection(TO_DELETE_SELECTION);
+        DeleteSelection(TO_DELETE_SELECTION);
 
-        sel.OnlySelectCurrent(Important_element);
+        OnlySelectCurrent(Important_element);
 
         // 移动到中心位置
         doc.moveSelectionBy(Offset.toObj());

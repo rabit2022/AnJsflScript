@@ -21,9 +21,10 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'selectionUtil'], function (checkUtil, sel) {
+require(['checkUtil','FramesSelect'], function (checkUtil, fms) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
+    const {SelectNoneFms}=fms;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -57,7 +58,7 @@ require(['checkUtil', 'selectionUtil'], function (checkUtil, sel) {
         // 回到最开始选择的帧
         timeline.currentFrame = currentFrame;
 
-        sel.SelectNoneTl(timeline);
+        SelectNoneFms(timeline);
     }
 
     Main();

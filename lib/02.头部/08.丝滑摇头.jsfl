@@ -26,24 +26,23 @@ require([
     'xmlPanelUtil',
     'libUtil',
     'satUtil',
-    'selectionUtil',
     'JSFLConstants',
     'frameRangeUtil',
-    'EaseCurveUtil'
+    'EaseCurveUtil','FramesSelect'
 ], function (
     checkUtil,
     xmlPanelUtil,
     libUtil,
     satUtil,
-    sel,
     JSFLConstants,
     frUtil,
-    easeCurveUtil
+    easeCurveUtil,fms
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     const { FRAME_4, FRAME_7 } = JSFLConstants.Numerics.frame.frameList;
     const { setClassicEaseCurve } = easeCurveUtil;
+    const {SelectAllFms}=fms;
 
     var descriptions = {
         file: '08.丝滑摇头.jsfl',
@@ -125,7 +124,7 @@ require([
         frame4_element.x += headDirection * shakeIntensity;
         frame4_element.y += shakeIntensity;
 
-        sel.SelectAllTl(timeline);
+        SelectAllFms(timeline);
 
         setClassicEaseCurve(timeline);
 

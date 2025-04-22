@@ -23,24 +23,23 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
 }
 require([
     'checkUtil',
-    'selectionUtil',
     'ElementTransform',
     'libUtil',
     'xmlPanelUtil',
     'JSFLConstants',
     'frameRangeUtil',
     'EaseCurveUtil',
-    'TweenUtil'
+    'TweenUtil','FramesSelect'
 ], function (
     checkUtil,
-    sel,
     et,
     libUtil,
     xmlPanelUtil,
     JSFLConstants,
     frUtil,
     easeCurveUtil,
-    tweenUtil
+    tweenUtil,
+    fms
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
@@ -48,6 +47,7 @@ require([
     const { setTransformationPointWithCorner } = et;
     const { setEaseCurve } = easeCurveUtil;
     const { createTween } = tweenUtil;
+    const {SelectAllFms}=fms;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -120,7 +120,7 @@ require([
 
         // // 选中所有帧
         // timeline1.setSelectedFrames(0, _30_frame);
-        sel.SelectAllTl(timeline1);
+        SelectAllFms(timeline1);
 
         // 创建动效
         // timeline1.createMotionTween();

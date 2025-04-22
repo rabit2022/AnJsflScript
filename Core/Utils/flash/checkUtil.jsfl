@@ -173,27 +173,27 @@ define(function (require, exports, module) {
     function CheckDom(doc) {
         if (doc === undefined) doc = fl.getDocumentDOM();
 
-        if (doc == null) {
+        if (!doc) {
             alert('请打开 一个 [.fla] 文件 或者 创建一个新文档');
             return;
         }
         return doc;
     }
 
-    /**
-     * 检查时间轴是否存在
-     * @param {Timeline} [timeline] - 时间轴对象。
-     * @returns {Timeline}
-     */
-    function CheckTimeline(timeline) {
-        var doc = CheckDom();
-        if (timeline === undefined) timeline = doc.getTimeline();
-        if (timeline == null) {
-            alert('当前文档没有时间轴');
-            return;
-        }
-        return timeline;
-    }
+    // /**
+    //  * 检查时间轴是否存在
+    //  * @param {Timeline} [timeline] - 时间轴对象。
+    //  * @returns {Timeline}
+    //  */
+    // function CheckTimeline(timeline) {
+    //     var doc = CheckDom();
+    //     if (timeline === undefined) timeline = doc.getTimeline();
+    //     if (timeline == null) {
+    //         alert('当前文档没有时间轴');
+    //         return;
+    //     }
+    //     return timeline;
+    // }
 
     /**
      * 检查选中的帧是否符合指定的条件
@@ -216,7 +216,7 @@ define(function (require, exports, module) {
     return {
         CheckSelection: CheckSelection,
         CheckDom: CheckDom,
-        CheckTimeline: CheckTimeline,
+        // CheckTimeline: CheckTimeline,
         CheckSelectedFrames: CheckSelectedFrames
     };
 });

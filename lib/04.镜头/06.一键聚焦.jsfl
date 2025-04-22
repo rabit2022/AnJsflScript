@@ -21,21 +21,20 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'selectionUtil', 'LayerQuery', 'satUtil', 'SAT'], function (
+require(['checkUtil', 'LayerQuery', 'satUtil', 'SAT', 'ElementSelect'], function(
     checkUtil,
-    sel,
     lq,
     satUtil,
-    sat
+    sat, es
 ) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
-    var Vector = sat.Vector,
-        Rectangle = sat.Rectangle,
-        wrapPosition = sat.GLOBALS.wrapPosition;
-    var pointUtil = satUtil.PointUtil,
-        rectUtil = satUtil.RectUtil;
+    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
+
+    const { Vector, Rectangle } = sat;
+    const { wrapPosition } = sat.GLOBALS;
+    const { PointUtil: pointUtil, RectUtil: rectUtil } = satUtil;
+
     const { getLayersByName } = lq;
+    const { SelectStart, SelectAll } = es;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -69,7 +68,7 @@ require(['checkUtil', 'selectionUtil', 'LayerQuery', 'satUtil', 'SAT'], function
         // 背景的边界
         var bgLayers = getLayersByName(layers, '背景');
         if (bgLayers.length < 1) {
-            fl.trace("找不到背景图层,必须包含'背景'关键字");
+            fl.trace('找不到背景图层,必须包含\'背景\'关键字');
             return;
         }
 
@@ -85,14 +84,14 @@ require(['checkUtil', 'selectionUtil', 'LayerQuery', 'satUtil', 'SAT'], function
             curElements = curElements.concat(elements);
         }
 
-        sel.SelectAll(curElements);
+        SelectAll(curElements);
         var bgRect = new Rectangle(doc.getSelectionRect());
         return bgRect;
     }
 
     function getPeopleCenter() {
         // 人物的中心点
-        sel.SelectStart(selection);
+        SelectStart(selection);
 
         var rect = new Rectangle(doc.getSelectionRect());
         var peopleCenter = rect.getCenterVector();
@@ -133,7 +132,7 @@ require(['checkUtil', 'selectionUtil', 'LayerQuery', 'satUtil', 'SAT'], function
         // 移动摄像机
         timeline.camera.setPosition(curFrameIndex, newCameraPos.x, newCameraPos.y);
 
-        sel.SelectStart(selection);
+        SelectStart(selection);
     }
 
     Main();

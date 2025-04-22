@@ -9,11 +9,11 @@
 
 define([
     'LayerQuery',
-    'frameRange',
-    'selectionUtil'
-    // 'core-js/actual/array/includes'
-], function (lq, FrameRange, sel) {
+    'frameRange','FramesSelect'
+], function (lq, FrameRange,fms) {
     const { convertToLayerIndex, convertToLayer } = lq;
+    const {SelectNoneFms}=fms;
+
     function FrameRangeUtil() {}
 
     /**
@@ -56,7 +56,7 @@ define([
      * @param {FrameRange[]} frs 帧范围数组
      */
     FrameRangeUtil.resetSelectedFrames = function (timeline, frs) {
-        sel.SelectNoneTl(timeline);
+        SelectNoneFms(timeline);
         for (var i = 0; i < frs.length; i++) {
             var fr = frs[i];
 

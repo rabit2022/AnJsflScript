@@ -23,14 +23,14 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
 }
 require([
     'checkUtil',
-    'selectionUtil',
     'promptUtil',
     'frameRangeUtil',
-    'loglevel'
-], function (checkUtil, sel, promptUtil, frUtil, log) {
+    'loglevel','FramesSelect'
+], function (checkUtil, promptUtil, frUtil, log) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
-    // var frUtil = frameRange.FrameRangeUtil;
+    const {SelectNoneFms}=fms;
+
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -99,7 +99,7 @@ require([
         }
 
         // select None
-        sel.SelectNoneTl(timeline);
+        SelectNoneFms(timeline);
     }
 
     Main();

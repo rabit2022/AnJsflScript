@@ -21,14 +21,15 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'selectionUtil', 'JSFLConstants'], function (
+require(['checkUtil',  'JSFLConstants','FramesSelect'], function (
     checkUtil,
-    sel,
-    JSFLConstants
+    JSFLConstants,
+    fms
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     const FPM = JSFLConstants.Numerics.frame.frameRate.FPM;
+    const {SelectNoneFms}=fms;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -55,7 +56,7 @@ require(['checkUtil', 'selectionUtil', 'JSFLConstants'], function (
         timeline.currentFrame = curFrameIndex;
 
         // select None
-        sel.SelectNoneTl(timeline);
+        SelectNoneFms(timeline);
     }
 
     Main();

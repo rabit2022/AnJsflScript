@@ -27,26 +27,24 @@ require([
     'ElementOperation',
     'linqUtil',
     'frameRangeUtil',
-    'selectionUtil',
     'SAT',
     'graphicsUtil',
     'TweenUtil',
     'loglevel',
     'JSFLConstants',
-    'EaseCurveUtil'
+    'EaseCurveUtil','ElementSelect'
 ], function (
     checkUtil,
     ep,
     ed,
     linqUtil,
     frUtil,
-    sel,
     sat,
     graphics,
     tweenUtil,
     log,
     JSFLConstants,
-    easeCurveUtil
+    easeCurveUtil,es
 ) {
     const {
         CheckDom: checkDom,
@@ -60,6 +58,7 @@ require([
     const { breakApartToShape } = ed;
     const { setEaseCurve } = easeCurveUtil;
     const { createTween } = tweenUtil;
+    const { OnlySelectCurrent, DeleteSelection } = es;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -160,7 +159,7 @@ require([
      */
     function shapeShifting(shifting_element) {
         // 变身
-        sel.OnlySelectCurrent(shifting_element);
+        OnlySelectCurrent(shifting_element);
         breakApartToShape(shifting_element);
     }
 
@@ -175,7 +174,7 @@ require([
             getBeforeAfterElement(BEFORE_FRAME);
         // print("FRAME1_BEFORE_Element", FRAME1_BEFORE_Element);
         // 删除变身后的元素
-        sel.DeleteSelection([FRAME1_AFTER_Element]);
+        DeleteSelection([FRAME1_AFTER_Element]);
         // 变身
         shapeShifting(FRAME1_BEFORE_Element);
 
@@ -184,7 +183,7 @@ require([
             getBeforeAfterElement(AFTER_FRAME);
 
         // 删除变身前的元素
-        sel.DeleteSelection([FRAME17_BEFORE_Element]);
+        DeleteSelection([FRAME17_BEFORE_Element]);
         // 变身
         shapeShifting(FRAME17_AFTER_Element);
 
@@ -193,13 +192,13 @@ require([
             getBeforeAfterElement(FINISH_FRAME);
 
         // 删除变身前的元素
-        sel.DeleteSelection([FRAME18_BEFORE_Element]);
+        DeleteSelection([FRAME18_BEFORE_Element]);
 
         // 中间的shape
         var MIDDLE_SHAPE_Elements = getBeforeAfterElement(MIDDLE_SHAPE_FRAME);
 
         // 删除所有元素
-        sel.DeleteSelection(MIDDLE_SHAPE_Elements);
+        DeleteSelection(MIDDLE_SHAPE_Elements);
         // 画圆形
         graphics.drawCircleWithoutLine(MIDDLE_SHAPE_CENTER, MIDDLE_SHAPE_RADIUS);
 

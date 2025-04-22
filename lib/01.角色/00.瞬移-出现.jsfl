@@ -25,20 +25,18 @@ require([
     'checkUtil',
     'linqUtil',
     'filterUtil',
-    'selectionUtil',
     'EaseCurveUtil',
     'frameRangeUtil',
     'loglevel',
-    'JSFLConstants'
+    'JSFLConstants','ElementSelect'
 ], function (
     checkUtil,
     linqUtil,
     filterUtil,
-    sel,
     easeCurveUtil,
     frUtil,
     log,
-    JSFLConstants
+    JSFLConstants,es
 ) {
     const {
         CheckDom: checkDom,
@@ -48,6 +46,7 @@ require([
     const { FRAME_1, FRAME_2, FRAME_3, FRAME_4, FRAME_5 } =
         JSFLConstants.Numerics.frame.frameList;
     const { setClassicEaseCurve } = easeCurveUtil;
+    const {DeleteSelection}=es;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -117,9 +116,9 @@ require([
 
             // 删除元素
             var disappearElements = firstLayer.frames[disappearframe].elements;
-            // sel.SelectAll(disappearElements);
+            // SelectAll(disappearElements);
             // doc.deleteSelection();
-            sel.DeleteSelection(disappearElements);
+            DeleteSelection(disappearElements);
         }
 
         // 获取allKeyFrames first,last

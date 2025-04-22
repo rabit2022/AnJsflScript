@@ -25,22 +25,20 @@ require([
     'checkUtil',
     'libUtil',
     'graphicsUtil',
-    'selectionUtil',
     'SAT',
     'JSFLConstants',
     'frameRangeUtil',
     'EaseCurveUtil',
-    'TweenUtil'
+    'TweenUtil','ElementSelect'
 ], function (
     checkUtil,
     libUtil,
     graphics,
-    sel,
     sat,
     JSFLConstants,
     frameRangeUtil,
     easeCurveUtil,
-    tweenUtil
+    tweenUtil,es
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
@@ -48,6 +46,7 @@ require([
     const { FRAME_1, FRAME_30 } = JSFLConstants.Numerics.frame.frameList;
     const { setEaseCurve } = easeCurveUtil;
     const { createTween } = tweenUtil;
+    const { OnlySelectCurrent } = es;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -105,7 +104,7 @@ require([
         // 设置元件位置
         var symbolElement =
             timeline.layers[SYMBOL_LAYER_INDEX].frames[FRAME_30].elements[0];
-        sel.OnlySelectCurrent(symbolElement);
+        OnlySelectCurrent(symbolElement);
         symbolElement.x = movePos.x;
         symbolElement.y = movePos.y;
 

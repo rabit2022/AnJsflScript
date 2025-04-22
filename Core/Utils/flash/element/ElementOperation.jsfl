@@ -7,10 +7,12 @@
  * @description:
  */
 
-define(['ElementChecker', 'LayerOperation', 'LayerQuery'], function (ec, lo, lq) {
+define(['ElementChecker', 'LayerOperation', 'LayerQuery','ElementSelect'],
+    function (ec, lo, lq,es) {
     const { IsSymbol } = ec;
     const { deleteLayers } = lo;
     const { getLayersIndexByName } = lq;
+    const { SelectAll,OnlySelectCurrent , SelectNone } = es;
 
     /**
      *  复制元件
@@ -81,7 +83,7 @@ define(['ElementChecker', 'LayerOperation', 'LayerQuery'], function (ec, lo, lq)
             log.error('请选择元件');
             return;
         }
-        // sel.OnlySelectCurrent(element);
+        // OnlySelectCurrent(element);
 
         var MIDDLE_NAME = '完全分解-中转';
 
@@ -122,7 +124,7 @@ define(['ElementChecker', 'LayerOperation', 'LayerQuery'], function (ec, lo, lq)
             log.error('请选择元件');
             return;
         }
-        // sel.OnlySelectCurrent(element);
+        // OnlySelectCurrent(element);
 
         var MIDDLE_NAME = '完全分解-中转';
 
@@ -174,7 +176,7 @@ define(['ElementChecker', 'LayerOperation', 'LayerQuery'], function (ec, lo, lq)
     function splinterSymbol(element, SymbolName) {
         var doc = fl.getDocumentDOM(); //文档
 
-        sel.OnlySelectCurrent(element);
+        OnlySelectCurrent(element);
 
         log.info('转换位图');
 
@@ -236,11 +238,11 @@ define(['ElementChecker', 'LayerOperation', 'LayerQuery'], function (ec, lo, lq)
                 doc.convertToSymbol('graphic', symbolName, 'center');
                 // console.info('symbolName:' + symbolName);
 
-                sel.SelectNone();
+                SelectNone();
             }
         }
 
-        sel.SelectAll();
+        SelectAll();
         //分散到图层操作
         doc.distributeToLayers();
         // 删除多余的碎片

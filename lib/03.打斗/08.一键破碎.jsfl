@@ -26,22 +26,18 @@ require([
     'SAT',
     'random',
     'satUtil',
-    'selectionUtil',
     'ElementOperation',
-    'ElementAnim'
-], function (checkUtil, sat, random, satUtil, sel, ed, ea) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
+    'ElementAnim','ElementSelect'
+], function (checkUtil, sat, random, satUtil,  ed, ea,es) {
+    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
-    var Vector = sat.Vector,
-        Rectangle = sat.Rectangle,
-        wrapPosition = sat.GLOBALS.wrapPosition,
-        wrapTransform = sat.GLOBALS.wrapTransform,
-        wrapRectByCenter = sat.GLOBALS.wrapRectByCenter;
-    var pointUtil = satUtil.PointUtil,
-        rectUtil = satUtil.RectUtil;
+    const { Vector, Rectangle } = sat;
+    const { wrapPosition, wrapTransform, wrapRectByCenter } = sat.GLOBALS;
+    const { RectUtil: rectUtil } = satUtil;
+
     const { splinterSymbol } = ed;
     const { playOnce } = ea;
+    const { SelectAll } = es;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -104,7 +100,7 @@ require([
 
         // 更改位置
         timeline1.currentFrame = timeline1.frameCount - 1;
-        sel.SelectAll();
+        SelectAll();
         for (var i = 0; i < doc.selection.length; i++) {
             var element = doc.selection[i];
 

@@ -26,19 +26,17 @@ require([
     'xmlPanelUtil',
     'libUtil',
     'satUtil',
-    'selectionUtil',
     'frameRangeUtil',
     'JSFLConstants',
-    'EaseCurveUtil'
+    'EaseCurveUtil','FramesSelect'
 ], function (
     checkUtil,
     xmlPanelUtil,
     libUtil,
     satUtil,
-    sel,
     frUtil,
     JSFLConstants,
-    easeCurveUtil
+    easeCurveUtil,fms
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
@@ -46,6 +44,7 @@ require([
         rectUtil = satUtil.RectUtil;
     const { FRAME_1, FRAME_4, FRAME_7 } = JSFLConstants.Numerics.frame.frameList;
     const { setClassicEaseCurve } = easeCurveUtil;
+    const {SelectNoneFms}=fms;
 
     var descriptions = {
         file: '01.虾仁摇头.jsfl',
@@ -127,7 +126,7 @@ require([
         var frame4_element = timeline.layers[0].frames[FRAME_4].elements[0];
         frame4_element.rotation = headDirection * shakeIntensity;
 
-        sel.SelectAllTl(timeline);
+        SelectNoneFms(timeline);
 
         setClassicEaseCurve(timeline);
 

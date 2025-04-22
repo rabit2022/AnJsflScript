@@ -1,13 +1,15 @@
 /**
- * @file: selectionUtil.jsfl
+ * @file: ElementSelect.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
- * @date: 2024/12/7 20:17
+ * @date: 2025/4/21 23:31
  * @project: AnJsflScript
  * @description:
  */
 
-define(function () {
+define(['ElementQuery'], function(eq) {
+    const { getName } = eq;
+
     /**
      * 选中当前元件
      * @param element
@@ -52,40 +54,6 @@ define(function () {
     }
 
     /**
-     *
-     * 不选中时间轴中的所有帧
-     * @param {Timeline} timeline
-     */
-    function SelectNoneTl(timeline) {
-        // select None
-        timeline.setSelectedFrames([0, 0, 0], true);
-    }
-
-    /**
-     * 选中时间轴中的所有帧
-     * @param {Timeline} timeline
-     */
-    function SelectAllTl(timeline) {
-        // select All
-        timeline.setSelectedFrames(0, timeline.frameCount - 1, true);
-    }
-
-    /**
-     * 删除选中的元件
-     * @param {Element[]} [elements] 没有参数时，删除所有选中的元件；有参数时，删除参数中的所有元件
-     */
-    function DeleteSelection(elements) {
-        var doc = fl.getDocumentDOM();
-        if (!elements) {
-            doc.deleteSelection();
-            return;
-        }
-
-        SelectAll(elements);
-        doc.deleteSelection();
-    }
-
-    /**
      * 在当前帧，选中 之前帧 选中的元素
      * @param {Element[]} selection 选中的元件数组
      * @note  在设置关键帧后(frUtil.convertToKeyframesSafety), 选中之前帧的元素会失效
@@ -118,43 +86,43 @@ define(function () {
      */
     function SelectSameName(firstElement) {
         var doc = fl.getDocumentDOM(); //文档
-
-        var Name = getName(firstElement);
-        // log.info('当前选中的元件名称：' + Name);
+        var firstElementName = getName(firstElement);
 
         SelectAll();
         var selection = doc.selection; //选择
         for (var i = 0; i < selection.length; i++) {
             var element = selection[i];
-
-            var name = getName(element);
+            var selectionName = getName(element);
             // log.info('选择的元件名称：' + name);
 
-            if (name === Name) {
+            if (selectionName === firstElementName) {
                 element.selected = true;
             }
         }
     }
 
-    // polyfill
-    // bug:ElementUtil.getName  循环引用的问题
-    var getName = function (element) {
-        if (element.elementType === 'instance') {
-            return element.libraryItem.name;
-        } else {
-            return element.name;
+    /**
+     * 删除选中的元件
+     * @param {Element[]} [elements] 没有参数时，删除所有选中的元件；有参数时，删除参数中的所有元件
+     */
+    function DeleteSelection(elements) {
+        var doc = fl.getDocumentDOM();
+        if (!elements) {
+            doc.deleteSelection();
+            return;
         }
-    };
 
+        SelectAll(elements);
+        doc.deleteSelection();
+    }
     return {
         OnlySelectCurrent: OnlySelectCurrent,
         SelectStart: SelectStart,
         SelectAll: SelectAll,
         SelectNone: SelectNone,
-        SelectNoneTl: SelectNoneTl,
-        SelectAllTl: SelectAllTl,
-        DeleteSelection: DeleteSelection,
         SelectBefore: SelectBefore,
-        SelectSameName: SelectSameName
-    };
+        SelectSameName: SelectSameName,
+        DeleteSelection: DeleteSelection
+    }
+
 });

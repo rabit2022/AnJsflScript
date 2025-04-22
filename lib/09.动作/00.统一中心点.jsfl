@@ -21,15 +21,16 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'selectionUtil', 'ElementQuery', 'SAT'], function (
+require(['checkUtil', 'ElementQuery', 'SAT','ElementSelect'], function (
     checkUtil,
-    sel,
-    ele,
-    sat
+    eq,
+    sat,es
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     var wrapPosition = sat.GLOBALS.wrapPosition;
+    const {getMaxRight}=eq;
+    const {OnlySelectCurrent}=es;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -50,7 +51,7 @@ require(['checkUtil', 'selectionUtil', 'ElementQuery', 'SAT'], function (
         if (!checkSelection(selection, 'selectElement', 'Not Zero')) return;
 
         // 找到最右边的元素
-        var maxElement = ele.getMaxRight(selection);
+        var maxElement = getMaxRight(selection);
 
         // 获取 transformPoint
         var trPoint = wrapPosition(maxElement.getTransformationPoint());
@@ -58,7 +59,7 @@ require(['checkUtil', 'selectionUtil', 'ElementQuery', 'SAT'], function (
         // 把  所有元素的形变点   设置为   最右边的元素的形变点
         for (var i = 0; i < selection.length; i++) {
             var element = selection[i];
-            sel.OnlySelectCurrent(element);
+            OnlySelectCurrent(element);
 
             element.setTransformationPoint(trPoint.toObj());
         }

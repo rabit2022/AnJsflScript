@@ -19,8 +19,6 @@
 
 define(['checkUtil', 'loglevel', 'frameRange', 'frameRangeUtil'], function (
     checkUtil,
-    // frUtil,
-
     log,
     FrameRange,
     frUtil

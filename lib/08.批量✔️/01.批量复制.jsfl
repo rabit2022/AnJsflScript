@@ -21,13 +21,12 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'selectionUtil', 'moreElement'], function (
+require(['checkUtil', 'moreElement', 'ElementSelect'], function(
     checkUtil,
-    sel,
-    MoreElement
+    MoreElement, es
 ) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
+    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
+    const { OnlySelectCurrent, SelectStart } = es;
 
     // var MoreElement = me.MoreElement;
     // var wrapMoreElement=me.GLOBALS.wrapMoreElement;
@@ -66,7 +65,7 @@ require(['checkUtil', 'selectionUtil', 'moreElement'], function (
             var element = selection[i];
 
             // 选中当前元件
-            sel.OnlySelectCurrent(element);
+            OnlySelectCurrent(element);
 
             var moreElement = new MoreElement(element);
             // print("moreElement"+moreElement.toString())
@@ -87,7 +86,7 @@ require(['checkUtil', 'selectionUtil', 'moreElement'], function (
                 var nextPoint = moreElement.NeatOffset(j + 1, 0);
                 // print("nextPoint:"+nextPoint.toString())
                 // 复制元件
-                sel.OnlySelectCurrent(moreElement.element);
+                OnlySelectCurrent(moreElement.element);
 
                 // 复制粘贴
                 doc.clipCopy();
@@ -100,7 +99,7 @@ require(['checkUtil', 'selectionUtil', 'moreElement'], function (
             }
         }
 
-        sel.SelectStart(selection);
+        SelectStart(selection);
     }
 
     Main();

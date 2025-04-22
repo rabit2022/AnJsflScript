@@ -23,23 +23,16 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
 }
 require([
     'checkUtil',
-    'selectionUtil',
     'SAT',
     'satUtil',
     'xmlPanelUtil',
-    'random'
-], function (checkUtil, sel, sat, satUtil, xmlPanelUtil, random) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
-
-    var Vector = sat.Vector,
-        Rectangle = sat.Rectangle,
-        wrapPosition = sat.GLOBALS.wrapPosition,
-        wrapTransform = sat.GLOBALS.wrapTransform,
-        wrapRectByCenter = sat.GLOBALS.wrapRectByCenter;
-
-    var pointUtil = satUtil.PointUtil,
-        rectUtil = satUtil.RectUtil;
+    'random', 'ElementSelect'
+], function(checkUtil, sat, satUtil, xmlPanelUtil, random, es) {
+    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
+    const { Vector, Rectangle } = sat;
+    const { wrapPosition, wrapTransform, wrapRectByCenter } = sat.GLOBALS;
+    const { RectUtil: rectUtil } = satUtil;
+    const { OnlySelectCurrent } = es;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -88,6 +81,7 @@ require([
         var rect = wrapRectByCenter(initialPos.x, initialPos.y, rectWidth, rectHeight);
         return rect;
     }
+
     function Main() {
         // 检查选择的元件
         if (!checkSelection(selection, 'selectElement', 'Only one')) return;
@@ -110,7 +104,7 @@ require([
         for (var i = 0; i < horizontalCount; i++) {
             if (i === 0) continue;
 
-            sel.OnlySelectCurrent(selection[0]);
+            OnlySelectCurrent(selection[0]);
 
             // 复制粘贴
             doc.clipCopy();
