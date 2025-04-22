@@ -33,9 +33,9 @@ require([
 ], function (checkUtil, sat, random, satUtil, log, ed, ea, es) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
-    const { Vector, Rectangle } = sat;
-    const { wrapPosition, wrapTransform, wrapRectByCenter } = sat.GLOBALS;
-    const { RectUtil: rectUtil } = satUtil;
+    const { Vector } = sat;
+    const { wrapTransform, wrapRectByCenter } = sat.GLOBALS;
+    const { generateRandomPointInRect } = satUtil;
 
     const { splinterSymbol } = ed;
     const { playOnce } = ea;
@@ -110,7 +110,7 @@ require([
             var element = doc.selection[i];
 
             // 移动到随机位置
-            var randomPos = rectUtil.generateRandomPointInRect(explosionRect);
+            var randomPos = generateRandomPointInRect(explosionRect);
 
             // 随机缩放
             var scale = random.uniform(1.5, 3);

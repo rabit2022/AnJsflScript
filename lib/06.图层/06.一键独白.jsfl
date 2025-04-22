@@ -21,14 +21,15 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'loglevel', 'frameRangeUtil', 'filterUtil'], function (
+require(['checkUtil', 'loglevel', 'filterUtil', 'KeyFrameOperation'], function (
     checkUtil,
     log,
-    frUtil,
-    filterUtil
+    filterUtil,
+    kfo
 ) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { addFilterToFrame } = filterUtil;
+    const { convertToKeyframesSafety } = kfo;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!CheckDom(doc)) return;
@@ -49,7 +50,7 @@ require(['checkUtil', 'loglevel', 'frameRangeUtil', 'filterUtil'], function (
         if (!CheckSelection(selection, 'selectElement', 'No limit')) return;
 
         // 设置关键帧
-        frUtil.convertToKeyframesSafety(timeline, [curFrameIndex]);
+        convertToKeyframesSafety(timeline, [curFrameIndex]);
 
         // SelectBefore(selection);
 

@@ -21,10 +21,7 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'SAT', 'KeyFrameQuery'], function(
-    checkUtil,
-    sat, kfq
-) {
+require(['checkUtil', 'SAT', 'KeyFrameQuery'], function (checkUtil, sat, kfq) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
     const { wrapTransform } = sat.GLOBALS;

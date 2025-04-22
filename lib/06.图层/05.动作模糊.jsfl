@@ -27,13 +27,17 @@ require([
     'linqUtil',
     'JSFLConstants',
     'FilterQuery',
-    'FilterOperation', 'FramesSelect'
-], function(checkUtil, log, linqUtil, JSFLConstants, fq, fo, fms) {
+    'FilterOperation',
+    'FramesSelect',
+    'KeyFrameOperation'
+], function (checkUtil, log, linqUtil, JSFLConstants, fq, fo, fms, kfo) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
     const { FRAME_1, FRAME_2, FRAME_3, FRAME_4 } = JSFLConstants.Numerics.frame.frameList;
     const { getFilterByName } = fq;
     const { addBlurFilterToFrame } = fo;
     const { SelectStartFms } = fms;
+    const { $addOffset } = linqUtil;
+    const { convertToKeyframesSafety } = kfo;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -64,8 +68,8 @@ require([
     var firstLayer = layers[frs[0].layerIndex];
     var firstFrame = frs[0].startFrame;
 
-    KEY_FRAMES = linqUtil.addOffset(KEY_FRAMES, firstFrame);
-    BLUR_FILTER_FRAMES = linqUtil.addOffset(BLUR_FILTER_FRAMES, firstFrame);
+    KEY_FRAMES = $addOffset(KEY_FRAMES, firstFrame);
+    BLUR_FILTER_FRAMES = $addOffset(BLUR_FILTER_FRAMES, firstFrame);
 
     const BLUR_FILTER = JSFLConstants.Constants.filter.name.BLUR_FILTER;
 
@@ -74,7 +78,7 @@ require([
         if (!CheckSelection(selection, 'elementOnFrame', 'Not Zero')) return;
 
         // 关键帧
-        frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
+        convertToKeyframesSafety(timeline, KEY_FRAMES);
 
         // 滤镜效果
         for (var i = 0; i < BLUR_FILTER_FRAMES.length; i++) {

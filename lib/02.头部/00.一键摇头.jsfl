@@ -25,9 +25,14 @@ require([
     'checkUtil',
     'promptUtil',
     'libUtil',
-    'frameRangeUtil',
-    'JSFLConstants'
-], function (checkUtil, promptUtil, libUtil, frameRangeUtil, JSFLConstants) {
+    'JSFLConstants',
+    'KeyFrameOperation'
+], function (checkUtil, promptUtil, libUtil, JSFLConstants, kfo) {
+    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
+
+    const { FRAME_4, FRAME_6 } = JSFLConstants.Numerics.frame.frameList;
+    const { convertToKeyframesSafety } = kfo;
+
     var descriptions = {
         file: '00.一键摇头.jsfl',
         'file description': '输出 摇头动作的元件,说话时的头部动作',
@@ -42,11 +47,6 @@ require([
         'detail description': 'k 6帧头',
         steps: ['包装元件', '更改元件位置']
     };
-
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
-    // const {convertToKeyframesSafety}=frameRangeUtil;
-    const { FRAME_4, FRAME_6 } = JSFLConstants.Numerics.frame.frameList;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -98,7 +98,7 @@ require([
 
         // var _4_frames = 4 - 1;
         // timeline.convertToKeyframes(_4_frames);
-        frameRangeUtil.convertToKeyframesSafety(timeline, [FRAME_4]);
+        convertToKeyframesSafety(timeline, [FRAME_4]);
 
         var frame4_element = timeline.layers[0].frames[FRAME_4].elements[0];
         frame4_element.x += direction * force;

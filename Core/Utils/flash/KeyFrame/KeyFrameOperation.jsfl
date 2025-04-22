@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['KeyFrameQuery'], function(kfq) {
+define(['KeyFrameQuery'], function (kfq) {
     const { getKeyFrames } = kfq;
 
     /**
@@ -68,7 +68,7 @@ define(['KeyFrameQuery'], function(kfq) {
     // }
 
     return {
-        convertToKeyframesSafety: convertToKeyframesSafety,
+        convertToKeyframesSafety: convertToKeyframesSafety
         // convertToKeyframesAtFirstSelected: convertToKeyframesAtFirstSelected
     };
 });

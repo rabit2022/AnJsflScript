@@ -7,16 +7,18 @@
  * @description:
  */
 
-define(['ElementChecker', 'LayerOperation', 'LayerQuery', 'ElementSelect'], function (
-    ec,
-    lo,
-    lq,
-    es
-) {
+define([
+    'ElementChecker',
+    'LayerOperation',
+    'LayerQuery',
+    'ElementSelect',
+    'satUtil'
+], function (ec, lo, lq, es, satUtil) {
     const { IsSymbol } = ec;
     const { deleteLayers } = lo;
     const { getLayersIndexByName } = lq;
     const { SelectAll, OnlySelectCurrent, SelectNone } = es;
+    const { splitRectangle } = satUtil;
 
     /**
      *  复制元件
@@ -208,7 +210,7 @@ define(['ElementChecker', 'LayerOperation', 'LayerQuery', 'ElementSelect'], func
         // 计算每个小块的尺寸
         var elementSize = wrapSize(element);
         var [blockWidth, blockHeight, blockCountX, blockCountY] =
-            rectUtil.splitRectangle(elementSize);
+            splitRectangle(elementSize);
         log.info(
             'blockWidth:' +
                 blockWidth +

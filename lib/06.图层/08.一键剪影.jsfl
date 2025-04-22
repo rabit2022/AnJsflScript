@@ -25,12 +25,12 @@ require([
     'checkUtil',
     'loglevel',
     'promptUtil',
-    'frameRangeUtil',
     'selectionUtil',
-    'elementUtil'
-], function (checkUtil, log, promptUtil, frUtil, selUtil, elementUtil) {
+    'KeyFrameOperation'
+], function (checkUtil, log, promptUtil, selUtil, kfo) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { SelectBefore } = selUtil;
+    const { convertToKeyframesSafety } = kfo;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!CheckDom(doc)) return;
@@ -78,7 +78,7 @@ require([
         log.info('亮度：' + brightness);
 
         // 设置关键帧
-        frUtil.convertToKeyframesSafety(timeline, [curFrameIndex]);
+        convertToKeyframesSafety(timeline, [curFrameIndex]);
 
         SelectBefore(selection);
 

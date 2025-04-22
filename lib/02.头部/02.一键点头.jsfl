@@ -25,13 +25,13 @@ require([
     'checkUtil',
     'promptUtil',
     'libUtil',
-    'frameRangeUtil',
-    'JSFLConstants'
-], function (checkUtil, promptUtil, libUtil, frUtil, JSFLConstants) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
+    'JSFLConstants',
+    'KeyFrameOperation'
+], function (checkUtil, promptUtil, libUtil, JSFLConstants, kfo) {
+    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
     const { FRAME_1, FRAME_4, FRAME_7, FRAME_10, FRAME_12 } =
         JSFLConstants.Numerics.frame.frameList;
+    const { convertToKeyframesSafety } = kfo;
 
     var descriptions = {
         file: '02.一键点头.jsfl',
@@ -88,7 +88,7 @@ require([
         // timeline.convertToKeyframes(FRAME_4);
         // timeline.convertToKeyframes(FRAME_7);
         // timeline.convertToKeyframes(FRAME_10);
-        frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
+        convertToKeyframesSafety(timeline, KEY_FRAMES);
 
         // 获取元素，1,7
         var frame1_element = timeline.layers[0].frames[FRAME_1].elements[0];

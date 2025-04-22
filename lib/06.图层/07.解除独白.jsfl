@@ -24,12 +24,13 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
 require([
     'checkUtil',
     'loglevel',
-    'frameRangeUtil',
     'JSFLConstants',
-    'FilterOperation'
-], function (checkUtil, log, frUtil, JSFLConstants, fo) {
+    'FilterOperation',
+    'KeyFrameOperation'
+], function (checkUtil, log, JSFLConstants, fo, kfo) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { clearFilterAtFrame } = fo;
+    const { convertToKeyframesSafety } = kfo;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!CheckDom(doc)) return;
@@ -52,7 +53,7 @@ require([
         if (!CheckSelection(selection, 'selectElement', 'No limit')) return;
 
         // 设置关键帧
-        frUtil.convertToKeyframesSafety(timeline, [curFrameIndex]);
+        convertToKeyframesSafety(timeline, [curFrameIndex]);
 
         clearFilterAtFrame(curLayer, curFrameIndex, GLOW_FILTER);
     }

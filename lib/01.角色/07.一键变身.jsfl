@@ -32,7 +32,9 @@ require([
     'loglevel',
     'JSFLConstants',
     'EaseCurve',
-    'ElementSelect','FramesSelect'
+    'ElementSelect',
+    'FramesSelect',
+    'KeyFrameOperation'
 ], function (
     checkUtil,
     ep,
@@ -45,7 +47,8 @@ require([
     JSFLConstants,
     curve,
     es,
-    fms
+    fms,
+    kfo
 ) {
     const {
         CheckDom: checkDom,
@@ -60,7 +63,9 @@ require([
     const { setEaseCurve } = curve;
     const { createTween } = twn;
     const { OnlySelectCurrent, DeleteSelection } = es;
-    const {  SelectStartFms } = fms;
+    const { SelectStartFms } = fms;
+    const { $addOffset } = linqUtil;
+    const { convertToKeyframesSafety } = kfo;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -88,7 +93,7 @@ require([
     // 关键帧 1,9,17,18
     var KEY_FRAMES = [FRAME_1, FRAME_9, FRAME_17, FRAME_18];
     // 实际的关键帧
-    KEY_FRAMES = linqUtil.addOffset(KEY_FRAMES, firstFrame);
+    KEY_FRAMES = $addOffset(KEY_FRAMES, firstFrame);
 
     // 变身前，变身后 1,17
     var BEFORE_FRAME = KEY_FRAMES[0];
@@ -169,7 +174,7 @@ require([
         // 关键帧
         // frUtil.convertToKeyframesSafety(timeline, firstLayer, KEY_FRAMES);
         timeline.currentLayer = frs[0].layerIndex;
-        frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
+        convertToKeyframesSafety(timeline, KEY_FRAMES);
 
         // 变身前
         var [FRAME1_BEFORE_Element, FRAME1_AFTER_Element] =

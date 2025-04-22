@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(function() {
+define(function () {
     /**
      * 检查选择的元件或帧是否符合指定的模式和条件。
      *
@@ -135,20 +135,20 @@ define(function() {
         // 内部函数：检查条件并返回结果
         function checkCondition(conditionIndex, length) {
             switch (conditionIndex) {
-            case 0: // No limit
-                return true;
-            case 1: // Zero 或 =0
-                return length === 0;
-            case 2: // Not Zero 或 >0
-                return length > 0;
-            case 3: // Only one 或 =1
-                return length === 1;
-            case 4: // Only two 或 =2
-                return length === 2;
-            case 5: // More 或 >=2
-                return length >= 2;
-            default:
-                throw new Error('未知条件：' + condition);
+                case 0: // No limit
+                    return true;
+                case 1: // Zero 或 =0
+                    return length === 0;
+                case 2: // Not Zero 或 >0
+                    return length > 0;
+                case 3: // Only one 或 =1
+                    return length === 1;
+                case 4: // Only two 或 =2
+                    return length === 2;
+                case 5: // More 或 >=2
+                    return length >= 2;
+                default:
+                    throw new Error('未知条件：' + condition);
             }
         }
 
@@ -192,7 +192,7 @@ define(function() {
 
         // KeyFrameQuery
         var kfq;
-        require(['KeyFrameQuery'], function(KeyFrameQuery) {
+        require(['KeyFrameQuery'], function (KeyFrameQuery) {
             kfq = KeyFrameQuery;
         });
         const { getSelectedFrs } = kfq;

@@ -21,9 +21,9 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'loglevel','FramesSelect'], function (checkUtil, log, fms) {
+require(['checkUtil', 'loglevel', 'FramesSelect'], function (checkUtil, log, fms) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
-    const {  SelectStartFms } = fms;
+    const { SelectStartFms } = fms;
 
     // region doc
     var doc = CheckDom(); //文档

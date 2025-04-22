@@ -22,7 +22,7 @@ define(['checkUtil', 'FUNC', 'loglevel'], function (checkUtil, FUNC, log) {
 
         emptyLayers.reverse();
         for (var i = 0; i < emptyLayers.length; i++) {
-            tl.devareLayer(emptyLayers[i]);
+            tl.deleteLayer(emptyLayers[i]);
         }
 
         // alert(`已删除 ${emptyLayers.length} 个空白图层`);
@@ -30,12 +30,12 @@ define(['checkUtil', 'FUNC', 'loglevel'], function (checkUtil, FUNC, log) {
     };
 
     // 静态方法：获取空白图层的索引列表
-    LayerManager.getEmptyLayers = function (tl) {
-        const total = tl.layers.length;
+    LayerManager.getEmptyLayers = function (timeline) {
+        const total = timeline.layers.length;
         const emptyLayers = [];
 
         for (var i = 0; i < total; i++) {
-            const layer = tl.layers[i];
+            const layer = timeline.layers[i];
             // 忽略特定名称的图层
             if (IGNORE_LAYER_BY_NAME.test(layer.name)) {
                 continue;
@@ -43,9 +43,9 @@ define(['checkUtil', 'FUNC', 'loglevel'], function (checkUtil, FUNC, log) {
 
             if (FOLDER_TYPE.test(layer.layerType)) {
                 // 检查文件夹是否为空
-                if (LayerManager.isEmptyFolder(tl, i)) {
+                if (LayerManager.isEmptyFolder(timeline, i)) {
                     emptyLayers.push(i);
-                    i += LayerManager.countChild(tl, i);
+                    i += LayerManager.countChild(timeline, i);
                 }
             } else {
                 // 检查普通图层是否为空
@@ -77,30 +77,6 @@ define(['checkUtil', 'FUNC', 'loglevel'], function (checkUtil, FUNC, log) {
     // 静态方法：检查帧是否为空
     LayerManager.isFrameBlank = function (frame) {
         return frame.elements.length === 0 && IsEmpty(frame.actionScript);
-    };
-
-    /**
-     * 检查图层是否包含声音
-     * @param {Layer} layer 图层
-     * @param {number} [startFrame=0] 开始帧
-     * @param {number} [endFrame=layer.frames.length - 1] 结束帧
-     * @returns {boolean} 是否包含声音
-     */
-    LayerManager.hasSound = function (layer, startFrame, endFrame) {
-        if (startFrame === undefined) startFrame = 0;
-        if (endFrame === undefined) endFrame = layer.frames.length - 1;
-
-        // for (var f = 0; f < layer.frames.length; f++) {
-        for (var f = startFrame; f <= endFrame; f++) {
-            var frame = layer.frames[f];
-            // undefined 可能是因为 空白帧
-            if (frame === undefined) continue;
-            // if (frame.getSoundEnvelope()) {
-            if (frame.soundLibraryItem) {
-                return true; // 发现声音对象
-            }
-        }
-        return false; // 没有声音对象
     };
 
     LayerManager.getKeyFrameSoundName = function (layer, startFrame, endFrame) {

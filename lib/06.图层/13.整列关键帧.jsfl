@@ -21,9 +21,10 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'frameRangeUtil'], function (checkUtil, frUtil) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
+require(['checkUtil', 'KeyFrameOperation'], function (checkUtil, kfo) {
+    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
+
+    const { convertToKeyframesSafety } = kfo;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -48,7 +49,7 @@ require(['checkUtil', 'frameRangeUtil'], function (checkUtil, frUtil) {
             timeline.currentLayer = i;
 
             // 关键帧
-            frUtil.convertToKeyframesSafety(timeline, [curFrameIndex]);
+            convertToKeyframesSafety(timeline, [curFrameIndex]);
         }
     }
 

@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(function() {
+define(function () {
     /**
      * 获取选中元件的帧范围
      * @param {number[]} selectedFrames 选中帧数组 [layerIndex, startFrame, endFrame]
@@ -65,7 +65,7 @@ define(function() {
             i = startFrame; // 跳过 100-95序列
             keyFrames.push(startFrame); //95帧关键帧记录，//索引加1
         }
-        keyFrames.sort(function(a, b) {
+        keyFrames.sort(function (a, b) {
             return a - b;
         });
         return keyFrames;

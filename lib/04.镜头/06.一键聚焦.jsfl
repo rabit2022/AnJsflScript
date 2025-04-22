@@ -32,7 +32,7 @@ require(['checkUtil', 'LayerQuery', 'satUtil', 'SAT', 'ElementSelect'], function
 
     const { Vector, Rectangle } = sat;
     const { wrapPosition } = sat.GLOBALS;
-    const { PointUtil: pointUtil, RectUtil: rectUtil } = satUtil;
+    const { moveRectSafety } = satUtil;
 
     const { getLayersByName } = lq;
     const { SelectStart, SelectAll } = es;
@@ -123,7 +123,7 @@ require(['checkUtil', 'LayerQuery', 'satUtil', 'SAT', 'ElementSelect'], function
 
         if (bgRect) {
             // 最大移动向量
-            cameraOffset = rectUtil.moveRectSafety(bgRect, cameraRect, cameraOffset);
+            cameraOffset = moveRectSafety(bgRect, cameraRect, cameraOffset);
         }
 
         var newCameraPos = cameraPos.clone().add(cameraOffset);

@@ -31,8 +31,8 @@ require([
     'SAT',
     'graphicsUtil',
     'JSFLConstants',
-    'frameRangeUtil',
-    'curveUtil'
+    'curveUtil',
+    'KeyFrameOperation'
 ], function (
     checkUtil,
     log,
@@ -43,8 +43,8 @@ require([
     SAT,
     graphicsUtil,
     JSFLConstants,
-    frUtil,
-    curve
+    curve,
+    kfo
 ) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { SelectAll } = sel;
@@ -55,6 +55,7 @@ require([
     const { setClassicEaseCurve } = curve;
     const { playOnce } = ea;
     const { breakApartToDrawingObject } = ed;
+    const { convertToKeyframesSafety } = kfo;
 
     // region doc
     const doc = fl.getDocumentDOM(); //文档
@@ -186,7 +187,7 @@ require([
 
             // 关键帧
             var KEY_FRAMES = [FRAME_1, FRAME_15];
-            frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES, 0);
+            convertToKeyframesSafety(timeline, KEY_FRAMES, 0);
 
             // 移动第15帧的shape
             doc.setSelectionRect(shapeRect.toObj(), true, true);

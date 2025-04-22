@@ -30,9 +30,9 @@ require([
     'ElementSelect'
 ], function (checkUtil, sat, satUtil, xmlPanelUtil, random, es) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
-    const { Vector, Rectangle } = sat;
+    const { Vector } = sat;
     const { wrapPosition, wrapTransform, wrapRectByCenter } = sat.GLOBALS;
-    const { RectUtil: rectUtil } = satUtil;
+    const { generateRandomPointInRect } = satUtil;
     const { OnlySelectCurrent } = es;
 
     var doc = fl.getDocumentDOM(); //文档
@@ -119,7 +119,7 @@ require([
 
             // 随机位置
             // var randomPos=rectUtil.generateRandomPoint(rectSize, initialPos);
-            var randomPos = rectUtil.generateRandomPointInRect(explosionRect);
+            var randomPos = generateRandomPointInRect(explosionRect);
 
             var transform = wrapTransform(element1);
             transform.setPosition(randomPos).setScale(new Vector(scale, scale));

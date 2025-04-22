@@ -21,11 +21,11 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'frameRangeUtil', 'ElementAnim', 'ElementChecker'], function (
+require(['checkUtil', 'ElementAnim', 'ElementChecker', 'KeyFrameOperation'], function (
     checkUtil,
-    frUtil,
     ea,
-    ec
+    ec,
+    kfo
 ) {
     const {
         CheckDom: checkDom,
@@ -34,6 +34,7 @@ require(['checkUtil', 'frameRangeUtil', 'ElementAnim', 'ElementChecker'], functi
     } = checkUtil;
     const { SetLoopMode } = ea;
     const { IsSymbol } = ec;
+    const { convertToKeyframesSafety } = kfo;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -63,7 +64,7 @@ require(['checkUtil', 'frameRangeUtil', 'ElementAnim', 'ElementChecker'], functi
         if (!checkSelection(selection, 'selectElement', 'No limit')) return;
 
         // 关键帧
-        frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
+        convertToKeyframesSafety(timeline, KEY_FRAMES);
 
         // 如果全部都是 "loop", targetLoop = "loop"
         // 否则 统一设置为 "single frame"

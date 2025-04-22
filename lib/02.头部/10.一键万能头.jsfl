@@ -27,18 +27,17 @@ require([
     'libUtil',
     'SAT',
     'linqUtil',
-    'frameRangeUtil',
-    'ElementSelect'
-], function (checkUtil, promptUtil, libUtil, sat, linqUtil, frUtil, es) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
+    'ElementSelect',
+    'KeyFrameOperation'
+], function (checkUtil, promptUtil, libUtil, sat, linqUtil, es, kfo) {
+    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
-    var Vector = sat.Vector,
-        Rectangle = sat.Rectangle,
-        wrapPosition = sat.GLOBALS.wrapPosition;
+    const { Rectangle } = sat;
+    const { wrapPosition } = sat.GLOBALS;
 
-    var Range = linqUtil.range;
+    const { $range: Range } = linqUtil;
     const { OnlySelectCurrent, SelectAll, DeleteSelection } = es;
+    const { convertToKeyframesSafety } = kfo;
 
     var descriptions = {
         file: '10.一键万能头.jsfl',
@@ -132,7 +131,7 @@ require([
 
             var frameIndex = Keyframes[i];
             // timeline.convertToKeyframes(frameIndex);
-            frUtil.convertToKeyframesSafety(timeline, frameIndex);
+            convertToKeyframesSafety(timeline, frameIndex);
 
             var frame_element = timeline.layers[0].frames[frameIndex].elements[0];
             // 交换元素

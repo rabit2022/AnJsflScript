@@ -16,7 +16,7 @@ define(['linq'], function(Enumerable) {
      * @return {Array.<number>} 程序员索引数组
      */
     function convertToProgrammeIndex(arr) {
-        return addOffset(arr, -1);
+        return $addOffset(arr, -1);
     };
 
     /**
@@ -26,7 +26,7 @@ define(['linq'], function(Enumerable) {
      * @return {Array.<number>} 人类可读索引数组
      */
     function convertToHumanIndex(arr) {
-        return addOffset(arr, 1);
+        return $addOffset(arr, 1);
     };
 
     /**
@@ -35,7 +35,7 @@ define(['linq'], function(Enumerable) {
      * @param {number} offset 第一个帧
      * @return {Array.<number>} 索引数组
      */
-    function addOffset(arr, offset) {
+    function $addOffset(arr, offset) {
         // 使用 linq.js 的 Enumerable 类
         return Enumerable.from(arr)
             .select(function(item) {
@@ -51,7 +51,7 @@ define(['linq'], function(Enumerable) {
      * @param {number} [step=1] 步长
      * @return {Enumerable.IEnumerable<number>} 范围序列
      */
-    function range() {
+    function $range() {
         // 获取参数
         var args = Array.prototype.slice.call(arguments);
 
@@ -105,7 +105,7 @@ define(['linq'], function(Enumerable) {
     return {
         convertToProgrammeIndex: convertToProgrammeIndex,
         convertToHumanIndex: convertToHumanIndex,
-        addOffset: addOffset,
-        range: range
+        $addOffset: $addOffset,
+        $range: $range
     };
 });

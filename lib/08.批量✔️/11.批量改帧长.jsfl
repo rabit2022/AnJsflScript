@@ -25,8 +25,9 @@ require([
     'checkUtil',
     'promptUtil',
     'loglevel',
-    'FramesSelect', 'KeyFrameQuery'
-], function(checkUtil, promptUtil, log, fms, kfq) {
+    'FramesSelect',
+    'KeyFrameQuery'
+], function (checkUtil, promptUtil, log, fms, kfq) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     const { SelectNoneFms } = fms;
@@ -72,29 +73,29 @@ require([
 
             // 删减关键帧，增加关键帧
             switch (mode) {
-            case 'increase':
-                timeline.insertFrames(num, false, keyFr.endFrame);
-                break;
-            case 'decrease':
-                var startFrame = keyFr.startFrame;
-                var endFrame = keyFr.startFrame + num - 1;
-                timeline.removeFrames(startFrame, endFrame);
-                break;
-            case 'unify':
-                if (keyFr.duration === num) {
-                    continue;
-                } else if (keyFr.duration > num) {
-                    var toRemoveFrames = keyFr.duration - num;
-                    var startFrame = keyFr.startFrame + toRemoveFrames;
-                    var endFrame = keyFr.endFrame;
+                case 'increase':
+                    timeline.insertFrames(num, false, keyFr.endFrame);
+                    break;
+                case 'decrease':
+                    var startFrame = keyFr.startFrame;
+                    var endFrame = keyFr.startFrame + num - 1;
                     timeline.removeFrames(startFrame, endFrame);
-                } else if (keyFr.duration < num) {
-                    var toAddFrames = num - keyFr.duration;
-                    timeline.insertFrames(toAddFrames, false, keyFr.startFrame);
-                }
-                break;
-            default:
-                throw new Error('未知模式：' + mode);
+                    break;
+                case 'unify':
+                    if (keyFr.duration === num) {
+                        continue;
+                    } else if (keyFr.duration > num) {
+                        var toRemoveFrames = keyFr.duration - num;
+                        var startFrame = keyFr.startFrame + toRemoveFrames;
+                        var endFrame = keyFr.endFrame;
+                        timeline.removeFrames(startFrame, endFrame);
+                    } else if (keyFr.duration < num) {
+                        var toAddFrames = num - keyFr.duration;
+                        timeline.insertFrames(toAddFrames, false, keyFr.startFrame);
+                    }
+                    break;
+                default:
+                    throw new Error('未知模式：' + mode);
             }
         }
 

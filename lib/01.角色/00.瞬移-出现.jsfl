@@ -28,8 +28,10 @@ require([
     'loglevel',
     'JSFLConstants',
     'ElementSelect',
-    'FilterOperation','FramesSelect'
-], function (checkUtil, linqUtil, curve, log, JSFLConstants, es, fo,fms) {
+    'FilterOperation',
+    'FramesSelect',
+    'KeyFrameOperation'
+], function (checkUtil, linqUtil, curve, log, JSFLConstants, es, fo, fms, kfo) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
@@ -40,7 +42,9 @@ require([
     const { setClassicEaseCurve } = curve;
     const { DeleteSelection } = es;
     const { addBlurFilterToFrame } = fo;
-    const {  SelectStartFms } = fms;
+    const { SelectStartFms } = fms;
+    const { $addOffset } = linqUtil;
+    const { convertToKeyframesSafety } = kfo;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -80,12 +84,12 @@ require([
         var firstLayer = layers[frs[0].layerIndex];
         var firstFrame = frs[0].startFrame;
 
-        KEY_FRAMES = linqUtil.addOffset(KEY_FRAMES, firstFrame);
-        BLUR_FILTER_FRAMES = linqUtil.addOffset(BLUR_FILTER_FRAMES, firstFrame);
-        DISAPPEAR_FRAMES = linqUtil.addOffset(DISAPPEAR_FRAMES, firstFrame);
+        KEY_FRAMES = $addOffset(KEY_FRAMES, firstFrame);
+        BLUR_FILTER_FRAMES = $addOffset(BLUR_FILTER_FRAMES, firstFrame);
+        DISAPPEAR_FRAMES = $addOffset(DISAPPEAR_FRAMES, firstFrame);
 
         // 关键帧
-        frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
+        convertToKeyframesSafety(timeline, KEY_FRAMES);
 
         // 滤镜效果
         for (var i = 0; i < BLUR_FILTER_FRAMES.length; i++) {

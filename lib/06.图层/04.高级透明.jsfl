@@ -27,12 +27,13 @@ require([
     'promptUtil',
     'JSFLConstants',
     'FilterQuery',
-    'FilterOperation','FramesSelect'
+    'FilterOperation',
+    'FramesSelect'
 ], function (checkUtil, log, promptUtil, JSFLConstants, fq, fo, fms) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
     const { getFilterByName } = fq;
     const { addFilterToFrame } = fo;
-    const {  SelectStartFms } = fms;
+    const { SelectStartFms } = fms;
 
     // region doc
     var doc = CheckDom(); //文档

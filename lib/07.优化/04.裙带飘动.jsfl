@@ -27,28 +27,19 @@ require([
     'libUtil',
     'xmlPanelUtil',
     'JSFLConstants',
-    'frameRangeUtil',
     'EaseCurve',
     'Tween',
-    'FramesSelect'
-], function (
-    checkUtil,
-    et,
-    libUtil,
-    xmlPanelUtil,
-    JSFLConstants,
-    frUtil,
-    curve,
-    twn,
-    fms
-) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
+    'FramesSelect',
+    'KeyFrameOperation'
+], function (checkUtil, et, libUtil, xmlPanelUtil, JSFLConstants, curve, twn, fms, kfo) {
+    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
+
     const { FRAME_15, FRAME_30 } = JSFLConstants.Numerics.frame.frameList;
     const { setTransformationPointWithCorner } = et;
     const { setEaseCurve } = curve;
     const { createTween } = twn;
     const { SelectAllFms } = fms;
+    const { convertToKeyframesSafety } = kfo;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -109,7 +100,7 @@ require([
         // 创建关键帧,15,30
         // timeline1.convertToKeyframes(FRAME_15);
         // timeline1.convertToKeyframes(FRAME_30);
-        frUtil.convertToKeyframesSafety(timeline1, KEY_FRAMES);
+        convertToKeyframesSafety(timeline1, KEY_FRAMES);
 
         // 更改第15帧的旋转
         timeline1.currentFrame = FRAME_15;

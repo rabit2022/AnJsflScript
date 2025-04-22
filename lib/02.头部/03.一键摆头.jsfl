@@ -25,14 +25,15 @@ require([
     'checkUtil',
     'promptUtil',
     'libUtil',
-    'frameRangeUtil',
     'JSFLConstants',
-    'FilterOperation'
-], function (checkUtil, promptUtil, libUtil, frUtil, JSFLConstants, fo) {
+    'FilterOperation',
+    'KeyFrameOperation'
+], function (checkUtil, promptUtil, libUtil, JSFLConstants, fo, kfo) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     const { FRAME_1, FRAME_4, FRAME_6 } = JSFLConstants.Numerics.frame.frameList;
     const { addBlurFilterToFrame } = fo;
+    const { convertToKeyframesSafety } = kfo;
 
     var descriptions = {
         file: '03.一键摆头.jsfl',
@@ -84,7 +85,7 @@ require([
 
         // var _4_frames = 4 - 1;
         // timeline.convertToKeyframes(FRAME_4);
-        frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
+        convertToKeyframesSafety(timeline, KEY_FRAMES);
 
         // 水平翻转
         var frame4_element = timeline.layers[0].frames[FRAME_4].elements[0];

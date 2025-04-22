@@ -26,27 +26,18 @@ require([
     'xmlPanelUtil',
     'libUtil',
     'satUtil',
-    'frameRangeUtil',
     'JSFLConstants',
     'EaseCurve',
-    'FramesSelect'
-], function (
-    checkUtil,
-    xmlPanelUtil,
-    libUtil,
-    satUtil,
-    frUtil,
-    JSFLConstants,
-    curve,
-    fms
-) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
-    var pointUtil = satUtil.PointUtil,
-        rectUtil = satUtil.RectUtil;
+    'FramesSelect',
+    'KeyFrameOperation'
+], function (checkUtil, xmlPanelUtil, libUtil, satUtil, JSFLConstants, curve, fms, kfo) {
+    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
+
+    const { getShakeHeadTrPoint } = satUtil;
     const { FRAME_1, FRAME_4, FRAME_7 } = JSFLConstants.Numerics.frame.frameList;
     const { setClassicEaseCurve } = curve;
     const { SelectNoneFms } = fms;
+    const { convertToKeyframesSafety } = kfo;
 
     var descriptions = {
         file: '01.虾仁摇头.jsfl',
@@ -117,13 +108,13 @@ require([
 
         // 设置变形点
         var element1 = timeline.layers[0].frames[0].elements[0];
-        var trPoint = pointUtil.getShakeHeadTrPoint(selection[0], 0.9);
+        var trPoint = getShakeHeadTrPoint(selection[0], 0.9);
         element1.setTransformationPoint(trPoint.toObj());
 
         // 给所有图层加帧
         timeline.insertFrames(FRAME_7, true);
         // 关键帧 1,4,7
-        frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
+        convertToKeyframesSafety(timeline, KEY_FRAMES);
 
         var frame4_element = timeline.layers[0].frames[FRAME_4].elements[0];
         frame4_element.rotation = headDirection * shakeIntensity;

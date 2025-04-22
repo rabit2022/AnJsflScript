@@ -28,9 +28,9 @@ require([
     'libUtil',
     'selectionUtil',
     'LayerOperation',
-    'frameRangeUtil',
     'JSFLConstants',
-    'EaseCurve'
+    'EaseCurve',
+    'KeyFrameOperation'
 ], function (
     checkUtil,
     log,
@@ -38,9 +38,9 @@ require([
     libUtil,
     selectionUtil,
     lo,
-    frUtil,
     JSFLConstants,
-    curve
+    curve,
+    kfo
 ) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { IsSymbol, IsShape, getName } = elementUtil;
@@ -48,6 +48,7 @@ require([
     const { FRAME_1, FRAME_30 } = JSFLConstants.Numerics.frame.frameList;
     const { swapLayers } = lo;
     const { setClassicEaseCurve } = curve;
+    const { convertToKeyframesSafety } = kfo;
 
     const doc = fl.getDocumentDOM(); //文档
     if (!CheckDom(doc)) return;
@@ -139,7 +140,7 @@ require([
         timeline.insertFrames(FRAME_30, true);
 
         timeline.currentLayer = TARGET_LAYER_INDEX;
-        frUtil.convertToKeyframesSafety(timeline, [FRAME_30]);
+        convertToKeyframesSafety(timeline, [FRAME_30]);
 
         // 设置遮罩层0
         // timeline.currentLayer = MASK_LAYER_INDEX;

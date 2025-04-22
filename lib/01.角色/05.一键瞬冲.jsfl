@@ -27,8 +27,10 @@ require([
     'linqUtil',
     'JSFLConstants',
     'EaseCurve',
-    'FilterOperation','FramesSelect'
-], function (checkUtil, promptUtil, linqUtil,   JSFLConstants, curve, fo,fms) {
+    'FilterOperation',
+    'FramesSelect',
+    'KeyFrameOperation'
+], function (checkUtil, promptUtil, linqUtil, JSFLConstants, curve, fo, fms, kfo) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
@@ -37,7 +39,9 @@ require([
     const { FRAME_1, FRAME_7, FRAME_11 } = JSFLConstants.Numerics.frame.frameList;
     const { setClassicEaseCurve } = curve;
     const { addBlurFilterToFrame } = fo;
-    const {  SelectStartFms } = fms;
+    const { SelectStartFms } = fms;
+    const { $addOffset } = linqUtil;
+    const { convertToKeyframesSafety } = kfo;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -80,13 +84,13 @@ require([
         var firstLayer = layers[frs[0].layerIndex];
         var firstFrame = frs[0].startFrame;
 
-        KEY_FRAMES = linqUtil.addOffset(KEY_FRAMES, firstFrame);
+        KEY_FRAMES = $addOffset(KEY_FRAMES, firstFrame);
         ALTER_ROTATION += firstFrame;
         ALTER_POSITION_BLUR += firstFrame;
 
         // 关键帧
         timeline.currentLayer = frs[0].layerIndex;
-        frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
+        convertToKeyframesSafety(timeline, KEY_FRAMES);
 
         // 旋转
         var frame_element = firstLayer.frames[ALTER_ROTATION].elements[0];

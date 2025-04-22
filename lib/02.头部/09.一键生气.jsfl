@@ -21,9 +21,11 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil',  'EaseCurve','FramesSelect'], function (
+require(['checkUtil', 'EaseCurve', 'FramesSelect', 'KeyFrameOperation'], function (
     checkUtil,
-    curve,fms
+    curve,
+    fms,
+    kfo
 ) {
     const {
         CheckDom: checkDom,
@@ -31,7 +33,8 @@ require(['checkUtil',  'EaseCurve','FramesSelect'], function (
         CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
     const { setClassicEaseCurve } = curve;
-    const {  SelectStartFms } = fms;
+    const { SelectStartFms } = fms;
+    const { convertToKeyframesSafety } = kfo;
 
     var descriptions = {
         file: '09.一键生气.jsfl',
@@ -109,7 +112,7 @@ require(['checkUtil',  'EaseCurve','FramesSelect'], function (
         var { allKeyFrames, alteredKeyFrames } = generateKfs(MAX_KEYFRAME, firstFrame);
 
         // 关键帧
-        frUtil.convertToKeyframesSafety(timeline, allKeyFrames);
+        convertToKeyframesSafety(timeline, allKeyFrames);
 
         for (var i = 0; i < alteredKeyFrames.length; i++) {
             var frame = alteredKeyFrames[i];

@@ -23,7 +23,31 @@ define(function () {
         return false;
     }
 
+    /**
+     * 检查图层是否包含声音
+     * @param {Layer} layer 图层
+     * @param {number} [startFrame=0] 开始帧
+     * @param {number} [endFrame=layer.frames.length - 1] 结束帧
+     * @returns {boolean} 是否包含声音
+     */
+    function hasSound(layer, startFrame, endFrame) {
+        if (startFrame === undefined) startFrame = 0;
+        if (endFrame === undefined) endFrame = layer.frames.length - 1;
+
+        for (var i = startFrame; i <= endFrame; i++) {
+            var frame = layer.frames[i];
+            // undefined 可能是因为 空白帧
+            if (frame === undefined) continue;
+            // if (frame.getSoundEnvelope()) {
+            if (frame.soundLibraryItem) {
+                return true; // 发现声音对象
+            }
+        }
+        return false; // 没有声音对象
+    }
+
     return {
-        IsLayerExists: IsLayerExists
+        IsLayerExists: IsLayerExists,
+        hasSound: hasSound
     };
 });

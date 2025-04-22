@@ -21,13 +21,15 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'loglevel', 'LayerManager', 'KeyFrameQuery'], function(
+require(['checkUtil', 'loglevel', 'KeyFrameQuery', 'LayerChecker'], function (
     checkUtil,
     log,
-    LayerManager, kfq
+    kfq,
+    lc
 ) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { getKeyFrameRanges } = kfq;
+    const { hasSound } = lc;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!CheckDom(doc)) return;
@@ -50,7 +52,7 @@ require(['checkUtil', 'loglevel', 'LayerManager', 'KeyFrameQuery'], function(
         // 获取当前图层的音频数量
 
         // 1, 判断当前图层是否有音频
-        var hasSound = LayerManager.hasSound(curLayer);
+        var hasSound = hasSound(curLayer);
         if (!hasSound) {
             console.info('当前图层没有音频');
             return;
@@ -72,12 +74,8 @@ require(['checkUtil', 'loglevel', 'LayerManager', 'KeyFrameQuery'], function(
 
         // 3, 判断每一段关键帧是否有音频
         var soundObjs = {};
-        keyFrames.forEach(function(keyFrame) {
-            var hasSound = LayerManager.hasSound(
-                curLayer,
-                keyFrame.startFrame,
-                keyFrame.endFrame
-            );
+        keyFrames.forEach(function (keyFrame) {
+            var hasSound = hasSound(curLayer, keyFrame.startFrame, keyFrame.endFrame);
             // log.info(hasSound ? '有' : '没有');
 
             var soundName = LayerManager.getKeyFrameSoundName(

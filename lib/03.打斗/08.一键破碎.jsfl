@@ -32,9 +32,9 @@ require([
 ], function (checkUtil, sat, random, satUtil, ed, ea, es) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
-    const { Vector, Rectangle } = sat;
-    const { wrapPosition, wrapTransform, wrapRectByCenter } = sat.GLOBALS;
-    const { RectUtil: rectUtil } = satUtil;
+    const { Vector } = sat;
+    const { wrapTransform, wrapRectByCenter } = sat.GLOBALS;
+    const { generateRandomPointInRect } = satUtil;
 
     const { splinterSymbol } = ed;
     const { playOnce } = ea;
@@ -106,7 +106,7 @@ require([
             var element = doc.selection[i];
 
             // var randomPos = rectUtil.generateRandomPoint(explosionRectSize, rectCenter);
-            var randomPos = rectUtil.generateRandomPointInRect(explosionRect);
+            var randomPos = generateRandomPointInRect(explosionRect);
 
             // scale:0.5-1.5   ======0-0.6
             // skew:-180-180   ======-36 ~ 36

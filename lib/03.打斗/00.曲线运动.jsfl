@@ -27,21 +27,11 @@ require([
     'graphicsUtil',
     'SAT',
     'JSFLConstants',
-    'frameRangeUtil',
     'EaseCurve',
     'Tween',
-    'ElementSelect'
-], function (
-    checkUtil,
-    libUtil,
-    graphics,
-    sat,
-    JSFLConstants,
-    frameRangeUtil,
-    curve,
-    twn,
-    es
-) {
+    'ElementSelect',
+    'KeyFrameOperation'
+], function (checkUtil, libUtil, graphics, sat, JSFLConstants, curve, twn, es, kfo) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     var Vector = sat.Vector;
@@ -49,6 +39,7 @@ require([
     const { setEaseCurve } = curve;
     const { createTween } = twn;
     const { OnlySelectCurrent } = es;
+    const { convertToKeyframesSafety } = kfo;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -101,7 +92,7 @@ require([
         // 转为关键帧
         timeline.setSelectedLayers(SYMBOL_LAYER_INDEX);
         // timeline.convertToKeyframes(FRAME_30);
-        frameRangeUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
+        convertToKeyframesSafety(timeline, KEY_FRAMES);
 
         // 设置元件位置
         var symbolElement =

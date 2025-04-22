@@ -26,8 +26,10 @@ require([
     'ElementTransform',
     'libUtil',
     'JSFLConstants',
-    'EaseCurve','FramesSelect'
-], function (checkUtil, et,  libUtil, JSFLConstants, curve, fms) {
+    'EaseCurve',
+    'FramesSelect',
+    'KeyFrameOperation'
+], function (checkUtil, et, libUtil, JSFLConstants, curve, fms, kfo) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
@@ -37,7 +39,8 @@ require([
     // console.log('libUtil', libUtil);
     const { setTransformationPointWithCorner } = et;
     const { setClassicEaseCurve } = curve;
-    const {  SelectStartFms } = fms;
+    const { SelectStartFms } = fms;
+    const { convertToKeyframesSafety } = kfo;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -74,7 +77,7 @@ require([
         setTransformationPointWithCorner(selection[0], 'bottom center');
 
         // 关键帧
-        frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
+        convertToKeyframesSafety(timeline, KEY_FRAMES);
 
         // 调整高度
         var frame_element = curLayer.frames[ALTER_HEIGHT_FRAME].elements[0];

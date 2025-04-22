@@ -21,11 +21,11 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'loglevel', 'frameRangeUtil', 'LayerManager'], function (
+require(['checkUtil', 'loglevel', 'frameRangeUtil', 'LayerChecker'], function (
     checkUtil,
     log,
     frUtil,
-    LayerManager
+    lc
 ) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
     // getSelectedLayers
@@ -35,6 +35,7 @@ require(['checkUtil', 'loglevel', 'frameRangeUtil', 'LayerManager'], function (
         convertToKeyframesSafety,
         resetSelectedFrames
     } = frUtil;
+    const { hasSound } = lc;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -98,7 +99,7 @@ require(['checkUtil', 'loglevel', 'frameRangeUtil', 'LayerManager'], function (
 
         // 检查第一个图层
         var layer0 = layers[selectedLayers[0]];
-        var hasSound0 = LayerManager.hasSound(layer0);
+        var hasSound0 = hasSound(layer0);
         if (hasSound0) {
             soundLayer = new LayerInfo(layer0, selectedLayers[0]); // 第一个图层有声音
         } else {
@@ -107,7 +108,7 @@ require(['checkUtil', 'loglevel', 'frameRangeUtil', 'LayerManager'], function (
 
         // 检查第二个图层
         var layer1 = layers[selectedLayers[1]];
-        var hasSound1 = LayerManager.hasSound(layer1);
+        var hasSound1 = hasSound(layer1);
         if (hasSound1) {
             soundLayer = new LayerInfo(layer1, selectedLayers[1]); // 第二个图层有声音
         } else {

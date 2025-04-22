@@ -26,8 +26,10 @@ require([
     'linqUtil',
     'ElementTransform',
     'JSFLConstants',
-    'EaseCurve','FramesSelect'
-], function (checkUtil, linqUtil, et, JSFLConstants, curve,fms) {
+    'EaseCurve',
+    'FramesSelect',
+    'KeyFrameOperation'
+], function (checkUtil, linqUtil, et, JSFLConstants, curve, fms, kfo) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
@@ -36,7 +38,9 @@ require([
     const { FRAME_1, FRAME_3, FRAME_6 } = JSFLConstants.Numerics.frame.frameList;
     const { setTransformationPointWithCorner } = et;
     const { setClassicEaseCurve } = curve;
-    const {  SelectStartFms } = fms;
+    const { SelectStartFms } = fms;
+    const { $addOffset } = linqUtil;
+    const { convertToKeyframesSafety } = kfo;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -70,14 +74,14 @@ require([
         var firstLayer = layers[frs[0].layerIndex];
         var firstFrame = frs[0].startFrame;
 
-        KEY_FRAMES = linqUtil.addOffset(KEY_FRAMES, firstFrame);
+        KEY_FRAMES = $addOffset(KEY_FRAMES, firstFrame);
         ALTER_HEIGHT_FRAME = ALTER_HEIGHT_FRAME + firstFrame;
 
         setTransformationPointWithCorner(selection[0], 'bottom center');
 
         // 关键帧
         timeline.currentLayer = frs[0].layerIndex;
-        frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
+        convertToKeyframesSafety(timeline, KEY_FRAMES);
 
         // 调整高度
         var frame_element = firstLayer.frames[ALTER_HEIGHT_FRAME].elements[0];
