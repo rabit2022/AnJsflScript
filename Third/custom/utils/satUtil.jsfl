@@ -7,12 +7,10 @@
  * @description:
  */
 
-define(['SAT', 'random'], function (sat, random) {
+define(['SAT', 'random'], function(sat, random) {
     var wrapPosition = sat.GLOBALS.wrapPosition;
     var Vector = sat.Vector,
         Rectangle = sat.Rectangle;
-
-    function PointUtil() {}
 
     /**
      * 获取 摇头 的 变形点
@@ -20,7 +18,7 @@ define(['SAT', 'random'], function (sat, random) {
      * @param {Number} [ratio=5/6] 缩放比例
      * @returns {*}
      */
-    PointUtil.getShakeHeadTrPoint = function (element, ratio) {
+    function getShakeHeadTrPoint(element, ratio) {
         if (ratio === undefined) {
             ratio = 5 / 6;
         }
@@ -38,12 +36,6 @@ define(['SAT', 'random'], function (sat, random) {
         return trPointLocal;
     };
 
-    /**
-     * 矩形工具类
-     * @constructor
-     * @class {RectUtil}
-     */
-    function RectUtil() {}
 
     /**
      * 计算新的向量，确保  小矩形的最终落点  不会超出  大矩形的边界
@@ -52,7 +44,7 @@ define(['SAT', 'random'], function (sat, random) {
      * @param {Vector} moveVector 要移动的向量
      * @returns {Vector} 可以移动的向量
      */
-    RectUtil.moveRectSafety = function (bigRect, smallRect, moveVector) {
+    function moveRectSafety(bigRect, smallRect, moveVector) {
         // 小矩形的边界   与   大矩形的边界  的距离
         // <0  小矩形在大矩形的  外面
         // >0  小矩形在大矩形的  里面
@@ -110,12 +102,12 @@ define(['SAT', 'random'], function (sat, random) {
 
     /**
      * 随机生成  一个矩形范围内的  随机点
-     * @param {Rectangle} Rectangle 矩形
+     * @param {Rectangle} rect 矩形
      * @returns {Vector} 随机点
      */
-    RectUtil.generateRandomPointInRect = function (Rectangle) {
-        const randomX = random.uniform(Rectangle.left, Rectangle.right);
-        const randomY = random.uniform(Rectangle.top, Rectangle.bottom);
+    function generateRandomPointInRect(rect) {
+        const randomX = random.uniform(rect.left, rect.right);
+        const randomY = random.uniform(rect.top, rect.bottom);
         return new Vector(randomX, randomY);
     };
 
@@ -126,7 +118,7 @@ define(['SAT', 'random'], function (sat, random) {
      * @param {number} [gridSize=5] - 分割网格的大小，默认为 5。
      * @returns {[number, number, number, number]} [blockWidth, blockHeight, blockCountX, blockCountY] - 每个小块的宽度和高度，以及网格的数量。
      */
-    RectUtil.splitRectangle = function (rectSize, gridSize) {
+    function splitRectangle(rectSize, gridSize) {
         // 设置默认值
         if (gridSize === undefined) {
             gridSize = 5;
@@ -154,7 +146,9 @@ define(['SAT', 'random'], function (sat, random) {
     };
 
     return {
-        PointUtil: PointUtil,
-        RectUtil: RectUtil
+        getShakeHeadTrPoint: getShakeHeadTrPoint,
+        moveRectSafety: moveRectSafety,
+        generateRandomPointInRect: generateRandomPointInRect,
+        splitRectangle: splitRectangle
     };
 });

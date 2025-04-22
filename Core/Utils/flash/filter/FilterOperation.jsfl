@@ -7,9 +7,7 @@
  * @description:
  */
 
-define(function() {
-
-
+define(function () {
     /**
      * 添加滤镜到指定帧
      * 会给 该帧所在 的整个关键帧 都添加滤镜
@@ -20,13 +18,7 @@ define(function() {
      * @param {'low'|'medium'|'high'} strength 可选品质
      * @see https://gitee.com/ninge/WindowSWF/tree/master/
      */
-    function addBlurFilterToFrame(
-        layer,
-        frameIndex,
-        blurX,
-        blurY,
-        strength
-    ) {
+    function addBlurFilterToFrame(layer, frameIndex, blurX, blurY, strength) {
         //图层，第几帧，x轴数值，y轴数值，品质可选（low、medium，high）
         // 创建模糊滤镜对象
         var blurFilter = {
@@ -45,7 +37,7 @@ define(function() {
 
         // 将更新后的滤镜数组设置回指定帧
         layer.setFiltersAtFrame(frameIndex, filters);
-    };
+    }
 
     /**
      * 添加滤镜到指定帧
@@ -63,7 +55,7 @@ define(function() {
 
         // 将更新后的滤镜数组设置回指定帧
         layer.setFiltersAtFrame(frameIndex, filters);
-    };
+    }
 
     /**
      * 清除指定帧的滤镜
@@ -77,12 +69,12 @@ define(function() {
         if (filterName === undefined) {
             filters = [];
         } else {
-            filters = filters.filter(function(filter) {
+            filters = filters.filter(function (filter) {
                 return filter.name !== filterName;
             });
         }
         layer.setFiltersAtFrame(frameIndex, filters);
-    };
+    }
     return {
         addBlurFilterToFrame: addBlurFilterToFrame,
         addFilterToFrame: addFilterToFrame,

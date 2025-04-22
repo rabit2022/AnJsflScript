@@ -29,7 +29,8 @@ require([
     'JSFLConstants',
     'frameRangeUtil',
     'EaseCurve',
-    'Tween','ElementSelect'
+    'Tween',
+    'ElementSelect'
 ], function (
     checkUtil,
     libUtil,
@@ -38,7 +39,8 @@ require([
     JSFLConstants,
     frameRangeUtil,
     curve,
-    twn,es
+    twn,
+    es
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;

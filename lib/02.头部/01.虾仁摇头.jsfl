@@ -28,7 +28,8 @@ require([
     'satUtil',
     'frameRangeUtil',
     'JSFLConstants',
-    'EaseCurve','FramesSelect'
+    'EaseCurve',
+    'FramesSelect'
 ], function (
     checkUtil,
     xmlPanelUtil,
@@ -36,7 +37,8 @@ require([
     satUtil,
     frUtil,
     JSFLConstants,
-    curve,fms
+    curve,
+    fms
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
@@ -44,7 +46,7 @@ require([
         rectUtil = satUtil.RectUtil;
     const { FRAME_1, FRAME_4, FRAME_7 } = JSFLConstants.Numerics.frame.frameList;
     const { setClassicEaseCurve } = curve;
-    const {SelectNoneFms}=fms;
+    const { SelectNoneFms } = fms;
 
     var descriptions = {
         file: '01.虾仁摇头.jsfl',

@@ -25,10 +25,9 @@ require([
     'checkUtil',
     'linqUtil',
     'ElementTransform',
-    'frameRangeUtil',
     'JSFLConstants',
-    'EaseCurve'
-], function (checkUtil, linqUtil, et, frUtil, JSFLConstants, curve) {
+    'EaseCurve','FramesSelect'
+], function (checkUtil, linqUtil, et, JSFLConstants, curve,fms) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
@@ -37,6 +36,7 @@ require([
     const { FRAME_1, FRAME_3, FRAME_6 } = JSFLConstants.Numerics.frame.frameList;
     const { setTransformationPointWithCorner } = et;
     const { setClassicEaseCurve } = curve;
+    const {  SelectStartFms } = fms;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -94,7 +94,7 @@ require([
         setClassicEaseCurve(timeline);
 
         // 重置选中帧
-        frUtil.resetSelectedFrames(timeline, frs);
+        SelectStartFms(timeline, frs);
     }
 
     Main();

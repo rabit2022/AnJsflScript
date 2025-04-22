@@ -23,12 +23,11 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
 }
 require([
     'checkUtil',
-    'frameRangeUtil',
     'linqUtil',
     'ElementTransform',
     'JSFLConstants',
-    'EaseCurve'
-], function (checkUtil, frUtil, linqUtil, et, JSFLConstants, curve) {
+    'EaseCurve','FramesSelect'
+], function (checkUtil, linqUtil, et, JSFLConstants, curve, fms) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
@@ -37,6 +36,7 @@ require([
     const { FRAME_1, FRAME_3, FRAME_6 } = JSFLConstants.Numerics.frame.frameList;
     const { setTransformationPointWithCorner } = et;
     const { setClassicEaseCurve } = curve;
+    const {  SelectStartFms } = fms;
 
     var descriptions = {
         file: '06.一键震惊.jsfl',
@@ -103,7 +103,7 @@ require([
         setClassicEaseCurve(timeline);
 
         // 重置选中帧
-        frUtil.resetSelectedFrames(timeline, frs);
+        SelectStartFms(timeline, frs);
     }
 
     Main();

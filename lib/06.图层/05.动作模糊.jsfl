@@ -24,15 +24,16 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
 require([
     'checkUtil',
     'loglevel',
-    'frameRangeUtil',
     'linqUtil',
-    'JSFLConstants', 'FilterQuery', 'FilterOperation'
-], function(checkUtil, log, frUtil, linqUtil, JSFLConstants, fq, fo) {
+    'JSFLConstants',
+    'FilterQuery',
+    'FilterOperation', 'FramesSelect'
+], function(checkUtil, log, linqUtil, JSFLConstants, fq, fo, fms) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
     const { FRAME_1, FRAME_2, FRAME_3, FRAME_4 } = JSFLConstants.Numerics.frame.frameList;
     const { getFilterByName } = fq;
     const { addBlurFilterToFrame } = fo;
-
+    const { SelectStartFms } = fms;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -80,21 +81,13 @@ require([
             var blurfilterframe = BLUR_FILTER_FRAMES[i];
             var blurX = (blurY = BLUR[i]);
 
-            if (
-                getFilterByName(curLayer, curFrameIndex, BLUR_FILTER) === null
-            ) {
-                addBlurFilterToFrame(
-                    firstLayer,
-                    blurfilterframe,
-                    blurX,
-                    blurY,
-                    'high'
-                );
+            if (getFilterByName(curLayer, curFrameIndex, BLUR_FILTER) === null) {
+                addBlurFilterToFrame(firstLayer, blurfilterframe, blurX, blurY, 'high');
             }
         }
 
         // 重置选中帧
-        frUtil.resetSelectedFrames(timeline, frs);
+        SelectStartFms(timeline, frs);
     }
 
     Main();

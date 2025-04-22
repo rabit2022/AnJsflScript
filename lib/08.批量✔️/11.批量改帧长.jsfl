@@ -24,13 +24,13 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
 require([
     'checkUtil',
     'promptUtil',
-    'frameRangeUtil',
-    'loglevel','FramesSelect'
-], function (checkUtil, promptUtil, frUtil, log) {
+    'loglevel',
+    'FramesSelect', 'KeyFrameQuery'
+], function(checkUtil, promptUtil, log, fms, kfq) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
-    const {SelectNoneFms}=fms;
-
+    const { SelectNoneFms } = fms;
+    const { getSelectedFrs, getKfrFromSlLittle, getKeyFrameRanges } = kfq;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -54,16 +54,16 @@ require([
         log.info('关键帧持续帧数：' + num + '，模式：' + mode);
 
         // 选中的帧范围
-        var selectedFrs = frUtil.getSelectedFrs(timeline);
+        var selectedFrs = getSelectedFrs(timeline);
         for (var i = 0; i < selectedFrs.length; i++) {
             // 某一个图层的 选中的帧范围
             var selectedFr = selectedFrs[i];
             // 某一个图层的 关键帧范围 列表
             var _layer = layers[selectedFr.layerIndex];
-            var keyFrameRanges = frUtil.getKeyFrameRanges(layers, _layer);
+            var keyFrameRanges = getKeyFrameRanges(layers, _layer);
 
             // 选中范围 包含的 关键帧范围
-            var keyFr = frUtil.getKfrFromSlLittle(selectedFr, keyFrameRanges);
+            var keyFr = getKfrFromSlLittle(selectedFr, keyFrameRanges);
             if (keyFr === null) continue;
             // fl.trace("选中范围：" + keyFr.toString());
 
@@ -72,29 +72,29 @@ require([
 
             // 删减关键帧，增加关键帧
             switch (mode) {
-                case 'increase':
-                    timeline.insertFrames(num, false, keyFr.endFrame);
-                    break;
-                case 'decrease':
-                    var startFrame = keyFr.startFrame;
-                    var endFrame = keyFr.startFrame + num - 1;
+            case 'increase':
+                timeline.insertFrames(num, false, keyFr.endFrame);
+                break;
+            case 'decrease':
+                var startFrame = keyFr.startFrame;
+                var endFrame = keyFr.startFrame + num - 1;
+                timeline.removeFrames(startFrame, endFrame);
+                break;
+            case 'unify':
+                if (keyFr.duration === num) {
+                    continue;
+                } else if (keyFr.duration > num) {
+                    var toRemoveFrames = keyFr.duration - num;
+                    var startFrame = keyFr.startFrame + toRemoveFrames;
+                    var endFrame = keyFr.endFrame;
                     timeline.removeFrames(startFrame, endFrame);
-                    break;
-                case 'unify':
-                    if (keyFr.duration === num) {
-                        continue;
-                    } else if (keyFr.duration > num) {
-                        var toRemoveFrames = keyFr.duration - num;
-                        var startFrame = keyFr.startFrame + toRemoveFrames;
-                        var endFrame = keyFr.endFrame;
-                        timeline.removeFrames(startFrame, endFrame);
-                    } else if (keyFr.duration < num) {
-                        var toAddFrames = num - keyFr.duration;
-                        timeline.insertFrames(toAddFrames, false, keyFr.startFrame);
-                    }
-                    break;
-                default:
-                    throw new Error('未知模式：' + mode);
+                } else if (keyFr.duration < num) {
+                    var toAddFrames = num - keyFr.duration;
+                    timeline.insertFrames(toAddFrames, false, keyFr.startFrame);
+                }
+                break;
+            default:
+                throw new Error('未知模式：' + mode);
             }
         }
 

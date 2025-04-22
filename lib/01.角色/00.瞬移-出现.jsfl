@@ -25,17 +25,11 @@ require([
     'checkUtil',
     'linqUtil',
     'EaseCurve',
-    'frameRangeUtil',
     'loglevel',
-    'JSFLConstants','ElementSelect','FilterOperation'
-], function (
-    checkUtil,
-    linqUtil,
-    curve,
-    frUtil,
-    log,
-    JSFLConstants,es,fo
-) {
+    'JSFLConstants',
+    'ElementSelect',
+    'FilterOperation','FramesSelect'
+], function (checkUtil, linqUtil, curve, log, JSFLConstants, es, fo,fms) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
@@ -44,8 +38,9 @@ require([
     const { FRAME_1, FRAME_2, FRAME_3, FRAME_4, FRAME_5 } =
         JSFLConstants.Numerics.frame.frameList;
     const { setClassicEaseCurve } = curve;
-    const {DeleteSelection}=es;
-    const {addBlurFilterToFrame}=fo;
+    const { DeleteSelection } = es;
+    const { addBlurFilterToFrame } = fo;
+    const {  SelectStartFms } = fms;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -97,13 +92,7 @@ require([
             var blurfilterframe = BLUR_FILTER_FRAMES[i];
             var blurY = BLUR_Y[i];
 
-            addBlurFilterToFrame(
-                firstLayer,
-                blurfilterframe,
-                0,
-                blurY,
-                'high'
-            );
+            addBlurFilterToFrame(firstLayer, blurfilterframe, 0, blurY, 'high');
         }
 
         // 消失效果
@@ -131,7 +120,7 @@ require([
         setClassicEaseCurve(timeline);
 
         // 重置选中帧
-        frUtil.resetSelectedFrames(timeline, frs);
+        SelectStartFms(timeline, frs);
     }
 
     Main();

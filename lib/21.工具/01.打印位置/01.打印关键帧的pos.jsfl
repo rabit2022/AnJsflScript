@@ -21,19 +21,14 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'SAT', 'frameRangeUtil'], function (
+require(['checkUtil', 'SAT', 'KeyFrameQuery'], function(
     checkUtil,
-    sat,
-    frUtil
-    // logUtil
+    sat, kfq
 ) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
-    var Vector = sat.Vector,
-        Rectangle = sat.Rectangle,
-        wrapPosition = sat.GLOBALS.wrapPosition,
-        wrapTransform = sat.GLOBALS.wrapTransform;
-    // var LogArray = logUtil.LogArray;
+    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
+
+    const { wrapTransform } = sat.GLOBALS;
+    const { getKeyFrames } = kfq;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -53,7 +48,7 @@ require(['checkUtil', 'SAT', 'frameRangeUtil'], function (
         // 检查选择的元件
         if (!checkSelection(selection, 'selectElement', 'No limit')) return;
 
-        var keyFrames = frUtil.getKeyFrames(curLayer);
+        var keyFrames = getKeyFrames(curLayer);
 
         var transformArray = [];
         for (var i = 0; i < keyFrames.length; i++) {

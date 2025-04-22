@@ -7,8 +7,7 @@
  * @description:
  */
 
-// define(['frameRangeUtil', 'frameRange'], function (frUtil, FrameRange) {
-define(function (require, exports, module) {
+define(function() {
     /**
      * 检查选择的元件或帧是否符合指定的模式和条件。
      *
@@ -136,20 +135,20 @@ define(function (require, exports, module) {
         // 内部函数：检查条件并返回结果
         function checkCondition(conditionIndex, length) {
             switch (conditionIndex) {
-                case 0: // No limit
-                    return true;
-                case 1: // Zero 或 =0
-                    return length === 0;
-                case 2: // Not Zero 或 >0
-                    return length > 0;
-                case 3: // Only one 或 =1
-                    return length === 1;
-                case 4: // Only two 或 =2
-                    return length === 2;
-                case 5: // More 或 >=2
-                    return length >= 2;
-                default:
-                    throw new Error('未知条件：' + condition);
+            case 0: // No limit
+                return true;
+            case 1: // Zero 或 =0
+                return length === 0;
+            case 2: // Not Zero 或 >0
+                return length > 0;
+            case 3: // Only one 或 =1
+                return length === 1;
+            case 4: // Only two 或 =2
+                return length === 2;
+            case 5: // More 或 >=2
+                return length >= 2;
+            default:
+                throw new Error('未知条件：' + condition);
             }
         }
 
@@ -180,21 +179,6 @@ define(function (require, exports, module) {
         return doc;
     }
 
-    // /**
-    //  * 检查时间轴是否存在
-    //  * @param {Timeline} [timeline] - 时间轴对象。
-    //  * @returns {Timeline}
-    //  */
-    // function CheckTimeline(timeline) {
-    //     var doc = CheckDom();
-    //     if (timeline === undefined) timeline = doc.getTimeline();
-    //     if (timeline == null) {
-    //         alert('当前文档没有时间轴');
-    //         return;
-    //     }
-    //     return timeline;
-    // }
-
     /**
      * 检查选中的帧是否符合指定的条件
      * @param {Timeline} timeline - 时间轴对象。
@@ -205,10 +189,15 @@ define(function (require, exports, module) {
      */
     function CheckSelectedFrames(timeline, exTips, condition) {
         if (condition === undefined) condition = 'Not Zero';
-        var frUtil = require('frameRangeUtil');
-        var FrameRange = require('frameRange');
 
-        var frs = frUtil.getSelectedFrs(timeline);
+        // KeyFrameQuery
+        var kfq;
+        require(['KeyFrameQuery'], function(KeyFrameQuery) {
+            kfq = KeyFrameQuery;
+        });
+        const { getSelectedFrs } = kfq;
+
+        var frs = getSelectedFrs(timeline);
         if (!CheckSelection(frs, 'selectFrame', condition, exTips)) return null;
         return frs;
     }
@@ -216,7 +205,6 @@ define(function (require, exports, module) {
     return {
         CheckSelection: CheckSelection,
         CheckDom: CheckDom,
-        // CheckTimeline: CheckTimeline,
         CheckSelectedFrames: CheckSelectedFrames
     };
 });

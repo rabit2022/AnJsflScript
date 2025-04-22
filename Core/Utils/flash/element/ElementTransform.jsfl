@@ -7,9 +7,9 @@
  * @description:
  */
 
-define(['ElementSelect'],function (es) {
-    const {OnlySelectCurrent, SelectNone}=es;
-    
+define(['ElementSelect'], function (es) {
+    const { OnlySelectCurrent, SelectNone } = es;
+
     /**
      * 重置注册点
      * 1，新的注册点 是 原来的 变形点 </br>

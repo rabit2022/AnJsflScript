@@ -25,19 +25,10 @@ require([
     'checkUtil',
     'promptUtil',
     'linqUtil',
-    'curveUtil',
-    'frameRangeUtil',
     'JSFLConstants',
-    'EaseCurve','FilterOperation'
-], function (
-    checkUtil,
-    promptUtil,
-    linqUtil,
-    curve,
-    frUtil,
-    JSFLConstants,
-    curve,fo
-) {
+    'EaseCurve',
+    'FilterOperation','FramesSelect'
+], function (checkUtil, promptUtil, linqUtil,   JSFLConstants, curve, fo,fms) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
@@ -46,6 +37,7 @@ require([
     const { FRAME_1, FRAME_7, FRAME_11 } = JSFLConstants.Numerics.frame.frameList;
     const { setClassicEaseCurve } = curve;
     const { addBlurFilterToFrame } = fo;
+    const {  SelectStartFms } = fms;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -102,13 +94,7 @@ require([
         // 位移
         var frame_element_blur = firstLayer.frames[ALTER_POSITION_BLUR].elements[0];
         frame_element_blur.x += 3 * frame_element_blur.height * direction;
-        addBlurFilterToFrame(
-            firstLayer,
-            ALTER_POSITION_BLUR,
-            BLUR_X,
-            0,
-            'high'
-        );
+        addBlurFilterToFrame(firstLayer, ALTER_POSITION_BLUR, BLUR_X, 0, 'high');
 
         // 获取allKeyFrames first,last
         var firstF = KEY_FRAMES[0];
@@ -120,7 +106,7 @@ require([
         setClassicEaseCurve(timeline);
 
         // 重置选中帧
-        frUtil.resetSelectedFrames(timeline, frs);
+        SelectStartFms(timeline, frs);
     }
 
     Main();

@@ -27,8 +27,9 @@ require([
     'random',
     'satUtil',
     'ElementOperation',
-    'ElementAnim','ElementSelect'
-], function (checkUtil, sat, random, satUtil,  ed, ea,es) {
+    'ElementAnim',
+    'ElementSelect'
+], function (checkUtil, sat, random, satUtil, ed, ea, es) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
     const { Vector, Rectangle } = sat;

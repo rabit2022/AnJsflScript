@@ -25,19 +25,10 @@ require([
     'checkUtil',
     'promptUtil',
     'satUtil',
-    'frameRangeUtil',
     'JSFLConstants',
     'EaseCurve',
-    'Tween'
-], function (
-    checkUtil,
-    promptUtil,
-    satUtil,
-    frUtil,
-    JSFLConstants,
-    curve,
-    twn
-) {
+    'Tween','FramesSelect'
+], function (checkUtil, promptUtil, satUtil, JSFLConstants, curve, twn, fms) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
@@ -47,6 +38,7 @@ require([
     const { FRAME_1, FRAME_11 } = JSFLConstants.Numerics.frame.frameList;
     const { setClassicEaseCurve } = curve;
     const { setTweenRotation } = twn;
+    const {  SelectStartFms } = fms;
 
     var descriptions = {
         file: '07.一键甩头.jsfl',
@@ -95,7 +87,7 @@ require([
 
         // 变形点
         var element = selection[0];
-        var trPoint = pointUtil.getShakeHeadTrPoint(element);
+        var trPoint = pointUtil.getShakeHeadTrPoint(element,5/6);
         element.setTransformationPoint(trPoint);
 
         // 1,11
@@ -114,7 +106,7 @@ require([
         setTweenRotation(timeline, 'clockwise', 1);
 
         // 重置选中帧
-        frUtil.resetSelectedFrames(timeline, frs);
+        SelectStartFms(timeline, frs);
     }
 
     Main();

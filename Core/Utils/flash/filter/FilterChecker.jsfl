@@ -6,9 +6,7 @@
  * @project: AnJsflScript
  * @description:
  */
-define(function() {
-
-
+define(function () {
     /**
      * 判断指定元素是否有滤镜
      * @param {Element} element 元素对象
@@ -18,7 +16,7 @@ define(function() {
         var filters = element.filters;
         if (filters === null || filters === undefined) return false;
         return filters.length > 0;
-    };
+    }
 
     return {
         hasFilter: hasFilter

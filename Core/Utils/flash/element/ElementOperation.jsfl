@@ -7,12 +7,16 @@
  * @description:
  */
 
-define(['ElementChecker', 'LayerOperation', 'LayerQuery','ElementSelect'],
-    function (ec, lo, lq,es) {
+define(['ElementChecker', 'LayerOperation', 'LayerQuery', 'ElementSelect'], function (
+    ec,
+    lo,
+    lq,
+    es
+) {
     const { IsSymbol } = ec;
     const { deleteLayers } = lo;
     const { getLayersIndexByName } = lq;
-    const { SelectAll,OnlySelectCurrent , SelectNone } = es;
+    const { SelectAll, OnlySelectCurrent, SelectNone } = es;
 
     /**
      *  复制元件

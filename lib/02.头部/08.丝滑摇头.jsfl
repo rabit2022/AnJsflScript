@@ -28,21 +28,23 @@ require([
     'satUtil',
     'JSFLConstants',
     'frameRangeUtil',
-    'EaseCurve','FramesSelect'
-], function (
+    'EaseCurve',
+    'FramesSelect'
+], function(
     checkUtil,
     xmlPanelUtil,
     libUtil,
     satUtil,
     JSFLConstants,
     frUtil,
-    curve,fms
+    curve,
+    fms
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     const { FRAME_4, FRAME_7 } = JSFLConstants.Numerics.frame.frameList;
     const { setClassicEaseCurve } = curve;
-    const {SelectAllFms}=fms;
+    const { SelectAllFms } = fms;
 
     var descriptions = {
         file: '08.丝滑摇头.jsfl',
@@ -84,6 +86,7 @@ require([
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
     const KEY_FRAMES = [FRAME_4, FRAME_7];
+
     function checkXMLPanel() {
         var panel = xmlPanelUtil.getXMLPanel();
         if (panel === null) return null;
@@ -108,7 +111,7 @@ require([
         // 设置变形点
         var element1 = timeline.layers[0].frames[0].elements[0];
         // var trPoint = getTrPoint(selection[0]);
-        var trPoint = pointUtil.getShakeHeadTrPoint(element1);
+        var trPoint = pointUtil.getShakeHeadTrPoint(element1, 5 / 6);
         element1.setTransformationPoint(trPoint.toObj());
 
         // 给所有图层加帧

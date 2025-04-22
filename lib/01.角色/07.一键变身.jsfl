@@ -26,25 +26,26 @@ require([
     'ElementQuery',
     'ElementOperation',
     'linqUtil',
-    'frameRangeUtil',
     'SAT',
     'graphicsUtil',
     'Tween',
     'loglevel',
     'JSFLConstants',
-    'EaseCurve','ElementSelect'
+    'EaseCurve',
+    'ElementSelect','FramesSelect'
 ], function (
     checkUtil,
     ep,
     ed,
     linqUtil,
-    frUtil,
     sat,
     graphics,
     twn,
     log,
     JSFLConstants,
-    curve,es
+    curve,
+    es,
+    fms
 ) {
     const {
         CheckDom: checkDom,
@@ -59,6 +60,7 @@ require([
     const { setEaseCurve } = curve;
     const { createTween } = twn;
     const { OnlySelectCurrent, DeleteSelection } = es;
+    const {  SelectStartFms } = fms;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -213,7 +215,7 @@ require([
         setEaseCurve(timeline, 'Cubic Ease-Out');
 
         // 重置选中帧
-        frUtil.resetSelectedFrames(timeline, frs);
+        SelectStartFms(timeline, frs);
     }
 
     Main();

@@ -21,15 +21,13 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'moreElement', 'ElementSelect'], function(
+require(['checkUtil', 'moreElement', 'ElementSelect'], function (
     checkUtil,
-    MoreElement, es
+    MoreElement,
+    es
 ) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
     const { OnlySelectCurrent, SelectStart } = es;
-
-    // var MoreElement = me.MoreElement;
-    // var wrapMoreElement=me.GLOBALS.wrapMoreElement;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;

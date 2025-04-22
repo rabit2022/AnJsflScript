@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['ElementQuery'], function(eq) {
+define(['ElementQuery'], function (eq) {
     const { getName } = eq;
 
     /**
@@ -123,6 +123,5 @@ define(['ElementQuery'], function(eq) {
         SelectBefore: SelectBefore,
         SelectSameName: SelectSameName,
         DeleteSelection: DeleteSelection
-    }
-
+    };
 });

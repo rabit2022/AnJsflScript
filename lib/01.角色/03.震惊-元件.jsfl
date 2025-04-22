@@ -24,11 +24,10 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
 require([
     'checkUtil',
     'ElementTransform',
-    'frameRangeUtil',
     'libUtil',
     'JSFLConstants',
-    'EaseCurve'
-], function (checkUtil, et, frUtil, libUtil, JSFLConstants, curve) {
+    'EaseCurve','FramesSelect'
+], function (checkUtil, et,  libUtil, JSFLConstants, curve, fms) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
@@ -38,6 +37,7 @@ require([
     // console.log('libUtil', libUtil);
     const { setTransformationPointWithCorner } = et;
     const { setClassicEaseCurve } = curve;
+    const {  SelectStartFms } = fms;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -117,7 +117,7 @@ require([
         KFrames();
 
         // 重置选中帧
-        frUtil.resetSelectedFrames(timeline, frs);
+        SelectStartFms(timeline, frs);
     }
 
     Main();

@@ -25,8 +25,9 @@ require([
     'checkUtil',
     'loglevel',
     'frameRangeUtil',
-    'JSFLConstants','FilterOperation'
-], function (checkUtil, log, frUtil, JSFLConstants,fo) {
+    'JSFLConstants',
+    'FilterOperation'
+], function (checkUtil, log, frUtil, JSFLConstants, fo) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { clearFilterAtFrame } = fo;
 

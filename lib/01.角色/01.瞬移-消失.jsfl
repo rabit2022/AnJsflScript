@@ -24,10 +24,11 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
 require([
     'checkUtil',
     'linqUtil',
-    'frameRangeUtil',
     'JSFLConstants',
-    'EaseCurve', 'ElementSelect','FilterOperation'
-], function(checkUtil, linqUtil,  frUtil, JSFLConstants, curve, es,fo) {
+    'EaseCurve',
+    'ElementSelect',
+    'FilterOperation','FramesSelect'
+], function (checkUtil, linqUtil, JSFLConstants, curve, es, fo, fms) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
@@ -39,6 +40,7 @@ require([
     const { setClassicEaseCurve } = curve;
     const { SelectAll, DeleteSelection } = es;
     const { addBlurFilterToFrame } = fo;
+    const {  SelectStartFms } = fms;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -84,13 +86,7 @@ require([
             var blurfilterframe = BLUR_FILTER_FRAMES[i];
             var blurY = BLUR_Y[i];
 
-           addBlurFilterToFrame(
-                firstLayer,
-                blurfilterframe,
-                MIN_BLUR,
-                blurY,
-                'high'
-            );
+            addBlurFilterToFrame(firstLayer, blurfilterframe, MIN_BLUR, blurY, 'high');
         }
 
         // 消失效果
@@ -117,7 +113,7 @@ require([
         setClassicEaseCurve(timeline);
 
         // 重置选中帧
-        frUtil.resetSelectedFrames(timeline, frs);
+        SelectStartFms(timeline, frs);
     }
 
     Main();

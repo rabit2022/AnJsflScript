@@ -21,7 +21,7 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'ElementSelect'], function(checkUtil, es) {
+require(['checkUtil', 'ElementSelect'], function (checkUtil, es) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
     const { SelectNone } = es;

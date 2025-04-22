@@ -21,13 +21,13 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'loglevel', 'LayerManager', 'frameRangeUtil'], function (
+require(['checkUtil', 'loglevel', 'LayerManager', 'KeyFrameQuery'], function(
     checkUtil,
     log,
-    LayerManager,
-    frUtil
+    LayerManager, kfq
 ) {
     const { CheckDom, CheckSelection } = checkUtil;
+    const { getKeyFrameRanges } = kfq;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!CheckDom(doc)) return;
@@ -61,7 +61,7 @@ require(['checkUtil', 'loglevel', 'LayerManager', 'frameRangeUtil'], function (
         // 2, 获取当前图层的关键帧列表
         // 注意，我发现每个关键帧上只能放一个音频,每次拖入新的音频时，都会添加新的关键帧 。
         // 所以这里只需要判断关键帧是否有音频即可。
-        var keyFrames = frUtil.getKeyFrameRanges(layers, curLayer);
+        var keyFrames = getKeyFrameRanges(layers, curLayer);
         if (!keyFrames) {
             console.info('当前图层没有关键帧');
             return;
@@ -72,7 +72,7 @@ require(['checkUtil', 'loglevel', 'LayerManager', 'frameRangeUtil'], function (
 
         // 3, 判断每一段关键帧是否有音频
         var soundObjs = {};
-        keyFrames.forEach(function (keyFrame) {
+        keyFrames.forEach(function(keyFrame) {
             var hasSound = LayerManager.hasSound(
                 curLayer,
                 keyFrame.startFrame,

@@ -26,8 +26,9 @@ require([
     'SAT',
     'satUtil',
     'xmlPanelUtil',
-    'random', 'ElementSelect'
-], function(checkUtil, sat, satUtil, xmlPanelUtil, random, es) {
+    'random',
+    'ElementSelect'
+], function (checkUtil, sat, satUtil, xmlPanelUtil, random, es) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
     const { Vector, Rectangle } = sat;
     const { wrapPosition, wrapTransform, wrapRectByCenter } = sat.GLOBALS;

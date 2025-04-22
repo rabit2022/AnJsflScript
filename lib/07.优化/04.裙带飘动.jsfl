@@ -29,7 +29,8 @@ require([
     'JSFLConstants',
     'frameRangeUtil',
     'EaseCurve',
-    'Tween','FramesSelect'
+    'Tween',
+    'FramesSelect'
 ], function (
     checkUtil,
     et,
@@ -47,7 +48,7 @@ require([
     const { setTransformationPointWithCorner } = et;
     const { setEaseCurve } = curve;
     const { createTween } = twn;
-    const {SelectAllFms}=fms;
+    const { SelectAllFms } = fms;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;

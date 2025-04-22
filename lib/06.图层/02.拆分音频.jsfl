@@ -21,8 +21,9 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'loglevel', 'frameRangeUtil'], function (checkUtil, log, frUtil) {
+require(['checkUtil', 'loglevel','FramesSelect'], function (checkUtil, log, fms) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
+    const {  SelectStartFms } = fms;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -104,7 +105,7 @@ require(['checkUtil', 'loglevel', 'frameRangeUtil'], function (checkUtil, log, f
         splitAudioAtFrame(firstFrameIndex, firstFrameDuration);
 
         // 重置选中帧
-        frUtil.resetSelectedFrames(timeline, frs);
+        SelectStartFms(timeline, frs);
     }
 
     Main();

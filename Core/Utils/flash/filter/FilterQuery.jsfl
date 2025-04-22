@@ -7,9 +7,7 @@
  * @description:
  */
 
-define(function() {
-
-
+define(function () {
     function getFilterByName(layer, frameIndex, filterName) {
         // 获取当前帧的滤镜数组，如果不存在则初始化为空数组
         var filters = layer.getFiltersAtFrame(frameIndex) || [];
@@ -20,9 +18,8 @@ define(function() {
             }
         }
         return null;
-    };
+    }
     return {
         getFilterByName: getFilterByName
     };
-
 });

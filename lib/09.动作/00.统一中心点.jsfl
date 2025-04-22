@@ -21,16 +21,17 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'ElementQuery', 'SAT','ElementSelect'], function (
+require(['checkUtil', 'ElementQuery', 'SAT', 'ElementSelect'], function (
     checkUtil,
     eq,
-    sat,es
+    sat,
+    es
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     var wrapPosition = sat.GLOBALS.wrapPosition;
-    const {getMaxRight}=eq;
-    const {OnlySelectCurrent}=es;
+    const { getMaxRight } = eq;
+    const { OnlySelectCurrent } = es;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;

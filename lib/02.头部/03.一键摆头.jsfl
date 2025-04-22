@@ -26,8 +26,9 @@ require([
     'promptUtil',
     'libUtil',
     'frameRangeUtil',
-    'JSFLConstants', 'FilterOperation'
-], function(checkUtil, promptUtil, libUtil, frUtil, JSFLConstants, fo) {
+    'JSFLConstants',
+    'FilterOperation'
+], function (checkUtil, promptUtil, libUtil, frUtil, JSFLConstants, fo) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     const { FRAME_1, FRAME_4, FRAME_6 } = JSFLConstants.Numerics.frame.frameList;

@@ -21,10 +21,10 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil','FramesSelect'], function (checkUtil, fms) {
+require(['checkUtil', 'FramesSelect'], function (checkUtil, fms) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
-    const {SelectNoneFms}=fms;
+    const { SelectNoneFms } = fms;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;

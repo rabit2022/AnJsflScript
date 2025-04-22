@@ -25,12 +25,14 @@ require([
     'checkUtil',
     'loglevel',
     'promptUtil',
-    'frameRangeUtil',
-    'JSFLConstants','FilterQuery','FilterOperation'
-], function (checkUtil, log, promptUtil,  frUtil, JSFLConstants,fq,fo) {
+    'JSFLConstants',
+    'FilterQuery',
+    'FilterOperation','FramesSelect'
+], function (checkUtil, log, promptUtil, JSFLConstants, fq, fo, fms) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
-    const {getFilterByName}=fq;
-    const {addFilterToFrame}=fo;
+    const { getFilterByName } = fq;
+    const { addFilterToFrame } = fo;
+    const {  SelectStartFms } = fms;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -69,10 +71,7 @@ require([
 
         doc.setInstanceAlpha(alpha);
 
-        if (
-            getFilterByName(curLayer, curFrameIndex, 'adjustColorFilter') ===
-            null
-        ) {
+        if (getFilterByName(curLayer, curFrameIndex, 'adjustColorFilter') === null) {
             log.info('没有找到调整颜色滤镜，添加一个');
 
             var adjustColorFilter = {
@@ -88,7 +87,7 @@ require([
         }
 
         // 重置选中帧
-        frUtil.resetSelectedFrames(timeline, frs);
+        SelectStartFms(timeline, frs);
     }
 
     Main();

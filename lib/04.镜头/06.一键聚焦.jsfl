@@ -21,11 +21,12 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'LayerQuery', 'satUtil', 'SAT', 'ElementSelect'], function(
+require(['checkUtil', 'LayerQuery', 'satUtil', 'SAT', 'ElementSelect'], function (
     checkUtil,
     lq,
     satUtil,
-    sat, es
+    sat,
+    es
 ) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
@@ -68,7 +69,7 @@ require(['checkUtil', 'LayerQuery', 'satUtil', 'SAT', 'ElementSelect'], function
         // 背景的边界
         var bgLayers = getLayersByName(layers, '背景');
         if (bgLayers.length < 1) {
-            fl.trace('找不到背景图层,必须包含\'背景\'关键字');
+            fl.trace("找不到背景图层,必须包含'背景'关键字");
             return;
         }
 

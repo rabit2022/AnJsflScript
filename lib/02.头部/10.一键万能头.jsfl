@@ -27,9 +27,9 @@ require([
     'libUtil',
     'SAT',
     'linqUtil',
-    'frameRangeUtil','ElementSelect'
-], function (checkUtil, promptUtil, libUtil, sat,  linqUtil,
-    frUtil,es) {
+    'frameRangeUtil',
+    'ElementSelect'
+], function (checkUtil, promptUtil, libUtil, sat, linqUtil, frUtil, es) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
 
@@ -38,7 +38,7 @@ require([
         wrapPosition = sat.GLOBALS.wrapPosition;
 
     var Range = linqUtil.range;
-    const {OnlySelectCurrent, SelectAll, DeleteSelection}=es;
+    const { OnlySelectCurrent, SelectAll, DeleteSelection } = es;
 
     var descriptions = {
         file: '10.一键万能头.jsfl',
