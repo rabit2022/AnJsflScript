@@ -26,7 +26,7 @@ define(['sprintf'], function (sp) {
      */
     function IsEmpty(value) {
         // 检查 null 或 undefined
-        if (value == null) return true;
+        if (value === null) return true;
 
         // 检查空字符串
         var STRING_BLACK = / \n\r\t/g;

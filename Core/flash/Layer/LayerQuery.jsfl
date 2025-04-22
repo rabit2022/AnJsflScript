@@ -86,6 +86,41 @@ define(function () {
         }
     }
 
+    // 静态方法：获取空白图层的索引列表
+    /**
+     * 获取空白图层的索引列表
+     * @param {Timeline} timeline 时间线对象
+     * @return {Array.<Number>} 空白图层的索引列表
+     * @see https://github.com/hufang360/FlashTool
+     */
+    function getEmptyLayers(timeline) {
+        const total = timeline.layers.length;
+        const emptyLayers = [];
+
+        for (var i = 0; i < total; i++) {
+            const layer = timeline.layers[i];
+            // 忽略特定名称的图层
+            if (IGNORE_LAYER_BY_NAME.test(layer.name)) {
+                continue;
+            }
+
+            if (FOLDER_TYPE.test(layer.layerType)) {
+                // 检查文件夹是否为空
+                if (LayerManager.isEmptyFolder(timeline, i)) {
+                    emptyLayers.push(i);
+                    i += LayerManager.countChild(timeline, i);
+                }
+            } else {
+                // 检查普通图层是否为空
+                if (IsLayerBlank(layer)) {
+                    emptyLayers.push(i);
+                }
+            }
+        }
+
+        return emptyLayers;
+    }
+
     return {
         getLayersIndexByName: getLayersIndexByName,
         getLayersByName: getLayersByName,

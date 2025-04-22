@@ -7,7 +7,10 @@
  * @description:
  */
 
-define(function () {
+define(['FUNC', 'FrameChecker'], function (FUNC, fc) {
+    const { SAFE_GET_MACRO } = FUNC;
+    const { IsFrameBlank } = fc;
+
     /**
      * 判断图层是否存在
      * @param {Array.<Layer>} layers 图层数组
@@ -46,8 +49,28 @@ define(function () {
         return false; // 没有声音对象
     }
 
+    /**
+     * 检查图层是否为空
+     * @param {Layer} layer 图层
+     * @returns {boolean} 是否为空
+     * @see https://github.com/hufang360/FlashTool
+     */
+    function IsLayerBlank(layer) {
+        var lastKF = layer.frames[layer.frames.length - 1].startFrame;
+
+        while (lastKF >= 0) {
+            if (!IsFrameBlank(layer.frames[lastKF])) {
+                return false;
+            }
+            // frameId = layer.frames[frameId - 1]?.startFrame || -1;
+            lastKF = SAFE_GET_MACRO(layer.frames[lastKF - 1], 'startFrame', -1);
+        }
+
+        return true;
+    }
     return {
         IsLayerExists: IsLayerExists,
-        hasSound: hasSound
+        hasSound: hasSound,
+        IsLayerBlank: IsLayerBlank
     };
 });
