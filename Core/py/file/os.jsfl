@@ -221,6 +221,60 @@ define(['loglevel', 'path-browserify'], function (log, path) {
         }
     };
 
+//     def makedirs(path, exist_ok=False):
+//     """
+//     使用 os.mkdir() 递归创建多级目录
+//         :param path: 要创建的目录路径
+//         :param exist_ok: 如果目录已存在，是否抛出异常。默认为 False。
+//     """
+// # 如果路径为空，直接返回
+//     if not path:
+//         return
+//
+// # 如果路径已存在，根据 exist_ok 参数决定是否抛出异常
+//     if os.path.exists(path):
+//     if not exist_ok:
+//         raise FileExistsError(f"目录已存在: {path}")
+//     return
+//
+// # 递归创建父目录
+//     parent_path = os.path.dirname(path)
+//     if parent_path and not os.path.exists(parent_path):
+//     makedirs(parent_path, exist_ok=exist_ok)
+//
+// # 创建当前目录
+//     os.mkdir(path)
+//     print(f"目录已创建: {path}")
+    /**
+     * 递归创建目录。
+     *
+     * @param {string} uri - 要创建的目录的路径。
+     * @param {boolean} [exist_ok=false] - 如果目录已存在，是否抛出异常。默认为 false。
+     */
+    OS.makedirs = function (uri, exist_ok) {
+        if (exist_ok === undefined) {
+            exist_ok = false;
+        }
+
+        const os = this;
+        // 如果路径已存在，根据 exist_ok 参数决定是否抛出异常
+        if (os.path.exists(uri)) {
+            if (!exist_ok) {
+                throw new Error('目录已存在:'+ uri);
+            }
+            return;
+        }
+        // 递归创建父目录
+        var parent_path = path.dirname(uri);
+        if (parent_path && !os.path.exists(parent_path)) {
+            this.makedirs(parent_path, exist_ok);
+        }
+        // 创建当前目录
+        os.mkdir(uri);
+        log.info('目录已创建:'+ uri);
+    };
+
+
     OS.rmdir = function (uri) {
         var success = FLfile.remove(uri);
         if (success) {
