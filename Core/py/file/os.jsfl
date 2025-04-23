@@ -33,14 +33,52 @@ define(['loglevel', 'path-browserify'], function (log, path) {
     OSPath.dirname = path.dirname;
     OSPath.exists = FLfile.exists;
     OSPath.isAbs = path.isAbsolute;
+    /**
+     * 判断指定路径是否是文件
+     * @param {string} uri 文件或文件夹的 URI
+     * @return {boolean} 如果路径是文件，返回 true；否则返回 false
+     */
     OSPath.isfile = function (uri) {
-        var [root, ext] = this.splitext(uri);
-        return ext.length > 0;
+        // 获取路径的最后一部分（文件名或文件夹名）
+        var name = uri.substring(uri.lastIndexOf('/') + 1);
+        // 获取文件夹路径
+        var folderURI = uri.substring(0, uri.lastIndexOf('/'));
+
+        // 如果路径是根目录，直接返回 false
+        if (folderURI === uri) {
+            return false;
+        }
+
+        // 获取文件夹中的所有文件
+        var fileList = FLfile.listFolder(folderURI, "files");
+
+        // 检查文件列表中是否包含指定的文件名
+        return fileList && fileList.indexOf(name) !== -1;
     };
+
+    /**
+     * 判断指定路径是否是文件夹
+     * @param {string} uri 文件或文件夹的 URI
+     * @return {boolean} 如果路径是文件夹，返回 true；否则返回 false
+     */
     OSPath.isdir = function (uri) {
-        var [root, ext] = this.splitext(uri);
-        return ext.length === 0;
+        // 获取路径的最后一部分（文件名或文件夹名）
+        var name = uri.substring(uri.lastIndexOf('/') + 1);
+        // 获取文件夹路径
+        var folderURI = uri.substring(0, uri.lastIndexOf('/'));
+
+        // 如果路径是根目录，直接返回 true
+        if (folderURI === uri) {
+            return true;
+        }
+
+        // 获取文件夹中的所有文件夹
+        var folderList = FLfile.listFolder(folderURI, "directories");
+
+        // 检查文件夹列表中是否包含指定的文件夹名
+        return folderList && folderList.indexOf(name) !== -1;
     };
+
 
     /**
      * 规范路径的大小写。

@@ -117,6 +117,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           return _createClass(FolderTraverser, [{
             key: "traverseFolder",
             value: function traverseFolder(currentPath, filePaths) {
+              // console.log("Traversing "+currentPath+"..."+filePaths.length);
               var currentDepth = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
               // 检查是否超过最大深度
               if (this.maxDepth !== -1 && currentDepth > this.maxDepth) {

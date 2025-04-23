@@ -10,13 +10,13 @@ module.exports = {
     mode: 'development',
     devtool: 'source-map',
     externals: [
-        "os"
+        'os'
     ], // 外部依赖排除
     // 其他配置...
     resolve: {
         fallback: {
             path: false,
-            fs: false, // 如果你不需要 polyfill `fs`，可以设置为 `false`
-        },
-    },
+            fs: false // 如果你不需要 polyfill `fs`，可以设置为 `false`
+        }
+    }
 };

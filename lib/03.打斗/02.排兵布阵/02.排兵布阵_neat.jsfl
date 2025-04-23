@@ -90,11 +90,7 @@ require(['checkUtil', 'xmlPanelUtil', 'MoreElement'], function (
         var verticalSpacing = config.verticalSpacing;
 
         var firstElement = selection[0];
-        var me = new MoreElement(
-            firstElement,
-            horizontalSpacing,
-            verticalSpacing
-        );
+        var me = new MoreElement(firstElement, horizontalSpacing, verticalSpacing);
 
         for (var i = 0; i < horizontalCount; i++) {
             for (var j = 0; j < verticalCount; j++) {

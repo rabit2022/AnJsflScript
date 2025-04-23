@@ -121,11 +121,7 @@ require([
             horizontalCount = content_2d[0].length,
             verticalCount = content_2d.length;
 
-        var me = new MoreElement(
-            firstElement,
-            horizontalSpacing,
-            verticalSpacing
-        );
+        var me = new MoreElement(firstElement, horizontalSpacing, verticalSpacing);
         doc.clipCopy();
 
         for (var i = 0; i < horizontalCount; i++) {
