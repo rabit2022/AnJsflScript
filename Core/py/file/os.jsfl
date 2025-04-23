@@ -221,30 +221,7 @@ define(['loglevel', 'path-browserify'], function (log, path) {
         }
     };
 
-//     def makedirs(path, exist_ok=False):
-//     """
-//     使用 os.mkdir() 递归创建多级目录
-//         :param path: 要创建的目录路径
-//         :param exist_ok: 如果目录已存在，是否抛出异常。默认为 False。
-//     """
-// # 如果路径为空，直接返回
-//     if not path:
-//         return
-//
-// # 如果路径已存在，根据 exist_ok 参数决定是否抛出异常
-//     if os.path.exists(path):
-//     if not exist_ok:
-//         raise FileExistsError(f"目录已存在: {path}")
-//     return
-//
-// # 递归创建父目录
-//     parent_path = os.path.dirname(path)
-//     if parent_path and not os.path.exists(parent_path):
-//     makedirs(parent_path, exist_ok=exist_ok)
-//
-// # 创建当前目录
-//     os.mkdir(path)
-//     print(f"目录已创建: {path}")
+
     /**
      * 递归创建目录。
      *
