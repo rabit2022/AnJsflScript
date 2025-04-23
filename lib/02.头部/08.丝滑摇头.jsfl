@@ -30,7 +30,7 @@ require([
     'EaseCurve',
     'FramesSelect',
     'KeyFrameOperation'
-], function (checkUtil, xmlPanelUtil,sng, satUtil, JSFLConstants, curve, fms, kfo) {
+], function (checkUtil, xmlPanelUtil, sng, satUtil, JSFLConstants, curve, fms, kfo) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
     const { getShakeHeadTrPoint } = satUtil;

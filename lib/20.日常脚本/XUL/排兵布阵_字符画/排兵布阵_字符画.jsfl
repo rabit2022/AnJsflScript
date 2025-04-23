@@ -121,7 +121,7 @@ require([
             horizontalCount = content_2d[0].length,
             verticalCount = content_2d.length;
 
-        var moreElement = new MoreElement(
+        var me = new MoreElement(
             firstElement,
             horizontalSpacing,
             verticalSpacing
@@ -137,7 +137,7 @@ require([
 
                 var character = content_2d[j][i];
                 if (character === '#') {
-                    var nextPoint = moreElement.NeatOffset(i, j);
+                    var nextPoint = me.NeatOffset(i, j);
 
                     // 复制粘贴
                     doc.clipPaste();

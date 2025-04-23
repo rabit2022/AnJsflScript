@@ -21,14 +21,14 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'loglevel', 'SymbolNameGenerator', 'os', 'sprintf', 'selectionUtil'], function (
-    checkUtil,
-    log,
-    sng,
-    os,
-    { sprintf },
-    selectionUtil
-) {
+require([
+    'checkUtil',
+    'loglevel',
+    'SymbolNameGenerator',
+    'os',
+    'sprintf',
+    'selectionUtil'
+], function (checkUtil, log, sng, os, { sprintf }, selectionUtil) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
     const { SelectAll } = selectionUtil;
     const { generateNameUntilUnique, generateNameUseLast } = sng;

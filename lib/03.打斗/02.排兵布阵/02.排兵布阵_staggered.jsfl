@@ -21,7 +21,7 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'xmlPanelUtil', 'moreElement'], function (
+require(['checkUtil', 'xmlPanelUtil', 'MoreElement'], function (
     checkUtil,
     xmlPanelUtil,
     MoreElement
@@ -90,7 +90,7 @@ require(['checkUtil', 'xmlPanelUtil', 'moreElement'], function (
         var verticalSpacing = config.verticalSpacing;
 
         var firstElement = selection[0];
-        var moreElement = new MoreElement(
+        var me = new MoreElement(
             firstElement,
             horizontalSpacing,
             verticalSpacing
@@ -102,7 +102,7 @@ require(['checkUtil', 'xmlPanelUtil', 'moreElement'], function (
                     continue;
                 }
 
-                var nextPoint = moreElement.StaggeredOffset(i, j);
+                var nextPoint = me.StaggeredOffset(i, j);
 
                 // 复制粘贴
                 doc.clipCopy();

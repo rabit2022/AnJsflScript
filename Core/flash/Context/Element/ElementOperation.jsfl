@@ -12,15 +12,15 @@ define([
     'LayerOperation',
     'LayerQuery',
     'ElementSelect',
-    'satUtil', 'SymbolNameGenerator'
-], function(ec, lo, lq, es, satUtil, sng) {
+    'satUtil',
+    'SymbolNameGenerator'
+], function (ec, lo, lq, es, satUtil, nameGenerator) {
     const { IsSymbol } = ec;
     const { deleteLayers } = lo;
     const { getLayersIndexByName } = lq;
     const { SelectAll, OnlySelectCurrent, SelectNone } = es;
     const { splitRectangle } = satUtil;
-    const { generateNameUntilUnique, generateNameUseLast } = sng;
-    const libUtil = sng;
+    const { generateNameUntilUnique, generateNameUseLast } = nameGenerator;
 
     /**
      *  复制元件
@@ -116,7 +116,7 @@ define([
 
         doc.breakApart();
 
-        library.deleteItem(libUtil.LastName);
+        library.deleteItem(nameGenerator.LastName);
     }
 
     /**
@@ -144,7 +144,7 @@ define([
             while (true) {
                 SelectAll();
 
-                var groups_and_symbols = doc.selection.filter(function(item) {
+                var groups_and_symbols = doc.selection.filter(function (item) {
                     return (
                         (ElementChecker.IsGroup(item) || ElementChecker.IsSymbol(item)) &&
                         // effects:为了效果，必须排除影片剪辑，这样会有部分素材，有透明度的素材，不会石化，更加真实。
@@ -172,7 +172,7 @@ define([
 
         doc.breakApart();
 
-        library.deleteItem(libUtil.LastName);
+        library.deleteItem(nameGenerator.LastName);
     }
 
     /**
@@ -215,13 +215,13 @@ define([
             splitRectangle(elementSize);
         log.info(
             'blockWidth:' +
-            blockWidth +
-            ' blockHeight:' +
-            blockHeight +
-            ' blockCountX:' +
-            blockCountX +
-            ' blockCountY:' +
-            blockCountY
+                blockWidth +
+                ' blockHeight:' +
+                blockHeight +
+                ' blockCountX:' +
+                blockCountX +
+                ' blockCountY:' +
+                blockCountY
         );
 
         var moreElement = new MoreElement({

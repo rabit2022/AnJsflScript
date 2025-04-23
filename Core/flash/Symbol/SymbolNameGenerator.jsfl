@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['random', 'sprintf'], function(random, sp) {
+define(['random', 'sprintf'], function (random, sp) {
     const sprintf = sp.sprintf;
     /**
      * 添加在 name 后面的随机数的位数，保证名称的唯一性。
@@ -31,13 +31,11 @@ define(['random', 'sprintf'], function(random, sp) {
 
         var num = random.randint(1, 999);
         return num.toString().padStart(digits, '0');
-    };
-
-    function SymbolNameGenerator() {
     }
 
-    SymbolNameGenerator.LastName = '';
+    function SymbolNameGenerator() {}
 
+    SymbolNameGenerator.LastName = '';
 
     /**
      * 查找是否有重复名称
@@ -45,7 +43,7 @@ define(['random', 'sprintf'], function(random, sp) {
      * @returns {boolean} 是否有重复名称
      * @private
      */
-    SymbolNameGenerator.findDuplicateNameInLib = function(baseName) {
+    SymbolNameGenerator.findDuplicateNameInLib = function (baseName) {
         var doc = fl.getDocumentDOM(); //文档
         var library = doc.library; //库文件
         var items = library.items;
@@ -64,7 +62,7 @@ define(['random', 'sprintf'], function(random, sp) {
      * @param {string} baseName - 用于生成唯一名称的基础字符串。
      * @returns {string} 返回一个唯一的名称。
      */
-    SymbolNameGenerator.generateNameUntilUnique = function(baseName) {
+    SymbolNameGenerator.generateNameUntilUnique = function (baseName) {
         lastCount = getPaddingNum();
         var name = baseName + '' + lastCount;
 
@@ -95,7 +93,7 @@ define(['random', 'sprintf'], function(random, sp) {
      * @param {string} baseName - 用于生成唯一名称的基础字符串。
      * @returns {string} 返回一个唯一的名称。
      */
-    SymbolNameGenerator.generateNameUseLast = function(baseName) {
+    SymbolNameGenerator.generateNameUseLast = function (baseName) {
         var name = baseName + '' + lastCount;
         while (this.findDuplicateNameInLib(name)) {
             var info0 = sprintf('lastCount:%s 重复了！', lastCount);

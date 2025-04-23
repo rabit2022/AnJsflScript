@@ -21,20 +21,20 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'loglevel', 'frameRangeUtil', 'LayerChecker'], function (
-    checkUtil,
-    log,
-    frUtil,
-    lc
-) {
+require([
+    'checkUtil',
+    'loglevel',
+    'LayerChecker',
+    'KeyFrameQuery',
+    'KeyFrameOperation',
+    'FramesSelect'
+], function (checkUtil, log, lc, kfq, kfo, fms) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
-    // getSelectedLayers
-    const {
-        getSelectedLayers,
-        getKeyFrames,
-        convertToKeyframesSafety,
-        resetSelectedFrames
-    } = frUtil;
+
+    const { getKeyFrames } = kfq;
+    const { convertToKeyframesSafety } = kfo;
+    const { SelectStartFms } = fms;
+
     const { hasSound } = lc;
 
     // region doc
@@ -133,7 +133,7 @@ require(['checkUtil', 'loglevel', 'frameRangeUtil', 'LayerChecker'], function (
     }
 
     function Main() {
-        var selectedLayers = getSelectedLayers(timeline);
+        var selectedLayers = timeline.getSelectedLayers(); // 选中的图层
         // 检查选择的元件
         if (!CheckSelection(selectedLayers, 'selectLayer', 'Only two')) return;
 
@@ -156,7 +156,7 @@ require(['checkUtil', 'loglevel', 'frameRangeUtil', 'LayerChecker'], function (
 
         // 4,结尾
         // 重置选中帧
-        resetSelectedFrames(timeline, frs);
+        SelectStartFms(timeline, frs);
     }
 
     Main();

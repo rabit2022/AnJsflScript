@@ -205,7 +205,6 @@ require([
             setClassicEaseCurve(timeline);
 
             // // 重置选中帧
-            // frUtil.resetSelectedFrames(timeline, frs);
         }
 
         // 复制图层

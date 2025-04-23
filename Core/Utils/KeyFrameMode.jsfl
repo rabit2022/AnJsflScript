@@ -17,15 +17,15 @@
  * });
  */
 
-define(['checkUtil', 'loglevel', 'frameRange', 'frameRangeUtil'], function (
+define(['checkUtil', 'loglevel', 'frameRange', 'KeyFrameQuery'], function (
     checkUtil,
     log,
     FrameRange,
-    frUtil
+    kfq
 ) {
     // const { getSplitFrsFromSl, groupByLayerIndex } = frUtil;
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
-    const { getKeyFrameRanges } = frUtil;
+    const { getKeyFrameRanges } = kfq;
 
     // region doc
     var doc = CheckDom(); //文档

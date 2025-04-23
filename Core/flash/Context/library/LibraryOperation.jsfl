@@ -7,9 +7,7 @@
  * @description:
  */
 
-
-define(function() {
-
+define(function () {
     /**
      * 为库中的元件添加前缀
      * @param {string} prefix 前缀
@@ -17,11 +15,11 @@ define(function() {
      */
     function libRename(prefix) {
         var doc = fl.getDocumentDOM(); //文档
-        const library = doc.library;//库
+        const library = doc.library; //库
 
         var counter = 1;
         for (var folder in library) {
-            library[folder].forEach(function(item) {
+            library[folder].forEach(function (item) {
                 if (item.itemType !== 'folder') {
                     item.name = prefix + '-' + counter++;
                 }
@@ -29,7 +27,7 @@ define(function() {
         }
 
         alert('库元件重命名完成，共处理了 ' + (counter - 1) + ' 个项目');
-    };
+    }
 
     /**
      * 替换库中选中元件的名称
@@ -39,7 +37,7 @@ define(function() {
      */
     function libReplace(searchStr, replaceStr) {
         var doc = fl.getDocumentDOM(); //文档
-        const library = doc.library;//库
+        const library = doc.library; //库
         const libSelection = library.getSelectedItems();
 
         if (!libSelection || libSelection.length === 0) {
@@ -60,7 +58,7 @@ define(function() {
         // }
 
         var failedItems = [];
-        libSelection.forEach(function(item) {
+        libSelection.forEach(function (item) {
             const originalName = item.name;
             const newName = originalName.replace(searchStr, replaceStr);
 
@@ -72,14 +70,11 @@ define(function() {
         });
 
         if (failedItems.length > 0) {
-            alert(
-                '部分元件名替换后会有重名情况，故未命名：\n' + failedItems.join('、')
-            );
+            alert('部分元件名替换后会有重名情况，故未命名：\n' + failedItems.join('、'));
         } else {
             alert('替换完成！');
         }
-    };
-
+    }
 
     /**
      * 按类型整理库
@@ -88,7 +83,7 @@ define(function() {
      */
     function Organize() {
         var doc = fl.getDocumentDOM(); //文档
-        const library = doc.library;//库
+        const library = doc.library; //库
 
         const confirmResult = confirm(
             '本操作具有一定风险，使用后请检查动画是否正常\n点击取消则取消本操作！'
@@ -134,19 +129,19 @@ define(function() {
         }
 
         // 创建文件夹并移动项目
-        folderNames.forEach(function(folderName) {
+        folderNames.forEach(function (folderName) {
             if (!library.getFolderByName(folderName)) {
                 library.newFolder(folderName);
             }
         });
 
-        Object.entries(itemTypeMap).forEach(function(entry) {
-            const folderName = folderNames.find(function(name) {
+        Object.entries(itemTypeMap).forEach(function (entry) {
+            const folderName = folderNames.find(function (name) {
                 return name.toLowerCase().includes(type);
             });
             if (folderName && items.length > 0) {
                 // for (const item of items) {
-                items.forEach(function(item) {
+                items.forEach(function (item) {
                     library.selectItem(item.name);
                     library.moveToFolder(folderName);
                 });
@@ -154,7 +149,7 @@ define(function() {
         });
 
         // 清理空文件夹
-        library.items.forEach(function(folder) {
+        library.items.forEach(function (folder) {
             if (folder.itemType === 'folder' && folder.items.length === 0) {
                 try {
                     library.selectItem(folder.name);
@@ -166,7 +161,7 @@ define(function() {
         });
 
         alert('库整理完成！');
-    };
+    }
 
     return {
         libRename: libRename,

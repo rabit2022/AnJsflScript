@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(function() {
+define(function () {
     //设置根据曾名称要忽略的层
     /**
      * @description: 根据名称忽略的层

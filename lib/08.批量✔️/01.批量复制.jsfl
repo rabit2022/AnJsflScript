@@ -65,9 +65,9 @@ require(['checkUtil', 'moreElement', 'ElementSelect'], function (
             // 选中当前元件
             OnlySelectCurrent(element);
 
-            var moreElement = new MoreElement(element);
+            var me = new MoreElement(element);
             // print("moreElement"+moreElement.toString())
-            moreElements.push(moreElement);
+            moreElements.push(me);
         }
 
         // 复制元件

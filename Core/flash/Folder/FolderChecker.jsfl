@@ -7,8 +7,7 @@
  * @description:
  */
 
-
-define(['LayerHierarchy', 'FolderQuery', 'LayerChecker'], function(lh, fq, lc, fc) {
+define(['LayerHierarchy', 'FolderQuery', 'LayerChecker'], function (lh, fq, lc, fc) {
     const { countChild } = lh;
     const { IGNORE_LAYER_BY_NAME, FOLDER_TYPE } = fq;
     const { IsLayerBlank } = lc;
@@ -48,10 +47,9 @@ define(['LayerHierarchy', 'FolderQuery', 'LayerChecker'], function(lh, fq, lc, f
         }
 
         return true;
-    };
+    }
 
     return {
         IsEmptyFolder: IsEmptyFolder
     };
-
 });

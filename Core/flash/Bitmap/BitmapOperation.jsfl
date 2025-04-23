@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(function() {
+define(function () {
     /**
      * 设置选中的位图元件为无损压缩
      * @param {Array.<Item>} libSelection 选中的位图元件数组
@@ -24,7 +24,7 @@ define(function() {
         // }
 
         var count = 0;
-        libSelection.forEach(function(item) {
+        libSelection.forEach(function (item) {
             if (item.itemType === 'bitmap') {
                 item.allowSmoothing = false;
                 item.compressionType = 'lossless';
@@ -37,7 +37,7 @@ define(function() {
         } else {
             alert('已设置' + count + '个位图元件为无损压缩');
         }
-    };
+    }
 
     return {
         BitmapLossless: BitmapLossless

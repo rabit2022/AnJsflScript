@@ -21,7 +21,7 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'xmlPanelUtil', 'SymbolNameGenerator', 'SAT'], function(
+require(['checkUtil', 'xmlPanelUtil', 'SymbolNameGenerator', 'SAT'], function (
     checkUtil,
     xmlPanelUtil,
     sng,

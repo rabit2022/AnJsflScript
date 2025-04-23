@@ -32,7 +32,7 @@ require([
 
     const { FRAME_4, FRAME_6 } = JSFLConstants.Numerics.frame.frameList;
     const { convertToKeyframesSafety } = kfo;
-    const { generateNameUntilUnique} = sng;
+    const { generateNameUntilUnique } = sng;
 
     var descriptions = {
         file: '00.一键摇头.jsfl',

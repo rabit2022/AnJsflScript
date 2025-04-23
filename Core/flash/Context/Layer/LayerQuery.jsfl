@@ -7,7 +7,12 @@
  * @description:
  */
 
-define(['FolderQuery', 'LayerHierarchy', 'FolderChecker', 'LayerChecker'], function(fq, lh, fc, lc) {
+define(['FolderQuery', 'LayerHierarchy', 'FolderChecker', 'LayerChecker'], function (
+    fq,
+    lh,
+    fc,
+    lc
+) {
     const { IGNORE_LAYER_BY_NAME, FOLDER_TYPE } = fq;
     const { countChild } = lh;
     const { IsEmptyFolder } = fc;
@@ -90,7 +95,6 @@ define(['FolderQuery', 'LayerHierarchy', 'FolderChecker', 'LayerChecker'], funct
             return layer;
         }
     }
-
 
     // 静态方法：获取空白图层的索引列表
     /**

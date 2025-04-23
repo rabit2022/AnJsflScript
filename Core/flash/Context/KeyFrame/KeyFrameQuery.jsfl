@@ -7,7 +7,9 @@
  * @description:
  */
 
-define(function () {
+define(['SAT'], function (SAT) {
+    const { FrameRange } = SAT;
+
     /**
      * 获取选中元件的帧范围
      * @param {number[]} selectedFrames 选中帧数组 [layerIndex, startFrame, endFrame]
@@ -35,6 +37,7 @@ define(function () {
     /**
      * 获取选中元件的帧范围
      * var selectedFrames = timeline.getSelectedFrames();
+     * @param {Timeline} timeline 时间线
      * @return {FrameRange[]} 帧范围数组
      */
     function getSelectedFrs(timeline) {

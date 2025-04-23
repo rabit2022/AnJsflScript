@@ -217,6 +217,34 @@ export class Transform extends TransformLike {
     static toString(): string;
 }
 
+/**
+ * 帧范围类
+ * 左闭右开区间 [startFrame, endFrame)
+ */
+export class FrameRange {
+    layerIndex: number;
+    startFrame: number;
+    endFrame: number;
+
+    readonly duration: number;
+
+    constructor(layerIndex: number, startFrame: number, endFrame: number);
+
+    intersects(other: FrameRange): boolean;
+
+    clone(): FrameRange;
+
+    copy(other: FrameRange): void;
+
+    contain(fr2: FrameRange): boolean;
+
+    toArray(): [number, number, number];
+
+    toString(): string;
+
+    static toString(): string;
+}
+
 export namespace GLOBALS {
     export function wrapPosition(element: VectorLike | Element | Vector): Vector;
 

@@ -22,14 +22,14 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'loglevel', 'frameRangeUtil', 'curveUtil'], function (
+require(['checkUtil', 'loglevel', 'KeyFrameChecker', 'curveUtil'], function (
     checkUtil,
     log,
-    frUtil,
+    kfc,
     curveUtil
 ) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
-    const { IsKeyFrame } = frUtil;
+    const { IsKeyFrame } = kfc;
     const { createTweenIntelligent } = curveUtil;
 
     var doc = fl.getDocumentDOM(); //文档
