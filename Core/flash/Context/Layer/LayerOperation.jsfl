@@ -7,8 +7,8 @@
  * @description:
  */
 
-define(['LayerQuery'], function (lq) {
-    const { convertToLayerIndex } = lq;
+define(['LayerQuery'], function(lq) {
+    const { convertToLayerIndex, getEmptyLayers } = lq;
 
     /**
      * 删除 图层
@@ -67,8 +67,32 @@ define(['LayerQuery'], function (lq) {
         );
     }
 
+
+    /**
+     * 清除空白图层
+     * @see https://github.com/hufang360/FlashTool
+     */
+    function clearEmptyLayers() {
+        var doc = fl.getDocumentDOM(); //文档
+        var timeline = doc.getTimeline(); //时间轴
+
+        const emptyLayers = getEmptyLayers(timeline);
+        // fl.outputPanel.clear();
+        // doc.save();
+
+        emptyLayers.reverse();
+        emptyLayers.forEach(function(layerIndex) {
+            timeline.deleteLayer(layerIndex);
+        });
+
+        // alert(`已删除 ${emptyLayers.length} 个空白图层`);
+        console.info('已删除 %d 个空白图层', emptyLayers.length);
+    };
+
+
     return {
         deleteLayers: deleteLayers,
-        swapLayers: swapLayers
+        swapLayers: swapLayers,
+        clearEmptyLayers: clearEmptyLayers
     };
 });

@@ -21,16 +21,17 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'loglevel', 'libUtil', 'os', 'sprintf', 'selectionUtil'], function (
+require(['checkUtil', 'loglevel', 'SymbolNameGenerator', 'os', 'sprintf', 'selectionUtil'], function (
     checkUtil,
     log,
-    libUtil,
+    sng,
     os,
     { sprintf },
     selectionUtil
 ) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
     const { SelectAll } = selectionUtil;
+    const { generateNameUntilUnique, generateNameUseLast } = sng;
 
     const doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -135,7 +136,7 @@ require(['checkUtil', 'loglevel', 'libUtil', 'os', 'sprintf', 'selectionUtil'], 
         // 2,解密链接，获取资源url
         // 3,调用命令行工具下载.fla文件资源，到本地缓存目录
         // var imageUrl = 'https://img.soogif.com/RTKInXlfxFwm13iuWK5CgekAUfNQMH75.gif';
-        // var imageName = libUtil.generateNameUntilUnique('image_') + '.png';
+        // var imageName = generateNameUntilUnique('image_') + '.png';
         // var localPath = FLfile.uriToPlatformPath(os.path.join(LOCAL_CACHE_PATH, imageName));
         //
         // log.info('imageUrl = ' + imageUrl);

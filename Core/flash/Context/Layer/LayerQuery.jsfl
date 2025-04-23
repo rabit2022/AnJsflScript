@@ -7,7 +7,12 @@
  * @description:
  */
 
-define(function () {
+define(['FolderQuery', 'LayerHierarchy', 'FolderChecker', 'LayerChecker'], function(fq, lh, fc, lc) {
+    const { IGNORE_LAYER_BY_NAME, FOLDER_TYPE } = fq;
+    const { countChild } = lh;
+    const { IsEmptyFolder } = fc;
+    const { IsLayerBlank } = lc;
+
     /**
      * 获取包含指定名称的图层或其索引
      * @param {Array.<Layer>} layers 图层数组
@@ -86,6 +91,7 @@ define(function () {
         }
     }
 
+
     // 静态方法：获取空白图层的索引列表
     /**
      * 获取空白图层的索引列表
@@ -106,9 +112,9 @@ define(function () {
 
             if (FOLDER_TYPE.test(layer.layerType)) {
                 // 检查文件夹是否为空
-                if (LayerManager.isEmptyFolder(timeline, i)) {
+                if (IsEmptyFolder(timeline, i)) {
                     emptyLayers.push(i);
-                    i += LayerManager.countChild(timeline, i);
+                    i += countChild(timeline, i);
                 }
             } else {
                 // 检查普通图层是否为空
@@ -125,6 +131,7 @@ define(function () {
         getLayersIndexByName: getLayersIndexByName,
         getLayersByName: getLayersByName,
         convertToLayerIndex: convertToLayerIndex,
-        convertToLayer: convertToLayer
+        convertToLayer: convertToLayer,
+        getEmptyLayers: getEmptyLayers
     };
 });

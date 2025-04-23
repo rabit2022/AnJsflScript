@@ -21,11 +21,11 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'libUtil', 'SAT'], function (checkUtil, libUtil, sat) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
-    var Vector = sat.Vector,
-        Rectangle = sat.Rectangle;
+require(['checkUtil', 'SymbolNameGenerator', 'SAT'], function (checkUtil, sng, sat) {
+    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
+
+    const { Vector, Rectangle } = sat;
+    const { generateNameUntilUnique, generateNameUseLast } = sng;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -120,7 +120,7 @@ require(['checkUtil', 'libUtil', 'SAT'], function (checkUtil, libUtil, sat) {
         library.addItemToDocument(stageCenter.toObj(), selectedPics[0].name);
 
         // 转为元件
-        var symbol_name = libUtil.generateNameUntilUnique(NEW_SYMBOL_NAME);
+        var symbol_name = generateNameUntilUnique(NEW_SYMBOL_NAME);
         doc.convertToSymbol('graphic', symbol_name, 'center');
 
         KFrames(selectedPics);

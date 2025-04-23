@@ -63,4 +63,8 @@ define(['LayerQuery'], function (lq) {
 
         return IsMyChild(timeline, father, child.parentLayer);
     }
+    return {
+        countChild: countChild,
+        IsMyChild: IsMyChild
+    };
 });

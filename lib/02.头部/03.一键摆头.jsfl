@@ -24,16 +24,17 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
 require([
     'checkUtil',
     'promptUtil',
-    'libUtil',
+    'SymbolNameGenerator',
     'JSFLConstants',
     'FilterOperation',
     'KeyFrameOperation'
-], function (checkUtil, promptUtil, libUtil, JSFLConstants, fo, kfo) {
+], function (checkUtil, promptUtil, sng, JSFLConstants, fo, kfo) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     const { FRAME_1, FRAME_4, FRAME_6 } = JSFLConstants.Numerics.frame.frameList;
     const { addBlurFilterToFrame } = fo;
     const { convertToKeyframesSafety } = kfo;
+    const { generateNameUntilUnique, generateNameUseLast } = sng;
 
     var descriptions = {
         file: '03.一键摆头.jsfl',
@@ -109,7 +110,7 @@ require([
         // var element=selection[0];
         doc.group();
 
-        var symbolName = libUtil.generateNameUntilUnique('一键摆头_');
+        var symbolName = generateNameUntilUnique('一键摆头_');
         doc.convertToSymbol('graphic', symbolName, 'center');
 
         KFrames(blurFilterForce);

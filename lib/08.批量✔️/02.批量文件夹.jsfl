@@ -21,9 +21,9 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'libUtil'], function (checkUtil, libUtil) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
+require(['checkUtil', 'SymbolNameGenerator'], function (checkUtil, sng) {
+    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
+    const { findDuplicateNameInLib } = sng;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -63,7 +63,7 @@ require(['checkUtil', 'libUtil'], function (checkUtil, libUtil) {
 
         for (var i = 0; i < folderNames.length; i++) {
             var folderName = folderNames[i];
-            if (!libUtil.findDuplicateNameInLib(folderName)) {
+            if (!findDuplicateNameInLib(folderName)) {
                 library.newFolder(folderName);
             }
         }

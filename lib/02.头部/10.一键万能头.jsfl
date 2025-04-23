@@ -24,12 +24,12 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
 require([
     'checkUtil',
     'promptUtil',
-    'libUtil',
+    'SymbolNameGenerator',
     'SAT',
     'linqUtil',
     'ElementSelect',
     'KeyFrameOperation'
-], function (checkUtil, promptUtil, libUtil, sat, linqUtil, es, kfo) {
+], function (checkUtil, promptUtil, sng, sat, linqUtil, es, kfo) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
     const { Rectangle } = sat;
@@ -38,6 +38,7 @@ require([
     const { $range: Range } = linqUtil;
     const { OnlySelectCurrent, SelectAll, DeleteSelection } = es;
     const { convertToKeyframesSafety } = kfo;
+    const { generateNameUntilUnique, generateNameUseLast } = sng;
 
     var descriptions = {
         file: '10.一键万能头.jsfl',
@@ -110,7 +111,7 @@ require([
 
         OnlySelectCurrent(Important_element);
 
-        var symbolName = libUtil.generateNameUntilUnique('一键万能头_');
+        var symbolName = generateNameUntilUnique('一键万能头_');
         doc.convertToSymbol('graphic', symbolName, 'center');
 
         Important_element = doc.selection[0];

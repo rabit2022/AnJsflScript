@@ -7,17 +7,18 @@
  * @description:
  */
 
-define(['random', 'sprintf'], function (random, sp) {
+define(['random', 'sprintf'], function(random, sp) {
     const sprintf = sp.sprintf;
     /**
      * 添加在 name 后面的随机数的位数，保证名称的唯一性。
      * @type {number}
      */
     var PAD_DIGITS = 3;
-
-    function LibUtil() {}
-
-    LibUtil.LastName = '';
+    /**
+     * 记录上一次生成的随机数，用于生成唯一名称。
+     * @type {string}
+     */
+    var lastCount = '000';
 
     /**
      * 获取随机3位数字的字符串,不够的地方用0补齐
@@ -25,19 +26,18 @@ define(['random', 'sprintf'], function (random, sp) {
      * @return {string} 随机3位数字的字符串
      * @private
      */
-    LibUtil.getPaddingNum = function (digits) {
+    function getPaddingNum(digits) {
         if (digits === undefined) digits = PAD_DIGITS;
 
         var num = random.randint(1, 999);
         return num.toString().padStart(digits, '0');
     };
 
-    /**
-     * 记录上一次生成的随机数，用于生成唯一名称。
-     * @type {string}
-     * @private
-     */
-    LibUtil.lastCount = '000';
+    function SymbolNameGenerator() {
+    }
+
+    SymbolNameGenerator.LastName = '';
+
 
     /**
      * 查找是否有重复名称
@@ -45,10 +45,11 @@ define(['random', 'sprintf'], function (random, sp) {
      * @returns {boolean} 是否有重复名称
      * @private
      */
-    LibUtil.findDuplicateNameInLib = function (baseName) {
-        var library = fl.getDocumentDOM().library;
-
+    SymbolNameGenerator.findDuplicateNameInLib = function(baseName) {
+        var doc = fl.getDocumentDOM(); //文档
+        var library = doc.library; //库文件
         var items = library.items;
+
         for (var i = 0; i < items.length; i++) {
             if (items[i].name === baseName) {
                 return true;
@@ -63,14 +64,14 @@ define(['random', 'sprintf'], function (random, sp) {
      * @param {string} baseName - 用于生成唯一名称的基础字符串。
      * @returns {string} 返回一个唯一的名称。
      */
-    LibUtil.generateNameUntilUnique = function (baseName) {
-        this.lastCount = this.getPaddingNum();
-        var name = baseName + '' + this.lastCount;
+    SymbolNameGenerator.generateNameUntilUnique = function(baseName) {
+        lastCount = getPaddingNum();
+        var name = baseName + '' + lastCount;
 
         var count = 0;
         while (this.findDuplicateNameInLib(name)) {
-            this.lastCount = this.getPaddingNum();
-            name = baseName + '' + this.lastCount;
+            lastCount = getPaddingNum();
+            name = baseName + '' + lastCount;
 
             count++;
             if (count > 10) {
@@ -94,13 +95,13 @@ define(['random', 'sprintf'], function (random, sp) {
      * @param {string} baseName - 用于生成唯一名称的基础字符串。
      * @returns {string} 返回一个唯一的名称。
      */
-    LibUtil.generateNameUseLast = function (baseName) {
-        var name = baseName + '' + this.lastCount;
+    SymbolNameGenerator.generateNameUseLast = function(baseName) {
+        var name = baseName + '' + lastCount;
         while (this.findDuplicateNameInLib(name)) {
-            var info0 = sprintf('lastCount:%s 重复了！', this.lastCount);
-            this.lastCount = this.getPaddingNum();
-            var info1 = sprintf('已经重新生成了新的名称！ lastCount:%s', this.lastCount);
-            name = baseName + '' + this.lastCount;
+            var info0 = sprintf('lastCount:%s 重复了！', lastCount);
+            lastCount = getPaddingNum();
+            var info1 = sprintf('已经重新生成了新的名称！ lastCount:%s', lastCount);
+            name = baseName + '' + lastCount;
             fl.trace(info0 + info1);
         }
 
@@ -108,5 +109,5 @@ define(['random', 'sprintf'], function (random, sp) {
         return name;
     };
 
-    return LibUtil;
+    return SymbolNameGenerator;
 });

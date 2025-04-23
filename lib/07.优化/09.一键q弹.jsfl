@@ -21,15 +21,16 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'xmlPanelUtil', 'libUtil', 'SAT'], function (
+require(['checkUtil', 'xmlPanelUtil', 'SymbolNameGenerator', 'SAT'], function(
     checkUtil,
     xmlPanelUtil,
-    libUtil,
+    sng,
     sat
 ) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
-    var getOrigin = sat.GLOBALS.getOrigin;
+    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
+
+    const { getOrigin } = sat.GLOBALS;
+    const { generateNameUntilUnique, generateNameUseLast } = sng;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -98,7 +99,7 @@ require(['checkUtil', 'xmlPanelUtil', 'libUtil', 'SAT'], function (
         var frameCount = config.frameCount;
 
         // 包装元件
-        var symbolName = libUtil.generateNameUntilUnique('一键q弹_静_');
+        var symbolName = generateNameUntilUnique('一键q弹_静_');
         doc.convertToSymbol('graphic', symbolName, 'top center');
 
         // 获取元件的变换点
@@ -106,7 +107,7 @@ require(['checkUtil', 'xmlPanelUtil', 'libUtil', 'SAT'], function (
         element.setTransformationPoint(getOrigin().toObj());
 
         // 包装元件
-        var symbolName1 = libUtil.generateNameUseLast('一键q弹_动_');
+        var symbolName1 = generateNameUseLast('一键q弹_动_');
         doc.convertToSymbol('graphic', symbolName1, 'center');
 
         doc.enterEditMode('inPlace');

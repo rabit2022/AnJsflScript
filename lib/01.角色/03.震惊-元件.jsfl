@@ -24,23 +24,23 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
 require([
     'checkUtil',
     'ElementTransform',
-    'libUtil',
+    'SymbolNameGenerator',
     'JSFLConstants',
     'EaseCurve',
     'FramesSelect',
     'KeyFrameOperation'
-], function (checkUtil, et, libUtil, JSFLConstants, curve, fms, kfo) {
+], function (checkUtil, et, sng, JSFLConstants, curve, fms, kfo) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
         CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
     const { FRAME_1, FRAME_3, FRAME_6 } = JSFLConstants.Numerics.frame.frameList;
-    // console.log('libUtil', libUtil);
     const { setTransformationPointWithCorner } = et;
     const { setClassicEaseCurve } = curve;
     const { SelectStartFms } = fms;
     const { convertToKeyframesSafety } = kfo;
+    const { generateNameUntilUnique, generateNameUseLast } = sng;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -104,10 +104,10 @@ require([
         var frs = checkSelectedFrames(timeline);
         if (frs === null) return;
 
-        var symbolName = libUtil.generateNameUntilUnique('一键震惊_静_');
+        var symbolName = generateNameUntilUnique('一键震惊_静_');
         doc.convertToSymbol('graphic', symbolName, 'center');
 
-        var symbolName = libUtil.generateNameUseLast('一键震惊_动_');
+        var symbolName = generateNameUseLast('一键震惊_动_');
         doc.convertToSymbol('graphic', symbolName, 'center');
 
         // 播放一次

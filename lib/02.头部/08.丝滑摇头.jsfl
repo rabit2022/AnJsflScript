@@ -24,13 +24,13 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
 require([
     'checkUtil',
     'xmlPanelUtil',
-    'libUtil',
+    'SymbolNameGenerator',
     'satUtil',
     'JSFLConstants',
     'EaseCurve',
     'FramesSelect',
     'KeyFrameOperation'
-], function (checkUtil, xmlPanelUtil, libUtil, satUtil, JSFLConstants, curve, fms, kfo) {
+], function (checkUtil, xmlPanelUtil,sng, satUtil, JSFLConstants, curve, fms, kfo) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
     const { getShakeHeadTrPoint } = satUtil;
@@ -38,6 +38,7 @@ require([
     const { setClassicEaseCurve } = curve;
     const { SelectAllFms } = fms;
     const { convertToKeyframesSafety } = kfo;
+    const { generateNameUntilUnique, generateNameUseLast } = sng;
 
     var descriptions = {
         file: '08.丝滑摇头.jsfl',
@@ -137,7 +138,7 @@ require([
         var shakeIntensity = config.shakeIntensity;
         var headDirection = config.headDirection;
 
-        var symbolName = libUtil.generateNameUntilUnique('丝滑摇头_');
+        var symbolName = generateNameUntilUnique('丝滑摇头_');
         doc.convertToSymbol('graphic', symbolName, 'center');
 
         KFrames(headDirection, shakeIntensity);

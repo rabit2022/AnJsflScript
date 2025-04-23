@@ -23,7 +23,7 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
 }
 require([
     'checkUtil',
-    'libUtil',
+    'SymbolNameGenerator',
     'graphicsUtil',
     'SAT',
     'JSFLConstants',
@@ -31,7 +31,7 @@ require([
     'Tween',
     'ElementSelect',
     'KeyFrameOperation'
-], function (checkUtil, libUtil, graphics, sat, JSFLConstants, curve, twn, es, kfo) {
+], function (checkUtil, sng, graphics, sat, JSFLConstants, curve, twn, es, kfo) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     var Vector = sat.Vector;
@@ -40,6 +40,7 @@ require([
     const { createTween } = twn;
     const { OnlySelectCurrent } = es;
     const { convertToKeyframesSafety } = kfo;
+    const { generateNameUntilUnique, generateNameUseLast } = sng;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -114,10 +115,10 @@ require([
         // 检查选择的元件
         if (!checkSelection(selection, 'selectElement', 'Only one')) return;
 
-        var symbolName = libUtil.generateNameUntilUnique('曲线运动_静_');
+        var symbolName = generateNameUntilUnique('曲线运动_静_');
         doc.convertToSymbol('graphic', symbolName, 'center');
 
-        var symbolName = libUtil.generateNameUseLast('曲线运动_动_');
+        var symbolName = generateNameUseLast('曲线运动_动_');
         doc.convertToSymbol('graphic', symbolName, 'center');
 
         doc.enterEditMode('inPlace');

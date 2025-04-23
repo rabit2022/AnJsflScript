@@ -24,14 +24,15 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
 require([
     'checkUtil',
     'promptUtil',
-    'libUtil',
+    'SymbolNameGenerator',
     'JSFLConstants',
     'KeyFrameOperation'
-], function (checkUtil, promptUtil, libUtil, JSFLConstants, kfo) {
+], function (checkUtil, promptUtil, sng, JSFLConstants, kfo) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
     const { FRAME_1, FRAME_4, FRAME_7, FRAME_10, FRAME_12 } =
         JSFLConstants.Numerics.frame.frameList;
     const { convertToKeyframesSafety } = kfo;
+    const { generateNameUntilUnique, generateNameUseLast } = sng;
 
     var descriptions = {
         file: '02.一键点头.jsfl',
@@ -75,7 +76,7 @@ require([
         );
         if (headDirection === null) return;
 
-        var symbolName = libUtil.generateNameUntilUnique('一键点头_');
+        var symbolName = generateNameUntilUnique('一键点头_');
         doc.convertToSymbol('graphic', symbolName, 'center');
 
         doc.enterEditMode('inPlace');

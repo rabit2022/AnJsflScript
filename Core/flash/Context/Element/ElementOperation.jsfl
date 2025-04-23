@@ -12,13 +12,15 @@ define([
     'LayerOperation',
     'LayerQuery',
     'ElementSelect',
-    'satUtil'
-], function (ec, lo, lq, es, satUtil) {
+    'satUtil', 'SymbolNameGenerator'
+], function(ec, lo, lq, es, satUtil, sng) {
     const { IsSymbol } = ec;
     const { deleteLayers } = lo;
     const { getLayersIndexByName } = lq;
     const { SelectAll, OnlySelectCurrent, SelectNone } = es;
     const { splitRectangle } = satUtil;
+    const { generateNameUntilUnique, generateNameUseLast } = sng;
+    const libUtil = sng;
 
     /**
      *  复制元件
@@ -65,7 +67,7 @@ define([
             // 5.交换元件
             doc.swapElement(targetName);
         } else if (mode === 'auto') {
-            var input_file_name = libUtil.generateNameUntilUnique(newName);
+            var input_file_name = generateNameUntilUnique(newName);
 
             // 5.交换元件
             doc.swapElement(targetName);
@@ -142,7 +144,7 @@ define([
             while (true) {
                 SelectAll();
 
-                var groups_and_symbols = doc.selection.filter(function (item) {
+                var groups_and_symbols = doc.selection.filter(function(item) {
                     return (
                         (ElementChecker.IsGroup(item) || ElementChecker.IsSymbol(item)) &&
                         // effects:为了效果，必须排除影片剪辑，这样会有部分素材，有透明度的素材，不会石化，更加真实。
@@ -196,7 +198,7 @@ define([
         //     return false;
         // }
 
-        var symbolName = libUtil.generateNameUntilUnique(SymbolName);
+        var symbolName = generateNameUntilUnique(SymbolName);
         doc.convertToSymbol('graphic', symbolName, 'center');
 
         var worldTopLeft = getTopLeft(doc.selection[0]);
@@ -213,13 +215,13 @@ define([
             splitRectangle(elementSize);
         log.info(
             'blockWidth:' +
-                blockWidth +
-                ' blockHeight:' +
-                blockHeight +
-                ' blockCountX:' +
-                blockCountX +
-                ' blockCountY:' +
-                blockCountY
+            blockWidth +
+            ' blockHeight:' +
+            blockHeight +
+            ' blockCountX:' +
+            blockCountX +
+            ' blockCountY:' +
+            blockCountY
         );
 
         var moreElement = new MoreElement({
@@ -240,7 +242,7 @@ define([
                 doc.group();
 
                 var baseName = SymbolName + '碎片-' + j + '-' + i + '_';
-                var symbolName = libUtil.generateNameUseLast(baseName);
+                var symbolName = generateNameUseLast(baseName);
                 doc.convertToSymbol('graphic', symbolName, 'center');
                 // console.info('symbolName:' + symbolName);
 

@@ -24,14 +24,14 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
 require([
     'checkUtil',
     'ElementTransform',
-    'libUtil',
+    'SymbolNameGenerator',
     'xmlPanelUtil',
     'JSFLConstants',
     'EaseCurve',
     'Tween',
     'FramesSelect',
     'KeyFrameOperation'
-], function (checkUtil, et, libUtil, xmlPanelUtil, JSFLConstants, curve, twn, fms, kfo) {
+], function (checkUtil, et, sng, xmlPanelUtil, JSFLConstants, curve, twn, fms, kfo) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
     const { FRAME_15, FRAME_30 } = JSFLConstants.Numerics.frame.frameList;
@@ -40,6 +40,7 @@ require([
     const { createTween } = twn;
     const { SelectAllFms } = fms;
     const { convertToKeyframesSafety } = kfo;
+    const { generateNameUntilUnique, generateNameUseLast } = sng;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -133,7 +134,7 @@ require([
         var direction = config.direction;
 
         // 包装元件
-        var symbolName = libUtil.generateNameUntilUnique('裙带飘动_静_');
+        var symbolName = generateNameUntilUnique('裙带飘动_静_');
         doc.convertToSymbol('graphic', symbolName, 'center');
 
         // 获取元件
@@ -146,7 +147,7 @@ require([
         setTransformationPointWithCorner(element, 'top right');
 
         // 包装元件
-        var symbolName1 = libUtil.generateNameUseLast('裙带飘动_动_');
+        var symbolName1 = generateNameUseLast('裙带飘动_动_');
         doc.convertToSymbol('graphic', symbolName1, 'center');
 
         // k 帧

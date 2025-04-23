@@ -197,11 +197,11 @@ define(['loglevel', 'path-browserify'], function (log, path) {
      *
      * @param {string} path - 要打开的文件或目录的路径。
      * @param {'open'|'printf'|'edit'|'explore'|'find'|undefined} [operation] - 要执行的操作。
-     * @param {string} [arguments] - 要传递给操作的参数。
+     * @param {string} [args] - 要传递给操作的参数。
      * @param {string} [cwd] - 工作目录。
      * @param {number} [show_cmd] - 窗口样式。
      */
-    OS.startfile = function (path, operation, arguments, cwd, show_cmd) {
+    OS.startfile = function (path, operation, args, cwd, show_cmd) {
         // 转换路径为平台路径
         var uri = FLfile.uriToPlatformPath(path);
 
@@ -221,8 +221,8 @@ define(['loglevel', 'path-browserify'], function (log, path) {
             }
 
             // 添加额外参数
-            if (arguments) {
-                cmd += ' --args ' + arguments;
+            if (args) {
+                cmd += ' --args ' + args;
             }
 
             // 添加工作目录

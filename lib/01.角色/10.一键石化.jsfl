@@ -26,7 +26,7 @@ require([
     'loglevel',
     'ElementOperation',
     'ElementAnim',
-    'libUtil',
+    'SymbolNameGenerator',
     'selectionUtil',
     'SAT',
     'graphicsUtil',
@@ -38,7 +38,7 @@ require([
     log,
     ed,
     ea,
-    libUtil,
+    sng,
     sel,
     SAT,
     graphicsUtil,
@@ -48,7 +48,7 @@ require([
 ) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { SelectAll } = sel;
-    const { wrapSize, wrapPosition, wrapRectByCenter } = SAT.GLOBALS;
+    const { wrapRectByCenter } = SAT.GLOBALS;
     const { Vector, Rectangle } = SAT;
     const { drawRectangleWithoutLine } = graphicsUtil;
     const { FRAME_1, FRAME_15 } = JSFLConstants.Numerics.frame.frameList;
@@ -56,6 +56,7 @@ require([
     const { playOnce } = ea;
     const { breakApartToDrawingObject } = ed;
     const { convertToKeyframesSafety } = kfo;
+    const { generateNameUntilUnique, generateNameUseLast } = sng;
 
     // region doc
     const doc = fl.getDocumentDOM(); //文档
@@ -137,7 +138,7 @@ require([
             breakApartToDrawingObject(curFrame.elements[0]);
             doc.setFillColor('#999999');
 
-            var symbolName = libUtil.generateNameUseLast('石化_');
+            var symbolName = generateNameUseLast('石化_');
             doc.convertToSymbol('graphic', symbolName, 'center');
         }
 
@@ -234,7 +235,7 @@ require([
         // 图层2 ： 遮罩层
         // 图层1 复制 ： 被遮罩层
         // 图层1 ： 原始层
-        var symbolName = libUtil.generateNameUntilUnique('一键石化_');
+        var symbolName = generateNameUntilUnique('一键石化_');
         doc.convertToSymbol('graphic', symbolName, 'center');
 
         refreshTimeline();

@@ -137,8 +137,6 @@
             'es2017', // es8,es2017
 
             'json3',
-
-            // 补全console模块, 避免其他模块依赖console时报错
             'console'
         ]);
 

@@ -25,7 +25,7 @@ require([
     'checkUtil',
     'loglevel',
     'elementUtil',
-    'libUtil',
+    'SymbolNameGenerator',
     'selectionUtil',
     'LayerOperation',
     'JSFLConstants',
@@ -35,7 +35,7 @@ require([
     checkUtil,
     log,
     elementUtil,
-    libUtil,
+    sng,
     selectionUtil,
     lo,
     JSFLConstants,
@@ -49,6 +49,7 @@ require([
     const { swapLayers } = lo;
     const { setClassicEaseCurve } = curve;
     const { convertToKeyframesSafety } = kfo;
+    const { generateNameUntilUnique, generateNameUseLast } = sng;
 
     const doc = fl.getDocumentDOM(); //文档
     if (!CheckDom(doc)) return;
@@ -175,7 +176,7 @@ require([
         log.info('遮罩对象：' + getName(mask) + '，被遮对象：' + getName(target));
 
         // 转为元件
-        var symbolName = libUtil.generateNameUntilUnique('一键遮罩_');
+        var symbolName = generateNameUntilUnique('一键遮罩_');
         doc.convertToSymbol('graphic', symbolName, 'center');
 
         KFrame();
