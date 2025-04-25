@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(function () {
+define(function() {
     const author = '@穹的兔兔';
     const alertMessageConfig = {
         XUL:
@@ -16,7 +16,12 @@ define(function () {
 
         // 特殊模块的提示信息
         'default!': '是否加载模块？\n\n 作者：' + author + '\n 模块名：',
-        'failed!': '加载模块失败，请联系作者！！！\n\n 作者：' + author + '\n 模块名：'
+        'failed!': '加载模块失败，请联系作者！！！\n\n 作者：' + author + '\n 模块名：',
+
+        // FirstRun提示信息
+        'loading success!': '【温馨提示】导入成功！！！\n 如果有bug,或者建议，请@我。\n\n【注意】这个文件只是导入所需的模块，并没有安装功能。 \n作者：' + author,
+        // 防盗链提示信息
+        'loading might be not allowed!': '【温馨提示】你可能使用的是盗版软件，这个是开源的项目，如果花费了金钱购买，请退款。\n\n 作者：' + author + '\n 地址：https://github.com/rabit2022/AnJsflScript'
     };
 
     function TryLoad(moduleName) {
@@ -28,7 +33,7 @@ define(function () {
         // 加载模块
         var XUL;
         try {
-            requirejs([moduleName], function (module) {
+            requirejs([moduleName], function(module) {
                 XUL = module;
             });
         } catch (e) {
@@ -45,7 +50,7 @@ define(function () {
      */
     function checkVariableRedeclaration(variable, name) {
         var assert;
-        requirejs(['assert'], function (module) {
+        requirejs(['assert'], function(module) {
             assert = module;
         });
         if (typeof variable === 'undefined') {
@@ -54,8 +59,17 @@ define(function () {
             assert.fail(variable, undefined, msg, '==', checkVariableRedeclaration);
         }
     }
+
+    function alertMessage(mode) {
+        var msg = alertMessageConfig[mode];
+        if (msg) {
+            alert(msg);
+        }
+    }
+
     return {
         TryLoad: TryLoad,
-        checkVariableRedeclaration: checkVariableRedeclaration
+        checkVariableRedeclaration: checkVariableRedeclaration,
+        alertMessage: alertMessage
     };
 });

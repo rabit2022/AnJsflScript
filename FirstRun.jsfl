@@ -7,7 +7,7 @@
  * @description:每一次打开An时，都要 执行此脚本，用于初始化一些必要的模块。
  */
 
-(function () {
+(function() {
     /**
      * 获取当前 文件夹 路径
      */
@@ -69,7 +69,7 @@
         var paths = Array.prototype.slice.call(arguments);
         var curWorkingDirectory = getcwd();
 
-        paths.forEach(function (path) {
+        paths.forEach(function(path) {
             // 转换为绝对路径
             var scriptURI = isAbsolute(path) ? path : curWorkingDirectory + '/' + path;
 
@@ -140,13 +140,16 @@
             'console'
         ]);
 
-        require(['loglevel'], function (log) {
+        require(['loglevel', 'Tips'], function(log, Tips) {
             // 禁用log
             log.setDefaultLevel(log.levels.SILENT);
 
-            const info =
-                '【温馨提示】导入成功！！！\n 如果有bug,或者建议，请@我。\n\n【注意】这个文件只是导入所需的模块，并没有安装功能。 \n作者：@穹的兔兔';
-            alert(info);
+            // 显示提示信息
+            const { alertMessage } = Tips;
+            alertMessage('loading success!');
+            if (!$ProjectFileDir$.includes('AnJsflScript')) {
+                alertMessage('loading might be not allowed!');
+            }
         });
     }
 

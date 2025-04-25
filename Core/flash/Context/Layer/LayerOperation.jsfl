@@ -7,8 +7,9 @@
  * @description:
  */
 
-define(['LayerQuery'], function (lq) {
+define(['LayerQuery', 'Tips'], function (lq, Tips) {
     const { convertToLayerIndex, getEmptyLayers } = lq;
+    const { checkVariableRedeclaration } = Tips;
 
     /**
      * 删除 图层
@@ -16,6 +17,7 @@ define(['LayerQuery'], function (lq) {
      * @param {Array.<Number>|Array.<Layer>} layers 图层索引数组
      */
     function deleteLayers(timeline, layers) {
+        checkVariableRedeclaration(timeline, 'timeline');
         // 删除图层
         if (layers.length > 0) {
             for (var i = 0; i < layers.length; i++) {
@@ -35,6 +37,7 @@ define(['LayerQuery'], function (lq) {
      */
     function swapLayers(timeline, layerIndex1, layerIndex2) {
         var layers = timeline.layers; // 获取所有图层
+        checkVariableRedeclaration(timeline, 'timeline');
 
         if (
             !(

@@ -7,16 +7,19 @@
  * @description:
  */
 
-define(['FolderQuery', 'LayerHierarchy', 'FolderChecker', 'LayerChecker'], function (
+define(['FolderQuery', 'LayerHierarchy', 'FolderChecker', 'LayerChecker', 'Tips'], function (
     fq,
     lh,
     fc,
-    lc
+    lc,
+    Tips
 ) {
     const { IGNORE_LAYER_BY_NAME, FOLDER_TYPE } = fq;
     const { countChild } = lh;
     const { IsEmptyFolder } = fc;
     const { IsLayerBlank } = lc;
+    const { checkVariableRedeclaration } = Tips;
+
 
     /**
      * 获取包含指定名称的图层或其索引
@@ -104,6 +107,8 @@ define(['FolderQuery', 'LayerHierarchy', 'FolderChecker', 'LayerChecker'], funct
      * @see https://github.com/hufang360/FlashTool
      */
     function getEmptyLayers(timeline) {
+        checkVariableRedeclaration(timeline, 'timeline');
+
         const total = timeline.layers.length;
         const emptyLayers = [];
 

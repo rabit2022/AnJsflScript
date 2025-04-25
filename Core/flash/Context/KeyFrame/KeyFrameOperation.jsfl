@@ -7,8 +7,9 @@
  * @description:
  */
 
-define(['KeyFrameQuery'], function (kfq) {
+define(['KeyFrameQuery','Tips'], function (kfq, tips) {
     const { getKeyFrames } = kfq;
+    const {checkVariableRedeclaration}= tips;
 
     /**
      * 安全的转换为关键帧
@@ -24,6 +25,8 @@ define(['KeyFrameQuery'], function (kfq) {
                 '在函数 Main 中，你重新定义了一个局部变量 timeline，这会导致局部变量覆盖全局变量'
             );
         }
+        checkVariableRedeclaration(timeline, 'timeline');
+
         // timeline.convertToKeyframes(frame_1);
         var layers = timeline.layers; //图层
         var curLayerIndex = timeline.currentLayer; //当前图层索引

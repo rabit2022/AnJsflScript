@@ -7,10 +7,12 @@
  * @description:
  */
 
-define(['LayerHierarchy', 'FolderQuery', 'LayerChecker'], function (lh, fq, lc, fc) {
+define(['LayerHierarchy', 'FolderQuery', 'LayerChecker', 'Tips'],
+    function (lh, fq, lc, fc, Tips) {
     const { countChild } = lh;
     const { IGNORE_LAYER_BY_NAME, FOLDER_TYPE } = fq;
     const { IsLayerBlank } = lc;
+    const { checkVariableRedeclaration } = Tips;
 
     /**
      * 检查文件夹是否为空
@@ -19,6 +21,8 @@ define(['LayerHierarchy', 'FolderQuery', 'LayerChecker'], function (lh, fq, lc, 
      * @see https://github.com/hufang360/FlashTool
      */
     function IsEmptyFolder(timeline, folderID) {
+        checkVariableRedeclaration(timeline, 'timeline');
+
         const folder = timeline.layers[folderID];
         const endLayer = folderID + countChild(timeline, folderID);
 

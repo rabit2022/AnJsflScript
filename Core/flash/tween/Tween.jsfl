@@ -7,7 +7,9 @@
  * @description:
  */
 
-define(function () {
+define(['Tips'], function(Tips) {
+    const { checkVariableRedeclaration } = Tips;
+
     /**
      * 设置旋转缓动
      * @param {Timeline} timeline
@@ -15,6 +17,7 @@ define(function () {
      * @param {number} motionTweenRotateTimes 旋转次数
      */
     function setTweenRotation(timeline, motionTweenRotate, motionTweenRotateTimes) {
+        checkVariableRedeclaration(timeline, 'timeline');
         if (motionTweenRotate === undefined) {
             motionTweenRotate = 'none';
         }
@@ -34,6 +37,7 @@ define(function () {
      * @param {number} [endFrame] 结束帧，默认开始帧
      */
     function deleteMotionTween(timeline, startFrame, endFrame) {
+        checkVariableRedeclaration(timeline, 'timeline');
         if (endFrame === undefined) endFrame = startFrame;
 
         timeline.setSelectedFrames(startFrame, endFrame, true);
@@ -46,6 +50,7 @@ define(function () {
      * @param {'motion tween'|'shape tween'} tweenType 缓动类型
      */
     function createTween(timeline, tweenType) {
+        checkVariableRedeclaration(timeline, 'timeline');
         if (tweenType === undefined) tweenType = 'motion tween';
 
         // print('create tween:' + tweenType);
@@ -68,6 +73,8 @@ define(function () {
      * @param {Timeline} timeline
      */
     function createShapeTween(timeline) {
+        checkVariableRedeclaration(timeline, 'timeline');
+
         timeline.setFrameProperty('tweenType', 'shape');
     }
 

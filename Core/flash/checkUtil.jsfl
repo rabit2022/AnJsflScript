@@ -7,7 +7,9 @@
  * @description:
  */
 
-define(function () {
+define(['Tips'],function(Tips) {
+    const { checkVariableRedeclaration } = Tips;
+
     /**
      * 检查选择的元件或帧是否符合指定的模式和条件。
      *
@@ -23,10 +25,7 @@ define(function () {
      * - 如果传入 `null`，函数将终止执行并提示用户。
      */
     function CheckSelection(selection, mode, condition, exTips) {
-        // bug:不清楚为什么在 CheckSelection 后面，重新  定义 selection 变量，会导致 selection 为 undefined
-        // selection.length  报错
-        //  var selection = doc.selection; //选择
-        // var _selection=_.cloneDeep(selection); // 克隆选择
+        checkVariableRedeclaration(selection,'selection');
 
         // 检查 mode 是否为 null
         if (mode === null) {

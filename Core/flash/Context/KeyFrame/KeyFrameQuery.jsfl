@@ -7,8 +7,9 @@
  * @description:
  */
 
-define(['SAT'], function (SAT) {
+define(['SAT','Tips'], function (SAT, Tips) {
     const { FrameRange } = SAT;
+    const { checkVariableRedeclaration } = Tips;
 
     /**
      * 获取选中元件的帧范围
@@ -41,6 +42,7 @@ define(['SAT'], function (SAT) {
      * @return {FrameRange[]} 帧范围数组
      */
     function getSelectedFrs(timeline) {
+        checkVariableRedeclaration(timeline, 'timeline');
         var selectedFrames = timeline.getSelectedFrames();
         return wrapFrsFromSl(selectedFrames);
     }

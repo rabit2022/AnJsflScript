@@ -7,13 +7,17 @@
  * @description:
  */
 
-define(function () {
+define(['Tips'], function (Tips) {
+    const { checkVariableRedeclaration } = Tips;
+
     /**
      *
      * 不选中时间轴中的所有帧
      * @param {Timeline} timeline
      */
     function SelectNoneFms(timeline) {
+        checkVariableRedeclaration(timeline, 'timeline');
+
         // select None
         timeline.setSelectedFrames([0, 0, 0], true);
     }
@@ -23,6 +27,8 @@ define(function () {
      * @param {Timeline} timeline
      */
     function SelectAllFms(timeline) {
+        checkVariableRedeclaration(timeline, 'timeline');
+
         // select All
         timeline.setSelectedFrames(0, timeline.frameCount - 1, true);
     }
@@ -33,6 +39,8 @@ define(function () {
      * @param {FrameRange[]} frs 帧范围数组
      */
     function SelectStartFms(timeline, frs) {
+        checkVariableRedeclaration(timeline, 'timeline');
+
         SelectNoneFms(timeline);
         for (var i = 0; i < frs.length; i++) {
             var fr = frs[i];

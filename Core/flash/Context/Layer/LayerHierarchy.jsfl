@@ -7,9 +7,10 @@
  * @description:
  */
 
-define(['LayerQuery'], function (lq) {
+define(['LayerQuery', 'Tips'], function (lq, Tips) {
     // convertToLayer
     const { convertToLayer } = lq;
+    const { checkVariableRedeclaration } = Tips;
 
     // 静态方法：计算子图层数量
     /**
@@ -22,6 +23,7 @@ define(['LayerQuery'], function (lq) {
      */
     function countChild(timeline, fatherID, noDeep) {
         if (noDeep === undefined) noDeep = false;
+        checkVariableRedeclaration(timeline, 'timeline');
 
         var nextLayerIndex = fatherID + 1;
         const totalLayers = timeline.layers.length;
@@ -54,6 +56,8 @@ define(['LayerQuery'], function (lq) {
     function IsMyChild(timeline, father, child) {
         // if (typeof father === 'number') father = timeline.layers[father];
         // if (typeof child === 'number') child = timeline.layers[child];
+        checkVariableRedeclaration(timeline, 'timeline');
+
         var layers = timeline.layers;
         father = convertToLayer(layers, father);
         child = convertToLayer(layers, child);
