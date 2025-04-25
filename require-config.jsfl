@@ -84,6 +84,7 @@ require.config({
         "FUNC":"Core/myShim/FUNC",
         "open":"Core/py/file/open",
         "os":"Core/py/file/os",
+        "shutil":"Core/py/file/shutil",
         "sys":"Core/py/file/sys",
         "random":"Core/py/random/random",
         "StringP":"Core/py/string/StringP",
