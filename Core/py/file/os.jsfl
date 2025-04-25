@@ -50,7 +50,7 @@ define(['loglevel', 'path-browserify'], function (log, path) {
         }
 
         // 获取文件夹中的所有文件
-        var fileList = FLfile.listFolder(folderURI, "files");
+        var fileList = FLfile.listFolder(folderURI, 'files');
 
         // 检查文件列表中是否包含指定的文件名
         return fileList && fileList.indexOf(name) !== -1;
@@ -73,12 +73,11 @@ define(['loglevel', 'path-browserify'], function (log, path) {
         }
 
         // 获取文件夹中的所有文件夹
-        var folderList = FLfile.listFolder(folderURI, "directories");
+        var folderList = FLfile.listFolder(folderURI, 'directories');
 
         // 检查文件夹列表中是否包含指定的文件夹名
         return folderList && folderList.indexOf(name) !== -1;
     };
-
 
     /**
      * 规范路径的大小写。
@@ -221,7 +220,6 @@ define(['loglevel', 'path-browserify'], function (log, path) {
         }
     };
 
-
     /**
      * 递归创建目录。
      *
@@ -237,7 +235,7 @@ define(['loglevel', 'path-browserify'], function (log, path) {
         // 如果路径已存在，根据 exist_ok 参数决定是否抛出异常
         if (os.path.exists(uri)) {
             if (!exist_ok) {
-                throw new Error('目录已存在:'+ uri);
+                throw new Error('目录已存在:' + uri);
             }
             return;
         }
@@ -248,9 +246,8 @@ define(['loglevel', 'path-browserify'], function (log, path) {
         }
         // 创建当前目录
         os.mkdir(uri);
-        log.info('目录已创建:'+ uri);
+        log.info('目录已创建:' + uri);
     };
-
 
     OS.rmdir = function (uri) {
         var success = FLfile.remove(uri);

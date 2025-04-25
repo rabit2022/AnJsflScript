@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['Tips'], function(Tips) {
+define(['Tips'], function (Tips) {
     const { checkVariableRedeclaration } = Tips;
 
     /**

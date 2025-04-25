@@ -7,7 +7,7 @@
  * @description:每一次打开An时，都要 执行此脚本，用于初始化一些必要的模块。
  */
 
-(function() {
+(function () {
     /**
      * 获取当前 文件夹 路径
      */
@@ -69,7 +69,7 @@
         var paths = Array.prototype.slice.call(arguments);
         var curWorkingDirectory = getcwd();
 
-        paths.forEach(function(path) {
+        paths.forEach(function (path) {
             // 转换为绝对路径
             var scriptURI = isAbsolute(path) ? path : curWorkingDirectory + '/' + path;
 
@@ -140,7 +140,7 @@
             'console'
         ]);
 
-        require(['loglevel', 'Tips'], function(log, Tips) {
+        require(['loglevel', 'Tips'], function (log, Tips) {
             // 禁用log
             log.setDefaultLevel(log.levels.SILENT);
 

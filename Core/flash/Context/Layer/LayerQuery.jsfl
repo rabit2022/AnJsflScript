@@ -7,19 +7,18 @@
  * @description:
  */
 
-define(['FolderQuery', 'LayerHierarchy', 'FolderChecker', 'LayerChecker', 'Tips'], function (
-    fq,
-    lh,
-    fc,
-    lc,
-    Tips
-) {
+define([
+    'FolderQuery',
+    'LayerHierarchy',
+    'FolderChecker',
+    'LayerChecker',
+    'Tips'
+], function (fq, lh, fc, lc, Tips) {
     const { IGNORE_LAYER_BY_NAME, FOLDER_TYPE } = fq;
     const { countChild } = lh;
     const { IsEmptyFolder } = fc;
     const { IsLayerBlank } = lc;
     const { checkVariableRedeclaration } = Tips;
-
 
     /**
      * 获取包含指定名称的图层或其索引

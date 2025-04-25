@@ -7,9 +7,9 @@
  * @description:
  */
 
-define(['KeyFrameQuery','Tips'], function (kfq, tips) {
+define(['KeyFrameQuery', 'Tips'], function (kfq, tips) {
     const { getKeyFrames } = kfq;
-    const {checkVariableRedeclaration}= tips;
+    const { checkVariableRedeclaration } = tips;
 
     /**
      * 安全的转换为关键帧

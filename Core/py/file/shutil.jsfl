@@ -7,10 +7,8 @@
  * @description:
  */
 
-
-define(['os','loglevel'], function(os, log) {
-    function shutil() {
-    }
+define(['os', 'loglevel'], function (os, log) {
+    function shutil() {}
 
     /**
      * 复制文件
@@ -18,7 +16,6 @@ define(['os','loglevel'], function(os, log) {
      * @param {string} dst 目标文件路径
      */
     shutil.copyfile = FLfile.copy;
-
 
     /**
      * 复制整个文件夹
@@ -39,7 +36,7 @@ define(['os','loglevel'], function(os, log) {
 
         // 遍历源文件夹中的所有文件和子文件夹
         // for (var item of os.listdir(src_folder)) {
-        os.listdir(src_folder).forEach(function(item) {
+        os.listdir(src_folder).forEach(function (item) {
             var src_item = os.path.join(src_folder, item);
             var dst_item = os.path.join(dst_folder, item);
 

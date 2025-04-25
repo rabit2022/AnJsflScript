@@ -7,8 +7,13 @@
  * @description:
  */
 
-define(['LayerHierarchy', 'FolderQuery', 'LayerChecker', 'Tips'],
-    function (lh, fq, lc, fc, Tips) {
+define(['LayerHierarchy', 'FolderQuery', 'LayerChecker', 'Tips'], function (
+    lh,
+    fq,
+    lc,
+    fc,
+    Tips
+) {
     const { countChild } = lh;
     const { IGNORE_LAYER_BY_NAME, FOLDER_TYPE } = fq;
     const { IsLayerBlank } = lc;

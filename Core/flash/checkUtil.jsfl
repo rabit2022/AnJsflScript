@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['Tips'],function(Tips) {
+define(['Tips'], function (Tips) {
     const { checkVariableRedeclaration } = Tips;
 
     /**
@@ -25,7 +25,7 @@ define(['Tips'],function(Tips) {
      * - 如果传入 `null`，函数将终止执行并提示用户。
      */
     function CheckSelection(selection, mode, condition, exTips) {
-        checkVariableRedeclaration(selection,'selection');
+        checkVariableRedeclaration(selection, 'selection');
 
         // 检查 mode 是否为 null
         if (mode === null) {

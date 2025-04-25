@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['SAT','Tips'], function (SAT, Tips) {
+define(['SAT', 'Tips'], function (SAT, Tips) {
     const { FrameRange } = SAT;
     const { checkVariableRedeclaration } = Tips;
 
