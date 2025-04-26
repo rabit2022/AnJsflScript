@@ -22,14 +22,14 @@ class Files:
         for file_obj in self.File_Obj:
             content = file_obj.read_file()
             if callback is not None:
-                content = callback(content,file_obj)
+                content = callback(content, file_obj)
 
             contents.append(content)
         return contents
 
     def write_new_content(self, new_contents):
-        for i,fileobj in enumerate(self.File_Obj):
-            content=new_contents[i]
+        for i, fileobj in enumerate(self.File_Obj):
+            content = new_contents[i]
             fileobj.write_new_content(content)
 
     def read_lines(self, callback=None):
@@ -64,11 +64,12 @@ class Files:
         list: 创建成功的文件夹完整路径列表。
         """
         created_folders = []
-        for folder_path in  self.file_paths:
+        for folder_path in self.file_paths:
             if File.create_folder(folder_path):
                 created_folders.append(folder_path)
 
         return created_folders
+
 
 if __name__ == '__main__':
     folder_path = "./res"

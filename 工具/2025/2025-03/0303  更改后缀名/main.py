@@ -30,7 +30,7 @@ def rename_files_to_lowercase_extension(files):
 if __name__ == '__main__':
     folder_traverser = FolderTraverser(
         r'F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\core-js-3.41.0',
-        extensions=['.js'],
+        include_extensions=['.js'],
         # max_depth=5,
     )
 

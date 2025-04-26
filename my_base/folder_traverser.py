@@ -64,9 +64,10 @@ class FolderTraverser:
     """
 
     def __init__(self, folder_path: PATH,
-                 extensions: Optional[PATH_LIST] = None,
-                 exclude_folders: Optional[PATH_LIST] = None,
+                 include_extensions: Optional[PATH_LIST] = None,
                  exclude_extensions: Optional[PATH_LIST] = None,
+                 include_folders: Optional[PATH_LIST] = None,
+                 exclude_folders: Optional[PATH_LIST] = None,
                  max_depth: int = -1,
                  include_full_path: bool = True,
                  callbacks: Optional[CALLBACK_FUNC] = None):
@@ -74,7 +75,7 @@ class FolderTraverser:
         初始化 FolderTraverser 类。
 
         :param folder_path: 要遍历的文件夹路径
-        :param extensions: 允许的文件扩展名列表
+        :param include_extensions: 允许的文件扩展名列表
         :param exclude_folders: 排除的文件夹名称列表
         :param exclude_extensions: 排除的文件扩展名列表
         :param max_depth: 最大遍历深度，-1 表示无限制
@@ -82,9 +83,13 @@ class FolderTraverser:
         :param callbacks: 回调函数，用于处理每个文件路径
         """
         self.folder_path = Path(folder_path)
-        self.extensions = extensions
-        self.exclude_folders = exclude_folders if exclude_folders else []
+
+        self.include_extensions = include_extensions
         self.exclude_extensions = exclude_extensions if exclude_extensions else []
+
+        self.include_folders = include_folders
+        self.exclude_folders = exclude_folders if exclude_folders else []
+
         self.max_depth = max_depth
         self.include_full_path = include_full_path
         self.callbacks = callbacks
@@ -96,9 +101,6 @@ class FolderTraverser:
         :param current_path: 当前路径
         :param file_paths: 文件路径列表
         """
-        # 排除特定文件夹
-        if str(current_path) in self.exclude_folders:
-            return
         for file_path in current_path.iterdir():
             try:
                 folder_tuple = get_relative_path_tuple(self.folder_path, file_path)
@@ -109,17 +111,25 @@ class FolderTraverser:
                     continue
 
                 if file_path.is_file():
-                    # 检查是否符合允许的扩展名且不在排除列表中
+                    # 扩展名
                     if is_excluded_extension(file_path, self.exclude_extensions) or \
-                            not is_valid_extension(file_path, self.extensions):
+                            not is_valid_extension(file_path, self.include_extensions):
                         continue
 
-                    path_to_add = str(file_path) if self.include_full_path else file_path.name
-                    file_paths.append(path_to_add)
+                    if self.include_folders is not None:
+                        # 设置的文件夹列表
+                        for include_folder in self.include_folders:
+                            if include_folder in str(file_path):
+                                full_path = str(file_path) if self.include_full_path else file_path.name
+                                file_paths.append(full_path)
+                    else:
+                        full_path = str(file_path) if self.include_full_path else file_path.name
+                        file_paths.append(full_path)
                 elif file_path.is_dir():
-                    # 排除特定文件夹
-                    if str(file_path) in self.exclude_folders:
-                        continue
+                    # 排除文件夹列表
+                    for exclude_folder in self.exclude_folders:
+                        if exclude_folder in str(current_path):
+                            return
 
                     self.traverse_folder(file_path, file_paths)
             except OSError as e:
@@ -263,7 +273,7 @@ class FolderTraverserBuilder:
         """
         return FolderTraverser(
             folder_path=self.folder_path,
-            extensions=self.extensions,
+            include_extensions=self.extensions,
             exclude_folders=self.exclude_folders,
             exclude_extensions=self.exclude_extensions,
             max_depth=self.max_depth,
@@ -293,5 +303,3 @@ if __name__ == '__main__':
     print("文件路径列表：")
     for path in file_paths:
         print(path)
-
-
