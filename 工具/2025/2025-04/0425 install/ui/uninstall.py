@@ -1,0 +1,60 @@
+from PySide6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QSpacerItem, QSizePolicy, QMessageBox
+from PySide6.QtGui import QPixmap
+from PySide6.QtCore import Qt
+from core.uninstall import uninstall
+
+
+class UninstallationCompleteDialog(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("AnJsflScript - 卸载完成")
+        self.setWindowFlags(Qt.WindowCloseButtonHint)  # 只显示关闭按钮
+
+        layout = QVBoxLayout()
+
+        flash_label = QLabel(self)
+        pixmap = QPixmap("./pic/水梓.png")  # 替换为实际图片路径
+        flash_label.setPixmap(pixmap)
+        flash_label.setScaledContents(True)
+        flash_label.setFixedSize(320, 280)
+        layout.addWidget(flash_label)
+
+        layout.addSpacerItem(QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
+        text_label1 = QLabel("卸载", self)
+        text_label1.setWordWrap(True)
+        text_label1.setFixedWidth(310)
+        layout.addWidget(text_label1)
+
+        text_label2 = QLabel(
+            "感谢您使用 AnJsflScript。如果您有任何反馈或建议，请@我。\n作者:@穹的兔兔",
+            self
+        )
+        text_label2.setWordWrap(True)
+        text_label2.setFixedWidth(310)
+        layout.addWidget(text_label2)
+
+        button = QPushButton("卸载", self)
+        button.clicked.connect(self.uninstall)  # 返回到主界面
+        layout.addWidget(button)
+
+        button = QPushButton("返回", self)
+        button.clicked.connect(self.parent().return_to_main)  # 返回到主界面
+        layout.addWidget(button)
+
+        self.setLayout(layout)
+        self.resize(360, 450)  # 设置窗口大小
+
+    def show_confirmation_dialog(self):
+        # 弹出确认对话框
+        reply = QMessageBox.question(self, "卸载", "卸载完成！！！",
+                                     QMessageBox.Yes)
+        if reply == QMessageBox.Yes:
+            QMessageBox.information(self, "操作成功",
+                                    "【温馨提示】已经卸载！！！\n 如果有bug,或者建议，请@我。\n\n作者：@穹的兔兔")
+        else:
+            QMessageBox.information(self, "操作取消", "您已取消操作！")
+
+    def uninstall(self):
+        uninstall()
+        self.show_confirmation_dialog()
