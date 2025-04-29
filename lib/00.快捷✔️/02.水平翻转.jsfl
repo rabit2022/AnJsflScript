@@ -21,10 +21,10 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil'], function (checkUtil) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
-
+require(['checkUtil', 'KeyFrameOperation'], function (
+    { CheckDom: checkDom, CheckSelection: checkSelection },
+    { KFrameOnlyOne }
+) {
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
 
@@ -42,6 +42,8 @@ require(['checkUtil'], function (checkUtil) {
     function Main() {
         // 检查选择的元件
         if (!checkSelection(selection, 'selectElement', 'No limit')) return;
+
+        KFrameOnlyOne(timeline);
 
         doc.scaleSelection(-1, 1, 'center');
     }

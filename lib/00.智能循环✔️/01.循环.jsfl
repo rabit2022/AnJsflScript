@@ -21,15 +21,15 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'ElementAnim', 'KeyFrameOperation'], function (checkUtil, ea, kfo) {
-    const {
+require(['checkUtil', 'ElementAnim', 'KeyFrameOperation'], function (
+    {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
         CheckSelectedFrames: checkSelectedFrames
-    } = checkUtil;
-    const { playLoop } = ea;
-    const { convertToKeyframesSafety } = kfo;
-
+    },
+    { playLoop },
+    { KFrameOnlyOne }
+) {
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
 
@@ -58,7 +58,7 @@ require(['checkUtil', 'ElementAnim', 'KeyFrameOperation'], function (checkUtil, 
         if (!checkSelection(selection, 'selectElement', 'No limit')) return;
 
         // 关键帧
-        convertToKeyframesSafety(timeline, KEY_FRAMES);
+        KFrameOnlyOne(timeline);
 
         playLoop(selection);
     }

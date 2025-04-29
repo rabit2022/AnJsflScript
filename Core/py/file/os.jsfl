@@ -342,9 +342,7 @@ define(['loglevel', 'path-browserify'], function (log, path) {
      * @returns {string[]} - 包含目录条目的数组。
      */
     OS.listdir = function (uri) {
-        var files = FLfile.listFolder(uri);
-        // console.log(files);
-        return files;
+        return FLfile.listFolder(uri);
     };
 
     return OS;

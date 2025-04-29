@@ -21,11 +21,11 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'elementUtil'], function (checkUtil, ele) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
-    const { IsSymbol, CopySymbol } = ele;
-
+require(['checkUtil', 'ElementChecker', 'ElementOperation'], function (
+    { CheckDom: checkDom, CheckSelection: checkSelection },
+    { IsSymbol },
+    { CopySymbol }
+) {
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
 

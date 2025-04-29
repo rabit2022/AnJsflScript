@@ -21,10 +21,10 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'ElementQuery'], function (checkUtil, ele) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
-
+require(['checkUtil', 'ElementQuery'], function (
+    { CheckDom: checkDom, CheckSelection: checkSelection },
+    { getMaxRight }
+) {
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
 
@@ -43,7 +43,7 @@ require(['checkUtil', 'ElementQuery'], function (checkUtil, ele) {
         // 检查选择的元件
         if (!checkSelection(selection, 'selectElement', 'More')) return;
 
-        var maxElement = ele.getMaxRight(selection);
+        var maxElement = getMaxRight(selection);
 
         // 获取高度
         var height = maxElement.height;

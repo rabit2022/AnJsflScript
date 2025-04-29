@@ -14,15 +14,19 @@ define([
     'ElementSelect',
     'satUtil',
     'SymbolNameGenerator',
-    'Tips'
-], function (ec, lo, lq, es, satUtil, nameGenerator, Tips) {
-    const { IsSymbol } = ec;
-    const { deleteLayers } = lo;
-    const { getLayersIndexByName } = lq;
-    const { SelectAll, OnlySelectCurrent, SelectNone } = es;
-    const { splitRectangle } = satUtil;
+    'Tips',
+    'os'
+], function (
+    { IsSymbol },
+    { deleteLayers },
+    { getLayersIndexByName },
+    { SelectAll, OnlySelectCurrent, SelectNone },
+    { splitRectangle },
+    nameGenerator,
+    { checkVariableRedeclaration },
+    os
+) {
     const { generateNameUntilUnique, generateNameUseLast } = nameGenerator;
-    const { checkVariableRedeclaration } = Tips;
 
     /**
      *  复制元件

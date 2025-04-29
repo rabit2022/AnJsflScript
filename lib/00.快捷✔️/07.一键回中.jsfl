@@ -21,13 +21,10 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'SAT'], function (checkUtil, sat) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
-    var Vector = sat.Vector,
-        Rectangle = sat.Rectangle,
-        wrapPosition = sat.GLOBALS.wrapPosition;
-
+require(['checkUtil', 'SAT'], function (
+    { CheckDom: checkDom, CheckSelection: checkSelection },
+    { Vector, Rectangle }
+) {
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
 

@@ -21,10 +21,10 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'JSFLConstants'], function (checkUtil, JSFLConstants) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
-    // const { MAX_CHANNEL } = Constants;
+require(['checkUtil', 'JSFLConstants'], function (
+    { CheckDom: checkDom, CheckSelection: checkSelection },
+    JSFLConstants
+) {
     const MAX_CHANNEL = JSFLConstants.Numerics.sound.channel.MAX_CHANNEL;
 
     var doc = fl.getDocumentDOM(); //文档

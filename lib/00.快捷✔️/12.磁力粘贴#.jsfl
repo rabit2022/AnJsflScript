@@ -27,12 +27,15 @@ require([
     'SymbolNameGenerator',
     'os',
     'sprintf',
-    'selectionUtil'
-], function (checkUtil, log, sng, os, { sprintf }, selectionUtil) {
-    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
-    const { SelectAll } = selectionUtil;
-    const { generateNameUntilUnique, generateNameUseLast } = sng;
-
+    'ElementSelect'
+], function (
+    { CheckDom: checkDom, CheckSelection: checkSelection },
+    log,
+    { generateNameUntilUnique, generateNameUseLast },
+    os,
+    { sprintf },
+    { SelectAll }
+) {
     const doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
 

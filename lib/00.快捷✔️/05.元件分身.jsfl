@@ -22,15 +22,10 @@ if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
     throw new Error(msg);
 }
 require(['checkUtil', 'ElementOperation', 'ElementChecker'], function (
-    checkUtil,
-    ed,
-    ec
+    { CheckDom: checkDom, CheckSelection: checkSelection },
+    { CopySymbol },
+    { IsSymbol }
 ) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
-    const { CopySymbol } = ed;
-    const { IsSymbol } = ec;
-
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
 

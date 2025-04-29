@@ -43,6 +43,11 @@ require(['checkUtil'], function (checkUtil) {
         // 检查选择的元件
         if (!checkSelection(selection, 'selectElement', 'No limit')) return;
 
+        // 没有选择的元件时，不提示
+        if (selection.length === 0) {
+            return;
+        }
+
         // 记录当前视图矩阵
         var tempWorldViewMatrixAnti = doc.viewMatrix;
         fl.tempWorldViewMatrixAnti = tempWorldViewMatrixAnti;

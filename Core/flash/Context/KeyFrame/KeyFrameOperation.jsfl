@@ -7,9 +7,10 @@
  * @description:
  */
 
-define(['KeyFrameQuery', 'Tips'], function (kfq, tips) {
+define(['KeyFrameQuery', 'Tips', 'LayerQuery'], function (kfq, tips, lq) {
     const { getKeyFrames } = kfq;
     const { checkVariableRedeclaration } = tips;
+    const { convertToLayerIndex, convertToLayer } = lq;
 
     /**
      * 安全的转换为关键帧
@@ -51,27 +52,38 @@ define(['KeyFrameQuery', 'Tips'], function (kfq, tips) {
         }
     }
 
-    // // k 帧
-    // function KFrameOnlyOne(timeline, layers) {
-    //     var CheckSelectedFrames;
-    //     require(['checkUtil'], function(checkUtil) {
-    //         CheckSelectedFrames = checkUtil.CheckSelectedFrames;
-    //     });
-    //     // 获取第一帧
-    //     var frs = CheckSelectedFrames(timeline);
-    //     if (frs === null) return;
-    //     var firstLayer = layers[frs[0].layerIndex];
-    //     var firstFrame = frs[0].startFrame;
-    //
-    //     // 关键帧
-    //     var KEY_FRAMES = [firstFrame];
-    //
-    //     // 关键帧
-    //     convertToKeyframesSafety(timeline, KEY_FRAMES);
-    // }
+    // k 帧
+    /**
+     * 只选择一个帧时，自动创建关键帧
+     * @param {Timeline} timeline 时间线
+     */
+    function KFrameOnlyOne(timeline) {
+        var CheckSelectedFrames;
+        require(['checkUtil'], function (checkUtil) {
+            CheckSelectedFrames = checkUtil.CheckSelectedFrames;
+        });
+        var layers = timeline.layers; //图层
+
+        // 获取第一帧
+        var frs = CheckSelectedFrames(timeline);
+        if (frs === null) return;
+        // 只有一个帧时，自动创建关键帧
+        if (frs.length > 1 || frs[0].duration > 1) return;
+        // console.log(frs.length, frs[0].duration);
+
+        var firstLayer = layers[frs[0].layerIndex];
+        var firstFrame = frs[0].startFrame;
+
+        // 关键帧
+        var KEY_FRAMES = [firstFrame];
+        // console.log(KEY_FRAMES);
+
+        // 关键帧
+        convertToKeyframesSafety(timeline, KEY_FRAMES, firstLayer);
+    }
 
     return {
-        convertToKeyframesSafety: convertToKeyframesSafety
-        // convertToKeyframesAtFirstSelected: convertToKeyframesAtFirstSelected
+        convertToKeyframesSafety: convertToKeyframesSafety,
+        KFrameOnlyOne: KFrameOnlyOne
     };
 });

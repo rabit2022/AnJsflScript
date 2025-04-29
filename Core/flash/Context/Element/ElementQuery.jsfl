@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(function () {
+define(['SAT'], function ({ Rectangle }) {
     /**
      * 获取element的名称
      * @param {Element} element 元素
