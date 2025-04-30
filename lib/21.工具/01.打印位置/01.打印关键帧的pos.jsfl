@@ -8,32 +8,24 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'SAT', 'frameRangeUtil'], function (
-    checkUtil,
-    sat,
-    frUtil
-    // logUtil
-) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
-    var Vector = sat.Vector,
-        Rectangle = sat.Rectangle,
-        wrapPosition = sat.GLOBALS.wrapPosition,
-        wrapTransform = sat.GLOBALS.wrapTransform;
-    // var LogArray = logUtil.LogArray;
+require(["checkUtil", "SAT", "KeyFrameQuery"], function (checkUtil, sat, kfq) {
+    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
+
+    const { wrapTransform } = sat.GLOBALS;
+    const { getKeyFrames } = kfq;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -51,20 +43,25 @@ require(['checkUtil', 'SAT', 'frameRangeUtil'], function (
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'No limit')) return;
+        if (!checkSelection(selection, "selectElement", "No limit")) return;
 
-        var keyFrames = frUtil.getKeyFrames(curLayer);
+        var keyFrames = getKeyFrames(curLayer);
 
         var transformArray = [];
         for (var i = 0; i < keyFrames.length; i++) {
             var frameIndex = keyFrames[i];
             var element = curLayer.frames[frameIndex].elements[0];
+            if (!element) {
+                transformArray.push(null);
+                continue;
+            }
+
             var transform = wrapTransform(element);
             transformArray.push(transform);
         }
 
-        console.log('关键帧：', keyFrames);
-        console.log('transform：', transformArray);
+        console.log("关键帧：", keyFrames);
+        console.log("transform：", transformArray);
     }
 
     Main();

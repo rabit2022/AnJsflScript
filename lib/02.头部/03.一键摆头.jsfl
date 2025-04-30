@@ -8,43 +8,46 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 require([
-    'checkUtil',
-    'promptUtil',
-    'filterUtil',
-    'libUtil',
-    'frameRangeUtil',
-    'JSFLConstants'
-], function (checkUtil, promptUtil, filterUtil, libUtil, frUtil, JSFLConstants) {
+    "checkUtil",
+    "promptUtil",
+    "SymbolNameGenerator",
+    "JSFLConstants",
+    "FilterOperation",
+    "KeyFrameOperation"
+], function (checkUtil, promptUtil, sng, JSFLConstants, fo, kfo) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     const { FRAME_1, FRAME_4, FRAME_6 } = JSFLConstants.Numerics.frame.frameList;
+    const { addBlurFilterToFrame } = fo;
+    const { convertToKeyframesSafety } = kfo;
+    const { generateNameUntilUnique, generateNameUseLast } = sng;
 
     var descriptions = {
-        file: '03.一键摆头.jsfl',
-        'file description': '摆头的动作',
-        selection: '仅一个元件',
-        'selection description': '选中头部',
+        file: "03.一键摆头.jsfl",
+        "file description": "摆头的动作",
+        selection: "仅一个元件",
+        "selection description": "选中头部",
         XMLPanel: false,
-        'input parameters': {
+        "input parameters": {
             动态模糊度: 4
         },
-        detail: '包装元件',
-        'detail description': '',
-        steps: ['打包', '包装元件', 'k帧', '添加滤镜', '水平翻转']
+        detail: "包装元件",
+        "detail description": "",
+        steps: ["打包", "包装元件", "k帧", "添加滤镜", "水平翻转"]
     };
 
     var doc = fl.getDocumentDOM(); //文档
@@ -62,19 +65,20 @@ require([
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
     const KEY_FRAMES = [FRAME_4];
+
     function KFrames(blurFilterForce) {
-        doc.enterEditMode('inPlace');
+        doc.enterEditMode("inPlace");
 
         var timeline = doc.getTimeline();
         var layers = timeline.layers;
 
         // 添加滤镜
-        filterUtil.addBlurFilterToFrame(
+        addBlurFilterToFrame(
             layers[0],
             FRAME_1,
             blurFilterForce,
             blurFilterForce,
-            'medium'
+            "medium"
         );
 
         // 给所有图层加帧
@@ -82,7 +86,7 @@ require([
 
         // var _4_frames = 4 - 1;
         // timeline.convertToKeyframes(FRAME_4);
-        frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
+        convertToKeyframesSafety(timeline, KEY_FRAMES);
 
         // 水平翻转
         var frame4_element = timeline.layers[0].frames[FRAME_4].elements[0];
@@ -94,20 +98,20 @@ require([
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'Only one')) return;
+        if (!checkSelection(selection, "selectElement", "Only one")) return;
 
         var blurFilterForce = promptUtil.parseNumber(
-            '输入动态模糊度：',
+            "输入动态模糊度：",
             4,
-            '动态模糊度只能输入数字，请重新输入。'
+            "动态模糊度只能输入数字，请重新输入。"
         );
         if (blurFilterForce === null) return;
 
         // var element=selection[0];
         doc.group();
 
-        var symbolName = libUtil.generateNameUntilUnique('一键摆头_');
-        doc.convertToSymbol('graphic', symbolName, 'center');
+        var symbolName = generateNameUntilUnique("一键摆头_");
+        doc.convertToSymbol("graphic", symbolName, "center");
 
         KFrames(blurFilterForce);
     }

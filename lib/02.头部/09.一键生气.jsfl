@@ -8,40 +8,44 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'curveUtil', 'frameRangeUtil'], function (
+require(["checkUtil", "EaseCurve", "FramesSelect", "KeyFrameOperation"], function (
     checkUtil,
     curve,
-    frUtil
+    fms,
+    kfo
 ) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
         CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
+    const { setClassicEaseCurve } = curve;
+    const { SelectStartFms } = fms;
+    const { convertToKeyframesSafety } = kfo;
 
     var descriptions = {
-        file: '09.一键生气.jsfl',
-        'file description': '生气的动作',
-        selection: '仅一个元件',
-        'selection description': '选中头部',
+        file: "09.一键生气.jsfl",
+        "file description": "生气的动作",
+        selection: "仅一个元件",
+        "selection description": "选中头部",
         XMLPanel: true,
-        'input parameters': {},
-        detail: '直接k帧',
-        'detail description': '选中至少一帧，这一帧上元件数量，只能是一个',
-        steps: ['获取第一帧', 'k帧', '设置缩放', '创建补间动画']
+        "input parameters": {},
+        detail: "直接k帧",
+        "detail description": "选中至少一帧，这一帧上元件数量，只能是一个",
+        steps: ["获取第一帧", "k帧", "设置缩放", "创建补间动画"]
     };
 
     var doc = fl.getDocumentDOM(); //文档
@@ -94,7 +98,7 @@ require(['checkUtil', 'curveUtil', 'frameRangeUtil'], function (
     function Main() {
         // 检查选择的元件
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'Only one')) return;
+        if (!checkSelection(selection, "selectElement", "Only one")) return;
 
         // 选中的所有帧 的第一帧
         var frs = checkSelectedFrames(timeline);
@@ -108,7 +112,7 @@ require(['checkUtil', 'curveUtil', 'frameRangeUtil'], function (
         var { allKeyFrames, alteredKeyFrames } = generateKfs(MAX_KEYFRAME, firstFrame);
 
         // 关键帧
-        frUtil.convertToKeyframesSafety(timeline, allKeyFrames);
+        convertToKeyframesSafety(timeline, allKeyFrames);
 
         for (var i = 0; i < alteredKeyFrames.length; i++) {
             var frame = alteredKeyFrames[i];
@@ -126,10 +130,10 @@ require(['checkUtil', 'curveUtil', 'frameRangeUtil'], function (
         timeline.setSelectedFrames(firstF, lastF, true);
 
         // 传统补间动画
-        curve.setClassicEaseCurve(timeline);
+        setClassicEaseCurve(timeline);
 
         // 重置选中帧
-        frUtil.resetSelectedFrames(timeline, frs);
+        SelectStartFms(timeline, frs);
     }
 
     Main();

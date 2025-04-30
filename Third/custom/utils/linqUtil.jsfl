@@ -1,5 +1,5 @@
 ﻿/**
- * @file: linqUtil.jsfl
+ * @file: jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
  * @date: 2025/1/30 14:37
@@ -7,8 +7,7 @@
  * @description:
  */
 
-define(['linq'], function (Enumerable) {
-    function LinqUtil() {}
+define(['linq'], function(Enumerable) {
 
     /**
      * 转换为程序的索引
@@ -16,8 +15,8 @@ define(['linq'], function (Enumerable) {
      * @param {Array.<number>} arr 索引数组
      * @return {Array.<number>} 程序员索引数组
      */
-    LinqUtil.convertToProgrammeIndex = function (arr) {
-        return LinqUtil.addOffset(arr, -1);
+    function convertToProgrammeIndex(arr) {
+        return $addOffset(arr, -1);
     };
 
     /**
@@ -26,8 +25,8 @@ define(['linq'], function (Enumerable) {
      * @param {Array.<number>} arr 索引数组
      * @return {Array.<number>} 人类可读索引数组
      */
-    LinqUtil.convertToHumanIndex = function (arr) {
-        return LinqUtil.addOffset(arr, 1);
+    function convertToHumanIndex(arr) {
+        return $addOffset(arr, 1);
     };
 
     /**
@@ -36,10 +35,10 @@ define(['linq'], function (Enumerable) {
      * @param {number} offset 第一个帧
      * @return {Array.<number>} 索引数组
      */
-    LinqUtil.addOffset = function (arr, offset) {
+    function $addOffset(arr, offset) {
         // 使用 linq.js 的 Enumerable 类
         return Enumerable.from(arr)
-            .select(function (item) {
+            .select(function(item) {
                 return item + offset;
             })
             .toArray();
@@ -52,7 +51,7 @@ define(['linq'], function (Enumerable) {
      * @param {number} [step=1] 步长
      * @return {Enumerable.IEnumerable<number>} 范围序列
      */
-    LinqUtil.range = function () {
+    function $range() {
         // 获取参数
         var args = Array.prototype.slice.call(arguments);
 
@@ -99,9 +98,14 @@ define(['linq'], function (Enumerable) {
         }
 
         // 使用 Enumerable.range 生成序列
-        return Enumerable.range(0, count).select(function (x) {
+        return Enumerable.range(0, count).select(function(x) {
             return x * step + start;
         });
     };
-    return LinqUtil;
+    return {
+        convertToProgrammeIndex: convertToProgrammeIndex,
+        convertToHumanIndex: convertToHumanIndex,
+        $addOffset: $addOffset,
+        $range: $range
+    };
 });

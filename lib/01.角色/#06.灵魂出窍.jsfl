@@ -8,26 +8,24 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'SAT', 'libUtil'], function (checkUtil, sat, libUtil) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
-    var Vector = sat.Vector,
-        Rectangle = sat.Rectangle,
-        wrapPosition = sat.GLOBALS.wrapPosition,
-        wrapRect = sat.GLOBALS.wrapRect;
+require(["checkUtil", "SAT", "SymbolNameGenerator"], function (checkUtil, sat, sng) {
+    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
+    const { Vector } = sat.GLOBALS;
+    // const { wrapRect } = sat.GLOBALS;
+    const { generateNameUntilUnique, generateNameUseLast } = sng;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -54,7 +52,7 @@ require(['checkUtil', 'SAT', 'libUtil'], function (checkUtil, sat, libUtil) {
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'No limit')) return;
+        if (!checkSelection(selection, "selectElement", "No limit")) return;
 
         doc.clipCopy();
 
@@ -63,14 +61,14 @@ require(['checkUtil', 'SAT', 'libUtil'], function (checkUtil, sat, libUtil) {
         var rect = wrapRect(doc.getSelectionRect());
         var offset = new Vector(-rect.width, rect.height / 5);
 
-        var symbolName = libUtil.generateNameUntilUnique('一键震惊_静_');
-        doc.convertToSymbol('graphic', symbolName, 'center');
+        var symbolName = generateNameUntilUnique("一键震惊_静_");
+        doc.convertToSymbol("graphic", symbolName, "center");
 
-        doc.enterEditMode('inPlace');
+        doc.enterEditMode("inPlace");
 
         doc.exitEditMode();
 
-        doc.setBlendMode('layer');
+        doc.setBlendMode("layer");
 
         doc.moveSelectionBy(offset.reverse().toObj());
     }

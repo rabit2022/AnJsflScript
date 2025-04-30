@@ -8,33 +8,39 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 require([
-    'checkUtil',
-    'linqUtil',
-    'elementUtil',
-    'curveUtil',
-    'frameRangeUtil',
-    'JSFLConstants'
-], function (checkUtil, linqUtil, ele, curve, frUtil, JSFLConstants) {
+    "checkUtil",
+    "linqUtil",
+    "ElementTransform",
+    "JSFLConstants",
+    "EaseCurve",
+    "FramesSelect",
+    "KeyFrameOperation"
+], function (checkUtil, linqUtil, et, JSFLConstants, curve, fms, kfo) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
         CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
     const { FRAME_1, FRAME_3, FRAME_6 } = JSFLConstants.Numerics.frame.frameList;
+    const { setTransformationPointWithCorner } = et;
+    const { setClassicEaseCurve } = curve;
+    const { SelectStartFms } = fms;
+    const { $addOffset } = linqUtil;
+    const { convertToKeyframesSafety } = kfo;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -60,7 +66,7 @@ require([
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'Only one')) return;
+        if (!checkSelection(selection, "selectElement", "Only one")) return;
 
         // 获取第一帧
         var frs = checkSelectedFrames(timeline);
@@ -68,14 +74,14 @@ require([
         var firstLayer = layers[frs[0].layerIndex];
         var firstFrame = frs[0].startFrame;
 
-        KEY_FRAMES = linqUtil.addOffset(KEY_FRAMES, firstFrame);
+        KEY_FRAMES = $addOffset(KEY_FRAMES, firstFrame);
         ALTER_HEIGHT_FRAME = ALTER_HEIGHT_FRAME + firstFrame;
 
-        ele.setTransformationPoint(selection[0], 'bottom center');
+        setTransformationPointWithCorner(selection[0], "bottom center");
 
         // 关键帧
         timeline.currentLayer = frs[0].layerIndex;
-        frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
+        convertToKeyframesSafety(timeline, KEY_FRAMES);
 
         // 调整高度
         var frame_element = firstLayer.frames[ALTER_HEIGHT_FRAME].elements[0];
@@ -89,10 +95,10 @@ require([
         timeline.setSelectedFrames(firstF, lastF, true);
 
         // 传统补间动画
-        curve.setClassicEaseCurve(timeline);
+        setClassicEaseCurve(timeline);
 
         // 重置选中帧
-        frUtil.resetSelectedFrames(timeline, frs);
+        SelectStartFms(timeline, frs);
     }
 
     Main();

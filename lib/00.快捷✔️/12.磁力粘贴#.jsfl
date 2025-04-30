@@ -8,30 +8,34 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'loglevel', 'libUtil', 'os', 'sprintf', 'selectionUtil'], function (
-    checkUtil,
+require([
+    "checkUtil",
+    "loglevel",
+    "SymbolNameGenerator",
+    "os",
+    "sprintf",
+    "ElementSelect"
+], function (
+    { CheckDom: checkDom, CheckSelection: checkSelection },
     log,
-    libUtil,
+    { generateNameUntilUnique, generateNameUseLast },
     os,
     { sprintf },
-    selectionUtil
+    { SelectAll }
 ) {
-    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
-    const { SelectAll } = selectionUtil;
-
     const doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
 
@@ -47,7 +51,7 @@ require(['checkUtil', 'loglevel', 'libUtil', 'os', 'sprintf', 'selectionUtil'], 
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
     //本地缓存路径
-    const LOCAL_CACHE_PATH = $ProjectFileDir$ + '/cache/';
+    const LOCAL_CACHE_PATH = $ProjectFileDir$ + "/cache/";
     if (!os.path.exists(LOCAL_CACHE_PATH)) {
         os.mkdir(LOCAL_CACHE_PATH);
     }
@@ -63,14 +67,14 @@ require(['checkUtil', 'loglevel', 'libUtil', 'os', 'sprintf', 'selectionUtil'], 
         doc.selectNone();
 
         doc.addNewText({ left: 36, top: 491.3, right: 46.2, bottom: 508.7 });
-        doc.setElementProperty('autoExpand', true);
-        fl.getDocumentDOM().selection[0].setTextAttr('face', 'Times New Roman');
+        doc.setElementProperty("autoExpand", true);
+        fl.getDocumentDOM().selection[0].setTextAttr("face", "Times New Roman");
         doc.clipPaste();
 
-        fl.selectTool('arrow');
+        fl.selectTool("arrow");
         var element = doc.selection[0];
         if (element === undefined) {
-            alert('请先复制磁力链接');
+            alert("请先复制磁力链接");
             return null;
         }
         var textString = element.getTextString(0);
@@ -96,9 +100,9 @@ require(['checkUtil', 'loglevel', 'libUtil', 'os', 'sprintf', 'selectionUtil'], 
         try {
             // 执行命令行操作
             FLfile.runCommandLine(powershellCommand);
-            alert('图片下载成功！');
+            alert("图片下载成功！");
         } catch (error) {
-            alert('图片下载失败，错误信息：' + error);
+            alert("图片下载失败，错误信息：" + error);
         }
     }
 
@@ -124,9 +128,9 @@ require(['checkUtil', 'loglevel', 'libUtil', 'os', 'sprintf', 'selectionUtil'], 
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'No limit')) return;
+        if (!checkSelection(selection, "selectElement", "No limit")) return;
 
-        alert('此功能需要相应的网站支持，暂时只有函数的实现,请查看代码');
+        alert("此功能需要相应的网站支持，暂时只有函数的实现,请查看代码");
 
         // 1，从剪切板获取 加密的磁力链接
         // var magnetLink = getStringFromClipboard();
@@ -135,7 +139,7 @@ require(['checkUtil', 'loglevel', 'libUtil', 'os', 'sprintf', 'selectionUtil'], 
         // 2,解密链接，获取资源url
         // 3,调用命令行工具下载.fla文件资源，到本地缓存目录
         // var imageUrl = 'https://img.soogif.com/RTKInXlfxFwm13iuWK5CgekAUfNQMH75.gif';
-        // var imageName = libUtil.generateNameUntilUnique('image_') + '.png';
+        // var imageName = generateNameUntilUnique('image_') + '.png';
         // var localPath = FLfile.uriToPlatformPath(os.path.join(LOCAL_CACHE_PATH, imageName));
         //
         // log.info('imageUrl = ' + imageUrl);

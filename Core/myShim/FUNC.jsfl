@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['sprintf'], function (sp) {
+define(["sprintf"], function (sp) {
     const sprintf = sp.sprintf;
 
     /**
@@ -26,13 +26,13 @@ define(['sprintf'], function (sp) {
      */
     function IsEmpty(value) {
         // 检查 null 或 undefined
-        if (value == null) return true;
+        if (value === null) return true;
 
         // 检查空字符串
         var STRING_BLACK = / \n\r\t/g;
         if (
-            typeof value === 'string' &&
-            value.trim().replace(STRING_BLACK, '').length === 0
+            typeof value === "string" &&
+            value.trim().replace(STRING_BLACK, "").length === 0
         )
             return true;
 
@@ -41,7 +41,7 @@ define(['sprintf'], function (sp) {
 
         // 检查空对象
         if (
-            typeof value === 'object' &&
+            typeof value === "object" &&
             value.constructor === Object &&
             Object.keys(value).length === 0
         )
@@ -74,8 +74,8 @@ define(['sprintf'], function (sp) {
         // grab correct arguments
         // for each(var arg in [$parent, $properties])
         [$parent, $properties].forEach(function (arg) {
-            if (typeof arg === 'function') parent = arg;
-            else if (typeof arg === 'object') properties = arg;
+            if (typeof arg === "function") parent = arg;
+            else if (typeof arg === "object") properties = arg;
         });
 
         // extend child from a parent
@@ -217,7 +217,7 @@ define(['sprintf'], function (sp) {
         // 获取所有传入的参数
         var thisArgs = Array.prototype.slice.call(arguments);
         if (!thisArgs || thisArgs.length === 0) {
-            throw new Error('No arguments provided.');
+            throw new Error("No arguments provided.");
         }
         var args, config;
         // args:Array, config
@@ -229,19 +229,19 @@ define(['sprintf'], function (sp) {
             config = thisArgs.pop();
             args = thisArgs;
         } else {
-            throw new Error('Invalid arguments provided.');
+            throw new Error("Invalid arguments provided.");
         }
 
         // 验证配置对象是否有效
         function validateConfig(config) {
             if (
                 !config ||
-                typeof config !== 'object' ||
+                typeof config !== "object" ||
                 !config.types ||
                 !config.required
             ) {
                 throw new Error(
-                    'Invalid config object. It must contain `types` and `required` properties.'
+                    "Invalid config object. It must contain `types` and `required` properties."
                 );
             }
         }
@@ -249,16 +249,16 @@ define(['sprintf'], function (sp) {
         // 检查类型映射表中的目标是否有效
         function validateTargets(context, targets, paramType) {
             // 如果 targets 是字符串，先将其转换为数组
-            if (typeof targets === 'string') {
+            if (typeof targets === "string") {
                 context.typeMap[paramType] = [targets];
                 targets = context.typeMap[paramType];
             }
 
             if (!Array.isArray(targets)) {
                 throw new Error(
-                    'Invalid targets for type ' +
+                    "Invalid targets for type " +
                         paramType +
-                        '. Expected a string or an array.'
+                        ". Expected a string or an array."
                 );
             }
         }
@@ -266,7 +266,7 @@ define(['sprintf'], function (sp) {
         // 获取目标变量名
         function getTargetVariable(targets) {
             if (!Array.isArray(targets) || targets.length === 0) {
-                throw new Error('No available target variables for this type.');
+                throw new Error("No available target variables for this type.");
             }
             return targets.shift();
         }
@@ -275,14 +275,14 @@ define(['sprintf'], function (sp) {
         function assignParam(context, param) {
             var paramType = typeof param;
             if (param === null) {
-                paramType = 'null'; // 特殊处理 null
-            } else if (paramType === 'undefined') {
-                paramType = 'undefined'; // 特殊处理 undefined
+                paramType = "null"; // 特殊处理 null
+            } else if (paramType === "undefined") {
+                paramType = "undefined"; // 特殊处理 undefined
             }
 
             var targets = context.typeMap[paramType];
             if (!targets) {
-                throw new TypeError('Unsupported argument type: ' + paramType);
+                throw new TypeError("Unsupported argument type: " + paramType);
             }
 
             // 检差 types 映射表中的 paramType 对应的 value 是否有效
@@ -296,7 +296,7 @@ define(['sprintf'], function (sp) {
         function checkRequiredParams(context) {
             context.requiredParams.forEach(function (paramName) {
                 if (context.parsedParams[paramName] === undefined) {
-                    throw new Error('Missing required argument: ' + paramName);
+                    throw new Error("Missing required argument: " + paramName);
                 }
             });
         }
@@ -366,7 +366,7 @@ define(['sprintf'], function (sp) {
     var getType = function (value) {
         // slight alteration here, otherwise null and undefined return 'window'
         if (value === null) return null;
-        if (typeof value === 'undefined') return 'undefined';
+        if (typeof value === "undefined") return "undefined";
         return Object.prototype.toString
             .call(value)
             .match(/\s([a-zA-Z]+)/)[1]
@@ -382,19 +382,19 @@ define(['sprintf'], function (sp) {
      */
     var getClass = function (value) {
         // return null if the value is not an object
-        if (value === null || typeof value === 'undefined') return null;
+        if (value === null || typeof value === "undefined") return null;
 
         // return the object's class if it's a native type
-        if (typeof value !== 'object') {
+        if (typeof value !== "object") {
             var $class = Object.prototype.toString.call(value).match(/\s([a-zA-Z]+)/)[1];
-            if ($class !== 'Object') {
+            if ($class !== "Object") {
                 return $class;
             }
         }
 
         // if the value has a proper toString() method, i.e. "[object ClassName]" and is not a native Object, parse that
         var matches = value.toString().match(/^\[\w+\s*(\w+)/);
-        if (matches && matches[1] && matches[1] !== 'Object') {
+        if (matches && matches[1] && matches[1] !== "Object") {
             return matches[1];
         }
 
@@ -402,7 +402,7 @@ define(['sprintf'], function (sp) {
         var matches = value.constructor.toSource().match(/^function\s*(\w+)/);
         if (matches && matches.length == 2) {
             // fail if the return value is an anonymous / wrapped Function
-            if (matches[1] != 'Function') {
+            if (matches[1] != "Function") {
                 return matches[1];
             }
 
@@ -416,7 +416,7 @@ define(['sprintf'], function (sp) {
         }
 
         // if we still can't get it, return 'Object'
-        return 'Object';
+        return "Object";
     };
 
     /**

@@ -8,54 +8,55 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 require([
-    'checkUtil',
-    'promptUtil',
-    'libUtil',
-    'SAT',
-    'selectionUtil',
-    'linqUtil',
-    'frameRangeUtil'
-], function (checkUtil, promptUtil, libUtil, sat, sel, linqUtil, frUtil) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
+    "checkUtil",
+    "promptUtil",
+    "SymbolNameGenerator",
+    "SAT",
+    "linqUtil",
+    "ElementSelect",
+    "KeyFrameOperation"
+], function (checkUtil, promptUtil, sng, sat, linqUtil, es, kfo) {
+    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
-    var Vector = sat.Vector,
-        Rectangle = sat.Rectangle,
-        wrapPosition = sat.GLOBALS.wrapPosition;
+    const { Rectangle } = sat;
+    const { wrapPosition } = sat.GLOBALS;
 
-    var Range = linqUtil.range;
+    const { $range: Range } = linqUtil;
+    const { OnlySelectCurrent, SelectAll, DeleteSelection } = es;
+    const { convertToKeyframesSafety } = kfo;
+    const { generateNameUntilUnique, generateNameUseLast } = sng;
 
     var descriptions = {
-        file: '10.一键万能头.jsfl',
-        'file description': '选中多个表情，合成万能头',
-        selection: '元件2个以上',
-        'selection description': '选中多个表情',
+        file: "10.一键万能头.jsfl",
+        "file description": "选中多个表情，合成万能头",
+        selection: "元件2个以上",
+        "selection description": "选中多个表情",
         XMLPanel: false,
-        'input parameters': {
+        "input parameters": {
             单个表情特续的帧数: 6
         },
-        detail: '包装元件',
-        'detail description': '',
+        detail: "包装元件",
+        "detail description": "",
         steps: [
-            '包装元件',
-            'k帧',
-            '交换元素',
-            '除了第一帧的元素，都删除',
-            '移动到中心位置'
+            "包装元件",
+            "k帧",
+            "交换元素",
+            "除了第一帧的元素，都删除",
+            "移动到中心位置"
         ]
     };
 
@@ -86,12 +87,12 @@ require([
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'More')) return;
+        if (!checkSelection(selection, "selectElement", "More")) return;
 
         var motionFramesCount = promptUtil.parseNumber(
-            '输入万能头中单个表情特续的帧数',
+            "输入万能头中单个表情特续的帧数",
             6,
-            '请重新输入帧数,例如“30”'
+            "请重新输入帧数,例如“30”"
         );
         if (motionFramesCount === null) return;
 
@@ -108,14 +109,14 @@ require([
         var Offset = selectCenter.clone().sub(Important_element_position);
         // print("Offset:" + Offset.toString());
 
-        sel.OnlySelectCurrent(Important_element);
+        OnlySelectCurrent(Important_element);
 
-        var symbolName = libUtil.generateNameUntilUnique('一键万能头_');
-        doc.convertToSymbol('graphic', symbolName, 'center');
+        var symbolName = generateNameUntilUnique("一键万能头_");
+        doc.convertToSymbol("graphic", symbolName, "center");
 
         Important_element = doc.selection[0];
 
-        doc.enterEditMode('inPlace');
+        doc.enterEditMode("inPlace");
 
         var timeline = doc.getTimeline();
 
@@ -131,23 +132,23 @@ require([
 
             var frameIndex = Keyframes[i];
             // timeline.convertToKeyframes(frameIndex);
-            frUtil.convertToKeyframesSafety(timeline, frameIndex);
+            convertToKeyframesSafety(timeline, frameIndex);
 
             var frame_element = timeline.layers[0].frames[frameIndex].elements[0];
             // 交换元素
             var name = SELECTION_NAMES[i];
-            sel.OnlySelectCurrent(frame_element);
+            OnlySelectCurrent(frame_element);
             doc.swapElement(name);
         }
 
         doc.exitEditMode();
 
         // 除了第一帧的元素，都删除
-        // sel.SelectAll(TO_DELETE_SELECTION);
+        // SelectAll(TO_DELETE_SELECTION);
         // doc.deleteSelection();
-        sel.DeleteSelection(TO_DELETE_SELECTION);
+        DeleteSelection(TO_DELETE_SELECTION);
 
-        sel.OnlySelectCurrent(Important_element);
+        OnlySelectCurrent(Important_element);
 
         // 移动到中心位置
         doc.moveSelectionBy(Offset.toObj());

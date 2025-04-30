@@ -8,29 +8,26 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'selectionUtil', 'moreElement'], function (
+require(["checkUtil", "MoreElement", "ElementSelect"], function (
     checkUtil,
-    sel,
-    MoreElement
+    MoreElement,
+    es
 ) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
-
-    // var MoreElement = me.MoreElement;
-    // var wrapMoreElement=me.GLOBALS.wrapMoreElement;
+    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
+    const { OnlySelectCurrent, SelectStart } = es;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -48,11 +45,11 @@ require(['checkUtil', 'selectionUtil', 'moreElement'], function (
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'Not Zero')) return;
+        if (!checkSelection(selection, "selectElement", "Not Zero")) return;
 
-        var copyCount = prompt('请输入复制次数：', 9);
+        var copyCount = prompt("请输入复制次数：", 9);
         if (copyCount == null || copyCount < 0) {
-            alert('请输入正确的次数');
+            alert("请输入正确的次数");
             return;
         }
 
@@ -66,11 +63,11 @@ require(['checkUtil', 'selectionUtil', 'moreElement'], function (
             var element = selection[i];
 
             // 选中当前元件
-            sel.OnlySelectCurrent(element);
+            OnlySelectCurrent(element);
 
-            var moreElement = new MoreElement(element);
+            var me = new MoreElement(element);
             // print("moreElement"+moreElement.toString())
-            moreElements.push(moreElement);
+            moreElements.push(me);
         }
 
         // 复制元件
@@ -87,7 +84,7 @@ require(['checkUtil', 'selectionUtil', 'moreElement'], function (
                 var nextPoint = moreElement.NeatOffset(j + 1, 0);
                 // print("nextPoint:"+nextPoint.toString())
                 // 复制元件
-                sel.OnlySelectCurrent(moreElement.element);
+                OnlySelectCurrent(moreElement.element);
 
                 // 复制粘贴
                 doc.clipCopy();
@@ -100,7 +97,7 @@ require(['checkUtil', 'selectionUtil', 'moreElement'], function (
             }
         }
 
-        sel.SelectStart(selection);
+        SelectStart(selection);
     }
 
     Main();

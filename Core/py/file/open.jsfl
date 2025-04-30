@@ -25,13 +25,13 @@ define(function () {
      */
     function open(file, mode, encoding) {
         if (mode === undefined) {
-            mode = 'r';
+            mode = "r";
         }
         if (encoding === undefined) {
-            encoding = 'utf-8';
+            encoding = "utf-8";
         }
-        if (encoding !== 'utf-8') {
-            throw new Error('暂不支持非utf-8编码的文件');
+        if (encoding !== "utf-8") {
+            throw new Error("暂不支持非utf-8编码的文件");
         }
 
         var file_content,
@@ -63,7 +63,7 @@ define(function () {
                 // 每一次调用readLine都会返回文件的一行内容，并且指针指向下一行的开头。
                 var file_content = this.read();
                 if (file_lines === undefined) {
-                    file_lines = file_content.split('\n');
+                    file_lines = file_content.split("\n");
                 }
                 if (file_lines.length === 0) {
                     return null;
@@ -78,21 +78,21 @@ define(function () {
             },
             write: function (text) {
                 switch (mode) {
-                    case 'w':
-                        return FLfile.write(file, text, 'w');
+                    case "w":
+                        return FLfile.write(file, text, "w");
                         break;
-                    case 'a':
-                        return FLfile.write(file, text, 'a');
+                    case "a":
+                        return FLfile.write(file, text, "a");
                         break;
-                    case 'x':
-                        return FLfile.write(file, text, 'w');
+                    case "x":
+                        return FLfile.write(file, text, "w");
                         break;
                     default:
-                        throw new Error('Invalid mode: ' + mode);
+                        throw new Error("Invalid mode: " + mode);
                 }
             },
             writeLines: function (lines) {
-                var text = lines.join('\n');
+                var text = lines.join("\n");
                 return this.write(text);
             },
             close: function () {

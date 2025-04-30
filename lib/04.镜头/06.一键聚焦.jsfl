@@ -8,33 +8,34 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'selectionUtil', 'layerUtil', 'satUtil', 'SAT'], function (
+require(["checkUtil", "LayerQuery", "satUtil", "SAT", "ElementSelect"], function (
     checkUtil,
-    sel,
-    layerUtil,
+    lq,
     satUtil,
-    sat
+    sat,
+    es
 ) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
-    var Vector = sat.Vector,
-        Rectangle = sat.Rectangle,
-        wrapPosition = sat.GLOBALS.wrapPosition;
-    var pointUtil = satUtil.PointUtil,
-        rectUtil = satUtil.RectUtil;
+    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
+
+    const { Vector, Rectangle } = sat;
+    const { wrapPosition } = sat.GLOBALS;
+    const { moveRectSafety } = satUtil;
+
+    const { getLayersByName } = lq;
+    const { SelectStart, SelectAll } = es;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -66,7 +67,7 @@ require(['checkUtil', 'selectionUtil', 'layerUtil', 'satUtil', 'SAT'], function 
 
     function getBgRect() {
         // 背景的边界
-        var bgLayers = layerUtil.getLayersByName(layers, '背景');
+        var bgLayers = getLayersByName(layers, "背景");
         if (bgLayers.length < 1) {
             fl.trace("找不到背景图层,必须包含'背景'关键字");
             return;
@@ -84,14 +85,14 @@ require(['checkUtil', 'selectionUtil', 'layerUtil', 'satUtil', 'SAT'], function 
             curElements = curElements.concat(elements);
         }
 
-        sel.SelectAll(curElements);
+        SelectAll(curElements);
         var bgRect = new Rectangle(doc.getSelectionRect());
         return bgRect;
     }
 
     function getPeopleCenter() {
         // 人物的中心点
-        sel.SelectStart(selection);
+        SelectStart(selection);
 
         var rect = new Rectangle(doc.getSelectionRect());
         var peopleCenter = rect.getCenterVector();
@@ -100,7 +101,7 @@ require(['checkUtil', 'selectionUtil', 'layerUtil', 'satUtil', 'SAT'], function 
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'Not Zero')) return;
+        if (!checkSelection(selection, "selectElement", "Not Zero")) return;
 
         // 允许摄像机
         timeline.camera.cameraEnabled = true;
@@ -122,7 +123,7 @@ require(['checkUtil', 'selectionUtil', 'layerUtil', 'satUtil', 'SAT'], function 
 
         if (bgRect) {
             // 最大移动向量
-            cameraOffset = rectUtil.moveRectSafety(bgRect, cameraRect, cameraOffset);
+            cameraOffset = moveRectSafety(bgRect, cameraRect, cameraOffset);
         }
 
         var newCameraPos = cameraPos.clone().add(cameraOffset);
@@ -132,7 +133,7 @@ require(['checkUtil', 'selectionUtil', 'layerUtil', 'satUtil', 'SAT'], function 
         // 移动摄像机
         timeline.camera.setPosition(curFrameIndex, newCameraPos.x, newCameraPos.y);
 
-        sel.SelectStart(selection);
+        SelectStart(selection);
     }
 
     Main();

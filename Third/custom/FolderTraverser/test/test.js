@@ -21,6 +21,6 @@ const traverser = new FolderTraverser(
 
 const filePaths = traverser.start();
 console.log(filePaths.length);
-for (const filePath of filePaths) {
-    console.log(filePath);
-}
+// for (const filePath of filePaths) {
+//     console.log(filePath);
+// }

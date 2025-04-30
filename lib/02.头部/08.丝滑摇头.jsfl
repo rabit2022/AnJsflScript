@@ -8,61 +8,57 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 require([
-    'checkUtil',
-    'xmlPanelUtil',
-    'libUtil',
-    'satUtil',
-    'curveUtil',
-    'selectionUtil',
-    'JSFLConstants',
-    'frameRangeUtil'
-], function (
-    checkUtil,
-    xmlPanelUtil,
-    libUtil,
-    satUtil,
-    curve,
-    sel,
-    JSFLConstants,
-    frUtil
-) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
+    "checkUtil",
+    "xmlPanelUtil",
+    "SymbolNameGenerator",
+    "satUtil",
+    "JSFLConstants",
+    "EaseCurve",
+    "FramesSelect",
+    "KeyFrameOperation"
+], function (checkUtil, xmlPanelUtil, sng, satUtil, JSFLConstants, curve, fms, kfo) {
+    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
+
+    const { getShakeHeadTrPoint } = satUtil;
     const { FRAME_4, FRAME_7 } = JSFLConstants.Numerics.frame.frameList;
+    const { setClassicEaseCurve } = curve;
+    const { SelectAllFms } = fms;
+    const { convertToKeyframesSafety } = kfo;
+    const { generateNameUntilUnique, generateNameUseLast } = sng;
 
     var descriptions = {
-        file: '08.丝滑摇头.jsfl',
-        'file description': '摇头的动作',
-        selection: '仅一个元件',
-        'selection description': '选中头部',
+        file: "08.丝滑摇头.jsfl",
+        "file description": "摇头的动作",
+        selection: "仅一个元件",
+        "selection description": "选中头部",
         XMLPanel: true,
-        'input parameters': {
+        "input parameters": {
             摇头力度: 3,
-            头部朝向: '头部向左'
+            头部朝向: "头部向左"
         },
-        detail: '包装元件',
-        'detail description': '选中头部',
+        detail: "包装元件",
+        "detail description": "选中头部",
         steps: [
-            '读取XML面板配置',
-            '包装元件',
-            'k帧',
-            '设置变形点',
-            '更改位置',
-            '传统补间'
+            "读取XML面板配置",
+            "包装元件",
+            "k帧",
+            "设置变形点",
+            "更改位置",
+            "传统补间"
         ]
     };
 
@@ -84,13 +80,14 @@ require([
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
     const KEY_FRAMES = [FRAME_4, FRAME_7];
+
     function checkXMLPanel() {
         var panel = xmlPanelUtil.getXMLPanel();
         if (panel === null) return null;
 
         var shakeIntensity = xmlPanelUtil.parseNumber(
             panel.shakeIntensity,
-            '摇头强度只能输入数字，请重新输入。'
+            "摇头强度只能输入数字，请重新输入。"
         );
         if (shakeIntensity === null) return null;
 
@@ -101,14 +98,14 @@ require([
     }
 
     function KFrames(headDirection, shakeIntensity) {
-        doc.enterEditMode('inPlace');
+        doc.enterEditMode("inPlace");
 
         var timeline = doc.getTimeline();
 
         // 设置变形点
         var element1 = timeline.layers[0].frames[0].elements[0];
         // var trPoint = getTrPoint(selection[0]);
-        var trPoint = pointUtil.getShakeHeadTrPoint(element1);
+        var trPoint = getShakeHeadTrPoint(element1, 5 / 6);
         element1.setTransformationPoint(trPoint.toObj());
 
         // 给所有图层加帧
@@ -116,7 +113,7 @@ require([
         // 关键帧 1,4,7
         // timeline.convertToKeyframes(FRAME_4);
         // timeline.convertToKeyframes(FRAME_7);
-        frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
+        convertToKeyframesSafety(timeline, KEY_FRAMES);
 
         var frame4_element = timeline.layers[0].frames[FRAME_4].elements[0];
         // -57.25,-182.25    -60.25,-179.25  (-3,+3)  3,左摇头
@@ -124,16 +121,16 @@ require([
         frame4_element.x += headDirection * shakeIntensity;
         frame4_element.y += shakeIntensity;
 
-        sel.SelectAllTl(timeline);
+        SelectAllFms(timeline);
 
-        curve.setClassicEaseCurve(timeline);
+        setClassicEaseCurve(timeline);
 
         doc.exitEditMode();
     }
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'Only one')) return;
+        if (!checkSelection(selection, "selectElement", "Only one")) return;
 
         // 读取XML面板配置
         var config = checkXMLPanel();
@@ -141,8 +138,8 @@ require([
         var shakeIntensity = config.shakeIntensity;
         var headDirection = config.headDirection;
 
-        var symbolName = libUtil.generateNameUntilUnique('丝滑摇头_');
-        doc.convertToSymbol('graphic', symbolName, 'center');
+        var symbolName = generateNameUntilUnique("丝滑摇头_");
+        doc.convertToSymbol("graphic", symbolName, "center");
 
         KFrames(headDirection, shakeIntensity);
     }

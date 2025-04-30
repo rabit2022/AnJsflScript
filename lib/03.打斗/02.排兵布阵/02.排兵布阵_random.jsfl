@@ -8,38 +8,32 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 require([
-    'checkUtil',
-    'selectionUtil',
-    'SAT',
-    'satUtil',
-    'xmlPanelUtil',
-    'random'
-], function (checkUtil, sel, sat, satUtil, xmlPanelUtil, random) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
-
-    var Vector = sat.Vector,
-        Rectangle = sat.Rectangle,
-        wrapPosition = sat.GLOBALS.wrapPosition,
-        wrapTransform = sat.GLOBALS.wrapTransform,
-        wrapRectByCenter = sat.GLOBALS.wrapRectByCenter;
-
-    var pointUtil = satUtil.PointUtil,
-        rectUtil = satUtil.RectUtil;
+    "checkUtil",
+    "SAT",
+    "satUtil",
+    "xmlPanelUtil",
+    "random",
+    "ElementSelect"
+], function (checkUtil, sat, satUtil, xmlPanelUtil, random, es) {
+    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
+    const { Vector } = sat;
+    const { wrapPosition, wrapTransform, wrapRectByCenter } = sat.GLOBALS;
+    const { generateRandomPointInRect } = satUtil;
+    const { OnlySelectCurrent } = es;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -61,12 +55,12 @@ require([
 
         var horizontalCount = xmlPanelUtil.parseNumber(
             panel.horizontalCount,
-            '横向排布数量只能输入数字，请重新输入。'
+            "横向排布数量只能输入数字，请重新输入。"
         );
         if (horizontalCount === null) return null;
         var horizontalSpacing = xmlPanelUtil.parseNumber(
             panel.horizontalSpacing,
-            '横向排布间距只能输入数字，请重新输入。'
+            "横向排布间距只能输入数字，请重新输入。"
         );
         if (horizontalSpacing === null) return null;
 
@@ -88,9 +82,10 @@ require([
         var rect = wrapRectByCenter(initialPos.x, initialPos.y, rectWidth, rectHeight);
         return rect;
     }
+
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'Only one')) return;
+        if (!checkSelection(selection, "selectElement", "Only one")) return;
 
         // 随机排布
         var config = checkXMLPanel();
@@ -110,7 +105,7 @@ require([
         for (var i = 0; i < horizontalCount; i++) {
             if (i === 0) continue;
 
-            sel.OnlySelectCurrent(selection[0]);
+            OnlySelectCurrent(selection[0]);
 
             // 复制粘贴
             doc.clipCopy();
@@ -124,7 +119,7 @@ require([
 
             // 随机位置
             // var randomPos=rectUtil.generateRandomPoint(rectSize, initialPos);
-            var randomPos = rectUtil.generateRandomPointInRect(explosionRect);
+            var randomPos = generateRandomPointInRect(explosionRect);
 
             var transform = wrapTransform(element1);
             transform.setPosition(randomPos).setScale(new Vector(scale, scale));

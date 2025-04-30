@@ -8,29 +8,30 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 require([
-    'checkUtil',
-    'linqUtil',
-    'filterUtil',
-    'selectionUtil',
-    'curveUtil',
-    'frameRangeUtil',
-    'loglevel',
-    'JSFLConstants'
-], function (checkUtil, linqUtil, filterUtil, sel, curve, frUtil, log, JSFLConstants) {
+    "checkUtil",
+    "linqUtil",
+    "EaseCurve",
+    "loglevel",
+    "JSFLConstants",
+    "ElementSelect",
+    "FilterOperation",
+    "FramesSelect",
+    "KeyFrameOperation"
+], function (checkUtil, linqUtil, curve, log, JSFLConstants, es, fo, fms, kfo) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
@@ -38,6 +39,12 @@ require([
     } = checkUtil;
     const { FRAME_1, FRAME_2, FRAME_3, FRAME_4, FRAME_5 } =
         JSFLConstants.Numerics.frame.frameList;
+    const { setClassicEaseCurve } = curve;
+    const { DeleteSelection } = es;
+    const { addBlurFilterToFrame } = fo;
+    const { SelectStartFms } = fms;
+    const { $addOffset } = linqUtil;
+    const { convertToKeyframesSafety } = kfo;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -54,8 +61,8 @@ require([
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
     // 关键帧
-    var KEY_FRAMES = linqUtil.convertToProgrammeIndex([1, 2, 3, 4, 5, 9]);
-    log.info('关键帧', KEY_FRAMES);
+    var KEY_FRAMES = convertToProgrammeIndex([1, 2, 3, 4, 5, 9]);
+    log.info("关键帧", KEY_FRAMES);
 
     // 滤镜效果
     // 1    0,255 高
@@ -69,7 +76,7 @@ require([
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'Only one')) return;
+        if (!checkSelection(selection, "selectElement", "Only one")) return;
 
         // 获取第一帧
         var frs = checkSelectedFrames(timeline);
@@ -77,25 +84,19 @@ require([
         var firstLayer = layers[frs[0].layerIndex];
         var firstFrame = frs[0].startFrame;
 
-        KEY_FRAMES = linqUtil.addOffset(KEY_FRAMES, firstFrame);
-        BLUR_FILTER_FRAMES = linqUtil.addOffset(BLUR_FILTER_FRAMES, firstFrame);
-        DISAPPEAR_FRAMES = linqUtil.addOffset(DISAPPEAR_FRAMES, firstFrame);
+        KEY_FRAMES = $addOffset(KEY_FRAMES, firstFrame);
+        BLUR_FILTER_FRAMES = $addOffset(BLUR_FILTER_FRAMES, firstFrame);
+        DISAPPEAR_FRAMES = $addOffset(DISAPPEAR_FRAMES, firstFrame);
 
         // 关键帧
-        frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
+        convertToKeyframesSafety(timeline, KEY_FRAMES);
 
         // 滤镜效果
         for (var i = 0; i < BLUR_FILTER_FRAMES.length; i++) {
             var blurfilterframe = BLUR_FILTER_FRAMES[i];
             var blurY = BLUR_Y[i];
 
-            filterUtil.addBlurFilterToFrame(
-                firstLayer,
-                blurfilterframe,
-                0,
-                blurY,
-                'high'
-            );
+            addBlurFilterToFrame(firstLayer, blurfilterframe, 0, blurY, "high");
         }
 
         // 消失效果
@@ -107,23 +108,23 @@ require([
 
             // 删除元素
             var disappearElements = firstLayer.frames[disappearframe].elements;
-            // sel.SelectAll(disappearElements);
+            // SelectAll(disappearElements);
             // doc.deleteSelection();
-            sel.DeleteSelection(disappearElements);
+            DeleteSelection(disappearElements);
         }
 
         // 获取allKeyFrames first,last
         var firstF = KEY_FRAMES[0];
         var lastF = KEY_FRAMES[KEY_FRAMES.length - 1];
-        log.info('firstF:', firstF, 'lastF:', lastF);
+        log.info("firstF:", firstF, "lastF:", lastF);
         // 选中所有帧
         timeline.setSelectedFrames(firstF, lastF, true);
 
         // 传统补间动画
-        curve.setClassicEaseCurve(timeline);
+        setClassicEaseCurve(timeline);
 
         // 重置选中帧
-        frUtil.resetSelectedFrames(timeline, frs);
+        SelectStartFms(timeline, frs);
     }
 
     Main();

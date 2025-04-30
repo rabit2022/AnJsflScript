@@ -8,22 +8,23 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'selectionUtil'], function (checkUtil, sel) {
+require(["checkUtil", "FramesSelect"], function (checkUtil, fms) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
+    const { SelectNoneFms } = fms;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -41,22 +42,22 @@ require(['checkUtil', 'selectionUtil'], function (checkUtil, sel) {
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'No limit')) return;
+        if (!checkSelection(selection, "selectElement", "No limit")) return;
 
         // var currentFrame = timeline.currentFrame;
         var startFrame = 0;
         var endFrame = timeline.frameCount;
 
-        var direction = prompt('请输入方向：空格-向前删除 右-向后删除', '右');
-        if (direction == null || direction === '') {
-            alert('请输入正确的方向！');
+        var direction = prompt("请输入方向：空格-向前删除 右-向后删除", "右");
+        if (direction == null || direction === "") {
+            alert("请输入正确的方向！");
             return;
         }
 
         var END_FRAME = 0;
-        if (direction === ' ') {
+        if (direction === " ") {
             END_FRAME = startFrame;
-        } else if (direction === '右') {
+        } else if (direction === "右") {
             END_FRAME = endFrame;
         }
 
@@ -72,7 +73,7 @@ require(['checkUtil', 'selectionUtil'], function (checkUtil, sel) {
         timeline.currentFrame = curFrameIndex;
 
         // // select None
-        sel.SelectNoneTl(timeline);
+        SelectNoneFms(timeline);
     }
 
     Main();

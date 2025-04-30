@@ -9,28 +9,28 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'loglevel', 'frameRangeUtil', 'curveUtil'], function (
+require(["checkUtil", "loglevel", "KeyFrameChecker", "Tween"], function (
     checkUtil,
     log,
-    frUtil,
-    curveUtil
+    kfc,
+    tween
 ) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
-    const { IsKeyFrame } = frUtil;
-    const { createTweenIntelligent } = curveUtil;
+    const { IsKeyFrame } = kfc;
+    const { createTweenIntelligent } = tween;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!CheckDom(doc)) return;
@@ -54,7 +54,7 @@ require(['checkUtil', 'loglevel', 'frameRangeUtil', 'curveUtil'], function (
 
     function Main() {
         // 检查选择的元件
-        if (!CheckSelection(selection, 'selectElement', 'No limit')) return;
+        if (!CheckSelection(selection, "selectElement", "No limit")) return;
 
         var selectedLayers = frs.map(function (fr) {
             return timeline.layers[fr.layerIndex];
@@ -67,7 +67,7 @@ require(['checkUtil', 'loglevel', 'frameRangeUtil', 'curveUtil'], function (
             var [startFrame, endFrame] = startEndFrames[i];
 
             // Skip timeline folders
-            if (layer.layerType === 'folder') continue;
+            if (layer.layerType === "folder") continue;
 
             // Loop through the selected frames
             for (var j = startFrame; j <= endFrame; j++) {

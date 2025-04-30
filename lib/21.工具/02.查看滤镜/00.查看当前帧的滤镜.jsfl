@@ -8,20 +8,20 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'loglevel'], function (checkUtil, log) {
+require(["checkUtil", "loglevel"], function (checkUtil, log) {
     const { CheckDom, CheckSelection } = checkUtil;
 
     var doc = fl.getDocumentDOM(); //文档
@@ -40,15 +40,15 @@ require(['checkUtil', 'loglevel'], function (checkUtil, log) {
 
     function Main() {
         // 检查选择的元件
-        if (!CheckSelection(selection, 'selectElement', 'No limit')) return;
+        if (!CheckSelection(selection, "selectElement", "No limit")) return;
 
         // layer.getFiltersAtFrame(frameIndex)
         var filters = curLayer.getFiltersAtFrame(curFrameIndex);
         if (filters == null || filters.length === 0) {
-            log.info('当前帧上没有滤镜');
+            log.info("当前帧上没有滤镜");
             return;
         }
-        log.info('当前帧上滤镜：', filters);
+        log.info("当前帧上滤镜：", filters);
     }
 
     Main();

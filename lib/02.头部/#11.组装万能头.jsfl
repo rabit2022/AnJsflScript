@@ -8,20 +8,20 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'xmlPanelUtil'], function (checkUtil, xmlPanelUtil) {
+require(["checkUtil", "xmlPanelUtil"], function (checkUtil, xmlPanelUtil) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
 
@@ -45,22 +45,22 @@ require(['checkUtil', 'xmlPanelUtil'], function (checkUtil, xmlPanelUtil) {
 
         var shakeIntensity = xmlPanelUtil.parseNumber(
             panel.shakeIntensity,
-            '摇头强度只能输入数字，请重新输入。'
+            "摇头强度只能输入数字，请重新输入。"
         );
         if (shakeIntensity === null) return null;
         var motionFrameCount = xmlPanelUtil.parseNumber(
             panel.motionFrameCount,
-            '表情帧数只能输入数字，请重新输入。'
+            "表情帧数只能输入数字，请重新输入。"
         );
         if (motionFrameCount === null) return null;
         var headDirection = xmlPanelUtil.parseNumber(
             panel.headDirection,
-            '头部朝向只能输入数字，请重新输入。'
+            "头部朝向只能输入数字，请重新输入。"
         );
         if (headDirection === null) return null;
         var shakeMode = xmlPanelUtil.parseString(
             panel.shakeMode,
-            '摇头模式只能输入 (传统摇头 丝滑摇头)，请重新输入。'
+            "摇头模式只能输入 (传统摇头 丝滑摇头)，请重新输入。"
         );
         if (shakeMode === null) return null;
 
@@ -74,7 +74,7 @@ require(['checkUtil', 'xmlPanelUtil'], function (checkUtil, xmlPanelUtil) {
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'No limit')) return;
+        if (!checkSelection(selection, "selectElement", "No limit")) return;
 
         // 读取XML面板配置
         var config = checkXMLPanel();

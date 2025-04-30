@@ -8,30 +8,29 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'elementUtil', 'frameRangeUtil'], function (
-    checkUtil,
-    ele,
-    frUtil
-) {
-    const {
+require(["checkUtil", "ElementAnim", "ElementChecker", "KeyFrameOperation"], function (
+    {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
         CheckSelectedFrames: checkSelectedFrames
-    } = checkUtil;
-
+    },
+    { SetLoopMode },
+    { IsSymbol },
+    { KFrameOnlyOne }
+) {
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
 
@@ -57,25 +56,25 @@ require(['checkUtil', 'elementUtil', 'frameRangeUtil'], function (
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'No limit')) return;
+        if (!checkSelection(selection, "selectElement", "No limit")) return;
 
         // 关键帧
-        frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
+        KFrameOnlyOne(timeline);
 
         // 如果全部都是 "loop", targetLoop = "loop"
         // 否则 统一设置为 "single frame"
-        var targetLoop = 'single frame';
+        var targetLoop = "single frame";
 
         var tempLoop = 0;
         for (var i = 0; i < selection.length; i++) {
             var element = selection[i];
             // 跳过  非元件
-            if (!ele.IsSymbol(element)) {
+            if (!IsSymbol(element)) {
                 continue;
             }
 
             // 计数loop的元素数量
-            if (element.loop === 'loop') {
+            if (element.loop === "loop") {
                 tempLoop++;
             } else {
                 // 一旦发现有一个元素的loop属性不等于"loop"，即可确定targetLoop应为"single frame"
@@ -86,16 +85,11 @@ require(['checkUtil', 'elementUtil', 'frameRangeUtil'], function (
 
         // 如果所有检查过的元素loop属性都等于"loop"，则设置targetLoop为"loop"
         if (tempLoop > 0 && tempLoop === selection.length) {
-            targetLoop = 'loop';
+            targetLoop = "loop";
         }
 
         // 设置所有选中元素的loop属性
-        for (var i = 0; i < selection.length; i++) {
-            var element = selection[i];
-            if (ele.IsSymbol(element)) {
-                element.loop = targetLoop;
-            }
-        }
+        SetLoopMode(selection, targetLoop);
 
         // // 原始版本
         // var firstElement = selection[0];

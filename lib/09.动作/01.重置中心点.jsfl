@@ -8,26 +8,26 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'selectionUtil', 'SAT'], function (checkUtil, sel, sat) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
-    var Vector = sat.Vector,
-        Rectangle = sat.Rectangle,
-        wrapPosition = sat.GLOBALS.wrapPosition,
-        wrapRect = sat.GLOBALS.wrapRect;
+require(["checkUtil", "SAT", "ElementSelect"], function (checkUtil, sat, es) {
+    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
+
+    const { Rectangle } = sat;
+    const { wrapPosition } = sat.GLOBALS;
+
+    const { OnlySelectCurrent, SelectStart } = es;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -45,14 +45,14 @@ require(['checkUtil', 'selectionUtil', 'SAT'], function (checkUtil, sel, sat) {
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'Not Zero')) return;
+        if (!checkSelection(selection, "selectElement", "Not Zero")) return;
 
         for (var i = 0; i < selection.length; i++) {
             var element = selection[i];
-            sel.OnlySelectCurrent(element);
+            OnlySelectCurrent(element);
 
             var elePos = wrapPosition(element);
-            var symbolCenter = wrapRect(doc.getSelectionRect()).getCenterVector();
+            var symbolCenter = new Rectangle(doc.getSelectionRect()).getCenterVector();
 
             var offset = symbolCenter.clone().sub(elePos);
 
@@ -60,7 +60,7 @@ require(['checkUtil', 'selectionUtil', 'SAT'], function (checkUtil, sel, sat) {
         }
 
         // 还原选择
-        sel.SelectStart(selection);
+        SelectStart(selection);
     }
 
     Main();

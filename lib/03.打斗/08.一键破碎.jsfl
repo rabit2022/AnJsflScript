@@ -8,37 +8,37 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 require([
-    'checkUtil',
-    'SAT',
-    'random',
-    'satUtil',
-    'selectionUtil',
-    'elementUtil'
-], function (checkUtil, sat, random, satUtil, sel, ele) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
+    "checkUtil",
+    "SAT",
+    "random",
+    "satUtil",
+    "ElementOperation",
+    "ElementAnim",
+    "ElementSelect"
+], function (checkUtil, sat, random, satUtil, ed, ea, es) {
+    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
-    var Vector = sat.Vector,
-        Rectangle = sat.Rectangle,
-        wrapPosition = sat.GLOBALS.wrapPosition,
-        wrapTransform = sat.GLOBALS.wrapTransform,
-        wrapRectByCenter = sat.GLOBALS.wrapRectByCenter;
-    var pointUtil = satUtil.PointUtil,
-        rectUtil = satUtil.RectUtil;
+    const { Vector } = sat;
+    const { wrapTransform, wrapRectByCenter } = sat.GLOBALS;
+    const { generateRandomPointInRect } = satUtil;
+
+    const { splinterSymbol } = ed;
+    const { playOnce } = ea;
+    const { SelectAll } = es;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -75,14 +75,14 @@ require([
         // setPosition 函数直接设置元素的位置， 参照物为元素的注册点
         var rect = wrapRectByCenter(rectCenter.x, rectCenter.y, rectWidth, rectHeight);
 
-        fl.trace('rect:' + rect);
+        fl.trace("rect:" + rect);
         return rect;
     }
 
     function KFrames(element) {
         var explosionRect = getExplosionRect(element);
 
-        doc.enterEditMode('inPlace');
+        doc.enterEditMode("inPlace");
 
         var timeline1 = doc.getTimeline(); //时间轴
         // 增加10帧
@@ -95,18 +95,18 @@ require([
         // 补间动画
         doc.selectAll();
         timeline1.createMotionTween();
-        timeline1.setFrameProperty('motionTweenRotate', 'clockwise');
-        timeline1.setFrameProperty('motionTweenRotateTimes', '1');
+        timeline1.setFrameProperty("motionTweenRotate", "clockwise");
+        timeline1.setFrameProperty("motionTweenRotateTimes", "1");
         // timeline1.setSelectedFrames([]);
 
         // 更改位置
         timeline1.currentFrame = timeline1.frameCount - 1;
-        sel.SelectAll();
+        SelectAll();
         for (var i = 0; i < doc.selection.length; i++) {
             var element = doc.selection[i];
 
             // var randomPos = rectUtil.generateRandomPoint(explosionRectSize, rectCenter);
-            var randomPos = rectUtil.generateRandomPointInRect(explosionRect);
+            var randomPos = generateRandomPointInRect(explosionRect);
 
             // scale:0.5-1.5   ======0-0.6
             // skew:-180-180   ======-36 ~ 36
@@ -129,16 +129,16 @@ require([
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'Only one')) return;
+        if (!checkSelection(selection, "selectElement", "Only one")) return;
 
         // 碎片
-        if (!ele.splinterSymbol(doc.selection[0], '一键爆炸_')) return;
+        if (!splinterSymbol(doc.selection[0], "一键爆炸_")) return;
 
         // 爆炸效果
         KFrames(doc.selection[0]);
 
         // 播放一次
-        ele.playOnce(doc.selection);
+        playOnce(doc.selection);
     }
 
     Main();

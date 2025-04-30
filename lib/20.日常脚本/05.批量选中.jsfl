@@ -8,27 +8,22 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'loglevel', 'elementUtil', 'selectionUtil'], function (
-    checkUtil,
-    log,
-    eleUtil,
-    selectionUtil
-) {
+require(["checkUtil", "loglevel", "ElementSelect"], function (checkUtil, log, es) {
     const { CheckDom, CheckSelection } = checkUtil;
-    const { SelectSameName } = selectionUtil;
+    const { SelectSameName } = es;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -48,7 +43,7 @@ require(['checkUtil', 'loglevel', 'elementUtil', 'selectionUtil'], function (
 
     function Main() {
         // 检查选择的元件
-        if (!CheckSelection(selection, 'selectElement', 'Only one')) return;
+        if (!CheckSelection(selection, "selectElement", "Only one")) return;
 
         var firstElement = selection[0];
         SelectSameName(firstElement);

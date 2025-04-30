@@ -13,8 +13,6 @@
         root['SAT'] = factory();
     }
 })(this, function () {
-    var isFlash = typeof fl !== 'undefined';
-
     var Functions = {
         Identity: function (x) {
             return x;
@@ -2845,11 +2843,7 @@
         selector = Utils.createLambda(selector);
 
         return this.doAction(function (item) {
-            if (typeof console !== Types.Undefined) {
-                console.log(selector(item));
-            } else if (isFlash) {
-                fl.trace(selector(item));
-            }
+            console.log(selector(item));
         });
     };
 
@@ -2861,11 +2855,7 @@
         selector = Utils.createLambda(selector);
 
         return this.doAction(function (item) {
-            if (typeof console !== Types.Undefined) {
-                console.log(message, selector(item));
-            } else if (isFlash) {
-                fl.trace(selector(item));
-            }
+            console.log(message, selector(item));
         });
     };
 

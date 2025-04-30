@@ -262,6 +262,7 @@
                     type: match[8]
                 });
             } else {
+                // console.stack('[sprintf] unexpected placeholder');
                 throw new SyntaxError('[sprintf] unexpected placeholder');
             }
             _fmt = _fmt.substring(match[0].length);

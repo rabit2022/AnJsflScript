@@ -8,20 +8,20 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil'], function (checkUtil) {
+require(["checkUtil"], function (checkUtil) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
 
@@ -41,11 +41,11 @@ require(['checkUtil'], function (checkUtil) {
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'No limit')) return;
+        if (!checkSelection(selection, "selectElement", "No limit")) return;
 
         var isClean = confirm(
-            '该操作会清理库中所有未使用的文件，是否继续？\n' +
-                '穹的兔兔  提醒您：请谨慎操作，避免误删重要文件！尽量有备份文件。'
+            "该操作会清理库中所有未使用的文件，是否继续？\n" +
+                "穹的兔兔  提醒您：请谨慎操作，避免误删重要文件！尽量有备份文件。"
         );
         if (!isClean) {
             return;

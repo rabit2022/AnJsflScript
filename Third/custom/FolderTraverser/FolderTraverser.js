@@ -22,7 +22,7 @@ if (isNode) {
             isdir: (filePath) => fs.lstatSync(filePath).isDirectory(), // 检查是否为目录
             isfile: (filePath) => fs.lstatSync(filePath).isFile(), // 检查是否为文件
             basename: (filePath) => path.basename(filePath), // 获取路径的文件名部分
-            dirname: (filePath) => path.dirname(filePath) // 获取路径的目录部分
+            // dirname: (filePath) => path.dirname(filePath) // 获取路径的目录部分
         }
     };
 } else if (isFlash) {

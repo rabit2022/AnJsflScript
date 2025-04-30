@@ -8,29 +8,30 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 require([
-    'checkUtil',
-    'selectionUtil',
-    'promptUtil',
-    'frameRangeUtil',
-    'loglevel'
-], function (checkUtil, sel, promptUtil, frUtil, log) {
+    "checkUtil",
+    "promptUtil",
+    "loglevel",
+    "FramesSelect",
+    "KeyFrameQuery"
+], function (checkUtil, promptUtil, log, fms, kfq) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
-    // var frUtil = frameRange.FrameRangeUtil;
+    const { SelectNoneFms } = fms;
+    const { getSelectedFrs, getKfrFromSlLittle, getKeyFrameRanges } = kfq;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -48,22 +49,22 @@ require([
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'No limit')) return;
+        if (!checkSelection(selection, "selectElement", "No limit")) return;
 
         var { num, mode } = promptUtil.parseNumberWithMode(30);
-        log.info('关键帧持续帧数：' + num + '，模式：' + mode);
+        log.info("关键帧持续帧数：" + num + "，模式：" + mode);
 
         // 选中的帧范围
-        var selectedFrs = frUtil.getSelectedFrs(timeline);
+        var selectedFrs = getSelectedFrs(timeline);
         for (var i = 0; i < selectedFrs.length; i++) {
             // 某一个图层的 选中的帧范围
             var selectedFr = selectedFrs[i];
             // 某一个图层的 关键帧范围 列表
             var _layer = layers[selectedFr.layerIndex];
-            var keyFrameRanges = frUtil.getKeyFrameRanges(layers, _layer);
+            var keyFrameRanges = getKeyFrameRanges(layers, _layer);
 
             // 选中范围 包含的 关键帧范围
-            var keyFr = frUtil.getKfrFromSlLittle(selectedFr, keyFrameRanges);
+            var keyFr = getKfrFromSlLittle(selectedFr, keyFrameRanges);
             if (keyFr === null) continue;
             // fl.trace("选中范围：" + keyFr.toString());
 
@@ -72,15 +73,15 @@ require([
 
             // 删减关键帧，增加关键帧
             switch (mode) {
-                case 'increase':
+                case "increase":
                     timeline.insertFrames(num, false, keyFr.endFrame);
                     break;
-                case 'decrease':
+                case "decrease":
                     var startFrame = keyFr.startFrame;
                     var endFrame = keyFr.startFrame + num - 1;
                     timeline.removeFrames(startFrame, endFrame);
                     break;
-                case 'unify':
+                case "unify":
                     if (keyFr.duration === num) {
                         continue;
                     } else if (keyFr.duration > num) {
@@ -94,12 +95,12 @@ require([
                     }
                     break;
                 default:
-                    throw new Error('未知模式：' + mode);
+                    throw new Error("未知模式：" + mode);
             }
         }
 
         // select None
-        sel.SelectNoneTl(timeline);
+        SelectNoneFms(timeline);
     }
 
     Main();

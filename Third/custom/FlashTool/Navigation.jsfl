@@ -11,11 +11,9 @@ define([
     'Class',
     'Interface',
     'checkUtil',
-    'ErrorDefinitions',
     'JSFLConstants'
-], function (Class, Interface, checkUtil, ErrorDefinitions, JSFLConstants) {
+], function(Class, Interface, checkUtil, JSFLConstants) {
     const { CheckTimeline } = checkUtil;
-    const { NotImplementedError } = ErrorDefinitions;
     const ENVELOPE_PER_FRAME = JSFLConstants.Numerics.sound.envelope.ENVELOPE_PER_FRAME;
 
     var NavigationAbs = Interface('NavigationAbs', {
@@ -83,25 +81,25 @@ define([
 
         STATIC: {
             // 静态方法：移动到时间轴开头 (Home)
-            home: function () {
-                const timeline = CheckTimeline();
-                if (!timeline) return;
+            home: function() {
+                var doc = fl.getDocumentDOM(); //文档
+                var timeline = doc.getTimeline(); //时间轴
 
                 timeline.currentFrame = 0;
             },
 
             // 静态方法：移动到时间轴末尾 (End)
-            end: function () {
-                const timeline = CheckTimeline();
-                if (!timeline) return;
+            end: function() {
+                var doc = fl.getDocumentDOM(); //文档
+                var timeline = doc.getTimeline(); //时间轴
 
                 timeline.currentFrame = timeline.frameCount - 1;
             },
 
             // 静态方法：移动到前一个关键帧（所有图层） (Page Up)
-            pageUpGlobal: function () {
-                const timeline = CheckTimeline();
-                if (!timeline) return;
+            pageUpGlobal: function() {
+                var doc = fl.getDocumentDOM(); //文档
+                var timeline = doc.getTimeline(); //时间轴
 
                 var key = 0;
                 var klayers = [];
@@ -143,9 +141,9 @@ define([
             },
 
             // 静态方法：移动到下一个关键帧（所有图层） (Page Down)
-            pageDownGlobal: function () {
-                const timeline = CheckTimeline();
-                if (!timeline) return;
+            pageDownGlobal: function() {
+                var doc = fl.getDocumentDOM(); //文档
+                var timeline = doc.getTimeline(); //时间轴
 
                 var key = timeline.frameCount - 1;
                 var klayers = [];
@@ -190,16 +188,23 @@ define([
             },
 
             // 静态方法：移动到当前图层的前一个关键帧 (Shift + Page Up)
-            pageUp: function () {
-                const timeline = CheckTimeline();
-                if (!timeline) return;
+            pageUp: function() {
+                var doc = fl.getDocumentDOM(); //文档
+                var timeline = doc.getTimeline(); //时间轴
 
-                const layer = timeline.layers[timeline.currentLayer];
-                var startframe = layer.frames[timeline.currentFrame].startFrame;
+                var layers = timeline.layers; //图层
+                var curLayerIndex = timeline.currentLayer; //当前图层索引
+                var curLayer = layers[curLayerIndex]; //当前图层
 
-                if (startframe === timeline.currentFrame && timeline.currentFrame > 0) {
-                    startframe = layer.frames[timeline.currentFrame - 1].startFrame;
+                var curFrameIndex = timeline.currentFrame; //当前帧索引
+                var curFrame = curLayer.frames[curFrameIndex]; //当前帧
+
+
+                var startframe = curFrame.startFrame;
+                if (startframe === curFrameIndex && curFrameIndex > 0) {
+                    startframe = curLayer.frames[curFrameIndex - 1].startFrame;
                 }
+
                 timeline.currentFrame = startframe >= 0 ? startframe : 0;
                 timeline.setSelectedFrames(
                     timeline.currentFrame,
@@ -208,54 +213,60 @@ define([
             },
 
             // 静态方法：移动到当前图层的下一个关键帧 (Shift + Page Down)
-            pageDown: function () {
-                const timeline = CheckTimeline();
-                if (!timeline) return;
+            pageDown: function() {
+                var doc = fl.getDocumentDOM(); //文档
+                var timeline = doc.getTimeline(); //时间轴
 
-                const layer = timeline.layers[timeline.currentLayer];
-                var key =
-                    layer.frames[timeline.currentFrame].startFrame +
-                    layer.frames[timeline.currentFrame].duration;
+                var layers = timeline.layers; //图层
+                var curLayerIndex = timeline.currentLayer; //当前图层索引
+                var curLayer = layers[curLayerIndex]; //当前图层
 
-                if (key < layer.frames.length) {
-                    timeline.currentFrame = key;
-                    timeline.setSelectedFrames(key, key + 1);
-                } else {
-                    timeline.currentFrame = layer.frames.length - 1;
-                    timeline.setSelectedFrames(
-                        timeline.currentFrame,
-                        timeline.currentFrame + 1
-                    );
+                var curFrameIndex = timeline.currentFrame; //当前帧索引
+                var curFrame = curLayer.frames[curFrameIndex]; //当前帧
+
+
+                var curEnd = curFrame.startFrame + curFrame.duration;
+                if (curEnd >= curLayer.frames.length) {
+                    curEnd = curLayer.frames.length - 1;
                 }
+
+                timeline.currentFrame = curEnd;
+                timeline.setSelectedFrames(curEnd, curEnd + 1);
             },
 
             // 静态方法：选择 当前帧 到 开头的所有帧 (Shift + Home)
-            shiftHome: function () {
-                const timeline = CheckTimeline();
-                if (!timeline) return;
+            shiftHome: function() {
+                var doc = fl.getDocumentDOM(); //文档
+                var timeline = doc.getTimeline(); //时间轴
 
                 timeline.setSelectedFrames(0, timeline.currentFrame + 1);
             },
 
             // 静态方法：选择 当前帧 到 末尾的所有帧 (Shift + End)
-            shiftEnd: function () {
-                const timeline = CheckTimeline();
-                if (!timeline) return;
+            shiftEnd: function() {
+                var doc = fl.getDocumentDOM(); //文档
+                var timeline = doc.getTimeline(); //时间轴
 
                 timeline.setSelectedFrames(timeline.currentFrame, timeline.frameCount);
             },
 
             // 静态方法：选择 当前帧 到 当前图层的前一个关键帧 的所有帧 (Shift + Page Up)
-            shiftPageUp: function () {
-                const timeline = CheckTimeline();
-                if (!timeline) return;
+            shiftPageUp: function() {
+                var doc = fl.getDocumentDOM(); //文档
+                var timeline = doc.getTimeline(); //时间轴
 
-                const layer = timeline.layers[timeline.currentLayer];
-                var startframe = layer.frames[timeline.currentFrame].startFrame;
+                var layers = timeline.layers; //图层
+                var curLayerIndex = timeline.currentLayer; //当前图层索引
+                var curLayer = layers[curLayerIndex]; //当前图层
 
-                if (startframe === timeline.currentFrame && timeline.currentFrame > 0) {
-                    startframe = layer.frames[timeline.currentFrame - 1].startFrame;
+                var curFrameIndex = timeline.currentFrame; //当前帧索引
+                var curFrame = curLayer.frames[curFrameIndex]; //当前帧
+
+                var startframe = curFrame.startFrame;
+                if (startframe === curFrameIndex && curFrameIndex > 0) {
+                    startframe = curLayer.frames[curFrameIndex - 1].startFrame;
                 }
+
                 // timeline.currentFrame = startframe >= 0 ? startframe : 0;
                 startframe = startframe >= 0 ? startframe : 0;
 
@@ -263,23 +274,23 @@ define([
             },
 
             // 静态方法：选择 当前帧 到 当前图层的下一个关键帧 的所有帧 (Shift + Page Down)
-            shiftPageDown: function () {
-                const timeline = CheckTimeline();
-                if (!timeline) return;
+            shiftPageDown: function() {
+                var doc = fl.getDocumentDOM(); //文档
+                var timeline = doc.getTimeline(); //时间轴
 
-                const layer = timeline.layers[timeline.currentLayer];
-                var key =
-                    layer.frames[timeline.currentFrame].startFrame +
-                    layer.frames[timeline.currentFrame].duration;
+                var layers = timeline.layers; //图层
+                var curLayerIndex = timeline.currentLayer; //当前图层索引
+                var curLayer = layers[curLayerIndex]; //当前图层
 
-                if (key < layer.frames.length) {
-                    timeline.setSelectedFrames(timeline.currentFrame, key + 1);
-                } else {
-                    timeline.setSelectedFrames(
-                        timeline.currentFrame,
-                        layer.frames.length
-                    );
+                var curFrameIndex = timeline.currentFrame; //当前帧索引
+                var curFrame = curLayer.frames[curFrameIndex]; //当前帧
+
+                var curEnd = curFrame.startFrame + curFrame.duration;
+                if (curEnd >= curLayer.frames.length) {
+                    curEnd = curLayer.frames.length - 1;
                 }
+
+                timeline.setSelectedFrames(curFrameIndex, curEnd + 1);
             }
         }
     });
@@ -297,7 +308,7 @@ define([
 
         STATIC: {
             // 静态方法：移动到声音开头 (Home)
-            home: function () {
+            home: function() {
                 var curFrame = curLayer.frames[curFrameIndex]; //当前帧
                 var soundEnvelopeLimits = curFrame.getSoundEnvelopeLimits();
                 soundEnvelopeLimits.start = 0;
@@ -305,7 +316,7 @@ define([
                 curFrame.setSoundEnvelopeLimits(soundEnvelopeLimits);
             },
             // 静态方法：移动到声音末尾 (End)
-            end: function () {
+            end: function() {
                 var curFrame = curLayer.frames[curFrameIndex]; //当前帧
                 var soundEnvelopeLimits = curFrame.getSoundEnvelopeLimits();
                 soundEnvelopeLimits.start = soundEnvelopeLimits.end;
@@ -313,7 +324,7 @@ define([
                 curFrame.setSoundEnvelopeLimits(soundEnvelopeLimits);
             },
             // 静态方法：声音的进度 +10帧 (Page Up)
-            pageUp: function () {
+            pageUp: function() {
                 // +10帧
                 var curFrame = curLayer.frames[curFrameIndex]; //当前帧
                 var soundEnvelopeLimits = curFrame.getSoundEnvelopeLimits();
@@ -322,7 +333,7 @@ define([
                 curFrame.setSoundEnvelopeLimits(soundEnvelopeLimits);
             },
             // 静态方法：声音的进度 -10帧 (Page Down)
-            pageDown: function () {
+            pageDown: function() {
                 // -10帧
                 var curFrame = curLayer.frames[curFrameIndex]; //当前帧
                 var soundEnvelopeLimits = curFrame.getSoundEnvelopeLimits();
@@ -331,17 +342,17 @@ define([
                 curFrame.setSoundEnvelopeLimits(soundEnvelopeLimits);
             },
             // 其他方法：暂时没有
-            shiftPageUp: function () {
-                throw new NotImplementedError();
+            shiftPageUp: function() {
+                throw new Error('Not implemented');
             },
-            shiftPageDown: function () {
-                throw new NotImplementedError();
+            shiftPageDown: function() {
+                throw new Error('Not implemented');
             },
-            shiftHome: function () {
-                throw new NotImplementedError();
+            shiftHome: function() {
+                throw new Error('Not implemented');
             },
-            shiftEnd: function () {
-                throw new NotImplementedError();
+            shiftEnd: function() {
+                throw new Error('Not implemented');
             }
         }
     });

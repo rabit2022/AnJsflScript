@@ -58,8 +58,26 @@ define(function() {
         IAGUEMENT: 'IAGUEMENT'// 多参数情况
     };
 
+    // function IsTemplateString(str) {
+    //     return typeof str === 'string' && str.includes('%');
+    // }
+    /**
+     * @description: 判断一个字符串是否符合 `printf` 或类似库的模板字符串格式
+     * ### 正则表达式解释
+     *     - `%`：占位符的开始。
+     * - `(\d+\$)?`：可选的数字后跟 `$`，表示参数索引。   例如 `%1$s`
+     * - `[+\-#0' ]*`：可选的符号、填充字符等修饰符。   例如 `%-5s`
+     * - `([0-9]+|\*)?`：可选的宽度指定。   例如 `%5s`
+     * - `(\.([0-9]+|\*))?`：可选的精度指定。   例如 `%5.2f`
+     * - `([bBcCdisSuUfFeEgGoxXj])`：类型说明符，必须是 `printf` 支持的类型之一。   例如 `%s`
+     * @param {string} str 要判断的字符串
+     * @returns {boolean} 是否符合模板字符串格式
+     */
     function IsTemplateString(str) {
-        return typeof str === 'string' && str.includes('%');
+        // 正则表达式匹配 printf 格式的占位符
+        const printfPattern = /%(\d+\$)?[+\-#0' ]*([0-9]+|\*)?(\.([0-9]+|\*))?([bBcCdisSuUfFeEgGoxXj])/;
+
+        return typeof str === 'string' && printfPattern.test(str);
     }
 
     function analyzeFormatMessageType(arg) {

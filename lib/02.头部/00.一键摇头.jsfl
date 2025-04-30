@@ -8,45 +8,46 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 require([
-    'checkUtil',
-    'promptUtil',
-    'libUtil',
-    'frameRangeUtil',
-    'JSFLConstants'
-], function (checkUtil, promptUtil, libUtil, frameRangeUtil, JSFLConstants) {
+    "checkUtil",
+    "promptUtil",
+    "SymbolNameGenerator",
+    "JSFLConstants",
+    "KeyFrameOperation"
+], function (checkUtil, promptUtil, sng, JSFLConstants, kfo) {
+    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
+
+    const { FRAME_4, FRAME_6 } = JSFLConstants.Numerics.frame.frameList;
+    const { convertToKeyframesSafety } = kfo;
+    const { generateNameUntilUnique } = sng;
+
     var descriptions = {
-        file: '00.一键摇头.jsfl',
-        'file description': '输出 摇头动作的元件,说话时的头部动作',
-        selection: '仅一个元件',
-        'selection description': '选中头部',
+        file: "00.一键摇头.jsfl",
+        "file description": "输出 摇头动作的元件,说话时的头部动作",
+        selection: "仅一个元件",
+        "selection description": "选中头部",
         XMLPanel: false,
-        'input parameters': {
-            头部朝向: '右',
+        "input parameters": {
+            头部朝向: "右",
             摇头力度: 3
         },
-        detail: '包装元件',
-        'detail description': 'k 6帧头',
-        steps: ['包装元件', '更改元件位置']
+        detail: "包装元件",
+        "detail description": "k 6帧头",
+        steps: ["包装元件", "更改元件位置"]
     };
-
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
-    // const {convertToKeyframesSafety}=frameRangeUtil;
-    const { FRAME_4, FRAME_6 } = JSFLConstants.Numerics.frame.frameList;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -64,11 +65,11 @@ require([
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'Only one')) return;
+        if (!checkSelection(selection, "selectElement", "Only one")) return;
 
-        var direction = promptUtil.parseDirection('输入头部朝向(默认为右，空格为左)：', {
+        var direction = promptUtil.parseDirection("输入头部朝向(默认为右，空格为左)：", {
             右: 1,
-            ' ': -1,
+            " ": -1,
             左: -1
         });
         if (direction === null) {
@@ -76,9 +77,9 @@ require([
         }
 
         var force = promptUtil.parseNumber(
-            '输入摇头力度',
+            "输入摇头力度",
             3,
-            '摇头力度只能输入数字，请重新输入。'
+            "摇头力度只能输入数字，请重新输入。"
         );
         if (force === null) {
             return;
@@ -86,10 +87,10 @@ require([
 
         // fl.trace("direction: " + direction + ", force: " + force);
 
-        var symbolName = libUtil.generateNameUntilUnique('一键摇头_');
-        doc.convertToSymbol('graphic', symbolName, 'center');
+        var symbolName = generateNameUntilUnique("一键摇头_");
+        doc.convertToSymbol("graphic", symbolName, "center");
 
-        doc.enterEditMode('inPlace');
+        doc.enterEditMode("inPlace");
 
         var timeline = doc.getTimeline();
         // var _6_frames = 6 - 1;
@@ -98,7 +99,7 @@ require([
 
         // var _4_frames = 4 - 1;
         // timeline.convertToKeyframes(_4_frames);
-        frameRangeUtil.convertToKeyframesSafety(timeline, [FRAME_4]);
+        convertToKeyframesSafety(timeline, [FRAME_4]);
 
         var frame4_element = timeline.layers[0].frames[FRAME_4].elements[0];
         frame4_element.x += direction * force;

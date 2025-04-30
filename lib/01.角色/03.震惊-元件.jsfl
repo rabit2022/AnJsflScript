@@ -8,34 +8,39 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 require([
-    'checkUtil',
-    'elementUtil',
-    'frameRangeUtil',
-    'curveUtil',
-    'libUtil',
-    'JSFLConstants'
-], function (checkUtil, ele, frUtil, curve, libUtil, JSFLConstants) {
+    "checkUtil",
+    "ElementTransform",
+    "SymbolNameGenerator",
+    "JSFLConstants",
+    "EaseCurve",
+    "FramesSelect",
+    "KeyFrameOperation"
+], function (checkUtil, et, sng, JSFLConstants, curve, fms, kfo) {
     const {
         CheckDom: checkDom,
         CheckSelection: checkSelection,
         CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
     const { FRAME_1, FRAME_3, FRAME_6 } = JSFLConstants.Numerics.frame.frameList;
-    console.log('libUtil', libUtil);
+    const { setTransformationPointWithCorner } = et;
+    const { setClassicEaseCurve } = curve;
+    const { SelectStartFms } = fms;
+    const { convertToKeyframesSafety } = kfo;
+    const { generateNameUntilUnique, generateNameUseLast } = sng;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -60,7 +65,7 @@ require([
     var ALTER_RATIO = 6 / 5;
 
     function KFrames() {
-        doc.enterEditMode('inPlace');
+        doc.enterEditMode("inPlace");
 
         var selection = doc.selection;
         var timeline = doc.getTimeline(); //时间轴
@@ -69,10 +74,10 @@ require([
         var curLayerIndex = timeline.currentLayer; //当前图层索引
         var curLayer = layers[curLayerIndex]; //当前图层
 
-        ele.setTransformationPoint(selection[0], 'bottom center');
+        setTransformationPointWithCorner(selection[0], "bottom center");
 
         // 关键帧
-        frUtil.convertToKeyframesSafety(timeline, KEY_FRAMES);
+        convertToKeyframesSafety(timeline, KEY_FRAMES);
 
         // 调整高度
         var frame_element = curLayer.frames[ALTER_HEIGHT_FRAME].elements[0];
@@ -86,36 +91,36 @@ require([
         timeline.setSelectedFrames(firstF, lastF, true);
 
         // 传统补间动画
-        curve.setClassicEaseCurve(timeline);
+        setClassicEaseCurve(timeline);
 
         doc.exitEditMode();
     }
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'Only one')) return;
+        if (!checkSelection(selection, "selectElement", "Only one")) return;
 
         // 获取第一帧
         var frs = checkSelectedFrames(timeline);
         if (frs === null) return;
 
-        var symbolName = libUtil.generateNameUntilUnique('一键震惊_静_');
-        doc.convertToSymbol('graphic', symbolName, 'center');
+        var symbolName = generateNameUntilUnique("一键震惊_静_");
+        doc.convertToSymbol("graphic", symbolName, "center");
 
-        var symbolName = libUtil.generateNameUseLast('一键震惊_动_');
-        doc.convertToSymbol('graphic', symbolName, 'center');
+        var symbolName = generateNameUseLast("一键震惊_动_");
+        doc.convertToSymbol("graphic", symbolName, "center");
 
         // 播放一次
         var selection1 = doc.selection; //选择
         for (var i = 0; i < selection1.length; i++) {
             var element = selection1[i];
-            element.loop = 'play once';
+            element.loop = "play once";
         }
 
         KFrames();
 
         // 重置选中帧
-        frUtil.resetSelectedFrames(timeline, frs);
+        SelectStartFms(timeline, frs);
     }
 
     Main();

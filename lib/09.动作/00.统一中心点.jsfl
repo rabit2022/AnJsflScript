@@ -8,28 +8,30 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'selectionUtil', 'elementUtil', 'SAT'], function (
+require(["checkUtil", "ElementQuery", "SAT", "ElementSelect"], function (
     checkUtil,
-    sel,
-    ele,
-    sat
+    eq,
+    sat,
+    es
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     var wrapPosition = sat.GLOBALS.wrapPosition;
+    const { getMaxRight } = eq;
+    const { OnlySelectCurrent } = es;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -47,10 +49,10 @@ require(['checkUtil', 'selectionUtil', 'elementUtil', 'SAT'], function (
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'Not Zero')) return;
+        if (!checkSelection(selection, "selectElement", "Not Zero")) return;
 
         // 找到最右边的元素
-        var maxElement = ele.getMaxRight(selection);
+        var maxElement = getMaxRight(selection);
 
         // 获取 transformPoint
         var trPoint = wrapPosition(maxElement.getTransformationPoint());
@@ -58,7 +60,7 @@ require(['checkUtil', 'selectionUtil', 'elementUtil', 'SAT'], function (
         // 把  所有元素的形变点   设置为   最右边的元素的形变点
         for (var i = 0; i < selection.length; i++) {
             var element = selection[i];
-            sel.OnlySelectCurrent(element);
+            OnlySelectCurrent(element);
 
             element.setTransformationPoint(trPoint.toObj());
         }
