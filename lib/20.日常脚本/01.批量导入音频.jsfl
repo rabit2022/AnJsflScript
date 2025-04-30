@@ -8,20 +8,20 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil'], function (checkUtil) {
+require(["checkUtil"], function (checkUtil) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
 
@@ -41,12 +41,12 @@ require(['checkUtil'], function (checkUtil) {
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'No limit')) return;
+        if (!checkSelection(selection, "selectElement", "No limit")) return;
 
         // 让用户选择包含音效文件的文件夹
-        var folderURL = fl.browseForFolderURL('请选择包含音效文件的文件夹');
+        var folderURL = fl.browseForFolderURL("请选择包含音效文件的文件夹");
         if (!folderURL) {
-            fl.trace('未选择文件夹。');
+            fl.trace("未选择文件夹。");
             return;
         }
 
@@ -56,7 +56,7 @@ require(['checkUtil'], function (checkUtil) {
 
         // 遍历文件并导入
         for (var i = 0; i < files.length; i++) {
-            var fileURL = folderURL + '/' + files[i];
+            var fileURL = folderURL + "/" + files[i];
             if (fileURL.match(/\.wav$/i) || fileURL.match(/\.mp3$/i)) {
                 // 检查文件扩展名是否为WAV或MP3
                 // fl.trace("正在导入文件：" + fileURL);
@@ -68,7 +68,7 @@ require(['checkUtil'], function (checkUtil) {
         }
 
         // 输出导入结果
-        fl.trace('成功导入 ' + count + ' 个音效文件到库中。');
+        fl.trace("成功导入 " + count + " 个音效文件到库中。");
     }
 
     Main();

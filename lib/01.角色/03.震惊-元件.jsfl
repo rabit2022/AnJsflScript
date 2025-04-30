@@ -8,27 +8,27 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 require([
-    'checkUtil',
-    'ElementTransform',
-    'SymbolNameGenerator',
-    'JSFLConstants',
-    'EaseCurve',
-    'FramesSelect',
-    'KeyFrameOperation'
+    "checkUtil",
+    "ElementTransform",
+    "SymbolNameGenerator",
+    "JSFLConstants",
+    "EaseCurve",
+    "FramesSelect",
+    "KeyFrameOperation"
 ], function (checkUtil, et, sng, JSFLConstants, curve, fms, kfo) {
     const {
         CheckDom: checkDom,
@@ -65,7 +65,7 @@ require([
     var ALTER_RATIO = 6 / 5;
 
     function KFrames() {
-        doc.enterEditMode('inPlace');
+        doc.enterEditMode("inPlace");
 
         var selection = doc.selection;
         var timeline = doc.getTimeline(); //时间轴
@@ -74,7 +74,7 @@ require([
         var curLayerIndex = timeline.currentLayer; //当前图层索引
         var curLayer = layers[curLayerIndex]; //当前图层
 
-        setTransformationPointWithCorner(selection[0], 'bottom center');
+        setTransformationPointWithCorner(selection[0], "bottom center");
 
         // 关键帧
         convertToKeyframesSafety(timeline, KEY_FRAMES);
@@ -98,23 +98,23 @@ require([
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'Only one')) return;
+        if (!checkSelection(selection, "selectElement", "Only one")) return;
 
         // 获取第一帧
         var frs = checkSelectedFrames(timeline);
         if (frs === null) return;
 
-        var symbolName = generateNameUntilUnique('一键震惊_静_');
-        doc.convertToSymbol('graphic', symbolName, 'center');
+        var symbolName = generateNameUntilUnique("一键震惊_静_");
+        doc.convertToSymbol("graphic", symbolName, "center");
 
-        var symbolName = generateNameUseLast('一键震惊_动_');
-        doc.convertToSymbol('graphic', symbolName, 'center');
+        var symbolName = generateNameUseLast("一键震惊_动_");
+        doc.convertToSymbol("graphic", symbolName, "center");
 
         // 播放一次
         var selection1 = doc.selection; //选择
         for (var i = 0; i < selection1.length; i++) {
             var element = selection1[i];
-            element.loop = 'play once';
+            element.loop = "play once";
         }
 
         KFrames();

@@ -8,29 +8,29 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 require([
-    'checkUtil',
-    'ElementTransform',
-    'SymbolNameGenerator',
-    'xmlPanelUtil',
-    'JSFLConstants',
-    'EaseCurve',
-    'Tween',
-    'FramesSelect',
-    'KeyFrameOperation'
+    "checkUtil",
+    "ElementTransform",
+    "SymbolNameGenerator",
+    "xmlPanelUtil",
+    "JSFLConstants",
+    "EaseCurve",
+    "Tween",
+    "FramesSelect",
+    "KeyFrameOperation"
 ], function (checkUtil, et, sng, xmlPanelUtil, JSFLConstants, curve, twn, fms, kfo) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
@@ -63,19 +63,19 @@ require([
 
         var angle = xmlPanelUtil.parseNumber(
             panel.angle,
-            '角度只能输入数字，请重新输入。'
+            "角度只能输入数字，请重新输入。"
         );
         if (angle === null) return null;
         // 检查输入角度是否在1~10之间
         if (angle < 1 || angle > 10) {
-            alert('角度只能输入1~10之间的数字，请重新输入。');
+            alert("角度只能输入1~10之间的数字，请重新输入。");
             return null;
         }
 
         var direction = xmlPanelUtil.parseDirection(panel.direction, {
             右: -1,
             左: 1,
-            ' ': 1
+            " ": 1
         });
 
         return { angle: angle, direction: direction };
@@ -83,7 +83,7 @@ require([
 
     function KFrames(angle, direction) {
         // k 帧
-        doc.enterEditMode('inPlace');
+        doc.enterEditMode("inPlace");
         doc.selectAll();
 
         var timeline1 = doc.getTimeline(); //时间轴
@@ -117,15 +117,15 @@ require([
 
         // 创建动效
         // timeline1.createMotionTween();
-        createTween(timeline1, 'motion tween');
-        setEaseCurve(timeline1, 'Sine Ease-In-Out');
+        createTween(timeline1, "motion tween");
+        setEaseCurve(timeline1, "Sine Ease-In-Out");
 
         doc.exitEditMode();
     }
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'Only one')) return;
+        if (!checkSelection(selection, "selectElement", "Only one")) return;
 
         // 获取输入值
         var config = checkXMLPanel();
@@ -134,8 +134,8 @@ require([
         var direction = config.direction;
 
         // 包装元件
-        var symbolName = generateNameUntilUnique('裙带飘动_静_');
-        doc.convertToSymbol('graphic', symbolName, 'center');
+        var symbolName = generateNameUntilUnique("裙带飘动_静_");
+        doc.convertToSymbol("graphic", symbolName, "center");
 
         // 获取元件
         var element = doc.selection[0];
@@ -144,11 +144,11 @@ require([
         // ele.resetRegisterPoint(element);
 
         // 变形点 到右上角
-        setTransformationPointWithCorner(element, 'top right');
+        setTransformationPointWithCorner(element, "top right");
 
         // 包装元件
-        var symbolName1 = generateNameUseLast('裙带飘动_动_');
-        doc.convertToSymbol('graphic', symbolName1, 'center');
+        var symbolName1 = generateNameUseLast("裙带飘动_动_");
+        doc.convertToSymbol("graphic", symbolName1, "center");
 
         // k 帧
         KFrames(angle, direction);

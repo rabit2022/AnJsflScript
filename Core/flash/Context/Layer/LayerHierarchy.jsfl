@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['LayerQuery', 'Tips'], function (lq, Tips) {
+define(["LayerQuery", "Tips"], function (lq, Tips) {
     // convertToLayer
     const { convertToLayer } = lq;
     const { checkVariableRedeclaration } = Tips;
@@ -23,7 +23,7 @@ define(['LayerQuery', 'Tips'], function (lq, Tips) {
      */
     function countChild(timeline, fatherID, noDeep) {
         if (noDeep === undefined) noDeep = false;
-        checkVariableRedeclaration(timeline, 'timeline');
+        checkVariableRedeclaration(timeline, "timeline");
 
         var nextLayerIndex = fatherID + 1;
         const totalLayers = timeline.layers.length;
@@ -56,7 +56,7 @@ define(['LayerQuery', 'Tips'], function (lq, Tips) {
     function IsMyChild(timeline, father, child) {
         // if (typeof father === 'number') father = timeline.layers[father];
         // if (typeof child === 'number') child = timeline.layers[child];
-        checkVariableRedeclaration(timeline, 'timeline');
+        checkVariableRedeclaration(timeline, "timeline");
 
         var layers = timeline.layers;
         father = convertToLayer(layers, father);

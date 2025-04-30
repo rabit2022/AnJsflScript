@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['Tips'], function (Tips) {
+define(["Tips"], function (Tips) {
     const { checkVariableRedeclaration } = Tips;
 
     /**
@@ -25,91 +25,91 @@ define(['Tips'], function (Tips) {
      * - 如果传入 `null`，函数将终止执行并提示用户。
      */
     function CheckSelection(selection, mode, condition, exTips) {
-        checkVariableRedeclaration(selection, 'selection');
+        checkVariableRedeclaration(selection, "selection");
 
         // 检查 mode 是否为 null
         if (mode === null) {
             // console.error("CheckSelection: 模式不能为 null，请指定一个有效的模式！");
-            alert('模式不能为 null，请指定一个有效的模式！');
+            alert("模式不能为 null，请指定一个有效的模式！");
             return false;
         }
 
         // 设置 mode 的默认值（仅当 mode 是 undefined 时）
-        mode = mode || 'selectElement';
+        mode = mode || "selectElement";
 
         // 检查 condition 是否为 null
         if (condition === null) {
             // console.error("CheckSelection: 条件不能为 null，请指定一个有效的条件！");
-            alert('条件不能为 null，请指定一个有效的条件！');
+            alert("条件不能为 null，请指定一个有效的条件！");
             return false;
         }
 
         // 设置 condition 的默认值（仅当 condition 是 undefined 时）
-        condition = condition || 'No limit';
+        condition = condition || "No limit";
 
         // 定义模式
         var modes = [
-            'selectElement',
-            'selectFrame',
-            'elementOnFrame',
-            'selectLibItem',
-            'selectLayer'
+            "selectElement",
+            "selectFrame",
+            "elementOnFrame",
+            "selectLibItem",
+            "selectLayer"
         ];
 
         // 定义条件列表（主条件列表和其他别名列表）
         var conditions = [
-            ['No limit', 'Zero', 'Not Zero', 'Only one', 'Only two', 'More'], // 主条件列表
-            [null, '=0', '>0', '=1', '=2', '>=2'] // 别名列表
+            ["No limit", "Zero", "Not Zero", "Only one", "Only two", "More"], // 主条件列表
+            [null, "=0", ">0", "=1", "=2", ">=2"] // 别名列表
         ];
 
         // 定义提示信息
         var messages = [
             [
                 null,
-                '请选择一个元件。',
-                '请至少选择一个元件。',
-                '请只选择一个元件。',
-                '请同时选择两个元件。',
-                '请选择多个元件。'
+                "请选择一个元件。",
+                "请至少选择一个元件。",
+                "请只选择一个元件。",
+                "请同时选择两个元件。",
+                "请选择多个元件。"
             ],
             [
                 null,
-                '请选择一个帧。',
-                '请至少选择一个帧。',
-                '请只选择一个帧。',
-                '请同时选择两个帧。',
-                '请选择多个帧。'
+                "请选择一个帧。",
+                "请至少选择一个帧。",
+                "请只选择一个帧。",
+                "请同时选择两个帧。",
+                "请选择多个帧。"
             ],
             [
                 null,
-                '当前帧上需要有元件。',
-                '当前帧上至少需要一个元件。',
-                '当前帧上只能有一个元件。',
-                '当前帧上只能有两个元件。',
-                '当前帧上需要多个元件。'
+                "当前帧上需要有元件。",
+                "当前帧上至少需要一个元件。",
+                "当前帧上只能有一个元件。",
+                "当前帧上只能有两个元件。",
+                "当前帧上需要多个元件。"
             ],
             [
                 null,
-                '请选择库中的一个项目。',
-                '请至少选择一个库项目。',
-                '请只选择一个库项目。',
-                '请同时选择两个库项目。',
-                '请选择多个库项目。'
+                "请选择库中的一个项目。",
+                "请至少选择一个库项目。",
+                "请只选择一个库项目。",
+                "请同时选择两个库项目。",
+                "请选择多个库项目。"
             ],
             [
                 null,
-                '请选择一个图层。',
-                '请至少选择一个图层。',
-                '请只选择一个图层。',
-                '请同时选择两个图层。',
-                '请选择多个图层。'
+                "请选择一个图层。",
+                "请至少选择一个图层。",
+                "请只选择一个图层。",
+                "请同时选择两个图层。",
+                "请选择多个图层。"
             ]
         ];
 
         // 获取模式索引
         var modeIndex = modes.indexOf(mode);
         if (modeIndex === -1) {
-            alert('无效的模式：' + mode);
+            alert("无效的模式：" + mode);
             return false;
         }
 
@@ -127,7 +127,7 @@ define(['Tips'], function (Tips) {
         // 查找条件索引
         var conditionIndex = findConditionIndex(condition);
         if (conditionIndex === -1) {
-            alert('无效的条件：' + condition);
+            alert("无效的条件：" + condition);
             return false;
         }
 
@@ -147,14 +147,14 @@ define(['Tips'], function (Tips) {
                 case 5: // More 或 >=2
                     return length >= 2;
                 default:
-                    throw new Error('未知条件：' + condition);
+                    throw new Error("未知条件：" + condition);
             }
         }
 
         // 检查条件并返回结果
         if (!checkCondition(conditionIndex, selection.length)) {
             var defaultMessage = messages[modeIndex][conditionIndex];
-            var message = exTips ? defaultMessage + '(' + exTips + ')' : defaultMessage;
+            var message = exTips ? defaultMessage + "(" + exTips + ")" : defaultMessage;
 
             alert(message);
             return false;
@@ -172,7 +172,7 @@ define(['Tips'], function (Tips) {
         if (doc === undefined) doc = fl.getDocumentDOM();
 
         if (!doc) {
-            alert('请打开 一个 [.fla] 文件 或者 创建一个新文档');
+            alert("请打开 一个 [.fla] 文件 或者 创建一个新文档");
             return;
         }
         return doc;
@@ -187,17 +187,17 @@ define(['Tips'], function (Tips) {
      * @returns {FrameRange[]}
      */
     function CheckSelectedFrames(timeline, exTips, condition) {
-        if (condition === undefined) condition = 'Not Zero';
+        if (condition === undefined) condition = "Not Zero";
 
         // KeyFrameQuery
         var kfq;
-        require(['KeyFrameQuery'], function (KeyFrameQuery) {
+        require(["KeyFrameQuery"], function (KeyFrameQuery) {
             kfq = KeyFrameQuery;
         });
         const { getSelectedFrs } = kfq;
 
         var frs = getSelectedFrs(timeline);
-        if (!CheckSelection(frs, 'selectFrame', condition, exTips)) return null;
+        if (!CheckSelection(frs, "selectFrame", condition, exTips)) return null;
         return frs;
     }
 

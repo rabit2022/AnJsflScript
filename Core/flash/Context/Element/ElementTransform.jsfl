@@ -7,8 +7,10 @@
  * @description:
  */
 
-define(['ElementSelect'], function (es) {
+define(["ElementSelect", "SAT"], function (es, SAT) {
     const { OnlySelectCurrent, SelectNone } = es;
+    const { Vector, Rectangle } = SAT;
+    const { wrapPosition, getOrigin } = SAT.GLOBALS;
 
     /**
      * 重置注册点
@@ -42,7 +44,7 @@ define(['ElementSelect'], function (es) {
          */
         function resetRegisterPointWrap(transformationPoint) {
             var doc = fl.getDocumentDOM();
-            doc.enterEditMode('inPlace');
+            doc.enterEditMode("inPlace");
             doc.selectAll();
 
             // 获取所有元件

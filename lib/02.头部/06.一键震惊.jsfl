@@ -8,27 +8,27 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 require([
-    'checkUtil',
-    'linqUtil',
-    'ElementTransform',
-    'JSFLConstants',
-    'EaseCurve',
-    'FramesSelect',
-    'KeyFrameOperation'
+    "checkUtil",
+    "linqUtil",
+    "ElementTransform",
+    "JSFLConstants",
+    "EaseCurve",
+    "FramesSelect",
+    "KeyFrameOperation"
 ], function (checkUtil, linqUtil, et, JSFLConstants, curve, fms, kfo) {
     const {
         CheckDom: checkDom,
@@ -43,16 +43,16 @@ require([
     const { convertToKeyframesSafety } = kfo;
 
     var descriptions = {
-        file: '06.一键震惊.jsfl',
-        'file description': '头部震惊的动作，必须一个图层一个元件',
-        selection: '仅一个元件',
-        'selection description': '选中头部',
+        file: "06.一键震惊.jsfl",
+        "file description": "头部震惊的动作，必须一个图层一个元件",
+        selection: "仅一个元件",
+        "selection description": "选中头部",
         XMLPanel: false,
-        'input parameters': {},
-        detail: '直接k帧',
-        'detail description':
-            '更改元件的 缩放,由于选中帧有多个元件时，补间动画会出现问题，所以这里选中帧的图层上，只能有一个元件。',
-        steps: ['设置变形点', '获取选择的第一帧', '更改缩放', '补间动画']
+        "input parameters": {},
+        detail: "直接k帧",
+        "detail description":
+            "更改元件的 缩放,由于选中帧有多个元件时，补间动画会出现问题，所以这里选中帧的图层上，只能有一个元件。",
+        steps: ["设置变形点", "获取选择的第一帧", "更改缩放", "补间动画"]
     };
 
     var doc = fl.getDocumentDOM(); //文档
@@ -75,7 +75,7 @@ require([
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'Not Zero')) return;
+        if (!checkSelection(selection, "selectElement", "Not Zero")) return;
 
         // 第一帧
         var frs = checkSelectedFrames(timeline);
@@ -84,7 +84,7 @@ require([
         var firstLayer = layers[frs[0].layerIndex];
 
         // 变形点
-        setTransformationPointWithCorner(selection[0], 'bottom center');
+        setTransformationPointWithCorner(selection[0], "bottom center");
 
         KEY_FRAMES = $addOffset(KEY_FRAMES, firstFrame);
         EFFECT_FRAMES += firstFrame;

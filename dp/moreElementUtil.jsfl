@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['moreElement'], function (MoreElement) {
+define(["moreElement"], function (MoreElement) {
     function MoreElementUtil() {}
 
     MoreElementUtil.wrapMoreElement = function (left, top, width, height) {

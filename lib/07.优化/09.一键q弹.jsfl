@@ -8,20 +8,20 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'xmlPanelUtil', 'SymbolNameGenerator', 'SAT'], function (
+require(["checkUtil", "xmlPanelUtil", "SymbolNameGenerator", "SAT"], function (
     checkUtil,
     xmlPanelUtil,
     sng,
@@ -52,12 +52,12 @@ require(['checkUtil', 'xmlPanelUtil', 'SymbolNameGenerator', 'SAT'], function (
 
         var amplitude = xmlPanelUtil.parseNumber(
             panel.amplitude,
-            '抖动幅度只能输入数字，请重新输入。'
+            "抖动幅度只能输入数字，请重新输入。"
         );
         if (amplitude === null) return null;
         var frameCount = xmlPanelUtil.parseNumber(
             panel.frameCount,
-            '抖动帧数只能输入数字，请重新输入。'
+            "抖动帧数只能输入数字，请重新输入。"
         );
         if (frameCount === null) return null;
 
@@ -91,7 +91,7 @@ require(['checkUtil', 'xmlPanelUtil', 'SymbolNameGenerator', 'SAT'], function (
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'Only one')) return;
+        if (!checkSelection(selection, "selectElement", "Only one")) return;
 
         var config = checkXMLPanel();
         if (config === null) return;
@@ -99,18 +99,18 @@ require(['checkUtil', 'xmlPanelUtil', 'SymbolNameGenerator', 'SAT'], function (
         var frameCount = config.frameCount;
 
         // 包装元件
-        var symbolName = generateNameUntilUnique('一键q弹_静_');
-        doc.convertToSymbol('graphic', symbolName, 'top center');
+        var symbolName = generateNameUntilUnique("一键q弹_静_");
+        doc.convertToSymbol("graphic", symbolName, "top center");
 
         // 获取元件的变换点
         var element = doc.selection[0];
         element.setTransformationPoint(getOrigin().toObj());
 
         // 包装元件
-        var symbolName1 = generateNameUseLast('一键q弹_动_');
-        doc.convertToSymbol('graphic', symbolName1, 'center');
+        var symbolName1 = generateNameUseLast("一键q弹_动_");
+        doc.convertToSymbol("graphic", symbolName1, "center");
 
-        doc.enterEditMode('inPlace');
+        doc.enterEditMode("inPlace");
         doc.selectAll();
 
         // 获取初始值

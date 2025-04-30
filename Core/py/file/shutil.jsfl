@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['os', 'loglevel'], function (os, log) {
+define(["os", "loglevel"], function (os, log) {
     function shutil() {}
 
     /**
@@ -26,7 +26,7 @@ define(['os', 'loglevel'], function (os, log) {
         // 确保源文件夹存在
         if (!os.path.exists(src_folder)) {
             // throw new Error(`源文件夹 ${src_folder} 不存在`);
-            throw new Error('源文件夹不存在:' + src_folder);
+            throw new Error("源文件夹不存在:" + src_folder);
         }
 
         // 如果目标文件夹不存在，创建它
@@ -44,7 +44,7 @@ define(['os', 'loglevel'], function (os, log) {
             if (os.path.isfile(src_item)) {
                 shutil.copyfile(src_item, dst_item);
                 // console.log(`文件 ${src_item} 已复制到 ${dst_item}`);
-                log.info('文件 ' + src_item + ' 已复制到 ' + dst_item);
+                log.info("文件 " + src_item + " 已复制到 " + dst_item);
             }
 
             // 如果是文件夹，递归复制

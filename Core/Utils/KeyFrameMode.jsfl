@@ -17,15 +17,15 @@
  * });
  */
 
-define(['checkUtil', 'loglevel', 'frameRange', 'KeyFrameQuery'], function (
+define(["checkUtil", "loglevel", "SAT", "KeyFrameQuery"], function (
     checkUtil,
     log,
-    FrameRange,
+    SAT,
     kfq
 ) {
-    // const { getSplitFrsFromSl, groupByLayerIndex } = frUtil;
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
     const { getKeyFrameRanges } = kfq;
+    const { FrameRange } = SAT;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -133,7 +133,7 @@ define(['checkUtil', 'loglevel', 'frameRange', 'KeyFrameQuery'], function (
     function Main() {
         var MODE = [];
         // 检查选择的元件
-        if (!CheckSelection(selection, 'selectElement', 'No limit')) return;
+        if (!CheckSelection(selection, "selectElement", "No limit")) return;
 
         // 分裂 选中范围 ，按照关键帧范围分裂
         var splitFrs = getSplitFrsFromSl(layers, frs);

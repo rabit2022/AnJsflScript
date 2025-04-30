@@ -8,20 +8,20 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'SymbolNameGenerator'], function (checkUtil, sng) {
+require(["checkUtil", "SymbolNameGenerator"], function (checkUtil, sng) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
     const { findDuplicateNameInLib } = sng;
 
@@ -41,24 +41,24 @@ require(['checkUtil', 'SymbolNameGenerator'], function (checkUtil, sng) {
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'No limit')) return;
+        if (!checkSelection(selection, "selectElement", "No limit")) return;
 
         var folderNames = [
-            '一 常用',
-            '一 常用/1.配音',
-            '一 常用/2.音效',
-            '一 常用/3.角色',
-            '一 常用/4.特效',
-            '一 常用/5.表情',
-            '一 常用/6.道具',
-            '一 常用/7.背景',
-            '一 常用/8.本集专用',
-            '一 常用/3.角色/1.人物一',
-            '一 常用/3.角色/2.人物二',
-            '一 常用/3.角色/3.人物三',
-            '一 常用/3.角色/4.人物四',
-            '一 常用/3.角色/5.人物五',
-            '一 常用/3.角色/6.人物六'
+            "一 常用",
+            "一 常用/1.配音",
+            "一 常用/2.音效",
+            "一 常用/3.角色",
+            "一 常用/4.特效",
+            "一 常用/5.表情",
+            "一 常用/6.道具",
+            "一 常用/7.背景",
+            "一 常用/8.本集专用",
+            "一 常用/3.角色/1.人物一",
+            "一 常用/3.角色/2.人物二",
+            "一 常用/3.角色/3.人物三",
+            "一 常用/3.角色/4.人物四",
+            "一 常用/3.角色/5.人物五",
+            "一 常用/3.角色/6.人物六"
         ];
 
         for (var i = 0; i < folderNames.length; i++) {

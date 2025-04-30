@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['ElementChecker'], function (ec) {
+define(["ElementChecker"], function (ec) {
     const { IsSymbol } = ec;
 
     /**
@@ -33,7 +33,7 @@ define(['ElementChecker'], function (ec) {
      * @param {Element[]|Element} elements 元素数组
      */
     function playLoop(elements) {
-        SetLoopMode(elements, 'loop');
+        SetLoopMode(elements, "loop");
     }
 
     /**
@@ -41,7 +41,7 @@ define(['ElementChecker'], function (ec) {
      * @param {Element[]|Element} elements 元素数组
      */
     function playOnce(elements) {
-        SetLoopMode(elements, 'play once');
+        SetLoopMode(elements, "play once");
     }
 
     /**
@@ -49,7 +49,7 @@ define(['ElementChecker'], function (ec) {
      * @param {Element[]|Element} elements 元素数组
      */
     function playSingleFrame(elements) {
-        SetLoopMode(elements, 'single frame');
+        SetLoopMode(elements, "single frame");
     }
 
     /**
@@ -57,7 +57,7 @@ define(['ElementChecker'], function (ec) {
      * @param {Element[]|Element} elements 元素数组
      */
     function playLoopReverse(elements) {
-        SetLoopMode(elements, 'loop reverse');
+        SetLoopMode(elements, "loop reverse");
     }
 
     /**
@@ -65,7 +65,7 @@ define(['ElementChecker'], function (ec) {
      * @param {Element[]|Element} elements 元素数组
      */
     function playOnceReverse(elements) {
-        SetLoopMode(elements, 'play once reverse');
+        SetLoopMode(elements, "play once reverse");
     }
 
     return {

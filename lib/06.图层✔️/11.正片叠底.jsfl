@@ -9,7 +9,7 @@
 
 // import _ from 'lodash';
 
-require(['checkUtil', 'loglevel', 'KeyFrameMode', 'JSFLConstants'], function (
+require(["checkUtil", "loglevel", "KeyFrameMode", "JSFLConstants"], function (
     checkUtil,
     log,
     KeyFrameMode,
@@ -44,7 +44,7 @@ require(['checkUtil', 'loglevel', 'KeyFrameMode', 'JSFLConstants'], function (
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'No limit')) return;
+        if (!checkSelection(selection, "selectElement", "No limit")) return;
 
         var mode = KeyFrameMode();
         if (!mode) return;

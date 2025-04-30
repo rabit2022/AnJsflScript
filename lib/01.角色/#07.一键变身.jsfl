@@ -8,33 +8,33 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 require([
-    'checkUtil',
-    'ElementQuery',
-    'ElementOperation',
-    'linqUtil',
-    'SAT',
-    'graphicsUtil',
-    'Tween',
-    'loglevel',
-    'JSFLConstants',
-    'EaseCurve',
-    'ElementSelect',
-    'FramesSelect',
-    'KeyFrameOperation'
+    "checkUtil",
+    "ElementQuery",
+    "ElementOperation",
+    "linqUtil",
+    "SAT",
+    "graphicsUtil",
+    "Tween",
+    "loglevel",
+    "JSFLConstants",
+    "EaseCurve",
+    "ElementSelect",
+    "FramesSelect",
+    "KeyFrameOperation"
 ], function (
     checkUtil,
     ep,
@@ -71,7 +71,7 @@ require([
     if (!checkDom(doc)) return;
 
     var selection = doc.selection; //选择
-    if (!checkSelection(selection, 'selectElement', 'Only two')) return;
+    if (!checkSelection(selection, "selectElement", "Only two")) return;
 
     var library = doc.library; //库文件
     var timeline = doc.getTimeline(); //时间轴
@@ -104,9 +104,9 @@ require([
     var MIDDLE_SHAPE_CENTER = (function () {
         // 最大的矩形的中心
         var selectedRect = new Rectangle(doc.getSelectionRect());
-        log.info('Selected rectangle: ' + selectedRect.toString());
+        log.info("Selected rectangle: " + selectedRect.toString());
         var selectedCenter = selectedRect.getCenterVector();
-        log.info('Selected center: ' + selectedCenter.toString());
+        log.info("Selected center: " + selectedCenter.toString());
         return selectedCenter;
     })();
 
@@ -135,7 +135,7 @@ require([
     function getBeforeAfterElement(frameIndex) {
         timeline.currentFrame = frameIndex;
         var FRAME_0_Elements = firstLayer.frames[frameIndex].elements;
-        if (!checkSelection(FRAME_0_Elements, 'elementOnFrame', 'Only two')) return;
+        if (!checkSelection(FRAME_0_Elements, "elementOnFrame", "Only two")) return;
         // 变身后：最右边的元素
         // 变身前：最左边的元素
         var AFTER_Element = getMaxRight(FRAME_0_Elements);
@@ -151,7 +151,7 @@ require([
                 }
             }
 
-            throw new Error('Cannot find BEFORE_Element, must be two elements');
+            throw new Error("Cannot find BEFORE_Element, must be two elements");
         })(FRAME_0_Elements);
         // var AFTER_ELEMENT_POS = wrapPosition(AFTER_Element);
         // var BEFORE_ELEMENT_POS = wrapPosition(BEFORE_Element);
@@ -216,8 +216,8 @@ require([
         // 选中所有帧
         timeline.setSelectedFrames(firstF, lastF, true);
         // 形状补间动画
-        createTween(timeline, 'shape tween');
-        setEaseCurve(timeline, 'Cubic Ease-Out');
+        createTween(timeline, "shape tween");
+        setEaseCurve(timeline, "Cubic Ease-Out");
 
         // 重置选中帧
         SelectStartFms(timeline, frs);

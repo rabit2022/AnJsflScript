@@ -10,7 +10,7 @@ define(function () {
     function XMLPanelUtil() {}
 
     XMLPanelUtil.getXMLPath = function () {
-        var XMLPANEL = fl.scriptURI.split('.jsfl').join('.xml');
+        var XMLPANEL = fl.scriptURI.split(".jsfl").join(".xml");
         return XMLPANEL;
     };
 
@@ -26,8 +26,8 @@ define(function () {
         var doc = fl.getDocumentDOM(); //文档
 
         var panel = doc.xmlPanel(panelPath);
-        if (panel.dismiss === 'cancel') {
-            alert('取消修改');
+        if (panel.dismiss === "cancel") {
+            alert("取消修改");
             return null;
         }
         return panel;
@@ -73,7 +73,7 @@ define(function () {
     XMLPanelUtil.parseDirection = function (inputDirection, tipDictionary) {
         // var inputDirection = dialog.direction;
         if (tipDictionary === null) {
-            tipDictionary = { 右: 1, 左: -1, ' ': -1 };
+            tipDictionary = { 右: 1, 左: -1, " ": -1 };
         }
 
         var firstTip = Object.keys(tipDictionary)[0];
@@ -83,10 +83,10 @@ define(function () {
             direction = tipDictionary[inputDirection];
             return direction;
         } else if (inputDirection === null) {
-            alert('方向不能为空，请重新输入。');
+            alert("方向不能为空，请重新输入。");
             return null;
         } else {
-            alert('输入错误(方向只能输入空格或右)，请重新输入。');
+            alert("输入错误(方向只能输入空格或右)，请重新输入。");
             return null;
         }
     };

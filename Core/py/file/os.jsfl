@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['loglevel', 'path-browserify'], function (log, path) {
+define(["loglevel", "path-browserify"], function (log, path) {
     function OSPath() {}
 
     /**
@@ -16,14 +16,14 @@ define(['loglevel', 'path-browserify'], function (log, path) {
      * @readonly
      * @static
      */
-    OSPath.$PLUGIN_PATH = fl.configURI + 'WindowSWF';
+    OSPath.$PLUGIN_PATH = fl.configURI + "WindowSWF";
     /**
      * 命令位置
      * @type {string}
      * @readonly
      * @static
      */
-    OSPath.$COMMAND_PATH = fl.configURI + 'Commands';
+    OSPath.$COMMAND_PATH = fl.configURI + "Commands";
 
     OSPath.abspath = function (relativePath) {
         const currentWorkingDirectory = OS.getcwd();
@@ -40,9 +40,9 @@ define(['loglevel', 'path-browserify'], function (log, path) {
      */
     OSPath.isfile = function (uri) {
         // 获取路径的最后一部分（文件名或文件夹名）
-        var name = uri.substring(uri.lastIndexOf('/') + 1);
+        var name = uri.substring(uri.lastIndexOf("/") + 1);
         // 获取文件夹路径
-        var folderURI = uri.substring(0, uri.lastIndexOf('/'));
+        var folderURI = uri.substring(0, uri.lastIndexOf("/"));
 
         // 如果路径是根目录，直接返回 false
         if (folderURI === uri) {
@@ -50,7 +50,7 @@ define(['loglevel', 'path-browserify'], function (log, path) {
         }
 
         // 获取文件夹中的所有文件
-        var fileList = FLfile.listFolder(folderURI, 'files');
+        var fileList = FLfile.listFolder(folderURI, "files");
 
         // 检查文件列表中是否包含指定的文件名
         return fileList && fileList.indexOf(name) !== -1;
@@ -63,9 +63,9 @@ define(['loglevel', 'path-browserify'], function (log, path) {
      */
     OSPath.isdir = function (uri) {
         // 获取路径的最后一部分（文件名或文件夹名）
-        var name = uri.substring(uri.lastIndexOf('/') + 1);
+        var name = uri.substring(uri.lastIndexOf("/") + 1);
         // 获取文件夹路径
-        var folderURI = uri.substring(0, uri.lastIndexOf('/'));
+        var folderURI = uri.substring(0, uri.lastIndexOf("/"));
 
         // 如果路径是根目录，直接返回 true
         if (folderURI === uri) {
@@ -73,7 +73,7 @@ define(['loglevel', 'path-browserify'], function (log, path) {
         }
 
         // 获取文件夹中的所有文件夹
-        var folderList = FLfile.listFolder(folderURI, 'directories');
+        var folderList = FLfile.listFolder(folderURI, "directories");
 
         // 检查文件夹列表中是否包含指定的文件夹名
         return folderList && folderList.indexOf(name) !== -1;
@@ -88,7 +88,7 @@ define(['loglevel', 'path-browserify'], function (log, path) {
     OSPath.normcase = function (_path) {
         // 在 Windows 上，将路径中的所有字符都转换为小写，并将正斜杠转换为反斜杠
         if (OS.$isWindows()) {
-            _path = _path.toLowerCase().replace(/\\/g, '/');
+            _path = _path.toLowerCase().replace(/\\/g, "/");
             return _path;
         }
 
@@ -117,7 +117,7 @@ define(['loglevel', 'path-browserify'], function (log, path) {
         var result = path.join.apply(path, paths);
 
         // 确保路径以 file:/// 开头
-        result = result.replace('file:/', 'file:///');
+        result = result.replace("file:/", "file:///");
         return result;
     };
 
@@ -158,7 +158,7 @@ define(['loglevel', 'path-browserify'], function (log, path) {
      */
     OSPath.splitext = function (_path) {
         const ext = path.extname(_path);
-        const root = _path.replace(ext, '');
+        const root = _path.replace(ext, "");
         return [root, ext];
     };
 
@@ -200,7 +200,7 @@ define(['loglevel', 'path-browserify'], function (log, path) {
         // 获取当前脚本文件的完整路径
         var scriptURI = fl.scriptURI;
         // 获取路径中最后一个“/”的位置
-        var lastSlashIndex = scriptURI.lastIndexOf('/');
+        var lastSlashIndex = scriptURI.lastIndexOf("/");
         // 获取脚本文件所在的文件夹路径
         var folderPath = scriptURI.substring(0, lastSlashIndex);
         return folderPath;
@@ -214,9 +214,9 @@ define(['loglevel', 'path-browserify'], function (log, path) {
     OS.mkdir = function (uri) {
         var success = FLfile.createFolder(uri);
         if (success) {
-            log.info('Folder created: ' + uri);
+            log.info("Folder created: " + uri);
         } else {
-            log.error('Failed : ' + uri);
+            log.error("Failed : " + uri);
         }
     };
 
@@ -235,7 +235,7 @@ define(['loglevel', 'path-browserify'], function (log, path) {
         // 如果路径已存在，根据 exist_ok 参数决定是否抛出异常
         if (os.path.exists(uri)) {
             if (!exist_ok) {
-                throw new Error('目录已存在:' + uri);
+                throw new Error("目录已存在:" + uri);
             }
             return;
         }
@@ -246,15 +246,15 @@ define(['loglevel', 'path-browserify'], function (log, path) {
         }
         // 创建当前目录
         os.mkdir(uri);
-        log.info('目录已创建:' + uri);
+        log.info("目录已创建:" + uri);
     };
 
     OS.rmdir = function (uri) {
         var success = FLfile.remove(uri);
         if (success) {
-            log.info('Folder deleted: ' + uri);
+            log.info("Folder deleted: " + uri);
         } else {
-            log.error('Failed : ' + uri);
+            log.error("Failed : " + uri);
         }
     };
 
@@ -272,7 +272,7 @@ define(['loglevel', 'path-browserify'], function (log, path) {
         var uri = FLfile.uriToPlatformPath(path);
 
         // 转换工作目录为平台路径（如果提供）
-        var cwd_uri = cwd ? FLfile.uriToPlatformPath(cwd) : '';
+        var cwd_uri = cwd ? FLfile.uriToPlatformPath(cwd) : "";
 
         // 构建命令
         var cmd;
@@ -288,7 +288,7 @@ define(['loglevel', 'path-browserify'], function (log, path) {
 
             // 添加额外参数
             if (args) {
-                cmd += ' --args ' + args;
+                cmd += " --args " + args;
             }
 
             // 添加工作目录
@@ -298,19 +298,19 @@ define(['loglevel', 'path-browserify'], function (log, path) {
         } else if (this.$isWindows()) {
             // Windows 使用 `start` 或 `explorer.exe` 命令
             switch (operation) {
-                case 'open':
+                case "open":
                     cmd = 'start "" "' + uri + '"';
                     break;
-                case 'printf':
+                case "printf":
                     cmd = 'start "" /print "' + uri + '"';
                     break;
-                case 'edit':
+                case "edit":
                     cmd = 'notepad "' + uri + '"';
                     break;
-                case 'explore':
+                case "explore":
                     cmd = 'explorer.exe /e,"' + uri + '"';
                     break;
-                case 'find':
+                case "find":
                     cmd = 'explorer.exe /select,"' + uri + '"';
                     break;
                 default:
@@ -320,12 +320,12 @@ define(['loglevel', 'path-browserify'], function (log, path) {
 
             // 添加工作目录
             if (cwd_uri) {
-                cmd = 'pushd "' + cwd_uri + '" && ' + cmd + ' && popd';
+                cmd = 'pushd "' + cwd_uri + '" && ' + cmd + " && popd";
             }
 
             // 添加窗口样式（仅 Windows 支持）
             if (show_cmd && os.isWindows()) {
-                cmd = 'start /show ' + show_cmd + ' "" "' + uri + '"';
+                cmd = "start /show " + show_cmd + ' "" "' + uri + '"';
             }
         }
 
@@ -333,7 +333,7 @@ define(['loglevel', 'path-browserify'], function (log, path) {
         FLfile.runCommandLine(cmd);
 
         // 打印命令（调试用）
-        log.info('Command executed: ' + cmd);
+        log.info("Command executed: " + cmd);
     };
 
     /**

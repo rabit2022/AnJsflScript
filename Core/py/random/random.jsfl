@@ -33,7 +33,7 @@ define(function () {
             step = 1;
         }
         if (step < 1) {
-            throw new Error('Step must be 1 or greater');
+            throw new Error("Step must be 1 or greater");
         }
         const num = Math.floor(Math.random() * Math.ceil((stop - start) / step));
         return start + num * step;
@@ -55,13 +55,13 @@ define(function () {
             }
         }
         if (cum_weights.length !== weights.length) {
-            throw new Error('The number of weights does not match the population');
+            throw new Error("The number of weights does not match the population");
         }
         if (k === null) {
             k = 1;
         }
         if (k > population.length) {
-            throw new Error('Sample larger than population');
+            throw new Error("Sample larger than population");
         }
         const result = [];
         const total_weight = cum_weights[cum_weights.length - 1];
@@ -83,13 +83,13 @@ define(function () {
     };
     Random.sample = function (population, k, counts) {
         if (k > population.length) {
-            throw new Error('Sample larger than population');
+            throw new Error("Sample larger than population");
         }
         if (counts === null) {
             counts = new Array(population.length).fill(1);
         }
         if (counts.length !== population.length) {
-            throw new Error('The number of counts does not match the population');
+            throw new Error("The number of counts does not match the population");
         }
         const result = [];
         for (var i = 0; i < k; i++) {

@@ -25,17 +25,17 @@ define(function () {
 
         var count = 0;
         libSelection.forEach(function (item) {
-            if (item.itemType === 'bitmap') {
+            if (item.itemType === "bitmap") {
                 item.allowSmoothing = false;
-                item.compressionType = 'lossless';
+                item.compressionType = "lossless";
                 count++;
             }
         });
 
         if (count === 0) {
-            alert('选中的库元件都不是位图元件！');
+            alert("选中的库元件都不是位图元件！");
         } else {
-            alert('已设置' + count + '个位图元件为无损压缩');
+            alert("已设置" + count + "个位图元件为无损压缩");
         }
     }
 

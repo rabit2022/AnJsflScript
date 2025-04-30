@@ -8,33 +8,33 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 require([
-    'checkUtil',
-    'SAT',
-    'random',
-    'satUtil',
-    'loglevel',
-    'ElementOperation',
-    'ElementAnim',
-    'ElementSelect'
+    "checkUtil",
+    "SAT",
+    "random",
+    "satUtil",
+    "loglevel",
+    "ElementOperation",
+    "ElementAnim",
+    "ElementSelect"
 ], function (checkUtil, sat, random, satUtil, log, ed, ea, es) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
     const { Vector } = sat;
-    const { wrapTransform, wrapRectByCenter } = sat.GLOBALS;
+    const { wrapTransform, wrapRectByCenter, wrapSize, getOrigin } = sat.GLOBALS;
     const { generateRandomPointInRect } = satUtil;
 
     const { splinterSymbol } = ed;
@@ -66,8 +66,8 @@ require([
         // # 1.5-3 scale
         // # -180,180  rotation
         var size = wrapSize(element);
-        var biggerSize = size.max;
-        var smallerSize = size.min;
+        var biggerSize = size.max_size;
+        var smallerSize = size.min_size;
         var ratioX = biggerSize / smallerSize;
         var ratioY = 0.08 * ratioX * ratioX - ratioX + 5 + random.uniform(-0.3, 0.3);
 
@@ -82,7 +82,7 @@ require([
     function KFrames(element) {
         var explosionRect = getExplosionRect(element);
 
-        doc.enterEditMode('inPlace');
+        doc.enterEditMode("inPlace");
 
         var timeline1 = doc.getTimeline(); //时间轴
         // 增加15帧
@@ -99,8 +99,8 @@ require([
         // 补间动画
         doc.selectAll();
         timeline1.createMotionTween();
-        timeline1.setFrameProperty('motionTweenRotate', 'clockwise');
-        timeline1.setFrameProperty('motionTweenRotateTimes', '2');
+        timeline1.setFrameProperty("motionTweenRotate", "clockwise");
+        timeline1.setFrameProperty("motionTweenRotateTimes", "2");
         // timeline1.setSelectedFrames([]);
 
         // 更改位置
@@ -129,12 +129,12 @@ require([
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'Only one')) return;
+        if (!checkSelection(selection, "selectElement", "Only one")) return;
 
         // 碎片
-        if (!splinterSymbol(doc.selection[0], '一键爆炸_')) return;
+        if (!splinterSymbol(doc.selection[0], "一键爆炸_")) return;
 
-        log.info('开始爆炸');
+        log.info("开始爆炸");
 
         // 爆炸效果
         KFrames(doc.selection[0]);

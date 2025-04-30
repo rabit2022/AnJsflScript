@@ -8,20 +8,20 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'elementUtil'], function (checkUtil, ele) {
+require(["checkUtil", "elementUtil"], function (checkUtil, ele) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
 
@@ -41,11 +41,11 @@ require(['checkUtil', 'elementUtil'], function (checkUtil, ele) {
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'No limit')) return;
+        if (!checkSelection(selection, "selectElement", "No limit")) return;
 
         // 如果全部都是 "loop", targetLoop = "loop"
         // 否则 统一设置为 "single frame"
-        var targetLoop = 'single frame';
+        var targetLoop = "single frame";
 
         var tempLoop = 0;
         for (var i = 0; i < selection.length; i++) {
@@ -56,7 +56,7 @@ require(['checkUtil', 'elementUtil'], function (checkUtil, ele) {
             }
 
             // 计数loop的元素数量
-            if (element.loop === 'loop') {
+            if (element.loop === "loop") {
                 tempLoop++;
             } else {
                 // 一旦发现有一个元素的loop属性不等于"loop"，即可确定targetLoop应为"single frame"
@@ -67,7 +67,7 @@ require(['checkUtil', 'elementUtil'], function (checkUtil, ele) {
 
         // 如果所有检查过的元素loop属性都等于"loop"，则设置targetLoop为"loop"
         if (tempLoop > 0 && tempLoop === selection.length) {
-            targetLoop = 'loop';
+            targetLoop = "loop";
         }
 
         // 设置所有选中元素的loop属性

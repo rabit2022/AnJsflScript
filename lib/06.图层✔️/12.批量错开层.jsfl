@@ -8,29 +8,29 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 require([
-    'checkUtil',
-    'loglevel',
-    'xmlPanelUtil',
-    'linqUtil',
-    'JSFLConstants',
-    'LayerOperation'
+    "checkUtil",
+    "loglevel",
+    "xmlPanelUtil",
+    "linqUtil",
+    "JSFLConstants",
+    "LayerOperation"
 ], function (checkUtil, log, xmlPanelUtil, linqUtil, JSFLConstants, lo) {
     const { CheckDom, CheckSelection } = checkUtil;
-    const { range, convertToProgrammeIndex } = linqUtil;
+    const { $range, convertToProgrammeIndex } = linqUtil;
     const { FRAME_1 } = JSFLConstants.Numerics.frame.frameList;
     const { swapLayers } = lo;
 
@@ -54,13 +54,13 @@ require([
 
         var copyCount = xmlPanelUtil.parseNumber(
             xmlPanel.copyCount,
-            '复制数量 必须为整数，例如 5,请重新输入。'
+            "复制数量 必须为整数，例如 5,请重新输入。"
         );
         if (copyCount === null) return;
 
         var frameInterval = xmlPanelUtil.parseNumber(
             xmlPanel.frameInterval,
-            '帧间隔 必须为整数，例如 1,请重新输入。'
+            "帧间隔 必须为整数，例如 1,请重新输入。"
         );
         if (frameInterval === null) return;
 
@@ -81,29 +81,29 @@ require([
     // 粘贴到 0 的上方
     function pasteLayer(appearanceOrder) {
         switch (appearanceOrder) {
-            case 'bottomToTop': // 从下往上
-                log.debug('从下往上');
+            case "bottomToTop": // 从下往上
+                log.debug("从下往上");
                 timeline.pasteLayers(0);
                 break;
-            case 'topToBottom': // 从上往下
-                log.debug('从上往下');
+            case "topToBottom": // 从上往下
+                log.debug("从上往下");
                 var length = timeline.layers.length;
                 // 粘贴到最后一个
                 timeline.pasteLayers(length);
-                log.debug('timeline.layers.length:', length);
+                log.debug("timeline.layers.length:", length);
                 // 更新当前的length
                 var length = timeline.layers.length - 1;
                 // 最后两个图层  交换顺序
                 swapLayers(timeline, length, length - 1);
                 break;
             default:
-                throw new Error('顺序错误');
+                throw new Error("顺序错误");
         }
     }
 
     function Main() {
         // 检查选择的元件
-        if (!CheckSelection(selection, 'selectElement', 'No limit')) return;
+        if (!CheckSelection(selection, "selectElement", "No limit")) return;
 
         var config = checkXMLPanel();
         if (config === undefined) return;
@@ -121,14 +121,14 @@ require([
         timeline.copyLayers();
 
         // 生成需要添加的空帧的帧数
-        var toAddFrameCount = range(0, frameInterval * copyCount, frameInterval).select(
+        var toAddFrameCount = $range(0, frameInterval * copyCount, frameInterval).select(
             function (x) {
                 return x + frameInterval;
             }
         );
-        var toAddFrameCountArray = convertToProgrammeIndex(toAddFrameCount).toArray();
+        var toAddFrameCountArray = convertToProgrammeIndex(toAddFrameCount);
 
-        log.debug('toAddFrameCount', toAddFrameCount.toArray());
+        log.debug("toAddFrameCount", toAddFrameCount.toArray());
 
         for (var i = 0; i < copyCount; i++) {
             // 粘贴到 0 的上方

@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['FUNC', 'FrameChecker'], function (FUNC, fc) {
+define(["FUNC", "FrameChecker"], function (FUNC, fc) {
     const { SAFE_GET_MACRO } = FUNC;
     const { IsFrameBlank } = fc;
 
@@ -63,7 +63,7 @@ define(['FUNC', 'FrameChecker'], function (FUNC, fc) {
                 return false;
             }
             // frameId = layer.frames[frameId - 1]?.startFrame || -1;
-            lastKF = SAFE_GET_MACRO(layer.frames[lastKF - 1], 'startFrame', -1);
+            lastKF = SAFE_GET_MACRO(layer.frames[lastKF - 1], "startFrame", -1);
         }
 
         return true;

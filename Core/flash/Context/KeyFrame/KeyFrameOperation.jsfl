@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['KeyFrameQuery', 'Tips', 'LayerQuery'], function (kfq, tips, lq) {
+define(["KeyFrameQuery", "Tips", "LayerQuery"], function (kfq, tips, lq) {
     const { getKeyFrames } = kfq;
     const { checkVariableRedeclaration } = tips;
     const { convertToLayerIndex, convertToLayer } = lq;
@@ -23,10 +23,10 @@ define(['KeyFrameQuery', 'Tips', 'LayerQuery'], function (kfq, tips, lq) {
     function convertToKeyframesSafety(timeline, keyFramesIndex, selectedLayer) {
         if (timeline === undefined) {
             throw new Error(
-                '在函数 Main 中，你重新定义了一个局部变量 timeline，这会导致局部变量覆盖全局变量'
+                "在函数 Main 中，你重新定义了一个局部变量 timeline，这会导致局部变量覆盖全局变量"
             );
         }
-        checkVariableRedeclaration(timeline, 'timeline');
+        checkVariableRedeclaration(timeline, "timeline");
 
         // timeline.convertToKeyframes(frame_1);
         var layers = timeline.layers; //图层
@@ -59,7 +59,7 @@ define(['KeyFrameQuery', 'Tips', 'LayerQuery'], function (kfq, tips, lq) {
      */
     function KFrameOnlyOne(timeline) {
         var CheckSelectedFrames;
-        require(['checkUtil'], function (checkUtil) {
+        require(["checkUtil"], function (checkUtil) {
             CheckSelectedFrames = checkUtil.CheckSelectedFrames;
         });
         var layers = timeline.layers; //图层

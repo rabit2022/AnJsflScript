@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['Tips'], function (Tips) {
+define(["Tips"], function (Tips) {
     const { checkVariableRedeclaration } = Tips;
 
     /**
@@ -16,7 +16,7 @@ define(['Tips'], function (Tips) {
      * @param {Timeline} timeline
      */
     function SelectNoneFms(timeline) {
-        checkVariableRedeclaration(timeline, 'timeline');
+        checkVariableRedeclaration(timeline, "timeline");
 
         // select None
         timeline.setSelectedFrames([0, 0, 0], true);
@@ -27,7 +27,7 @@ define(['Tips'], function (Tips) {
      * @param {Timeline} timeline
      */
     function SelectAllFms(timeline) {
-        checkVariableRedeclaration(timeline, 'timeline');
+        checkVariableRedeclaration(timeline, "timeline");
 
         // select All
         timeline.setSelectedFrames(0, timeline.frameCount - 1, true);
@@ -36,14 +36,14 @@ define(['Tips'], function (Tips) {
     /**
      * 重置选中帧
      * @param {Timeline} timeline 时间线
-     * @param {FrameRange[]} frs 帧范围数组
+     * @param {FrameRange[]} startFrs 帧范围数组
      */
-    function SelectStartFms(timeline, frs) {
-        checkVariableRedeclaration(timeline, 'timeline');
+    function SelectStartFms(timeline, startFrs) {
+        checkVariableRedeclaration(timeline, "timeline");
 
         SelectNoneFms(timeline);
-        for (var i = 0; i < frs.length; i++) {
-            var fr = frs[i];
+        for (var i = 0; i < startFrs.length; i++) {
+            var fr = startFrs[i];
 
             var frArray = fr.toArray();
             timeline.setSelectedFrames(frArray, false);

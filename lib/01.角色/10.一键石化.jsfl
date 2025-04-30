@@ -8,48 +8,50 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 require([
-    'checkUtil',
-    'loglevel',
-    'ElementOperation',
-    'ElementAnim',
-    'SymbolNameGenerator',
-    'selectionUtil',
-    'SAT',
-    'graphicsUtil',
-    'JSFLConstants',
-    'curveUtil',
-    'KeyFrameOperation'
+    "checkUtil",
+    "loglevel",
+    "ElementOperation",
+    "ElementAnim",
+    "SymbolNameGenerator",
+    "SAT",
+    "graphicsUtil",
+    "JSFLConstants",
+    "EaseCurve",
+    "KeyFrameOperation",
+    "ElementSelect"
 ], function (
     checkUtil,
     log,
     ed,
     ea,
     sng,
-    sel,
     SAT,
     graphicsUtil,
     JSFLConstants,
     curve,
-    kfo
+    kfo,
+    es
 ) {
     const { CheckDom, CheckSelection } = checkUtil;
-    const { SelectAll } = sel;
+
     const { wrapRectByCenter } = SAT.GLOBALS;
     const { Vector, Rectangle } = SAT;
+
+    const { SelectAll } = es;
     const { drawRectangleWithoutLine } = graphicsUtil;
     const { FRAME_1, FRAME_15 } = JSFLConstants.Numerics.frame.frameList;
     const { setClassicEaseCurve } = curve;
@@ -129,23 +131,23 @@ require([
         // endregion inner doc
 
         function stoneLayer() {
-            curLayer.name = '石化层';
+            curLayer.name = "石化层";
             // curLayer.layerType = 'masked';
 
             SelectAll(curFrame.elements);
 
             // 石化层
             breakApartToDrawingObject(curFrame.elements[0]);
-            doc.setFillColor('#999999');
+            doc.setFillColor("#999999");
 
-            var symbolName = generateNameUseLast('石化_');
-            doc.convertToSymbol('graphic', symbolName, 'center');
+            var symbolName = generateNameUseLast("石化_");
+            doc.convertToSymbol("graphic", symbolName, "center");
         }
 
         function maskLayer(element) {
             // 遮罩层
-            timeline.addNewLayer('遮罩层', 'mask', true);
-            curLayer.layerType = 'masked';
+            timeline.addNewLayer("遮罩层", "mask", true);
+            curLayer.layerType = "masked";
 
             // shape
             // addScope=height*20%
@@ -226,7 +228,7 @@ require([
 
     function Main() {
         // 检查选择的元件
-        if (!CheckSelection(selection, 'selectElement', 'No limit')) return;
+        if (!CheckSelection(selection, "selectElement", "No limit")) return;
 
         // // 复制元件，递归到绘制对象，并设置颜色
         // an.getDocumentDOM().setFillColor('#999999');
@@ -234,8 +236,8 @@ require([
         // 图层2 ： 遮罩层
         // 图层1 复制 ： 被遮罩层
         // 图层1 ： 原始层
-        var symbolName = generateNameUntilUnique('一键石化_');
-        doc.convertToSymbol('graphic', symbolName, 'center');
+        var symbolName = generateNameUntilUnique("一键石化_");
+        doc.convertToSymbol("graphic", symbolName, "center");
 
         refreshTimeline();
 
@@ -243,12 +245,12 @@ require([
         var newSymbol = selection[0];
         playOnce(newSymbol);
 
-        doc.enterEditMode('inPlace');
+        doc.enterEditMode("inPlace");
 
         KFrames(newSymbol);
         doc.exitEditMode();
 
-        alert('石化完成！\n点击播放查看效果！（可双击进入元件修改效果）');
+        alert("石化完成！\n点击播放查看效果！（可双击进入元件修改效果）");
     }
 
     Main();

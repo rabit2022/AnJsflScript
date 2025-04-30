@@ -27,7 +27,7 @@ define(function () {
             // 非空元素，非组
             !IsGroup(element) &&
             // instance+symbol  或者  symbolType
-            ((element.elementType === 'instance' && element.instanceType === 'symbol') ||
+            ((element.elementType === "instance" && element.instanceType === "symbol") ||
                 element.symbolType !== undefined)
         );
     }
@@ -40,8 +40,8 @@ define(function () {
     function IsBitmap(element) {
         return (
             !IsGroup(element) &&
-            element.elementType === 'instance' &&
-            element.instanceType === 'bitmap'
+            element.elementType === "instance" &&
+            element.instanceType === "bitmap"
         );
     }
 
@@ -54,7 +54,7 @@ define(function () {
     function IsShape(element, strict) {
         if (strict === undefined) strict = false;
 
-        var isShape = !IsGroup(element) && element.elementType === 'shape';
+        var isShape = !IsGroup(element) && element.elementType === "shape";
         var isChildren;
         if (strict) {
             isChildren = IsDrawingObject(element);
@@ -70,7 +70,7 @@ define(function () {
     function IsDrawingObject(element) {
         return (
             !IsGroup(element) &&
-            (element.elementType === 'shapeObj' || element.isDrawingObject)
+            (element.elementType === "shapeObj" || element.isDrawingObject)
         );
     }
 

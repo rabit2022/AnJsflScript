@@ -8,43 +8,37 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 require([
-    'checkUtil',
-    'loglevel',
-    'elementUtil',
-    'SymbolNameGenerator',
-    'selectionUtil',
-    'LayerOperation',
-    'JSFLConstants',
-    'EaseCurve',
-    'KeyFrameOperation'
-], function (
-    checkUtil,
-    log,
-    elementUtil,
-    sng,
-    selectionUtil,
-    lo,
-    JSFLConstants,
-    curve,
-    kfo
-) {
+    "checkUtil",
+    "loglevel",
+    "SymbolNameGenerator",
+    "LayerOperation",
+    "JSFLConstants",
+    "EaseCurve",
+    "KeyFrameOperation",
+    "ElementChecker",
+    "ElementQuery",
+    "ElementSelect"
+], function (checkUtil, log, sng, lo, JSFLConstants, curve, kfo, ec, eq, es) {
     const { CheckDom, CheckSelection } = checkUtil;
-    const { IsSymbol, IsShape, getName } = elementUtil;
-    const { SelectAll } = selectionUtil;
+
+    const { IsSymbol, IsShape } = ec;
+    const { getName } = eq;
+    const { SelectAll } = es;
+
     const { FRAME_1, FRAME_30 } = JSFLConstants.Numerics.frame.frameList;
     const { swapLayers } = lo;
     const { setClassicEaseCurve } = curve;
@@ -129,7 +123,7 @@ require([
     }
 
     function KFrame() {
-        doc.enterEditMode('inPlace');
+        doc.enterEditMode("inPlace");
 
         refreshTimeline();
 
@@ -166,18 +160,18 @@ require([
 
     function Main() {
         // 请同时选中两个对象！(遮罩形状+被遮对象)
-        if (!CheckSelection(selection, 'selectElement', 'Only two', '遮罩形状+被遮对象'))
+        if (!CheckSelection(selection, "selectElement", "Only two", "遮罩形状+被遮对象"))
             return;
 
         const mt = checkMaskTarget();
         if (!mt) return;
 
         const { mask, target } = mt;
-        log.info('遮罩对象：' + getName(mask) + '，被遮对象：' + getName(target));
+        log.info("遮罩对象：" + getName(mask) + "，被遮对象：" + getName(target));
 
         // 转为元件
-        var symbolName = generateNameUntilUnique('一键遮罩_');
-        doc.convertToSymbol('graphic', symbolName, 'center');
+        var symbolName = generateNameUntilUnique("一键遮罩_");
+        doc.convertToSymbol("graphic", symbolName, "center");
 
         KFrame();
     }

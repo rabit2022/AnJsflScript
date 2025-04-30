@@ -18,7 +18,7 @@ require(function () {
 
         // 排除 core-js 模块
         moduleNames = moduleNames.filter(function (moduleName) {
-            return moduleName !== 'core-js';
+            return moduleName !== "core-js";
         });
         console.log(moduleNames);
 

@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['random', 'sprintf'], function (random, sp) {
+define(["random", "sprintf"], function (random, sp) {
     const sprintf = sp.sprintf;
     /**
      * 添加在 name 后面的随机数的位数，保证名称的唯一性。
@@ -18,7 +18,7 @@ define(['random', 'sprintf'], function (random, sp) {
      * 记录上一次生成的随机数，用于生成唯一名称。
      * @type {string}
      */
-    var lastCount = '000';
+    var lastCount = "000";
 
     /**
      * 获取随机3位数字的字符串,不够的地方用0补齐
@@ -30,12 +30,12 @@ define(['random', 'sprintf'], function (random, sp) {
         if (digits === undefined) digits = PAD_DIGITS;
 
         var num = random.randint(1, 999);
-        return num.toString().padStart(digits, '0');
+        return num.toString().padStart(digits, "0");
     }
 
     function SymbolNameGenerator() {}
 
-    SymbolNameGenerator.LastName = '';
+    SymbolNameGenerator.LastName = "";
 
     /**
      * 查找是否有重复名称
@@ -64,18 +64,18 @@ define(['random', 'sprintf'], function (random, sp) {
      */
     SymbolNameGenerator.generateNameUntilUnique = function (baseName) {
         lastCount = getPaddingNum();
-        var name = baseName + '' + lastCount;
+        var name = baseName + "" + lastCount;
 
         var count = 0;
-        while (this.findDuplicateNameInLib(name)) {
+        while (SymbolNameGenerator.findDuplicateNameInLib(name)) {
             lastCount = getPaddingNum();
-            name = baseName + '' + lastCount;
+            name = baseName + "" + lastCount;
 
             count++;
             if (count > 10) {
                 throw new Error(
                     sprintf(
-                        '已经尝试了[%d]次，仍然无法生成唯一的名称！当前名称为：[%s]',
+                        "已经尝试了[%d]次，仍然无法生成唯一的名称！当前名称为：[%s]",
                         count,
                         name
                     )
@@ -94,12 +94,12 @@ define(['random', 'sprintf'], function (random, sp) {
      * @returns {string} 返回一个唯一的名称。
      */
     SymbolNameGenerator.generateNameUseLast = function (baseName) {
-        var name = baseName + '' + lastCount;
-        while (this.findDuplicateNameInLib(name)) {
-            var info0 = sprintf('lastCount:%s 重复了！', lastCount);
+        var name = baseName + "" + lastCount;
+        while (SymbolNameGenerator.findDuplicateNameInLib(name)) {
+            var info0 = sprintf("lastCount:%s 重复了！", lastCount);
             lastCount = getPaddingNum();
-            var info1 = sprintf('已经重新生成了新的名称！ lastCount:%s', lastCount);
-            name = baseName + '' + lastCount;
+            var info1 = sprintf("已经重新生成了新的名称！ lastCount:%s", lastCount);
+            name = baseName + "" + lastCount;
             fl.trace(info0 + info1);
         }
 

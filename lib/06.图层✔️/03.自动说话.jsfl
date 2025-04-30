@@ -8,26 +8,26 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 require([
-    'checkUtil',
-    'loglevel',
-    'LayerChecker',
-    'KeyFrameQuery',
-    'KeyFrameOperation',
-    'FramesSelect'
+    "checkUtil",
+    "loglevel",
+    "LayerChecker",
+    "KeyFrameQuery",
+    "KeyFrameOperation",
+    "FramesSelect"
 ], function (checkUtil, log, lc, kfq, kfo, fms) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
@@ -74,13 +74,13 @@ require([
     function identifySoundLayers(selectedLayers, layers) {
         // 检查图层数量是否为两个
         if (selectedLayers.length !== 2) {
-            alert('选中的图层数量必须为两个');
+            alert("选中的图层数量必须为两个");
             return null; // 返回 null 表示操作失败
         }
 
         // 检查图层索引是否相同
         if (selectedLayers[0] === selectedLayers[1]) {
-            alert('图层索引不能相同');
+            alert("图层索引不能相同");
             return null; // 返回 null 表示操作失败
         }
 
@@ -90,7 +90,7 @@ require([
                 return index < 0 || index >= layers.length;
             })
         ) {
-            alert('图层索引超出范围');
+            alert("图层索引超出范围");
             return null; // 返回 null 表示操作失败
         }
 
@@ -117,11 +117,11 @@ require([
 
         // 检查是否有声音的图层和没有声音的图层
         if (soundLayer === null) {
-            alert('两个图层都没有声音');
+            alert("两个图层都没有声音");
             return null; // 返回 null 表示操作失败
         }
         if (noSoundLayer === null) {
-            alert('两个图层都有声音');
+            alert("两个图层都有声音");
             return null; // 返回 null 表示操作失败
         }
 
@@ -135,19 +135,19 @@ require([
     function Main() {
         var selectedLayers = timeline.getSelectedLayers(); // 选中的图层
         // 检查选择的元件
-        if (!CheckSelection(selectedLayers, 'selectLayer', 'Only two')) return;
+        if (!CheckSelection(selectedLayers, "selectLayer", "Only two")) return;
 
-        log.info('selectedLayers:', selectedLayers);
+        log.info("selectedLayers:", selectedLayers);
         // 1,区分嘴的图层 ,声音的图层]
         var result = identifySoundLayers(selectedLayers, layers);
         if (result === null) return;
 
-        log.info('result:', result);
+        log.info("result:", result);
 
         // 2,获取声音图层的关键帧
         var soundLayer = result.soundLayer.layer;
         var soundLayerKeyFrames = getKeyFrames(soundLayer);
-        log.info('soundLayerKeyFrames:', soundLayerKeyFrames);
+        log.info("soundLayerKeyFrames:", soundLayerKeyFrames);
 
         // 3,复制声音图层的关键帧到嘴的图层
         var noSoundLayerIndex = result.noSoundLayer.index;

@@ -6,7 +6,7 @@
  * @project: AnJsflScript
  * @description:
  */
-define(['SAT'], function (sat) {
+define(["SAT"], function (sat) {
     var Vector = sat.Vector,
         Rectangle = sat.Rectangle;
     const { wrapRectByTopLeft } = sat.GLOBALS;

@@ -8,27 +8,27 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'loglevel', 'filterUtil', 'KeyFrameOperation'], function (
+require(["checkUtil", "loglevel", "KeyFrameOperation", "FilterOperation"], function (
     checkUtil,
     log,
-    filterUtil,
-    kfo
+    kfo,
+    fo
 ) {
     const { CheckDom, CheckSelection } = checkUtil;
-    const { addFilterToFrame } = filterUtil;
+    const { addFilterToFrame } = fo;
     const { convertToKeyframesSafety } = kfo;
 
     var doc = fl.getDocumentDOM(); //文档
@@ -47,7 +47,7 @@ require(['checkUtil', 'loglevel', 'filterUtil', 'KeyFrameOperation'], function (
 
     function Main() {
         // 检查选择的元件
-        if (!CheckSelection(selection, 'selectElement', 'No limit')) return;
+        if (!CheckSelection(selection, "selectElement", "No limit")) return;
 
         // 设置关键帧
         convertToKeyframesSafety(timeline, [curFrameIndex]);
@@ -56,14 +56,14 @@ require(['checkUtil', 'loglevel', 'filterUtil', 'KeyFrameOperation'], function (
 
         // 滤镜--发光--blurX=blurY=15,intensity=100,quality=medium
         var glowFilter = {
-            name: 'glowFilter',
+            name: "glowFilter",
             enabled: true,
             angle: 45,
             blurX: 15,
             blurY: 15,
             distance: 4,
-            color: '#FFFFFF',
-            quality: 'medium',
+            color: "#FFFFFF",
+            quality: "medium",
             inner: false,
             knockout: false,
             hideObject: false,

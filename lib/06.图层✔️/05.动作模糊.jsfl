@@ -8,28 +8,28 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 require([
-    'checkUtil',
-    'loglevel',
-    'linqUtil',
-    'JSFLConstants',
-    'FilterQuery',
-    'FilterOperation',
-    'FramesSelect',
-    'KeyFrameOperation'
+    "checkUtil",
+    "loglevel",
+    "linqUtil",
+    "JSFLConstants",
+    "FilterQuery",
+    "FilterOperation",
+    "FramesSelect",
+    "KeyFrameOperation"
 ], function (checkUtil, log, linqUtil, JSFLConstants, fq, fo, fms, kfo) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
     const { FRAME_1, FRAME_2, FRAME_3, FRAME_4 } = JSFLConstants.Numerics.frame.frameList;
@@ -63,7 +63,7 @@ require([
     var BLUR_FILTER_FRAMES = [FRAME_1, FRAME_2, FRAME_3];
 
     // 获取第一帧
-    var frs = CheckSelectedFrames(timeline, '请选择需要添加模糊的帧！');
+    var frs = CheckSelectedFrames(timeline, "请选择需要添加模糊的帧！");
     if (frs === null) return;
     var firstLayer = layers[frs[0].layerIndex];
     var firstFrame = frs[0].startFrame;
@@ -75,7 +75,7 @@ require([
 
     function Main() {
         // 检查选择的元件
-        if (!CheckSelection(selection, 'elementOnFrame', 'Not Zero')) return;
+        if (!CheckSelection(selection, "elementOnFrame", "Not Zero")) return;
 
         // 关键帧
         convertToKeyframesSafety(timeline, KEY_FRAMES);
@@ -86,7 +86,7 @@ require([
             var blurX = (blurY = BLUR[i]);
 
             if (getFilterByName(curLayer, curFrameIndex, BLUR_FILTER) === null) {
-                addBlurFilterToFrame(firstLayer, blurfilterframe, blurX, blurY, 'high');
+                addBlurFilterToFrame(firstLayer, blurfilterframe, blurX, blurY, "high");
             }
         }
 

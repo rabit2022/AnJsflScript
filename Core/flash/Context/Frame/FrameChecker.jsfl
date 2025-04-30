@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['FUNC'], function (FUNC) {
+define(["FUNC"], function (FUNC) {
     const { IsEmpty } = FUNC;
 
     /**

@@ -8,25 +8,25 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 require([
-    'checkUtil',
-    'promptUtil',
-    'SymbolNameGenerator',
-    'JSFLConstants',
-    'KeyFrameOperation'
+    "checkUtil",
+    "promptUtil",
+    "SymbolNameGenerator",
+    "JSFLConstants",
+    "KeyFrameOperation"
 ], function (checkUtil, promptUtil, sng, JSFLConstants, kfo) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
     const { FRAME_1, FRAME_4, FRAME_7, FRAME_10, FRAME_12 } =
@@ -35,17 +35,17 @@ require([
     const { generateNameUntilUnique, generateNameUseLast } = sng;
 
     var descriptions = {
-        file: '02.一键点头.jsfl',
-        'file description': '输出 点头动作的元件，需要自己设置变形点',
-        selection: '仅一个元件',
-        'selection description': '选中头部',
+        file: "02.一键点头.jsfl",
+        "file description": "输出 点头动作的元件，需要自己设置变形点",
+        selection: "仅一个元件",
+        "selection description": "选中头部",
         XMLPanel: false,
-        'input parameters': {
-            头部朝向: '右'
+        "input parameters": {
+            头部朝向: "右"
         },
-        detail: '包装元件',
-        'detail description': '',
-        steps: ['包装元件', 'k帧', '更改旋转']
+        detail: "包装元件",
+        "detail description": "",
+        steps: ["包装元件", "k帧", "更改旋转"]
     };
 
     var doc = fl.getDocumentDOM(); //文档
@@ -68,18 +68,18 @@ require([
     const KEY_FRAMES = [FRAME_4, FRAME_7, FRAME_10];
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'Only one')) return;
+        if (!checkSelection(selection, "selectElement", "Only one")) return;
 
         var headDirection = promptUtil.parseDirection(
-            '输入头部朝向(默认为右，空格为左)：',
-            { 右: 1, ' ': -1, 左: -1 }
+            "输入头部朝向(默认为右，空格为左)：",
+            { 右: 1, " ": -1, 左: -1 }
         );
         if (headDirection === null) return;
 
-        var symbolName = generateNameUntilUnique('一键点头_');
-        doc.convertToSymbol('graphic', symbolName, 'center');
+        var symbolName = generateNameUntilUnique("一键点头_");
+        doc.convertToSymbol("graphic", symbolName, "center");
 
-        doc.enterEditMode('inPlace');
+        doc.enterEditMode("inPlace");
 
         var timeline = doc.getTimeline();
         // 给所有图层加帧

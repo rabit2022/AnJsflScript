@@ -8,20 +8,20 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'FramesSelect'], function (checkUtil, fms) {
+require(["checkUtil", "FramesSelect"], function (checkUtil, fms) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     const { SelectNoneFms } = fms;
@@ -42,13 +42,13 @@ require(['checkUtil', 'FramesSelect'], function (checkUtil, fms) {
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'No limit')) return;
+        if (!checkSelection(selection, "selectElement", "No limit")) return;
 
         var currentFrame = timeline.currentFrame;
 
-        var toAddFrames = prompt('请输入需要增加的帧数：', 30);
-        if (toAddFrames == null || toAddFrames === '' || toAddFrames < 1) {
-            alert('请输入正确的帧数！');
+        var toAddFrames = prompt("请输入需要增加的帧数：", 30);
+        if (toAddFrames == null || toAddFrames === "" || toAddFrames < 1) {
+            alert("请输入正确的帧数！");
             return;
         }
 

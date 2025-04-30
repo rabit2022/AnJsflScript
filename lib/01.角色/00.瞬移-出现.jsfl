@@ -8,29 +8,29 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 require([
-    'checkUtil',
-    'linqUtil',
-    'EaseCurve',
-    'loglevel',
-    'JSFLConstants',
-    'ElementSelect',
-    'FilterOperation',
-    'FramesSelect',
-    'KeyFrameOperation'
+    "checkUtil",
+    "linqUtil",
+    "EaseCurve",
+    "loglevel",
+    "JSFLConstants",
+    "ElementSelect",
+    "FilterOperation",
+    "FramesSelect",
+    "KeyFrameOperation"
 ], function (checkUtil, linqUtil, curve, log, JSFLConstants, es, fo, fms, kfo) {
     const {
         CheckDom: checkDom,
@@ -61,8 +61,8 @@ require([
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
     // 关键帧
-    var KEY_FRAMES = linqUtil.convertToProgrammeIndex([1, 2, 3, 4, 5, 9]);
-    log.info('关键帧', KEY_FRAMES);
+    var KEY_FRAMES = convertToProgrammeIndex([1, 2, 3, 4, 5, 9]);
+    log.info("关键帧", KEY_FRAMES);
 
     // 滤镜效果
     // 1    0,255 高
@@ -76,7 +76,7 @@ require([
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'Only one')) return;
+        if (!checkSelection(selection, "selectElement", "Only one")) return;
 
         // 获取第一帧
         var frs = checkSelectedFrames(timeline);
@@ -96,7 +96,7 @@ require([
             var blurfilterframe = BLUR_FILTER_FRAMES[i];
             var blurY = BLUR_Y[i];
 
-            addBlurFilterToFrame(firstLayer, blurfilterframe, 0, blurY, 'high');
+            addBlurFilterToFrame(firstLayer, blurfilterframe, 0, blurY, "high");
         }
 
         // 消失效果
@@ -116,7 +116,7 @@ require([
         // 获取allKeyFrames first,last
         var firstF = KEY_FRAMES[0];
         var lastF = KEY_FRAMES[KEY_FRAMES.length - 1];
-        log.info('firstF:', firstF, 'lastF:', lastF);
+        log.info("firstF:", firstF, "lastF:", lastF);
         // 选中所有帧
         timeline.setSelectedFrames(firstF, lastF, true);
 

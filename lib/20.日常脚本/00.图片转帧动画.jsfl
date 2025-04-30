@@ -8,20 +8,20 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'SymbolNameGenerator', 'SAT'], function (checkUtil, sng, sat) {
+require(["checkUtil", "SymbolNameGenerator", "SAT"], function (checkUtil, sng, sat) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
     const { Vector, Rectangle } = sat;
@@ -57,7 +57,7 @@ require(['checkUtil', 'SymbolNameGenerator', 'SAT'], function (checkUtil, sng, s
     }
 
     function KFrames(selectedPics) {
-        doc.enterEditMode('inPlace');
+        doc.enterEditMode("inPlace");
 
         // 把第一个作为参照
         doc.selectAll();
@@ -85,10 +85,10 @@ require(['checkUtil', 'SymbolNameGenerator', 'SAT'], function (checkUtil, sng, s
     function cleanFolders(NEW_SYMBOL_NAME, symbol_name, selectedPics) {
         // 整理库的文件
         library.selectNone();
-        var FOLDER_NAME = NEW_SYMBOL_NAME + '_素材';
+        var FOLDER_NAME = NEW_SYMBOL_NAME + "_素材";
         library.newFolder(FOLDER_NAME);
 
-        var ANIMATE_FOLDER = FOLDER_NAME + '/动画';
+        var ANIMATE_FOLDER = FOLDER_NAME + "/动画";
         library.newFolder(ANIMATE_FOLDER);
 
         // 移动图片到 动画文件夹
@@ -108,12 +108,12 @@ require(['checkUtil', 'SymbolNameGenerator', 'SAT'], function (checkUtil, sng, s
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectLibItem', 'Not Zero')) return;
+        if (!checkSelection(selection, "selectLibItem", "Not Zero")) return;
 
         var selectedPics = getPics();
 
         // 去除数字的名字
-        var NEW_SYMBOL_NAME = selectedPics[0].name.replace(/_\d+.*/, '');
+        var NEW_SYMBOL_NAME = selectedPics[0].name.replace(/_\d+.*/, "");
 
         // 把第一个图片 添加到  舞台中心
         var stageCenter = new Vector(doc.width / 2, doc.height / 2);
@@ -121,7 +121,7 @@ require(['checkUtil', 'SymbolNameGenerator', 'SAT'], function (checkUtil, sng, s
 
         // 转为元件
         var symbol_name = generateNameUntilUnique(NEW_SYMBOL_NAME);
-        doc.convertToSymbol('graphic', symbol_name, 'center');
+        doc.convertToSymbol("graphic", symbol_name, "center");
 
         KFrames(selectedPics);
 

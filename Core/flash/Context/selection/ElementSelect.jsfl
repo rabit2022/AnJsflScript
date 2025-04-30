@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['ElementQuery'], function (eq) {
+define(["ElementQuery"], function (eq) {
     const { getName } = eq;
 
     /**

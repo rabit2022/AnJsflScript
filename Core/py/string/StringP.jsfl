@@ -6,8 +6,8 @@
 
 define(function () {
     function StringP(str) {
-        if (typeof str !== 'string') {
-            throw new TypeError('Expected a string');
+        if (typeof str !== "string") {
+            throw new TypeError("Expected a string");
         }
         this.str = str;
     }
@@ -25,14 +25,14 @@ define(function () {
      * @static
      * @type {string}
      */
-    StringP.ascii_lowercase = 'abcdefghijklmnopqrstuvwxyz';
+    StringP.ascii_lowercase = "abcdefghijklmnopqrstuvwxyz";
 
     /**
      * 所有大写字母 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'。
      * @static
      * @type {string}
      */
-    StringP.ascii_uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    StringP.ascii_uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     /**
      * 所有 ASCII 字母（小写 + 大写）。
@@ -46,35 +46,35 @@ define(function () {
      * @static
      * @type {string}
      */
-    StringP.digits = '0123456789';
+    StringP.digits = "0123456789";
 
     /**
      * 所有十六进制数字（小写 + 大写）'0123456789abcdefABCDEF'。
      * @static
      * @type {string}
      */
-    StringP.hexdigits = StringP.digits + 'abcdef' + 'ABCDEF';
+    StringP.hexdigits = StringP.digits + "abcdef" + "ABCDEF";
 
     /**
      * 所有八进制数字 '01234567'。
      * @static
      * @type {string}
      */
-    StringP.octdigits = '01234567';
+    StringP.octdigits = "01234567";
 
     /**
      * 所有标点符号。
      * @static
      * @type {string}
      */
-    StringP.punctuation = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
+    StringP.punctuation = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
 
     /**
      * 所有空白字符（空格、制表符、换行符等）。
      * @static
      * @type {string}
      */
-    StringP.whitespace = ' \t\n\r\f\v';
+    StringP.whitespace = " \t\n\r\f\v";
 
     /**
      * 所有可打印字符（数字、字母、标点符号和空白字符）。
@@ -91,50 +91,50 @@ define(function () {
      */
     StringP.keywords = [
         // es5 关键字
-        'break',
-        'case',
-        'catch',
-        'class',
-        'const',
-        'continue',
-        'debugger',
-        'default',
-        'delete',
-        'do',
-        'else',
-        'export',
-        'extends',
-        'finally',
-        'for',
-        'function',
-        'if',
-        'import',
-        'in',
-        'instanceof',
-        'new',
-        'return',
-        'super',
-        'switch',
-        'this',
-        'throw',
-        'try',
-        'typeof',
-        'var',
-        'void',
-        'while',
-        'with',
-        'yield', // 严格模式下的关键字
-        'enum', // ES6 引入的关键字
-        'let', // es2017 关键字
-        'async',
-        'await', // 未来保留关键字
-        'implements',
-        'interface',
-        'package',
-        'private',
-        'protected',
-        'public',
-        'static'
+        "break",
+        "case",
+        "catch",
+        "class",
+        "const",
+        "continue",
+        "debugger",
+        "default",
+        "delete",
+        "do",
+        "else",
+        "export",
+        "extends",
+        "finally",
+        "for",
+        "function",
+        "if",
+        "import",
+        "in",
+        "instanceof",
+        "new",
+        "return",
+        "super",
+        "switch",
+        "this",
+        "throw",
+        "try",
+        "typeof",
+        "var",
+        "void",
+        "while",
+        "with",
+        "yield", // 严格模式下的关键字
+        "enum", // ES6 引入的关键字
+        "let", // es2017 关键字
+        "async",
+        "await", // 未来保留关键字
+        "implements",
+        "interface",
+        "package",
+        "private",
+        "protected",
+        "public",
+        "static"
     ];
 
     /**
@@ -154,12 +154,12 @@ define(function () {
     StringP.capwords = function (s, sep) {
         // 如果 sep 未提供或为 null/undefined，则默认使用空格作为分隔符
         if (sep === null || sep === undefined) {
-            sep = ' ';
+            sep = " ";
         }
 
         // 使用 sep 分割字符串
         var words;
-        if (sep === ' ') {
+        if (sep === " ") {
             // 如果 sep 是空格，则先 trim 去除首尾空白，然后使用正则表达式分割连续的空白字符
             words = s.trim().split(/\s+/);
         } else {
@@ -224,11 +224,11 @@ define(function () {
         return this.str.toLowerCase().replace(/[^a-z0-9]/gi, function (match) {
             // 对于一些特殊字符进行额外处理
             var specialCases = {
-                ß: 'ss',
-                Æ: 'ae',
-                Œ: 'oe',
-                æ: 'ae',
-                œ: 'oe'
+                ß: "ss",
+                Æ: "ae",
+                Œ: "oe",
+                æ: "ae",
+                œ: "oe"
             };
             return specialCases[match] || match.toLowerCase();
         });
@@ -249,11 +249,11 @@ define(function () {
      * console.writeToLog("12345".center(5)); // 输出: "12345"
      */
     StringP.prototype.center = function (width, fillchar) {
-        if (typeof width !== 'number' || width < 0) {
-            throw new TypeError('Width must be a non-negative number');
+        if (typeof width !== "number" || width < 0) {
+            throw new TypeError("Width must be a non-negative number");
         }
-        if (typeof fillchar !== 'string' || fillchar.length !== 1) {
-            throw new TypeError('Fillchar must be a single character');
+        if (typeof fillchar !== "string" || fillchar.length !== 1) {
+            throw new TypeError("Fillchar must be a single character");
         }
 
         var str = this.str.toString();
@@ -267,12 +267,12 @@ define(function () {
         var leftPadding = Math.floor(padding / 2);
         var rightPadding = padding - leftPadding;
 
-        var fill = '';
+        var fill = "";
         for (var i = 0; i < leftPadding; i++) {
             fill += fillchar;
         }
 
-        var rightFill = '';
+        var rightFill = "";
         for (var j = 0; j < rightPadding; j++) {
             rightFill += fillchar;
         }
@@ -299,11 +299,11 @@ define(function () {
 
         const slicedStr = this.str.slice(start, end);
 
-        if (sub === '') {
+        if (sub === "") {
             return slicedStr.length + 1;
         }
 
-        const regex = new RegExp(sub, 'g');
+        const regex = new RegExp(sub, "g");
         const matches = slicedStr.match(regex);
 
         return matches ? matches.length : 0;
@@ -322,13 +322,13 @@ define(function () {
      * console.writeToLog(encoded); // 输出: Uint8Array(18) [228, 189, 160, 227, 110, 185, 228, 184, 150, 228, 189, 160, 227, 111, 141, 228, 189, 145]
      */
     StringP.prototype.encode = function (encoding, errors) {
-        encoding = encoding || 'utf-8';
+        encoding = encoding || "utf-8";
 
-        if (encoding.toLowerCase() === 'utf-8') {
+        if (encoding.toLowerCase() === "utf-8") {
             const encoder = new TextEncoder();
             return encoder.encode(this.str);
         } else {
-            throw new Error('Unsupported encoding: ' + encoding);
+            throw new Error("Unsupported encoding: " + encoding);
         }
     };
 
@@ -370,17 +370,17 @@ define(function () {
      */
     StringP.prototype.expandtabs = function (tabsize) {
         tabsize = tabsize || 8;
-        var result = '';
+        var result = "";
         var column = 0;
 
         for (var i = 0; i < this.str.length; i++) {
             const char = this.str[i];
 
-            if (char === '\t') {
+            if (char === "\t") {
                 const spacesToAdd = tabsize - (column % tabsize);
-                result += ' '.repeat(spacesToAdd);
+                result += " ".repeat(spacesToAdd);
                 column += spacesToAdd;
-            } else if (char === '\n' || char === '\r') {
+            } else if (char === "\n" || char === "\r") {
                 result += char;
                 column = 0;
             } else {
@@ -432,7 +432,7 @@ define(function () {
         var kwargs = args[args.length - 1];
 
         // 检查最后一个参数是否是对象（可能是关键字参数）
-        if (typeof kwargs === 'object' && !Array.isArray(kwargs)) {
+        if (typeof kwargs === "object" && !Array.isArray(kwargs)) {
             args.pop(); // 如果是对象，则从 args 中移除
         } else {
             kwargs = {}; // 如果没有关键字参数，则初始化为空对象
@@ -549,11 +549,11 @@ define(function () {
      * console.writeToLog(result); // "hello*****"
      */
     StringP.prototype.ljust = function (width, fillchar) {
-        if (typeof width !== 'number' || width < 0) {
-            throw new TypeError('Width must be a non-negative number');
+        if (typeof width !== "number" || width < 0) {
+            throw new TypeError("Width must be a non-negative number");
         }
-        if (typeof fillchar !== 'string' || fillchar.length !== 1) {
-            throw new TypeError('Fillchar must be a single character');
+        if (typeof fillchar !== "string" || fillchar.length !== 1) {
+            throw new TypeError("Fillchar must be a single character");
         }
 
         var str = this.str.toString();
@@ -567,12 +567,12 @@ define(function () {
         var leftPadding = Math.floor(padding / 2);
         var rightPadding = padding - leftPadding;
 
-        var fill = '';
+        var fill = "";
         for (var i = 0; i < leftPadding; i++) {
             fill += fillchar;
         }
 
-        var rightFill = '';
+        var rightFill = "";
         for (var j = 0; j < rightPadding; j++) {
             rightFill += fillchar;
         }
@@ -606,9 +606,9 @@ define(function () {
      */
     StringP.prototype.lstrip = function (chars) {
         if (chars === undefined) {
-            return this.str.replace(/^\s+/, '');
+            return this.str.replace(/^\s+/, "");
         } else {
-            return this.str.replace(new RegExp('^[' + chars + ']+'), '');
+            return this.str.replace(new RegExp("^[" + chars + "]+"), "");
         }
     };
 
@@ -626,7 +626,7 @@ define(function () {
      * console.writeToLog(result); // {97: 120, 98: 121, 99: 122}
      */
     StringP.maketrans = function (x, y, z) {
-        if (typeof x === 'object') {
+        if (typeof x === "object") {
             var result = {};
             for (var key in x) {
                 if (x.hasOwnProperty(key)) {
@@ -634,7 +634,7 @@ define(function () {
                 }
             }
             return result;
-        } else if (typeof x === 'string' && typeof y === 'string') {
+        } else if (typeof x === "string" && typeof y === "string") {
             var result = {};
             for (var i = 0; i < x.length; i++) {
                 result[x.charCodeAt(i)] = y.charCodeAt(i);
@@ -642,7 +642,7 @@ define(function () {
             return result;
         } else {
             throw new TypeError(
-                'maketrans() takes either two strings or a single dictionary'
+                "maketrans() takes either two strings or a single dictionary"
             );
         }
     };
@@ -658,7 +658,7 @@ define(function () {
     StringP.prototype.partition = function (sep) {
         var index = this.str.indexOf(sep);
         if (index === -1) {
-            return [this.str, '', ''];
+            return [this.str, "", ""];
         } else {
             return [this.str.slice(0, index), sep, this.str.slice(index + sep.length)];
         }
@@ -679,7 +679,7 @@ define(function () {
         if (sep === undefined) {
             return this.str.slice(prefix.length);
         } else {
-            return this.str.slice(prefix.split(sep).join('').length);
+            return this.str.slice(prefix.split(sep).join("").length);
         }
     };
 
@@ -698,7 +698,7 @@ define(function () {
         if (sep === undefined) {
             return this.str.slice(0, -suffix.length);
         } else {
-            return this.str.slice(0, -suffix.split(sep).join('').length);
+            return this.str.slice(0, -suffix.split(sep).join("").length);
         }
     };
 
@@ -713,8 +713,8 @@ define(function () {
      * console.writeToLog(result); // "hello-world-javascript"
      */
     StringP.prototype.replace = function (old, new_, count) {
-        if (typeof old === 'string') {
-            return this.str.replace(new RegExp(old, 'g'), new_);
+        if (typeof old === "string") {
+            return this.str.replace(new RegExp(old, "g"), new_);
         } else {
             return this.str.replace(old, new_, count);
         }
@@ -747,7 +747,7 @@ define(function () {
     StringP.prototype.rindex = function (sub, start, end) {
         var index = this.str.lastIndexOf(sub, start, end);
         if (index === -1) {
-            throw new ValueError('substring not found');
+            throw new ValueError("substring not found");
         } else {
             return index;
         }
@@ -765,11 +765,11 @@ define(function () {
      * console.writeToLog(result); // "*****hello"
      */
     StringP.prototype.rjust = function (width, fillchar) {
-        if (typeof width !== 'number' || width < 0) {
-            throw new TypeError('Width must be a non-negative number');
+        if (typeof width !== "number" || width < 0) {
+            throw new TypeError("Width must be a non-negative number");
         }
-        if (typeof fillchar !== 'string' || fillchar.length !== 1) {
-            throw new TypeError('Fillchar must be a single character');
+        if (typeof fillchar !== "string" || fillchar.length !== 1) {
+            throw new TypeError("Fillchar must be a single character");
         }
 
         var str = this.str.toString();
@@ -783,12 +783,12 @@ define(function () {
         var leftPadding = Math.floor(padding / 2);
         var rightPadding = padding - leftPadding;
 
-        var fill = '';
+        var fill = "";
         for (var i = 0; i < leftPadding; i++) {
             fill += fillchar;
         }
 
-        var rightFill = '';
+        var rightFill = "";
         for (var j = 0; j < rightPadding; j++) {
             rightFill += fillchar;
         }
@@ -807,7 +807,7 @@ define(function () {
     StringP.prototype.rpartition = function (sep) {
         var index = this.str.lastIndexOf(sep);
         if (index === -1) {
-            return ['', '', this.str];
+            return ["", "", this.str];
         } else {
             return [
                 this.str.slice(0, index + sep.length),
@@ -829,7 +829,7 @@ define(function () {
     StringP.prototype.rsplit = function (sep, maxsplit) {
         if (sep === undefined) {
             return this.str.split(/\s+/, maxsplit);
-        } else if (typeof sep === 'string') {
+        } else if (typeof sep === "string") {
             return this.str.split(sep, maxsplit);
         } else {
             return this.str.split(sep, maxsplit);
@@ -848,9 +848,9 @@ define(function () {
      */
     StringP.prototype.rstrip = function (chars) {
         if (chars === undefined) {
-            return this.str.replace(/\s+$/, '');
+            return this.str.replace(/\s+$/, "");
         } else {
-            return this.str.replace(new RegExp('[' + chars + ']+$'), '');
+            return this.str.replace(new RegExp("[" + chars + "]+$"), "");
         }
     };
 
@@ -868,7 +868,7 @@ define(function () {
     StringP.prototype.split = function (sep, maxsplit) {
         if (sep === undefined) {
             return this.str.split(/\s+/, maxsplit);
-        } else if (typeof sep === 'string') {
+        } else if (typeof sep === "string") {
             return this.str.split(sep, maxsplit);
         } else {
             return this.str.split(sep, maxsplit);
@@ -890,8 +890,8 @@ define(function () {
             return this.str.trim();
         } else {
             return this.str.replace(
-                new RegExp('^[' + chars + ']+|[' + chars + ']+$', 'g'),
-                ''
+                new RegExp("^[" + chars + "]+|[" + chars + "]+$", "g"),
+                ""
             );
         }
     };
@@ -932,7 +932,7 @@ define(function () {
      * console.writeToLog(result); // "helloworldjavascript"
      */
     StringP.prototype.translate = function (table) {
-        var result = '';
+        var result = "";
         for (var i = 0; i < this.str.length; i++) {
             var code = this.str.charCodeAt(i);
             var mapped = table[code];
@@ -940,12 +940,12 @@ define(function () {
                 result += this.str[i];
             } else if (mapped === null) {
                 // skip this character
-            } else if (typeof mapped === 'number') {
+            } else if (typeof mapped === "number") {
                 result += String.fromCharCode(mapped);
-            } else if (typeof mapped === 'string') {
+            } else if (typeof mapped === "string") {
                 result += mapped;
             } else {
-                throw new TypeError('translation table must be an object');
+                throw new TypeError("translation table must be an object");
             }
         }
         return result;
@@ -975,8 +975,8 @@ define(function () {
      * console.writeToLog(result); // "-0042"
      */
     StringP.prototype.zfill = function (width) {
-        if (typeof width !== 'number' || width < 0) {
-            throw new TypeError('Width must be a non-negative number');
+        if (typeof width !== "number" || width < 0) {
+            throw new TypeError("Width must be a non-negative number");
         }
 
         var str = this.str.toString();
@@ -987,15 +987,15 @@ define(function () {
         }
 
         var padding = width - len;
-        var sign = '';
-        if (str.charAt(0) === '+' || str.charAt(0) === '-') {
+        var sign = "";
+        if (str.charAt(0) === "+" || str.charAt(0) === "-") {
             sign = str.charAt(0);
             str = str.slice(1);
         }
 
-        var result = '';
+        var result = "";
         for (var i = 0; i < padding; i++) {
-            result += '0';
+            result += "0";
         }
 
         return sign + result + str;

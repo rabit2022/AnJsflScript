@@ -8,20 +8,20 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'xmlPanelUtil', 'EaseCurve', 'Tween'], function (
+require(["checkUtil", "xmlPanelUtil", "EaseCurve", "Tween"], function (
     checkUtil,
     xmlPanelUtil,
     curve,
@@ -52,16 +52,16 @@ require(['checkUtil', 'xmlPanelUtil', 'EaseCurve', 'Tween'], function (
 
         var easeType = panel.easeType;
         if (easeType === null) {
-            alert('请选择缓动曲线');
+            alert("请选择缓动曲线");
             return null;
         }
         var easeInOut = panel.easeInOut;
         if (easeInOut === null) {
-            alert('请选择缓动方向');
+            alert("请选择缓动方向");
             return null;
         }
 
-        var intensity = xmlPanelUtil.parseNumber(panel.intensity, '请设置缓动强度');
+        var intensity = xmlPanelUtil.parseNumber(panel.intensity, "请设置缓动强度");
         if (intensity === null) return null;
 
         return {
@@ -73,7 +73,7 @@ require(['checkUtil', 'xmlPanelUtil', 'EaseCurve', 'Tween'], function (
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'No limit')) return;
+        if (!checkSelection(selection, "selectElement", "No limit")) return;
 
         var config = checkXMLPanel();
         if (config === null) return;
@@ -82,17 +82,17 @@ require(['checkUtil', 'xmlPanelUtil', 'EaseCurve', 'Tween'], function (
         var easeInOut = config.easeInOut;
         var intensity = config.intensity;
 
-        if (easeType === 'Classic') {
+        if (easeType === "Classic") {
             setClassicEaseCurve(timeline, easeInOut, intensity);
-        } else if (easeType === 'No Ease') {
+        } else if (easeType === "No Ease") {
             var easeCurve = easeType;
 
-            createTween(timeline, 'motion tween');
+            createTween(timeline, "motion tween");
             setEaseCurve(timeline, easeCurve);
         } else {
-            var easeCurve = easeType + ' ' + easeInOut;
+            var easeCurve = easeType + " " + easeInOut;
 
-            createTween(timeline, 'motion tween');
+            createTween(timeline, "motion tween");
             setEaseCurve(timeline, easeCurve);
         }
     }

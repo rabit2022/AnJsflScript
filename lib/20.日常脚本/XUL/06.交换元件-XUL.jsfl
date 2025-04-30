@@ -8,27 +8,28 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require([
-    'checkUtil',
-    'loglevel',
-    'elementUtil',
-    '../../../Core/Utils/module/Tips'
-], function (checkUtil, log, elementUtil, TryLoad) {
+require(["checkUtil", "loglevel", "ElementChecker", "Tips"], function (
+    checkUtil,
+    log,
+    ec,
+    Tips
+) {
     const { CheckDom, CheckSelection } = checkUtil;
-    const { IsSymbol } = elementUtil;
+    const { IsSymbol } = ec;
+    const { TryLoad } = Tips;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -48,7 +49,7 @@ require([
 
     function Main() {
         // 检查选择的元件
-        if (!CheckSelection(selection, 'selectElement', 'Not Zero')) return;
+        if (!CheckSelection(selection, "selectElement", "Not Zero")) return;
 
         var allElements = library.items; // 所有元件
 
@@ -68,7 +69,7 @@ require([
             return element.name;
         });
 
-        log.info('symbolNames: ', symbolNames);
+        log.info("symbolNames: ", symbolNames);
 
         var menuItems = symbolNames.map(function (name) {
             return {
@@ -77,32 +78,32 @@ require([
             };
         });
 
-        var XUL = TryLoad('XUL');
+        var XUL = TryLoad("XUL");
         if (!XUL) return;
 
-        var xul = new XUL('选择元件')
-            .addMenuList('bug', 'bug', {}, [
+        var xul = new XUL("选择元件")
+            .addMenuList("bug", "bug", {}, [
                 {
-                    label: '只能tab选中,第一个无法被鼠标选中,',
-                    value: 'bug'
+                    label: "只能tab选中,第一个无法被鼠标选中,",
+                    value: "bug"
                 }
             ])
-            .addMenuList('选择元件', 'selectedSymbol', {}, menuItems);
-        log.info('xul.xml:', xul.xml);
+            .addMenuList("选择元件", "selectedSymbol", {}, menuItems);
+        log.info("xul.xml:", xul.xml);
 
         // &lt;
         var dialog = fl.xmlPanelFromString(xul.xml);
 
         // 如果点击的是“取消”按钮，直接返回，不执行后续代码，确保功能符合需求
-        if (dialog.dismiss === 'cancel') {
-            alert('取消修改');
+        if (dialog.dismiss === "cancel") {
+            alert("取消修改");
             return;
         }
 
-        log.info('dialog:', dialog);
+        log.info("dialog:", dialog);
 
-        var selectedSymbol = dialog['selectedSymbol'];
-        log.info('selectedSymbol:', selectedSymbol);
+        var selectedSymbol = dialog["selectedSymbol"];
+        log.info("selectedSymbol:", selectedSymbol);
 
         doc.swapElement(selectedSymbol);
     }

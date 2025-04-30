@@ -8,25 +8,25 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 require([
-    'checkUtil',
-    'promptUtil',
-    'loglevel',
-    'FramesSelect',
-    'KeyFrameQuery'
+    "checkUtil",
+    "promptUtil",
+    "loglevel",
+    "FramesSelect",
+    "KeyFrameQuery"
 ], function (checkUtil, promptUtil, log, fms, kfq) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
@@ -49,10 +49,10 @@ require([
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'No limit')) return;
+        if (!checkSelection(selection, "selectElement", "No limit")) return;
 
         var { num, mode } = promptUtil.parseNumberWithMode(30);
-        log.info('关键帧持续帧数：' + num + '，模式：' + mode);
+        log.info("关键帧持续帧数：" + num + "，模式：" + mode);
 
         // 选中的帧范围
         var selectedFrs = getSelectedFrs(timeline);
@@ -73,15 +73,15 @@ require([
 
             // 删减关键帧，增加关键帧
             switch (mode) {
-                case 'increase':
+                case "increase":
                     timeline.insertFrames(num, false, keyFr.endFrame);
                     break;
-                case 'decrease':
+                case "decrease":
                     var startFrame = keyFr.startFrame;
                     var endFrame = keyFr.startFrame + num - 1;
                     timeline.removeFrames(startFrame, endFrame);
                     break;
-                case 'unify':
+                case "unify":
                     if (keyFr.duration === num) {
                         continue;
                     } else if (keyFr.duration > num) {
@@ -95,7 +95,7 @@ require([
                     }
                     break;
                 default:
-                    throw new Error('未知模式：' + mode);
+                    throw new Error("未知模式：" + mode);
             }
         }
 

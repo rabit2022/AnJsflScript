@@ -7,7 +7,7 @@
  * @description:
  */
 
-require(['loglevel'], function (log) {
+require(["loglevel"], function (log) {
     // 清除输出面板
     fl.outputPanel.clear();
 

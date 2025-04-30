@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['SAT', 'sprintf'], function (sat, sp) {
+define(["SAT", "sprintf"], function (sat, sp) {
     var Vector = sat.V;
     var wrapRectByTopLeft = sat.GLOBALS.wrapRectByTopLeft;
     const sprintf = sp.sprintf;
@@ -51,8 +51,8 @@ define(['SAT', 'sprintf'], function (sat, sp) {
      * @enum {string} MODES
      */
     MoreElement.MODES = {
-        NEAT: 'neat', // 整齐排列
-        STAGGERED: 'staggered' // 交错排列
+        NEAT: "neat", // 整齐排列
+        STAGGERED: "staggered" // 交错排列
         // RANDOM: "random",      // 随机排列
 
         // 后续可能实现
@@ -177,7 +177,7 @@ define(['SAT', 'sprintf'], function (sat, sp) {
 
     MoreElement.prototype.toString = function () {
         return sprintf(
-            'MoreElement(element=%s, positioin=%s, Offset=%s, Rect=%s)',
+            "MoreElement(element=%s, positioin=%s, Offset=%s, Rect=%s)",
             this.element,
             this.positioin,
             this.Offset,
@@ -186,7 +186,7 @@ define(['SAT', 'sprintf'], function (sat, sp) {
     };
 
     MoreElement.toString = function () {
-        return '[object MoreElement]';
+        return "[object MoreElement]";
     };
 
     return MoreElement;

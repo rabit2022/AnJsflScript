@@ -8,28 +8,28 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 require([
-    'checkUtil',
-    'promptUtil',
-    'linqUtil',
-    'JSFLConstants',
-    'EaseCurve',
-    'FilterOperation',
-    'FramesSelect',
-    'KeyFrameOperation'
+    "checkUtil",
+    "promptUtil",
+    "linqUtil",
+    "JSFLConstants",
+    "EaseCurve",
+    "FilterOperation",
+    "FramesSelect",
+    "KeyFrameOperation"
 ], function (checkUtil, promptUtil, linqUtil, JSFLConstants, curve, fo, fms, kfo) {
     const {
         CheckDom: checkDom,
@@ -69,12 +69,12 @@ require([
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'Only one')) return;
+        if (!checkSelection(selection, "selectElement", "Only one")) return;
 
         // 输入瞬冲方向(默认为右，空格为左)
         var direction = promptUtil.parseDirection(
-            '请输入瞬冲方向(默认为右，空格为左)：',
-            { 右: 1, 左: -1, ' ': -1 }
+            "请输入瞬冲方向(默认为右，空格为左)：",
+            { 右: 1, 左: -1, " ": -1 }
         );
         if (direction === null) return;
 
@@ -98,7 +98,7 @@ require([
         // 位移
         var frame_element_blur = firstLayer.frames[ALTER_POSITION_BLUR].elements[0];
         frame_element_blur.x += 3 * frame_element_blur.height * direction;
-        addBlurFilterToFrame(firstLayer, ALTER_POSITION_BLUR, BLUR_X, 0, 'high');
+        addBlurFilterToFrame(firstLayer, ALTER_POSITION_BLUR, BLUR_X, 0, "high");
 
         // 获取allKeyFrames first,last
         var firstF = KEY_FRAMES[0];

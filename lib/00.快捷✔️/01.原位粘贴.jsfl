@@ -8,20 +8,20 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'ElementSelect'], function (checkUtil, es) {
+require(["checkUtil", "ElementSelect"], function (checkUtil, es) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
     const { SelectNone } = es;
@@ -42,14 +42,14 @@ require(['checkUtil', 'ElementSelect'], function (checkUtil, es) {
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'No limit')) return;
+        if (!checkSelection(selection, "selectElement", "No limit")) return;
 
         /**
          * @type {Matrix}
          */
         var worldViewMatrixAnti = fl.tempWorldViewMatrixAnti;
         if (!worldViewMatrixAnti) {
-            fl.trace('未找到之前的观察矩阵。请先运行脚本：00.跨域剪切.jsfl');
+            fl.trace("未找到之前的观察矩阵。请先运行脚本：00.跨域剪切.jsfl");
             return;
         }
         // if (worldViewMatrixAnti==null){

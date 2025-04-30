@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['LayerQuery', 'Tips'], function (lq, Tips) {
+define(["LayerQuery", "Tips", "loglevel"], function (lq, Tips, log) {
     const { convertToLayerIndex, getEmptyLayers } = lq;
     const { checkVariableRedeclaration } = Tips;
 
@@ -17,7 +17,7 @@ define(['LayerQuery', 'Tips'], function (lq, Tips) {
      * @param {Array.<Number>|Array.<Layer>} layers 图层索引数组
      */
     function deleteLayers(timeline, layers) {
-        checkVariableRedeclaration(timeline, 'timeline');
+        checkVariableRedeclaration(timeline, "timeline");
         // 删除图层
         if (layers.length > 0) {
             for (var i = 0; i < layers.length; i++) {
@@ -37,7 +37,7 @@ define(['LayerQuery', 'Tips'], function (lq, Tips) {
      */
     function swapLayers(timeline, layerIndex1, layerIndex2) {
         var layers = timeline.layers; // 获取所有图层
-        checkVariableRedeclaration(timeline, 'timeline');
+        checkVariableRedeclaration(timeline, "timeline");
 
         if (
             !(
@@ -47,13 +47,13 @@ define(['LayerQuery', 'Tips'], function (lq, Tips) {
                 layerIndex2 < layers.length
             )
         ) {
-            log.error('图层索引超出范围。');
+            log.error("图层索引超出范围。");
             return;
         }
 
         // 如果两个索引相同，无需交换
         if (layerIndex1 === layerIndex2) {
-            log.info('图层索引相同，无需交换。');
+            log.info("图层索引相同，无需交换。");
             return;
         }
 
@@ -62,7 +62,7 @@ define(['LayerQuery', 'Tips'], function (lq, Tips) {
         timeline.reorderLayer(layerIndex2, layerIndex1);
 
         log.info(
-            'layerUtil.js:图层%d(%s)和图层%d(%s)交换成功。',
+            "layerUtil.js:图层%d(%s)和图层%d(%s)交换成功。",
             layerIndex1,
             layers[layerIndex1].name,
             layerIndex2,
@@ -88,7 +88,7 @@ define(['LayerQuery', 'Tips'], function (lq, Tips) {
         });
 
         // alert(`已删除 ${emptyLayers.length} 个空白图层`);
-        console.info('已删除 %d 个空白图层', emptyLayers.length);
+        console.info("已删除 %d 个空白图层", emptyLayers.length);
     }
 
     return {

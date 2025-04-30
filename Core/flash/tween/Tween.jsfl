@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['Tips'], function (Tips) {
+define(["Tips"], function (Tips) {
     const { checkVariableRedeclaration } = Tips;
 
     /**
@@ -17,17 +17,17 @@ define(['Tips'], function (Tips) {
      * @param {number} motionTweenRotateTimes 旋转次数
      */
     function setTweenRotation(timeline, motionTweenRotate, motionTweenRotateTimes) {
-        checkVariableRedeclaration(timeline, 'timeline');
+        checkVariableRedeclaration(timeline, "timeline");
         if (motionTweenRotate === undefined) {
-            motionTweenRotate = 'none';
+            motionTweenRotate = "none";
         }
         if (motionTweenRotateTimes === undefined) {
             motionTweenRotateTimes = 0;
         }
 
         // timeline.createMotionTween();
-        timeline.setFrameProperty('motionTweenRotate', motionTweenRotate);
-        timeline.setFrameProperty('motionTweenRotateTimes', motionTweenRotateTimes);
+        timeline.setFrameProperty("motionTweenRotate", motionTweenRotate);
+        timeline.setFrameProperty("motionTweenRotateTimes", motionTweenRotateTimes);
     }
 
     /**
@@ -37,11 +37,11 @@ define(['Tips'], function (Tips) {
      * @param {number} [endFrame] 结束帧，默认开始帧
      */
     function deleteMotionTween(timeline, startFrame, endFrame) {
-        checkVariableRedeclaration(timeline, 'timeline');
+        checkVariableRedeclaration(timeline, "timeline");
         if (endFrame === undefined) endFrame = startFrame;
 
         timeline.setSelectedFrames(startFrame, endFrame, true);
-        timeline.setFrameProperty('tweenType', 'none');
+        timeline.setFrameProperty("tweenType", "none");
     }
 
     /**
@@ -50,21 +50,21 @@ define(['Tips'], function (Tips) {
      * @param {'motion tween'|'shape tween'} tweenType 缓动类型
      */
     function createTween(timeline, tweenType) {
-        checkVariableRedeclaration(timeline, 'timeline');
-        if (tweenType === undefined) tweenType = 'motion tween';
+        checkVariableRedeclaration(timeline, "timeline");
+        if (tweenType === undefined) tweenType = "motion tween";
 
         // print('create tween:' + tweenType);
         switch (tweenType) {
-            case 'motion tween':
+            case "motion tween":
                 timeline.createMotionTween();
                 break;
-            case 'shape tween':
+            case "shape tween":
                 // print("create shape tween");
                 // timeline.setFrameProperty('tweenType', 'shape');
                 createShapeTween(timeline);
                 break;
             default:
-                throw Error('缓动类型不存在！');
+                throw Error("缓动类型不存在！");
         }
     }
 
@@ -73,9 +73,9 @@ define(['Tips'], function (Tips) {
      * @param {Timeline} timeline
      */
     function createShapeTween(timeline) {
-        checkVariableRedeclaration(timeline, 'timeline');
+        checkVariableRedeclaration(timeline, "timeline");
 
-        timeline.setFrameProperty('tweenType', 'shape');
+        timeline.setFrameProperty("tweenType", "shape");
     }
 
     /**
@@ -87,12 +87,12 @@ define(['Tips'], function (Tips) {
         if (frame.elements.length > 1) return;
         var element = frame.elements[0];
 
-        if (element.elementType === 'shape') {
-            frame.tweenType = 'shape';
-        } else if (element.elementType === 'instance') {
-            frame.tweenType = 'motion';
+        if (element.elementType === "shape") {
+            frame.tweenType = "shape";
+        } else if (element.elementType === "instance") {
+            frame.tweenType = "motion";
             frame.motionTweenScale = true;
-            frame.motionTweenRotate = 'auto';
+            frame.motionTweenRotate = "auto";
             frame.motionTweenOrientToPath = false;
             frame.motionTweenSync = false;
             frame.motionTweenSnap = false;

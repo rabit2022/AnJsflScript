@@ -22,7 +22,7 @@ define(function () {
             defaultValue = 0;
         }
         if (alertMessage === null) {
-            alertMessage = '请重新输入合法的数字。';
+            alertMessage = "请重新输入合法的数字。";
         }
 
         var inputForce = prompt(promptMessage, defaultValue);
@@ -51,12 +51,12 @@ define(function () {
             defaultValue === undefined || defaultValue === null ? 0 : defaultValue;
         alertMessage =
             alertMessage === undefined || alertMessage === null
-                ? '请重新输入合法的数字。'
+                ? "请重新输入合法的数字。"
                 : alertMessage;
 
         // 显示提示框并获取用户输入
         var input = prompt(promptMessage, defaultValue);
-        if (input == null || input === '') {
+        if (input == null || input === "") {
             alert(alertMessage);
             return null;
         }
@@ -83,10 +83,10 @@ define(function () {
             if (!isNaN(Number(input))) {
                 frameAdjustment = parseInt(input, 10); // 将输入转换为整数
                 hasSign = false;
-            } else if (input.startsWith('+')) {
+            } else if (input.startsWith("+")) {
                 frameAdjustment = parseInt(input.slice(1), 10); // 去掉正号后转换为整数
                 hasSign = true;
-            } else if (input.startsWith('-')) {
+            } else if (input.startsWith("-")) {
                 frameAdjustment = -parseInt(input.slice(1), 10); // 去掉负号后转换为负整数
                 hasSign = true;
             } else {
@@ -112,16 +112,16 @@ define(function () {
 
         // 提示用户输入关键帧持续帧数
         var config = PromptUtil.parseNumberWithSign(
-            '请输入关键帧持续帧数（“+3”为增加，“-3”为减少，无符号“3”为统一）',
+            "请输入关键帧持续帧数（“+3”为增加，“-3”为减少，无符号“3”为统一）",
             defaultValue,
-            '请输入合法的数字，例如“+3”或“-3”或“3”'
+            "请输入合法的数字，例如“+3”或“-3”或“3”"
         );
 
         // 如果用户取消输入或输入无效，直接返回
         if (config === null) return null;
 
         // 根据输入的符号判断模式
-        var mode = config.hasSign ? (config.num < 0 ? 'decrease' : 'increase') : 'unify';
+        var mode = config.hasSign ? (config.num < 0 ? "decrease" : "increase") : "unify";
 
         return {
             num: config.num,
@@ -137,7 +137,7 @@ define(function () {
      */
     PromptUtil.parseDirection = function (promptMessage, tipDictionary) {
         if (tipDictionary === null) {
-            tipDictionary = { 右: 1, 左: -1, ' ': -1 };
+            tipDictionary = { 右: 1, 左: -1, " ": -1 };
         }
 
         var firstTip = Object.keys(tipDictionary)[0];
@@ -147,10 +147,10 @@ define(function () {
         if (inputDirection in tipDictionary) {
             direction = tipDictionary[inputDirection];
         } else if (inputDirection === null) {
-            alert('方向不能为空，请重新输入。');
+            alert("方向不能为空，请重新输入。");
             return null;
         } else {
-            alert('输入错误(方向只能输入空格或右)，请重新输入。');
+            alert("输入错误(方向只能输入空格或右)，请重新输入。");
             return null;
         }
         return direction;

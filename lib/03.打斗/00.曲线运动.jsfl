@@ -8,29 +8,29 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 require([
-    'checkUtil',
-    'SymbolNameGenerator',
-    'graphicsUtil',
-    'SAT',
-    'JSFLConstants',
-    'EaseCurve',
-    'Tween',
-    'ElementSelect',
-    'KeyFrameOperation'
+    "checkUtil",
+    "SymbolNameGenerator",
+    "graphicsUtil",
+    "SAT",
+    "JSFLConstants",
+    "EaseCurve",
+    "Tween",
+    "ElementSelect",
+    "KeyFrameOperation"
 ], function (checkUtil, sng, graphics, sat, JSFLConstants, curve, twn, es, kfo) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
@@ -41,6 +41,7 @@ require([
     const { OnlySelectCurrent } = es;
     const { convertToKeyframesSafety } = kfo;
     const { generateNameUntilUnique, generateNameUseLast } = sng;
+    const { drawCircleLineWithoutFill } = graphics;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -65,17 +66,14 @@ require([
     const KEY_FRAMES = [FRAME_30];
 
     function drawLineAndMove(timeline, movePos) {
-        var circleLineRect = graphics.drawCircleWithoutFill(
-            new Vector(RADIUS, 0),
-            RADIUS
-        );
+        var circleLineRect = drawCircleLineWithoutFill(new Vector(RADIUS, 0), RADIUS);
 
         // 删除bottom部分
-        var bottom_rect = circleLineRect.getPart('bottom');
+        var bottom_rect = circleLineRect.getPart("bottom");
         doc.setSelectionRect(bottom_rect.toObj());
         doc.deleteSelection();
 
-        var top_rect = circleLineRect.getPart('top');
+        var top_rect = circleLineRect.getPart("top");
         // 移动圆形
         doc.setSelectionRect(top_rect.toObj());
         doc.moveSelectionBy(movePos.toObj());
@@ -107,21 +105,21 @@ require([
 
         // 补间动画
         // timeline.createMotionTween();
-        createTween(timeline, 'motion tween');
-        setEaseCurve(timeline, 'Sine Ease-In-Out');
+        createTween(timeline, "motion tween");
+        setEaseCurve(timeline, "Sine Ease-In-Out");
     }
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'Only one')) return;
+        if (!checkSelection(selection, "selectElement", "Only one")) return;
 
-        var symbolName = generateNameUntilUnique('曲线运动_静_');
-        doc.convertToSymbol('graphic', symbolName, 'center');
+        var symbolName = generateNameUntilUnique("曲线运动_静_");
+        doc.convertToSymbol("graphic", symbolName, "center");
 
-        var symbolName = generateNameUseLast('曲线运动_动_');
-        doc.convertToSymbol('graphic', symbolName, 'center');
+        var symbolName = generateNameUseLast("曲线运动_动_");
+        doc.convertToSymbol("graphic", symbolName, "center");
 
-        doc.enterEditMode('inPlace');
+        doc.enterEditMode("inPlace");
 
         var timeline1 = doc.getTimeline(); //时间轴
 
@@ -133,12 +131,12 @@ require([
         var circle_rect = drawLineAndMove(timeline1, initialPos);
 
         // 查找圆形的右下角位置
-        var right_bottom_pos = circle_rect.getCorner('bottom right');
+        var right_bottom_pos = circle_rect.getCorner("bottom right");
         var offset_pos = right_bottom_pos.clone().clone().sub(initialPos);
 
         KFrames(timeline1, offset_pos);
 
-        alert('动作已生成，您可按需调整运动曲线！');
+        alert("动作已生成，您可按需调整运动曲线！");
     }
 
     Main();

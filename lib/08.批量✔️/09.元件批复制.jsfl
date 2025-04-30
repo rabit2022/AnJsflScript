@@ -8,26 +8,26 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'ElementOperation', 'ElementChecker'], function (
+require(["checkUtil", "ElementOperation", "ElementChecker"], function (
     checkUtil,
     ed,
     ec
 ) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
+    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
+
     const { CopySymbol } = ed;
     const { IsSymbol } = ec;
 
@@ -47,13 +47,13 @@ require(['checkUtil', 'ElementOperation', 'ElementChecker'], function (
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'No limit')) return;
+        if (!checkSelection(selection, "selectElement", "No limit")) return;
 
         for (var i = 0; i < selection.length; i++) {
             var element = selection[i];
             if (IsSymbol(element)) {
                 // CopySymbol();
-                CopySymbol(element, 'auto');
+                CopySymbol(element, "auto");
             }
         }
     }

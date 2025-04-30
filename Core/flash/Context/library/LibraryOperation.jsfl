@@ -20,13 +20,13 @@ define(function () {
         var counter = 1;
         for (var folder in library) {
             library[folder].forEach(function (item) {
-                if (item.itemType !== 'folder') {
-                    item.name = prefix + '-' + counter++;
+                if (item.itemType !== "folder") {
+                    item.name = prefix + "-" + counter++;
                 }
             });
         }
 
-        alert('库元件重命名完成，共处理了 ' + (counter - 1) + ' 个项目');
+        alert("库元件重命名完成，共处理了 " + (counter - 1) + " 个项目");
     }
 
     /**
@@ -41,7 +41,7 @@ define(function () {
         const libSelection = library.getSelectedItems();
 
         if (!libSelection || libSelection.length === 0) {
-            alert('请在库中选择元件');
+            alert("请在库中选择元件");
             return;
         }
 
@@ -70,9 +70,9 @@ define(function () {
         });
 
         if (failedItems.length > 0) {
-            alert('部分元件名替换后会有重名情况，故未命名：\n' + failedItems.join('、'));
+            alert("部分元件名替换后会有重名情况，故未命名：\n" + failedItems.join("、"));
         } else {
-            alert('替换完成！');
+            alert("替换完成！");
         }
     }
 
@@ -86,21 +86,21 @@ define(function () {
         const library = doc.library; //库
 
         const confirmResult = confirm(
-            '本操作具有一定风险，使用后请检查动画是否正常\n点击取消则取消本操作！'
+            "本操作具有一定风险，使用后请检查动画是否正常\n点击取消则取消本操作！"
         );
         if (!confirmResult) return;
 
         const folderNames = [
-            '■图形■',
-            '■图片■',
-            '■按钮■',
-            '■影片剪辑■',
-            '■视频■',
-            '■字体■',
-            '■声音■',
-            '■组件■',
-            '■标准组件-编译剪辑■',
-            'Component Assets'
+            "■图形■",
+            "■图片■",
+            "■按钮■",
+            "■影片剪辑■",
+            "■视频■",
+            "■字体■",
+            "■声音■",
+            "■组件■",
+            "■标准组件-编译剪辑■",
+            "Component Assets"
         ];
 
         const itemTypeMap = {
@@ -118,7 +118,7 @@ define(function () {
         // 获取库中的所有项目并分类
         for (var i = 0; i < library.items.length; i++) {
             const item = library.items[i];
-            const itemName = item.name.replace(/\/.+/g, '');
+            const itemName = item.name.replace(/\/.+/g, "");
 
             if (folderNames.includes(itemName)) continue;
 
@@ -150,7 +150,7 @@ define(function () {
 
         // 清理空文件夹
         library.items.forEach(function (folder) {
-            if (folder.itemType === 'folder' && folder.items.length === 0) {
+            if (folder.itemType === "folder" && folder.items.length === 0) {
                 try {
                     library.selectItem(folder.name);
                     library.deleteItem();
@@ -160,7 +160,7 @@ define(function () {
             }
         });
 
-        alert('库整理完成！');
+        alert("库整理完成！");
     }
 
     return {

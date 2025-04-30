@@ -22,7 +22,7 @@ define(function () {
         //图层，第几帧，x轴数值，y轴数值，品质可选（low、medium，high）
         // 创建模糊滤镜对象
         var blurFilter = {
-            name: 'blurFilter',
+            name: "blurFilter",
             enable: true,
             blurX: blurX,
             blurY: blurY,

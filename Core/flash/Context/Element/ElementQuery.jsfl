@@ -7,14 +7,14 @@
  * @description:
  */
 
-define(['SAT'], function ({ Rectangle }) {
+define(["SAT"], function ({ Rectangle }) {
     /**
      * 获取element的名称
      * @param {Element} element 元素
      * @returns {string} 名称
      */
     function getName(element) {
-        if (element.elementType === 'instance') {
+        if (element.elementType === "instance") {
             return element.libraryItem.name;
         } else {
             return element.name;
@@ -29,7 +29,7 @@ define(['SAT'], function ({ Rectangle }) {
     function getMaxRight(elements) {
         function getTopRight(element) {
             var rect = new Rectangle(element);
-            return rect.getCorner('top right');
+            return rect.getCorner("top right");
         }
 
         // 获取最右边的元素
@@ -40,7 +40,7 @@ define(['SAT'], function ({ Rectangle }) {
             var topRight = getTopRight(element);
             // print("topRight:" + topRight.toString())
             // print("maxTopRight:" + maxTopRight.toString())
-            if (topRight.IsInDirectionOf(maxTopRight, 'top right')) {
+            if (topRight.IsInDirectionOf(maxTopRight, "top right")) {
                 maxElement = element;
                 maxTopRight = topRight;
             }

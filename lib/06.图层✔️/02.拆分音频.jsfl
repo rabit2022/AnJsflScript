@@ -8,20 +8,20 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'loglevel', 'FramesSelect'], function (checkUtil, log, fms) {
+require(["checkUtil", "loglevel", "FramesSelect"], function (checkUtil, log, fms) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
     const { SelectStartFms } = fms;
 
@@ -42,13 +42,13 @@ require(['checkUtil', 'loglevel', 'FramesSelect'], function (checkUtil, log, fms
     // endregion doc
 
     // 获取第一帧
-    var frs = CheckSelectedFrames(timeline, '请选择需要添加模糊的帧！');
+    var frs = CheckSelectedFrames(timeline, "请选择需要添加模糊的帧！");
     if (frs === null) return;
     var firstLayer = layers[frs[0].layerIndex];
     var firstFrameIndex = frs[0].startFrame;
 
     const firstFrameDuration = frs[0].duration; // 第一帧持续时间
-    log.info('firstFrameDuration: %s', firstFrameDuration);
+    log.info("firstFrameDuration: %s", firstFrameDuration);
 
     // 1472 = 1frame魔法数字，表示1帧持续时间
     const EnvelopeDuration = 1472; // 拆分长度，单位：帧
@@ -64,7 +64,7 @@ require(['checkUtil', 'loglevel', 'FramesSelect'], function (checkUtil, log, fms
         var soundEnvelopeLimits = frame.getSoundEnvelopeLimits();
         //优先检查当前段上有没有音频文件
         if (soundEnvelopeLimits === null) {
-            alert('当前选择帧没有音频文件');
+            alert("当前选择帧没有音频文件");
             return;
         }
         //查看上一个关键帧的位置
@@ -78,7 +78,7 @@ require(['checkUtil', 'loglevel', 'FramesSelect'], function (checkUtil, log, fms
         //打双帧拆分
         var newStart = soundEnvelopeLimits.start + (curFrameIndex - startFrame) * 1472;
         log.info(
-            'curFrameIndex: %s  startFrame: %s  newStart: %s',
+            "curFrameIndex: %s  startFrame: %s  newStart: %s",
             curFrameIndex,
             startFrame,
             newStart
@@ -97,7 +97,7 @@ require(['checkUtil', 'loglevel', 'FramesSelect'], function (checkUtil, log, fms
 
     function Main() {
         // 检查选择的元件
-        if (!CheckSelection(selection, 'selectElement', 'No limit')) return;
+        if (!CheckSelection(selection, "selectElement", "No limit")) return;
 
         // 更加精确的拆分
         // 1, 从 选择的帧开始，往后拆分，而不是 从当前帧开始往后拆分 (防止与选中的不符，反直觉)

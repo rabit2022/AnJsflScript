@@ -8,25 +8,32 @@
  */
 
 define([
-    'ElementChecker',
-    'LayerOperation',
-    'LayerQuery',
-    'ElementSelect',
-    'satUtil',
-    'SymbolNameGenerator',
-    'Tips',
-    'os'
+    "ElementChecker",
+    "LayerOperation",
+    "LayerQuery",
+    "ElementSelect",
+    "satUtil",
+    "SymbolNameGenerator",
+    "Tips",
+    "os",
+    "loglevel",
+    "SAT",
+    "MoreElement"
 ], function (
-    { IsSymbol },
+    { IsSymbol, IsGroup },
     { deleteLayers },
     { getLayersIndexByName },
     { SelectAll, OnlySelectCurrent, SelectNone },
     { splitRectangle },
     nameGenerator,
     { checkVariableRedeclaration },
-    os
+    os,
+    log,
+    SAT,
+    MoreElement
 ) {
     const { generateNameUntilUnique, generateNameUseLast } = nameGenerator;
+    const { getTopLeft, wrapSize } = SAT.GLOBALS;
 
     /**
      *  复制元件
@@ -53,13 +60,13 @@ define([
         // 3.获取新元件名称
         var targetName = library.getSelectedItems()[0].name;
 
-        if (mode === 'ask') {
+        if (mode === "ask") {
             // 4.重新命名元件名称
             // var {_, file_name} = pathSplit(targetName);
             var file_name = os.path.basename(targetName);
-            var input_file_name = prompt('请输入新元件名称：', file_name);
-            if (input_file_name === null || input_file_name === '') {
-                alert('元件名称不能为空！');
+            var input_file_name = prompt("请输入新元件名称：", file_name);
+            if (input_file_name === null || input_file_name === "") {
+                alert("元件名称不能为空！");
                 library.deleteItem(targetName);
                 return;
             }
@@ -69,10 +76,10 @@ define([
 
             // 6.更新元件名称
             element.libraryItem.name = input_file_name;
-        } else if (mode === 'skip') {
+        } else if (mode === "skip") {
             // 5.交换元件
             doc.swapElement(targetName);
-        } else if (mode === 'auto') {
+        } else if (mode === "auto") {
             var input_file_name = generateNameUntilUnique(newName);
 
             // 5.交换元件
@@ -93,16 +100,16 @@ define([
         var doc = fl.getDocumentDOM(); //文档
         var library = doc.library; //库文件
 
-        if (!this.IsSymbol(element)) {
-            log.error('请选择元件');
+        if (!IsSymbol(element)) {
+            log.error("请选择元件");
             return;
         }
         // OnlySelectCurrent(element);
 
-        var MIDDLE_NAME = '完全分解-中转';
+        var MIDDLE_NAME = "完全分解-中转";
 
-        CopySymbol(element, 'auto', MIDDLE_NAME);
-        doc.enterEditMode('inPlace');
+        CopySymbol(element, "auto", MIDDLE_NAME);
+        doc.enterEditMode("inPlace");
 
         function convertSel2ShapeInner(selection) {
             SelectAll();
@@ -135,15 +142,15 @@ define([
         var library = doc.library; //库文件
 
         if (!IsSymbol(element)) {
-            log.error('请选择元件');
+            log.error("请选择元件");
             return;
         }
         // OnlySelectCurrent(element);
 
-        var MIDDLE_NAME = '完全分解-中转';
+        var MIDDLE_NAME = "完全分解-中转";
 
-        CopySymbol(element, 'auto', MIDDLE_NAME);
-        doc.enterEditMode('inPlace');
+        CopySymbol(element, "auto", MIDDLE_NAME);
+        doc.enterEditMode("inPlace");
 
         function convertSel2ShapeInner(selection) {
             // eslint-disable-next-line no-constant-condition
@@ -152,9 +159,9 @@ define([
 
                 var groups_and_symbols = doc.selection.filter(function (item) {
                     return (
-                        (ElementChecker.IsGroup(item) || ElementChecker.IsSymbol(item)) &&
+                        (IsGroup(item) || IsSymbol(item)) &&
                         // effects:为了效果，必须排除影片剪辑，这样会有部分素材，有透明度的素材，不会石化，更加真实。
-                        item.symbolType !== 'movie clip'
+                        item.symbolType !== "movie clip"
                     );
                 });
                 // console.log('groups:', groups_and_symbols.length);
@@ -192,9 +199,9 @@ define([
 
         OnlySelectCurrent(element);
 
-        log.info('转换位图');
+        log.info("转换位图");
 
-        if (this.IsSymbol(doc.selection[0])) {
+        if (IsSymbol(doc.selection[0])) {
             doc.convertSelectionToBitmap();
         }
 
@@ -205,14 +212,14 @@ define([
         // }
 
         var symbolName = generateNameUntilUnique(SymbolName);
-        doc.convertToSymbol('graphic', symbolName, 'center');
+        doc.convertToSymbol("graphic", symbolName, "center");
 
         var worldTopLeft = getTopLeft(doc.selection[0]);
         // fl.trace("worldTopLeft:"+worldTopLeft);
         // var worldPos = wrapPosition(element);
         // fl.trace("worldPos:"+worldPos);
 
-        doc.enterEditMode('inPlace');
+        doc.enterEditMode("inPlace");
 
         doc.breakApart();
         // 计算每个小块的尺寸
@@ -220,13 +227,13 @@ define([
         var [blockWidth, blockHeight, blockCountX, blockCountY] =
             splitRectangle(elementSize);
         log.info(
-            'blockWidth:' +
+            "blockWidth:" +
                 blockWidth +
-                ' blockHeight:' +
+                " blockHeight:" +
                 blockHeight +
-                ' blockCountX:' +
+                " blockCountX:" +
                 blockCountX +
-                ' blockCountY:' +
+                " blockCountY:" +
                 blockCountY
         );
 
@@ -241,15 +248,15 @@ define([
             for (var j = 0; j < blockCountY; j++) {
                 var rect = moreElement.NeatRect(i, j);
 
-                console.info('rect:' + j + '_' + i + ' ' + rect);
+                console.info("rect:" + j + "_" + i + " " + rect);
                 // 选择小块
                 doc.setSelectionRect(rect.toObj());
 
                 doc.group();
 
-                var baseName = SymbolName + '碎片-' + j + '-' + i + '_';
+                var baseName = SymbolName + "碎片-" + j + "-" + i + "_";
                 var symbolName = generateNameUseLast(baseName);
-                doc.convertToSymbol('graphic', symbolName, 'center');
+                doc.convertToSymbol("graphic", symbolName, "center");
                 // console.info('symbolName:' + symbolName);
 
                 SelectNone();
@@ -274,12 +281,12 @@ define([
          * @private
          */
         function splinterDeleter(timeline, layers) {
-            checkVariableRedeclaration(timeline, 'timeline');
-            var DELETE_LAYER_NAME = '图层';
+            checkVariableRedeclaration(timeline, "timeline");
+            var DELETE_LAYER_NAME = "图层";
 
             // 查找 名字中包含 "图层" 的 layer
             var findLayers = getLayersIndexByName(layers, DELETE_LAYER_NAME);
-            log.info('findLayers:' + findLayers);
+            log.info("findLayers:" + findLayers);
 
             // 删除图层
             deleteLayers(timeline, findLayers);

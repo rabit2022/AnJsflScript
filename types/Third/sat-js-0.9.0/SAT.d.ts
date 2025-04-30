@@ -292,3 +292,4 @@ export { Vector as V };
 export { Rectangle as R };
 export { Size as S };
 // export { Transform as T }; // 与泛型冲突
+export { FrameRange as FR };

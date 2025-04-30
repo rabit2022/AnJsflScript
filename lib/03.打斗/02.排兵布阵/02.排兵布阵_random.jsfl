@@ -8,26 +8,26 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 require([
-    'checkUtil',
-    'SAT',
-    'satUtil',
-    'xmlPanelUtil',
-    'random',
-    'ElementSelect'
+    "checkUtil",
+    "SAT",
+    "satUtil",
+    "xmlPanelUtil",
+    "random",
+    "ElementSelect"
 ], function (checkUtil, sat, satUtil, xmlPanelUtil, random, es) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
     const { Vector } = sat;
@@ -55,12 +55,12 @@ require([
 
         var horizontalCount = xmlPanelUtil.parseNumber(
             panel.horizontalCount,
-            '横向排布数量只能输入数字，请重新输入。'
+            "横向排布数量只能输入数字，请重新输入。"
         );
         if (horizontalCount === null) return null;
         var horizontalSpacing = xmlPanelUtil.parseNumber(
             panel.horizontalSpacing,
-            '横向排布间距只能输入数字，请重新输入。'
+            "横向排布间距只能输入数字，请重新输入。"
         );
         if (horizontalSpacing === null) return null;
 
@@ -85,7 +85,7 @@ require([
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'Only one')) return;
+        if (!checkSelection(selection, "selectElement", "Only one")) return;
 
         // 随机排布
         var config = checkXMLPanel();

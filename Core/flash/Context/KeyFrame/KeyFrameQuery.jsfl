@@ -7,9 +7,10 @@
  * @description:
  */
 
-define(['SAT', 'Tips'], function (SAT, Tips) {
+define(["SAT", "Tips", "LayerQuery"], function (SAT, Tips, lq) {
     const { FrameRange } = SAT;
     const { checkVariableRedeclaration } = Tips;
+    const { convertToLayerIndex } = lq;
 
     /**
      * 获取选中元件的帧范围
@@ -42,7 +43,7 @@ define(['SAT', 'Tips'], function (SAT, Tips) {
      * @return {FrameRange[]} 帧范围数组
      */
     function getSelectedFrs(timeline) {
-        checkVariableRedeclaration(timeline, 'timeline');
+        checkVariableRedeclaration(timeline, "timeline");
         var selectedFrames = timeline.getSelectedFrames();
         return wrapFrsFromSl(selectedFrames);
     }

@@ -18,14 +18,14 @@ define(function () {
     function _getLayersOrIndicesByName(layers, layerName, returnIndices) {
         returnIndices =
             returnIndices === undefined || returnIndices === null ? false : returnIndices;
-        log.debug(returnIndices);
+        // log.debug(returnIndices);
 
         var result = [];
         for (var i = 0; i < layers.length; i++) {
             if (layers[i].name.includes(layerName)) {
-                log.debug(
-                    'layers[i].name: ' + layers[i].name + '   layerName: ' + layerName
-                );
+                // log.debug(
+                //     "layers[i].name: " + layers[i].name + "   layerName: " + layerName
+                // );
                 result.push(returnIndices ? i : layers[i]);
             }
         }
@@ -61,7 +61,7 @@ define(function () {
     function convertToLayerIndex(layers, layer) {
         // 获取图层索引
         var layerIndex = 0;
-        if (typeof layer === 'number') {
+        if (typeof layer === "number") {
             layerIndex = layer;
         } else {
             layerIndex = layers.indexOf(layer);
@@ -78,7 +78,7 @@ define(function () {
     function convertToLayer(layers, layer) {
         // var layers = timeline.layers;//图层
 
-        if (typeof layer === 'number') {
+        if (typeof layer === "number") {
             var layerIndex = layer;
             return layers[layerIndex];
         } else {

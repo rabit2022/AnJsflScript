@@ -14,7 +14,7 @@
     function getcwd() {
         var scriptURI = fl.scriptURI;
         // 斜杠符号的位置
-        var lastSlashIndex = scriptURI.lastIndexOf('/');
+        var lastSlashIndex = scriptURI.lastIndexOf("/");
         // 获取脚本文件所在的文件夹路径
         var folderPath = scriptURI.substring(0, lastSlashIndex);
         return folderPath;
@@ -41,7 +41,7 @@
         function getcwd() {
             var scriptURI = fl.scriptURI;
             // 斜杠符号的位置
-            var lastSlashIndex = scriptURI.lastIndexOf('/');
+            var lastSlashIndex = scriptURI.lastIndexOf("/");
             // 获取脚本文件所在的文件夹路径
             var folderPath = scriptURI.substring(0, lastSlashIndex);
             return folderPath;
@@ -51,15 +51,15 @@
         var fileExists = FLfile.exists;
 
         function assertPath(path) {
-            if (typeof path !== 'string') {
-                throw new TypeError('Path must be a string. Received ' + path + '.'); // 'Path must be a string. Received ' + JSON.stringify(path)
+            if (typeof path !== "string") {
+                throw new TypeError("Path must be a string. Received " + path + "."); // 'Path must be a string. Received ' + JSON.stringify(path)
             }
         }
 
         function isAbsolute(path) {
             assertPath(path);
             // return path.length > 0 && path.charCodeAt(0) === 47 /*/*/;
-            var ABSOLUTE_FLAG = 'file:///';
+            var ABSOLUTE_FLAG = "file:///";
             return path.length > 0 && startsWith(path, ABSOLUTE_FLAG);
         }
 
@@ -71,15 +71,15 @@
 
         paths.forEach(function (path) {
             // 转换为绝对路径
-            var scriptURI = isAbsolute(path) ? path : curWorkingDirectory + '/' + path;
+            var scriptURI = isAbsolute(path) ? path : curWorkingDirectory + "/" + path;
 
             // 结尾是.js后缀名时，替换为.jsfl后缀名
-            if (endsWith(scriptURI, '.js')) {
-                scriptURI = scriptURI.replace(/(\.[^.]*)?$/, '.jsfl');
+            if (endsWith(scriptURI, ".js")) {
+                scriptURI = scriptURI.replace(/(\.[^.]*)?$/, ".jsfl");
             }
             // 结尾没有.jsfl后缀名时，添加.jsfl后缀名
             if (!/\.jsfl$/.test(scriptURI)) {
-                scriptURI += '.jsfl';
+                scriptURI += ".jsfl";
             }
 
             // var message = '[importFlashScripts] Run script file [' + scriptURI + ']';
@@ -90,9 +90,9 @@
                 fl.runScript(scriptURI);
             } else {
                 var message =
-                    '[importFlashScripts] Error: Cannot find script file [' +
+                    "[importFlashScripts] Error: Cannot find script file [" +
                     scriptURI +
-                    ']';
+                    "]";
                 fl.trace(message);
                 // console.stack(message);
                 throw new Error(message);
@@ -105,7 +105,7 @@
         // doc没有打开时，无法获取DOM元素，因此需要先打开doc
         if (!fl.getDocumentDOM()) {
             alert(
-                '【温馨提示】请打开一个【.fla】文件，再尝试运行这个文件。\n作者：b站 @穹的兔兔'
+                "【温馨提示】请打开一个【.fla】文件，再尝试运行这个文件。\n作者：b站 @穹的兔兔"
             );
             return;
         }
@@ -119,36 +119,36 @@
         window.$ProjectFileDir$ = getcwd();
 
         var config = {
-            'require-js': 'Third/modules/requirejs-2.3.7/require-js'
+            "require-js": "Third/modules/requirejs-2.3.7/require-js"
         };
         // 导入模块,相对路径导入
-        importFlashScripts(config['require-js']);
+        importFlashScripts(config["require-js"]);
 
         require([
             // 导入配置文件
-            './require-config',
+            "./require-config",
 
             // 导入shims, 避免其他模块依赖时报错
-            'es5-shim', // es5,es2009
-            'es5-sham',
-            'es6-shim', // es6,es2015
-            'es6-sham',
-            'es7-shim', // es7,es2016
-            'es2017', // es8,es2017
+            "es5-shim", // es5,es2009
+            "es5-sham",
+            "es6-shim", // es6,es2015
+            "es6-sham",
+            "es7-shim", // es7,es2016
+            "es2017", // es8,es2017
 
-            'json3',
-            'console'
+            "json3",
+            "console"
         ]);
 
-        require(['loglevel', 'Tips'], function (log, Tips) {
+        require(["loglevel", "Tips"], function (log, Tips) {
             // 禁用log
             log.setDefaultLevel(log.levels.SILENT);
 
             // 显示提示信息
             const { alertMessage } = Tips;
-            alertMessage('loading success!');
-            if (!$ProjectFileDir$.includes('AnJsflScript')) {
-                alertMessage('loading might be not allowed!');
+            alertMessage("loading success!");
+            if (!$ProjectFileDir$.includes("AnJsflScript")) {
+                alertMessage("loading might be not allowed!");
             }
         });
     }

@@ -8,20 +8,20 @@
  */
 
 // bug,FirstRun.jsfl 未运行
-if (typeof require === 'undefined') {
+if (typeof require === "undefined") {
     var msg =
-        '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
 
 // bug,Temp 未解压
-if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-    var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔';
+if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
-require(['checkUtil', 'xmlPanelUtil', 'os'], function (checkUtil, xmlPanelUtil, os) {
+require(["checkUtil", "xmlPanelUtil", "os"], function (checkUtil, xmlPanelUtil, os) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
 
@@ -43,13 +43,13 @@ require(['checkUtil', 'xmlPanelUtil', 'os'], function (checkUtil, xmlPanelUtil, 
     // console.log(folder_name);
     // console.log(basename);
     var onlyName = os.path.$basenameWithoutExt(fl.scriptURI);
-    var XMLFOLDER = '02.排兵布阵';
+    var XMLFOLDER = "02.排兵布阵";
 
     function Main() {
         // 检查选择的元件
-        if (!checkSelection(selection, 'selectElement', 'Not Zero')) return;
+        if (!checkSelection(selection, "selectElement", "Not Zero")) return;
 
-        var XMLPANEL = os.path.join(folder_name, XMLFOLDER, onlyName + '.xml');
+        var XMLPANEL = os.path.join(folder_name, XMLFOLDER, onlyName + ".xml");
         // console.log(XMLPANEL);
 
         var panel = xmlPanelUtil.getXMLPanel(XMLPANEL);
@@ -57,35 +57,35 @@ require(['checkUtil', 'xmlPanelUtil', 'os'], function (checkUtil, xmlPanelUtil, 
 
         var radioGroup = panel.layoutRadioGroup;
         switch (radioGroup) {
-            case 'neat':
+            case "neat":
                 // fl.trace("整齐排布");
                 var SCRIPT_PATH = os.path.join(
                     folder_name,
                     XMLFOLDER,
-                    onlyName + '_neat.jsfl'
+                    onlyName + "_neat.jsfl"
                 );
                 fl.runScript(SCRIPT_PATH);
                 break;
-            case 'staggered':
+            case "staggered":
                 // fl.trace("交错排布");
                 var SCRIPT_PATH = os.path.join(
                     folder_name,
                     XMLFOLDER,
-                    onlyName + '_staggered.jsfl'
+                    onlyName + "_staggered.jsfl"
                 );
                 fl.runScript(SCRIPT_PATH);
                 break;
-            case 'random':
+            case "random":
                 // fl.trace("随机排布");
                 var SCRIPT_PATH = os.path.join(
                     folder_name,
                     XMLFOLDER,
-                    onlyName + '_random.jsfl'
+                    onlyName + "_random.jsfl"
                 );
                 fl.runScript(SCRIPT_PATH);
                 break;
             default:
-                throw new Error('未知排布方式');
+                throw new Error("未知排布方式");
         }
     }
 

@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['LayerHierarchy', 'FolderQuery', 'LayerChecker', 'Tips'], function (
+define(["LayerHierarchy", "FolderQuery", "LayerChecker", "Tips"], function (
     lh,
     fq,
     lc,
@@ -26,7 +26,7 @@ define(['LayerHierarchy', 'FolderQuery', 'LayerChecker', 'Tips'], function (
      * @see https://github.com/hufang360/FlashTool
      */
     function IsEmptyFolder(timeline, folderID) {
-        checkVariableRedeclaration(timeline, 'timeline');
+        checkVariableRedeclaration(timeline, "timeline");
 
         const folder = timeline.layers[folderID];
         const endLayer = folderID + countChild(timeline, folderID);
