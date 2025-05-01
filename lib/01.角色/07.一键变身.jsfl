@@ -35,9 +35,9 @@ require([
     "ElementSelect",
     "FramesSelect",
     "KeyFrameOperation"
-], function (
+], function(
     checkUtil,
-    ep,
+    eq,
     ed,
     linqUtil,
     sat,
@@ -55,10 +55,15 @@ require([
         CheckSelection: checkSelection,
         CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
+
     const { Rectangle } = sat;
+    const { wrapPosition } = sat.GLOBALS;
+
+
     const { FRAME_1, FRAME_9, FRAME_17, FRAME_18 } =
         JSFLConstants.Numerics.frame.frameList;
-    const { getMaxRight } = ep;
+
+    const { getMaxRight } = eq;
     const { breakApartToShape } = ed;
     const { setEaseCurve } = curve;
     const { createTween } = twn;
@@ -101,7 +106,7 @@ require([
 
     // 中间的shape ,圆形
     var MIDDLE_SHAPE_FRAME = KEY_FRAMES[1];
-    var MIDDLE_SHAPE_CENTER = (function () {
+    var MIDDLE_SHAPE_CENTER = (function() {
         // 最大的矩形的中心
         var selectedRect = new Rectangle(doc.getSelectionRect());
         log.info("Selected rectangle: " + selectedRect.toString());
@@ -110,7 +115,7 @@ require([
         return selectedCenter;
     })();
 
-    var MIDDLE_SHAPE_RADIUS = (function () {
+    var MIDDLE_SHAPE_RADIUS = (function() {
         //  变身前             变身后       直径
         // 114.5，364.6    114.5，364.6    69.7
         // 2                              138.4  2
@@ -139,7 +144,8 @@ require([
         // 变身后：最右边的元素
         // 变身前：最左边的元素
         var AFTER_Element = getMaxRight(FRAME_0_Elements);
-        var BEFORE_Element = (function (selection) {
+
+        var BEFORE_Element = (function(selection) {
             // 1-index
             if (selection.length === 2) {
                 var index = selection.indexOf(AFTER_Element);
@@ -153,10 +159,10 @@ require([
 
             throw new Error("Cannot find BEFORE_Element, must be two elements");
         })(FRAME_0_Elements);
-        // var AFTER_ELEMENT_POS = wrapPosition(AFTER_Element);
-        // var BEFORE_ELEMENT_POS = wrapPosition(BEFORE_Element);
-        // print("BEFORE_ELEMENT_POS",BEFORE_ELEMENT_POS);
-        // print("AFTER_ELEMENT_POS",AFTER_ELEMENT_POS);
+        var AFTER_ELEMENT_POS = wrapPosition(AFTER_Element);
+        var BEFORE_ELEMENT_POS = wrapPosition(BEFORE_Element);
+        log.info("BEFORE_ELEMENT_POS", BEFORE_ELEMENT_POS);
+        log.info("AFTER_ELEMENT_POS", AFTER_ELEMENT_POS);
         return [BEFORE_Element, AFTER_Element];
     }
 

@@ -33,19 +33,18 @@ define(["SAT"], function ({ Rectangle }) {
         }
 
         // 获取最右边的元素
-        var maxElement = elements[0];
-        var maxTopRight = getTopRight(maxElement);
+        var maxRightElement = elements[0];
+        var maxTopRight = getTopRight(maxRightElement);
         for (var i = 0; i < elements.length; i++) {
-            var element = elements[i];
-            var topRight = getTopRight(element);
-            // print("topRight:" + topRight.toString())
-            // print("maxTopRight:" + maxTopRight.toString())
-            if (topRight.IsInDirectionOf(maxTopRight, "top right")) {
-                maxElement = element;
-                maxTopRight = topRight;
+            var curElement = elements[i];
+            var curTopRight = getTopRight(curElement);
+
+            if (curTopRight.IsInDirectionOf(maxTopRight, "right center")) {
+                maxRightElement = curElement;
+                maxTopRight = curTopRight;
             }
         }
-        return maxElement;
+        return maxRightElement;
     }
     return {
         getName: getName,
