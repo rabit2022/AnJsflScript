@@ -2,8 +2,8 @@
 test/**
 
 # 配置文件
-.idea/**
-.run/**
+#.idea/**
+#.run/**
 
 # 依赖包
 node_modules/**

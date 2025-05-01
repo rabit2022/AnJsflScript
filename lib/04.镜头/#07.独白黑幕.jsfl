@@ -22,7 +22,7 @@ if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
     throw new Error(msg);
 }
 
-require(["checkUtil", "loglevel"], function (checkUtil, log) {
+require(["checkUtil", "loglevel"], function(checkUtil, log) {
     const { CheckDom, CheckSelection } = checkUtil;
 
     // region doc

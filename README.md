@@ -1,7 +1,7 @@
 # 欢迎来到 AnJsflScript！！！
 
 [![AnJsflScript/v0.3.0](https://badgen.net/badge/AnJsflScript/v0.3.0/green?icon=github&labelColor=black)](https://github.com/rabit2022/AnJsflScript)
-[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)]()
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/rabit2022/AnJsflScript/pulls)
 [![Adobe Animate 2024](https://badgen.net/badge/Adobe%20Animate/2024/blue?icon=adobe&labelColor=black)](https://www.adobe.com/products/animate.html)
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Documentation](https://badgen.net/badge/Documentation/Available/orange)](https://github.com/rabit2022/AnJsflScript/tree/tools)
@@ -25,12 +25,14 @@
 ### 2.1 下载项目
 
 #### 1. 直接下载
+
 - **下载最新版本**：访问本项目的 [GitHub 仓库](https://github.com/rabit2022/AnJsflScript)
   并下载最新发布的 [tag版本](https://github.com/rabit2022/AnJsflScript/tags)
   。tag 版本经过相对稳定，适合大多数用户使用。当前项目可能会进行重构等操作，因此建议始终使用最新发布的 tag 版本。
 - **解压到本地**：将下载的文件解压到本地的一个合适位置，例如 `C:\AnJsflScript`。
 
 #### 2. 通过 git 命令下载
+
 - **git 命令**：也可以通过 git clone 命令下载项目到本地。
 
 ```
@@ -142,41 +144,40 @@ git clone https://github.com/rabit2022/AnJsflScript.git
 
 [//]: # ([![CoreJS]&#40;https://img.shields.io/badge/CoreJS-v3.41.0-ff9800&#41;]&#40;https://github.com/zloirock/core-js&#41;)
 
-[//]: # (class:)
 [![Class.js](https://img.shields.io/badge/Class.js-v0.0.1-4caf50)](https://github.com/DominikGuzei/Class.js)
 
-[//]: # (event:)
 [![EventEmitter3](https://img.shields.io/badge/EventEmitter3-v5.0.1-ffeb3b)](https://github.com/primus/eventemitter3)
 [![RxJS](https://img.shields.io/badge/RxJS-v7.8.2-ff9800)](https://github.com/ReactiveX/RxJS)
 
-[//]: # (log:)
+[![json3](https://img.shields.io/badge/json3-v3.3.3-blue)](https://github.com/bestiejs/json3)
+[![circular-json](https://img.shields.io/badge/circular--json-master-9c27b0)](https://github.com/WebReflection/circular-json)
+
 [![loglevel](https://img.shields.io/badge/loglevel-v1.9.2-4caf50)](https://github.com/pimterry/loglevel)
 
-[//]: # (modules:)
 [![path-browserify](https://img.shields.io/badge/path--browserify-v1.0.1-ffeb3b)](https://github.com/browserify/path-browserify)
 [![requirejs](https://img.shields.io/badge/requirejs-v2.3.7-ffeb3b)](https://github.com/requirejs/requirejs)
+[![requirejs/text](https://img.shields.io/badge/requirejs/text-v1.0.8-ffeb3b)](https://github.com/requirejs/text)
 
-[//]: # (polyfill:)
+[![Node.js](https://img.shields.io/badge/Node.js-v20.0.0-green)](https://github.com/nodejs/node)
+
 [![ES5-Shim](https://img.shields.io/badge/ES5--Shim-v4.6.7-9c27b0)](https://github.com/es-shims/es5-shim)
 [![ES6-Shim](https://img.shields.io/badge/ES6--Shim-v0.35.4-ff9800)](https://github.com/es-shims/es6-shim)
 [![ES7-Shim](https://img.shields.io/badge/ES7--Shim-v6.0.0-ff9800)](https://github.com/es-shims/es7-shim)
-[![json3](https://img.shields.io/badge/json3-v3.3.3-blue)](https://github.com/bestiejs/json3)
 [![polyfill](https://img.shields.io/badge/polyfill-v0.1.43-2196f3)](https://github.com/inexorabletash/polyfill)
+[![es6-collections](https://img.shields.io/badge/es6--collections-v0.5.6-9c27b0)](https://github.com/WebReflection/es6-collections)
 
-[//]: # (stack:)
 [![error-stack-parser](https://img.shields.io/badge/error--stack--parser-v3.0.0-2196f3)](https://github.com/stacktracejs/error-stack-parser)
 [![stackframe](https://img.shields.io/badge/stackframe-v1.3.4-2196f3)](https://github.com/stacktracejs/stackframe)
 
-[//]: # (utils:)
 [![LINQ.js](https://img.shields.io/badge/LINQ.js-v4.0.3-9c27b0)](https://github.com/neuecc/linq.js)
 [![Lodash](https://img.shields.io/badge/Lodash-v4.17.21-2196f3)](https://github.com/lodash/lodash)
 [![sprintf-js](https://img.shields.io/badge/sprintf.js-v1.1.3-green)](https://github.com/alexei/sprintf.js)
 
-[//]: # (xml:)
 [![jquery](https://img.shields.io/badge/jquery-v3.7.1-2196f3)](https://github.com/jquery/jquery)
 [![xmldom](https://img.shields.io/badge/xmldom-v0.6.0-2196f3)](https://github.com/xmldom/xmldom)
+[![fast-xml-parser](https://img.shields.io/badge/fast--xml--parser-v4.0.1-ff9800)](https://github.com/NaturalIntelligence/fast-xml-parser)
+[![xpath](https://img.shields.io/badge/xpath-v0.0.10-2196f3)](https://github.com/goto100/xpath.git)
 
-[//]: # (others:)
 [![WindowSWF](https://img.shields.io/badge/WindowSWF-Gitee-4caf50)](https://gitee.com/ninge/WindowSWF/tree/master/)
 [![xJSFL](https://img.shields.io/badge/xJSFL-GitHub-2196f3)](https://github.com/davestewart/xJSFL)
 [![FlashTool](https://img.shields.io/badge/FlashTool-GitHub-2196f3)](https://github.com/hufang360/FlashTool)
@@ -201,10 +202,10 @@ git clone https://github.com/rabit2022/AnJsflScript.git
 
 ## 8. 项目规模
 
-- **代码行数**: 9130
-- **字符数量**: 224965
-- **脚本数量**: 73
-- **第三方库数量**：22
+- **代码行数**: 8826
+- **字符数量**: 221285
+- **脚本数量**: 76
+- **第三方库数量**：28
 - **界面访问量**：
   ![访问统计](https://profile-counter.glitch.me/AnJsflScript/count.svg)
 
