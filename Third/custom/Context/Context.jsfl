@@ -1,3 +1,4 @@
+(function (){
 "use strict";
 
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
@@ -1377,4 +1378,4 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     /******/
   }();
 });
-
+})();

@@ -1,3 +1,4 @@
+(function(){
 "use strict";
 
 function _typeof2(o) { "@babel/helpers - typeof"; return _typeof2 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof2(o); }
@@ -4189,3 +4190,5 @@ function _typeof2(o) { "@babel/helpers - typeof"; return _typeof2 = "function" =
     /******/
   }();
 });
+})();
+
