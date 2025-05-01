@@ -2,6 +2,7 @@ from PySide6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QSpacer
 from PySide6.QtGui import QPixmap
 from PySide6.QtCore import Qt
 from core.uninstall import uninstall
+from get_pic import get_resource_path
 
 
 class UninstallationCompleteDialog(QDialog):
@@ -13,7 +14,9 @@ class UninstallationCompleteDialog(QDialog):
         layout = QVBoxLayout()
 
         flash_label = QLabel(self)
-        pixmap = QPixmap("./pic/水梓.png")  # 替换为实际图片路径
+
+        img = get_resource_path("./pic/水梓.png")
+        pixmap = QPixmap(img)  # 替换为实际图片路径
         flash_label.setPixmap(pixmap)
         flash_label.setScaledContents(True)
         flash_label.setFixedSize(320, 280)

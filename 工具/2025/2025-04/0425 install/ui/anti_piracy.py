@@ -14,6 +14,8 @@ from PySide6.QtCore import Qt, QUrl
 from PySide6.QtGui import QPixmap, QDesktopServices
 from PySide6.QtWidgets import QApplication, QDialog, QVBoxLayout, QLabel, QPushButton, QSpacerItem, QSizePolicy
 
+from get_pic import get_resource_path
+
 
 class AntiPiracyDialog(QDialog):
     def __init__(self, parent=None):
@@ -26,10 +28,11 @@ class AntiPiracyDialog(QDialog):
 
         # 添加图片（可选）
         flash_label = QLabel(self)
-        pixmap = QPixmap("./pic/水梓.png")  # 替换为实际图片路径，例如警告图标
+        img = get_resource_path("./pic/水梓.png")
+        pixmap = QPixmap(img)  # 替换为实际图片路径，例如警告图标
         flash_label.setPixmap(pixmap)
         flash_label.setScaledContents(True)
-        flash_label.setFixedSize(120, 120)
+        flash_label.setFixedSize(320, 280)
         layout.addWidget(flash_label)
 
         layout.addSpacerItem(QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding))
@@ -40,7 +43,7 @@ class AntiPiracyDialog(QDialog):
             "【温馨提示】\n"
             "你可能使用的是盗版软件。本项目是开源的，如果花费了金钱购买，请退款。\n\n"
             "作者：穹的兔兔\n"
-            "地址：<a href='https://github.com/rabit2022/AnJsflScript'>https://github.com/rabit2022/AnJsflScript</a>"
+            "地址：https://github.com/rabit2022/AnJsflScript"
         )
         text_label.setOpenExternalLinks(True)  # 允许点击链接
         text_label.setWordWrap(True)

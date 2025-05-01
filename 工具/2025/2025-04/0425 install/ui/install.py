@@ -4,6 +4,7 @@ from PySide6.QtCore import Qt
 
 from core.install import install
 from core.open_command_folder import open_command,open_plugin
+from get_pic import get_resource_path
 
 class InstallationCompleteDialog(QDialog):
     def __init__(self, parent=None):
@@ -14,7 +15,8 @@ class InstallationCompleteDialog(QDialog):
         layout = QVBoxLayout()
 
         flash_label = QLabel(self)
-        pixmap = QPixmap("./pic/水梓.png")  # 替换为实际图片路径
+        img=get_resource_path("./pic/水梓.png")
+        pixmap = QPixmap(img)  # 替换为实际图片路径
         flash_label.setPixmap(pixmap)
         flash_label.setScaledContents(True)
         flash_label.setFixedSize(320, 280)
@@ -65,9 +67,20 @@ class InstallationCompleteDialog(QDialog):
         else:
             QMessageBox.information(self, "操作取消", "您已取消操作！")
 
+    def show_failed_dialog(self):
+        # 弹出确认对话框
+        reply = QMessageBox.question(self, "安装失败", "安装失败！！！",
+                                     QMessageBox.Yes )
+        if reply == QMessageBox.Yes:
+            QMessageBox.information(self, "操作成功", "【温馨提示】安装失败！！！请把安装程序放到AnJsflScript项目文件夹！\n 如果有bug,或者建议，请@我。\n\n作者：@穹的兔兔")
+        else:
+            QMessageBox.information(self, "操作取消", "您已取消操作！")
     def install(self):
-        install()
-        self.show_confirmation_dialog()
+        success=install()
+        if success:
+            self.show_confirmation_dialog()
+        else:
+            self.show_failed_dialog()
 
     # def open_command(self):
     #     open_command()

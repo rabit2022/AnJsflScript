@@ -25,6 +25,7 @@ AnJsflScript  项目的安装比较复杂
 import logging
 import os
 import shutil
+import sys
 from pathlib import Path
 
 from my_base.folder_copier import FolderCopier, CopyResult
@@ -33,13 +34,39 @@ from my_base.folder_traverser import FolderTraverser
 from core.get_an_command import get_AnJsflScript_target
 
 
+def get_program_path():
+    if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+        # 打包后的程序
+        program_dir = sys._MEIPASS
+    else:
+        # 未打包的脚本
+        program_dir = os.path.dirname(os.path.abspath(__file__))
+    return program_dir
+
+
+def get_executable_directory():
+    # 获取可执行文件的绝对路径
+    executable_path = os.path.abspath(sys.argv[0])
+    # 获取可执行文件所在的目录
+    executable_dir = os.path.dirname(executable_path)
+    return executable_dir
+
+
 def install():
     # 配置日志
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
     # 源文件夹和目标文件夹
-    src_folder = Path(r'F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript')
-    # src_folder = Path(os.getcwd())
+    # src_folder = Path(r'F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript')
+    src_folder = Path(get_executable_directory())
+    logging.info("src_folder", src_folder)
+    logging.info(get_program_path())
+
+    FirstRun_src = src_folder / "FirstRun.jsfl"
+    if not os.path.exists(FirstRun_src):
+        logging.info("没有FirstRun玩家，非项目路径")
+        return False
+
     # dst_folder = Path("backup_folder")
     AnJsflScript = get_AnJsflScript_target()
     dst_folder = Path(AnJsflScript)
@@ -105,6 +132,8 @@ def install():
 
     for file_path, dst_path in zip(file_paths, dst_paths):
         copy_file(file_path, dst_path)
+
+    return True
 
 
 if __name__ == '__main__':

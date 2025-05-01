@@ -2,6 +2,7 @@ import sys
 from PySide6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QSpacerItem, QSizePolicy, QApplication
 from PySide6.QtGui import QPixmap, QDesktopServices
 from PySide6.QtCore import Qt, QUrl
+from get_pic import get_resource_path
 
 class AboutDialog(QDialog):
     def __init__(self, parent=None):
@@ -12,7 +13,9 @@ class AboutDialog(QDialog):
         layout = QVBoxLayout()
 
         flash_label = QLabel(self)
-        pixmap = QPixmap("./pic/水梓.png")  # 替换为实际图片路径
+
+        img = get_resource_path("./pic/水梓.png")
+        pixmap = QPixmap(img)  # 替换为实际图片路径
         flash_label.setPixmap(pixmap)
         flash_label.setScaledContents(True)
         flash_label.setFixedSize(320, 280)

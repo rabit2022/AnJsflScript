@@ -4,6 +4,7 @@ from PySide6.QtGui import QPixmap, QIcon
 from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QStackedWidget, QLabel, QSpacerItem, \
     QSizePolicy
 
+from get_pic import get_resource_path
 # 导入其他界面
 from ui.about import AboutDialog
 from ui.anti_piracy import AntiPiracyDialog
@@ -32,7 +33,9 @@ class MainInterface(QWidget):
         main_layout = QVBoxLayout()
 
         flash_label = QLabel(self)
-        pixmap = QPixmap("./pic/水梓.png")  # 替换为实际图片路径
+        img = get_resource_path("./pic/水梓.png")
+        # print(img)
+        pixmap = QPixmap(img)  # 替换为实际图片路径
         flash_label.setPixmap(pixmap)
         flash_label.setScaledContents(True)
         flash_label.setFixedSize(320, 280)
