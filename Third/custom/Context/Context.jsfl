@@ -1,4 +1,3 @@
-(function(){
 "use strict";
 
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
@@ -210,14 +209,6 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         Object.defineProperty(Context.prototype, "doc", {
           get: function get() {
             return this.dom;
-          }
-        });
-
-        // selection
-        Object.defineProperty(Context.prototype, "selection", {
-          get: function get() {
-            var selection = this.dom.selection;
-            return selection;
           }
         });
 
@@ -643,6 +634,66 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 
         /***/
       }),
+      /***/"./src/doc/Selection.js": (
+      /*!******************************!*\
+        !*** ./src/doc/Selection.js ***!
+        \******************************/
+      /***/
+      function _src_doc_SelectionJs(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
+        /**
+         * @file: Selection.js
+         * @author: 穹的兔兔
+         * @email: 3101829204@qq.com
+         * @date: 2025/5/2 17:15
+         * @project: Context
+         * @description:
+         */
+        var Context = __webpack_require__(/*! ../Context */"./src/Context.js");
+
+        // selection
+        Object.defineProperty(Context.prototype, 'selection', {
+          get: function get() {
+            var selection = this.dom.selection;
+            return selection;
+          }
+        });
+        Object.defineProperty(Context.prototype, 'firstSlFrameIndex', {
+          get: function get() {
+            var frs = this.timeline.getSelectedFrames();
+            if (!frs || frs.length === 0) return null;
+
+            // [layerIndex,startFrame,endFrame]
+            return frs[1];
+          }
+        });
+        Object.defineProperty(Context.prototype, 'firstSlLayerIndex', {
+          get: function get() {
+            var frs = this.timeline.getSelectedFrames();
+            if (!frs || frs.length === 0) return null;
+
+            // [layerIndex,startFrame,endFrame]
+            return frs[0];
+          }
+        });
+        Object.defineProperty(Context.prototype, 'firstSlLayer', {
+          get: function get() {
+            var index = this.firstSlLayerIndex;
+            if (!index) return null;
+            var layers = this.timeline.layers;
+            return layers[index];
+          }
+        });
+        Object.defineProperty(Context.prototype, 'firstSlFrame', {
+          get: function get() {
+            var index = this.firstSlFrameIndex;
+            if (!index) return null;
+            var layer = this.firstSlLayer;
+            return layer.frames[index];
+          }
+        });
+
+        /***/
+      }),
       /***/"./src/doc/Timeline.js": (
       /*!*****************************!*\
         !*** ./src/doc/Timeline.js ***!
@@ -877,6 +928,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         __webpack_require__(/*! ./doc/current */"./src/doc/current.js");
         __webpack_require__(/*! ./select/select */"./src/select/select.js");
         __webpack_require__(/*! ./short/short */"./src/short/short.js");
+        __webpack_require__(/*! ./doc/Selection */"./src/doc/Selection.js");
         module.exports = Context;
 
         /***/
@@ -1444,4 +1496,3 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     /******/
   }();
 });
-})();

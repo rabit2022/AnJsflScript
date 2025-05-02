@@ -44,6 +44,7 @@ define(["SAT", "Tips", "LayerQuery"], function (SAT, Tips, lq) {
      */
     function getSelectedFrs(timeline) {
         checkVariableRedeclaration(timeline, "timeline");
+
         var selectedFrames = timeline.getSelectedFrames();
         return wrapFrsFromSl(selectedFrames);
     }

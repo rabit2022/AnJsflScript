@@ -104,11 +104,4 @@ Object.defineProperty(Context.prototype, "doc", {
     }
 });
 
-// selection
-Object.defineProperty(Context.prototype, "selection", {
-    get: function () {
-        const selection = this.dom.selection;
-        return selection;
-    }
-});
 

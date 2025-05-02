@@ -11,5 +11,6 @@ require('./select/select');
 
 require('./short/short');
 
+require('./doc/Selection')
 
 module.exports = Context;

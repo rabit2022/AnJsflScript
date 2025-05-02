@@ -28,31 +28,19 @@ require([
     "ElementAnim",
     "SymbolNameGenerator",
     "SAT",
-    "graphicsUtil",
+    "DrawRectangle",
     "JSFLConstants",
     "EaseCurve",
     "KeyFrameOperation",
     "ElementSelect"
-], function (
-    checkUtil,
-    log,
-    ed,
-    ea,
-    sng,
-    SAT,
-    graphicsUtil,
-    JSFLConstants,
-    curve,
-    kfo,
-    es
-) {
+], function (checkUtil, log, ed, ea, sng, SAT, dr, JSFLConstants, curve, kfo, es) {
     const { CheckDom, CheckSelection } = checkUtil;
 
     const { wrapRectByCenter } = SAT.GLOBALS;
     const { Vector, Rectangle } = SAT;
 
     const { SelectAll } = es;
-    const { drawRectangleWithoutLine } = graphicsUtil;
+    const { drawRectangleWithoutLine } = dr;
     const { FRAME_1, FRAME_15 } = JSFLConstants.Numerics.frame.frameList;
     const { setClassicEaseCurve } = curve;
     const { playOnce } = ea;

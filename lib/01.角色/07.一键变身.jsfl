@@ -27,28 +27,28 @@ require([
     "ElementOperation",
     "linqUtil",
     "SAT",
-    "graphicsUtil",
     "Tween",
     "loglevel",
     "JSFLConstants",
     "EaseCurve",
     "ElementSelect",
     "FramesSelect",
-    "KeyFrameOperation"
+    "KeyFrameOperation",
+    "DrawCircle"
 ], function (
     checkUtil,
     eq,
     ed,
     linqUtil,
     sat,
-    graphics,
     twn,
     log,
     JSFLConstants,
     curve,
     es,
     fms,
-    kfo
+    kfo,
+    dc
 ) {
     const {
         CheckDom: checkDom,
@@ -70,6 +70,7 @@ require([
     const { SelectStartFms } = fms;
     const { $addOffset } = linqUtil;
     const { convertToKeyframesSafety } = kfo;
+    const { drawCircleWithoutLine } = dc;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
@@ -212,7 +213,7 @@ require([
         // 删除所有元素
         DeleteSelection(MIDDLE_SHAPE_Elements);
         // 画圆形
-        graphics.drawCircleWithoutLine(MIDDLE_SHAPE_CENTER, MIDDLE_SHAPE_RADIUS);
+        drawCircleWithoutLine(MIDDLE_SHAPE_CENTER, MIDDLE_SHAPE_RADIUS);
 
         // 补间动画
         // 获取allKeyFrames first,last

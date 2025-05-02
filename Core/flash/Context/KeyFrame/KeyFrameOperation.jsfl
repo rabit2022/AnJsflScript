@@ -17,16 +17,14 @@ define(["KeyFrameQuery", "Tips", "LayerQuery"], function (kfq, tips, lq) {
      * 如果 需要转换的帧 已经是 关键帧，则不转换关键帧，以防止bug
      * @bug(当前帧已经是关键帧，再次转换会把下一帧也变成关键帧)
      * @param {Timeline} timeline 时间线
-     * @param {number[]} keyFramesIndex 帧数组
+     * @param {number[]|number} keyFramesIndex 帧数组
      * @param {Layer|number} [selectedLayer = curLayer]选中的图层
      */
     function convertToKeyframesSafety(timeline, keyFramesIndex, selectedLayer) {
-        if (timeline === undefined) {
-            throw new Error(
-                "在函数 Main 中，你重新定义了一个局部变量 timeline，这会导致局部变量覆盖全局变量"
-            );
-        }
         checkVariableRedeclaration(timeline, "timeline");
+        if (typeof keyFramesIndex === "number") {
+            keyFramesIndex = [keyFramesIndex];
+        }
 
         // timeline.convertToKeyframes(frame_1);
         var layers = timeline.layers; //图层

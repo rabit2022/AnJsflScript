@@ -82,6 +82,11 @@ declare class Context {
     readonly keyframes: Frame[]; // 当前图层所有关键帧
     readonly curFrameIndex: number | null; // 当前帧索引
     readonly curFrame: Frame | null; // 当前帧对象
+
+    readonly firstSlFrameIndex: number | null; // 第一个选中帧的索引
+    readonly firstSlLayerIndex: number | null; // 第一个选中图层的索引
+    readonly firstSlLayer: Layer | null; // 第一个选中图层对象
+    readonly firstSlFrame: Frame | null; // 第一个选中帧对象
 }
 
 export default Context;

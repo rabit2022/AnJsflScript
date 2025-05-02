@@ -24,14 +24,14 @@ if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
 require([
     "checkUtil",
     "SymbolNameGenerator",
-    "graphicsUtil",
+    "DrawCircle",
     "SAT",
     "JSFLConstants",
     "EaseCurve",
     "Tween",
     "ElementSelect",
     "KeyFrameOperation"
-], function (checkUtil, sng, graphics, sat, JSFLConstants, curve, twn, es, kfo) {
+], function (checkUtil, sng, dc, sat, JSFLConstants, curve, twn, es, kfo) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     var Vector = sat.Vector;
@@ -41,7 +41,7 @@ require([
     const { OnlySelectCurrent } = es;
     const { convertToKeyframesSafety } = kfo;
     const { generateNameUntilUnique, generateNameUseLast } = sng;
-    const { drawCircleLineWithoutFill } = graphics;
+    const { drawCircleLineWithoutFill } = dc;
 
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;

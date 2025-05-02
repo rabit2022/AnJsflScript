@@ -1,16 +1,14 @@
-﻿/**
- * @file: graphicsUtil.jsfl
+/**
+ * @file: DrawCircle.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
- * @date: 2024/12/26 19:55
+ * @date: 2025/5/2 18:26
  * @project: AnJsflScript
  * @description:
  */
-define(["SAT"], function (sat) {
-    var Vector = sat.Vector,
-        Rectangle = sat.Rectangle;
-    const { wrapRectByTopLeft } = sat.GLOBALS;
 
+define(["SAT"], function (SAT) {
+    const { Rectangle } = SAT;
     //
     // /**
     //  * 画圆，不要填充
@@ -81,24 +79,8 @@ define(["SAT"], function (sat) {
         return circleRect;
     }
 
-    // 矩形
-    /**
-     * 画矩形，删除边线
-     * @param {Rectangle}rect 矩形
-     * @return {Rectangle} 矩形所在矩形
-     */
-    function drawRectangleWithoutLine(rect) {
-        var doc = fl.getDocumentDOM(); //文档
-
-        // const rect = wrapRectByTopLeft(topLeft, size);
-        doc.addNewRectangle(rect.toObj(), 0, false, true);
-
-        return rect;
-    }
-
     return {
         drawCircleLineWithoutFill: drawCircleLineWithoutFill,
-        drawCircleWithoutLine: drawCircleWithoutLine,
-        drawRectangleWithoutLine: drawRectangleWithoutLine
+        drawCircleWithoutLine: drawCircleWithoutLine
     };
 });
