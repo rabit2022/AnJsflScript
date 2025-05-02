@@ -47,8 +47,8 @@ layerStrategy
 function LayerFactory(value, timeline) {
     if (value instanceof Layer) {
         return layerStrategy.use(LayerType.LAYER, value);
-    } else if (typeof value === "boolean") {
-        return layerStrategy.use(LayerType.BOOLEAN, timeline);
+    } else if (typeof value === "boolean"||value === undefined) {
+        return layerStrategy.use(LayerType.BOOLEAN,value, timeline);
     } else if (typeof value === "number") {
         return layerStrategy.use(LayerType.LAYER_INDEX, value, timeline);
     } else if (typeof value === "string") {
@@ -89,3 +89,44 @@ Context.prototype.clearFrameProperties = function () {
     this.frame = null;
     this.element = null;
 };
+
+
+/**
+ * 获取当前图层的索引
+ * @property {number} curLayerIndex - 当前图层索引
+ */
+Object.defineProperty(Context.prototype, 'curLayerIndex', {
+    get: function() {
+        if (!this.timeline || !this.layer) return -1;
+
+        var layers = this.timeline.layers;
+        var index = layers.indexOf(this.layer);
+
+        return index;
+    }
+});
+
+/**
+ * 获取当前图层的名称
+ * @property {Layer} curLayer - 当前图层对象
+ */
+Object.defineProperty(Context.prototype, 'curLayer', {
+    get: function() {
+        if (!this.timeline || !this.layer) return null;
+
+        return this.layer;
+    }
+});
+
+/**
+ * 获取所有图层对象
+ * @property {Layer[]} layers - 所有图层对象
+ */
+Object.defineProperty(Context.prototype, 'AllLayers', {
+    get: function() {
+        if (!this.timeline) return [];
+
+        return this.timeline.layers;
+    }
+});
+

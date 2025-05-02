@@ -1,5 +1,5 @@
 // 策略管理器
-const {StrategyManager} = require("../strategy/strategy");
+const { StrategyManager } = require("../strategy/strategy");
 const Context = require("../Context");
 
 // 定义枚举
@@ -68,7 +68,7 @@ frameStrategy
 function FrameFactory(value, layer, timeline, allLayers = false) {
     if (value instanceof Frame) {
         return frameStrategy.use(FrameType.FRAME, value);
-    } else if (typeof value === "boolean") {
+    } else if (typeof value === "boolean"||value === undefined) {
         return frameStrategy.use(FrameType.BOOLEAN, value, layer, timeline);
     } else if (typeof value === "number") {
         return frameStrategy.use(FrameType.FRAME_INDEX, value, layer);
@@ -90,19 +90,33 @@ function FrameFactory(value, layer, timeline, allLayers = false) {
  * @param {Boolean} [allLayers=false] - 是否在所有图层中搜索（仅当指定帧名称时有效）
  * @returns {Context} 当前 Context 实例
  */
-Context.prototype.setFrame = function (value, allLayers = false) {
-    if (!this.layer) {
-        throw new ReferenceError('ReferenceError: Cannot set Frame as Context has no Layer');
-    }
-    if (!this.timeline) {
-        throw new ReferenceError('ReferenceError: Cannot set Frame as Context has no Timeline');
-    }
+Context.prototype.setFrame = function(value, allLayers = false) {
+    if(!this.layer || !this.timeline) return this;
 
     const frame = FrameFactory(value, this.layer, this.timeline, allLayers);
     if (frame) {
         this.frame = frame;
-        this.context = 'frame';
+        this.context = "frame";
     }
 
     return this;
 };
+
+// curFrameIndex
+Object.defineProperty(Context.prototype, "curFrameIndex", {
+    get: function() {
+        if (!this.layer || !this.timeline) return null;
+
+        return this.timeline.currentFrame;
+    }
+});
+
+// curFrame
+Object.defineProperty(Context.prototype, "curFrame", {
+    get: function() {
+        if (!this.layer || !this.timeline) return null;
+
+        const curFrameIndex = this.timeline.currentFrame;
+        return this.layer.frames[curFrameIndex];
+    }
+});

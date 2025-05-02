@@ -17,7 +17,7 @@
       "Interface": ["types/Third/Class/Class.js-0.0.1/Interface.d.ts"],
       "SAT": ["types/Third/sat-js-0.9.0/SAT.d.ts"],
       "XUL": ["types/Third/xul/XUL.d.ts"],
-
+      "Context": ["types/Third/Context/Context.d.ts"],
 
       "BitmapOperation": ["Core/flash/Bitmap/BitmapOperation"],
       "checkUtil": ["Core/flash/checkUtil"],

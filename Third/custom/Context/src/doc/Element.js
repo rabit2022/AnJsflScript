@@ -21,7 +21,7 @@ elementStrategy
         throw new ReferenceError(`ReferenceError: Element not found in the current frame.`);
     })
     .add(ElementType.BOOLEAN, (value, frame) => {
-        if (value === true) {
+        if (value === true||value === undefined) {
             return frame.elements[0];
         }
     })
@@ -48,7 +48,7 @@ elementStrategy
 function ElementFactory(value, frame) {
     if (value instanceof Element) {
         return elementStrategy.use(ElementType.ELEMENT, value, frame);
-    } else if (typeof value === "boolean") {
+    } else if (typeof value === "boolean"||value === undefined) {
         return elementStrategy.use(ElementType.BOOLEAN, value, frame);
     } else if (typeof value === "number") {
         return elementStrategy.use(ElementType.ELEMENT_INDEX, value, frame);

@@ -1,4 +1,4 @@
-(function (){
+(function(){
 "use strict";
 
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
@@ -38,13 +38,13 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           this.layer = null;
           this.frame = null;
           this.element = null;
-          this.context = '';
+          this.context = "";
           this.setDOM(dom);
           if (!this.dom) return;
           this.setTimeline(timeline);
           if (!this.timeline) return;
           this.setLayer(layer);
-          if (!this.layer || this.layer.layerType === 'folder') return;
+          if (!this.layer || this.layer.layerType === "folder") return;
           this.setFrame(frame);
           if (!this.frame) return;
           this.setElement(element);
@@ -67,24 +67,24 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
          * @returns {string}
          */
         Context.prototype.toString = function () {
-          var parts = ['[object Context'];
+          var parts = ["[object Context"];
           if (this.dom) {
-            parts.push('dom="' + this.dom.name + '"');
+            parts.push("dom=\"" + this.dom.name + "\"");
           }
           if (this.timeline) {
-            parts.push('timeline="' + (this.item ? this.item.name : this.timeline.name) + '"');
+            parts.push("timeline=\"" + (this.item ? this.item.name : this.timeline.name) + "\"");
           }
           if (this.layer) {
-            parts.push('layer[' + this.layerIndex + ']="' + this.layer.name + '"');
+            parts.push("layer[" + this.curLayerIndex + "]=\"" + this.layer.name + "\"");
           }
           if (this.frame) {
             var index = this.keyframes.indexOf(this.frame);
-            parts.push('frame=' + (this.frame.name || this.frame.startFrame) + (index >= 0 ? '(keyframe[' + index + '])' : ''));
+            parts.push("frame=" + (this.frame.name || this.frame.startFrame) + (index >= 0 ? "(keyframe[" + index + "])" : ""));
           }
           if (this.element) {
-            parts.push('element="' + (this.element.name || '<' + this.element.elementType + '>') + '"');
+            parts.push("element=\"" + (this.element.name || "<" + this.element.elementType + ">") + "\"");
           }
-          return parts.join(' ') + ']';
+          return parts.join(" ") + "]";
         };
 
         // clone,copy
@@ -101,7 +101,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           this.context = context.context;
         };
         Context.toString = function () {
-          return '[class Context]';
+          return "[class Context]";
         };
         module.exports = Context;
 
@@ -123,7 +123,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           DOCUMENT: "document",
           NUMBER: "number",
           STRING: "string",
-          FILE: "file",
+          // FILE: "file",
           CONTEXT: "context"
         };
         var domStrategies = new StrategyManager();
@@ -204,6 +204,23 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           this.element = null;
         };
 
+        /**
+         * doc , 兼容老版本的属性
+         */
+        Object.defineProperty(Context.prototype, "doc", {
+          get: function get() {
+            return this.dom;
+          }
+        });
+
+        // selection
+        Object.defineProperty(Context.prototype, "selection", {
+          get: function get() {
+            var selection = this.dom.selection;
+            return selection;
+          }
+        });
+
         /***/
       }),
       /***/"./src/doc/Element.js": (
@@ -234,7 +251,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           }
           throw new ReferenceError("ReferenceError: Element not found in the current frame.");
         }).add(ElementType.BOOLEAN, function (value, frame) {
-          if (value === true) {
+          if (value === true || value === undefined) {
             return frame.elements[0];
           }
         }).add(ElementType.ELEMENT_INDEX, function (value, frame) {
@@ -260,7 +277,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         function ElementFactory(value, frame) {
           if (value instanceof Element) {
             return elementStrategy.use(ElementType.ELEMENT, value, frame);
-          } else if (typeof value === "boolean") {
+          } else if (typeof value === "boolean" || value === undefined) {
             return elementStrategy.use(ElementType.BOOLEAN, value, frame);
           } else if (typeof value === "number") {
             return elementStrategy.use(ElementType.ELEMENT_INDEX, value, frame);
@@ -392,7 +409,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           var allLayers = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
           if (value instanceof Frame) {
             return frameStrategy.use(FrameType.FRAME, value);
-          } else if (typeof value === "boolean") {
+          } else if (typeof value === "boolean" || value === undefined) {
             return frameStrategy.use(FrameType.BOOLEAN, value, layer, timeline);
           } else if (typeof value === "number") {
             return frameStrategy.use(FrameType.FRAME_INDEX, value, layer);
@@ -415,19 +432,31 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
          */
         Context.prototype.setFrame = function (value) {
           var allLayers = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-          if (!this.layer) {
-            throw new ReferenceError('ReferenceError: Cannot set Frame as Context has no Layer');
-          }
-          if (!this.timeline) {
-            throw new ReferenceError('ReferenceError: Cannot set Frame as Context has no Timeline');
-          }
+          if (!this.layer || !this.timeline) return this;
           var frame = FrameFactory(value, this.layer, this.timeline, allLayers);
           if (frame) {
             this.frame = frame;
-            this.context = 'frame';
+            this.context = "frame";
           }
           return this;
         };
+
+        // curFrameIndex
+        Object.defineProperty(Context.prototype, "curFrameIndex", {
+          get: function get() {
+            if (!this.layer || !this.timeline) return null;
+            return this.timeline.currentFrame;
+          }
+        });
+
+        // curFrame
+        Object.defineProperty(Context.prototype, "curFrame", {
+          get: function get() {
+            if (!this.layer || !this.timeline) return null;
+            var curFrameIndex = this.timeline.currentFrame;
+            return this.layer.frames[curFrameIndex];
+          }
+        });
 
         /***/
       }),
@@ -536,8 +565,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         function LayerFactory(value, timeline) {
           if (value instanceof Layer) {
             return layerStrategy.use(LayerType.LAYER, value);
-          } else if (typeof value === "boolean") {
-            return layerStrategy.use(LayerType.BOOLEAN, timeline);
+          } else if (typeof value === "boolean" || value === undefined) {
+            return layerStrategy.use(LayerType.BOOLEAN, value, timeline);
           } else if (typeof value === "number") {
             return layerStrategy.use(LayerType.LAYER_INDEX, value, timeline);
           } else if (typeof value === "string") {
@@ -576,6 +605,41 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           this.frame = null;
           this.element = null;
         };
+
+        /**
+         * 获取当前图层的索引
+         * @property {number} curLayerIndex - 当前图层索引
+         */
+        Object.defineProperty(Context.prototype, 'curLayerIndex', {
+          get: function get() {
+            if (!this.timeline || !this.layer) return -1;
+            var layers = this.timeline.layers;
+            var index = layers.indexOf(this.layer);
+            return index;
+          }
+        });
+
+        /**
+         * 获取当前图层的名称
+         * @property {Layer} curLayer - 当前图层对象
+         */
+        Object.defineProperty(Context.prototype, 'curLayer', {
+          get: function get() {
+            if (!this.timeline || !this.layer) return null;
+            return this.layer;
+          }
+        });
+
+        /**
+         * 获取所有图层对象
+         * @property {Layer[]} layers - 所有图层对象
+         */
+        Object.defineProperty(Context.prototype, 'AllLayers', {
+          get: function get() {
+            if (!this.timeline) return [];
+            return this.timeline.layers;
+          }
+        });
 
         /***/
       }),
@@ -658,7 +722,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         function TimelineFactory(dom, value) {
           if (value instanceof Timeline) {
             return timelineStrategies.use(TimelineType.TIMELINE, value, dom);
-          } else if (typeof value === "boolean") {
+          } else if (typeof value === "boolean" || value === undefined) {
             return timelineStrategies.use(TimelineType.BOOLEAN, value, dom);
           } else if (value instanceof SymbolItem) {
             return timelineStrategies.use(TimelineType.SYMBOL_ITEM, value);
@@ -710,6 +774,27 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           this.element = null;
         };
 
+        // library
+        Object.defineProperty(Context.prototype, "library", {
+          get: function get() {
+            return this.dom.library;
+          }
+        });
+
+        // items
+        Object.defineProperty(Context.prototype, "items", {
+          get: function get() {
+            return this.dom.library.items;
+          }
+        });
+
+        // timelines
+        Object.defineProperty(Context.prototype, "timelines", {
+          get: function get() {
+            return this.dom.timelines;
+          }
+        });
+
         /***/
       }),
       /***/"./src/doc/current.js": (
@@ -747,7 +832,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 
             // 处理图层和帧
             if (this.layer) {
-              this.timeline.currentLayer = this.layerIndex;
+              this.timeline.currentLayer = this.curLayerIndex;
               if (this.frame) {
                 this.timeline.currentFrame = this.frame.startFrame;
               }
@@ -758,11 +843,11 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 
         /**
          * Updates all parameters of the Context Object with the current IDE state
-         * @param	{Boolean}	dom			An optional flag to not update the dom context
-         * @param	{Boolean}	timeline	An optional flag to not update the timeline context
-         * @param	{Boolean}	layer		An optional flag to not update the layer context
-         * @param	{Boolean}	frame		An optional flag to not update the frame context
-         * @returns	{Context}				Itself
+         * @param    {Boolean}    dom            An optional flag to not update the dom context
+         * @param    {Boolean}    timeline    An optional flag to not update the timeline context
+         * @param    {Boolean}    layer        An optional flag to not update the layer context
+         * @param    {Boolean}    frame        An optional flag to not update the frame context
+         * @returns    {Context}                Itself
          */
         Context.prototype.update = function (dom, timeline, layer, frame) {
           if (dom !== false) this.setDOM(true);
@@ -773,25 +858,6 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           //	this.setElement(true);
           //Context.apply(this, [true, true, true, true, 0]);
         };
-
-        /**
-         * 获取当前图层的索引
-         * @type {number}
-         */
-        Object.defineProperty(Context.prototype, 'layerIndex', {
-          get: function get() {
-            if (!this.timeline || !this.layer) return -1;
-
-            // var originalName = this.layer.name;
-            // this.layer.name = '__Context_Temp__';
-            // var index = this.timeline.findLayerIndex(this.layer.name)[0];
-            // this.layer.name = originalName;
-
-            var layers = this.timeline.layers;
-            var index = layers.indexOf(this.layer);
-            return index;
-          }
-        });
 
         /***/
       }),
@@ -855,7 +921,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             this.timeline.currentFrame = currentFrame;
           } else {
             // 获取当前图层索引
-            var layerIndex = this.layerIndex;
+            var layerIndex = this.curLayerIndex;
 
             // 如果图层索引有效，则执行选择操作
             if (layerIndex !== -1) {

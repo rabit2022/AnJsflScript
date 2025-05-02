@@ -46,6 +46,7 @@ require(["checkUtil", "loglevel"], function(checkUtil, log) {
         if (!CheckSelection(selection, "selectElement", "No limit")) return;
 
         // 1. 新建图层, 并插入关键帧
+        timeline.addNewLayer("独白黑幕", "normal", true);
 
         // 2. 转为元件
         // 技巧：在左上角 画 一个 20*20的圆形，然后可以将其转为元件，中心在舞台的左上角，相当于确定舞台位置。   相当于把一个空屏转为元件。

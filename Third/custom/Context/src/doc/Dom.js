@@ -7,7 +7,7 @@ const DomType = {
     DOCUMENT: "document",
     NUMBER: "number",
     STRING: "string",
-    FILE: "file",
+    // FILE: "file",
     CONTEXT: "context",
 };
 
@@ -94,4 +94,21 @@ Context.prototype.clearDependentProperties = function () {
     this.frame = null;
     this.element = null;
 };
+
+/**
+ * doc , 兼容老版本的属性
+ */
+Object.defineProperty(Context.prototype, "doc", {
+    get: function () {
+        return this.dom;
+    }
+});
+
+// selection
+Object.defineProperty(Context.prototype, "selection", {
+    get: function () {
+        const selection = this.dom.selection;
+        return selection;
+    }
+});
 

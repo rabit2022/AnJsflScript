@@ -33,7 +33,7 @@ Context.prototype.selectLayer = function (addToSelection) {
         this.timeline.currentFrame = currentFrame;
     } else {
         // 获取当前图层索引
-        const layerIndex = this.layerIndex;
+        const layerIndex = this.curLayerIndex;
 
         // 如果图层索引有效，则执行选择操作
         if (layerIndex !== -1) {

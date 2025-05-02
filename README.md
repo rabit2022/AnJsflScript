@@ -221,5 +221,6 @@ git clone https://github.com/rabit2022/AnJsflScript.git
 
 - QQ：3101829204
 - Email：3101829204@qq.com
+- qq群：1040730457
 - B站：
   [![BiliBili](https://stats.justsong.cn/api/bilibili?id=453222786&theme=dark&lang=zh-CN)](https://space.bilibili.com/453222786?spm_id_from=333.788.0.0)

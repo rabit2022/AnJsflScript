@@ -76,7 +76,7 @@ timelineStrategies
 function TimelineFactory(dom, value) {
     if (value instanceof Timeline) {
         return timelineStrategies.use(TimelineType.TIMELINE, value, dom);
-    } else if (typeof value === "boolean") {
+    } else if (typeof value === "boolean"||value === undefined) {
         return timelineStrategies.use(TimelineType.BOOLEAN, value, dom);
     } else if (value instanceof SymbolItem) {
         return timelineStrategies.use(TimelineType.SYMBOL_ITEM, value);
@@ -125,6 +125,27 @@ Context.prototype.clearLayerProperties = function () {
     this.frame = null;
     this.element = null;
 };
+
+// library
+Object.defineProperty(Context.prototype, "library", {
+    get: function () {
+        return this.dom.library;
+    }
+});
+
+// items
+Object.defineProperty(Context.prototype, "items", {
+    get: function () {
+        return this.dom.library.items;
+    }
+});
+
+// timelines
+Object.defineProperty(Context.prototype, "timelines", {
+    get: function () {
+        return this.dom.timelines;
+    }
+});
 
 
 
