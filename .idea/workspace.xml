@@ -6,10 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="2318bed7-153e-429d-a111-ac0e0c1e5ee6" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/flash/Context/selection/ElementSelect.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/flash/Context/selection/ElementSelect.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/flash/Symbol/SymbolNameGenerator.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/flash/Symbol/SymbolNameGenerator.jsfl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/flash/graphics/DrawCircle.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/flash/graphics/DrawCircle.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/flash/graphics/DrawRectangle.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/flash/graphics/DrawRectangle.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/04.镜头/#07.独白黑幕.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/04.镜头/#07.独白黑幕.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/04.镜头/#07.独白黑幕.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/04.镜头/07.独白黑幕.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/types/Third/Context/Context.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/Third/Context/Context.d.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +76,7 @@
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\dp" />
     </key>
   </component>
-  <component name="RunManager" selected="Shell Script.ReRun">
+  <component name="RunManager" selected="npm.format">
     <list>
       <item itemvalue="npm.format" />
       <item itemvalue="Shell Script.FirstRun" />
@@ -108,7 +108,7 @@
       <workItem from="1746169533764" duration="11808000" />
       <workItem from="1746272861949" duration="297000" />
       <workItem from="1746527600451" duration="2070000" />
-      <workItem from="1746529696707" duration="11805000" />
+      <workItem from="1746529696707" duration="14219000" />
     </task>
     <servers />
   </component>

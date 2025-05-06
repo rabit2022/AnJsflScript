@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(["SAT"], function(SAT) {
+define(["SAT"], function (SAT) {
     const { Rectangle, Vector } = SAT;
     //
     // /**
@@ -121,7 +121,6 @@ define(["SAT"], function(SAT) {
         // doc.setSelectionRect(circleRect.toObj(), true, true);
 
         doc.mouseClick(circleRect.getCenterVector().toObj(), false, false);
-
 
         // 分离到Shape
         doc.breakApart();

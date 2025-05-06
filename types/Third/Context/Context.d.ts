@@ -76,6 +76,7 @@ declare class Context {
     readonly library: Library; // 文档库
     readonly items: Item[]; // 库项目列表
     readonly timelines: Timeline[]; // 时间轴列表
+
     readonly curLayerIndex: number; // 当前图层索引
     readonly curLayer: Layer | null; // 当前图层对象
     readonly AllLayers: Layer[]; // 所有图层对象

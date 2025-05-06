@@ -32,10 +32,14 @@ require([
     "SAT",
     "ElementSelect",
     "SymbolNameGenerator",
-    "DrawRectangle", "ElementChecker", "ElementQuery", "FilterOperation"
-], function(checkUtil, log, Context, kfo, dc, SAT, es, sng, dr, ec,
-            eq, fo) {
-    const { CheckDom, CheckSelection } = checkUtil;
+    "DrawRectangle",
+    "ElementChecker",
+    "ElementQuery",
+    "FilterOperation",
+    "LayerQuery",
+    "FramesSelect"
+], function (checkUtil, log, Context, kfo, dc, SAT, es, sng, dr, ec, eq, fo, lq, fs) {
+    const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
     const { convertToKeyframesSafety } = kfo;
     const { drawCircleWithoutLine } = dc;
     const { drawRectangleWithoutLine } = dr;
@@ -55,31 +59,18 @@ require([
     const { IsShape } = ec;
     const { getName } = eq;
     const { addBlurFilterToFrame } = fo;
-
-    // region doc
-    // var doc = fl.getDocumentDOM(); //文档
-    // if (!CheckDom(doc)) return;
-    //
-    // var selection = doc.selection; //选择
-    // var library = doc.library; //库文件
-    // var timeline = doc.getTimeline(); //时间轴
-    //
-    // var layers = timeline.layers; //图层
-    // var curLayerIndex = timeline.currentLayer; //当前图层索引
-    // var curLayer = layers[curLayerIndex]; //当前图层
-    //
-    // var curFrameIndex = timeline.currentFrame; //当前帧索引
-    // var curFrame = curLayer.frames[curFrameIndex]; //当前帧
-    // endregion doc
+    const { getLayersIndexByName } = lq;
+    const { SelectStartFms } = fs;
 
     const context = new Context();
     context.update();
+
     const {
         doc,
         selection,
         library,
         timeline,
-        layers,
+        AllLayers,
         curLayerIndex,
         curLayer,
         curFrameIndex,
@@ -152,37 +143,17 @@ require([
 
     function subtractArrays(A, B) {
         // 使用 filter 方法过滤掉 A 中存在于 B 的元素
-        return A.filter(function(item) {
+        return A.filter(function (item) {
             return !B.includes(item);
         });
     }
 
-    function Main() {
-        // 检查选择的元件
-        if (!CheckSelection(selection, "selectElement", "No limit")) return;
-
-        var firstElement = selection[0];
-
-        var elementPos = getSymbolCenter(firstElement);
-        log.info("elementPos", elementPos);
-
-
-        // 1. 新建图层, 并插入关键帧
-
-        timeline.addNewLayer("独白黑幕", "normal", true);
-
-        log.info("firstSlFrameIndex", firstSlFrameIndex);
-
-        convertToKeyframesSafety(timeline, firstSlFrameIndex);
-
-        // 2. 转为元件
+    function convertToSymbolWithBlanks(symbolName) {
         // 技巧：在左上角 画 一个 20*20的圆形，然后可以将其转为元件，中心在舞台的左上角，相当于确定舞台位置。   相当于把一个空屏转为元件。
         // 编辑模式中,删除辅助的圆形
         drawCircleWithoutLine(getOrigin(), 20);
 
-        var symbolName = generateNameUntilUnique("独白黑幕_");
         doc.convertToSymbol("graphic", symbolName, "center");
-
 
         doc.enterEditMode("inPlace");
 
@@ -191,8 +162,9 @@ require([
         doc.deleteSelection();
 
         doc.exitEditMode();
+    }
 
-        // 3. 编辑模式
+    function KFrames(firstElement) {
         doc.enterEditMode("inPlace");
 
         SelectNone();
@@ -209,6 +181,9 @@ require([
         doc.deleteSelection();
 
         // 移动到人物的位置
+        var elementPos = getSymbolCenter(firstElement);
+        log.info("elementPos", elementPos);
+
         const stageCenter = getStageCenter();
         var offset = elementPos.sub(stageCenter);
         log.info("stageCenter", stageCenter);
@@ -217,11 +192,12 @@ require([
         // 选中不是形状的元素。
         SelectAll();
         var allElements = doc.selection;
-        var shapeElements = allElements.filter(function(element) {
+        var nonShapeElements = allElements.filter(function (element) {
             return IsShape(element) === false;
         });
 
-        InvertSelection(shapeElements);
+        // shape selection
+        InvertSelection(nonShapeElements);
 
         log.info("selection", selection, selection.length);
 
@@ -236,12 +212,48 @@ require([
         // 色彩效果-Alpha  = 0.7
         // 注意：必须在 元件 ，使用 才会生效。
         doc.setInstanceAlpha(70);
+    }
+
+    function Main() {
+        // 检查选择的元件
+        if (!CheckSelection(selection, "selectElement", "No limit")) return;
+
+        // 获取第一帧
+        var frs = CheckSelectedFrames(timeline);
+        if (frs === null) return;
+
+        var firstElement = selection[0];
+
+        // 1. 新建图层, 并插入关键帧
+        var layerIndex = getLayersIndexByName(AllLayers, "独白黑幕");
+        if (layerIndex.length > 0) {
+            // 已存在独白黑幕图层，直接选中
+            timeline.currentLayer = layerIndex[0];
+        } else {
+            timeline.addNewLayer("独白黑幕", "normal", true);
+        }
+
+        log.info("firstSlFrameIndex", firstSlFrameIndex);
+
+        convertToKeyframesSafety(timeline, firstSlFrameIndex);
+
+        // 2. 转为元件
+        var symbolName = generateNameUntilUnique("独白黑幕_");
+        convertToSymbolWithBlanks(symbolName);
+
+        // 3. 编辑模式
+        KFrames(firstElement);
 
         // 4. 转为位图
         doc.convertSelectionToBitmap();
 
         // 5. 删除所有辅助线
-        
+        log.info("Last Name", sng.LastName);
+        library.deleteItem(sng.LastName);
+
+        // 6. 选择开始选中的帧
+        // 有bug,添加了独白黑幕图层，选择开始帧时，会选中独白黑幕图层，但是影响不大。
+        SelectStartFms(timeline, frs);
     }
 
     Main();

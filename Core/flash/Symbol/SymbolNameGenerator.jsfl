@@ -20,6 +20,7 @@ define(["random", "sprintf"], function (random, sp) {
      */
     var lastCount = "000";
 
+    var lastName = "";
     /**
      * 获取随机3位数字的字符串,不够的地方用0补齐
      * @param {number} [digits=3] 随机数的位数，默认为3
@@ -35,7 +36,11 @@ define(["random", "sprintf"], function (random, sp) {
 
     function SymbolNameGenerator() {}
 
-    SymbolNameGenerator.LastName = "";
+    Object.defineProperty(SymbolNameGenerator, "LastName", {
+        get: function () {
+            return lastName;
+        }
+    });
 
     /**
      * 查找是否有重复名称
@@ -83,7 +88,7 @@ define(["random", "sprintf"], function (random, sp) {
             }
         }
 
-        this.LastName = name;
+        lastName = name;
         return name;
     };
 
@@ -103,7 +108,7 @@ define(["random", "sprintf"], function (random, sp) {
             fl.trace(info0 + info1);
         }
 
-        this.LastName = name;
+        lastName = name;
         return name;
     };
 
