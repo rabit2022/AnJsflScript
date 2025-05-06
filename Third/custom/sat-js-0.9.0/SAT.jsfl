@@ -1046,9 +1046,37 @@
         return new Rectangle(left, top, right, bottom);
     }
 
+    /**
+     * 获取元素的中心点坐标
+     * @param {Element} element 元素
+     * @return {Vector} 点
+     */
+    function getSymbolCenter(element) {
+        var topLeft =getTopLeft(element);
+        var size = wrapSize(element);
+
+        var rect=wrapRectByTopLeft(topLeft, size);
+        return rect.getCenterVector();
+    }
+
+    /**
+     * 获取舞台中心点坐标
+     * @return {Vector} 点
+     */
+    function getStageCenter() {
+        var doc=fl.getDocumentDOM();
+
+        var rect = new Rectangle(doc);
+        var stageCenter = rect.getCenterVector();
+        return stageCenter;
+    }
+
     SAT_GLOBALS['wrapRectByTopLeft'] = wrapRectByTopLeft;
     SAT_GLOBALS['wrapRectByCenter'] = wrapRectByCenter;
     SAT_GLOBALS['findBoundingRectangle'] = findBoundingRectangle;
+
+    SAT_GLOBALS['getSymbolCenter'] = getSymbolCenter;
+    SAT_GLOBALS['getStageCenter'] = getStageCenter;
 
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______     __     ______     ______

@@ -6,20 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="2318bed7-153e-429d-a111-ac0e0c1e5ee6" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/custom/Context/Context.jsfl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/custom/Context/src/Context.js" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/Context/src/Context.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/custom/Context/src/doc/Dom.js" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/Context/src/doc/Dom.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/custom/Context/src/doc/Element.js" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/Context/src/doc/Element.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/custom/Context/src/doc/Frame.js" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/Context/src/doc/Frame.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/custom/Context/src/doc/Layer.js" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/Context/src/doc/Layer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/custom/Context/src/doc/Timeline.js" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/Context/src/doc/Timeline.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/custom/Context/src/doc/current.js" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/Context/src/doc/current.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/custom/Context/src/select/select.js" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/Context/src/select/select.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/jsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/01.角色/10.一键石化.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/01.角色/10.一键石化.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/flash/graphics/DrawCircle.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/flash/graphics/DrawCircle.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/flash/graphics/DrawRectangle.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/flash/graphics/DrawRectangle.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/custom/sat-js-0.9.0/SAT.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/sat-js-0.9.0/SAT.jsfl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/04.镜头/#07.独白黑幕.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/04.镜头/#07.独白黑幕.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/计划更新.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/计划更新.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/types/Third/sat-js-0.9.0/SAT.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/Third/sat-js-0.9.0/SAT.d.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,34 +40,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Node.js.01.瞬移-消失.jsfl.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Shell Script.ReRun.executor": "Run",
-    "Shell Script.打开test.executor": "Run",
-    "Shell Script.运行当前jsfl.executor": "Run",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "F:/04_ps/沙雕动画/_素材库/WindowSWF-master/WindowSWF-master/AnJsflScript/types/Third/Context",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.standard": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.standard": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.FirstRun.executor": "Run",
-    "npm.ReRun.executor": "Run",
-    "npm.format.executor": "Run",
-    "npm.open-test-file.executor": "Run",
-    "npm.run-current-file.executor": "Run",
-    "prettierjs.PrettierConfiguration.Package": "F:\\04_ps\\沙雕动画\\_素材库\\WindowSWF-master\\WindowSWF-master\\AnJsflScript\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "preferences.editor",
-    "ts.external.directory.path": "F:\\04_ps\\沙雕动画\\_素材库\\WindowSWF-master\\WindowSWF-master\\AnJsflScript\\Third\\custom\\Context\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Node.js.01.瞬移-消失.jsfl.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Shell Script.ReRun.executor&quot;: &quot;Run&quot;,
+    &quot;Shell Script.打开test.executor&quot;: &quot;Run&quot;,
+    &quot;Shell Script.运行当前jsfl.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/04_ps/沙雕动画/_素材库/WindowSWF-master/WindowSWF-master/AnJsflScript/types/Third/Context&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.FirstRun.executor&quot;: &quot;Run&quot;,
+    &quot;npm.ReRun.executor&quot;: &quot;Run&quot;,
+    &quot;npm.format.executor&quot;: &quot;Run&quot;,
+    &quot;npm.open-test-file.executor&quot;: &quot;Run&quot;,
+    &quot;npm.run-current-file.executor&quot;: &quot;Run&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;F:\\04_ps\\沙雕动画\\_素材库\\WindowSWF-master\\WindowSWF-master\\AnJsflScript\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\01_software\\06_programme\\01_ide\\WebStorm 2024.3.5\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\types\Third\Context" />
@@ -115,7 +106,10 @@
       <workItem from="1746008546243" duration="11361000" />
       <workItem from="1746073095107" duration="1187000" />
       <workItem from="1746090333988" duration="19301000" />
-      <workItem from="1746169533764" duration="6350000" />
+      <workItem from="1746169533764" duration="11808000" />
+      <workItem from="1746272861949" duration="297000" />
+      <workItem from="1746527600451" duration="2070000" />
+      <workItem from="1746529696707" duration="7203000" />
     </task>
     <servers />
   </component>
@@ -133,7 +127,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/Third/custom/Context/src/select/select.js</url>
           <line>27</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

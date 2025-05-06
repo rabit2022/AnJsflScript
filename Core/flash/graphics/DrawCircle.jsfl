@@ -8,7 +8,7 @@
  */
 
 define(["SAT"], function (SAT) {
-    const { Rectangle } = SAT;
+    const { Rectangle, Vector } = SAT;
     //
     // /**
     //  * 画圆，不要填充
@@ -60,15 +60,58 @@ define(["SAT"], function (SAT) {
 
     /**
      * 画圆，删除边线
-     * @param {Vector}centerPos 圆心位置
-     * @param {number}radius 半径
+     * @param {Vector} centerPos 圆心位置
+     * @param {number} radius 半径
+     * @param {Rectangle} circleRect 圆弧所在矩形
+     * @param {string} color 填充颜色
      * @return {Rectangle} 圆弧所在矩形
      */
-    function drawCircleWithoutLine(centerPos, radius) {
+    function drawCircleWithoutLine() {
         var doc = fl.getDocumentDOM(); //文档
+        var args = arguments;
 
-        var circleRect = new Rectangle(centerPos, radius);
-        // print('circleRect', circleRect.toString());
+        var circleRect = new Rectangle(),
+            color = "";
+
+        switch (args.length) {
+            case 1:
+                // circleRect
+                circleRect = args[0];
+                break;
+            case 2:
+                // centerPos, radius
+                if (args[0] instanceof Vector && typeof args[1] === "number") {
+                    var centerPos = args[0];
+                    var radius = args[1];
+                    circleRect = new Rectangle(centerPos, radius);
+                }
+                // circleRect, color
+                else if (args[0] instanceof Rectangle && typeof args[1] === "string") {
+                    circleRect = args[0];
+                    color = args[1];
+                } else {
+                    throw new Error("drawCircleWithoutLine() requires 1 or 2 arguments");
+                }
+                break;
+            case 3:
+                // centerPos, radius, color
+                if (
+                    args[0] instanceof Vector &&
+                    typeof args[1] === "number" &&
+                    args[2] instanceof String
+                ) {
+                    var centerPos = args[0];
+                    var radius = args[1];
+
+                    circleRect = new Rectangle(centerPos, radius);
+                    color = args[2];
+                } else {
+                    throw new Error("drawCircleWithoutLine() requires 1 or 2 arguments");
+                }
+            default:
+                throw new Error("drawCircleWithoutLine() requires 1 or 2 arguments");
+        }
+
         doc.addNewPrimitiveOval(circleRect.toObj(), false, true);
         // 选中圆形
         // bug: bContactSensitiveSelection接触感应选择模式。必须设置为true，否则可能无法选中圆形，导致后面的代码出错。
@@ -76,6 +119,9 @@ define(["SAT"], function (SAT) {
 
         // 分离到Shape
         doc.breakApart();
+
+        doc.setFillColor(color);
+
         return circleRect;
     }
 

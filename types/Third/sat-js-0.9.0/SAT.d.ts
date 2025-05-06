@@ -4,16 +4,16 @@
 
 /* eslint-disable*/
 type Corner =
-    | 'top right'
-    | 'top left'
-    | 'bottom right'
-    | 'bottom left'
-    | 'top center'
-    | 'right center'
-    | 'bottom center'
-    | 'left center'
-    | 'center';
-type Part = Corner | 'top' | 'right' | 'bottom' | 'left';
+    | "top right"
+    | "top left"
+    | "bottom right"
+    | "bottom left"
+    | "top center"
+    | "right center"
+    | "bottom center"
+    | "left center"
+    | "center";
+type Part = Corner | "top" | "right" | "bottom" | "left";
 
 interface VectorLike {
     x: number;
@@ -22,8 +22,8 @@ interface VectorLike {
 
 // declare module 'module.SAT' {
 export class Vector extends VectorLike {
-    // x: number;
-    // y: number;
+    x: number;
+    y: number;
 
     constructor(x?: number, y?: number);
 
@@ -110,10 +110,10 @@ interface RectangleLike {
 }
 
 export class Rectangle extends RectangleLike {
-    // left: number;
-    // top: number;
-    // right: number;
-    // bottom: number;
+    left: number;
+    top: number;
+    right: number;
+    bottom: number;
 
     readonly width: number;
     readonly height: number;
@@ -122,7 +122,7 @@ export class Rectangle extends RectangleLike {
     constructor(rect: Rectangle | RectangleLike);
     constructor(doc: Document);
     constructor(element: Element);
-    constructor(symbolItem: 'SymbolItem');
+    constructor(symbolItem: "SymbolItem");
     constructor(radius: number);
     constructor(elements: Element[]);
     constructor(width: number, height: number);
@@ -162,8 +162,8 @@ interface SizeLike {
 }
 
 export class Size extends SizeLike {
-    // width: number;
-    // height: number;
+    width: number;
+    height: number;
 
     readonly max_size: number;
     readonly min_size: number;
@@ -194,11 +194,11 @@ interface TransformLike {
 
 export class Transform extends TransformLike {
     element: Element;
-    // rotation: number;
-    // scale: Vector;
-    // position: Vector;
-    // size: Size;
-    // skew: Vector;
+    rotation: number;
+    scale: Vector;
+    position: Vector;
+    size: Size;
+    skew: Vector;
 
     constructor(element: any);
 
@@ -217,11 +217,17 @@ export class Transform extends TransformLike {
     static toString(): string;
 }
 
+interface RectangleLike {
+    layerIndex: number;
+    startFrame: number;
+    endFrame: number;
+}
+
 /**
  * 帧范围类
  * 左闭右开区间 [startFrame, endFrame)
  */
-export class FrameRange {
+export class FrameRange extends RectangleLike {
     layerIndex: number;
     startFrame: number;
     endFrame: number;
@@ -258,6 +264,16 @@ export namespace GLOBALS {
 
     export function getTopLeft(element: { left: number; top: number } | Element): Vector;
 
+    // getSymbolCenter
+    export function getSymbolCenter(element: {
+        left: number,
+        top: number,
+        width: number,
+        height: number
+    } | Element): Vector;
+    // getStageCenter
+    export function getStageCenter(): Vector;
+
     export function wrapRectByTopLeft(
         left: number,
         top: number,
@@ -280,7 +296,7 @@ export namespace GLOBALS {
         size: Size
     ): Rectangle;
 
-    export function wrapSize(element: Element): Size;
+    export function wrapSize(element: Element | Document): Size;
 
     export function wrapTransform(element: Element): Transform;
 
@@ -291,5 +307,5 @@ export namespace GLOBALS {
 export { Vector as V };
 export { Rectangle as R };
 export { Size as S };
-// export { Transform as T }; // 与泛型冲突
+export { Transform as Tr }; // 与泛型冲突
 export { FrameRange as FR };
