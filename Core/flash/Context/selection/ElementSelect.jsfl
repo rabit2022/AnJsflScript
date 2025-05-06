@@ -48,6 +48,21 @@ define(["ElementQuery"], function (eq) {
         }
     }
 
+    /**
+     * 反选所有元件
+     * @param {Element[]} [elements] 没有参数时，反选所有元件；有参数时，反选参数中的所有元件
+     */
+    function InvertSelection(elements) {
+        var doc = fl.getDocumentDOM(); // 获取当前文档
+
+        // 遍历所有元件，进行反选操作
+        for (var i = 0; i < elements.length; i++) {
+            var element = elements[i];
+            // 如果当前元件被选中，则取消选中；否则选中
+            element.selected = !element.selected;
+        }
+    }
+
     function SelectNone() {
         var doc = fl.getDocumentDOM();
         doc.selectNone();
@@ -122,6 +137,7 @@ define(["ElementQuery"], function (eq) {
         SelectNone: SelectNone,
         SelectBefore: SelectBefore,
         SelectSameName: SelectSameName,
-        DeleteSelection: DeleteSelection
+        DeleteSelection: DeleteSelection,
+        InvertSelection: InvertSelection
     };
 });

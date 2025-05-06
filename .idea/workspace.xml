@@ -6,11 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="2318bed7-153e-429d-a111-ac0e0c1e5ee6" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/flash/Context/selection/ElementSelect.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/flash/Context/selection/ElementSelect.jsfl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/flash/graphics/DrawCircle.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/flash/graphics/DrawCircle.jsfl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/flash/graphics/DrawRectangle.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/flash/graphics/DrawRectangle.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/custom/sat-js-0.9.0/SAT.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/sat-js-0.9.0/SAT.jsfl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/04.镜头/#07.独白黑幕.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/04.镜头/#07.独白黑幕.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/types/Third/sat-js-0.9.0/SAT.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/Third/sat-js-0.9.0/SAT.d.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +108,7 @@
       <workItem from="1746169533764" duration="11808000" />
       <workItem from="1746272861949" duration="297000" />
       <workItem from="1746527600451" duration="2070000" />
-      <workItem from="1746529696707" duration="7203000" />
+      <workItem from="1746529696707" duration="11805000" />
     </task>
     <servers />
   </component>

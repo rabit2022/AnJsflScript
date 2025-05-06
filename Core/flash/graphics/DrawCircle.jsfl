@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(["SAT"], function (SAT) {
+define(["SAT"], function(SAT) {
     const { Rectangle, Vector } = SAT;
     //
     // /**
@@ -108,14 +108,20 @@ define(["SAT"], function (SAT) {
                 } else {
                     throw new Error("drawCircleWithoutLine() requires 1 or 2 arguments");
                 }
+            // eslint-disable-next-line no-fallthrough
             default:
                 throw new Error("drawCircleWithoutLine() requires 1 or 2 arguments");
         }
 
+        if (color === "") color = "#000000";
+
         doc.addNewPrimitiveOval(circleRect.toObj(), false, true);
         // 选中圆形
         // bug: bContactSensitiveSelection接触感应选择模式。必须设置为true，否则可能无法选中圆形，导致后面的代码出错。
-        doc.setSelectionRect(circleRect.toObj(), true, true);
+        // doc.setSelectionRect(circleRect.toObj(), true, true);
+
+        doc.mouseClick(circleRect.getCenterVector().toObj(), false, false);
+
 
         // 分离到Shape
         doc.breakApart();

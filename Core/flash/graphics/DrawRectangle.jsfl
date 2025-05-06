@@ -23,6 +23,8 @@ define(function () {
         // const rect = wrapRectByTopLeft(topLeft, size);
         doc.addNewRectangle(rect.toObj(), 0, false, true);
 
+        doc.mouseClick(rect.getCenterVector().toObj(), false, false);
+
         doc.setFillColor(color);
 
         return rect;

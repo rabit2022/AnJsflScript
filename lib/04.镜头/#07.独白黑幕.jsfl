@@ -32,8 +32,9 @@ require([
     "SAT",
     "ElementSelect",
     "SymbolNameGenerator",
-    "DrawRectangle"
-], function (checkUtil, log, Context, kfo, dc, SAT, es, sng, dr) {
+    "DrawRectangle", "ElementChecker", "ElementQuery", "FilterOperation"
+], function(checkUtil, log, Context, kfo, dc, SAT, es, sng, dr, ec,
+            eq, fo) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { convertToKeyframesSafety } = kfo;
     const { drawCircleWithoutLine } = dc;
@@ -49,8 +50,11 @@ require([
         wrapPosition
     } = SAT.GLOBALS;
 
-    const { SelectAll, SelectNone } = es;
+    const { SelectAll, SelectNone, InvertSelection } = es;
     const { generateNameUntilUnique, generateNameUseLast } = sng;
+    const { IsShape } = ec;
+    const { getName } = eq;
+    const { addBlurFilterToFrame } = fo;
 
     // region doc
     // var doc = fl.getDocumentDOM(); //文档
@@ -146,6 +150,13 @@ require([
         return peopleBounds;
     }
 
+    function subtractArrays(A, B) {
+        // 使用 filter 方法过滤掉 A 中存在于 B 的元素
+        return A.filter(function(item) {
+            return !B.includes(item);
+        });
+    }
+
     function Main() {
         // 检查选择的元件
         if (!CheckSelection(selection, "selectElement", "No limit")) return;
@@ -155,53 +166,82 @@ require([
         var elementPos = getSymbolCenter(firstElement);
         log.info("elementPos", elementPos);
 
-        //
-        // // 1. 新建图层, 并插入关键帧
-        // timeline.addNewLayer("独白黑幕", "normal", true);
-        //
-        // log.info("firstSlFrameIndex", firstSlFrameIndex);
-        //
-        // convertToKeyframesSafety(timeline, firstSlFrameIndex);
-        //
-        // // 2. 转为元件
-        // // 技巧：在左上角 画 一个 20*20的圆形，然后可以将其转为元件，中心在舞台的左上角，相当于确定舞台位置。   相当于把一个空屏转为元件。
-        // // 编辑模式中,删除辅助的圆形
-        // drawCircleWithoutLine(getOrigin(), 20);
-        //
-        // var symbolName = generateNameUntilUnique("独白黑幕_");
-        // doc.convertToSymbol("graphic", symbolName, "center");
-        //
-        //
-        // doc.enterEditMode("inPlace");
-        //
-        // SelectAll();
-        //
-        // doc.deleteSelection();
-        //
-        // doc.exitEditMode();
-        //
-        // // 3. 编辑模式
-        // doc.enterEditMode("inPlace");
 
-        // SelectNone();
-        // // 画黑色的矩形
-        // var blackRect = getBlackRect();
-        // log.info("blackRect", blackRect);
-        // drawRectangleWithoutLine(blackRect, "#000000");
+        // 1. 新建图层, 并插入关键帧
 
-        // SelectNone();
-        // // 中间的部分，删除一个椭圆，代表人物的轮廓。
+        timeline.addNewLayer("独白黑幕", "normal", true);
+
+        log.info("firstSlFrameIndex", firstSlFrameIndex);
+
+        convertToKeyframesSafety(timeline, firstSlFrameIndex);
+
+        // 2. 转为元件
+        // 技巧：在左上角 画 一个 20*20的圆形，然后可以将其转为元件，中心在舞台的左上角，相当于确定舞台位置。   相当于把一个空屏转为元件。
+        // 编辑模式中,删除辅助的圆形
+        drawCircleWithoutLine(getOrigin(), 20);
+
+        var symbolName = generateNameUntilUnique("独白黑幕_");
+        doc.convertToSymbol("graphic", symbolName, "center");
+
+
+        doc.enterEditMode("inPlace");
+
+        SelectAll();
+
+        doc.deleteSelection();
+
+        doc.exitEditMode();
+
+        // 3. 编辑模式
+        doc.enterEditMode("inPlace");
+
+        SelectNone();
+        // 画黑色的矩形
+        var blackRect = getBlackRect();
+        log.info("blackRect", blackRect);
+        blackRect = drawRectangleWithoutLine(blackRect, "#000000");
+
+        // 中间的部分，删除一个椭圆，代表人物的轮廓。
         var peopleBounds = getPeopleBounds(firstElement);
         log.info("peopleBounds", peopleBounds);
         drawCircleWithoutLine(peopleBounds, "#CCCCCC");
 
+        doc.deleteSelection();
+
         // 移动到人物的位置
+        const stageCenter = getStageCenter();
+        var offset = elementPos.sub(stageCenter);
+        log.info("stageCenter", stageCenter);
+
+        // doc.setSelectionRect(blackRect.toObj(), true, true);
+        // 选中不是形状的元素。
+        SelectAll();
+        var allElements = doc.selection;
+        var shapeElements = allElements.filter(function(element) {
+            return IsShape(element) === false;
+        });
+
+        InvertSelection(shapeElements);
+
+        log.info("selection", selection, selection.length);
+
+        doc.moveSelectionBy(offset.toObj());
+
+        // 模糊滤镜 60,60,中
+        context.update();
+        addBlurFilterToFrame(context.curLayer, 0, 60, 60, "medium");
+
+        doc.exitEditMode();
 
         // 色彩效果-Alpha  = 0.7
+        // 注意：必须在 元件 ，使用 才会生效。
+        doc.setInstanceAlpha(70);
 
         // 4. 转为位图
+        doc.convertSelectionToBitmap();
 
         // 5. 删除所有辅助线
+        
     }
 
     Main();
