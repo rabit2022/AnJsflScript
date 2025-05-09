@@ -24,7 +24,7 @@ def get_relative_path_tuple(base_path: Path, absolute_path: Path) -> Tuple:
     return tuple(relative_path.parts)
 
 
-def is_valid_extension(file_path: Path, extensions: Optional[PATH_LIST] = None) -> bool:
+def is_include_extension(file_path: Path, extensions: Optional[PATH_LIST] = None) -> bool:
     """
     检查文件扩展名是否有效。
 
@@ -44,6 +44,17 @@ def is_excluded_extension(file_path: Path, exclude_extensions: Optional[PATH_LIS
     :return: 是否被排除
     """
     return exclude_extensions is not None and file_path.suffix in exclude_extensions
+
+
+def is_exclude_folders(folder_path: Path, exclude_folders: Optional[PATH_LIST] = None) -> bool:
+    # 排除文件夹列表
+    for exclude_folder in exclude_folders:
+        if exclude_folder in str(folder_path):
+            # print(folder_path, exclude_folder,True)
+            return True
+
+        # print(folder_path, exclude_folder,False)
+
 
 
 def easy_create_file(file_path: PATH, file_content: str = ""):
@@ -113,7 +124,7 @@ class FolderTraverser:
                 if file_path.is_file():
                     # 扩展名
                     if is_excluded_extension(file_path, self.exclude_extensions) or \
-                            not is_valid_extension(file_path, self.include_extensions):
+                            not is_include_extension(file_path, self.include_extensions):
                         continue
 
                     if self.include_folders is not None:
@@ -127,9 +138,8 @@ class FolderTraverser:
                         file_paths.append(full_path)
                 elif file_path.is_dir():
                     # 排除文件夹列表
-                    for exclude_folder in self.exclude_folders:
-                        if exclude_folder in str(current_path):
-                            return
+                    if is_exclude_folders(file_path, self.exclude_folders):
+                        continue
 
                     self.traverse_folder(file_path, file_paths)
             except OSError as e:

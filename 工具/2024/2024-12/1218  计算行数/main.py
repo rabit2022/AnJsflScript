@@ -14,29 +14,18 @@ from my_base.folder_traverser import FolderTraverser
 
 folderPath = r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript"
 extensions = [".jsfl"]
-exclude_folders = [r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\node_modules",
-                   r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third",
-                   r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\例子",
-                   r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\文档",
-                   r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test",
-                   r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\types",
-                   r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib\21.工具",
-                   r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib\00.智能循环✔️",
-                   # r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Core\Third"
-
-                   ]
-plist = FolderTraverser(folderPath, extensions, exclude_folders).FilePaths
-
-
-# toAddFile = [
-#     r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Core\Third\sat-js-0.9.0\SAT.jsfl",
-#     r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Core\Third\xjsfl\console.jsfl"
-#
-# ]
-
+exclude_folders = [
+    "Third",
+    "test", "dp", "例子", "文档", "node_modules", r"lib\21.工具", r"lib\00.智能循环✔️", "types"
+]
+plist = FolderTraverser(folderPath, include_extensions=extensions, exclude_folders=exclude_folders).FilePaths
 
 # print(len(plist))
+
+
 # print(plist)
+# for p in plist:
+#     print(p)
 
 
 def process(contents: list[str]) -> list[str]:
@@ -82,9 +71,8 @@ print("- **字符数量**:", total)
 
 folderPath = r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript"
 extensions = [".jsfl"]
-exclude_folders = exclude_folders + [r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Core",
-                                     ]
-plist = FolderTraverser(folderPath, extensions, exclude_folders).FilePaths
+exclude_folders = exclude_folders + ["Core",]
+plist = FolderTraverser(folderPath, include_extensions=extensions, exclude_folders=exclude_folders).FilePaths
 
 # print(plist)
 # for l in plist:

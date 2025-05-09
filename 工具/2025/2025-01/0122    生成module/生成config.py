@@ -19,6 +19,7 @@ original_string = """
 
 
 
+
 "BitmapOperation":"Core/flash/Bitmap/BitmapOperation",
 "checkUtil":"Core/flash/checkUtil",
 "ElementAnim":"Core/flash/Context/Element/ElementAnim",
@@ -34,6 +35,7 @@ original_string = """
 "LayerHierarchy":"Core/flash/Context/Layer/LayerHierarchy",
 "LayerOperation":"Core/flash/Context/Layer/LayerOperation",
 "LayerQuery":"Core/flash/Context/Layer/LayerQuery",
+"LayerQueryEnhance":"Core/flash/Context/Layer/LayerQueryEnhance",
 "LibraryOperation":"Core/flash/Context/library/LibraryOperation",
 "ElementSelect":"Core/flash/Context/selection/ElementSelect",
 "FramesSelect":"Core/flash/Context/selection/FramesSelect",
@@ -42,7 +44,8 @@ original_string = """
 "FilterQuery":"Core/flash/filter/FilterQuery",
 "FolderChecker":"Core/flash/Folder/FolderChecker",
 "FolderQuery":"Core/flash/Folder/FolderQuery",
-"graphicsUtil":"Core/flash/graphics/graphicsUtil",
+"DrawCircle":"Core/flash/graphics/DrawCircle",
+"DrawRectangle":"Core/flash/graphics/DrawRectangle",
 "promptUtil":"Core/flash/panel/promptUtil",
 "xmlPanelUtil":"Core/flash/panel/xmlPanelUtil",
 "MoreElement":"Core/flash/Symbol/MoreElement",
@@ -58,7 +61,6 @@ original_string = """
 "StringP":"Core/py/string/StringP",
 "KeyFrameMode":"Core/Utils/KeyFrameMode",
 "Tips":"Core/Utils/Tips",
-
 
 
 
