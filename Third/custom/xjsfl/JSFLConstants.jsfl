@@ -475,6 +475,10 @@ define(function () {
                 FPMonth: 30 * 60 * 60 * 24 * 30, // 每月帧数（Frames Per Month，假设每月30天）
                 FPY: 30 * 60 * 60 * 24 * 365 // 每年帧数（Frames Per Year）
             },
+            /**
+             * 为了方便使用，定义了一些常用的帧列表
+             * 更多的是为了兼容以前的代码
+             */
             frameList: {
                 FRAME_1: 1 - 1,
                 FRAME_2: 2 - 1,

@@ -9,6 +9,7 @@
 
 (function () {
     var PROPERTY = window;
+    // var PROPERTY = XML;
     // var PROPERTY = document;
     function Main() {
         fl.trace("All properties:[" + PROPERTY + "]");
