@@ -143,6 +143,7 @@ git clone https://github.com/rabit2022/AnJsflScript.git
 ## 6. 参考项目
 
 [//]: # ([![CoreJS]&#40;https://img.shields.io/badge/CoreJS-v3.41.0-ff9800&#41;]&#40;https://github.com/zloirock/core-js&#41;)
+[//]: # ([![jquery]&#40;https://img.shields.io/badge/jquery-v3.7.1-2196f3&#41;]&#40;https://github.com/jquery/jquery&#41;)
 
 [![Class.js](https://img.shields.io/badge/Class.js-v0.0.1-4caf50)](https://github.com/DominikGuzei/Class.js)
 
@@ -173,7 +174,6 @@ git clone https://github.com/rabit2022/AnJsflScript.git
 [![Lodash](https://img.shields.io/badge/Lodash-v4.17.21-2196f3)](https://github.com/lodash/lodash)
 [![sprintf-js](https://img.shields.io/badge/sprintf.js-v1.1.3-green)](https://github.com/alexei/sprintf.js)
 
-[![jquery](https://img.shields.io/badge/jquery-v3.7.1-2196f3)](https://github.com/jquery/jquery)
 [![xmldom](https://img.shields.io/badge/xmldom-v0.6.0-2196f3)](https://github.com/xmldom/xmldom)
 [![fast-XML-parser](https://img.shields.io/badge/fast--xml--parser-v4.0.1-ff9800)](https://github.com/NaturalIntelligence/fast-xml-parser)
 [![xpath](https://img.shields.io/badge/xpath-v0.0.10-2196f3)](https://github.com/goto100/xpath.git)
@@ -196,8 +196,8 @@ git clone https://github.com/rabit2022/AnJsflScript.git
 
 ## 8. 项目规模
 
-- **代码行数**: 8826
-- **字符数量**: 221285
+- **代码行数**: 9015
+- **字符数量**: 225836
 - **脚本数量**: 76
 - **第三方库数量**：28
 - **界面访问量**：

@@ -1,7 +1,0 @@
-<dialog id="sample" title="AnJsflScript" buttons="accept">
-	<flash class="control" id="flash" src="swf/splash.swf" width="320" height="280" />
-	<spacer />
-	<label width="310" value="卸载完成。" />
-	<spacer />
-	<label width="310" value="感谢您使用 AnJsflScript。如果您有任何反馈或建议，请@我。\n 作者:@穹的兔兔" />
-</dialog>

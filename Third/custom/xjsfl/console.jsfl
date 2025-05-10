@@ -304,18 +304,24 @@ define(function() {
 
             trace("\n⚡admin  LOG  ❯❯ " + message + "\n");
             writeToLog(message + "\n", Log.LOG, 3);
-        }, info: function() {
+        },
+
+        info: function() {
             var message = formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
 
             trace("\n⚡admin  INFO  ❯❯ " + message + "\n");
             writeToLog(message + "\n", Log.INFO, 3);
-        }, warn: function() {
+        },
+
+        warn: function() {
             var message = formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
 
             trace("\n⚡admin  WARNING  ❯❯ " + message + "\n");
             alert("WARNING  ❯❯ " + message + "\n");
             writeToLog(message + "\n", Log.WARN, 3);
-        }, error: function() {
+        },
+
+        error: function() {
             var message = formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
 
             trace("\n⚡admin  ERROR  ❯❯ " + message + "\n");
@@ -413,7 +419,8 @@ define(function() {
             timers[label] = Date.now();
             // console.log(`Timer "${label}" started.`);
             this.info("Timer \"%s\" started.", label);
-        }, timeEnd: function(label) {
+        },
+        timeEnd: function(label) {
             if (label === undefined) label = "default";
             if (!timers[label]) {
                 // console.warn(`Timer "${label}" does not exist.`);
@@ -425,7 +432,8 @@ define(function() {
             delete timers[label];
             // console.log(`Timer "${label}": ${duration}ms`);
             this.info("Timer \"%s\": %sms", label, duration);
-        }, count: function(label) {
+        },
+        count: function(label) {
             if (label === undefined) label = "default";
             if (!counters[label]) {
                 counters[label] = 0;
@@ -433,7 +441,8 @@ define(function() {
             counters[label]++;
             // console.log(`"${label}" was called ${counters[label]} times.`);
             this.info("\"%s\" was called %s times.", label, counters[label]);
-        }, countReset: function(label) {
+        },
+        countReset: function(label) {
             if (label === undefined) label = "default";
             if (!counters[label]) {
                 // console.warn(`Counter "${label}" does not exist.`);
@@ -443,7 +452,8 @@ define(function() {
             delete counters[label];
             // console.log(`Counter "${label}" has been reset.`);
             this.info("Counter \"%s\" has been reset.", label);
-        }, assert: function(expression, message) {
+        },
+        assert: function(expression, message) {
             if (!expression) {
                 throw new Error(message || "Assertion failed");
             }

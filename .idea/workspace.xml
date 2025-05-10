@@ -7,17 +7,13 @@
     <list default="true" id="2318bed7-153e-429d-a111-ac0e0c1e5ee6" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Third/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Third/custom/xjsfl/console.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/xjsfl/console.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/custom/xul/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/xul/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/modules/text-2.0.16/text.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/modules/text-2.0.16/text.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/xml/fast-xml-parser-5.0.9/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Third/xml/fast-xml-parser-5.0.9/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/xml/xmldom-0.6.0/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Third/xml/xmldom-0.6.0/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/xml/xpath-0.0.34/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Third/xml/xpath-0.0.34/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/xul/controls.xul" beforeDir="false" afterPath="$PROJECT_DIR$/config/xul/controls.xul" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/02.头部/01.虾仁摇头.xml" beforeDir="false" afterPath="$PROJECT_DIR$/lib/02.头部/01.虾仁摇头.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/02.头部/08.丝滑摇头.xml" beforeDir="false" afterPath="$PROJECT_DIR$/lib/02.头部/08.丝滑摇头.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/06.图层✔️/12.批量错开层.xml" beforeDir="false" afterPath="$PROJECT_DIR$/lib/06.图层✔️/12.批量错开层.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/custom/xjsfl/ui/XML.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/xjsfl/ui/XML.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/custom/xul/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/dp/xul/LICENSE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/custom/xul/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/dp/xul/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/custom/xul/XUL.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/dp/xul/XUL.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/custom/xul/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/dp/xul/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/计划更新.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/计划更新.xlsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,15 +47,18 @@
   &quot;keyToString&quot;: {
     &quot;Node.js.01.瞬移-消失.jsfl.executor&quot;: &quot;Run&quot;,
     &quot;Node.js.02.xml测试.jsfl.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.XML.jsfl.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.XML2.jsfl.executor&quot;: &quot;Run&quot;,
     &quot;Node.js.dd.js.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.test.jsx.executor&quot;: &quot;Run&quot;,
     &quot;Node.js.xml(1).jsfl.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;Shell Script.ReRun.executor&quot;: &quot;Run&quot;,
     &quot;Shell Script.打开test.executor&quot;: &quot;Run&quot;,
     &quot;Shell Script.运行当前jsfl.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/04_ps/沙雕动画/_素材库/WindowSWF-master/WindowSWF-master/AnJsflScript/test&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/04_ps/沙雕动画/_素材库/WindowSWF-master/WindowSWF-master/AnJsflScript/Third/custom/XUL2&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -80,24 +79,36 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\custom\XUL2" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\types\XML" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\types\Third\Context" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\custom\XUL2" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\dp" />
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\02.随机" />
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\custom\xjsfl\ui" />
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\custom\XUL2" />
     </key>
   </component>
-  <component name="RunManager" selected="Shell Script.ReRun">
+  <component name="RunManager" selected="Shell Script.运行当前jsfl">
+    <configuration name="test.jsx" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/test/02.随机/test.jsx" working-dir="$PROJECT_DIR$/test">
+      <method v="2" />
+    </configuration>
     <list>
+      <item itemvalue="Node.js.test.jsx" />
       <item itemvalue="npm.format" />
       <item itemvalue="Shell Script.FirstRun" />
       <item itemvalue="Shell Script.ReRun" />
       <item itemvalue="Shell Script.运行当前jsfl" />
       <item itemvalue="Shell Script.打开test" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.test.jsx" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -126,6 +137,8 @@
       <workItem from="1746766688261" duration="15637000" />
       <workItem from="1746879107639" duration="2544000" />
       <workItem from="1746882311364" duration="107000" />
+      <workItem from="1746883300287" duration="11902000" />
+      <workItem from="1746895319838" duration="441000" />
     </task>
     <servers />
   </component>
