@@ -23,10 +23,10 @@ const dialog = new XUL('我的对话框')
     .addColorchip('颜色', 'color', {color: '#ff0000'})
     .addPopupSlider('年龄', 'age', {value: 25, minvalue: 18, maxvalue: 99});
 
-console.log(dialog.xml);
+console.log(dialog.XML);
 ```
 
-```xml
+```XML
 
 <dialog id="dialog" title="我的对话框" buttons="accept,cancel">
     <content>
@@ -76,10 +76,10 @@ const dialog = new XUL('我的对话框')
         fl.trace("focus");
     });
 
-console.log(dialog.xml);
+console.log(dialog.XML);
 ```
 
-```xml
+```XML
 
 <dialog id="dialog" title="我的对话框" buttons="accept,cancel">
     <content>

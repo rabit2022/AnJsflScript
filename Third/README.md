@@ -9,14 +9,14 @@ flash 环境下，许多第三方库的功能都与预期不符,可能会有额�
 ```javascript
 require(['jquery','xmldom'], function ($,{DOMParser, XMLSerializer}) {
 
-const xml = '<root><radiogroup id="headDirection" orient="horizontal"><hbox></hbox></radiogroup></root>';
+const XML = '<root><radiogroup id="headDirection" orient="horizontal"><hbox></hbox></radiogroup></root>';
 
 // 解析 XML 字符串
-var xmlDoc = $.parseXML(xml); // 解析 XML 字符串
-var $xml = $(xmlDoc); // 将解析后的 XML 文档转换为 jQuery 对象
+var xmlDoc = $.parseXML(XML); // 解析 XML 字符串
+var $XML = $(xmlDoc); // 将解析后的 XML 文档转换为 jQuery 对象
 
 // 获取所有 <radiogroup> 节点
-var $radiogroups = $xml.find('radiogroup');
+var $radiogroups = $XML.find('radiogroup');
 console.log($radiogroups.length); // 输出 <radiogroup> 节点的数量
 
 // 获取 <hbox> 节点
@@ -42,7 +42,7 @@ $($radiogroups[0]).append($hbox);
 
 // 将整个容器转换为 XML 字符串
 var serializer = new XMLSerializer();
-var xmlString = serializer.serializeToString($xml[0]);
+var xmlString = serializer.serializeToString($XML[0]);
 
 // 输出最终的 XML 字符串
 console.log(xmlString);

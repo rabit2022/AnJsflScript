@@ -175,7 +175,7 @@ git clone https://github.com/rabit2022/AnJsflScript.git
 
 [![jquery](https://img.shields.io/badge/jquery-v3.7.1-2196f3)](https://github.com/jquery/jquery)
 [![xmldom](https://img.shields.io/badge/xmldom-v0.6.0-2196f3)](https://github.com/xmldom/xmldom)
-[![fast-xml-parser](https://img.shields.io/badge/fast--xml--parser-v4.0.1-ff9800)](https://github.com/NaturalIntelligence/fast-xml-parser)
+[![fast-XML-parser](https://img.shields.io/badge/fast--xml--parser-v4.0.1-ff9800)](https://github.com/NaturalIntelligence/fast-xml-parser)
 [![xpath](https://img.shields.io/badge/xpath-v0.0.10-2196f3)](https://github.com/goto100/xpath.git)
 
 [![WindowSWF](https://img.shields.io/badge/WindowSWF-Gitee-4caf50)](https://gitee.com/ninge/WindowSWF/tree/master/)

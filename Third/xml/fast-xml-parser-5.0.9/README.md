@@ -1,4 +1,4 @@
-# [fast-xml-parser](https://www.npmjs.com/package/fast-xml-parser)
+# [fast-XML-parser](https://www.npmjs.com/package/fast-xml-parser)
 
 [![NPM total downloads](https://img.shields.io/npm/dt/fast-xml-parser.svg)](https://npm.im/fast-xml-parser)
 
@@ -6,7 +6,7 @@ Validate XML, Parse XML to JS Object, or Build XML from JS Object without C/C++ 
 
 <img align="right" src="static/img/fxp_logo.png" width="180px" alt="FXP logo"/>
 
-* Validate XML data syntactically. Use [detailed-xml-validator](https://github.com/NaturalIntelligence/detailed-xml-validator/) to verify business rules.
+* Validate XML data syntactically. Use [detailed-XML-validator](https://github.com/NaturalIntelligence/detailed-xml-validator/) to verify business rules.
 * Parse XML to JS Objectand vice versa
 * Common JS, ESM, and browser compatible
 * Faster than any other pure JS implementation.
@@ -97,12 +97,12 @@ Through OpenCollective
 ## How to use
 
 To use as package dependency
-`$ npm install fast-xml-parser` 
+`$ npm install fast-XML-parser` 
 or 
-`$ yarn add fast-xml-parser`
+`$ yarn add fast-XML-parser`
 
 To use as system command
-`$ npm install fast-xml-parser -g` 
+`$ npm install fast-XML-parser -g` 
 
 To use it on a **webpage** include it from a [CDN](https://cdnjs.com/libraries/fast-xml-parser)
 
@@ -110,13 +110,13 @@ To use it on a **webpage** include it from a [CDN](https://cdnjs.com/libraries/f
 
 As CLI command
 ```bash
-$ fxparser some.xml
+$ fxparser some.XML
 ```
 
 In a node js project
 
 ```js
-const { XMLParser, XMLBuilder, XMLValidator } = require("Third/xml/fast-xml-parser-5.0.9/fast-xml-parser.jsfl");
+const { XMLParser, XMLBuilder, XMLValidator } = require("Third/XML/fast-XML-parser-5.0.9/fast-XML-parser.jsfl");
 
 const parser = new XMLParser();
 let jObj = parser.parse(XMLdata);
@@ -196,10 +196,10 @@ Bundle size
 
 ## Usage Trend
 
-[Usage Trend of fast-xml-parser](https://npm-compare.com/fast-xml-parser#timeRange=THREE_YEARS)
+[Usage Trend of fast-XML-parser](https://npm-compare.com/fast-xml-parser#timeRange=THREE_YEARS)
   
 <a href="https://npm-compare.com/fast-xml-parser#timeRange=THREE_YEARS" target="_blank">
-  <img src="https://npm-compare.com/img/npm-trend/THREE_YEARS/fast-xml-parser.png" width="50%" alt="NPM Usage Trend of fast-xml-parser" />
+  <img src="https://npm-compare.com/img/npm-trend/THREE_YEARS/fast-xml-parser.png" width="50%" alt="NPM Usage Trend of fast-XML-parser" />
 </a>
 
 # Supporters
@@ -207,14 +207,14 @@ Bundle size
 
 This project exists thanks to [all](graphs/contributors) the people who contribute. [[Contribute](docs/CONTRIBUTING.md)].
 
-<a href="graphs/contributors"><img src="https://opencollective.com/fast-xml-parser/contributors.svg?width=890&button=false" /></a>
+<a href="graphs/contributors"><img src="https://opencollective.com/fast-XML-parser/contributors.svg?width=890&button=false" /></a>
 
 
 #### Backers from Open collective
 
 Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/fast-xml-parser#backer)]
 
-<a href="https://opencollective.com/fast-xml-parser#backers" target="_blank"><img src="https://opencollective.com/fast-xml-parser/backers.svg?width=890"></a>
+<a href="https://opencollective.com/fast-XML-parser#backers" target="_blank"><img src="https://opencollective.com/fast-XML-parser/backers.svg?width=890"></a>
 
 
 
