@@ -14,7 +14,7 @@ define(function (require, exports, module) {
 
     var text, fs, Cc, Ci, xpcIsWindows,
         progIds = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.4.0'],
-        xmlRegExp = /^\s*<\?xml(\s)+version=[\'\"](\d)*.(\d)*[\'\"](\s)*\?>/im,
+        xmlRegExp = /^\s*<\?XML(\s)+version=[\'\"](\d)*.(\d)*[\'\"](\s)*\?>/im,
         bodyRegExp = /<body[^>]*>\s*([\s\S]+)\s*<\/body>/im,
         hasLocation = typeof location !== 'undefined' && location.href,
         defaultProtocol = hasLocation && location.protocol && location.protocol.replace(/\:/, ''),
@@ -45,7 +45,7 @@ define(function (require, exports, module) {
         version: '2.0.16',
 
         strip: function (content) {
-            //Strips <?xml ...?> declarations so that external SVG and XML
+            //Strips <?XML ...?> declarations so that external SVG and XML
             //documents can be added to a document without worry. Also, if the string
             //is an HTML document, only the part inside the body tag is returned.
             if (content) {
@@ -176,7 +176,7 @@ define(function (require, exports, module) {
             //The strip part is optional.
             //if strip is present, then that means only get the string contents
             //inside a body tag in an HTML string. For XML/SVG content it means
-            //removing the <?xml ...?> declarations so the content can be inserted
+            //removing the <?XML ...?> declarations so the content can be inserted
             //into the current doc without problems.
 
             // Do not bother with the work if a build and text will

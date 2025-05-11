@@ -23,7 +23,12 @@ require.config({
         satUtil: "Third/custom/utils/satUtil",
         console: "Third/custom/xjsfl/console",
         JSFLConstants: "Third/custom/xjsfl/JSFLConstants",
-        XUL: "Third/custom/xul/XUL",
+        Utils: "Third/custom/xjsfl/ui/Utils",
+        XML: "Third/custom/xjsfl/ui/XML",
+        XUL: "Third/custom/xjsfl/ui/XUL",
+        XULControl: "Third/custom/xjsfl/ui/XULControl",
+        XULEvent: "Third/custom/xjsfl/ui/XULEvent",
+        // XUL: "Third/custom/xul/XUL",
         eventemitter3: "Third/event/eventemitter3-5.0.1/eventemitter3",
         rxjs: "Third/event/rxjs-7.8.2/rxjs.umd",
         "circular-json": "Third/json/circular-json-0.5.9/circular-json.amd",
@@ -46,9 +51,10 @@ require.config({
         lodash: "Third/utils/lodash-4.17.21/lodash",
         sprintf: "Third/utils/sprintf-js-1.1.3/sprintf",
         "fast-xml-parser": "Third/xml/fast-xml-parser-5.0.9/fast-xml-parser",
-        jquery: "Third/xml/jquery-3.7.1/jquery.slim",
         xmldom: "Third/xml/xmldom-0.6.0/xmldom",
         xpath: "Third/xml/xpath-0.0.34/xpath",
+        // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\custom\xjsfl\ui\xjsfl.jsfl
+        xjsfl: "Third/custom/xjsfl/ui/xjsfl",
 
         // 自定义模块
         BitmapOperation: "Core/flash/Bitmap/BitmapOperation",

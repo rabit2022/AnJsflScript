@@ -6,13 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="2318bed7-153e-429d-a111-ac0e0c1e5ee6" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/custom/xjsfl/JSFLConstants.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/xjsfl/JSFLConstants.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/ui/about.xul" beforeDir="false" afterPath="$PROJECT_DIR$/dp/ui/about.xul" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/ui/config.xul" beforeDir="false" afterPath="$PROJECT_DIR$/dp/ui/config.xul" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/ui/install.xul" beforeDir="false" afterPath="$PROJECT_DIR$/dp/ui/install.xul" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/ui/uninstall.xul" beforeDir="false" afterPath="$PROJECT_DIR$/dp/ui/uninstall.xul" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/21.工具/03.js相关/00.查看全局变量.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/21.工具/03.js相关/00.查看全局变量.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/custom/xjsfl/ui/Utils.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/xjsfl/ui/Utils.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/custom/xjsfl/ui/XUL.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/xjsfl/ui/XUL.jsfl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +17,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="JSFL Command" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -46,14 +41,19 @@
   "keyToString": {
     "Node.js.01.瞬移-消失.jsfl.executor": "Run",
     "Node.js.02.xml测试.jsfl.executor": "Run",
+    "Node.js.XML.jsfl.executor": "Run",
+    "Node.js.XML2.jsfl.executor": "Run",
     "Node.js.dd.js.executor": "Run",
+    "Node.js.test.jsx.executor": "Run",
+    "Node.js.ttt.js.executor": "Run",
+    "Node.js.xml(1).jsfl.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "Shell Script.ReRun.executor": "Run",
     "Shell Script.打开test.executor": "Run",
     "Shell Script.运行当前jsfl.executor": "Run",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "F:/04_ps/沙雕动画/_素材库/WindowSWF-master/WindowSWF-master/AnJsflScript/test",
+    "git-widget-placeholder": "dev",
+    "last_opened_file_path": "F:/04_ps/沙雕动画/_素材库/WindowSWF-master/WindowSWF-master/AnJsflScript/Third/custom/xjsfl/ui",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
@@ -74,16 +74,20 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\custom\xjsfl\ui" />
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\custom\XUL2" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\types\XML" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\types\Third\Context" />
-      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\dp" />
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\02.随机" />
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\custom\xjsfl\ui" />
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\custom\XUL2" />
     </key>
   </component>
-  <component name="RunManager" selected="Shell Script.ReRun">
+  <component name="RunManager" selected="Shell Script.打开test">
     <list>
       <item itemvalue="npm.format" />
       <item itemvalue="Shell Script.FirstRun" />
@@ -116,7 +120,12 @@
       <workItem from="1746272861949" duration="297000" />
       <workItem from="1746527600451" duration="2070000" />
       <workItem from="1746529696707" duration="18066000" />
-      <workItem from="1746766688261" duration="14080000" />
+      <workItem from="1746766688261" duration="15637000" />
+      <workItem from="1746879107639" duration="2544000" />
+      <workItem from="1746882311364" duration="107000" />
+      <workItem from="1746883300287" duration="11902000" />
+      <workItem from="1746895319838" duration="441000" />
+      <workItem from="1746939459842" duration="2162000" />
     </task>
     <servers />
   </component>

@@ -81,18 +81,31 @@ require(["checkUtil", "loglevel", "ElementChecker", "Tips"], function (
         var XUL = TryLoad("XUL");
         if (!XUL) return;
 
+        // var xul = new XUL("选择元件")
+        //     .addMenuList("bug", "bug", {}, [
+        //         {
+        //             label: "只能tab选中,第一个无法被鼠标选中,",
+        //             value: "bug"
+        //         }
+        //     ])
+        //     .addMenuList("选择元件", "selectedSymbol", {}, menuItems);
+        // log.info("xul.xml:", xul.xml);
+        //
+        // // &lt;
+        // var dialog = fl.xmlPanelFromString(xul.xml);
         var xul = new XUL("选择元件")
-            .addMenuList("bug", "bug", {}, [
+            .addMenuList("bug", "bug", [
                 {
                     label: "只能tab选中,第一个无法被鼠标选中,",
                     value: "bug"
                 }
             ])
-            .addMenuList("选择元件", "selectedSymbol", {}, menuItems);
-        log.info("xul.xml:", xul.xml);
+            .addMenuList("选择元件", "selectedSymbol", menuItems);
+        // .addMenuList("选择元件", "selectedSymbol", {}, menuItems);
+        // log.info("xul.xml:", xul.xml);
+        xul.show();
 
-        // &lt;
-        var dialog = fl.xmlPanelFromString(xul.xml);
+        var dialog = xul.settings;
 
         // 如果点击的是“取消”按钮，直接返回，不执行后续代码，确保功能符合需求
         if (dialog.dismiss === "cancel") {

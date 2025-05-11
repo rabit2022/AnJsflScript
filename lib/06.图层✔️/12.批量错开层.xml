@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?XML version="1.0"?>
 <dialog id="characterLayoutDialog" title="人物排列设置" buttons="accept,cancel">
     <grid>
         <!--                <columns>-->

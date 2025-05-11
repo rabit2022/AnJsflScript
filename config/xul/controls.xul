@@ -1,4 +1,7 @@
-<?xml version="1.0"?>
+<!--<?xml version="1.0"?>-->
+<!--		SyntaxError:xml is a reserved identifier-->
+<?xul version="1.0"?>
+
 <dialog id="dialog" title="Controls" buttons="">
 	
 	<grid>

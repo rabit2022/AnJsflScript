@@ -22,12 +22,12 @@ Example:
 const { DOMParser } = require('xmldom')
 
 const doc = new DOMParser().parseFromString(
-    '<xml xmlns="a" xmlns:c="./lite">\n' +
+    '<XML xmlns="a" xmlns:c="./lite">\n' +
         '\t<child>test</child>\n' +
         '\t<child></child>\n' +
         '\t<child/>\n' +
-        '</xml>',
-    'text/xml'
+        '</XML>',
+    'text/XML'
 )
 doc.documentElement.setAttribute('x', 'y')
 doc.documentElement.setAttributeNS('./lite', 'c:x', 'y2')
@@ -64,8 +64,8 @@ API Reference
 		 */
 		locator:{},
 		/**
-		 * you can override the errorHandler for xml parser
-		 * @link http://www.saxproject.org/apidoc/org/xml/sax/ErrorHandler.html
+		 * you can override the errorHandler for XML parser
+		 * @link http://www.saxproject.org/apidoc/org/XML/sax/ErrorHandler.html
 		 */
 		errorHandler:{warning:function(w){console.warn(w)},error:callback,fatalError:callback}
 		//only callback model

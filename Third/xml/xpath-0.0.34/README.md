@@ -15,7 +15,7 @@ Install with [npm](http://github.com/isaacs/npm):
 
     npm install xpath
 
-xpath is xml engine agnostic but we recommend [xmldom](https://github.com/xmldom/xmldom):
+xpath is XML engine agnostic but we recommend [xmldom](https://github.com/xmldom/xmldom):
 
     npm install @xmldom/xmldom
 
@@ -26,11 +26,11 @@ Can be found [here](https://github.com/goto100/xpath/blob/master/docs/xpath%20me
 ## Your first xpath:
 
 `````javascript
-var xpath = require('Third/xml/xpath-0.0');
+var xpath = require('Third/XML/xpath-0.0');
 var dom = require('@xmldom/xmldom').DOMParser;
 
-var xml = "<book><title>Harry Potter</title></book>";
-var doc = new dom().parseFromString(xml, 'text/xml');
+var XML = "<book><title>Harry Potter</title></book>";
+var doc = new dom().parseFromString(XML, 'text/XML');
 var nodes = xpath.select("//title", doc);
 
 console.log(nodes[0].localName + ": " + nodes[0].firstChild.data);
@@ -47,8 +47,8 @@ Using the same interface you have on modern browsers ([MDN])
 
 `````javascript
 var node = null;
-var xml = "<book author='J. K. Rowling'><title>Harry Potter</title></book>";
-var doc = new dom().parseFromString(xml, 'text/xml');
+var XML = "<book author='J. K. Rowling'><title>Harry Potter</title></book>";
+var doc = new dom().parseFromString(XML, 'text/XML');
 var result = xpath.evaluate(
     "/book/title",            // xpathExpression
     doc,                        // contextNode
@@ -72,8 +72,8 @@ while (node) {
 
 ## Evaluate string values directly:
 `````javascript
-var xml = "<book><title>Harry Potter</title></book>";
-var doc = new dom().parseFromString(xml, 'text/xml');
+var XML = "<book><title>Harry Potter</title></book>";
+var doc = new dom().parseFromString(XML, 'text/XML');
 var title = xpath.select("string(//title)", doc);
 
 console.log(title);
@@ -84,8 +84,8 @@ console.log(title);
 
 ## Namespaces
 `````javascript
-var xml = "<book><title xmlns='myns'>Harry Potter</title></book>";
-var doc = new dom().parseFromString(xml, 'text/xml');
+var XML = "<book><title xmlns='myns'>Harry Potter</title></book>";
+var doc = new dom().parseFromString(XML, 'text/XML');
 var node = xpath.select("//*[local-name(.)='title' and namespace-uri(.)='myns']", doc)[0];
 
 console.log(node.namespaceURI);
@@ -96,7 +96,7 @@ console.log(node.namespaceURI);
 
 ## Namespaces with easy mappings
 `````javascript
-var xml = "<book xmlns:bookml='http://example.com/book'><bookml:title>Harry Potter</bookml:title></book>"
+var XML = "<book xmlns:bookml='http://example.com/book'><bookml:title>Harry Potter</bookml:title></book>"
 var select = xpath.useNamespaces({"bookml": "http://example.com/book"});
 
 console.log(select('//bookml:title/text()', doc)[0].nodeValue);
@@ -107,7 +107,7 @@ console.log(select('//bookml:title/text()', doc)[0].nodeValue);
 
 ## Default namespace with mapping
 `````javascript
-var xml = "<book xmlns='http://example.com/book'><title>Harry Potter</title></book>"
+var XML = "<book xmlns='http://example.com/book'><title>Harry Potter</title></book>"
 var select = xpath.useNamespaces({"bookml": "http://example.com/book"});
 
 console.log(select('//bookml:title/text()', doc)[0].nodeValue);
@@ -118,8 +118,8 @@ console.log(select('//bookml:title/text()', doc)[0].nodeValue);
 
 ## Attributes
 `````javascript
-var xml = "<book author='J. K. Rowling'><title>Harry Potter</title></book>";
-var doc = new dom().parseFromString(xml, 'text/xml');
+var XML = "<book author='J. K. Rowling'><title>Harry Potter</title></book>";
+var doc = new dom().parseFromString(XML, 'text/XML');
 var author = xpath.select1("/book/@author", doc).value;
 
 console.log(author);
