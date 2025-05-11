@@ -210,8 +210,10 @@ declare module "XUL" {
 
         // Multiple-value controls
         addListbox(label: string, id?: string | null, values?: ListItemAttr[], attributes?: ListboxAttr, validation?: any, events?: any): XUL;
+
         addDropdown(label: string, id?: string | null, values?: MenuItemAttr[], attributes?: MenulistAttr, validation?: any, events?: any): XUL;
         addMenuList(label: string, id?: string | null, values?: MenuItemAttr[], attributes?: MenulistAttr, validation?: any, events?: any): XUL;
+
         addRadiogroup(label: string, id?: string | null, values?: RadioItemAttr[], attributes?: RadiogroupAttr): XUL;
         addCheckboxgroup(label: string, id?: string | null, values?: CheckboxGroupItemAttr[], attributes?: CheckboxGroupAttr, validation?: any): XUL;
         addTargetlist(label: string, id?: string | null, attributes?: TargetlistAttr, validation?: any, events?: any): XUL;

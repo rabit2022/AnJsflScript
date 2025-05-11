@@ -2107,8 +2107,8 @@
         wrapConstructor(OrigRegExp, RegExpShim, {
             $input: true // Chrome < v39 & Opera < 26 have a nonstandard "$input" property
         });
-        // RegExp = RegExpShim; // eslint-disable-line no-global-assign
-        // Value.redefine(globals, 'RegExp', RegExpShim);
+        RegExp = RegExpShim; // eslint-disable-line no-global-assign
+        Value.redefine(globals, 'RegExp', RegExpShim);
     }
 
     if (supportsDescriptors) {

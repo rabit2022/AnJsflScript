@@ -54,23 +54,26 @@ require(["checkUtil", "SAT", "SymbolNameGenerator"], function (checkUtil, sat, s
         // 检查选择的元件
         if (!checkSelection(selection, "selectElement", "No limit")) return;
 
-        doc.clipCopy();
+        // 1.创建新的图层---- 灵魂出窍，
+        // 需要优化，如果有这个图层的时就不再创建，直接在那个图层上进行k帧
 
-        doc.clipPaste();
+        // 2.复制选中的元件到新的图层
 
-        var rect = wrapRect(doc.getSelectionRect());
-        var offset = new Vector(-rect.width, rect.height / 5);
+        // 3.包装为一个新的元件
 
-        var symbolName = generateNameUntilUnique("一键震惊_静_");
-        doc.convertToSymbol("graphic", symbolName, "center");
+        // 4. 编辑模式
+        // 此时元件1  占用 第一个图层
+        // 4.1  添加渐变遮罩层
 
-        doc.enterEditMode("inPlace");
+        // 4.2 添加一个shape 长方形，铺满 元件的轮廓
+        // 宽高=位置+100
 
-        doc.exitEditMode();
+        // 设置 混合模式为 alpha
+        // an.getDocumentDOM().setBlendMode('alpha')
 
-        doc.setBlendMode("layer");
+        // 补帧 5s----150帧,不清楚有没有必要
 
-        doc.moveSelectionBy(offset.reverse().toObj());
+        // 5. 移动到左上角
     }
 
     Main();
