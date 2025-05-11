@@ -12,7 +12,30 @@
 // XUL
 
 
-define(["Utils","XML","XULControl","XULEvent"],function(Utils,_,XULControl,XULEvent){
+define(["Utils","XULControl","XULEvent","XML","xjsfl"],function(Utils,XULControl,XULEvent){
+
+	/**
+	 * 加载XML模板文件
+	 * @param {string} templateName - 模板文件名
+	 * @returns {string} XML字符串
+	 */
+	function loadTemplate(templateName) {
+		const dirname = $ProjectFileDir$;
+
+		// requirejs + text! 加载模板文件
+		var template = '';
+		var templatePath ='text!./config/' + templateName;
+		requirejs([templatePath], function (tm) {
+			template = tm;
+		})
+
+		// return template;
+		var xml = new XML(template);
+		// console.log(xml);
+		return xml;
+	}
+
+	var trace=fl.trace;
 
 	/**
 	 * XUL
@@ -22,77 +45,8 @@ define(["Utils","XML","XULControl","XULEvent"],function(Utils,_,XULControl,XULEv
 
 	//xjsfl.halted = false;
 	// xjsfl.init(this, ['Utils', 'URI', 'File', 'XML', 'String', 'XULControl', 'XULEvent', 'JSFLInterface']);
-	// xjsfl.init(this, ['Utils', 'URI', 'XML', 'String', 'XULControl', 'XULEvent']);
+	// xjsfl.init(this, ['Utils', 'URI', 'XML', 'XULControl', 'XULEvent']);
 
-
-		var AUtils= {
-			/**
-			 * Parse any string into a real datatype. Supports Number, Boolean, hex (0x or #), XML, XMLList, Array notation, Object notation, JSON, Date, undefined, null
-			 * @param    {String}    value        An input string
-			 * @param    {Boolean}    trim        An optional flag to trim the string, on by default
-			 * @returns    {Mixed}                    The parsed value of the original value
-			 */
-			parseValue: function(value, trim) {
-				// trim
-				value = trim !== false ? String(value).trim() : String(value);
-
-				// undefined
-				if (value === 'undefined')
-					return undefined;
-
-				// null - note that empty strings will be returned as null
-				if (value === 'null' || value === '')
-					return null;
-
-				// Number
-				if (/^(\d+|\d+\.\d+|\.\d+)$/.test(value))
-					return parseFloat(value);
-
-				// Boolean
-				if (/^true|false$/i.test(value))
-					return value.toLowerCase() === 'true' ? true : false;
-
-				// Hexadecimal String / Number
-				if (/^(#|0x)[0-9A-F]{6}$/i.test(value))
-					return parseInt(value[0] === '#' ? value.substr(1) : value, 16);
-
-				// XML
-				if (/^<(\w+)\b[\s\S]*(<\/\1>|\/>)$/.test(value)) {
-					try {
-						var xml = new XML(value);
-					} // attempt to create XML
-					catch (err) {
-						try {
-							var xml = new XMLList(value);
-						} // fall back to XMLList
-						catch (err) {
-							var xml = value;
-						} // fall back to text
-					}
-					;
-					return xml
-				}
-
-				// Array notation
-				if (/^\[.+\]$/.test(value))
-					return eval(value);
-
-				// Object notation
-				if (/^{[a-z]\w*:.+}$/i.test(value))
-					return eval('(' + value + ')');
-
-				// JSON
-				if (/^{"[a-z]\w*":.+}$/i.test(value))
-					return JSON.parse(value);
-
-				// Date
-				if (!isNaN(Date.parse(value)))
-					return new Date(value);
-
-				// String
-				return value;
-			},
-		};
 
 // --------------------------------------------------------------------------------
 	// constructor
@@ -112,7 +66,9 @@ define(["Utils","XML","XULControl","XULEvent"],function(Utils,_,XULControl,XULEv
 			//TODO Add functionality for basic arithmetic to be performed inside textboxes
 
 			// public properties
-				this.xml		= xjsfl.file.load('xul/dialog.xul', 'template', true);
+			// 	this.xml		= xjsfl.file.load('xul/dialog.xul', 'template', true);
+				this.xml		= loadTemplate('xul/dialog.xul', 'template', true);
+
 				this.controls	= {};
 				this.settings	= {};
 				this.flashData	= null;
@@ -124,8 +80,10 @@ define(["Utils","XML","XULControl","XULEvent"],function(Utils,_,XULControl,XULEv
 				this.error		= null;
 				this.id			= -1;
 
+
 			// load controls
-				var xml			= xjsfl.file.load('xul/controls.xul', 'template', true);
+			// 	var xml			= xjsfl.file.load('xul/controls.xul', 'template', true);
+				var xml			= loadTemplate('xul/controls.xul', 'template', true);
 				for each(var node in xml.grid.rows.*)
 				{
 					XUL.templates[node.@template.toString()] = node.copy();
@@ -792,11 +750,12 @@ define(["Utils","XML","XULControl","XULEvent"],function(Utils,_,XULControl,XULEv
 											break;
 
 											case 'columns':
-												this.setColumns(AUtils.parseValue(value));
+												this.setColumns(Utils.parseValue(value));
 											break;
 
 									default:
-										xjsfl.debug.error('XUL.add(): Undefined control type "' +control+ '"');
+										// xjsfl.debug.error('XUL.add(): Undefined control type "' +control+ '"');
+										console.error('XUL.add(): Undefined control type "' +control+ '"');
 									}
 									
 								// output
@@ -917,7 +876,7 @@ define(["Utils","XML","XULControl","XULEvent"],function(Utils,_,XULControl,XULEv
 									attributes.format = 'string';
 									if(!isNaN(parseInt(attributes.value)))
 									{
-										attributes.value = '#' + Utils.pad(parseInt(value).toString(16).toUpperCase());
+										attributes.value = '#' + Utils.padStart(parseInt(value).toString(16).toUpperCase());
 									}
 									else
 									{
@@ -1041,6 +1000,12 @@ define(["Utils","XML","XULControl","XULEvent"],function(Utils,_,XULControl,XULEv
 						// add control
 							xml					= this._addControl('menulist', id, label, xml, attributes, validation, events);
 							return this;
+					},
+
+
+					addMenuList:function(label, id, values, attributes, validation, events)
+					{
+						return this.addDropdown(label, id, values, attributes, validation, events);
 					},
 
 					/**
@@ -1644,7 +1609,8 @@ define(["Utils","XML","XULControl","XULEvent"],function(Utils,_,XULControl,XULEv
 				load:function(pathOrURI)
 				{
 					// get URI
-						var xml = xjsfl.file.load(pathOrURI);
+					// 	var xml = xjsfl.file.load(pathOrURI);
+						var xml = loadTemplate(pathOrURI);
 
 					// grab nodes
 						if(xml.name() == 'dialog')
@@ -1693,10 +1659,10 @@ define(["Utils","XML","XULControl","XULEvent"],function(Utils,_,XULControl,XULEv
 					// --------------------------------------------------------------------------------
 					// force a document open if none is
 
-						if( ! $dom )
-						{
-							//fl.createDocument();
-						}
+						// if( ! $dom )
+						// {
+						// 	//fl.createDocument();
+						// }
 						
 						/*
 							// can we set the AS3 timeout to longer than 15 seconds so we don't get these errors?
@@ -1900,7 +1866,7 @@ define(["Utils","XML","XULControl","XULEvent"],function(Utils,_,XULControl,XULEv
 						this.xml.*	+= new XML('<property id="xulid" value="{xulid}" />');
 
 					// debug
-						//trace(this.xml.toXMLString())
+						// trace(this.xml.toXMLString())
 
 					// flag as built
 						this.built = true;

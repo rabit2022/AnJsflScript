@@ -6,14 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="2318bed7-153e-429d-a111-ac0e0c1e5ee6" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/custom/xjsfl/console.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/xjsfl/console.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/custom/xjsfl/ui/XML.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/xjsfl/ui/XML.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/custom/xul/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/dp/xul/LICENSE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/custom/xul/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/dp/xul/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/custom/xul/XUL.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/dp/xul/XUL.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/custom/xul/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/dp/xul/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/计划更新.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/计划更新.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/custom/xjsfl/ui/Utils.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/xjsfl/ui/Utils.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/custom/xjsfl/ui/XUL.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/xjsfl/ui/XUL.jsfl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +17,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="JSFL Command" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -43,47 +37,48 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Node.js.01.瞬移-消失.jsfl.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.02.xml测试.jsfl.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.XML.jsfl.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.XML2.jsfl.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.dd.js.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.test.jsx.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.xml(1).jsfl.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;Shell Script.ReRun.executor&quot;: &quot;Run&quot;,
-    &quot;Shell Script.打开test.executor&quot;: &quot;Run&quot;,
-    &quot;Shell Script.运行当前jsfl.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/04_ps/沙雕动画/_素材库/WindowSWF-master/WindowSWF-master/AnJsflScript/Third/custom/XUL2&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.FirstRun.executor&quot;: &quot;Run&quot;,
-    &quot;npm.ReRun.executor&quot;: &quot;Run&quot;,
-    &quot;npm.format.executor&quot;: &quot;Run&quot;,
-    &quot;npm.open-test-file.executor&quot;: &quot;Run&quot;,
-    &quot;npm.run-current-file.executor&quot;: &quot;Run&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;F:\\04_ps\\沙雕动画\\_素材库\\WindowSWF-master\\WindowSWF-master\\AnJsflScript\\node_modules\\prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\01_software\\06_programme\\01_ide\\WebStorm 2024.3.5\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Node.js.01.瞬移-消失.jsfl.executor": "Run",
+    "Node.js.02.xml测试.jsfl.executor": "Run",
+    "Node.js.XML.jsfl.executor": "Run",
+    "Node.js.XML2.jsfl.executor": "Run",
+    "Node.js.dd.js.executor": "Run",
+    "Node.js.test.jsx.executor": "Run",
+    "Node.js.ttt.js.executor": "Run",
+    "Node.js.xml(1).jsfl.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Shell Script.ReRun.executor": "Run",
+    "Shell Script.打开test.executor": "Run",
+    "Shell Script.运行当前jsfl.executor": "Run",
+    "git-widget-placeholder": "dev",
+    "last_opened_file_path": "F:/04_ps/沙雕动画/_素材库/WindowSWF-master/WindowSWF-master/AnJsflScript/Third/custom/xjsfl/ui",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.FirstRun.executor": "Run",
+    "npm.ReRun.executor": "Run",
+    "npm.format.executor": "Run",
+    "npm.open-test-file.executor": "Run",
+    "npm.run-current-file.executor": "Run",
+    "prettierjs.PrettierConfiguration.Package": "F:\\04_ps\\沙雕动画\\_素材库\\WindowSWF-master\\WindowSWF-master\\AnJsflScript\\node_modules\\prettier",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "D:\\01_software\\06_programme\\01_ide\\WebStorm 2024.3.5\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\custom\xjsfl\ui" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\custom\XUL2" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\types\XML" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\types\Third\Context" />
-      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\dp" />
@@ -92,23 +87,14 @@
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\custom\XUL2" />
     </key>
   </component>
-  <component name="RunManager" selected="Shell Script.运行当前jsfl">
-    <configuration name="test.jsx" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/test/02.随机/test.jsx" working-dir="$PROJECT_DIR$/test">
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Shell Script.打开test">
     <list>
-      <item itemvalue="Node.js.test.jsx" />
       <item itemvalue="npm.format" />
       <item itemvalue="Shell Script.FirstRun" />
       <item itemvalue="Shell Script.ReRun" />
       <item itemvalue="Shell Script.运行当前jsfl" />
       <item itemvalue="Shell Script.打开test" />
     </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Node.js.test.jsx" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -139,6 +125,7 @@
       <workItem from="1746882311364" duration="107000" />
       <workItem from="1746883300287" duration="11902000" />
       <workItem from="1746895319838" duration="441000" />
+      <workItem from="1746939459842" duration="2162000" />
     </task>
     <servers />
   </component>

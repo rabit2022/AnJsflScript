@@ -53,6 +53,8 @@ require.config({
         "fast-xml-parser": "Third/xml/fast-xml-parser-5.0.9/fast-xml-parser",
         xmldom: "Third/xml/xmldom-0.6.0/xmldom",
         xpath: "Third/xml/xpath-0.0.34/xpath",
+        // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\custom\xjsfl\ui\xjsfl.jsfl
+        xjsfl: "Third/custom/xjsfl/ui/xjsfl",
 
         // 自定义模块
         BitmapOperation: "Core/flash/Bitmap/BitmapOperation",

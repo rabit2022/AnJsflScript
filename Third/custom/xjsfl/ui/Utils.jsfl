@@ -1323,70 +1323,70 @@ define(function(){
 					// return
 						return lines.join('\n');
 				},
-				//
-				// /**
-				//  * Parse any string into a real datatype. Supports Number, Boolean, hex (0x or #), XML, XMLList, Array notation, Object notation, JSON, Date, undefined, null
-				//  * @param	{String}	value		An input string
-				//  * @param	{Boolean}	trim		An optional flag to trim the string, on by default
-				//  * @returns	{Mixed}					The parsed value of the original value
-				//  */
-				// parseValue:function(value, trim)
-				// {
-				// 	// trim
-				// 		value = trim !== false ? String(value).trim() : String(value);
-				//
-				// 	// undefined
-				// 		if(value === 'undefined')
-				// 			return undefined;
-				//
-				// 	// null - note that empty strings will be returned as null
-				// 		if(value === 'null' || value === '')
-				// 			return null;
-				//
-				// 	// Number
-				// 		if(/^(\d+|\d+\.\d+|\.\d+)$/.test(value))
-				// 			return parseFloat(value);
-				//
-				// 	// Boolean
-				// 		if(/^true|false$/i.test(value))
-				// 			return value.toLowerCase() === 'true' ? true : false;
-				//
-				// 	// Hexadecimal String / Number
-				// 		if(/^(#|0x)[0-9A-F]{6}$/i.test(value))
-				// 			return parseInt(value[0] === '#' ? value.substr(1) : value, 16);
-				//
-				// 	// XML
-				// 		if(/^<(\w+)\b[\s\S]*(<\/\1>|\/>)$/.test(value))
-				// 		{
-				// 			try { var xml = new XML(value); } // attempt to create XML
-				// 			catch(err)
-				// 			{
-				// 				try { var xml = new XMLList(value); } // fall back to XMLList
-				// 				catch(err) { var xml = value; } // fall back to text
-				// 			};
-				// 			return xml
-				// 		}
-				//
-				// 	// Array notation
-				// 		if(/^\[.+\]$/.test(value))
-				// 			return eval(value);
-				//
-				// 	// Object notation
-				// 		if(/^{[a-z]\w*:.+}$/i.test(value))
-				// 			return eval('(' + value + ')');
-				//
-				// 	// JSON
-				// 		if(/^{"[a-z]\w*":.+}$/i.test(value))
-				// 			return JSON.parse(value);
-				//
-				// 	// Date
-				// 		if( ! isNaN(Date.parse(value)))
-				// 			return new Date(value);
-				//
-				// 	// String
-				// 		return value;
-				// },
-				//
+
+				/**
+				 * Parse any string into a real datatype. Supports Number, Boolean, hex (0x or #), XML, XMLList, Array notation, Object notation, JSON, Date, undefined, null
+				 * @param	{String}	value		An input string
+				 * @param	{Boolean}	trim		An optional flag to trim the string, on by default
+				 * @returns	{Mixed}					The parsed value of the original value
+				 */
+				parseValue:function(value, trim)
+				{
+					// trim
+						value = trim !== false ? String(value).trim() : String(value);
+
+					// undefined
+						if(value === 'undefined')
+							return undefined;
+
+					// null - note that empty strings will be returned as null
+						if(value === 'null' || value === '')
+							return null;
+
+					// Number
+						if(/^(\d+|\d+\.\d+|\.\d+)$/.test(value))
+							return parseFloat(value);
+
+					// Boolean
+						if(/^true|false$/i.test(value))
+							return value.toLowerCase() === 'true' ? true : false;
+
+					// Hexadecimal String / Number
+						if(/^(#|0x)[0-9A-F]{6}$/i.test(value))
+							return parseInt(value[0] === '#' ? value.substr(1) : value, 16);
+
+					// XML
+						if(/^<(\w+)\b[\s\S]*(<\/\1>|\/>)$/.test(value))
+						{
+							try { var xml = new XML(value); } // attempt to create XML
+							catch(err)
+							{
+								try { var xml = new XMLList(value); } // fall back to XMLList
+								catch(err) { var xml = value; } // fall back to text
+							};
+							return xml
+						}
+
+					// Array notation
+						if(/^\[.+\]$/.test(value))
+							return eval(value);
+
+					// Object notation
+						if(/^{[a-z]\w*:.+}$/i.test(value))
+							return eval('(' + value + ')');
+
+					// JSON
+						if(/^{"[a-z]\w*":.+}$/i.test(value))
+							return JSON.parse(value);
+
+					// Date
+						if( ! isNaN(Date.parse(value)))
+							return new Date(value);
+
+					// String
+						return value;
+				},
+
 				/**
 				 * Parses a compound CSS (or CSS-like) expression into single elements, respecting :nested(:tokens, [like=these,ones])
 				 * @param		{String}		expression		A CSS or otherwise comma-delimited string
@@ -1466,6 +1466,52 @@ define(function(){
 			// ---------------------------------------------------------------------------------------------------------------
 			// # RegExp methods
 
+
+				/**
+				 * 将模板字符串中的占位符替换为实际值
+				 * @param {String} template 模板字符串，包含 {placeholder} 形式的占位符
+				 * @param {Object|...Mixed} objOrValues 替换值，可以是一个对象，也可以是多个参数
+				 * @returns {String} 替换后的字符串
+				 */
+				inject:function(str,template) {
+					// params
+					// var params	= Array.slice.call(this, arguments);
+					var params	= Array.slice.call(this, arguments,1);
+					var obj		= params.length > 1
+						? params
+						: typeof params[0] === 'object'
+							? params[0]
+							: [params];
+
+					// variables
+					var rx		= /{([a-z0-9]+)}/gi;
+					var values	= {};
+					var length	= 0;
+
+
+					// replacement functions
+					function arrMatch(match, key)
+					{
+						if(typeof values[key] === 'undefined')
+						{
+							values[key] = length++;
+						}
+						return obj[values[key]];
+					}
+
+					function objMatch(match, key)
+					{
+						if(typeof values[key] === 'undefined')
+						{
+							values[key] = key.indexOf('.') == -1 ? obj[key] : Utils.getDeepValue(obj, key);
+						}
+						return values[key];
+					}
+
+					// return
+					return str.replace(rx, obj instanceof Array ? arrMatch : objMatch);
+				},
+
 				/**
 				 * Performs a global RegExp match but returns a 2D Array of local match Arrays, or Objects if matchNames are supplied
 				 *
@@ -1485,7 +1531,9 @@ define(function(){
 						var matchesGlobal, matchesLocal, matchNames;
 
 					// global regexp
-						var flags			= 'g{m}{i}'.inject(rx.multiline ? 'm' : '', rx.ignoreCase ? 'i' : '');
+					// 	var flags			= 'g{m}{i}'.inject(rx.multiline ? 'm' : '', rx.ignoreCase ? 'i' : '');
+						var flags			= Utils.inject('g{m}{i}', rx.multiline ? 'm' : '', rx.ignoreCase ? 'i' : '');
+						// console.log(rx.source, flags);
 						var rxGlobal		= new RegExp(rx.source, flags);
 
 					// local regexp
