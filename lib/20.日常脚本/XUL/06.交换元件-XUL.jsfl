@@ -9,7 +9,8 @@
 
 // bug,FirstRun.jsfl 未运行
 if (typeof require === "undefined") {
-    var msg = "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
+    var msg =
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
@@ -20,7 +21,12 @@ if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(["checkUtil", "loglevel", "ElementChecker", "Tips"], function(checkUtil, log, ec, Tips) {
+require(["checkUtil", "loglevel", "ElementChecker", "Tips"], function (
+    checkUtil,
+    log,
+    ec,
+    Tips
+) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { IsSymbol } = ec;
     const { TryLoad } = Tips;
@@ -59,15 +65,16 @@ require(["checkUtil", "loglevel", "ElementChecker", "Tips"], function(checkUtil,
 
         // log.info('symbolElements: ', symbolElements.length);
 
-        var symbolNames = symbolElements.map(function(element) {
+        var symbolNames = symbolElements.map(function (element) {
             return element.name;
         });
 
         log.info("symbolNames: ", symbolNames);
 
-        var menuItems = symbolNames.map(function(name) {
+        var menuItems = symbolNames.map(function (name) {
             return {
-                label: name, value: name
+                label: name,
+                value: name
             };
         });
 
@@ -87,16 +94,18 @@ require(["checkUtil", "loglevel", "ElementChecker", "Tips"], function(checkUtil,
         // // &lt;
         // var dialog = fl.xmlPanelFromString(xul.xml);
         var xul = new XUL("选择元件")
-            .addMenuList("bug", "bug", [{
-                label: "只能tab选中,第一个无法被鼠标选中,", value: "bug"
-            }])
+            .addMenuList("bug", "bug", [
+                {
+                    label: "只能tab选中,第一个无法被鼠标选中,",
+                    value: "bug"
+                }
+            ])
             .addMenuList("选择元件", "selectedSymbol", menuItems);
         // .addMenuList("选择元件", "selectedSymbol", {}, menuItems);
         // log.info("xul.xml:", xul.xml);
         xul.show();
 
         var dialog = xul.settings;
-
 
         // 如果点击的是“取消”按钮，直接返回，不执行后续代码，确保功能符合需求
         if (dialog.dismiss === "cancel") {

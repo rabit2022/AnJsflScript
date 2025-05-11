@@ -28,8 +28,9 @@ require([
     "open",
     "MoreElement",
     "ElementSelect",
-    "Tips",'XUL'
-], function (checkUtil, log, os, open, MoreElement, es, Tips,XUL) {
+    "Tips",
+    "XUL"
+], function (checkUtil, log, os, open, MoreElement, es, Tips, XUL) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { SelectSameName } = es;
     const { TryLoad } = Tips;

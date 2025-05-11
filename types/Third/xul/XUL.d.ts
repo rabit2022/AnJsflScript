@@ -1,13 +1,133 @@
 
 declare module "XUL" {
-    interface MenulistAttribute {
-        editable: string;
-        width: string;
-        flex: string;
-        tabindex: string;
-        // oncreate: string;
-        // onsetfocus: string;
+
+    interface TextboxAttr {
+        value: string;
+        maxlength: number;
+        prompt: string;
+        size: number;
+        multiline: boolean;
+        width: number;
     }
+
+    interface ColorchipAttr {
+        color: string;
+        format: string;
+        width: number;
+    }
+
+    interface PopupsliderAttr {
+        value: number;
+        minvalue: number;
+        maxvalue: number;
+        orientation: string;
+        tabindex: number;
+        width: number;
+        flex: number;
+    }
+
+    interface CheckboxAttr {
+        label: string;
+        checked: boolean;
+        tabindex: number;
+        accesskey: string;
+    }
+
+    interface ButtonAttr {
+        label: string;
+        width: number;
+        flex: number;
+        tabindex: number;
+        accesskey: string;
+        oncommand: string;
+    }
+
+    interface TargetlistAttr {
+        width: number;
+        height: number;
+        flex: number;
+        pathtype: string;
+    }
+
+    interface ChoosefileAttr {
+        literal: boolean;
+        pathtype: string;
+        required: boolean;
+        size: number;
+        type: string;
+        width: number;
+        flex: number;
+        tabindex: number;
+    }
+
+    interface ListboxAttr {
+        width: number;
+        flex: number;
+        rows: number;
+        tabindex: number;
+    }
+
+    interface ListItemAttr {
+        label: string;
+        value: string;
+        selected: boolean;
+    }
+
+    interface MenulistAttr {
+        editable: boolean;
+        width: number;
+        flex: number;
+        tabindex: number;
+        oncreate: string;
+        onsetfocus: string;
+    }
+
+    interface MenuItemAttr {
+        label: string;
+        value: string;
+        selected: boolean;
+    }
+
+    interface RadiogroupAttr {
+        tabindex: number;
+        groupbox: boolean;
+    }
+
+    interface RadioItemAttr {
+        label: string;
+        selected: boolean;
+        value: string;
+        accesskey: string;
+    }
+
+//     <vbox className="control" groupbox="true">
+    interface CheckboxGroupAttr {
+        groupbox: boolean;
+    }
+
+//         <checkbox className="control" id="checkbox[0]" label="Checkbox 1" checked="true" tabindex="" acceskey=""/>
+    interface CheckboxGroupItemAttr {
+        label: string;
+        checked: boolean;
+        tabindex: number;
+        accesskey: string;
+    }
+
+//     <flash className="control" id="flash" src="assets/flash.swf" width="250" height="100"/>
+    interface FlashAttr {
+        src: string;
+        width: number;
+        height: number;
+    }
+
+    interface XULAttr {
+        name: string;
+        params: string[]
+    }
+
+
+
+
 
 
     interface XULControl {
@@ -77,21 +197,21 @@ declare module "XUL" {
         add(str: string): XUL;
 
         // Single controls
-        addTextbox(label: string, id?: string | null, attributes?: Record<string, any>, validation?: any, events?: any): XUL;
-        addSlider(label: string, id?: string | null, values?: any[] | number, attributes?: Record<string, any>, validation?: any, events?: any): XUL;
-        addCheckbox(label: string, id?: string | null, attributes?: Record<string, any>, validation?: any): XUL;
-        addColorchip(label: string, id?: string | null, attributes?: Record<string, any>, validation?: any, events?: any): XUL;
+        addTextbox(label: string, id?: string | null, attributes?:TextboxAttr, validation?: any, events?: any): XUL;
+        addSlider(label: string, id?: string | null, values?: any[] | number, attributes?: PopupsliderAttr, validation?: any, events?: any): XUL;
+        addCheckbox(label: string, id?: string | null, attributes?: CheckboxAttr, validation?: any): XUL;
+        addColorchip(label: string, id?: string | null, attributes?:ColorchipAttr, validation?: any, events?: any): XUL;
         addFile(label: string, id?: string | null, attributes?: Record<string, any>, validation?: any, events?: any): XUL;
         addExpression(label: string, id?: string | null, attributes?: Record<string, any>, validation?: any, events?: any): XUL;
-        addButton(label: string, id?: string | null, attributes?: Record<string, any>, events?: any): XUL;
+        addButton(label: string, id?: string | null, attributes?:ButtonAttr, events?: any): XUL;
 
         // Multiple-value controls
-        addListbox(label: string, id?: string | null, values?: any, attributes?: Record<string, any>, validation?: any, events?: any): XUL;
-        addDropdown(label: string, id?: string | null, values?: any, attributes?: MenulistAttribute, validation?: any, events?: any): XUL;
-        addMenuList(label: string, id?: string | null, values?: any, attributes?: MenulistAttribute, validation?: any, events?: any): XUL;
-        addRadiogroup(label: string, id?: string | null, values?: any, attributes?: any): XUL;
-        addCheckboxgroup(label: string, id?: string | null, values?: any, attributes?: Record<string, any>, validation?: any): XUL;
-        addTargetlist(label: string, id?: string | null, attributes?: Record<string, any>, validation?: any, events?: any): XUL;
+        addListbox(label: string, id?: string | null, values?: any, attributes?: ListboxAttr, validation?: any, events?: any): XUL;
+        addDropdown(label: string, id?: string | null, values?: any, attributes?: MenulistAttr, validation?: any, events?: any): XUL;
+        addMenuList(label: string, id?: string | null, values?: any, attributes?: MenulistAttr, validation?: any, events?: any): XUL;
+        addRadiogroup(label: string, id?: string | null, values?: any, attributes?: RadiogroupAttr): XUL;
+        addCheckboxgroup(label: string, id?: string | null, values?: any, attributes?: CheckboxGroupAttr, validation?: any): XUL;
+        addTargetlist(label: string, id?: string | null, attributes?: TargetlistAttr, validation?: any, events?: any): XUL;
         addProperty(id: string): XUL;
         addXML(xml: XML | string, breakOutOfRows?: boolean, dontParse?: boolean): XUL;
 
