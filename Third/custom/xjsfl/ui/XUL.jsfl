@@ -911,6 +911,11 @@ define(["Utils","XULControl","XULEvent","XML","xjsfl"],function(Utils,XULControl
 							return this;
 					},
 
+					addChoosefile:function(label, id, attributes, validation, events)
+					{
+						return this.addFile(label, id, attributes, validation, events);
+					},
+
 					/**
 					 * Add a Expression control to the UI
 					 * @param	{String}	label			A label for the UI item

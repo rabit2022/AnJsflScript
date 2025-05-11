@@ -201,16 +201,19 @@ declare module "XUL" {
         addSlider(label: string, id?: string | null, values?: any[] | number, attributes?: PopupsliderAttr, validation?: any, events?: any): XUL;
         addCheckbox(label: string, id?: string | null, attributes?: CheckboxAttr, validation?: any): XUL;
         addColorchip(label: string, id?: string | null, attributes?:ColorchipAttr, validation?: any, events?: any): XUL;
-        addFile(label: string, id?: string | null, attributes?: Record<string, any>, validation?: any, events?: any): XUL;
+
+        addFile(label: string, id?: string | null, attributes?: ChoosefileAttr, validation?: any, events?: any): XUL;
+        addChoosefile(label: string, id?: string | null, attributes?: ChoosefileAttr, validation?: any, events?: any): XUL;
+
         addExpression(label: string, id?: string | null, attributes?: Record<string, any>, validation?: any, events?: any): XUL;
         addButton(label: string, id?: string | null, attributes?:ButtonAttr, events?: any): XUL;
 
         // Multiple-value controls
-        addListbox(label: string, id?: string | null, values?: any, attributes?: ListboxAttr, validation?: any, events?: any): XUL;
-        addDropdown(label: string, id?: string | null, values?: any, attributes?: MenulistAttr, validation?: any, events?: any): XUL;
-        addMenuList(label: string, id?: string | null, values?: any, attributes?: MenulistAttr, validation?: any, events?: any): XUL;
-        addRadiogroup(label: string, id?: string | null, values?: any, attributes?: RadiogroupAttr): XUL;
-        addCheckboxgroup(label: string, id?: string | null, values?: any, attributes?: CheckboxGroupAttr, validation?: any): XUL;
+        addListbox(label: string, id?: string | null, values?: ListItemAttr[], attributes?: ListboxAttr, validation?: any, events?: any): XUL;
+        addDropdown(label: string, id?: string | null, values?: MenuItemAttr[], attributes?: MenulistAttr, validation?: any, events?: any): XUL;
+        addMenuList(label: string, id?: string | null, values?: MenuItemAttr[], attributes?: MenulistAttr, validation?: any, events?: any): XUL;
+        addRadiogroup(label: string, id?: string | null, values?: RadioItemAttr[], attributes?: RadiogroupAttr): XUL;
+        addCheckboxgroup(label: string, id?: string | null, values?: CheckboxGroupItemAttr[], attributes?: CheckboxGroupAttr, validation?: any): XUL;
         addTargetlist(label: string, id?: string | null, attributes?: TargetlistAttr, validation?: any, events?: any): XUL;
         addProperty(id: string): XUL;
         addXML(xml: XML | string, breakOutOfRows?: boolean, dontParse?: boolean): XUL;
