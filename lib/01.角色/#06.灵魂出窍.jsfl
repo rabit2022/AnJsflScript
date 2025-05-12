@@ -21,60 +21,101 @@ if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(["checkUtil", "SAT", "SymbolNameGenerator"], function (checkUtil, sat, sng) {
-    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
-    const { Vector } = sat.GLOBALS;
-    // const { wrapRect } = sat.GLOBALS;
-    const { generateNameUntilUnique, generateNameUseLast } = sng;
+require(["checkUtil", "SAT", "SymbolNameGenerator", "Context", "KeyFrameOperation", "LayerQuery"],
+    function(checkUtil, sat, sng, Context, kfo, lq) {
+        const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
-    var doc = fl.getDocumentDOM(); //文档
-    if (!checkDom(doc)) return;
+        const { Vector } = sat.GLOBALS;
+        // const { wrapRect } = sat.GLOBALS;
 
-    var selection = doc.selection; //选择
-    var library = doc.library; //库文件
-    var timeline = doc.getTimeline(); //时间轴
+        const { generateNameUntilUnique, generateNameUseLast } = sng;
+        const { getLayersIndexByName } = lq;
+        const { convertToKeyframesSafety } = kfo;
 
-    var layers = timeline.layers; //图层
-    var curLayerIndex = timeline.currentLayer; //当前图层索引
-    var curLayer = layers[curLayerIndex]; //当前图层
+        // var doc = fl.getDocumentDOM(); //文档
+        // if (!checkDom(doc)) return;
+        //
+        // var selection = doc.selection; //选择
+        // var library = doc.library; //库文件
+        // var timeline = doc.getTimeline(); //时间轴
+        //
+        // var layers = timeline.layers; //图层
+        // var curLayerIndex = timeline.currentLayer; //当前图层索引
+        // var curLayer = layers[curLayerIndex]; //当前图层
+        //
+        // var curFrameIndex = timeline.currentFrame; //当前帧索引
+        // var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
-    var curFrameIndex = timeline.currentFrame; //当前帧索引
-    var curFrame = curLayer.frames[curFrameIndex]; //当前帧
+        const context = new Context();
+        context.update();
+        const {
+            doc,
+            selection,
+            library,
+            timeline,
+            AllLayers,
+            curLayerIndex,
+            curLayer,
+            curFrameIndex,
+            curFrame
+        } = context;
+        const { firstSlLayerIndex, firstSlFrameIndex } = context;
 
-    // 渐变遮罩层
-    var MASK_LAYER_INDEX = 0;
-    // 宽高=位置+100
-    var MASK_WIDTH = 100;
-    var MASK_HEIGHT = 100;
-    // offset=Point(-width,height/5)
 
-    var SYMBOL_LAYER_INDEX = 1;
-
-    function Main() {
-        // 检查选择的元件
-        if (!checkSelection(selection, "selectElement", "No limit")) return;
-
-        // 1.创建新的图层---- 灵魂出窍，
-        // 需要优化，如果有这个图层的时就不再创建，直接在那个图层上进行k帧
-
-        // 2.复制选中的元件到新的图层
-
-        // 3.包装为一个新的元件
-
-        // 4. 编辑模式
-        // 此时元件1  占用 第一个图层
-        // 4.1  添加渐变遮罩层
-
-        // 4.2 添加一个shape 长方形，铺满 元件的轮廓
+        // 渐变遮罩层
+        var MASK_LAYER_INDEX = 0;
         // 宽高=位置+100
+        var MASK_WIDTH = 100;
+        var MASK_HEIGHT = 100;
 
-        // 设置 混合模式为 alpha
-        // an.getDocumentDOM().setBlendMode('alpha')
+        // offset=Point(-width,height/5)
 
-        // 补帧 5s----150帧,不清楚有没有必要
+        function Main() {
+            // 检查选择的元件
+            if (!checkSelection(selection, "selectElement", "Only one")) return;
 
-        // 5. 移动到左上角
-    }
+            doc.clipCopy();
 
-    Main();
-});
+            // 1.创建新的图层---- 灵魂出窍，
+            // 需要优化，如果有这个图层的时就不再创建，直接在那个图层上进行k帧
+            var layerIndex = getLayersIndexByName(AllLayers, "灵魂出窍");
+            if (layerIndex.length > 0) {
+                // 已存在独白黑幕图层，直接选中
+                timeline.currentLayer = layerIndex[0];
+            } else {
+                timeline.addNewLayer("灵魂出窍", "normal", true);
+            }
+
+            // 关键帧
+            convertToKeyframesSafety(timeline, firstSlFrameIndex);
+
+
+            // 2.复制选中的元件到新的图层
+            // 必须true,否则会导致粘贴时出现问题:粘贴的位置没有与原位置重合
+            doc.clipPaste(true);
+
+            // 3.包装为一个新的元件
+            var symbolName = generateNameUntilUnique("灵魂出窍_");
+            doc.convertToSymbol("graphic", symbolName, "center");
+
+            // 4. 编辑模式
+            // 此时元件1  占用 第一个图层
+            doc.enterEditMode("inPlace");
+
+            // 4.1  添加渐变遮罩层
+            var newLayerIndex = timeline.addNewLayer("渐变遮罩", "normal", true);
+
+            // 4.2 添加一个shape 长方形，铺满 元件的轮廓
+            // 宽高=位置+100
+
+            // 设置 混合模式为 alpha
+            // an.getDocumentDOM().setBlendMode('alpha')
+
+            // 补帧 5s----150帧,不清楚有没有必要
+
+            // 5. 移动到左上角
+
+        }
+
+        Main();
+    });

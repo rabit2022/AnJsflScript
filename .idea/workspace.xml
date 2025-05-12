@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="2318bed7-153e-429d-a111-ac0e0c1e5ee6" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/custom/xjsfl/ui/Utils.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/xjsfl/ui/Utils.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/custom/xjsfl/ui/XUL.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/xjsfl/ui/XUL.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/01.角色/#06.灵魂出窍.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/01.角色/#06.灵魂出窍.jsfl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +16,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JSFL Command" />
         <option value="JavaScript File" />
+        <option value="JSFL Command" />
       </list>
     </option>
   </component>
@@ -39,21 +38,26 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Node.js.#06.灵魂出窍.jsfl.executor": "Run",
+    "Node.js.01.打开命令位置.jsfl.executor": "Run",
     "Node.js.01.瞬移-消失.jsfl.executor": "Run",
     "Node.js.02.xml测试.jsfl.executor": "Run",
+    "Node.js.03.jsfl.executor": "Run",
     "Node.js.XML.jsfl.executor": "Run",
     "Node.js.XML2.jsfl.executor": "Run",
     "Node.js.dd.js.executor": "Run",
     "Node.js.test.jsx.executor": "Run",
     "Node.js.ttt.js.executor": "Run",
+    "Node.js.vfdvf01.jsfl.executor": "Run",
+    "Node.js.vfdvf04.jsfl.executor": "Run",
     "Node.js.xml(1).jsfl.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "Shell Script.ReRun.executor": "Run",
     "Shell Script.打开test.executor": "Run",
     "Shell Script.运行当前jsfl.executor": "Run",
-    "git-widget-placeholder": "dev",
-    "last_opened_file_path": "F:/04_ps/沙雕动画/_素材库/WindowSWF-master/WindowSWF-master/AnJsflScript/Third/custom/xjsfl/ui",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "F:/04_ps/沙雕动画/_素材库/WindowSWF-master/WindowSWF-master/AnJsflScript/test",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
@@ -74,20 +78,21 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\custom\xjsfl\ui" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\custom\XUL2" />
-      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\types\XML" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\types\Third\Context" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\灵魂" />
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\dp" />
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\as" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\dp" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\02.随机" />
-      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\custom\xjsfl\ui" />
-      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\custom\XUL2" />
     </key>
   </component>
-  <component name="RunManager" selected="Shell Script.打开test">
+  <component name="RunManager" selected="Shell Script.运行当前jsfl">
     <list>
       <item itemvalue="npm.format" />
       <item itemvalue="Shell Script.FirstRun" />
@@ -126,6 +131,7 @@
       <workItem from="1746883300287" duration="11902000" />
       <workItem from="1746895319838" duration="441000" />
       <workItem from="1746939459842" duration="2162000" />
+      <workItem from="1747045978172" duration="13836000" />
     </task>
     <servers />
   </component>
