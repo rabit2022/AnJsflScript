@@ -21,16 +21,20 @@ if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(["checkUtil", "SAT", "SymbolNameGenerator", "Context", "KeyFrameOperation", "LayerQuery"],
-    function(checkUtil, sat, sng, Context, kfo, lq) {
+require(["checkUtil", "SAT", "SymbolNameGenerator", "Context", "KeyFrameOperation", "LayerQuery",
+    "DrawRectangle"],
+    function(checkUtil, sat, sng, Context,
+             kfo, lq,
+             dr) {
         const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
-        const { Vector } = sat.GLOBALS;
-        // const { wrapRect } = sat.GLOBALS;
+        const { Vector,Size } = sat;
+        const {wrapSize,getSymbolBounds, wrapRectByCenter } = sat.GLOBALS;
 
         const { generateNameUntilUnique, generateNameUseLast } = sng;
         const { getLayersIndexByName } = lq;
         const { convertToKeyframesSafety } = kfo;
+        const { drawRectangleWithoutLine } = dr;
 
         // var doc = fl.getDocumentDOM(); //文档
         // if (!checkDom(doc)) return;
@@ -70,6 +74,50 @@ require(["checkUtil", "SAT", "SymbolNameGenerator", "Context", "KeyFrameOperatio
 
         // offset=Point(-width,height/5)
 
+        function getRect(element) {
+            const bounds = getSymbolBounds(element);
+            // log.info("bounds", bounds,bounds.center,bounds.size);
+            const size=bounds.size;
+            const addSize=new Size(100,100);
+            const newSize=size.add(addSize);
+
+            const newRect=wrapRectByCenter(bounds.center,newSize);
+
+            // log.info("newRect", newRect);
+            return newRect;
+        }
+        function KFrames() {
+            // 此时元件1  占用 第一个图层
+            doc.enterEditMode("inPlace");
+
+            // 4.1  添加渐变遮罩层
+            context.update();
+            var timeline = context.timeline;
+            var newLayerIndex = timeline.addNewLayer("渐变遮罩", "normal", true);
+
+            // 4.2 添加一个shape 长方形，铺满 元件的轮廓
+            // 宽高=位置+100
+            var rect = getRect(selection[0]);
+            // drawRectangleWithoutLine(rect)
+            doc.addNewRectangle(rect,0);
+
+            // 设置 混合模式为 alpha
+
+            // bug:doc.setBlendMode 只能在元件生效，不能在图层生效
+            // doc.setBlendMode('alpha')
+            context.update();
+            var curLayer=context.curLayer;
+            curLayer.setBlendModeAtFrame(0, "alpha");
+
+            // TODO:设置笔触，填充，，填充透明度80
+
+
+            // 补帧 5s----150帧,不清楚有没有必要
+
+
+            doc.exitEditMode();
+        }
+
         function Main() {
             // 检查选择的元件
             if (!checkSelection(selection, "selectElement", "Only one")) return;
@@ -98,22 +146,23 @@ require(["checkUtil", "SAT", "SymbolNameGenerator", "Context", "KeyFrameOperatio
             var symbolName = generateNameUntilUnique("灵魂出窍_");
             doc.convertToSymbol("graphic", symbolName, "center");
 
+            var element=selection[0];
+            var eleSize=wrapSize(element);
+
             // 4. 编辑模式
-            // 此时元件1  占用 第一个图层
-            doc.enterEditMode("inPlace");
-
-            // 4.1  添加渐变遮罩层
-            var newLayerIndex = timeline.addNewLayer("渐变遮罩", "normal", true);
-
-            // 4.2 添加一个shape 长方形，铺满 元件的轮廓
-            // 宽高=位置+100
-
-            // 设置 混合模式为 alpha
-            // an.getDocumentDOM().setBlendMode('alpha')
-
-            // 补帧 5s----150帧,不清楚有没有必要
+            KFrames();
 
             // 5. 移动到左上角
+            var moveDirection=new Vector(-1.5,-0.3);
+            var distanceToMove=eleSize.toVector().scale(moveDirection.x,moveDirection.y);
+
+            doc.moveSelectionBy(distanceToMove);
+
+            // 6.设置 混合模式 图层
+            context.update();
+            var curLayer=context.curLayer;
+            curLayer.setBlendModeAtFrame(firstSlFrameIndex, "layer");
+
 
         }
 

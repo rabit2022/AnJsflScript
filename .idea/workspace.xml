@@ -5,8 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2318bed7-153e-429d-a111-ac0e0c1e5ee6" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/custom/sat-js-0.9.0/SAT.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/sat-js-0.9.0/SAT.jsfl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/01.角色/#06.灵魂出窍.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/01.角色/#06.灵魂出窍.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/require-config.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/require-config.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/types/Third/Context/Context.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/Third/Context/Context.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/types/Third/sat-js-0.9.0/SAT.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/Third/sat-js-0.9.0/SAT.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/types/Third/xul/XUL.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/Third/xul/XUL.d.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +64,8 @@
     "Shell Script.打开test.executor": "Run",
     "Shell Script.运行当前jsfl.executor": "Run",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "F:/04_ps/沙雕动画/_素材库/WindowSWF-master/WindowSWF-master/AnJsflScript/test",
+    "js.last.introduce.type": "VAR",
+    "last_opened_file_path": "F:/04_ps/沙雕动画/_素材库/WindowSWF-master/WindowSWF-master/AnJsflScript/Third/color/chroma.js-3.1.2",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
@@ -71,28 +79,28 @@
     "npm.open-test-file.executor": "Run",
     "npm.run-current-file.executor": "Run",
     "prettierjs.PrettierConfiguration.Package": "F:\\04_ps\\沙雕动画\\_素材库\\WindowSWF-master\\WindowSWF-master\\AnJsflScript\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "JavaScript.Libraries",
     "ts.external.directory.path": "D:\\01_software\\06_programme\\01_ide\\WebStorm 2024.3.5\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\color\chroma.js-3.1.2" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\custom\xjsfl\ui" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\custom\XUL2" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\types\XML" />
-      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\types\Third\Context" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\灵魂" />
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\dp" />
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\例子" />
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\灵魂" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\as" />
-      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\dp" />
-      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\02.随机" />
     </key>
   </component>
-  <component name="RunManager" selected="Shell Script.运行当前jsfl">
+  <component name="RunManager" selected="Shell Script.ReRun">
     <list>
       <item itemvalue="npm.format" />
       <item itemvalue="Shell Script.FirstRun" />
@@ -131,7 +139,9 @@
       <workItem from="1746883300287" duration="11902000" />
       <workItem from="1746895319838" duration="441000" />
       <workItem from="1746939459842" duration="2162000" />
-      <workItem from="1747045978172" duration="13836000" />
+      <workItem from="1747045978172" duration="18971000" />
+      <workItem from="1747138465540" duration="2046000" />
+      <workItem from="1747140526439" duration="5404000" />
     </task>
     <servers />
   </component>

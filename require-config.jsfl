@@ -55,6 +55,8 @@ require.config({
         xpath: "Third/xml/xpath-0.0.34/xpath",
         // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\custom\xjsfl\ui\xjsfl.jsfl
         xjsfl: "Third/custom/xjsfl/ui/xjsfl",
+        // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\color\chroma.js-3.1.2\chroma.jsfl
+        chroma: "Third/color/chroma.js-3.1.2/chroma",
 
         // 自定义模块
         BitmapOperation: "Core/flash/Bitmap/BitmapOperation",

@@ -1,98 +1,94 @@
+declare module "Context" {
+    type DomType = Boolean | Document | Number | String | Context | undefined;
 
+    type TimelineType = Timeline | Boolean | SymbolItem | SymbolInstance | Context | String | Number | null | undefined;
 
+    type LayerType = Layer | Boolean | Number | String | Context | undefined;
 
+    type FrameType = Frame | Boolean | Number | String | RegExp | Context | undefined;
 
+    type ElementType = Element | Boolean | Number | String | Context | undefined;
 
+    class Context {
+        dom: Document | null; // 当前文档对象
+        item: Item | null; // 当前库项目
+        timeline: Timeline | null; // 当前时间轴
+        layer: Layer | null; // 当前图层
+        frame: Frame | null; // 当前帧
+        element: Element | null; // 当前元素
+        context: string; // 当前上下文类型标识
 
-type DomType = Boolean | Document | Number | String | Context|undefined;
+        constructor(dom?: DomType, timeline?: TimelineType, layer?: LayerType, frame?: FrameType, element?: ElementType);
 
-type TimelineType = Timeline|Boolean|SymbolItem|SymbolInstance|Context|String|Number|null|undefined;
+        static create(
+            dom?: boolean,
+            timeline?: boolean,
+            layer?: boolean,
+            frame?: boolean,
+            element?: boolean
+        ): Context;
 
-type LayerType = Layer|Boolean|Number|String|Context|undefined;
+        toString(): string;
 
-type FrameType = Frame|Boolean|Number|String|RegExp|Context|undefined;
+        clone(): Context;
 
-type ElementType=Element|Boolean|Number|String|Context|undefined;
+        copy(context: Context): void;
 
-declare class Context {
-    dom: Document | null; // 当前文档对象
-    item: Item | null; // 当前库项目
-    timeline: Timeline | null; // 当前时间轴
-    layer: Layer | null; // 当前图层
-    frame: Frame | null; // 当前帧
-    element: Element | null; // 当前元素
-    context: string; // 当前上下文类型标识
+        setDOM(value: DomType): Context;
 
-    constructor(dom?: DomType, timeline?: TimelineType, layer?: LayerType, frame?: FrameType, element?: ElementType);
+        private clearDependentProperties(): void;
 
-    static create(
-        dom?: boolean,
-        timeline?: boolean,
-        layer?: boolean,
-        frame?: boolean,
-        element?: boolean,
-    ): Context;
+        setTimeline(value: TimelineType): Context;
 
-    toString(): string;
+        private clearLayerProperties(): void;
 
-    clone(): Context;
+        setLayer(value: LayerType): Context;
 
-    copy(context: Context): void;
+        private clearFrameProperties(): void;
 
-    setDOM(value: DomType): Context;
+        setFrame(value: FrameType, allLayers?: boolean): Context;
 
-    private clearDependentProperties(): void;
+        setElement(value: ElementType): Context;
 
-    setTimeline(value: TimelineType): Context;
+        goto(): Context;
 
-    private clearLayerProperties(): void;
+        update(dom?: boolean, timeline?: boolean, layer?: boolean, frame?: boolean): Context;
 
-    setLayer(value: LayerType): Context;
+        setKeyframe(keyframeIndex: number, layer?: LayerType): Context;
 
-    private clearFrameProperties(): void;
+        select(): Context;
 
-    setFrame(value: FrameType, allLayers?: boolean): Context;
+        selectLayer(addToSelection?: boolean): Context;
 
-    setElement(value: ElementType): Context;
+        selectFrame(addToSelection?: boolean): Context;
 
-    goto(): Context;
+        selectElement(addToSelection?: boolean): Context;
 
-    update(dom?: boolean, timeline?: boolean, layer?: boolean, frame?: boolean): Context;
+        /**
+         * 从短字符串创建上下文
+         * @param {string} shortString - 短字符串格式：doc>item~layer@frame:element
+         */
+        from(shortString: string): void;
 
-    setKeyframe(keyframeIndex: number, layer?: LayerType): Context;
+        // 属性访问器
+        readonly doc: Document | null; // 兼容老版本的DOM属性
+        readonly selection: Element[]; // 当前选择集
+        readonly library: Library; // 文档库
+        readonly items: Item[]; // 库项目列表
+        readonly timelines: Timeline[]; // 时间轴列表
 
-    select(): Context;
+        readonly curLayerIndex: number; // 当前图层索引
+        readonly curLayer: Layer | null; // 当前图层对象
+        readonly AllLayers: Layer[]; // 所有图层对象
+        readonly keyframes: Frame[]; // 当前图层所有关键帧
+        readonly curFrameIndex: number | null; // 当前帧索引
+        readonly curFrame: Frame | null; // 当前帧对象
 
-    selectLayer(addToSelection?: boolean): Context;
+        readonly firstSlFrameIndex: number | null; // 第一个选中帧的索引
+        readonly firstSlLayerIndex: number | null; // 第一个选中图层的索引
+        readonly firstSlLayer: Layer | null; // 第一个选中图层对象
+        readonly firstSlFrame: Frame | null; // 第一个选中帧对象
+    }
 
-    selectFrame(addToSelection?: boolean): Context;
-
-    selectElement(addToSelection?: boolean): Context;
-
-    /**
-     * 从短字符串创建上下文
-     * @param {string} shortString - 短字符串格式：doc>item~layer@frame:element
-     */
-    from(shortString: string): void;
-
-    // 属性访问器
-    readonly doc: Document | null; // 兼容老版本的DOM属性
-    readonly selection: Element[]; // 当前选择集
-    readonly library: Library; // 文档库
-    readonly items: Item[]; // 库项目列表
-    readonly timelines: Timeline[]; // 时间轴列表
-
-    readonly curLayerIndex: number; // 当前图层索引
-    readonly curLayer: Layer | null; // 当前图层对象
-    readonly AllLayers: Layer[]; // 所有图层对象
-    readonly keyframes: Frame[]; // 当前图层所有关键帧
-    readonly curFrameIndex: number | null; // 当前帧索引
-    readonly curFrame: Frame | null; // 当前帧对象
-
-    readonly firstSlFrameIndex: number | null; // 第一个选中帧的索引
-    readonly firstSlLayerIndex: number | null; // 第一个选中图层的索引
-    readonly firstSlLayer: Layer | null; // 第一个选中图层对象
-    readonly firstSlFrame: Frame | null; // 第一个选中帧对象
+    export = Context;
 }
-
-export default Context;

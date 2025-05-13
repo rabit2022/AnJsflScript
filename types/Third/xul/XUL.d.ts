@@ -126,11 +126,7 @@ declare module "XUL" {
     }
 
 
-
-
-
-
-    interface XULControl {
+    class XULControl {
         id: string;
         type: string;
         enumerable: boolean;
@@ -158,7 +154,7 @@ declare module "XUL" {
         toString(): string;
     }
 
-    interface XULEvent {
+    class XULEvent {
         type: string;
         control: XULControl | null;
         xul: XUL;
@@ -166,8 +162,9 @@ declare module "XUL" {
         toString(): string;
     }
 
-    interface XUL {
-        new (title?: string): XUL;
+    // interface XUL {
+    class XUL {
+        constructor (title?: string): XUL;
         factory(props: string | Function | XML | URI): XUL;
         create(props: string | Function, accept?: Function, cancel?: Function, defaults?: Record<string, any>): Record<string, any> | null;
         templates: Record<string, XML>;
@@ -256,7 +253,7 @@ declare module "XUL" {
         toString(): string;
     }
 
-    const XUL: XUL;
+    // const XUL: XUL;
     export = XUL;
 }
 

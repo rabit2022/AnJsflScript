@@ -118,6 +118,9 @@ export class Rectangle extends RectangleLike {
     readonly width: number;
     readonly height: number;
 
+    readonly center: Vector;
+    readonly size: Size;
+
     constructor();
     constructor(rect: Rectangle | RectangleLike);
     constructor(doc: Document);
@@ -171,6 +174,10 @@ export class Size extends SizeLike {
 
     constructor(width: number, height: number);
 
+    add(other: Size): Size;
+
+    sub(other: Size): Size;
+
     getRatioWidth(nowHeight: number): number;
 
     getRatioHeight(nowWidth: number): number;
@@ -217,7 +224,7 @@ export class Transform extends TransformLike {
     static toString(): string;
 }
 
-interface RectangleLike {
+interface FrameRangeLike {
     layerIndex: number;
     startFrame: number;
     endFrame: number;
@@ -227,7 +234,7 @@ interface RectangleLike {
  * 帧范围类
  * 左闭右开区间 [startFrame, endFrame)
  */
-export class FrameRange extends RectangleLike {
+export class FrameRange extends FrameRangeLike {
     layerIndex: number;
     startFrame: number;
     endFrame: number;
@@ -251,6 +258,12 @@ export class FrameRange extends RectangleLike {
     static toString(): string;
 }
 
+interface ElementBoundsLike {
+    left: number,
+    top: number,
+    width: number,
+    height: number
+}
 export namespace GLOBALS {
     export function wrapPosition(element: VectorLike | Element | Vector): Vector;
 
@@ -262,17 +275,14 @@ export namespace GLOBALS {
 
     export function getOrigin(): Vector;
 
-    export function getTopLeft(element: { left: number; top: number } | Element): Vector;
+    export function getTopLeft(element: ElementBoundsLike | Element): Vector;
 
-    // getSymbolCenter
-    export function getSymbolCenter(element: {
-        left: number,
-        top: number,
-        width: number,
-        height: number
-    } | Element): Vector;
-    // getStageCenter
+    export function getSymbolCenter(element:ElementBoundsLike | Element): Vector;
     export function getStageCenter(): Vector;
+
+
+    export function getSymbolBounds(element: ElementBoundsLike | Element): Rectangle;
+    export const getSymbolRect: typeof getSymbolBounds;
 
     export function wrapRectByTopLeft(
         left: number,

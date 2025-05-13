@@ -661,6 +661,16 @@
             return this.bottom - this.top;
         }
     });
+    Object.defineProperty(Rectangle.prototype, "center", {
+        get: function() {
+            return this.getCenterVector();
+        }
+    });
+    Object.defineProperty(Rectangle.prototype, "size", {
+        get: function() {
+            return this.getSize();
+        }
+    });
 
 
     SAT["Rectangle"] = Rectangle;
@@ -714,7 +724,6 @@
         return new Vector((this.left + this.right) / 2, (this.top + this.bottom) / 2);
     };
 
-    // getSize
     /**
      * 矩形大小
      * @returns {Size} 大小
@@ -1060,6 +1069,20 @@
     }
 
     /**
+     * 获取元素的 矩形
+     * @param element
+     * @returns {Rectangle}
+     */
+    function getSymbolRect(element) {
+        const size = wrapSize(element);
+        const center = getSymbolCenter(element);
+
+        const finalRect = wrapRectByCenter(center, size);
+        return finalRect;
+    }
+    var getSymbolBounds = getSymbolRect;
+
+    /**
      * 获取舞台中心点坐标
      * @return {Vector} 点
      */
@@ -1071,12 +1094,17 @@
         return stageCenter;
     }
 
+
+
     SAT_GLOBALS["wrapRectByTopLeft"] = wrapRectByTopLeft;
     SAT_GLOBALS["wrapRectByCenter"] = wrapRectByCenter;
     SAT_GLOBALS["findBoundingRectangle"] = findBoundingRectangle;
 
     SAT_GLOBALS["getSymbolCenter"] = getSymbolCenter;
     SAT_GLOBALS["getStageCenter"] = getStageCenter;
+
+    SAT_GLOBALS["getSymbolRect"] = getSymbolRect;
+    SAT_GLOBALS["getSymbolBounds"] = getSymbolBounds;
 
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______     __     ______     ______
@@ -1100,10 +1128,6 @@
     function Size(width, height) {
         this.width = width;
         this.height = height;
-
-        // this.max_size = Math.max(width, height);
-        // this.min_size = Math.min(width, height);
-        // this.ratio = width / height;
     }
 
     Object.defineProperty(Size.prototype, "ratio", {
@@ -1124,6 +1148,31 @@
 
     SAT["Size"] = Size;
     SAT["S"] = Size;
+
+    /**
+     * 克隆一个尺寸
+     * @returns {Size} 尺寸
+     */
+    Size.prototype.clone = function() {
+        return new Size(this.width, this.height);
+    };
+
+    /**
+     * 相加两个尺寸
+     * @param {Size} size 尺寸
+     * @returns {Size} 尺寸
+     */
+    Size.prototype.add = function(size) {
+        return new Size(this.width + size.width, this.height + size.height);
+    };
+    /**
+     * 相减两个尺寸
+     * @param {Size} size 尺寸
+     * @returns {Size} 尺寸
+     */
+    Size.prototype.sub = function(size) {
+        return new Size(this.width - size.width, this.height - size.height);
+    };
 
     Size.prototype.getRatioWidth = function(nowHeight) {
         return this.ratio * nowHeight;
