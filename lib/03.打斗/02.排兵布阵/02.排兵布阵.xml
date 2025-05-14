@@ -6,6 +6,8 @@
             <radio label="整齐排布" value="neat"/>
             <radio label="交错排布" value="staggered"/>
             <radio label="随机排布" value="random"/>
+            <radio label="字符画" value="ascii_art"/>
+
         </hbox>
     </radiogroup>
     <separator/>

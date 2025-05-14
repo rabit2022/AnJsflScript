@@ -21,7 +21,12 @@ if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(["checkUtil", "xmlPanelUtil", "os"], function (checkUtil, xmlPanelUtil, os) {
+require(["checkUtil", "xmlPanelUtil", "os", "loglevel"], function (
+    checkUtil,
+    xmlPanelUtil,
+    os,
+    log
+) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
 
@@ -82,6 +87,15 @@ require(["checkUtil", "xmlPanelUtil", "os"], function (checkUtil, xmlPanelUtil, 
                     XMLFOLDER,
                     onlyName + "_random.jsfl"
                 );
+                fl.runScript(SCRIPT_PATH);
+                break;
+            case "ascii_art":
+                var SCRIPT_PATH = os.path.join(
+                    folder_name,
+                    XMLFOLDER,
+                    onlyName + "_ascii_art.jsfl"
+                );
+                log.info(SCRIPT_PATH);
                 fl.runScript(SCRIPT_PATH);
                 break;
             default:

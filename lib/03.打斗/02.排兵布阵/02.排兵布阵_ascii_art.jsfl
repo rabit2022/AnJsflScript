@@ -30,10 +30,9 @@ require([
     "ElementSelect",
     "Tips",
     "XUL"
-], function (checkUtil, log, os, open, MoreElement, es, Tips, XUL) {
+], function (checkUtil, log, os, open, MoreElement, es, XUL) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { SelectSameName } = es;
-    const { TryLoad } = Tips;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -52,15 +51,15 @@ require([
     // endregion doc
 
     // 资源文件夹路径ascii_art_library
-    const ASCII_ART_LIBRARY_PATH = os.path.join(os.getcwd(), "./ascii_art_library/");
+    const ASCII_ART_LIBRARY_PATH = os.path.join(
+        $ProjectFileDir$,
+        "./config/ascii_art_library/"
+    );
     log.info("ASCII_ART_LIBRARY_PATH:", ASCII_ART_LIBRARY_PATH);
 
     function Main() {
         // 检查选择的元件
         if (!CheckSelection(selection, "selectElement", "Not Zero")) return;
-
-        // var XUL = TryLoad("XUL");
-        // if (!XUL) return;
 
         var listdir = os.listdir(ASCII_ART_LIBRARY_PATH);
         log.info("listdir:", listdir);
@@ -79,17 +78,6 @@ require([
         });
         log.info("menuItems:", menuItems);
 
-        // var xul = new XUL("排兵布阵_字符画")
-        //     .addMenuList("bug", "bug", {}, [
-        //         {
-        //             label: "只能tab选中,第一个无法被鼠标选中,",
-        //             value: "bug"
-        //         }
-        //     ])
-        //     .addMenuList("选择字符画", "ascii-art-menu", {}, menuItems);
-        // log.info("xmlFileList:", xul.xml);
-        // var dialog = fl.xmlPanelFromString(xul.xml);
-
         var xul = new XUL("排兵布阵_字符画")
             .addMenuList("bug", "bug", [
                 {
@@ -98,8 +86,7 @@ require([
                 }
             ])
             .addMenuList("选择字符画", "ascii-art-menu", menuItems);
-        // log.info("xmlFileList:", xul.xml);
-        // var dialog = fl.xmlPanelFromString(xul.xml);
+
         xul.show();
         var dialog = xul.settings;
 

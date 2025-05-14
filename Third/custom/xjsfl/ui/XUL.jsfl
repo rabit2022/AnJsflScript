@@ -426,7 +426,12 @@ define(["Utils","XULControl","XULEvent","XML","xjsfl"],function(Utils,XULControl
 							var subId;
 							for(var name in values)
 							{
-								// TODO: possibly add in check to skip prototype values in for loop
+								// bugfix: skip prototype values in for loop
+								if (!values.hasOwnProperty(name)){
+									continue;
+								}
+
+									// TODO: possibly add in check to skip prototype values in for loop
 
 								// variables
 									var value			= values[name];
