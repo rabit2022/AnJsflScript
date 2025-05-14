@@ -7,8 +7,10 @@
  * @description:
  */
 
-define(["Tips"], function (Tips) {
+define(["Tips", "SAT"], function (Tips, SAT) {
     const { checkVariableRedeclaration } = Tips;
+    const { FrameRange } = SAT;
+    const { IsFrameRangeLike } = SAT.CHECk;
 
     /**
      *
@@ -21,16 +23,37 @@ define(["Tips"], function (Tips) {
         // select None
         timeline.setSelectedFrames([0, 0, 0], true);
     }
-
     /**
      * 选中时间轴中的所有帧
-     * @param {Timeline} timeline
+     * @param {Timeline} timeline 时间轴对象
+     * @param {FrameRange|FrameRangeLike|Number|Array.<Number|FrameRange|FrameRangeLike>} [selectFrames] 选中的帧
      */
-    function SelectAllFms(timeline) {
+    function SelectAllFms(timeline, selectFrames) {
         checkVariableRedeclaration(timeline, "timeline");
 
-        // select All
-        timeline.setSelectedFrames(0, timeline.frameCount - 1, true);
+        // 递归处理选中帧
+        function selectFramesRecursively(frames) {
+            if (frames === undefined) {
+                // 选中所有帧
+                timeline.setSelectedFrames(0, timeline.frameCount - 1, true);
+            } else if (typeof frames === "number" || frames instanceof Number) {
+                // 选中单个帧
+                timeline.setSelectedFrames(frames, frames + 1, true);
+            } else if (IsFrameRangeLike(frames)) {
+                // 选中帧范围
+                timeline.setSelectedFrames(frames.startFrame, frames.endFrame, true);
+            } else if (frames instanceof Array) {
+                // 递归处理数组中的每个元素
+                frames.forEach(function (frame) {
+                    selectFramesRecursively(frame);
+                });
+            } else {
+                throw new Error("Invalid type for selectFrames: " + typeof frames);
+            }
+        }
+
+        // 调用递归函数处理 selectFrames
+        selectFramesRecursively(selectFrames);
     }
 
     /**

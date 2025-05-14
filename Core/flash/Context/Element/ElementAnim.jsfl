@@ -18,11 +18,12 @@ define(["ElementChecker"], function (ec) {
     function SetLoopMode(elements, mode) {
         // 没有元素
         if (!elements) {
+            var doc = fl.getDocumentDOM(); //文档
+
             // 直接设置元素属性
             doc.setElementProperty("loop", mode);
             return;
         }
-
 
         // 单个元素
         if (!Array.isArray(elements)) {

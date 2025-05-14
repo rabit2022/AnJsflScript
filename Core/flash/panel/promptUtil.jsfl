@@ -7,7 +7,9 @@
  * @description:
  */
 
-define(function () {
+define(["linqUtil"], function (linqUtil) {
+    const { $range } = linqUtil;
+
     function PromptUtil() {}
 
     /**
@@ -15,13 +17,14 @@ define(function () {
      * @param {string} promptMessage 提示信息
      * @param {number} [defaultValue=0] 默认值
      * @param {string} [alertMessage="请重新输入。"] 输入错误时的提示信息
+     * @param {{start: number, end: number, step: number}} [range=null] 范围
      * @returns {number} 输入的数字
      */
-    PromptUtil.parseNumber = function (promptMessage, defaultValue, alertMessage) {
-        if (defaultValue === null) {
+    PromptUtil.parseNumber = function (promptMessage, defaultValue, alertMessage, range) {
+        if (defaultValue === undefined || defaultValue === null) {
             defaultValue = 0;
         }
-        if (alertMessage === null) {
+        if (alertMessage === undefined || alertMessage === null) {
             alertMessage = "请重新输入合法的数字。";
         }
 
@@ -31,7 +34,17 @@ define(function () {
             return null;
         }
 
-        return Number(inputForce);
+        var force = Number(inputForce);
+
+        if (range !== null && range !== undefined) {
+            var rangeList = $range(range.start, range.end, range.step);
+            if (!rangeList.contains(force)) {
+                alert("输入值超出范围，请重新输入。");
+                return null;
+            }
+        }
+
+        return force;
     };
 
     /**

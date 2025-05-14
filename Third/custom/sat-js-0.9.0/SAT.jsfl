@@ -38,6 +38,7 @@
 
     var SAT = {};
     var SAT_GLOBALS = {};
+    var SAT_CHECk = {};
 
     // ------------------------------------------------------------------------------------------------------------------------
     //  __   __   ______     ______     ______   ______     ______
@@ -517,6 +518,11 @@
     SAT_GLOBALS["getOrigin"] = getOrigin;
     SAT_GLOBALS["getTopLeft"] = getTopLeft;
 
+    function IsVectorLike(obj) {
+        return obj && typeof obj.x === "number" && typeof obj.y === "number";
+    }
+    SAT_CHECk["IsVectorLike"] = IsVectorLike;
+
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______     ______     ______     ______   ______     __   __     ______
     // /\  == \   /\  ___\   /\  ___\   /\__  _\ /\  __ \   /\ "-.\ \   /\  ___\
@@ -534,23 +540,6 @@
     // Rectangle
     //
     // Represents a rectangle with `left`, `top`, `right`, and `bottom` properties.
-
-    /**
-     * 当前对象是否与 RectangleLike 对象相等
-     * @param {Rectangle|RectangleLike} obj 矩形对象
-     * @returns {boolean} 相等返回true，否则返回false
-     * @private
-     */
-    function IsRectangleLike(obj) {
-        return (
-            obj &&
-            typeof obj === "object" &&
-            typeof obj.left === "number" &&
-            typeof obj.top === "number" &&
-            typeof obj.right === "number" &&
-            typeof obj.bottom === "number"
-        );
-    }
 
     /**
      * Rectangle object.
@@ -1080,6 +1069,7 @@
         const finalRect = wrapRectByCenter(center, size);
         return finalRect;
     }
+
     var getSymbolBounds = getSymbolRect;
 
     /**
@@ -1095,7 +1085,6 @@
     }
 
 
-
     SAT_GLOBALS["wrapRectByTopLeft"] = wrapRectByTopLeft;
     SAT_GLOBALS["wrapRectByCenter"] = wrapRectByCenter;
     SAT_GLOBALS["findBoundingRectangle"] = findBoundingRectangle;
@@ -1105,6 +1094,26 @@
 
     SAT_GLOBALS["getSymbolRect"] = getSymbolRect;
     SAT_GLOBALS["getSymbolBounds"] = getSymbolBounds;
+
+
+    /**
+     * 当前对象是否与 RectangleLike 对象相等
+     * @param {Rectangle|RectangleLike} obj 矩形对象
+     * @returns {boolean} 相等返回true，否则返回false
+     * @private
+     */
+    function IsRectangleLike(obj) {
+        return (
+            obj &&
+            typeof obj === "object" &&
+            typeof obj.left === "number" &&
+            typeof obj.top === "number" &&
+            typeof obj.right === "number" &&
+            typeof obj.bottom === "number"
+        );
+    }
+
+    SAT_CHECk["IsRectangleLike"] = IsRectangleLike;
 
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______     __     ______     ______
@@ -1205,6 +1214,17 @@
 
     SAT_GLOBALS["wrapSize"] = wrapSize;
 
+    function IsSizeLike(obj) {
+        return (
+            obj &&
+            typeof obj === "object" &&
+            typeof obj.width === "number" &&
+            typeof obj.height === "number"
+        );
+    }
+
+    SAT_CHECk["IsSizeLike"] = IsSizeLike;
+
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______   ______     ______     __   __     ______     ______   ______
     // /\__  _\ /\  == \   /\  __ \   /\ "-.\ \   /\  ___\   /\  ___\ /\  __ \
@@ -1244,7 +1264,7 @@
     }
 
     SAT["Transform"] = Transform;
-    // SAT["T"]=Transform;
+    SAT["Tr"]=Transform;
 
     Transform.prototype.setRotation = function(rotation) {
         this.element.rotation = rotation;
@@ -1300,6 +1320,20 @@
 
     SAT_GLOBALS["wrapTransform"] = wrapTransform;
 
+    function IsTransformLike(obj) {
+        return (
+            obj &&
+            typeof obj === "object" &&
+            typeof obj.rotation === "number" &&
+            IsVectorLike(obj.scale) &&
+            IsVectorLike(obj.position) &&
+            IsSizeLike(obj.size) &&
+            IsVectorLike(obj.skew)
+        );
+    }
+
+    SAT_CHECk["IsTransformLike"] = IsTransformLike;
+
 
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______   ______     ______     __    __     ______     ______     ______
@@ -1330,6 +1364,8 @@
 
         // this.duration = endFrame - startFrame;
     }
+    SAT["FrameRange"] = FrameRange;
+    SAT["FR"]=FrameRange;
 
     /**
      * 帧范围的持续时间
@@ -1402,10 +1438,35 @@
         return "[Object FrameRange]";
     };
 
-    SAT["FrameRange"] = FrameRange;
 
+    function IsFrameRangeLike(obj) {
+        return (
+            obj &&
+            typeof obj === "object" &&
+            typeof obj.layerIndex === "number" &&
+            typeof obj.startFrame === "number" &&
+            typeof obj.endFrame === "number"
+        );
+    }
+
+    SAT_CHECk["IsFrameRangeLike"] = IsFrameRangeLike;
+
+    function IsElementBoundsLike(obj) {
+        return (
+            obj &&
+            typeof obj === "object" &&
+            typeof obj.left === "number" &&
+            typeof obj.top === "number" &&
+            typeof obj.width === "number" &&
+            typeof obj.height === "number"
+        );
+    }
+    SAT_CHECk["IsElementBoundsLike"] = IsElementBoundsLike;
 
     SAT["GLOBALS"] = SAT_GLOBALS;
+    SAT["CHECk"] = SAT_CHECk;
+
+
     return SAT;
     // });
 }));

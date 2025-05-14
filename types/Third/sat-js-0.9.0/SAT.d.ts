@@ -313,6 +313,16 @@ export namespace GLOBALS {
     export function findBoundingRectangle(elements: Array<Element>): Rectangle;
 }
 
+export namespace CHECk {
+    export function IsRectangleLike(obj: any): boolean;
+    export function IsSizeLike(obj: any): boolean;
+    export function IsVectorLike(obj: any): boolean;
+    export function IsTransformLike(obj: any): boolean;
+    export function IsFrameRangeLike(obj: any): boolean;
+    export function IsElementBoundsLike(obj: any): boolean;
+}
+
+
 // 别名
 export { Vector as V };
 export { Rectangle as R };
