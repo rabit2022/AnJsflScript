@@ -5,15 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2318bed7-153e-429d-a111-ac0e0c1e5ee6" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/04.运镜/#01.镜头抖动.jsfl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/04.运镜/00.镜头旋转.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/AnJsflScript.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/AnJsflScript.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/custom/xjsfl/ui/XUL.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/xjsfl/ui/XUL.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/ui/dialog.xul" beforeDir="false" afterPath="$PROJECT_DIR$/config/ui/dialog.xul" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/03.打斗/02.排兵布阵.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/03.打斗/02.排兵布阵.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/03.打斗/02.排兵布阵/02.排兵布阵.xml" beforeDir="false" afterPath="$PROJECT_DIR$/lib/03.打斗/02.排兵布阵/02.排兵布阵.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/20.日常脚本/XUL/06.交换元件-XUL.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/20.日常脚本/XUL/00.交换元件-XUL.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/20.日常脚本/XUL/排兵布阵_字符画/ascii_art_library/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/20.日常脚本/XUL/排兵布阵_字符画/ascii_art_library/一万人.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/20.日常脚本/XUL/排兵布阵_字符画/排兵布阵_字符画.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/20.日常脚本/XUL/01.排兵布阵_字符画.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/flash/checkUtil.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/flash/checkUtil.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/flash/panel/promptUtil.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/flash/panel/promptUtil.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/custom/utils/linqUtil.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/utils/linqUtil.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/04.镜头/06.一键聚焦.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/04.运镜/06.一键聚焦.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/04.镜头/07.独白黑幕.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/04.运镜/07.独白黑幕.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/20.日常脚本/XUL/00.交换元件-XUL.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/20.日常脚本/XUL/00.交换元件-XUL.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/21.工具/02.查看滤镜/00.查看当前帧的滤镜.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/21.工具/02.滤镜/00.查看当前帧的滤镜.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/21.工具/04.音频相关/00.当前图层有几个音频.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/21.工具/04.音频相关/#00.当前图层有几个音频.jsfl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +49,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Node.js.#06.灵魂出窍.jsfl.executor": "Run",
+    "Node.js.00.假断点.jsfl.executor": "Run",
     "Node.js.01.打开命令位置.jsfl.executor": "Run",
     "Node.js.01.瞬移-消失.jsfl.executor": "Run",
     "Node.js.02.xml测试.jsfl.executor": "Run",
@@ -65,7 +69,7 @@
     "Shell Script.运行当前jsfl.executor": "Run",
     "git-widget-placeholder": "master",
     "js.last.introduce.type": "VAR",
-    "last_opened_file_path": "F:/04_ps/沙雕动画/_素材库/WindowSWF-master/WindowSWF-master/AnJsflScript/lib/03.打斗/02.排兵布阵",
+    "last_opened_file_path": "F:/04_ps/沙雕动画/_素材库/WindowSWF-master/WindowSWF-master/AnJsflScript/test/一键闪现",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
@@ -86,21 +90,21 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\一键闪现" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib\03.打斗\02.排兵布阵" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\config" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\color\chroma.js-3.1.2" />
-      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib\20.日常脚本\XUL" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\例子" />
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\02.随机" />
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib\20.日常脚本\XUL" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\dp" />
-      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\灵魂" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.format">
+  <component name="RunManager" selected="Shell Script.ReRun">
     <list>
       <item itemvalue="npm.format" />
       <item itemvalue="Shell Script.FirstRun" />
@@ -143,7 +147,9 @@
       <workItem from="1747138465540" duration="2046000" />
       <workItem from="1747140526439" duration="5404000" />
       <workItem from="1747148389441" duration="2759000" />
-      <workItem from="1747223581713" duration="10508000" />
+      <workItem from="1747223581713" duration="13829000" />
+      <workItem from="1747310564724" duration="6111000" />
+      <workItem from="1747317879101" duration="4318000" />
     </task>
     <servers />
   </component>

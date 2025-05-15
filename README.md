@@ -196,9 +196,9 @@ git clone https://github.com/rabit2022/AnJsflScript.git
 
 ## 8. 项目规模
 
-- **代码行数**: 9015
-- **字符数量**: 225836
-- **脚本数量**: 76
+- **代码行数**: 9432
+- **字符数量**: 235548
+- **脚本数量**: 80
 - **第三方库数量**：28
 - **界面访问量**：
   ![访问统计](https://profile-counter.glitch.me/AnJsflScript/count.svg)

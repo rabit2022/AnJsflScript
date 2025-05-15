@@ -7,10 +7,11 @@
  * @description:
  */
 
-define(["linqUtil"], function (linqUtil) {
+define(["linqUtil"], function(linqUtil) {
     const { $range } = linqUtil;
 
-    function PromptUtil() {}
+    function PromptUtil() {
+    }
 
     /**
      * 弹出提示框，获取输入的数字
@@ -20,7 +21,7 @@ define(["linqUtil"], function (linqUtil) {
      * @param {{start: number, end: number, step: number}} [range=null] 范围
      * @returns {number} 输入的数字
      */
-    PromptUtil.parseNumber = function (promptMessage, defaultValue, alertMessage, range) {
+    PromptUtil.parseNumber = function(promptMessage, defaultValue, alertMessage, range) {
         if (defaultValue === undefined || defaultValue === null) {
             defaultValue = 0;
         }
@@ -39,7 +40,11 @@ define(["linqUtil"], function (linqUtil) {
         if (range !== null && range !== undefined) {
             var rangeList = $range(range.start, range.end, range.step);
             if (!rangeList.contains(force)) {
-                alert("输入值超出范围，请重新输入。");
+                var rangeStr =
+                    (range.start ? range.start : "") +
+                    (range.end ? "," + range.end : "") +
+                    (range.step ? "," + range.step : "");
+                alert("输入值超出范围 : range(" + rangeStr + ")，请重新输入。");
                 return null;
             }
         }
@@ -54,7 +59,7 @@ define(["linqUtil"], function (linqUtil) {
      * @param {string} [alertMessage="请重新输入合法的数字。"] - 输入无效时显示的警告信息。
      * @returns {{num: number, hasSign: boolean}} 解析结果对象 {num, hasSign} 或 null（如果用户取消输入或输入无效）。
      */
-    PromptUtil.parseNumberWithSign = function (
+    PromptUtil.parseNumberWithSign = function(
         promptMessage,
         defaultValue,
         alertMessage
@@ -118,7 +123,7 @@ define(["linqUtil"], function (linqUtil) {
      * @param {number} [defaultValue=0] - 默认输入值，如果用户未输入则使用此值。
      * @returns {{num: number, mode: string}} 解析结果对象 {num, mode} 或 null（如果用户取消输入或输入无效）。
      */
-    PromptUtil.parseNumberWithMode = function (defaultValue) {
+    PromptUtil.parseNumberWithMode = function(defaultValue) {
         // 设置默认值
         defaultValue =
             defaultValue === undefined || defaultValue === null ? 0 : defaultValue;
@@ -148,7 +153,7 @@ define(["linqUtil"], function (linqUtil) {
      * @param {object} [tipDictionary={"右": 1, "左": -1, " ": -1}] 提示字典
      * @returns {number} 输入的方向
      */
-    PromptUtil.parseDirection = function (promptMessage, tipDictionary) {
+    PromptUtil.parseDirection = function(promptMessage, tipDictionary) {
         if (tipDictionary === null) {
             tipDictionary = { 右: 1, 左: -1, " ": -1 };
         }

@@ -21,15 +21,13 @@ if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(["checkUtil", "loglevel", "ElementChecker", "Tips"], function (
+require(["checkUtil", "loglevel", "ElementChecker","XUL"], function (
     checkUtil,
     log,
-    ec,
-    Tips
+    ec,XUL
 ) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { IsSymbol } = ec;
-    const { TryLoad } = Tips;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -78,21 +76,6 @@ require(["checkUtil", "loglevel", "ElementChecker", "Tips"], function (
             };
         });
 
-        var XUL = TryLoad("XUL");
-        if (!XUL) return;
-
-        // var xul = new XUL("选择元件")
-        //     .addMenuList("bug", "bug", {}, [
-        //         {
-        //             label: "只能tab选中,第一个无法被鼠标选中,",
-        //             value: "bug"
-        //         }
-        //     ])
-        //     .addMenuList("选择元件", "selectedSymbol", {}, menuItems);
-        // log.info("xul.xml:", xul.xml);
-        //
-        // // &lt;
-        // var dialog = fl.xmlPanelFromString(xul.xml);
         var xul = new XUL("选择元件")
             .addMenuList("bug", "bug", [
                 {
@@ -101,10 +84,7 @@ require(["checkUtil", "loglevel", "ElementChecker", "Tips"], function (
                 }
             ])
             .addMenuList("选择元件", "selectedSymbol", menuItems);
-        // .addMenuList("选择元件", "selectedSymbol", {}, menuItems);
-        // log.info("xul.xml:", xul.xml);
         xul.show();
-
         var dialog = xul.settings;
 
         // 如果点击的是“取消”按钮，直接返回，不执行后续代码，确保功能符合需求

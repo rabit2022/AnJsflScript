@@ -63,16 +63,40 @@ define(['linq'], function(Enumerable) {
             start = 0;
             stop = args[0];
             step = 1;
+
+            // 检查是否有参数为 undefined
+            if (stop === undefined) {
+                throw new Error('stop cannot be undefined');
+            }
         } else if (args.length === 2) {
             // 有两个参数时，默认 step=1
             start = args[0];
             stop = args[1];
             step = 1;
+
+            // 检查是否有参数为 undefined
+            if (start === undefined) {
+                throw new Error('start cannot be undefined');
+            }
+            if (stop === undefined) {
+                stop = start + 1; // 默认 stop = start + 1
+            }
         } else if (args.length === 3) {
             // 有三个参数时，直接使用传入的参数
             start = args[0];
             stop = args[1];
             step = args[2];
+
+            // 检查是否有参数为 undefined
+            if (start === undefined) {
+                throw new Error('start cannot be undefined');
+            }
+            if (stop === undefined) {
+                stop = start + 1; // 默认 stop = start + 1
+            }
+            if (step === undefined) {
+                step = 1; // 默认 step = 1
+            }
         } else {
             throw new Error(
                 'Invalid number of arguments. Expected 1, 2, or 3 arguments.'
