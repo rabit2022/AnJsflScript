@@ -60,5 +60,5 @@ def print_art_with_comments(text):
 if __name__ == '__main__':
 
     # 调用函数，传入文本
-    text = "Transform"
+    text = "FrameRange"
     print_art_with_comments(text)

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @file: ${FILE_NAME}
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
@@ -22,18 +22,9 @@ if (\$ProjectFileDir$.includes('AppData/Local/Temp')) {
     throw new Error(msg);
 }
 
-require(["checkUtil", "loglevel", "SymbolNameGenerator", "KeyFrameOperation", "EaseCurve", "Context", "JSFLConstants"],
-    function(checkUtil, log, sng, kfo, ec, Context, JSFLConstants) {
-    const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
-
-    const { generateNameUntilUnique, generateNameUseLast } = sng;
-    const { convertToKeyframesSafety } = kfo;
-    const { setClassicEaseCurve } = ec;
-
-    const { FRAME_1 } = JSFLConstants.Numerics.frame.frameList;
-
-    var doc = CheckDom(); //文档
-    if (doc === null) return;
+require(["checkUtil", "loglevel"],
+    function(checkUtil, log) {
+    const { CheckDom, CheckSelection,CheckSelectedFrames } = checkUtil;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -57,27 +48,6 @@ require(["checkUtil", "loglevel", "SymbolNameGenerator", "KeyFrameOperation", "E
     var firstFrame = frs[0].startFrame;
 
     // endregion doc
-
-    // // region Context
-    // // 这个用于 变量 经常update的地方，例如：doc.enterEditMode("inPlace");
-    // // 否则，建议使用 doc 方案，减少 库 的依赖
-    // const context = new Context();
-    // context.update();
-    // const {
-    //     doc,
-    //     selection,
-    //     library,
-    //     timeline,
-    //     AllLayers,
-    //     curLayerIndex,
-    //     curLayer,
-    //     curFrameIndex,
-    //     curFrame
-    // } = context;
-    // const { firstSlLayerIndex, firstSlFrameIndex } = context;
-    //
-    // // endregion Context
-
 
     function Main() {
         // 检查选择的元件
