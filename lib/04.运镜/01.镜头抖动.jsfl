@@ -22,10 +22,16 @@ if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
     throw new Error(msg);
 }
 
-require(["checkUtil", "loglevel", "promptUtil"],
-    function(checkUtil, log, promptUtil) {
+require(["checkUtil", "loglevel", "promptUtil", "KeyFrameOperation", "linqUtil", "SAT", "random"],
+    function(checkUtil, log, promptUtil, kfo, linqUtil, SAT, random) {
         const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
+
+        const { Vector } = SAT;
+        const { wrapPosition } = SAT.GLOBALS;
+
         const { parseNumber } = promptUtil;
+        const { convertToKeyframesSafety, KFrameOnlyOne } = kfo;
+        const { $range } = linqUtil;
 
         // region doc
         var doc = CheckDom(); //文档
@@ -44,7 +50,7 @@ require(["checkUtil", "loglevel", "promptUtil"],
 
         // 获取第一帧
         // 选中帧  的第一段 至少 4 个帧
-        var frs = CheckSelectedFrames(timeline, "请选择 至少 4 个帧", "No limit", {
+        var frs = CheckSelectedFrames(timeline, "请选择 至少 4 个帧", "More", {
             min: 4,
             onlyFirst: true
         });
@@ -77,6 +83,34 @@ require(["checkUtil", "loglevel", "promptUtil"],
                 timeline.currentLayer = 0;
             }
 
+            // // 首帧 转 关键帧
+            // convertToKeyframesSafety(timeline, [firstFrame]);
+
+            // 选中的第一段的 所有帧 转 关键帧
+            var firstFms = $range(frs[0].startFrame, frs[0].endFrame).toArray();
+            convertToKeyframesSafety(timeline, firstFms);
+
+            firstFms.forEach(function(fm) {
+                // 最后一帧不动
+                if (fm === firstFms[firstFms.length - 1]) return;
+
+                // X轴抖动=(+-1:偶数帧为-1，奇数帧为+1)*shackIndensity*[-1,3],,,5,-14最大值
+                // Y轴抖动=shackIndensity*[-2,2]，，，，5,10最大值
+                var direction = fm % 2 === 0 ? 1 : -1;
+                var radomShack = new Vector(
+                    direction * shackIndensity * random.uniform(-1, 3),
+                    shackIndensity * random.uniform(-2, 2)
+                );
+                log.info("radomShack:" + radomShack);
+
+                var cameraPosition=wrapPosition(timeline.camera.getPosition(fm));
+                log.info("fm:" + fm + " cameraPosition:" + cameraPosition);
+
+                var newPosition = cameraPosition.add(radomShack).round().noZero();
+                log.info("newPosition:" + newPosition);
+
+                timeline.camera.setPosition(fm, newPosition.x, newPosition.y);
+            });
 
         }
 

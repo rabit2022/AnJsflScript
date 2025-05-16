@@ -7,14 +7,14 @@
  * @description:
  */
 
-define(["Tips"], function(Tips) {
+define(["Tips"], function (Tips) {
     const { checkVariableRedeclaration } = Tips;
 
     /**
      * 检查选择的元件或帧是否符合指定的模式和条件。
      *
      * @param {Array} selection - 选择的元件或帧数组。
-     * @param {"selectElement"|"selectFrame"|"elementOnFrame"|"selectLibItem"|"selectLayer"} [mode="selectElement"] - 检查模式，默认值为 "selectElement"。
+     * @param {"selectElement"|"selectFrame"|"elementOnFrame"|"selectLibItem"|"selectLayer"|"selectedFrameDuration"|"selectedFrameFirstDuration"} [mode="selectElement"] - 检查模式，默认值为 "selectElement"。
      * @param {"No limit"|"Not Zero"|"Zero"|"Only one"|"Only two"|"More"|"=0"|"=1"|"=2"|">=2"} [condition="No limit"] - 检查条件，默认值为 "No limit"。
      * @param {string} [exTips] - 额外提示信息。
      * @returns {boolean} - 如果选择符合指定条件，则返回 true，否则返回 false。
@@ -48,17 +48,20 @@ define(["Tips"], function(Tips) {
         condition = condition || "No limit";
 
         // 定义模式
-        var modes = [
+        // 定义模式
+        const modes = [
             "selectElement",
             "selectFrame",
             "elementOnFrame",
             "selectLibItem",
-            "selectLayer"
+            "selectLayer",
+            "selectedFrameDuration",
+            "selectedFrameFirstDuration"
         ];
 
         // 定义条件列表（主条件列表和其他别名列表）
         var conditions = [
-            ["No limit", "Zero", "Not Zero", "Only one", "Only two", "More"], // 主条件列表
+            ["No limit", "Not Zero", "Zero", "Only one", "Only two", "More"], // 主条件列表
             [null, "=0", ">0", "=1", "=2", ">=2"] // 别名列表
         ];
 
@@ -103,6 +106,22 @@ define(["Tips"], function(Tips) {
                 "请只选择一个图层。",
                 "请同时选择两个图层。",
                 "请选择多个图层。"
+            ],
+            [
+                null,
+                "所选帧总时长 不能为 0 帧。",
+                "所选帧总时长 至少为 1 帧。",
+                "所选帧总时长 只能为 1 帧。",
+                "所选帧总时长 只能为 2 帧。",
+                "所选帧总时长 不能小于 2 帧。"
+            ],
+            [
+                null,
+                "所选帧的  第一段 时长 不能为 0 帧。",
+                "所选帧的  第一段 时长 至少为 1 帧。",
+                "所选帧的  第一段 时长 只能为 1 帧。",
+                "所选帧的  第一段 时长 只能为 2 帧。",
+                "所选帧的  第一段 时长 不能小于 2 帧。"
             ]
         ];
 
@@ -192,13 +211,12 @@ define(["Tips"], function(Tips) {
 
         // KeyFrameQuery
         var kfq;
-        require(["KeyFrameQuery"], function(KeyFrameQuery) {
+        require(["KeyFrameQuery"], function (KeyFrameQuery) {
             kfq = KeyFrameQuery;
         });
         const { getSelectedFrs } = kfq;
 
         var frs = getSelectedFrs(timeline);
-        if (!CheckSelection(frs, "selectFrame", condition, exTips)) return null;
 
         if (range) {
             const { min, max, onlyFirst } = range;
@@ -206,28 +224,26 @@ define(["Tips"], function(Tips) {
             if (onlyFirst) {
                 totalDuration = frs[0].duration;
             } else {
-                totalDuration = frs.reduce(function(acc, fr) {
+                totalDuration = frs.reduce(function (acc, fr) {
                     return acc + fr.duration;
                 }, 0);
             }
 
-            // 定义提示信息
-            const durationType = onlyFirst ? "选中帧的  第一段 的时长：" : "所选帧总时长：";
-            const durationMessage = durationType + " [" + totalDuration + "] 帧,";
-
+            var mode = onlyFirst ? "selectedFrameFirstDuration" : "selectedFrameDuration";
+            var exTips = exTips ? exTips : "";
+            exTips += " 所选帧总时长 [" + totalDuration + "] 帧, ";
             if (min !== undefined && totalDuration < min) {
-                alert(
-                    durationMessage + " 要求不能小于 [" + min + "] 帧, 请重新选择"
-                );
-                return null;
+                exTips += " 要求不能小于 [" + min + "] 帧, 请重新选择";
+                if (!CheckSelection(frs, mode, condition, exTips)) return null;
             }
             if (max !== undefined && totalDuration > max) {
-                alert(
-                    durationMessage + " 要求不能大于 [" + max + "] 帧, 请重新选择"
-                );
-                return null;
+                exTips += " 要求不能大于 [" + max + "] 帧, 请重新选择";
+                if (!CheckSelection(frs, mode, condition, exTips)) return null;
             }
+        } else {
+            if (!CheckSelection(frs, "selectFrame", condition, exTips)) return null;
         }
+
         return frs;
     }
 

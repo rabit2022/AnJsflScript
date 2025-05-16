@@ -21,10 +21,11 @@ if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
     fl.trace(msg);
     throw new Error(msg);
 }
-require(["checkUtil", "loglevel", "ElementChecker","XUL"], function (
+require(["checkUtil", "loglevel", "ElementChecker", "XUL"], function (
     checkUtil,
     log,
-    ec,XUL
+    ec,
+    XUL
 ) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { IsSymbol } = ec;
