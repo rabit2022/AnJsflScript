@@ -20,7 +20,7 @@ define(function () {
      */
     XMLPanelUtil.getXMLPanel = function (panelPath) {
         if (panelPath === undefined) {
-            panelPath = this.getXMLPath();
+            panelPath = XMLPanelUtil.getXMLPath();
         }
 
         var doc = fl.getDocumentDOM(); //文档

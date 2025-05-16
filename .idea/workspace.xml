@@ -7,8 +7,7 @@
     <list default="true" id="2318bed7-153e-429d-a111-ac0e0c1e5ee6" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/flash/checkUtil.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/flash/checkUtil.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/flash/panel/promptUtil.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/flash/panel/promptUtil.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/08.批量✔️/11.批量改帧长.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/08.批量✔️/11.批量改帧长.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/flash/panel/xmlPanelUtil.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/flash/panel/xmlPanelUtil.jsfl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +63,7 @@
     "Shell Script.运行当前jsfl.executor": "Run",
     "git-widget-placeholder": "master",
     "js.last.introduce.type": "VAR",
-    "last_opened_file_path": "F:/04_ps/沙雕动画/_素材库/WindowSWF-master/WindowSWF-master/AnJsflScript/test",
+    "last_opened_file_path": "F:/04_ps/沙雕动画/_素材库/WindowSWF-master/WindowSWF-master/AnJsflScript/lib/04.运镜",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
@@ -85,18 +84,18 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib\04.运镜" />
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\config\ascii_art_library" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\一键闪现" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib\03.打斗\02.排兵布阵" />
-      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\config" />
-      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\例子" />
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\一键转场" />
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\待研究" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\02.随机" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib\20.日常脚本\XUL" />
-      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test" />
-      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\dp" />
     </key>
   </component>
   <component name="RunManager" selected="Shell Script.ReRun">
@@ -148,7 +147,7 @@
       <workItem from="1747366496419" duration="2475000" />
       <workItem from="1747369242146" duration="1707000" />
       <workItem from="1747370963331" duration="5790000" />
-      <workItem from="1747376929735" duration="2127000" />
+      <workItem from="1747376929735" duration="6127000" />
     </task>
     <servers />
   </component>

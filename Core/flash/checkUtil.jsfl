@@ -241,7 +241,7 @@ define(["Tips"], function (Tips) {
                 if (!CheckSelection(frs, mode, condition, exTips)) return null;
             }
         } else {
-            console.log(frs, frs.length);
+            // console.log(frs, frs.length);
             if (!CheckSelection(frs, "selectFrame", condition, exTips)) return null;
         }
 

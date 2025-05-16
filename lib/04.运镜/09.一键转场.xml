@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<dialog title="转场模式选择" buttons="accept, cancel">
+    <vbox>
+        <label value="请选择转场模式："/>
+        <radiogroup id="transitionModeGroup">
+            <hbox>
+                <radio label="闪黑转场" value="black"/>
+                <radio label="闪白转场" value="white"/>
+            </hbox>
+        </radiogroup>
+        <separator/>
+    </vbox>
+</dialog>
