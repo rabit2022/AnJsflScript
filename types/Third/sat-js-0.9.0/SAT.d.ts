@@ -33,6 +33,8 @@ export class Vector extends VectorLike {
 
     reverse(): Vector;
 
+    invert(): Vector;
+
     normalize(): Vector;
 
     add(other: Vector): Vector;
@@ -40,6 +42,8 @@ export class Vector extends VectorLike {
     sub(other: Vector): Vector;
 
     scale(x: number, y?: number): Vector;
+
+    scale(x: Vector): Vector;
 
     project(other: Vector): Vector;
 

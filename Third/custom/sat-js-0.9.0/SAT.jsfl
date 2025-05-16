@@ -106,6 +106,13 @@
         return this;
     };
 
+    Vector.prototype["invert"] = Vector.prototype.invert = function() {
+        if (this.x === 0 || this.y === 0) {
+            throw new Error("x and y must not be zero");
+        }
+        return new Vector(1 / this.x, 1 / this.y);
+    };
+
     // Normalize this vector.  (make it have length of `1`)
     /**
      * @return {Vector} This for chaining.
@@ -149,9 +156,27 @@
      *   is not specified, the x scaling factor will be used.
      * @return {Vector} This for chaining.
      */
+    // Vector.prototype["scale"] = Vector.prototype.scale = function(x, y) {
+    //     this["x"] *= x;
+    //     this["y"] *= typeof y !== "undefined" ? y : x;
+    //     return this;
+    // };
     Vector.prototype["scale"] = Vector.prototype.scale = function(x, y) {
-        this["x"] *= x;
-        this["y"] *= typeof y !== "undefined" ? y : x;
+        if (typeof x === "undefined") {
+            // 如果没有传入任何参数，抛出错误
+            throw new Error("At least one scale factor must be provided");
+        }else if (x instanceof Vector) {
+            var vector = x;
+            // 使用 Vector 对象的 x 和 y 分量作为缩放因子
+            this["x"] *= vector["x"];
+            this["y"] *= vector["y"];
+        } else if (x instanceof Number) {
+            // 如果传入了两个参数，分别对 x 和 y 分量进行缩放
+            this["x"] *= x;
+            this["y"] *= typeof y !== "undefined" ? y : x; // 如果 y 未定义，则使用 x 的值
+        } else {
+            throw new Error("Invalid scale factor" + x + "   " + typeof x);
+        }
         return this;
     };
 
@@ -521,6 +546,7 @@
     function IsVectorLike(obj) {
         return obj && typeof obj.x === "number" && typeof obj.y === "number";
     }
+
     SAT_CHECk["IsVectorLike"] = IsVectorLike;
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -1264,7 +1290,7 @@
     }
 
     SAT["Transform"] = Transform;
-    SAT["Tr"]=Transform;
+    SAT["Tr"] = Transform;
 
     Transform.prototype.setRotation = function(rotation) {
         this.element.rotation = rotation;
@@ -1364,8 +1390,9 @@
 
         // this.duration = endFrame - startFrame;
     }
+
     SAT["FrameRange"] = FrameRange;
-    SAT["FR"]=FrameRange;
+    SAT["FR"] = FrameRange;
 
     /**
      * 帧范围的持续时间
@@ -1461,6 +1488,7 @@
             typeof obj.height === "number"
         );
     }
+
     SAT_CHECk["IsElementBoundsLike"] = IsElementBoundsLike;
 
     SAT["GLOBALS"] = SAT_GLOBALS;

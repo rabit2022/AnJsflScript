@@ -52,12 +52,7 @@ require(["checkUtil", "ElementSelect"], function (checkUtil, es) {
             fl.trace("未找到之前的观察矩阵。请先运行脚本：00.跨域剪切.jsfl");
             return;
         }
-        // if (worldViewMatrixAnti==null){
-        //     // 设置观察矩阵
-        //     worldViewMatrixAnti=getNormalMatrix();
-        // }
 
-        // doc.selectNone();
         SelectNone();
         doc.clipPaste(true);
 
