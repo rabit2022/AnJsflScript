@@ -51,7 +51,11 @@ require([
         // 检查选择的元件
         if (!checkSelection(selection, "selectElement", "No limit")) return;
 
-        var { num, mode } = promptUtil.parseNumberWithMode(30);
+        var { num, mode } = promptUtil.parseNumberWithMode(
+            "请输入关键帧持续帧数（“+3”为增加，“-3”为减少，无符号“3”为统一）",
+            30,
+            "请输入合法的数字，例如“+3”或“-3”或“3”"
+        );
         log.info("关键帧持续帧数：" + num + "，模式：" + mode);
 
         // 选中的帧范围

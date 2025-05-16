@@ -155,16 +155,16 @@ define(["Tips"], function (Tips) {
             switch (conditionIndex) {
                 case 0: // No limit
                     return true;
-                case 1: // Zero 或 =0
-                    return length === 0;
-                case 2: // Not Zero 或 >0
+                case 1: // Not Zero
                     return length > 0;
-                case 3: // Only one 或 =1
+                case 2: // Zero
+                    return length === 0;
+                case 3: // Only one
                     return length === 1;
-                case 4: // Only two 或 =2
+                case 4: // Only two
                     return length === 2;
-                case 5: // More 或 >=2
-                    return length >= 2;
+                case 5: // More
+                    return length > 2;
                 default:
                     throw new Error("未知条件：" + condition);
             }
@@ -241,6 +241,7 @@ define(["Tips"], function (Tips) {
                 if (!CheckSelection(frs, mode, condition, exTips)) return null;
             }
         } else {
+            console.log(frs, frs.length);
             if (!CheckSelection(frs, "selectFrame", condition, exTips)) return null;
         }
 

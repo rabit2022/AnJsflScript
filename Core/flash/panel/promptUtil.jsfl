@@ -119,30 +119,37 @@ define(["linqUtil"], function (linqUtil) {
 
     /**
      * 解析用户输入的关键帧持续帧数，并确定模式（增加、减少或统一）。
+     * @param {string} promptMessage - 提示用户输入的文本。
      * @param {number} [defaultValue=0] - 默认输入值，如果用户未输入则使用此值。
-     * @returns {{num: number, mode: string}} 解析结果对象 {num, mode} 或 null（如果用户取消输入或输入无效）。
+     * @param {string} [alertMessage="请重新输入合法的数字。"] - 输入无效时显示的警告信息。
+     * @returns {{num: number, mode: "increase"|"decrease"|"unify", direction: 1|-1}} 解析结果对象 {num, mode, direction} 或 null（如果用户取消输入或输入无效）。}} 解析结果对象 {num, mode} 或 null（如果用户取消输入或输入无效）。
      */
-    PromptUtil.parseNumberWithMode = function (defaultValue) {
-        // 设置默认值
-        defaultValue =
-            defaultValue === undefined || defaultValue === null ? 0 : defaultValue;
-
+    PromptUtil.parseNumberWithMode = function (
+        promptMessage,
+        defaultValue,
+        alertMessage
+    ) {
         // 提示用户输入关键帧持续帧数
         var config = PromptUtil.parseNumberWithSign(
-            "请输入关键帧持续帧数（“+3”为增加，“-3”为减少，无符号“3”为统一）",
+            promptMessage,
             defaultValue,
-            "请输入合法的数字，例如“+3”或“-3”或“3”"
+            alertMessage
         );
+        const { num, hasSign } = config;
 
         // 如果用户取消输入或输入无效，直接返回
         if (config === null) return null;
 
         // 根据输入的符号判断模式
-        var mode = config.hasSign ? (config.num < 0 ? "decrease" : "increase") : "unify";
+        var mode = hasSign ? (num < 0 ? "decrease" : "increase") : "unify";
+
+        // 正负性
+        var direction = Math.sign(num);
 
         return {
-            num: config.num,
-            mode: mode
+            num: num,
+            mode: mode,
+            direction: direction
         };
     };
 

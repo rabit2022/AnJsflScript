@@ -1,8 +1,8 @@
 /**
- * @file: 01.镜头抖动.jsfl
+ * @file: 02.旋转运镜.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
- * @date: 2025/5/15 22:27
+ * @date: 2025/5/16 13:24
  * @project: AnJsflScript
  * @description:
  */
@@ -27,18 +27,12 @@ require([
     "loglevel",
     "promptUtil",
     "KeyFrameOperation",
-    "linqUtil",
-    "SAT",
-    "random"
-], function (checkUtil, log, promptUtil, kfo, linqUtil, SAT, random) {
+    "EaseCurve"
+], function (checkUtil, log, promptUtil, kfo, curve) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
-
-    const { Vector } = SAT;
-    const { wrapPosition } = SAT.GLOBALS;
-
     const { parseNumber } = promptUtil;
-    const { convertToKeyframesSafety, KFrameOnlyOne } = kfo;
-    const { $range } = linqUtil;
+    const { convertToKeyframesSafety } = kfo;
+    const { setEaseCurve } = curve;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -56,14 +50,14 @@ require([
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
     // 获取第一帧
-    // 选中帧  的第一段 至少 4 个帧
     var frs = CheckSelectedFrames(timeline, "请选择 至少 4 个帧", "More", {
-        min: 4,
+        min: 1,
         onlyFirst: true
     });
     if (frs === null) return;
     var firstLayer = layers[frs[0].layerIndex];
     var firstFrame = frs[0].startFrame;
+    var endFrame = frs[0].endFrame;
 
     // endregion doc
 
@@ -71,17 +65,17 @@ require([
         // 检查选择的元件
         if (!CheckSelection(selection, "selectElement", "No limit")) return;
 
-        var shackIndensity = promptUtil.parseNumber(
-            "输入抖动力度（1~20）",
-            5,
-            "请输入合法的数字（1~20）",
+        var rotateAngle = parseNumber(
+            "输入旋转角度（-180~180）:",
+            90,
+            "请输入合法的数字（-180~180）",
             {
-                start: 1,
-                end: 20
+                start: -180,
+                end: 180
             }
         );
-        if (!shackIndensity) return;
-        log.info("抖动力度：" + shackIndensity);
+        if (!rotateAngle) return;
+        log.info("旋转角度：" + rotateAngle);
 
         // note:确保选中的图层 是 第一层,这样可以保证，k帧一定在 镜头图层，而不用担心 其他图层的影响
         if (timeline.camera.cameraEnabled === false) {
@@ -90,34 +84,23 @@ require([
             timeline.currentLayer = 0;
         }
 
-        // // 首帧 转 关键帧
-        // convertToKeyframesSafety(timeline, [firstFrame]);
+        // 选中的第一段的 (最开始，最后的) 转 关键帧
+        var KEY_FRAMES = [firstFrame, endFrame];
+        convertToKeyframesSafety(timeline, KEY_FRAMES);
 
-        // 选中的第一段的 所有帧 转 关键帧
-        var firstFms = $range(frs[0].startFrame, frs[0].endFrame).toArray();
-        convertToKeyframesSafety(timeline, firstFms);
+        // 最后一帧的 旋转 关键帧
+        var lastFrame = KEY_FRAMES[KEY_FRAMES.length - 1];
+        timeline.camera.setRotation(lastFrame, rotateAngle);
 
-        firstFms.forEach(function (fm) {
-            // 最后一帧不动
-            if (fm === firstFms[firstFms.length - 1]) return;
+        // 补间动画
+        // 获取allKeyFrames first,last
+        var firstF = KEY_FRAMES[0];
+        var lastF = KEY_FRAMES[KEY_FRAMES.length - 1];
+        // 选中所有帧
+        timeline.setSelectedFrames(firstF, lastF, true);
 
-            // X轴抖动=(+-1:偶数帧为-1，奇数帧为+1)*shackIndensity*[-1,3],,,5,-14最大值
-            // Y轴抖动=shackIndensity*[-2,2]，，，，5,10最大值
-            var direction = fm % 2 === 0 ? 1 : -1;
-            var radomShack = new Vector(
-                direction * shackIndensity * random.uniform(-1, 3),
-                shackIndensity * random.uniform(-2, 2)
-            );
-            log.info("radomShack:" + radomShack);
-
-            var cameraPosition = wrapPosition(timeline.camera.getPosition(fm));
-            log.info("fm:" + fm + " cameraPosition:" + cameraPosition);
-
-            var newPosition = cameraPosition.add(radomShack).round().noZero();
-            log.info("newPosition:" + newPosition);
-
-            timeline.camera.setPosition(fm, newPosition.x, newPosition.y);
-        });
+        timeline.createMotionTween();
+        setEaseCurve(timeline, "Sine Ease-In-Out");
     }
 
     Main();
