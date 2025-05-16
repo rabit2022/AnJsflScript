@@ -79,7 +79,7 @@ def adjust_padding(file_path, out_path, padding):
 
 # print("jjj",' ' * 10)
 # 示例调用
-file_path = './output/一万人.txt'  # 替换为你的字符画文件路径
-output_path='./output/一万人_format.txt'
+file_path = './output/ascii_art.txt'  # 替换为你的字符画文件路径
+output_path='./output/ascii_art_format.txt'
 padding = 5  # 指定的空格数量
 adjust_padding(file_path, output_path,padding)

@@ -40,7 +40,7 @@ def text_to_image(text, font_path, font_size, text_color, bg_color, output_path)
 
 
 # 示例调用
-text = "一万人"
+text = "龙王军"
 font_path = r".\font\fusion-pixel.ttf"  # 替换为你的字体文件路径
 font_size = 40
 text_color = (255, 255, 255)  # 白色
