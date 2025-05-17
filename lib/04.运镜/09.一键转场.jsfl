@@ -22,68 +22,95 @@ if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
     throw new Error(msg);
 }
 
-require(["checkUtil", "loglevel", "xmlPanelUtil"],
-    function(checkUtil, log, xmlPanelUtil) {
-        const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
+require([
+    "checkUtil",
+    "loglevel",
+    "xmlPanelUtil",
+    "LayerOperation",
+    "JSFLConstants",
+    "SymbolNameGenerator",
+    "ElementOperation",
+    "SAT"
+], function (checkUtil, log, xmlPanelUtil, lo, JSFLConstants, sng, eo, SAT) {
+    const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
-        const { getXMLPanel } = xmlPanelUtil;
+    const { getXMLPanel } = xmlPanelUtil;
+    const { addNewLayerSafety } = lo;
+    const { FRAME_1 } = JSFLConstants.Numerics.frame.frameList;
+    const { generateNameUntilUnique, generateNameUseLast } = sng;
+    const { convertToSymbolWithBlanks } = eo;
 
-        // region doc
-        var doc = CheckDom(); //文档
-        if (doc === null) return;
+    const {} = SAT.GLOBALS;
 
-        var selection = doc.selection; //选择
-        var library = doc.library; //库文件
-        var timeline = doc.getTimeline(); //时间轴
+    // region doc
+    var doc = CheckDom(); //文档
+    if (doc === null) return;
 
-        var layers = timeline.layers; //图层
-        var curLayerIndex = timeline.currentLayer; //当前图层索引
-        var curLayer = layers[curLayerIndex]; //当前图层
+    var selection = doc.selection; //选择
+    var library = doc.library; //库文件
+    var timeline = doc.getTimeline(); //时间轴
 
-        var curFrameIndex = timeline.currentFrame; //当前帧索引
-        var curFrame = curLayer.frames[curFrameIndex]; //当前帧
+    var layers = timeline.layers; //图层
+    var curLayerIndex = timeline.currentLayer; //当前图层索引
+    var curLayer = layers[curLayerIndex]; //当前图层
 
-        // 获取第一帧
-        var frs = CheckSelectedFrames(timeline);
-        if (frs === null) return;
-        var firstLayer = layers[frs[0].layerIndex];
-        var firstFrame = frs[0].startFrame;
+    var curFrameIndex = timeline.currentFrame; //当前帧索引
+    var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
-        // endregion doc
+    // 获取第一帧
+    var frs = CheckSelectedFrames(timeline);
+    if (frs === null) return;
+    var firstLayer = layers[frs[0].layerIndex];
+    var firstFrame = frs[0].startFrame;
 
-        function checkXMLPanel() {
-            var panel = getXMLPanel();
-            if (panel === null) return null;
+    // endregion doc
 
-            return { transitionMode: panel.transitionModeGroup };
+    const FirstFrame = firstFrame - 8;
+
+    function checkXMLPanel() {
+        var panel = getXMLPanel();
+        if (panel === null) return null;
+
+        return { transitionMode: panel.transitionModeGroup };
+    }
+
+    function Main() {
+        // 检查选择的元件
+        if (!CheckSelection(selection, "selectElement", "No limit")) return;
+
+        // k首帧，-8
+        // 当前0，[-8,0,8]
+        if (FirstFrame < FRAME_1) {
+            alert("当前位置前后帧数不够！请保证当前位置前后帧数至少为9帧！");
+            return;
         }
 
-        function Main() {
-            // 检查选择的元件
-            if (!CheckSelection(selection, "selectElement", "No limit")) return;
+        // 检查XML面板
+        var config = checkXMLPanel();
+        if (config === null) return;
+        const { transitionMode } = config;
 
-            var config = checkXMLPanel();
-            if (config === null) return;
-            const { transitionMode } = config;
+        // 1.添加一键转场图层
+        var layerName = "一键转场";
+        var newLayerIndex = addNewLayerSafety(timeline, layerName);
 
+        // 2.转场 元件
+        // 矩形
+        timeline.setSelectedFrames(FirstFrame);
 
-            // 1.添加一键转场图层
+        var symbolName = generateNameUntilUnique("一键转场_");
+        convertToSymbolWithBlanks(symbolName);
 
-            // k首帧，-8
-            // 当前0，[-8,0,8]
+        doc.enterEditMode("inPlace");
 
-            // 2.转场 元件
-            // 矩形
+        // 比舞台大400的范围
 
-            // 3.关键帧
+        // 3.关键帧
 
+        // 4.alpha 关键帧
 
-            // 4.alpha 关键帧
+        // 5.reset selected frames
+    }
 
-            // 5.reset selected frames
-
-
-        }
-
-        Main();
-    });
+    Main();
+});

@@ -18,27 +18,36 @@ define([
     "os",
     "loglevel",
     "SAT",
-    "MoreElement"
+    "MoreElement",
+    "DrawCircle"
 ], function (
-    { IsSymbol, IsGroup },
-    { deleteLayers },
-    { getLayersIndexByName },
-    { SelectAll, OnlySelectCurrent, SelectNone },
-    { splitRectangle },
+    ec,
+    lo,
+    lq,
+    es,
+    satUtil,
     nameGenerator,
-    { checkVariableRedeclaration },
+    Tips,
     os,
     log,
     SAT,
-    MoreElement
+    MoreElement,
+    dc
 ) {
+    const { IsSymbol, IsGroup } = ec;
+    const { deleteLayers } = lo;
+    const { SelectAll, OnlySelectCurrent, SelectNone } = es;
+    const { splitRectangle } = satUtil;
+    const { checkVariableRedeclaration } = Tips;
+
     const { generateNameUntilUnique, generateNameUseLast } = nameGenerator;
-    const { getTopLeft, wrapSize } = SAT.GLOBALS;
+    const { getTopLeft, wrapSize, getOrigin } = SAT.GLOBALS;
+    const { drawCircleWithoutLine } = dc;
 
     /**
      *  复制元件
      *  @param {Element} element 元件
-     * @param {'ask'|'skip'|'auto'} mode 复制模式，ask：弹出输入框，skip：直接复制，auto：自动生成名称
+     * @param {"ask"|"skip"|"auto"} mode 复制模式，ask：弹出输入框，skip：直接复制，auto：自动生成名称
      * @param {string} [newName=origionName] 新元件名称，仅在 mode 为 auto 时有效
      * @constructor
      */
@@ -295,10 +304,33 @@ define([
         return true;
     }
 
+    /**
+     * 把一个空屏转为元件。
+     * @param {string} symbolName - 元件的名称。
+     */
+    function convertToSymbolWithBlanks(symbolName) {
+        var doc = fl.getDocumentDOM(); //文档
+
+        // 技巧：在左上角 画 一个 20*20的圆形，然后可以将其转为元件，中心在舞台的左上角，相当于确定舞台位置。   相当于把一个空屏转为元件。
+        // 编辑模式中,删除辅助的圆形
+        drawCircleWithoutLine(getOrigin(), 20);
+
+        doc.convertToSymbol("graphic", symbolName, "center");
+
+        doc.enterEditMode("inPlace");
+
+        SelectAll();
+
+        doc.deleteSelection();
+
+        doc.exitEditMode();
+    }
+
     return {
         CopySymbol: CopySymbol,
         breakApartToShape: breakApartToShape,
         breakApartToDrawingObject: breakApartToDrawingObject,
-        splinterSymbol: splinterSymbol
+        splinterSymbol: splinterSymbol,
+        convertToSymbolWithBlanks: convertToSymbolWithBlanks
     };
 });

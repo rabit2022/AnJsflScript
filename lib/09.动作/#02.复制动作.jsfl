@@ -9,7 +9,8 @@
 
 // bug,FirstRun.jsfl 未运行
 if (typeof require === "undefined") {
-    var msg = "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
+    var msg =
+        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
     fl.trace(msg);
     throw new Error(msg);
 }
@@ -21,7 +22,7 @@ if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
     throw new Error(msg);
 }
 
-require(["checkUtil", "loglevel", "SAT"], function(checkUtil, log, SAT) {
+require(["checkUtil", "loglevel", "SAT"], function (checkUtil, log, SAT) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
     const { Vector } = SAT;
@@ -96,7 +97,6 @@ require(["checkUtil", "loglevel", "SAT"], function(checkUtil, log, SAT) {
             frameData.rotation = element.rotation;
             frameData.duration = firstFrame.duration;
 
-
             // TODO:frameIndex=undefined
             log.info("frameIndex", frameIndex);
             // 滤镜
@@ -112,15 +112,12 @@ require(["checkUtil", "loglevel", "SAT"], function(checkUtil, log, SAT) {
 
             // TODO:ease curve
 
-
             copyMotions.push(frameData);
         }
 
         log.info("复制的动作：", copyMotions);
         // TODO: 保存到库文件
         // TODO: 保存为xml文件,即预设文件
-
-
     }
 
     Main();

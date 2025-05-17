@@ -51,7 +51,7 @@ require([
 
     // 获取第一帧
     var frs = CheckSelectedFrames(timeline, "请选择 至少 4 个帧", "More", {
-        min: 1,
+        min: 4,
         onlyFirst: true
     });
     if (frs === null) return;

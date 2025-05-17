@@ -8,7 +8,7 @@
  */
 
 define(["LayerQuery", "Tips", "loglevel"], function (lq, Tips, log) {
-    const { convertToLayerIndex, getEmptyLayers } = lq;
+    const { convertToLayerIndex, getEmptyLayers, getLayersIndexByName } = lq;
     const { checkVariableRedeclaration } = Tips;
 
     /**
@@ -91,9 +91,31 @@ define(["LayerQuery", "Tips", "loglevel"], function (lq, Tips, log) {
         console.info("已删除 %d 个空白图层", emptyLayers.length);
     }
 
+    /**
+     * 添加新图层，如果已存在独白黑幕图层，则选中
+     * @param {Timeline} timeline 时间轴
+     * @param {String} layerName 图层名称
+     */
+    function addNewLayerSafety(timeline, layerName) {
+        var layers = timeline.layers; // 获取所有图层
+
+        var returnLayerIndex = -1;
+
+        var layerIndex = getLayersIndexByName(layers, layerName);
+        if (layerIndex.length > 0) {
+            // 已存在独白黑幕图层，直接选中
+            timeline.currentLayer = layerIndex[0];
+            returnLayerIndex = layerIndex[0];
+        } else {
+            returnLayerIndex = timeline.addNewLayer(layerName, "normal", true);
+        }
+        return returnLayerIndex;
+    }
+
     return {
         deleteLayers: deleteLayers,
         swapLayers: swapLayers,
-        clearEmptyLayers: clearEmptyLayers
+        clearEmptyLayers: clearEmptyLayers,
+        addNewLayerSafety: addNewLayerSafety
     };
 });

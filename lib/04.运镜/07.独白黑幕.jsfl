@@ -37,12 +37,15 @@ require([
     "ElementQuery",
     "FilterOperation",
     "LayerQuery",
-    "FramesSelect"
-], function (checkUtil, log, Context, kfo, dc, SAT, es, sng, dr, ec, eq, fo, lq, fs) {
+    "FramesSelect",
+    "ElementOperation"
+], function (checkUtil, log, Context, kfo, dc, SAT, es, sng, dr, ec, eq, fo, lq, fs, eo) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
+
     const { convertToKeyframesSafety } = kfo;
     const { drawCircleWithoutLine } = dc;
     const { drawRectangleWithoutLine } = dr;
+    const { convertToSymbolWithBlanks } = eo;
 
     const { Vector, Rectangle, Size, FrameRange } = SAT;
     const {
@@ -146,22 +149,6 @@ require([
         return A.filter(function (item) {
             return !B.includes(item);
         });
-    }
-
-    function convertToSymbolWithBlanks(symbolName) {
-        // 技巧：在左上角 画 一个 20*20的圆形，然后可以将其转为元件，中心在舞台的左上角，相当于确定舞台位置。   相当于把一个空屏转为元件。
-        // 编辑模式中,删除辅助的圆形
-        drawCircleWithoutLine(getOrigin(), 20);
-
-        doc.convertToSymbol("graphic", symbolName, "center");
-
-        doc.enterEditMode("inPlace");
-
-        SelectAll();
-
-        doc.deleteSelection();
-
-        doc.exitEditMode();
     }
 
     function KFrames(firstElement) {
