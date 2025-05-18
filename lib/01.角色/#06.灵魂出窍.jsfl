@@ -113,6 +113,62 @@ require([
         curLayer.setBlendModeAtFrame(0, "alpha");
 
         // TODO:设置笔触，填充，，填充透明度80
+        // var stroke = {
+        //     "thickness": 1,
+        //     "color": "#FF0000",
+        //     "originalcolor": "#FF0000",
+        //     "breakAtCorners": false,
+        //     "strokeHinting": false,
+        //     "scaleType": "normal",
+        //     "joinType": "round",
+        //     "capType": "round",
+        //     "miterLimit": 3,
+        //     "shapeFill": {
+        //         "tag": 0,
+        //         "color": "#FF0000",
+        //         "style": "solid",
+        //         "matrix": {
+        //             "a": 1,
+        //             "b": 0,
+        //             "c": 0,
+        //             "d": 1,
+        //             "tx": 0,
+        //             "ty": 0
+        //         }
+        //     },
+        //     "style": "solid"
+        // }
+        // var fill = {
+        //     "tag": 0,
+        //     "color": "#000000",
+        //     "style": "linearGradient",
+        //     "matrix": {
+        //         "a": 1,
+        //         "b": 0,
+        //         "c": 0,
+        //         "d": 1,
+        //         "tx": 0,
+        //         "ty": 0
+        //     },
+        //     "posArray": [
+        //         0,
+        //         130,
+        //         148,
+        //         255
+        //     ],
+        //     "colorArray": [
+        //         "#FFFFFFCC",
+        //         "#FFFFFFCC",
+        //         "#FFFFFF00",
+        //         "#FFFFFF00"
+        //     ],
+        //     "overflow": "Extend",
+        //     "linearRGB": true,
+        //     "focalPoint": 0
+        // }
+        //
+        // doc.setCustomStroke(stroke);
+        // doc.setCustomFill(fill);
 
         // 补帧 5s----150帧,不清楚有没有必要
 
@@ -154,7 +210,7 @@ require([
 
         // 5. 移动到左上角
         var moveDirection = new Vector(-1.5, -0.3);
-        var distanceToMove = eleSize.toVector().scale(moveDirection.x, moveDirection.y);
+        var distanceToMove = eleSize.toVector().scale(moveDirection);
 
         doc.moveSelectionBy(distanceToMove);
 

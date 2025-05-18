@@ -6,12 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="2318bed7-153e-429d-a111-ac0e0c1e5ee6" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/flash/Context/KeyFrame/KeyFrameOperation.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/flash/Context/KeyFrame/KeyFrameOperation.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/color/chroma.js-3.1.2/chroma.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/color/chroma.js-3.1.2/chroma-js.jsfl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Third/custom/sat-js-0.9.0/SAT.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/sat-js-0.9.0/SAT.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/04.运镜/09.一键转场.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/04.运镜/09.一键转场.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/require-config.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/require-config.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/types/Third/sat-js-0.9.0/SAT.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/Third/sat-js-0.9.0/SAT.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/01.角色/#06.灵魂出窍.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/01.角色/#06.灵魂出窍.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/04.运镜/10.重置摄像头.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/04.运镜/10.重置摄像头.jsfl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,48 +41,48 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Node.js.#06.灵魂出窍.jsfl.executor": "Run",
-    "Node.js.00.假断点.jsfl.executor": "Run",
-    "Node.js.01.打开命令位置.jsfl.executor": "Run",
-    "Node.js.01.瞬移-消失.jsfl.executor": "Run",
-    "Node.js.02.xml测试.jsfl.executor": "Run",
-    "Node.js.03.jsfl.executor": "Run",
-    "Node.js.XML.jsfl.executor": "Run",
-    "Node.js.XML2.jsfl.executor": "Run",
-    "Node.js.dd.js.executor": "Run",
-    "Node.js.test.jsx.executor": "Run",
-    "Node.js.ttt.js.executor": "Run",
-    "Node.js.vfdvf01.jsfl.executor": "Run",
-    "Node.js.vfdvf04.jsfl.executor": "Run",
-    "Node.js.xml(1).jsfl.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Shell Script.ReRun.executor": "Run",
-    "Shell Script.打开test.executor": "Run",
-    "Shell Script.运行当前jsfl.executor": "Run",
-    "git-widget-placeholder": "master",
-    "js.last.introduce.type": "VAR",
-    "last_opened_file_path": "F:/04_ps/沙雕动画/_素材库/WindowSWF-master/WindowSWF-master/AnJsflScript/test/待研究",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.standard": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.standard": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.FirstRun.executor": "Run",
-    "npm.ReRun.executor": "Run",
-    "npm.format.executor": "Run",
-    "npm.open-test-file.executor": "Run",
-    "npm.run-current-file.executor": "Run",
-    "prettierjs.PrettierConfiguration.Package": "F:\\04_ps\\沙雕动画\\_素材库\\WindowSWF-master\\WindowSWF-master\\AnJsflScript\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "D:\\01_software\\06_programme\\01_ide\\WebStorm 2024.3.5\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Node.js.#06.灵魂出窍.jsfl.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.00.假断点.jsfl.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.01.打开命令位置.jsfl.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.01.瞬移-消失.jsfl.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.02.xml测试.jsfl.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.03.jsfl.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.XML.jsfl.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.XML2.jsfl.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.dd.js.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.test.jsx.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.ttt.js.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.vfdvf01.jsfl.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.vfdvf04.jsfl.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.xml(1).jsfl.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Shell Script.ReRun.executor&quot;: &quot;Run&quot;,
+    &quot;Shell Script.打开test.executor&quot;: &quot;Run&quot;,
+    &quot;Shell Script.运行当前jsfl.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;js.last.introduce.type&quot;: &quot;VAR&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/04_ps/沙雕动画/_素材库/WindowSWF-master/WindowSWF-master/AnJsflScript/test/待研究&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.FirstRun.executor&quot;: &quot;Run&quot;,
+    &quot;npm.ReRun.executor&quot;: &quot;Run&quot;,
+    &quot;npm.format.executor&quot;: &quot;Run&quot;,
+    &quot;npm.open-test-file.executor&quot;: &quot;Run&quot;,
+    &quot;npm.run-current-file.executor&quot;: &quot;Run&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;F:\\04_ps\\沙雕动画\\_素材库\\WindowSWF-master\\WindowSWF-master\\AnJsflScript\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\01_software\\06_programme\\01_ide\\WebStorm 2024.3.5\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\待研究" />
@@ -95,14 +92,14 @@
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\一键闪现" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\02.随机" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\例子" />
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\解除滤镜" />
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\02.随机" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\待研究" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib\12.元件" />
-      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.format">
+  <component name="RunManager" selected="Shell Script.ReRun">
     <list>
       <item itemvalue="npm.format" />
       <item itemvalue="Shell Script.FirstRun" />
@@ -157,7 +154,8 @@
       <workItem from="1747463933088" duration="8555000" />
       <workItem from="1747557682926" duration="1692000" />
       <workItem from="1747559391445" duration="6164000" />
-      <workItem from="1747570506377" duration="2891000" />
+      <workItem from="1747570506377" duration="8282000" />
+      <workItem from="1747579895253" duration="4377000" />
     </task>
     <servers />
   </component>

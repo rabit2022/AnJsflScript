@@ -175,7 +175,7 @@
             this["x"] *= x;
             this["y"] *= typeof y !== "undefined" ? y : x; // 如果 y 未定义，则使用 x 的值
         } else {
-            throw new Error("Invalid scale factor" + x + "   " + typeof x);
+            throw new Error("Invalid scale factor  [" + x + "]   type: " + typeof x);
         }
         return this;
     };
