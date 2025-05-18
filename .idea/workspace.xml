@@ -6,11 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="2318bed7-153e-429d-a111-ac0e0c1e5ee6" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/flash/Context/Element/ElementOperation.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/flash/Context/Element/ElementOperation.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/flash/Context/Layer/LayerOperation.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/flash/Context/Layer/LayerOperation.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/04.运镜/02.旋转运镜.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/04.运镜/02.旋转运镜.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/04.运镜/07.独白黑幕.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/04.运镜/07.独白黑幕.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/flash/Context/KeyFrame/KeyFrameOperation.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/flash/Context/KeyFrame/KeyFrameOperation.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/color/chroma.js-3.1.2/chroma.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/color/chroma.js-3.1.2/chroma-js.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Third/custom/sat-js-0.9.0/SAT.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/sat-js-0.9.0/SAT.jsfl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/04.运镜/09.一键转场.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/04.运镜/09.一键转场.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/require-config.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/require-config.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/types/Third/sat-js-0.9.0/SAT.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/Third/sat-js-0.9.0/SAT.d.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +81,7 @@
     "npm.open-test-file.executor": "Run",
     "npm.run-current-file.executor": "Run",
     "prettierjs.PrettierConfiguration.Package": "F:\\04_ps\\沙雕动画\\_素材库\\WindowSWF-master\\WindowSWF-master\\AnJsflScript\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "fileTemplates",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "ts.external.directory.path": "D:\\01_software\\06_programme\\01_ide\\WebStorm 2024.3.5\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
@@ -94,11 +95,11 @@
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\一键闪现" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\02.随机" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\例子" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\待研究" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib\12.元件" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test" />
-      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib\12.高级功能" />
     </key>
   </component>
   <component name="RunManager" selected="npm.format">
@@ -153,7 +154,10 @@
       <workItem from="1747376929735" duration="15439000" />
       <workItem from="1747392452635" duration="6557000" />
       <workItem from="1747408924971" duration="3799000" />
-      <workItem from="1747463933088" duration="7461000" />
+      <workItem from="1747463933088" duration="8555000" />
+      <workItem from="1747557682926" duration="1692000" />
+      <workItem from="1747559391445" duration="6164000" />
+      <workItem from="1747570506377" duration="2891000" />
     </task>
     <servers />
   </component>

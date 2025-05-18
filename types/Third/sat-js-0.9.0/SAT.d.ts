@@ -140,6 +140,10 @@ export class Rectangle extends RectangleLike {
 
     subOffset(offset: number | Vector | Rectangle): Rectangle;
 
+    expand(size: number): Rectangle;
+
+    shrink(size: number): Rectangle;
+
     getCenterVector(): Vector;
 
     getSize(): Size;
@@ -268,6 +272,7 @@ interface ElementBoundsLike {
     width: number,
     height: number
 }
+
 export namespace GLOBALS {
     export function wrapPosition(element: VectorLike | Element | Vector): Vector;
 
@@ -281,12 +286,18 @@ export namespace GLOBALS {
 
     export function getTopLeft(element: ElementBoundsLike | Element): Vector;
 
-    export function getSymbolCenter(element:ElementBoundsLike | Element): Vector;
+    export function getSymbolCenter(element: ElementBoundsLike | Element): Vector;
+
     export function getStageCenter(): Vector;
 
 
     export function getSymbolBounds(element: ElementBoundsLike | Element): Rectangle;
+
     export const getSymbolRect: typeof getSymbolBounds;
+
+    export function getStageBounds(): Rectangle;
+
+    export function getStageRect(): Rectangle;
 
     export function wrapRectByTopLeft(
         left: number,
@@ -319,10 +330,15 @@ export namespace GLOBALS {
 
 export namespace CHECk {
     export function IsRectangleLike(obj: any): boolean;
+
     export function IsSizeLike(obj: any): boolean;
+
     export function IsVectorLike(obj: any): boolean;
+
     export function IsTransformLike(obj: any): boolean;
+
     export function IsFrameRangeLike(obj: any): boolean;
+
     export function IsElementBoundsLike(obj: any): boolean;
 }
 

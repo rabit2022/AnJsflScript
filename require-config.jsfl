@@ -56,7 +56,7 @@ require.config({
         // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\custom\xjsfl\ui\xjsfl.jsfl
         xjsfl: "Third/custom/xjsfl/ui/xjsfl",
         // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\color\chroma.js-3.1.2\chroma.jsfl
-        chroma: "Third/color/chroma.js-3.1.2/chroma",
+        "chroma-js": "Third/color/chroma.js-3.1.2/chroma-js",
 
         // 自定义模块
         BitmapOperation: "Core/flash/Bitmap/BitmapOperation",

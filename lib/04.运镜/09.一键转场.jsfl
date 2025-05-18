@@ -30,17 +30,46 @@ require([
     "JSFLConstants",
     "SymbolNameGenerator",
     "ElementOperation",
-    "SAT"
-], function (checkUtil, log, xmlPanelUtil, lo, JSFLConstants, sng, eo, SAT) {
+    "SAT",
+    "DrawRectangle",
+    "KeyFrameOperation",
+    "linqUtil",
+    "FramesSelect",
+    "lodash",
+    "EaseCurve",
+    "chroma-js"
+], function (
+    checkUtil,
+    log,
+    xmlPanelUtil,
+    lo,
+    JSFLConstants,
+    sng,
+    eo,
+    SAT,
+    dr,
+    kfo,
+    linqUtil,
+    fms,
+    _,
+    ec,
+    chroma
+) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
     const { getXMLPanel } = xmlPanelUtil;
     const { addNewLayerSafety } = lo;
-    const { FRAME_1 } = JSFLConstants.Numerics.frame.frameList;
+    const { FRAME_1, FRAME_9, FRAME_17, FRAME_18 } =
+        JSFLConstants.Numerics.frame.frameList;
     const { generateNameUntilUnique, generateNameUseLast } = sng;
     const { convertToSymbolWithBlanks } = eo;
+    const { drawRectangleWithoutLine } = dr;
+    const { convertToKeyframesSafety } = kfo;
+    const { $addOffset } = linqUtil;
+    const { SelectStartFms } = fms;
+    const { setClassicEaseCurve } = ec;
 
-    const {} = SAT.GLOBALS;
+    const { getStageRect } = SAT.GLOBALS;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -66,6 +95,16 @@ require([
     // endregion doc
 
     const FirstFrame = firstFrame - 8;
+    // 当前0，[-8,0,8]
+    var KEY_FRAMES = [FRAME_1, FRAME_9, FRAME_17];
+    var BLANK_FRAMES = [FRAME_18];
+    KEY_FRAMES = $addOffset(KEY_FRAMES, FirstFrame);
+    BLANK_FRAMES = $addOffset(BLANK_FRAMES, FirstFrame);
+    /**
+     *
+     * @type {number[]}
+     */
+    var ALPHA_FRAMES = [_.first(KEY_FRAMES), _.last(KEY_FRAMES)];
 
     function checkXMLPanel() {
         var panel = getXMLPanel();
@@ -89,14 +128,22 @@ require([
         var config = checkXMLPanel();
         if (config === null) return;
         const { transitionMode } = config;
+        log.info("transitionMode", transitionMode);
+
+        const TRANSITION_COLOR = chroma(transitionMode).hex();
+        log.info("CLOLR", TRANSITION_COLOR);
 
         // 1.添加一键转场图层
         var layerName = "一键转场";
         var newLayerIndex = addNewLayerSafety(timeline, layerName);
 
+        // k首帧，-8
+        convertToKeyframesSafety(timeline, FirstFrame);
+
         // 2.转场 元件
         // 矩形
-        timeline.setSelectedFrames(FirstFrame);
+        log.info("FirstFrame", FirstFrame);
+        timeline.setSelectedFrames(FirstFrame, FirstFrame + 1);
 
         var symbolName = generateNameUntilUnique("一键转场_");
         convertToSymbolWithBlanks(symbolName);
@@ -104,12 +151,29 @@ require([
         doc.enterEditMode("inPlace");
 
         // 比舞台大400的范围
+        var stageRect = getStageRect();
+        var newRect = stageRect.expand(400);
+        log.info("newRect", newRect.toString());
+        drawRectangleWithoutLine(newRect, TRANSITION_COLOR);
+
+        doc.exitEditMode();
 
         // 3.关键帧
+        convertToKeyframesSafety(timeline, KEY_FRAMES);
+        timeline.convertToBlankKeyframes(BLANK_FRAMES[0]);
 
         // 4.alpha 关键帧
+        ALPHA_FRAMES.forEach(function (frame) {
+            timeline.setSelectedFrames(frame, frame + 1);
+            doc.setInstanceAlpha(0);
+        });
 
-        // 5.reset selected frames
+        // 5.转场动画
+        timeline.setSelectedFrames(_.first(KEY_FRAMES), _.last(KEY_FRAMES));
+        setClassicEaseCurve(timeline);
+
+        // 6.reset selected frames
+        SelectStartFms(timeline, frs);
     }
 
     Main();

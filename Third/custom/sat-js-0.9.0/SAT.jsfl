@@ -165,7 +165,7 @@
         if (typeof x === "undefined") {
             // 如果没有传入任何参数，抛出错误
             throw new Error("At least one scale factor must be provided");
-        }else if (x instanceof Vector) {
+        } else if (x instanceof Vector) {
             var vector = x;
             // 使用 Vector 对象的 x 和 y 分量作为缩放因子
             this["x"] *= vector["x"];
@@ -732,6 +732,26 @@
     };
 
     /**
+     * 扩大矩形的边界
+     * @param {Number|Vector|Rectangle} size 扩大量
+     * @returns {Rectangle} 矩形
+     */
+    Rectangle.prototype.expand = function(size) {
+        const offset = new Rectangle(-size, -size, size, size);
+        return this.addOffset(offset);
+    };
+    /**
+     * 缩小矩形的边界
+     * @param {Number|Vector|Rectangle} size 缩小量
+     * @returns {Rectangle} 矩形
+     */
+    Rectangle.prototype.shrink = function(size) {
+        const offset = new Rectangle(-size, -size, size, size);
+        return this.subOffset(offset);
+    };
+
+
+    /**
      * 矩形中心点
      * @returns {Vector} 点
      */
@@ -1094,11 +1114,10 @@
 
         const finalRect = wrapRectByCenter(center, size);
         return finalRect;
-    }
-
+    };
     var getSymbolBounds = getSymbolRect;
 
-    /**
+        /**
      * 获取舞台中心点坐标
      * @return {Vector} 点
      */
@@ -1110,6 +1129,17 @@
         return stageCenter;
     }
 
+    /**
+     * 获取舞台矩形
+     * @return {Rectangle} 矩形对象
+     */
+    function getStageRect() {
+        var doc = fl.getDocumentDOM();
+        var rect = new Rectangle(doc);
+        return rect;
+    }
+    var getStageBounds = getStageRect;
+
 
     SAT_GLOBALS["wrapRectByTopLeft"] = wrapRectByTopLeft;
     SAT_GLOBALS["wrapRectByCenter"] = wrapRectByCenter;
@@ -1120,6 +1150,9 @@
 
     SAT_GLOBALS["getSymbolRect"] = getSymbolRect;
     SAT_GLOBALS["getSymbolBounds"] = getSymbolBounds;
+
+    SAT_GLOBALS["getStageBounds"] = getStageBounds;
+    SAT_GLOBALS["getStageRect"] = getStageRect;
 
 
     /**

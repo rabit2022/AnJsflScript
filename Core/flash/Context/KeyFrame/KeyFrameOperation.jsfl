@@ -54,8 +54,9 @@ define(["KeyFrameQuery", "Tips", "LayerQuery"], function (kfq, tips, lq) {
     /**
      * 只选择一个帧时，自动创建关键帧
      * @param {Timeline} timeline 时间线
+     * @param {Layer|number} [layer] 选中的图层
      */
-    function KFrameOnlyOne(timeline) {
+    function KFrameOnlyOne(timeline, layer) {
         var CheckSelectedFrames;
         require(["checkUtil"], function (checkUtil) {
             CheckSelectedFrames = checkUtil.CheckSelectedFrames;
@@ -70,6 +71,9 @@ define(["KeyFrameQuery", "Tips", "LayerQuery"], function (kfq, tips, lq) {
         // console.log(frs.length, frs[0].duration);
 
         var firstLayer = layers[frs[0].layerIndex];
+        if (layer) {
+            firstLayer = layer;
+        }
         var firstFrame = frs[0].startFrame;
 
         // 关键帧
