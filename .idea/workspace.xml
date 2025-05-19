@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="2318bed7-153e-429d-a111-ac0e0c1e5ee6" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Third/custom/sat-js-0.9.0/SAT.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Third/custom/sat-js-0.9.0/SAT.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/flash/graphics/DrawRectangle.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/flash/graphics/DrawRectangle.jsfl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/01.角色/#06.灵魂出窍.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/01.角色/#06.灵魂出窍.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/04.运镜/10.重置摄像头.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/04.运镜/10.重置摄像头.jsfl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,7 +154,8 @@
       <workItem from="1747557682926" duration="1692000" />
       <workItem from="1747559391445" duration="6164000" />
       <workItem from="1747570506377" duration="8282000" />
-      <workItem from="1747579895253" duration="4377000" />
+      <workItem from="1747579895253" duration="4497000" />
+      <workItem from="1747667444904" duration="2985000" />
     </task>
     <servers />
   </component>

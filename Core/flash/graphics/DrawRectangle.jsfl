@@ -30,7 +30,23 @@ define(function () {
         return rect;
     }
 
+    function drawRectangleWithoutFill(rect, color) {
+        if (color === undefined) color = "#000000";
+
+        var doc = fl.getDocumentDOM(); //文档
+
+        // const rect = wrapRectByTopLeft(topLeft, size);
+        doc.addNewRectangle(rect.toObj(), 0, true, false);
+
+        doc.mouseClick(rect.getCenterVector().toObj(), false, false);
+
+        doc.setFillColor(color);
+
+        return rect;
+    }
+
     return {
-        drawRectangleWithoutLine: drawRectangleWithoutLine
+        drawRectangleWithoutLine: drawRectangleWithoutLine,
+        drawRectangleWithoutFill: drawRectangleWithoutFill
     };
 });
