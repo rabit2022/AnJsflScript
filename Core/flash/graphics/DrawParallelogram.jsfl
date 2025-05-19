@@ -18,7 +18,7 @@ define(["DrawRectangle", "SAT"], function(dr, SAT) {
      * @param {string} color 颜色
      * @param {Vector} skew 斜切角度
      * @param {Timeline} timeline 时间轴
-     * @param {FrameRange} fr 填充率
+     * @param {FrameRange} fr 帧范围对象
      */
     function drawParallelogramWithoutLine(rect, color, skew, timeline, fr) {
         drawRectangleWithoutLine(rect, color);

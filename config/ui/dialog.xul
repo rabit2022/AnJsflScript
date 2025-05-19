@@ -1,4 +1,4 @@
-<dialog id="dialog" title=" 排兵布阵_字符画" buttons="accept,cancel">
+<dialog id="dialog" title=" 选择元件" buttons="accept,cancel">
 	<content>
 		<grid>
 			<columns id="columns">
@@ -15,10 +15,26 @@
 					</menulist>
 				</row>
 				<row template="menulist">
-					<label value="选择字符画 : " width="100"/>
-					<menulist class="control" id="ascii-art-menu" editable="" width="180" flex="1" tabindex="" oncreate="if(window.xjsfl)xjsfl.ui.handleEvent('0', 'create', 'ascii-art-menu');" onsetfocus="if(window.xjsfl)xjsfl.ui.handleEvent('0', 'setfocus', 'ascii-art-menu');" onchange="if(window.xjsfl)xjsfl.ui.handleEvent('0', 'change', 'ascii-art-menu');">
+					<label value="选择元件 : " width="100"/>
+					<menulist class="control" id="selectedSymbol" editable="" width="180" flex="1" tabindex="" oncreate="if(window.xjsfl)xjsfl.ui.handleEvent('0', 'create', 'selectedSymbol');" onsetfocus="if(window.xjsfl)xjsfl.ui.handleEvent('0', 'setfocus', 'selectedSymbol');" onchange="if(window.xjsfl)xjsfl.ui.handleEvent('0', 'change', 'selectedSymbol');">
 						<menupop class="control" id="menupop">
-							<menuitem label="一万人" value="file:///F|/04_ps/沙雕动画/_素材库/WindowSWF-master/WindowSWF-master/AnJsflScript/config/ascii_art_library/一万人.txt" selected="true"/>
+							<menuitem label="补间 2" value="补间 2" selected="true"/>
+							<menuitem label="补间 1" value="补间 1"/>
+							<menuitem label="一键分屏_右屏725" value="一键分屏_右屏725"/>
+							<menuitem label="一键分屏_右屏46" value="一键分屏_右屏46"/>
+							<menuitem label="一键分屏_右屏955" value="一键分屏_右屏955"/>
+							<menuitem label="一键分屏_右屏276" value="一键分屏_右屏276"/>
+							<menuitem label="一键分屏_右屏446" value="一键分屏_右屏446"/>
+							<menuitem label="灵魂出窍_404" value="灵魂出窍_404"/>
+							<menuitem label="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Group>_1_26" value="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Group>_1_26"/>
+							<menuitem label="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Group>_2_39" value="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Group>_2_39"/>
+							<menuitem label="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Path>_2_50" value="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Path>_2_50"/>
+							<menuitem label="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Path>_4_11" value="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Path>_4_11"/>
+							<menuitem label="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Path>_6_10" value="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Path>_6_10"/>
+							<menuitem label="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Path>_8_15" value="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Path>_8_15"/>
+							<menuitem label="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Path>_12_21" value="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Path>_12_21"/>
+							<menuitem label="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Path>_13_21" value="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Path>_13_21"/>
+							<menuitem label="元件 1" value="元件 1"/>
 						</menupop>
 					</menulist>
 				</row>

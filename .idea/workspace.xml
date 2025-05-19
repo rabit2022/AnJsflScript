@@ -6,8 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="2318bed7-153e-429d-a111-ac0e0c1e5ee6" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/flash/graphics/DrawRectangle.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/flash/graphics/DrawRectangle.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/01.角色/#06.灵魂出窍.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/01.角色/#06.灵魂出窍.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/flash/graphics/DrawParallelogram.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/flash/graphics/DrawParallelogram.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/ui/dialog.xul" beforeDir="false" afterPath="$PROJECT_DIR$/config/ui/dialog.xul" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/20.日常脚本/00.图片转帧动画.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/11.动效/20.图片转帧动画.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/20.日常脚本/01.批量导入音频.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/22.音频/20.批量导入音频.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/20.日常脚本/02.智能补间.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/05.补间✔️/20.智能补间.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/20.日常脚本/03.批量静音.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/22.音频/21.批量静音.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/20.日常脚本/04.批量删除音频.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/22.音频/22.批量删除音频.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/20.日常脚本/05.批量选中.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/12.元件/21.批量选中.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/20.日常脚本/XUL/00.交换元件-XUL.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/12.元件/20.交换元件-XUL.jsfl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,11 +98,11 @@
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\一键闪现" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib\12.元件" />
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib\22.音频" />
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib\05.补间✔️" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\例子" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\解除滤镜" />
-      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\02.随机" />
-      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\待研究" />
-      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib\12.元件" />
     </key>
   </component>
   <component name="RunManager" selected="Shell Script.ReRun">
@@ -155,7 +162,7 @@
       <workItem from="1747559391445" duration="6164000" />
       <workItem from="1747570506377" duration="8282000" />
       <workItem from="1747579895253" duration="4497000" />
-      <workItem from="1747667444904" duration="2985000" />
+      <workItem from="1747667444904" duration="4104000" />
     </task>
     <servers />
   </component>
