@@ -60,7 +60,9 @@
       "random": ["Core/py/random/random"],
       "StringP": ["Core/py/string/StringP"],
       "KeyFrameMode": ["Core/Utils/KeyFrameMode"],
-      "Tips": ["Core/Utils/Tips"]
+      "Tips": ["Core/Utils/Tips"],
+//      DrawParallelogram: "Core/flash/graphics/DrawParallelogram"
+      "DrawParallelogram": ["Core/flash/graphics/DrawParallelogram"]
     },
     "include": [
       "**/*.jsfl"

@@ -29,7 +29,7 @@ require([
     "KeyFrameOperation",
     "LayerQuery",
     "DrawRectangle"
-], function(checkUtil, sat, sng, Context, kfo, lq, dr) {
+], function (checkUtil, sat, sng, Context, kfo, lq, dr) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
     const { Vector, Size } = sat;
@@ -172,7 +172,6 @@ require([
         // doc.setCustomFill(fill);
         // doc.setStroke("#FF0000", 1, "solid");
         // doc.setFillColor("#FF0000");
-
 
         // 补帧 5s----150帧,不清楚有没有必要
 

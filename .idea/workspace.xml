@@ -7,14 +7,13 @@
     <list default="true" id="2318bed7-153e-429d-a111-ac0e0c1e5ee6" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/flash/graphics/DrawParallelogram.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/flash/graphics/DrawParallelogram.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/ui/dialog.xul" beforeDir="false" afterPath="$PROJECT_DIR$/config/ui/dialog.xul" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/20.日常脚本/00.图片转帧动画.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/11.动效/20.图片转帧动画.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/20.日常脚本/01.批量导入音频.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/22.音频/20.批量导入音频.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/20.日常脚本/02.智能补间.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/05.补间✔️/20.智能补间.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/20.日常脚本/03.批量静音.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/22.音频/21.批量静音.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/20.日常脚本/04.批量删除音频.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/22.音频/22.批量删除音频.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/20.日常脚本/05.批量选中.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/12.元件/21.批量选中.jsfl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/20.日常脚本/XUL/00.交换元件-XUL.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/12.元件/20.交换元件-XUL.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/flash/graphics/DrawRectangle.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/Core/flash/graphics/DrawRectangle.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/jsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/01.角色/#06.灵魂出窍.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/01.角色/#06.灵魂出窍.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/04.运镜/#04.一键分屏.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/04.运镜/#04.一键分屏.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/04.运镜/10.重置摄像头.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/04.运镜/10.重置摄像头.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/04.运镜/11.解除滤镜.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/04.运镜/11.解除滤镜.jsfl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/require-config.jsfl" beforeDir="false" afterPath="$PROJECT_DIR$/require-config.jsfl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +83,7 @@
     &quot;npm.open-test-file.executor&quot;: &quot;Run&quot;,
     &quot;npm.run-current-file.executor&quot;: &quot;Run&quot;,
     &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;F:\\04_ps\\沙雕动画\\_素材库\\WindowSWF-master\\WindowSWF-master\\AnJsflScript\\node_modules\\prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.xiaolvpuzi.smartinputpro&quot;,
     &quot;ts.external.directory.path&quot;: &quot;D:\\01_software\\06_programme\\01_ide\\WebStorm 2024.3.5\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -98,14 +97,14 @@
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\一键闪现" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib\11.动效" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib\12.元件" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib\22.音频" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib\05.补间✔️" />
       <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\例子" />
-      <recent name="F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\test\解除滤镜" />
     </key>
   </component>
-  <component name="RunManager" selected="Shell Script.ReRun">
+  <component name="RunManager" selected="npm.format">
     <list>
       <item itemvalue="npm.format" />
       <item itemvalue="Shell Script.FirstRun" />
@@ -162,7 +161,8 @@
       <workItem from="1747559391445" duration="6164000" />
       <workItem from="1747570506377" duration="8282000" />
       <workItem from="1747579895253" duration="4497000" />
-      <workItem from="1747667444904" duration="4104000" />
+      <workItem from="1747667444904" duration="4419000" />
+      <workItem from="1747926577479" duration="2978000" />
     </task>
     <servers />
   </component>

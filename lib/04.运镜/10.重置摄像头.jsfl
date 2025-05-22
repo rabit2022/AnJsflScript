@@ -78,17 +78,15 @@ require(["checkUtil", "loglevel", "KeyFrameOperation", "SAT", "FramesSelect"], f
         timeline.currentLayer = cameraLayer;
         KFrameOnlyOne(timeline, cameraLayer);
 
-        timeline.setSelectedFrames(firstFrame,firstFrame+1);
+        timeline.setSelectedFrames(firstFrame, firstFrame + 1);
 
         // camera.resetColorFilter(firstFrame);
-
 
         // var origin = getOrigin();
         // camera.setPosition(firstFrame, origin.x, origin.y);
         // camera.setRotation(firstFrame, 0);
         // camera.setZoom(firstFrame, 100);
         camera.reset(firstFrame);
-
 
         // bug:滤镜，色彩效果 重置不生效
         // // 滤镜

@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(function () {
+define(["chroma-js"], function (chroma) {
     // 矩形
     /**
      * 画矩形，删除边线
@@ -17,6 +17,7 @@ define(function () {
      */
     function drawRectangleWithoutLine(rect, color) {
         if (color === undefined) color = "#000000";
+        color = chroma(color).hex();
 
         var doc = fl.getDocumentDOM(); //文档
 
@@ -32,6 +33,7 @@ define(function () {
 
     function drawRectangleWithoutFill(rect, color) {
         if (color === undefined) color = "#000000";
+        color = chroma(color).hex();
 
         var doc = fl.getDocumentDOM(); //文档
 
