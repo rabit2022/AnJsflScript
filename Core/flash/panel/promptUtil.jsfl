@@ -160,7 +160,7 @@ define(["linqUtil"], function (linqUtil) {
      * @returns {number} 输入的方向
      */
     PromptUtil.parseDirection = function (promptMessage, tipDictionary) {
-        if (tipDictionary === null) {
+        if (tipDictionary === undefined) {
             tipDictionary = { 右: 1, 左: -1, " ": -1 };
         }
 

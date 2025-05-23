@@ -1,4 +1,4 @@
-# 欢迎来到 AnJsflScript！！！
+# AnJsflScript - Adobe Animate 自动化脚本工具集优化版
 
 [![AnJsflScript/v0.3.0](https://badgen.net/badge/AnJsflScript/v0.3.0/green?icon=github&labelColor=black)](https://github.com/rabit2022/AnJsflScript)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/rabit2022/AnJsflScript/pulls)
@@ -6,215 +6,173 @@
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Documentation](https://badgen.net/badge/Documentation/Available/orange)](https://github.com/rabit2022/AnJsflScript/tree/tools)
 
----
+## 目录
 
-**AnJsflScript** 是一个专为 Adobe Animate 设计的 JavaScript For Flash (JSFL)
-脚本集合，旨在通过自动化任务提升工作效率，帮助用户更高效地完成重复性工作，从而专注于创意与设计。
+- [✨ 核心功能](#-核心功能)
+- [🚀 快速安装](#-快速安装)
+- [🛠️ 使用指南](#️-使用指南)
+- [📁 项目结构](#-项目结构)
+- [⚠️ 重要提示](#️-重要提示)
+- [🤝 参与贡献](#-参与贡献)
+- [🔗 相关资源](#-相关资源)
+- [📈 项目数据](#-项目数据)
 
----
+------
 
-## 1. 安装与准备
+## ✨ 核心功能
 
-- **Adobe Animate**：确保已安装最新版本的 Adobe Animate（例如 Adobe Animate 2024）。这是运行 AnJsflScript 的基础环境。
-- **JavaScript For Flash (JSFL)**：Adobe Animate 内置了 JSFL 支持，无需额外安装。
+✔ **自动化工作流** - 简化重复性动画制作任务  
+✔ **模块化架构** - 基于RequireJS的模块系统  
+✔ **跨版本兼容** - 支持Animate 2024+  
+✔ **完整类型支持** - 提供TypeScript类型定义  
+✔ **丰富工具集** - 80+实用脚本
 
----
+------
 
-## 2. 使用步骤
+## 🚀 快速安装
 
-### 2.1 下载项目
+### Windows用户安装选项
 
-#### 1. 直接下载
+#### 方式1：一键安装（推荐）
 
-- **下载最新版本**：访问本项目的 [GitHub 仓库](https://github.com/rabit2022/AnJsflScript)
-  并下载最新发布的 [tag版本](https://github.com/rabit2022/AnJsflScript/tags)
-  。tag 版本经过相对稳定，适合大多数用户使用。当前项目可能会进行重构等操作，因此建议始终使用最新发布的 tag 版本。
-- **解压到本地**：将下载的文件解压到本地的一个合适位置，例如 `C:\AnJsflScript`。
+1. 从[发布页面](https://github.com/rabit2022/AnJsflScript/releases)下载安装包
+2. 解压到项目根目录
+3. 双击`Setup.exe`完成安装
 
-#### 2. 通过 git 命令下载
+#### 方式2：开发者安装
 
-- **git 命令**：也可以通过 git clone 命令下载项目到本地。
-
-```
+```bash
 git clone https://github.com/rabit2022/AnJsflScript.git
 ```
 
-### 2.2 打开 Adobe Animate 并新建或打开文档
+推荐路径：
 
-- **启动软件**：打开 Adobe Animate，确保软件正常运行。
-- **新建或打开文档**：必须先打开一个文档，才能运行脚本。这是因为脚本需要在具体的文档环境中操作，否则可能无法正常工作。
+```
+%LOCALAPPDATA%\Adobe\Animate 2024\<语言>\Configuration\Commands\
+```
 
-### **2.3 运行 `FirstRun.jsfl` 脚本**
+#### 方式3：手动安装
 
-#### **功能**
+1. [下载ZIP包](https://github.com/rabit2022/AnJsflScript/tags)
+2. 解压到任意目录
 
-- `FirstRun.jsfl` 是一个初始化脚本，主要用于配置环境和加载必要的设置，例如 `requirejs` 和 `es5-shim` 等。
-- 这些设置是其他脚本正常运行的基础。
+### 首次使用
 
-#### **运行方法**
+1. 启动Adobe Animate 2024+
+2. 新建/打开FLA文档
+3. **必须**先运行`FirstRun.jsfl`
 
-1. **通过 Adobe Animate 运行**
-    - 打开 Adobe Animate。
-    - 选择 `命令 > 运行命令`。
-    - 导航到解压后的 `AnJsflScript` 文件夹，选择 `FirstRun.jsfl` 脚本并运行。
-2. **直接双击运行**
-    - 找到解压后的 `AnJsflScript` 文件夹。
-    - 直接双击 `FirstRun.jsfl` 脚本文件。
-    - 如果安装了 Adobe Animate，JSFL 文件的默认打开方式是在 Adobe Animate 中打开。
+> 💡 提示：所有操作需在文档打开状态下进行
 
-#### **重要提示**
+------
 
-- 每次打开 Adobe Animate 时，都必须先运行 `FirstRun.jsfl` 脚本，否则其他脚本可能无法正常工作。
+## 🛠️ 使用指南
 
-### **2.4 运行其他脚本**
+### 标准工作流
 
-#### **脚本位置**
+```mermaid
+graph LR
+    A[启动Animate] --> B[打开文档]
+    B --> C[运行FirstRun]
+    C --> D[执行功能脚本]
+```
 
-- `lib` 文件夹：存放 具体功能的脚本。
+### 核心脚本
 
-#### **使用方法**
+| 脚本            | 功能       | 重要度 |
+| --------------- | ---------- | ------ |
+| `FirstRun.jsfl` | 环境初始化 | ★★★★★  |
+| `ReRun.jsfl`    | 缓存重置   | ★★★☆☆  |
 
-- 每个脚本的具体功能和使用方法可以在其文件名或注释中找到详细说明。
-- **通过 Adobe Animate 运行**
-- **直接双击运行**
+### 调试技巧
 
----
+1. 使用`ReRun.jsfl`清除缓存
+2. 查看输出面板日志
+3. 添加`console.log()`调试
 
-## 3. 脚本功能说明
+------
 
-### FirstRun.jsfl
+## 📁 项目结构
 
-- **功能**：初始化环境，加载必要的配置和设置。例如加载 `requirejs` 和 `es5-shim` 等核心模块。
-- **使用方法**：每一次打开 Adobe Animate 软件时，都必须先运行此脚本。
+```
+AnJsflScript/
+├── config/          # 配置文件
+├── core/           # 核心模块
+├── lib/            # 功能脚本
+├── third/          # 第三方库
+├── types/          # 类型定义
+├── FirstRun.jsfl   # 主入口
+└── ReRun.jsfl      # 缓存管理
+```
 
-### ReRun.jsfl
+------
 
-- **功能**：重置 `requirejs`，清除缓存，重新加载脚本。但请注意，`shim` 模块不会被重新加载。
-- **使用方法**：如果你修改了 `core` 文件夹中的模块，并希望这些修改生效，必须清除 `requirejs` 缓存。运行 `ReRun.jsfl`
-  脚本后，再运行 `FirstRun.jsfl` 脚本。建议在 IDE 中配置实现这一过程，以提高效率。
+## ⚠️ 重要提示
 
-### **Core** 文件夹
+❗ **系统要求**
 
-- **功能**：存放核心脚本，包括各种工具类脚本。这些脚本是 AnJsflScript 的基础功能模块。
-- **使用方法**：通过 `requirejs` 加载。你可以根据需要调用这些工具类脚本，实现各种自动化任务。
+- Windows 10/11系统
+- Animate 2024+
 
-### **Third** 文件夹
+❗ **必做事项**
 
-- **功能**：存放第三方库脚本，例如 `requirejs` 和 `es5-shim` 等。这些库为 AnJsflScript 提供了必要的支持。
-- **使用方法**：同样通过 `requirejs` 加载。这些第三方库在初始化时由 `FirstRun.jsfl` 脚本加载，为其他脚本提供支持。
+1. 文档必须先打开
+2. 每次启动必须运行`FirstRun.jsfl`
 
-### **types** 文件夹
+🔧 **常见问题**  
+Q：脚本不生效？  
+A：检查是否运行了FirstRun且文档已打开
 
-- **功能**：
-    - 存放与脚本相关的类型定义文件（通常是 `.d.ts` 文件）。这些文件为脚本提供类型支持，帮助开发者在编写代码时获得更好的提示和代码补全功能。例如，TypeScript
-      类型定义文件可以确保代码的类型安全性和可维护性。
-- **使用方法**：
-    - 这些类型定义文件通常在开发过程中由 `requirejs` 或其他模块加载器加载。开发者在编写脚本时，可以通过引用这些类型定义文件来增强代码的可读性和稳定性。
+------
 
-### **文档** 文件夹
+## 🤝 参与贡献
 
-- 已经移动到 [新的分支](https://github.com/rabit2022/AnJsflScript/tree/tools)
+### 开发流程
 
-### **lib** 文件夹
+1. Fork仓库
+2. 创建特性分支
+3. 提交PR请求
 
-- **功能**：存放具体功能的脚本。
-- **使用方法**：通过 `requirejs` 加载。你可以根据需要调用这些脚本，实现各种自动化任务。
+### 支持渠道
 
----
+- [问题反馈](https://github.com/rabit2022/AnJsflScript/issues)
+- QQ群：1040730457
+- 邮箱：3101829204@qq.com
 
-## 4. 注意事项
+------
 
-- **运行顺序**：请确保先运行 `FirstRun.jsfl` 脚本，并且必须打开文档，否则其他脚本可能无法正常工作。
-- **文档打开**：脚本需要在具体的文档环境中运行，因此必须先打开一个文档。
-- **版本兼容性**：虽然 AnJsflScript 旨在与最新版本的 Adobe Animate 兼容，但由于软件更新可能导致某些功能发生变化，使用的是
-  Adobe Animate 2024 版本，因此可能会遇到一些兼容性问题。
+## 🔗 相关资源
 
----
+### 核心依赖
 
-## 5. 贡献与反馈
+[![RequireJS](https://img.shields.io/badge/RequireJS-2.3.7-ffeb3b)](https://requirejs.org)
+[![ES5-Shim](https://img.shields.io/badge/ES5--Shim-4.6.7-9c27b0)](https://github.com/es-shims/es5-shim)
 
-- **贡献**：欢迎开发者贡献新的脚本或改进现有脚本。
-- **反馈**
-  ：如果在使用过程中遇到问题，或有任何建议，请通过 [GitHub Issues](https://github.com/rabit2022/AnJsflScript/issues)
-  提交反馈，或者通过其他方式联系我。
+### 推荐项目
 
----
-
-## 6. 参考项目
-
-[//]: # ([![CoreJS]&#40;https://img.shields.io/badge/CoreJS-v3.41.0-ff9800&#41;]&#40;https://github.com/zloirock/core-js&#41;)
-[//]: # ([![jquery]&#40;https://img.shields.io/badge/jquery-v3.7.1-2196f3&#41;]&#40;https://github.com/jquery/jquery&#41;)
-
-[![Class.js](https://img.shields.io/badge/Class.js-v0.0.1-4caf50)](https://github.com/DominikGuzei/Class.js)
-
-[![EventEmitter3](https://img.shields.io/badge/EventEmitter3-v5.0.1-ffeb3b)](https://github.com/primus/eventemitter3)
-[![RxJS](https://img.shields.io/badge/RxJS-v7.8.2-ff9800)](https://github.com/ReactiveX/RxJS)
-
-[![json3](https://img.shields.io/badge/json3-v3.3.3-blue)](https://github.com/bestiejs/json3)
-[![circular-json](https://img.shields.io/badge/circular--json-master-9c27b0)](https://github.com/WebReflection/circular-json)
-
-[![loglevel](https://img.shields.io/badge/loglevel-v1.9.2-4caf50)](https://github.com/pimterry/loglevel)
-
-[![path-browserify](https://img.shields.io/badge/path--browserify-v1.0.1-ffeb3b)](https://github.com/browserify/path-browserify)
-[![requirejs](https://img.shields.io/badge/requirejs-v2.3.7-ffeb3b)](https://github.com/requirejs/requirejs)
-[![requirejs/text](https://img.shields.io/badge/requirejs/text-v1.0.8-ffeb3b)](https://github.com/requirejs/text)
-
-[![Node.js](https://img.shields.io/badge/Node.js-v20.0.0-green)](https://github.com/nodejs/node)
-
-[![ES5-Shim](https://img.shields.io/badge/ES5--Shim-v4.6.7-9c27b0)](https://github.com/es-shims/es5-shim)
-[![ES6-Shim](https://img.shields.io/badge/ES6--Shim-v0.35.4-ff9800)](https://github.com/es-shims/es6-shim)
-[![ES7-Shim](https://img.shields.io/badge/ES7--Shim-v6.0.0-ff9800)](https://github.com/es-shims/es7-shim)
-[![polyfill](https://img.shields.io/badge/polyfill-v0.1.43-2196f3)](https://github.com/inexorabletash/polyfill)
-[![es6-collections](https://img.shields.io/badge/es6--collections-v0.5.6-9c27b0)](https://github.com/WebReflection/es6-collections)
-
-[![error-stack-parser](https://img.shields.io/badge/error--stack--parser-v3.0.0-2196f3)](https://github.com/stacktracejs/error-stack-parser)
-[![stackframe](https://img.shields.io/badge/stackframe-v1.3.4-2196f3)](https://github.com/stacktracejs/stackframe)
-
-[![LINQ.js](https://img.shields.io/badge/LINQ.js-v4.0.3-9c27b0)](https://github.com/neuecc/linq.js)
-[![Lodash](https://img.shields.io/badge/Lodash-v4.17.21-2196f3)](https://github.com/lodash/lodash)
-[![sprintf-js](https://img.shields.io/badge/sprintf.js-v1.1.3-green)](https://github.com/alexei/sprintf.js)
-
-[![xmldom](https://img.shields.io/badge/xmldom-v0.6.0-2196f3)](https://github.com/xmldom/xmldom)
-[![fast-XML-parser](https://img.shields.io/badge/fast--xml--parser-v4.0.1-ff9800)](https://github.com/NaturalIntelligence/fast-xml-parser)
-[![xpath](https://img.shields.io/badge/xpath-v0.0.10-2196f3)](https://github.com/goto100/xpath.git)
+[![xJSFL](https://img.shields.io/badge/xJSFL-框架-2196f3)](https://github.com/davestewart/xJSFL)
+[![FlashTool](https://img.shields.io/badge/FlashTool-工具集-2196f3)](https://github.com/hufang360/FlashTool)
 
 [![WindowSWF](https://img.shields.io/badge/WindowSWF-Gitee-4caf50)](https://gitee.com/ninge/WindowSWF/tree/master/)
-[![xJSFL](https://img.shields.io/badge/xJSFL-GitHub-2196f3)](https://github.com/davestewart/xJSFL)
-[![FlashTool](https://img.shields.io/badge/FlashTool-GitHub-2196f3)](https://github.com/hufang360/FlashTool)
-[![SAT.js](https://img.shields.io/badge/SAT.js-v0.9.0-f44336)](https://github.com/jriecken/sat-js)
 
-##### 为了使得以上项目能够在 Adobe Animate 中正常运行，部分进行了大量的修改，并且全部更改为 requirejs 模块化加载。
+------
 
----
+## 📈 项目数据
 
-## 7. 计划更新
+- 代码量：9,432行
+- 脚本数：80+
+- 依赖库：28个
+- 访问量：![统计](https://profile-counter.glitch.me/AnJsflScript/count.svg)
 
-* 由于只有一个人，时间有限，后续会慢慢完善，欢迎各位开发者一起参与进来
-* 希望大家可以积极反馈bug，提出意见，共同进步
+------
 
----
+## 关于作者
 
-## 8. 项目规模
+[![B站](https://badgen.net/badge/B站/穹的兔兔/pink?icon=bilibili)](https://space.bilibili.com/453222786)
+[![GitHub](https://badgen.net/badge/GitHub/rabit2022/black?icon=github)](https://github.com/rabit2022)
 
-- **代码行数**: 9432
-- **字符数量**: 235548
-- **脚本数量**: 80
-- **第三方库数量**：28
-- **界面访问量**：
-  ![访问统计](https://profile-counter.glitch.me/AnJsflScript/count.svg)
-
----
-
-希望这份文档能帮助你更好地了解和使用 AnJsflScript。如果你有任何疑问或建议，请随时与我们联系。感谢你的支持！
-
----
-
-### 作者：[![穹的兔兔](https://badgen.net/badge/bilibili/穹的兔兔/pink?icon=bilibili&labelColor=blue)](https://space.bilibili.com/453222786?spm_id_from=333.788.0.0)
-
-### 联系方式：
-
-- QQ：3101829204
-- Email：3101829204@qq.com
-- qq群：1040730457
-- B站：
-  [![BiliBili](https://stats.justsong.cn/api/bilibili?id=453222786&theme=dark&lang=zh-CN)](https://space.bilibili.com/453222786?spm_id_from=333.788.0.0)
+**联系我**：  
+📧 3101829204@qq.com  
+👥 QQ群：1040730457  
+[//]: # 🎥 [B站主页](https://space.bilibili.com/453222786)
+🎥 [![BiliBili](https://stats.justsong.cn/api/bilibili?id=453222786&theme=dark&lang=zh-CN)](https://space.bilibili.com/453222786?spm_id_from=333.788.0.0)

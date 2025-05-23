@@ -27,8 +27,8 @@ define([
      * @param {Rectangle} rect 矩形
      * @param {string} color 颜色
      * @param {Vector} skew 斜切角度
-     * @param {Timeline} [timeline1] 时间轴
-     * @param {FrameRange} [fr] 帧范围对象
+     * @param {Timeline} [timeline1=timeline] 时间轴
+     * @param {FrameRange} [fr=frs[0]] 帧范围对象
      */
     function drawParallelogramWithoutLine(rect, color, skew, timeline1, fr) {
         color = chroma(color).hex();

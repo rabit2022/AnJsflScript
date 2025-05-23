@@ -22,35 +22,70 @@ if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
     throw new Error(msg);
 }
 
-require(["checkUtil", "loglevel"], function (checkUtil, log) {
+require([
+    "checkUtil",
+    "loglevel",
+    "promptUtil",
+    "SymbolNameGenerator",
+    "Context"
+], function(checkUtil, log, promptUtil, sng, Context) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
-    // region doc
-    var doc = CheckDom(); //文档
-    if (doc === null) return;
+    const { parseDirection } = promptUtil;
+    const { generateNameUntilUnique, generateNameUseLast } = sng;
 
-    var selection = doc.selection; //选择
-    var library = doc.library; //库文件
-    var timeline = doc.getTimeline(); //时间轴
+    // region Context
+    // 这个用于 变量 经常update的地方，例如：doc.enterEditMode("inPlace");
+    // 否则，建议使用 doc 方案，减少 库 的依赖
+    const context = new Context();
+    context.update();
+    const {
+        doc,
+        selection,
+        library,
+        timeline,
+        AllLayers,
+        curLayerIndex,
+        curLayer,
+        curFrameIndex,
+        curFrame
+    } = context;
+    const { firstSlLayerIndex, firstSlFrameIndex } = context;
+    if (CheckDom(doc) === null) return;
 
-    var layers = timeline.layers; //图层
-    var curLayerIndex = timeline.currentLayer; //当前图层索引
-    var curLayer = layers[curLayerIndex]; //当前图层
-
-    var curFrameIndex = timeline.currentFrame; //当前帧索引
-    var curFrame = curLayer.frames[curFrameIndex]; //当前帧
-
-    // 获取第一帧
-    var frs = CheckSelectedFrames(timeline);
-    if (frs === null) return;
-    var firstLayer = layers[frs[0].layerIndex];
-    var firstFrame = frs[0].startFrame;
-
-    // endregion doc
+    // endregion Context
 
     function Main() {
         // 检查选择的元件
         if (!CheckSelection(selection, "selectElement", "No limit")) return;
+
+        // var userInput = prompt("请输入生成右屏/左屏（默认为右，空格为左）:", "右");
+        var direction = parseDirection("请输入生成右屏/左屏（默认为右，空格为左）:");
+        if (!direction) return;
+
+        log.info("direction", direction);
+
+        var symbolName = generateNameUntilUnique("一键分屏_右_");
+        doc.convertToSymbol("graphic", symbolName, "center");
+
+        doc.enterEditMode("inPlace");
+
+        context.update();
+        const {
+            doc,
+            selection,
+            library,
+            timeline,
+            AllLayers,
+            curLayerIndex,
+            curLayer,
+            curFrameIndex,
+            curFrame
+        } = context;
+
+        curLayer.name = "背景层";
+
+        timeline.addNewLayer("遮罩层");
     }
 
     Main();
