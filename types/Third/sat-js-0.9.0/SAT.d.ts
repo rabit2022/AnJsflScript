@@ -14,6 +14,7 @@ type Corner =
     | "left center"
     | "center";
 type Part = Corner | "top" | "right" | "bottom" | "left";
+type DirectionType = "all" | "left" | "top" | "right" | "bottom";
 
 interface VectorLike {
     x: number;
@@ -140,9 +141,9 @@ export class Rectangle extends RectangleLike {
 
     subOffset(offset: number | Vector | Rectangle): Rectangle;
 
-    expand(size: number): Rectangle;
+    expand(size: number, whichDirection?: DirectionType): Rectangle;
 
-    shrink(size: number): Rectangle;
+    shrink(size: number, whichDirection?: DirectionType): Rectangle;
 
     getCenterVector(): Vector;
 
@@ -249,7 +250,7 @@ export class FrameRange extends FrameRangeLike {
 
     readonly duration: number;
 
-    constructor(layerIndex: number, startFrame: number, endFrame: number);
+    constructor(layerIndex: number, startFrame: number, endFrame?: number);
 
     intersects(other: FrameRange): boolean;
 

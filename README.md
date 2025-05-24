@@ -1,4 +1,4 @@
-# AnJsflScript - Adobe Animate 自动化脚本工具集优化版
+# AnJsflScript - Adobe Animate 自动化脚本工具集
 
 [![AnJsflScript/v0.3.0](https://badgen.net/badge/AnJsflScript/v0.3.0/green?icon=github&labelColor=black)](https://github.com/rabit2022/AnJsflScript)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/rabit2022/AnJsflScript/pulls)
@@ -6,13 +6,13 @@
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Documentation](https://badgen.net/badge/Documentation/Available/orange)](https://github.com/rabit2022/AnJsflScript/tree/tools)
 
-## 目录
+## 内容导航
 
 - [✨ 核心功能](#-核心功能)
 - [🚀 快速安装](#-快速安装)
-- [🛠️ 使用指南](#️-使用指南)
+- [🛠️ 使用指南](#-使用指南)
 - [📁 项目结构](#-项目结构)
-- [⚠️ 重要提示](#️-重要提示)
+- [⚠️ 重要提示](#-重要提示)
 - [🤝 参与贡献](#-参与贡献)
 - [🔗 相关资源](#-相关资源)
 - [📈 项目数据](#-项目数据)
@@ -56,7 +56,7 @@ git clone https://github.com/rabit2022/AnJsflScript.git
 1. [下载ZIP包](https://github.com/rabit2022/AnJsflScript/tags)
 2. 解压到任意目录
 
-### 首次使用
+### 每次使用
 
 1. 启动Adobe Animate 2024+
 2. 新建/打开FLA文档
@@ -135,7 +135,7 @@ A：检查是否运行了FirstRun且文档已打开
 
 ### 支持渠道
 
-- [问题反馈](https://github.com/rabit2022/AnJsflScript/issues)
+- [github issues](https://github.com/rabit2022/AnJsflScript/issues)
 - QQ群：1040730457
 - 邮箱：3101829204@qq.com
 
@@ -152,7 +152,6 @@ A：检查是否运行了FirstRun且文档已打开
 
 [![xJSFL](https://img.shields.io/badge/xJSFL-框架-2196f3)](https://github.com/davestewart/xJSFL)
 [![FlashTool](https://img.shields.io/badge/FlashTool-工具集-2196f3)](https://github.com/hufang360/FlashTool)
-
 [![WindowSWF](https://img.shields.io/badge/WindowSWF-Gitee-4caf50)](https://gitee.com/ninge/WindowSWF/tree/master/)
 
 ------
@@ -174,5 +173,6 @@ A：检查是否运行了FirstRun且文档已打开
 **联系我**：  
 📧 3101829204@qq.com  
 👥 QQ群：1040730457  
-[//]: # 🎥 [B站主页](https://space.bilibili.com/453222786)
+
+[//]: # (🎥 [B站主页]&#40;https://space.bilibili.com/453222786&#41;)
 🎥 [![BiliBili](https://stats.justsong.cn/api/bilibili?id=453222786&theme=dark&lang=zh-CN)](https://space.bilibili.com/453222786?spm_id_from=333.788.0.0)

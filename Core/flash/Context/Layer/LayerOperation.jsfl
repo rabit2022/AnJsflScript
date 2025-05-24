@@ -79,8 +79,6 @@ define(["LayerQuery", "Tips", "loglevel"], function (lq, Tips, log) {
         var timeline = doc.getTimeline(); //时间轴
 
         const emptyLayers = getEmptyLayers(timeline);
-        // fl.outputPanel.clear();
-        // doc.save();
 
         emptyLayers.reverse();
         emptyLayers.forEach(function (layerIndex) {
@@ -112,10 +110,35 @@ define(["LayerQuery", "Tips", "loglevel"], function (lq, Tips, log) {
         return returnLayerIndex;
     }
 
+    /**
+     * 设置父图层
+     * @param {Timeline} timeline 时间轴
+     * @param {Number|Layer} layer 图层
+     * @param {Number|Layer} parentLayer 父图层
+     * @param {"normal"|"guide"|"guided"|"mask"|"masked"|"folder"} layerType 图层类型
+     */
+    function setParentLayer(timeline, layer, parentLayer, layerType) {
+        var layers = timeline.layers; //图层
+
+        layerIndex = convertToLayerIndex(layers, layer);
+        parentLayerIndex = convertToLayerIndex(layers, parentLayer);
+
+        timeline.currentLayer = parentLayerIndex;
+
+        // var parentLayer = layers[parentLayer]; //当前图层
+        var parentLayer_ = layers[parentLayerIndex]; //当前图层
+
+        parentLayer_.layerType = layerType;
+
+        //设置父图层
+        layers[layerIndex].parentLayer = parentLayer_;
+    }
+
     return {
         deleteLayers: deleteLayers,
         swapLayers: swapLayers,
         clearEmptyLayers: clearEmptyLayers,
-        addNewLayerSafety: addNewLayerSafety
+        addNewLayerSafety: addNewLayerSafety,
+        setParentLayer: setParentLayer
     };
 });

@@ -13,77 +13,86 @@ define([
     "SymbolNameGenerator",
     "assert",
     "chroma-js",
-    "checkUtil"
-], function (dr, SAT, sng, assert, chroma, checkUtil) {
+    "checkUtil",
+    "ElementSelect",
+    "ElementChecker"
+], function (dr, SAT, sng, assert, chroma, checkUtil, es, ec) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
-    const { drawRectangleWithoutLine, drawRectangleWithoutFill } = dr;
+    const { drawRectangle, drawRectangleWithoutLine } = dr;
 
+    const { Vector } = SAT;
     const { wrapTransform } = SAT.GLOBALS;
     const { generateNameUntilUnique, generateNameUseLast } = sng;
+    const { SelectAll, InvertSelection, SelectNone } = es;
+    const { IsShape } = ec;
 
     /**
      * 绘制平行四边形
      * @param {Rectangle} rect 矩形
-     * @param {string} color 颜色
-     * @param {Vector} skew 斜切角度
-     * @param {Timeline} [timeline1=timeline] 时间轴
-     * @param {FrameRange} [fr=frs[0]] 帧范围对象
+     * @param {string|W3CX11ColorName} [color="black"] 颜色
+     * @param {Vector} [skew=new Vector(0,0)] 斜切角度
      */
-    function drawParallelogramWithoutLine(rect, color, skew, timeline1, fr) {
+    function drawParallelogram(rect, color, skew) {
+        if (color === undefined) color = "black";
         color = chroma(color).hex();
+        if (skew === undefined) skew = new Vector(0, 0);
 
         var doc = fl.getDocumentDOM(); //获取文档对象
         var timeline = doc.getTimeline(); //获取时间轴对象
-        var layers = timeline.layers; //获取图层对象
 
-        if (timeline1 === undefined) timeline1 = timeline;
-        if (fr === undefined) {
-            var frs = CheckSelectedFrames(timeline);
-            if (frs === null) return;
-            var firstLayer = layers[frs[0].layerIndex];
-            var firstFrame = frs[0].startFrame;
+        drawRectangle(rect, color);
 
-            fr = frs[0];
-        }
+        // doc.mouseClick(rect.getCenterVector().toObj(), false, false);
+        // timeline.setSelectedFrames([0, 0, 1]);
+        doc.setSelectionRect(rect.toObj());
+        // CompleteTodo:可能包含元件,需要过滤出元件，并且反选
+        // 选中不是形状的元素。
+        SelectAll();
+        var allElements = doc.selection;
+        var nonShapeElements = allElements.filter(function (element) {
+            return IsShape(element) === false;
+        });
 
-        drawRectangleWithoutLine(rect, color);
-
-        // 选中矩形
-        timeline1.setSelectedFrames([fr.layerIndex, fr.startFrame, fr.endFrame]);
+        // shape selection
+        InvertSelection(nonShapeElements);
 
         var selection = doc.selection; //选择
-        if (selection.length !== 1) {
-            console.error(
-                "当前图层中选择的元素数量必须为1，否则无法进行平行四边形绘制。"
-            );
-            assert(
-                selection.length === 1,
-                "当前图层中选择的元素数量必须为1，否则无法进行平行四边形绘制。"
-            );
-            return;
-        }
+        var element = selection[0];
 
-        selection.forEach(function (element) {
-            var transform = wrapTransform(element).setSkew(skew);
-        });
+        var transform = wrapTransform(element).setSkew(skew);
     }
 
-    function drawParallelogramWithoutFill(rect, color, skew, timeline, fr) {
-        drawRectangleWithoutFill(rect, color);
-
-        // 选中矩形
-        timeline.setSelectedFrames([fr.layerIndex, fr.startFrame, fr.endFrame]);
+    function drawParallelogramWithoutLine(rect, color, skew) {
+        if (color === undefined) color = "black";
+        color = chroma(color).hex();
+        if (skew === undefined) skew = new Vector(0, 0);
 
         var doc = fl.getDocumentDOM(); //获取文档对象
-        var selection = doc.selection; //选择
 
-        selection.forEach(function (element) {
-            var transform = wrapTransform(element).setSkew(skew);
-        });
+        // drawRectangle(rect, color, false, false);
+        drawRectangleWithoutLine(rect, color);
+
+        doc.mouseClick(rect.getCenterVector().toObj(), false, false);
+
+        var selection = doc.selection; //选择
+        var element = selection[0];
+
+        var transform = wrapTransform(element).setSkew(skew);
+    }
+
+    function drawParallelogramWithoutFill(rect, color, skew) {
+        drawParallelogram(rect, color, skew);
+
+        SelectNone();
+
+        var doc = fl.getDocumentDOM(); //获取文档对象
+        doc.mouseClick(rect.getCenterVector().toObj(), false, false);
+        doc.deleteSelection();
     }
 
     return {
+        drawParallelogram: drawParallelogram,
         drawParallelogramWithoutLine: drawParallelogramWithoutLine,
         drawParallelogramWithoutFill: drawParallelogramWithoutFill
     };

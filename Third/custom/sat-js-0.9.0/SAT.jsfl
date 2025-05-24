@@ -734,19 +734,75 @@
     /**
      * 扩大矩形的边界
      * @param {Number|Vector|Rectangle} size 扩大量
+     * @param {DirectionType} [whichDirection="all"] 哪个角点
      * @returns {Rectangle} 矩形
      */
-    Rectangle.prototype.expand = function(size) {
-        const offset = new Rectangle(-size, -size, size, size);
+    Rectangle.prototype.expand = function(size,whichDirection) {
+        // const offset = new Rectangle(-size, -size, size, size);
+        // return this.addOffset(offset);
+        if (whichDirection===undefined) whichDirection="all";
+
+        var offset = new Rectangle(0, 0, 0, 0);
+        switch (whichDirection) {
+            case "left":
+                offset.left =-size;
+                break;
+            case "top":
+                offset.top =-size;
+                break;
+                case "right":
+                offset.right =size;
+                break;
+            case "bottom":
+                offset.bottom =size;
+                break;
+            case "all":
+                offset.left =-size;
+                offset.top =-size;
+                offset.right =size;
+                offset.bottom =size;
+                break;
+            default:
+                throw new Error("whichDirection 参数错误:"+whichDirection);
+        }
+
         return this.addOffset(offset);
     };
     /**
      * 缩小矩形的边界
      * @param {Number|Vector|Rectangle} size 缩小量
+     * @param {Direction} [whichDirection="all"] 哪个角点
      * @returns {Rectangle} 矩形
      */
-    Rectangle.prototype.shrink = function(size) {
-        const offset = new Rectangle(-size, -size, size, size);
+    Rectangle.prototype.shrink = function(size,whichDirection) {
+        // const offset = new Rectangle(-size, -size, size, size);
+        // return this.subOffset(offset);
+        if (whichDirection===undefined) whichDirection="all";
+
+        var offset = new Rectangle(0, 0, 0, 0);
+        switch (whichDirection) {
+            case "left":
+                offset.left =-size;
+                break;
+            case "top":
+                offset.top =-size;
+                break;
+            case "right":
+                offset.right =size;
+                break;
+            case "bottom":
+                offset.bottom =size;
+                break;
+            case "all":
+                offset.left =-size;
+                offset.top =-size;
+                offset.right =size;
+                offset.bottom =size;
+                break;
+            default:
+                throw new Error("whichDirection 参数错误:"+whichDirection);
+        }
+
         return this.subOffset(offset);
     };
 
@@ -834,29 +890,32 @@
      * @throws {Error} - 如果 `whichPart` 参数无效，将抛出错误。
      */
     Rectangle.prototype.getPart = function(whichPart, widthRatio, heightRatio) {
-        if (typeof widthRatio === "undefined") {
-            widthRatio = 0.5;
-        }
-        if (typeof heightRatio === "undefined") {
-            heightRatio = widthRatio;
-        }
+        if (typeof widthRatio === "undefined") widthRatio = 0.5;
+        if (typeof heightRatio === "undefined") heightRatio = widthRatio;
+        // console.log("whichPart", whichPart, "widthRatio", widthRatio, "heightRatio", heightRatio);
+
         // 解构矩形的基本属性
         const { left, right, top, bottom, width, height } = this;
+        // console.log("left", left, "top", top, "right", right, "bottom", bottom, "width", width, "height", height);
 
         // 获取中心点坐标
         const { x: centerX, y: centerY } = this.getCenterVector();
+        // console.log("centerX", centerX, "centerY", centerY);
 
         // 提前计算宽度和高度的占比
         const widthPart = width * widthRatio;
         const heightPart = height * heightRatio;
+        // console.log("widthPart", widthPart, "heightPart", heightPart);
 
         // 提前计算宽度和高度的剩余部分
         const widthInversePart = width - widthPart;
         const heightInversePart = height - heightPart;
+        // console.log("widthInversePart", widthInversePart, "heightInversePart", heightInversePart);
 
         // 提前计算宽度和高度的一半占比
         const halfWidthPart = widthPart / 2;
         const halfHeightPart = heightPart / 2;
+        // console.log("halfWidthPart", halfWidthPart, "halfHeightPart", halfHeightPart);
 
         switch (whichPart) {
             case "top right":
@@ -890,6 +949,7 @@
                     top + heightPart
                 );
             case "right center":
+                // console.log("right center",widthRatio,heightRatio);
                 return new Rectangle(
                     right - widthInversePart,
                     centerY - halfHeightPart,
@@ -1414,14 +1474,12 @@
      * 左闭右开区间 [startFrame, endFrame)
      * @param {number} layerIndex 图层索引
      * @param {number} startFrame 开始帧
-     * @param {number} endFrame 结束帧
+     * @param {number} [endFrame=startFrame+1] 结束帧
      */
     function FrameRange(layerIndex, startFrame, endFrame) {
         this.layerIndex = layerIndex;
         this.startFrame = startFrame;
-        this.endFrame = endFrame;
-
-        // this.duration = endFrame - startFrame;
+        this.endFrame = endFrame || startFrame + 1;
     }
 
     SAT["FrameRange"] = FrameRange;
