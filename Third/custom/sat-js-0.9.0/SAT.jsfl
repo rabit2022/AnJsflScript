@@ -458,6 +458,21 @@
         return new Rectangle(0, 0, this.x, this.y);
     };
 
+    /**
+     * 转换为Scale对象
+     * @returns {Scale}
+     */
+    Vector.prototype["toScale"] = Vector.prototype.toScale = function() {
+        return new Scale(this.x, this.y);
+    };
+    /**
+     * 转换为Skew对象
+     * @returns {Skew}
+     */
+    Vector.prototype["toSkew"] = Vector.prototype.toSkew = function() {
+        return new Skew(this.x, this.y);
+    };
+
     Vector.toString = function() {
         return "[class Vector]";
     };
@@ -512,12 +527,22 @@
         return new Vector(element.x, element.y);
     }
 
+    /**
+     * 转换为Scale对象
+     * @param {ScaleLike|Element|Scale} element 缩放对象
+     * @return {Scale}
+     */
     function wrapScale(element) {
-        return new Vector(element.scaleX, element.scaleY);
+        return new Scale(element.scaleX, element.scaleY);
     }
 
+    /**
+     * 转换为Skew对象
+     * @param {Element|Skew|SkewLike} element 斜切对象
+     * @return {Skew}
+     */
     function wrapSkew(element) {
-        return new Vector(element.skewX, element.skewY);
+        return new Skew(element.skewX, element.skewY);
     }
 
     /**
@@ -737,33 +762,33 @@
      * @param {DirectionType} [whichDirection="all"] 哪个角点
      * @returns {Rectangle} 矩形
      */
-    Rectangle.prototype.expand = function(size,whichDirection) {
+    Rectangle.prototype.expand = function(size, whichDirection) {
         // const offset = new Rectangle(-size, -size, size, size);
         // return this.addOffset(offset);
-        if (whichDirection===undefined) whichDirection="all";
+        if (whichDirection === undefined) whichDirection = "all";
 
         var offset = new Rectangle(0, 0, 0, 0);
         switch (whichDirection) {
             case "left":
-                offset.left =-size;
+                offset.left = -size;
                 break;
             case "top":
-                offset.top =-size;
+                offset.top = -size;
                 break;
-                case "right":
-                offset.right =size;
+            case "right":
+                offset.right = size;
                 break;
             case "bottom":
-                offset.bottom =size;
+                offset.bottom = size;
                 break;
             case "all":
-                offset.left =-size;
-                offset.top =-size;
-                offset.right =size;
-                offset.bottom =size;
+                offset.left = -size;
+                offset.top = -size;
+                offset.right = size;
+                offset.bottom = size;
                 break;
             default:
-                throw new Error("whichDirection 参数错误:"+whichDirection);
+                throw new Error("whichDirection 参数错误:" + whichDirection);
         }
 
         return this.addOffset(offset);
@@ -774,33 +799,33 @@
      * @param {Direction} [whichDirection="all"] 哪个角点
      * @returns {Rectangle} 矩形
      */
-    Rectangle.prototype.shrink = function(size,whichDirection) {
+    Rectangle.prototype.shrink = function(size, whichDirection) {
         // const offset = new Rectangle(-size, -size, size, size);
         // return this.subOffset(offset);
-        if (whichDirection===undefined) whichDirection="all";
+        if (whichDirection === undefined) whichDirection = "all";
 
         var offset = new Rectangle(0, 0, 0, 0);
         switch (whichDirection) {
             case "left":
-                offset.left =-size;
+                offset.left = -size;
                 break;
             case "top":
-                offset.top =-size;
+                offset.top = -size;
                 break;
             case "right":
-                offset.right =size;
+                offset.right = size;
                 break;
             case "bottom":
-                offset.bottom =size;
+                offset.bottom = size;
                 break;
             case "all":
-                offset.left =-size;
-                offset.top =-size;
-                offset.right =size;
-                offset.bottom =size;
+                offset.left = -size;
+                offset.top = -size;
+                offset.right = size;
+                offset.bottom = size;
                 break;
             default:
-                throw new Error("whichDirection 参数错误:"+whichDirection);
+                throw new Error("whichDirection 参数错误:" + whichDirection);
         }
 
         return this.subOffset(offset);
@@ -1177,7 +1202,7 @@
     };
     var getSymbolBounds = getSymbolRect;
 
-        /**
+    /**
      * 获取舞台中心点坐标
      * @return {Vector} 点
      */
@@ -1198,6 +1223,7 @@
         var rect = new Rectangle(doc);
         return rect;
     }
+
     var getStageBounds = getStageRect;
 
 
@@ -1309,6 +1335,15 @@
     Size.prototype.getRatioHeight = function(nowWidth) {
         return nowWidth / this.ratio;
     };
+    // copy
+    Size.prototype.copy = function(size) {
+        this.width = size.width;
+        this.height = size.height;
+        return this;
+    };
+    Size.prototype.clone = function() {
+        return new Size(this.width, this.height);
+    };
 
     Size.prototype.toString = function() {
         return "Size(" + this.width + ", " + this.height + ")";
@@ -1343,6 +1378,111 @@
     }
 
     SAT_CHECk["IsSizeLike"] = IsSizeLike;
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //  ______     ______     ______     __         ______
+    // /\  ___\   /\  ___\   /\  __ \   /\ \       /\  ___\
+    // \ \___  \  \ \ \____  \ \  __ \  \ \ \____  \ \  __\
+    //  \/\_____\  \ \_____\  \ \_\ \_\  \ \_____\  \ \_____\
+    //   \/_____/   \/_____/   \/_/\/_/   \/_____/   \/_____/
+    //
+    // ------------------------------------------------------------------------------------------------------------------------
+    // Scale
+    function Scale(scaleX, scaleY) {
+        this.scaleX = scaleX;
+        this.scaleY = scaleY;
+    }
+
+    SAT["Scale"] = Scale;
+    Scale.prototype.copy = function(scale) {
+        this.scaleX = scale.scaleX;
+        this.scaleY = scale.scaleY;
+        return this;
+    };
+
+    Scale.prototype.clone = function() {
+        return new Scale(this.scaleX, this.scaleY);
+    };
+    // toVector
+    Scale.prototype.toVector = function() {
+        return new Vector(this.scaleX, this.scaleY);
+    };
+
+    Scale.prototype.toString = function() {
+        return "Scale(scaleX=" + this.scaleX + ", scaleY=" + this.scaleY + ")";
+    };
+
+    Scale.prototype.toObj = function() {
+        return { scaleX: this.scaleX, scaleY: this.scaleY };
+    };
+
+    Scale.toString = function() {
+        return "[class Scale]";
+    };
+
+    function IsScaleLike(obj) {
+        return (
+            obj &&
+            typeof obj === "object" &&
+            typeof obj.scaleX === "number" &&
+            typeof obj.scaleY === "number"
+        );
+    }
+
+    SAT_CHECk["IsScaleLike"] = IsScaleLike;
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //  ______     __  __     ______     __     __
+    // /\  ___\   /\ \/ /    /\  ___\   /\ \  _ \ \
+    // \ \___  \  \ \  _"-.  \ \  __\   \ \ \/ ".\ \
+    //  \/\_____\  \ \_\ \_\  \ \_____\  \ \__/".~\_\
+    //   \/_____/   \/_/\/_/   \/_____/   \/_/   \/_/
+    //
+    // ------------------------------------------------------------------------------------------------------------------------
+    // Skew
+    function Skew(skewX, skewY) {
+        this.skewX = skewX;
+        this.skewY = skewY;
+    }
+
+    SAT["Skew"] = Skew;
+    Skew.prototype.copy = function(skew) {
+        this.skewX = skew.skewX;
+        this.skewY = skew.skewY;
+        return this;
+    };
+
+    Skew.prototype.clone = function() {
+        return new Skew(this.skewX, this.skewY);
+    };
+    // toVector
+    Skew.prototype.toVector = function() {
+        return new Vector(this.skewX, this.skewY);
+    };
+
+    Skew.prototype.toString = function() {
+        return "Skew(skewX=" + this.skewX + ", skewY=" + this.skewY + ")";
+    };
+
+    Skew.prototype.toObj = function() {
+        return { skewX: this.skewX, skewY: this.skewY };
+    };
+
+    Skew.toString = function() {
+        return "[class Skew]";
+    };
+
+    function IsSkewLike(obj) {
+        return (
+            obj &&
+            typeof obj === "object" &&
+            typeof obj.skewX === "number" &&
+            typeof obj.skewY === "number"
+        );
+    }
+
+    SAT_CHECk["IsSkewLike"] = IsSkewLike;
+
 
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______   ______     ______     __   __     ______     ______   ______
@@ -1392,12 +1532,15 @@
     };
     /**
      * 设置缩放
-     * @param {Vector} scale 缩放比例
+     * @param {Vector|Scale} scale 缩放比例
      * @return {Transform} Transform
      */
     Transform.prototype.setScale = function(scale) {
-        this.element.scaleX = scale.x;
-        this.element.scaleY = scale.y;
+        // 兼容性处理
+        if (IsVectorLike(scale)) scale = scale.toScale();
+
+        this.element.scaleX = scale.scaleX;
+        this.element.scaleY = scale.scaleY;
         this.scale = scale;
         return this;
     };
@@ -1413,9 +1556,17 @@
         this.size = size;
         return this;
     };
+    /**
+     * 设置倾斜
+     * @param {Vector|Skew} skew 倾斜角度
+     * @return {Transform} Transform
+     */
     Transform.prototype.setSkew = function(skew) {
-        this.element.skewX = skew.x;
-        this.element.skewY = skew.y;
+        // 兼容性处理
+        if (IsVectorLike(skew)) skew = skew.toSkew();
+
+        this.element.skewX = skew.skewX;
+        this.element.skewY = skew.skewY;
         this.skew = skew;
         return this;
     };
@@ -1568,6 +1719,142 @@
     }
 
     SAT_CHECk["IsFrameRangeLike"] = IsFrameRangeLike;
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //  ______   ______     ______     __    __     ______     ______     ______
+    // /\  ___\ /\  == \   /\  __ \   /\ "-./  \   /\  ___\   /\  == \   /\  __ \
+    // \ \  __\ \ \  __<   \ \  __ \  \ \ \-./\ \  \ \  __\   \ \  __<   \ \  __ \
+    //  \ \_\    \ \_\ \_\  \ \_\ \_\  \ \_\ \ \_\  \ \_____\  \ \_\ \_\  \ \_\ \_\
+    //   \/_/     \/_/ /_/   \/_/\/_/   \/_/  \/_/   \/_____/   \/_/ /_/   \/_/\/_/
+    //
+    //  __   __     ______     ______     __         __     ______     ______
+    // /\ "-.\ \   /\  ___\   /\  ___\   /\ \       /\ \   /\  ___\   /\__  _\
+    // \ \ \-.  \  \ \ \__ \  \ \  __\   \ \ \____  \ \ \  \ \___  \  \/_/\ \/
+    //  \ \_\\"\_\  \ \_____\  \ \_____\  \ \_____\  \ \_\  \/\_____\    \ \_\
+    //   \/_/ \/_/   \/_____/   \/_____/   \/_____/   \/_/   \/_____/     \/_/
+    //
+    // ------------------------------------------------------------------------------------------------------------------------
+    // FrameRangeList
+
+    /**
+     * 帧列表类，继承自 Array
+     * @constructor
+     */
+    function FrameRangeList() {
+        Array.apply(this, arguments); // 调用 Array 的构造函数
+    }
+
+
+    // 继承 Array 的原型
+    FrameRangeList.prototype = Object.create(Array.prototype);
+    FrameRangeList.prototype.constructor = FrameRangeList;
+
+
+    Object.defineProperty(FrameRangeList.prototype, "firstSlFrameIndex", {
+        get: function() {
+            if (this.length === 0) {
+                return null;
+            }
+            return this[0].startFrame;
+        }
+    });
+    Object.defineProperty(FrameRangeList.prototype, "firstSlLayerIndex", {
+        get: function() {
+            if (this.length === 0) {
+                return null;
+            }
+            return this[0].layerIndex;
+        }
+    });
+    Object.defineProperty(FrameRangeList.prototype, "firstSlLayer", {
+        get: function() {
+            if (this.length === 0) {
+                return null;
+            }
+            var doc = fl.getDocumentDOM(); //文档对象
+            var timeline = doc.getTimeline(); //时间轴
+            var layers = timeline.layers; //图层
+
+            var layerIndex = this.firstSlLayerIndex;
+
+            return layers[layerIndex];
+        }
+    });
+    Object.defineProperty(FrameRangeList.prototype, "firstSlFrame", {
+        get: function() {
+            if (this.length === 0) {
+                return null;
+            }
+            var doc = fl.getDocumentDOM(); //文档对象
+            var timeline = doc.getTimeline(); //时间轴
+            var layers = timeline.layers; //图层
+
+            var frameIndex = this.firstSlFrameIndex;
+
+            return layers[frameIndex];
+        }
+    });
+
+
+    /**
+     * 从列表中过滤出不重复的 layerIndex
+     * @returns {Array<number>} 不重复的 layerIndex 列表
+     */
+    FrameRangeList.prototype.getUniqueLayerIndexes = function() {
+        var uniqueLayerIndexes = [];
+        for (var i = 0; i < this.length; i++) {
+            var currentLayerIndex = this[i].layerIndex;
+            if (!uniqueLayerIndexes.includes(currentLayerIndex)) {
+                uniqueLayerIndexes.push(currentLayerIndex);
+            }
+        }
+        return uniqueLayerIndexes;
+    };
+
+    FrameRangeList.prototype.clone = function() {
+        var newList = new FrameRangeList();
+        for (var i = 0; i < this.length; i++) {
+            newList.push(this[i].clone());
+        }
+        return newList;
+    };
+    FrameRangeList.prototype.copy = function(frameRange) {
+        // 清空列表
+        this.length = 0;
+
+        for (var i = 0; i < frameRange.length; i++) {
+            this.push(frameRange[i].clone());
+        }
+        return this;
+    };
+    /**
+     * 覆盖 toString 方法
+     * @returns {string} 列表的字符串表示
+     */
+    FrameRangeList.prototype.toString = function() {
+        var frameStrings = this.map(function(frame) {
+            return frame.toString();
+        });
+        return "FrameRangeList(" + frameStrings.join(",\n") + ")";
+    };
+
+    /**
+     * 输出为数组
+     * @param {Array<FrameRange>} frArr 帧范围数组
+     * @returns {FrameRangeList} 帧范围列表
+     */
+    FrameRangeList.from = function(frArr) {
+        var newList = new FrameRangeList();
+        for (var i = 0; i < frArr.length; i++) {
+            newList.push(frArr[i]);
+        }
+        return newList;
+    };
+    FrameRangeList.toString = function() {
+        return "[class FrameRangeList]";
+    };
+    SAT["FrameRangeList"] = FrameRangeList;
+
 
     function IsElementBoundsLike(obj) {
         return (

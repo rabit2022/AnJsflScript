@@ -7,8 +7,9 @@
  * @description:
  */
 
-define(["Tips"], function (Tips) {
+define(["Tips", "SAT"], function (Tips, SAT) {
     const { checkVariableRedeclaration } = Tips;
+    const { FrameRange, FrameRangeList } = SAT;
 
     /**
      * 检查选择的元件或帧是否符合指定的模式和条件。
@@ -204,7 +205,7 @@ define(["Tips"], function (Tips) {
      * @param {"No limit"|"Not Zero"|"Zero"|"Only one"|"Only two"|"More"|
      * ">0"|"=0"|"=1"|"=2"|">1"} [condition="Not Zero"] - 检查条件
      * @param {{min: number, max: number,onlyFirst: boolean}} [range] - 帧范围
-     * @returns {FrameRange[]}
+     * @returns {FrameRangeList}
      */
     function CheckSelectedFrames(timeline, exTips, condition, range) {
         if (condition === undefined) condition = "Not Zero";
@@ -234,16 +235,17 @@ define(["Tips"], function (Tips) {
             exTips += " 所选帧总时长 [" + totalDuration + "] 帧, ";
             if (min !== undefined && totalDuration < min) {
                 exTips += " 要求不能小于 [" + min + "] 帧, 请重新选择";
-                if (!CheckSelection(frs, mode, condition, exTips)) return null;
             }
             if (max !== undefined && totalDuration > max) {
                 exTips += " 要求不能大于 [" + max + "] 帧, 请重新选择";
-                if (!CheckSelection(frs, mode, condition, exTips)) return null;
             }
+            if (!CheckSelection(frs, mode, condition, exTips)) return null;
         } else {
             // console.log(frs, frs.length);
             if (!CheckSelection(frs, "selectFrame", condition, exTips)) return null;
         }
+
+        frs = FrameRangeList.from(frs);
 
         return frs;
     }

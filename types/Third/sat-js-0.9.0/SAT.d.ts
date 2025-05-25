@@ -2,351 +2,477 @@
 // Copyright 2012 - 2021 - Jim Riecken <jimr@jimr.ca>
 // Released under the MIT License.
 
-/* eslint-disable*/
-type Corner =
-    | "top right"
-    | "top left"
-    | "bottom right"
-    | "bottom left"
-    | "top center"
-    | "right center"
-    | "bottom center"
-    | "left center"
-    | "center";
-type Part = Corner | "top" | "right" | "bottom" | "left";
-type DirectionType = "all" | "left" | "top" | "right" | "bottom";
+declare namespace SAT {
+    /* eslint-disable*/
+    type Corner =
+        | "top right"
+        | "top left"
+        | "bottom right"
+        | "bottom left"
+        | "top center"
+        | "right center"
+        | "bottom center"
+        | "left center"
+        | "center";
+    type Part = Corner | "top" | "right" | "bottom" | "left";
+    type DirectionType = "all" | "left" | "top" | "right" | "bottom";
 
-interface VectorLike {
-    x: number;
-    y: number;
-}
+    interface SObjectLike {
+    }
 
-// declare module 'module.SAT' {
-export class Vector extends VectorLike {
-    x: number;
-    y: number;
+    export class SObject {
+        constructor();
 
-    constructor(x?: number, y?: number);
+        copy(other: SObject): SObject;
 
-    perp(): Vector;
+        clone(): SObject;
 
-    rotate(angle: number): Vector;
+        toVector(): Vector;
 
-    reverse(): Vector;
+        toString(): string;
 
-    invert(): Vector;
+        toObj(): SObjectLike;
 
-    normalize(): Vector;
+        static toString(): string;
+    }
 
-    add(other: Vector): Vector;
+    interface VectorLike {
+        x: number;
+        y: number;
+    }
 
-    sub(other: Vector): Vector;
+    /**
+     * This is a simple 2D vector/point class,Vector has two parameters {x},{y}.
+     */
+    export class Vector extends VectorLike, SObject {
+        x: number;
+        y: number;
 
-    scale(x: number, y?: number): Vector;
+        constructor(x?: number, y?: number);
 
-    scale(x: Vector): Vector;
+        perp(): Vector;
 
-    project(other: Vector): Vector;
+        rotate(angle: number): Vector;
 
-    projectN(other: Vector): Vector;
+        reverse(): Vector;
 
-    reflect(axis: Vector): Vector;
+        invert(): Vector;
 
-    reflectN(axis: Vector): Vector;
+        normalize(): Vector;
 
-    dot(other: Vector): number;
+        add(other: Vector): Vector;
 
-    len2(): number;
+        sub(other: Vector): Vector;
 
-    len(): number;
+        scale(x: number, y?: number): Vector;
 
-    round(): Vector;
+        scale(x: Vector): Vector;
 
-    noZero(): Vector;
+        project(other: Vector): Vector;
 
-    equals(other: Vector): boolean;
+        projectN(other: Vector): Vector;
 
-    orbit(pt: Vector, arcWidth: number, arcHeight: number, degrees: number): Vector;
+        reflect(axis: Vector): Vector;
 
-    getCenter(): Vector;
+        reflectN(axis: Vector): Vector;
 
-    IsInDirectionOf(point: Vector, whichCorner: Corner): boolean;
+        dot(other: Vector): number;
 
-    angleTo(other: Vector): number;
+        len2(): number;
 
-    distanceTo(other: Vector): number;
+        len(): number;
 
-    interpolate(other: Vector, f?: number): Vector;
+        round(): Vector;
 
-    copy(other: Vector): Vector;
+        noZero(): Vector;
 
-    clone(): Vector;
+        equals(other: Vector): boolean;
 
-    toString(): string;
+        orbit(pt: Vector, arcWidth: number, arcHeight: number, degrees: number): Vector;
 
-    toObj(): { x: number; y: number };
+        getCenter(): Vector;
 
-    toSize(): Size;
+        IsInDirectionOf(point: Vector, whichCorner: Corner): boolean;
 
-    toRectangle(): Rectangle;
+        angleTo(other: Vector): number;
 
-    static interpolate(pt1: Vector, pt2: Vector, f?: number): Vector;
+        distanceTo(other: Vector): number;
 
-    static polar(length: number, angle: number): Vector;
+        interpolate(other: Vector, f?: number): Vector;
 
-    static distance(pt1: Vector, pt2: Vector): number;
+        copy(other: Vector): Vector;
 
-    static toString(): string;
-}
+        clone(): Vector;
 
-/**
- * RectangleLike 类型描述
- * @property {number} left - 矩形的左边界
- * @property {number} top - 矩形的上边界
- * @property {number} right - 矩形的右边界
- * @property {number} bottom - 矩形的下边界
- * @interface RectangleLike
- */
-interface RectangleLike {
-    left: number;
-    top: number;
-    right: number;
-    bottom: number;
-}
+        toString(): string;
 
-export class Rectangle extends RectangleLike {
-    left: number;
-    top: number;
-    right: number;
-    bottom: number;
+        toObj(): { x: number; y: number };
 
-    readonly width: number;
-    readonly height: number;
+        toSize(): Size;
 
-    readonly center: Vector;
-    readonly size: Size;
+        toRectangle(): Rectangle;
 
-    constructor();
-    constructor(rect: Rectangle | RectangleLike);
-    constructor(doc: Document);
-    constructor(element: Element);
-    constructor(symbolItem: "SymbolItem");
-    constructor(radius: number);
-    constructor(elements: Element[]);
-    constructor(width: number, height: number);
-    constructor(centerPos: Vector, radius: number);
-    constructor(left: number, top: number, right: number, bottom: number);
+        toScale(): Scale;
 
-    addOffset(offset: number | Vector | Rectangle): Rectangle;
+        toSkew(): Skew;
 
-    subOffset(offset: number | Vector | Rectangle): Rectangle;
+        static interpolate(pt1: Vector, pt2: Vector, f?: number): Vector;
 
-    expand(size: number, whichDirection?: DirectionType): Rectangle;
+        static polar(length: number, angle: number): Vector;
 
-    shrink(size: number, whichDirection?: DirectionType): Rectangle;
+        static distance(pt1: Vector, pt2: Vector): number;
 
-    getCenterVector(): Vector;
+        static toString(): string;
+    }
 
-    getSize(): Size;
+    interface RectangleLike {
+        left: number;
+        top: number;
+        right: number;
+        bottom: number;
+    }
 
-    contains(rect: Rectangle): boolean;
+    /**
+     * This is a simple rectangle class,Rectangle has four parameters {left},{top},{right},{bottom}.
+     */
+    export class Rectangle extends RectangleLike {
+        left: number;
+        top: number;
+        right: number;
+        bottom: number;
 
-    getCorner(whichCorner: Corner): Vector;
+        readonly width: number;
+        readonly height: number;
 
-    getPart(whichPart: Part, widthRatio?: number, heightRatio?: number): Rectangle;
+        readonly center: Vector;
+        readonly size: Size;
 
-    copy(rect: Rectangle): Rectangle;
+        constructor();
+        constructor(rect: Rectangle | RectangleLike);
+        constructor(doc: Document);
+        constructor(element: Element);
+        constructor(symbolItem: "SymbolItem");
+        constructor(radius: number);
+        constructor(elements: Element[]);
+        constructor(width: number, height: number);
+        constructor(centerPos: Vector, radius: number);
+        constructor(left: number, top: number, right: number, bottom: number);
 
-    clone(): Rectangle;
+        addOffset(offset: number | Vector | Rectangle): Rectangle;
 
-    union(other: Rectangle): Rectangle;
+        subOffset(offset: number | Vector | Rectangle): Rectangle;
 
-    toString(): string;
+        expand(size: number, whichDirection?: DirectionType): Rectangle;
 
-    toObj(): RectangleLike;
+        shrink(size: number, whichDirection?: DirectionType): Rectangle;
 
-    static toString(): string;
-}
+        getCenterVector(): Vector;
 
-interface SizeLike {
-    width: number;
-    height: number;
-}
+        getSize(): Size;
 
-export class Size extends SizeLike {
-    width: number;
-    height: number;
+        contains(rect: Rectangle): boolean;
 
-    readonly max_size: number;
-    readonly min_size: number;
-    readonly ratio: number;
+        getCorner(whichCorner: Corner): Vector;
 
-    constructor(width: number, height: number);
+        getPart(whichPart: Part, widthRatio?: number, heightRatio?: number): Rectangle;
 
-    add(other: Size): Size;
+        copy(rect: Rectangle): Rectangle;
 
-    sub(other: Size): Size;
+        clone(): Rectangle;
 
-    getRatioWidth(nowHeight: number): number;
+        union(other: Rectangle): Rectangle;
 
-    getRatioHeight(nowWidth: number): number;
+        toString(): string;
 
-    toString(): string;
+        toObj(): RectangleLike;
 
-    toObj(): SizeLike;
+        static toString(): string;
+    }
 
-    toVector(): Vector;
+    interface SizeLike {
+        width: number;
+        height: number;
+    }
 
-    static toString(): string;
-}
+    /**
+     * This is a simple size class,Size has two parameters {width},{height}.
+     */
+    export class Size extends SizeLike, SObject {
+        width: number;
+        height: number;
 
-interface TransformLike {
-    rotation: number;
-    scale: VectorLike;
-    position: VectorLike;
-    size: SizeLike;
-    skew: VectorLike;
-}
+        readonly max_size: number;
+        readonly min_size: number;
+        readonly ratio: number;
 
-export class Transform extends TransformLike {
-    element: Element;
-    rotation: number;
-    scale: Vector;
-    position: Vector;
-    size: Size;
-    skew: Vector;
+        constructor(width: number, height: number);
 
-    constructor(element: any);
+        add(size: Size): Size;
 
-    setRotation(rotation: number): this;
+        sub(size: Size): Size;
 
-    setScale(scale: Vector): this;
+        getRatioWidth(nowHeight: number): number;
 
-    setPosition(position: Vector): this;
+        getRatioHeight(nowWidth: number): number;
 
-    setSize(size: Size): this;
+        copy(size: Size): Size;
 
-    setSkew(skew: Vector): this;
+        clone(): Size;
 
-    toString(): string;
+        toString(): string;
 
-    static toString(): string;
-}
+        toObj(): SizeLike;
 
-interface FrameRangeLike {
-    layerIndex: number;
-    startFrame: number;
-    endFrame: number;
-}
+        toVector(): Vector;
 
-/**
- * 帧范围类
- * 左闭右开区间 [startFrame, endFrame)
- */
-export class FrameRange extends FrameRangeLike {
-    layerIndex: number;
-    startFrame: number;
-    endFrame: number;
+        static toString(): string;
+    }
 
-    readonly duration: number;
 
-    constructor(layerIndex: number, startFrame: number, endFrame?: number);
+    interface ScaleLike {
+        scaleX: number;
+        scaleY: number;
+    }
 
-    intersects(other: FrameRange): boolean;
+    /**
+     * This is a simple scale class,Scale has two parameters {scaleX},{scaleY}.
+     */
+    export class Scale extends ScaleLike, SObject {
+        scaleX: number;
+        scaleY: number;
 
-    clone(): FrameRange;
+        constructor(scaleX: number, scaleY: number);
 
-    copy(other: FrameRange): void;
+        copy(scale: Scale): Scale;
 
-    contain(fr2: FrameRange): boolean;
+        clone(): Scale;
 
-    toArray(): [number, number, number];
+        toVector(): Vector;
 
-    toString(): string;
+        toString(): string;
 
-    static toString(): string;
-}
+        toObj(): ScaleLike;
 
-interface ElementBoundsLike {
-    left: number,
-    top: number,
-    width: number,
-    height: number
-}
+        static toString(): string;
+    }
 
-export namespace GLOBALS {
-    export function wrapPosition(element: VectorLike | Element | Vector): Vector;
+    interface SkewLike {
+        skewX: number;
+        skewY: number;
+    }
 
-    export function wrapScale(
-        element: { scaleX: number; scaleY: number } | Element
-    ): Vector;
+    /**
+     * This is a simple skew class,Skew has two parameters {skewX},{skewY}.
+     */
+    export class Skew extends SkewLike, SObject {
+        skewX: number;
+        skewY: number;
 
-    export function wrapSkew(element: { skewX: number; skewY: number } | Element): Vector;
+        constructor(skewX: number, skewY: number);
 
-    export function getOrigin(): Vector;
+        copy(skew: Skew): Skew;
 
-    export function getTopLeft(element: ElementBoundsLike | Element): Vector;
+        clone(): Skew;
 
-    export function getSymbolCenter(element: ElementBoundsLike | Element): Vector;
+        toVector(): Vector;
 
-    export function getStageCenter(): Vector;
+        toString(): string;
 
+        toObj(): SkewLike;
 
-    export function getSymbolBounds(element: ElementBoundsLike | Element): Rectangle;
+        static toString(): string;
+    }
 
-    export const getSymbolRect: typeof getSymbolBounds;
+    interface TransformLike {
+        rotation: number;
+        scale: ScaleLike;
+        position: VectorLike;
+        size: SizeLike;
+        skew: SkewLike;
+    }
 
-    export function getStageBounds(): Rectangle;
+    /**
+     * This is a simple transform class,Transform has six parameters {rotation},{scale},{position},{size},{skew}.
+     */
+    export class Transform extends TransformLike {
+        readonly element: Element;
+        readonly rotation: number;
+        readonly scale: Scale;
+        readonly position: Vector;
+        readonly size: Size;
+        readonly skew: Skew;
 
-    export function getStageRect(): Rectangle;
+        constructor(element: Element);
 
-    export function wrapRectByTopLeft(
+        setRotation(rotation: number): this;
+
+        setScale(scale: Scale | ScaleLike): this;
+
+        setPosition(position: Vector | VectorLike): this;
+
+        setSize(size: Size | SizeLike): this;
+
+        setSkew(skew: Skew | SkewLike): this;
+
+        toString(): string;
+
+        static toString(): string;
+    }
+
+    interface FrameRangeLike {
+        layerIndex: number;
+        startFrame: number;
+        endFrame: number;
+    }
+
+    /**
+     * This is a simple frame range class,FrameRange has three parameters {layerIndex},{startFrame},{endFrame}.
+     */
+    export class FrameRange extends FrameRangeLike {
+        layerIndex: number;
+        startFrame: number;
+        endFrame: number;
+
+        readonly duration: number;
+
+        constructor(layerIndex: number, startFrame: number, endFrame?: number);
+
+        intersects(other: FrameRange): boolean;
+
+        clone(): FrameRange;
+
+        copy(other: FrameRange): void;
+
+        contain(fr2: FrameRange): boolean;
+
+        toArray(): [number, number, number];
+
+        toString(): string;
+
+        static toString(): string;
+    }
+
+    /**
+     * This is a FrameRangeList class,FrameRangeList is an array of FrameRange.
+     */
+    export class FrameRangeList extends Array<FrameRange>,SObject {
+        readonly firstSlFrameIndex: number | null; // 第一个选中帧的索引
+        readonly firstSlLayerIndex: number | null; // 第一个选中图层的索引
+        readonly firstSlLayer: Layer | null; // 第一个选中图层对象
+        readonly firstSlFrame: Frame | null; // 第一个选中帧对象
+
+        constructor();
+
+        getUniqueLayerIndexes(): number[];
+
+        copy(frameRange: FrameRangeList | ArrayLike<FrameRange>): FrameRangeList;
+
+        clone(): FrameRangeList;
+
+        toString(): string;
+
+        static toString(): string;
+
+        static from(frArr: ArrayLike<FrameRange>): FrameRangeList;
+    }
+
+
+    interface ElementBoundsLike {
         left: number,
         top: number,
         width: number,
         height: number
-    ): Rectangle;
-    export function wrapRectByTopLeft(
-        leftTop: Vector,
-        size: Size
-    ): Rectangle;
+    }
 
-    export function wrapRectByCenter(
-        centerX: number,
-        centerY: number,
-        width: number,
-        height: number
-    ): Rectangle;
-    export function wrapRectByCenter(
-        center: Vector,
-        size: Size
-    ): Rectangle;
+    /**
+     * This is GLOLBALS namespace,it contains some global functions and variables.
+     */
+    export namespace GLOBALS {
+        export function wrapPosition(element: VectorLike | Element | Vector): Vector;
 
-    export function wrapSize(element: Element | Document): Size;
+        export function wrapScale(
+            element: ScaleLike | Scale | Element
+        ): Scale;
 
-    export function wrapTransform(element: Element): Transform;
+        export function wrapSkew(element: SkewLike | Skew | Element): Skew;
 
-    export function findBoundingRectangle(elements: Array<Element>): Rectangle;
-}
+        export function getOrigin(): Vector;
 
-export namespace CHECk {
-    export function IsRectangleLike(obj: any): boolean;
+        export function getTopLeft(element: ElementBoundsLike | Element): Vector;
 
-    export function IsSizeLike(obj: any): boolean;
+        export function getSymbolCenter(element: ElementBoundsLike | Element): Vector;
 
-    export function IsVectorLike(obj: any): boolean;
+        export function getStageCenter(): Vector;
 
-    export function IsTransformLike(obj: any): boolean;
+        export function getStageBounds(): Rectangle;
 
-    export function IsFrameRangeLike(obj: any): boolean;
+        export function getStageRect: typeof getStageBounds;
 
-    export function IsElementBoundsLike(obj: any): boolean;
-}
+        export function getSymbolBounds(element: ElementBoundsLike | Element): Rectangle;
+
+        export const getSymbolRect: typeof getSymbolBounds;
+
+
+        export function wrapRectByTopLeft(
+            left: number,
+            top: number,
+            width: number,
+            height: number
+        ): Rectangle;
+        export function wrapRectByTopLeft(
+            leftTop: Vector,
+            size: Size
+        ): Rectangle;
+
+        export function wrapRectByCenter(
+            centerX: number,
+            centerY: number,
+            width: number,
+            height: number
+        ): Rectangle;
+        export function wrapRectByCenter(
+            center: Vector,
+            size: Size
+        ): Rectangle;
+
+        export function wrapSize(element: Element | Document): Size;
+
+        export function wrapTransform(element: Element): Transform;
+
+        export function findBoundingRectangle(elements: Array<Element>): Rectangle;
+    }
+
+    /**
+     * This is a Check namespace,it contains some check functions.
+     */
+    export namespace CHECk {
+        export function IsRectangleLike(obj: any): boolean;
+
+        export function IsSizeLike(obj: any): boolean;
+
+        export function IsVectorLike(obj: any): boolean;
+
+        export function IsTransformLike(obj: any): boolean;
+
+        export function IsFrameRangeLike(obj: any): boolean;
+
+        export function IsElementBoundsLike(obj: any): boolean;
+
+        export function IsScaleLike(obj: any): boolean;
+
+        export function IsSkewLike(obj: any): boolean;
+    }
 
 
 // 别名
-export { Vector as V };
-export { Rectangle as R };
-export { Size as S };
-export { Transform as Tr }; // 与泛型冲突
-export { FrameRange as FR };
+    export { Vector as V };
+    export { Rectangle as R };
+    export { Size as S };
+    export { Transform as Tr }; // 与泛型冲突
+    export { FrameRange as FR };
+}
+
+export = SAT;
+// declare module "sat" {
+//     export = SAT;
+// }

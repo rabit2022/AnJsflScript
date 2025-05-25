@@ -115,7 +115,7 @@ define(["LayerQuery", "Tips", "loglevel"], function (lq, Tips, log) {
      * @param {Timeline} timeline 时间轴
      * @param {Number|Layer} layer 图层
      * @param {Number|Layer} parentLayer 父图层
-     * @param {"normal"|"guide"|"guided"|"mask"|"masked"|"folder"} layerType 图层类型
+     * @param {"guide"|"mask"|"folder"} layerType 图层类型
      */
     function setParentLayer(timeline, layer, parentLayer, layerType) {
         var layers = timeline.layers; //图层
