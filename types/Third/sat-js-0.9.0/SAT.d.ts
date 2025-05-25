@@ -3,7 +3,6 @@
 // Released under the MIT License.
 
 declare namespace SAT {
-    /* eslint-disable*/
     type Corner =
         | "top right"
         | "top left"
@@ -36,7 +35,7 @@ declare namespace SAT {
         static toString(): string;
     }
 
-    interface VectorLike {
+    interface VectorLike extends SObjectLike {
         x: number;
         y: number;
     }
@@ -125,17 +124,39 @@ declare namespace SAT {
         static toString(): string;
     }
 
-    interface RectangleLike {
+    interface RectangleLike extends SObjectLike {
         left: number;
         top: number;
         right: number;
         bottom: number;
     }
 
+    interface RectangleConstructor {
+        new(): Rectangle;
+
+        new(rect: Rectangle | RectangleLike): Rectangle;
+
+        new(doc: Document): Rectangle;
+
+        new(element: Element): Rectangle;
+
+        new(symbolItem: SymbolItem): Rectangle;
+
+        new(radius: number): Rectangle;
+
+        new(elements: Element[]): Rectangle;
+
+        new(width: number, height: number): Rectangle;
+
+        new(centerPos: Vector, radius: number): Rectangle;
+
+        new(left: number, top: number, right: number, bottom: number): Rectangle;
+    }
+
     /**
      * This is a simple rectangle class,Rectangle has four parameters {left},{top},{right},{bottom}.
      */
-    export class Rectangle extends RectangleLike {
+    export interface Rectangle extends RectangleLike, SObject {
         left: number;
         top: number;
         right: number;
@@ -147,16 +168,7 @@ declare namespace SAT {
         readonly center: Vector;
         readonly size: Size;
 
-        constructor();
-        constructor(rect: Rectangle | RectangleLike);
-        constructor(doc: Document);
-        constructor(element: Element);
-        constructor(symbolItem: "SymbolItem");
-        constructor(radius: number);
-        constructor(elements: Element[]);
-        constructor(width: number, height: number);
-        constructor(centerPos: Vector, radius: number);
-        constructor(left: number, top: number, right: number, bottom: number);
+        // constructor(...args: any[]);
 
         addOffset(offset: number | Vector | Rectangle): Rectangle;
 
@@ -186,10 +198,15 @@ declare namespace SAT {
 
         toObj(): RectangleLike;
 
-        static toString(): string;
+        static;
+
+        toString(): string;
     }
 
-    interface SizeLike {
+    // 将 Rectangle 的构造函数类型指定为 RectangleConstructor
+    export const Rectangle: RectangleConstructor;
+
+    interface SizeLike extends SObjectLike {
         width: number;
         height: number;
     }
@@ -229,7 +246,7 @@ declare namespace SAT {
     }
 
 
-    interface ScaleLike {
+    interface ScaleLike extends SObjectLike {
         scaleX: number;
         scaleY: number;
     }
@@ -256,7 +273,7 @@ declare namespace SAT {
         static toString(): string;
     }
 
-    interface SkewLike {
+    interface SkewLike extends SObjectLike {
         skewX: number;
         skewY: number;
     }
@@ -283,7 +300,7 @@ declare namespace SAT {
         static toString(): string;
     }
 
-    interface TransformLike {
+    interface TransformLike extends SObjectLike {
         rotation: number;
         scale: ScaleLike;
         position: VectorLike;
@@ -295,12 +312,12 @@ declare namespace SAT {
      * This is a simple transform class,Transform has six parameters {rotation},{scale},{position},{size},{skew}.
      */
     export class Transform extends TransformLike {
-        readonly element: Element;
-        readonly rotation: number;
-        readonly scale: Scale;
-        readonly position: Vector;
-        readonly size: Size;
-        readonly skew: Skew;
+        element: Element;
+        rotation: number;
+        scale: Scale;
+        position: Vector;
+        size: Size;
+        skew: Skew;
 
         constructor(element: Element);
 
@@ -319,7 +336,7 @@ declare namespace SAT {
         static toString(): string;
     }
 
-    interface FrameRangeLike {
+    interface FrameRangeLike extends SObjectLike {
         layerIndex: number;
         startFrame: number;
         endFrame: number;
@@ -355,7 +372,7 @@ declare namespace SAT {
     /**
      * This is a FrameRangeList class,FrameRangeList is an array of FrameRange.
      */
-    export class FrameRangeList extends Array<FrameRange>,SObject {
+    export class FrameRangeList extends Array<FrameRange>, SObject {
         readonly firstSlFrameIndex: number | null; // 第一个选中帧的索引
         readonly firstSlLayerIndex: number | null; // 第一个选中图层的索引
         readonly firstSlLayer: Layer | null; // 第一个选中图层对象
@@ -373,11 +390,13 @@ declare namespace SAT {
 
         static toString(): string;
 
-        static from(frArr: ArrayLike<FrameRange>): FrameRangeList;
+        static from = Array.from;
+
+        static of = Array.of;
     }
 
 
-    interface ElementBoundsLike {
+    interface ElementBoundsLike extends SObjectLike {
         left: number,
         top: number,
         width: number,
@@ -406,7 +425,7 @@ declare namespace SAT {
 
         export function getStageBounds(): Rectangle;
 
-        export function getStageRect: typeof getStageBounds;
+        export const getStageRect: typeof getStageBounds;
 
         export function getSymbolBounds(element: ElementBoundsLike | Element): Rectangle;
 
@@ -420,8 +439,8 @@ declare namespace SAT {
             height: number
         ): Rectangle;
         export function wrapRectByTopLeft(
-            leftTop: Vector,
-            size: Size
+            leftTop: Vector | VectorLike,
+            size: Size | SizeLike
         ): Rectangle;
 
         export function wrapRectByCenter(
@@ -431,11 +450,11 @@ declare namespace SAT {
             height: number
         ): Rectangle;
         export function wrapRectByCenter(
-            center: Vector,
-            size: Size
+            center: Vector | VectorLike,
+            size: Size | SizeLike
         ): Rectangle;
 
-        export function wrapSize(element: Element | Document): Size;
+        export function wrapSize(element: Element | Document | Size | SizeLike): Size;
 
         export function wrapTransform(element: Element): Transform;
 
@@ -468,8 +487,11 @@ declare namespace SAT {
     export { Vector as V };
     export { Rectangle as R };
     export { Size as S };
-    export { Transform as Tr }; // 与泛型冲突
+    export { Transform as Tr }; // T与泛型冲突
     export { FrameRange as FR };
+    export { FrameRangeList as FRL };
+    export { Scale as SC };
+    export { Skew as SK };
 }
 
 export = SAT;

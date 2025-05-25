@@ -1,8 +1,8 @@
 /**
- * @file: 03.取消父子级.jsfl
+ * @file: 07.图片清晰.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
- * @date: 2025/5/25 10:14
+ * @date: 2025/5/25 23:09
  * @project: AnJsflScript
  * @description:
  */
@@ -22,10 +22,10 @@ if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
     throw new Error(msg);
 }
 
-require(["checkUtil", "loglevel", "SAT"], function (checkUtil, log, SAT) {
+require(["checkUtil", "loglevel", "BitmapOperation"], function (checkUtil, log, bo) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
-    const { FrameRangeList } = SAT;
+    const { BitmapLossless, BitmapSmoothing } = bo;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -42,11 +42,11 @@ require(["checkUtil", "loglevel", "SAT"], function (checkUtil, log, SAT) {
     var curFrameIndex = timeline.currentFrame; //当前帧索引
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
-    // 获取第一帧
-    var frs = CheckSelectedFrames(timeline);
-    if (frs === null) return;
-    var firstLayer = layers[frs[0].layerIndex];
-    var firstFrame = frs[0].startFrame;
+    // // 获取第一帧
+    // var frs = CheckSelectedFrames(timeline);
+    // if (frs === null) return;
+    // var firstLayer = layers[frs[0].layerIndex];
+    // var firstFrame = frs[0].startFrame;
 
     // endregion doc
 
@@ -54,21 +54,16 @@ require(["checkUtil", "loglevel", "SAT"], function (checkUtil, log, SAT) {
         // 检查选择的元件
         if (!CheckSelection(selection, "selectElement", "No limit")) return;
 
-        // 获取所有选中的图层
+        /**
+         * @type {BitmapItem[]}
+         */
+        var bitmaps = selection.filter(IsBitmap);
+        if (bitmaps.length === 0) {
+            alert("你选中的所有对象中没有位图。 ");
+            return;
+        }
 
-        // var frList = FrameRangeList.from(frs);
-        // log.info("frList:", frList);
-
-        var layerList = frs.getUniqueLayerIndexes();
-        log.info("layerList:", layerList);
-
-        layerList.forEach(function (layerIndex) {
-            var layer = layers[layerIndex];
-            layer.layerType = "normal";
-        });
-
-        var rect = new SAT.Rectangle(0, 0, 10, 10);
-        var size = rect.getSize();
+        BitmapSmoothing(bitmaps);
     }
 
     Main();

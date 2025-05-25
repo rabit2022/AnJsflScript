@@ -23,12 +23,13 @@ define(function () {
      * @returns {boolean} 是否是 元件
      */
     function IsSymbol(element) {
+        var InstanceIsSymbol =
+            element.elementType === "instance" && element.instanceType === "symbol";
+        var SymbolTypeIsNotUndefined = element.symbolType !== undefined;
+
         return (
             // 非空元素，非组
-            !IsGroup(element) &&
-            // instance+symbol  或者  symbolType
-            ((element.elementType === "instance" && element.instanceType === "symbol") ||
-                element.symbolType !== undefined)
+            !IsGroup(element) && (InstanceIsSymbol || SymbolTypeIsNotUndefined)
         );
     }
 
@@ -38,11 +39,11 @@ define(function () {
      * @returns {boolean} 是否是 位图
      */
     function IsBitmap(element) {
-        return (
-            !IsGroup(element) &&
-            element.elementType === "instance" &&
-            element.instanceType === "bitmap"
-        );
+        var InstanceIsBitmap =
+            element.elementType === "instance" && element.instanceType === "bitmap";
+        var ItemIsBitmap = element.itemType === "bitmap";
+
+        return !IsGroup(element) && (InstanceIsBitmap || ItemIsBitmap);
     }
 
     /**

@@ -1394,6 +1394,7 @@
     }
 
     SAT["Scale"] = Scale;
+    SAT["SC"] = Scale;
     Scale.prototype.copy = function(scale) {
         this.scaleX = scale.scaleX;
         this.scaleY = scale.scaleY;
@@ -1446,6 +1447,8 @@
     }
 
     SAT["Skew"] = Skew;
+    SAT["SK"] = Skew;
+
     Skew.prototype.copy = function(skew) {
         this.skewX = skew.skewX;
         this.skewY = skew.skewY;
@@ -1523,7 +1526,7 @@
     }
 
     SAT["Transform"] = Transform;
-    SAT["Tr"] = Transform;
+    SAT["TR"] = Transform;
 
     Transform.prototype.setRotation = function(rotation) {
         this.element.rotation = rotation;
@@ -1744,6 +1747,8 @@
         Array.apply(this, arguments); // 调用 Array 的构造函数
     }
 
+    SAT["FrameRangeList"] = FrameRangeList;
+    SAT["FRL"] = FrameRangeList;
 
     // 继承 Array 的原型
     FrameRangeList.prototype = Object.create(Array.prototype);
@@ -1838,22 +1843,13 @@
         return "FrameRangeList(" + frameStrings.join(",\n") + ")";
     };
 
-    /**
-     * 输出为数组
-     * @param {Array<FrameRange>} frArr 帧范围数组
-     * @returns {FrameRangeList} 帧范围列表
-     */
-    FrameRangeList.from = function(frArr) {
-        var newList = new FrameRangeList();
-        for (var i = 0; i < frArr.length; i++) {
-            newList.push(frArr[i]);
-        }
-        return newList;
-    };
+    // 手动复制 Array 的静态方法
+    FrameRangeList.from = Array.from;
+    FrameRangeList.of = Array.of;
+
     FrameRangeList.toString = function() {
         return "[class FrameRangeList]";
     };
-    SAT["FrameRangeList"] = FrameRangeList;
 
 
     function IsElementBoundsLike(obj) {
