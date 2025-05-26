@@ -7,10 +7,11 @@
  * @description:
  */
 
-define(["linqUtil"], function (linqUtil) {
+define(["linqUtil", "xmlPanelUtil"], function(linqUtil, xmlPanelUtil) {
     const { $range } = linqUtil;
 
-    function PromptUtil() {}
+    function PromptUtil() {
+    }
 
     /**
      * 弹出提示框，获取输入的数字
@@ -20,35 +21,13 @@ define(["linqUtil"], function (linqUtil) {
      * @param {{start: number, end: number, step: number}} [range=null] 范围
      * @returns {number} 输入的数字
      */
-    PromptUtil.parseNumber = function (promptMessage, defaultValue, alertMessage, range) {
+    PromptUtil.parseNumber = function(promptMessage, defaultValue, alertMessage, range) {
         if (defaultValue === undefined || defaultValue === null) {
             defaultValue = 0;
         }
-        if (alertMessage === undefined || alertMessage === null) {
-            alertMessage = "请重新输入合法的数字。";
-        }
-
         var inputForce = prompt(promptMessage, defaultValue);
-        if (inputForce === null || isNaN(Number(inputForce))) {
-            alert(alertMessage);
-            return null;
-        }
 
-        var force = Number(inputForce);
-
-        if (range !== null && range !== undefined) {
-            var rangeList = $range(range.start, range.end, range.step);
-            if (!rangeList.contains(force)) {
-                var rangeStr =
-                    (range.start ? range.start : "") +
-                    (range.end ? "," + range.end : "") +
-                    (range.step ? "," + range.step : "");
-                alert("输入值超出范围 : range(" + rangeStr + ")，请重新输入。");
-                return null;
-            }
-        }
-
-        return force;
+        return xmlPanelUtil.parseNumber(inputForce, alertMessage, range);
     };
 
     /**
@@ -58,7 +37,7 @@ define(["linqUtil"], function (linqUtil) {
      * @param {string} [alertMessage="请重新输入合法的数字。"] - 输入无效时显示的警告信息。
      * @returns {{num: number, hasSign: boolean}} 解析结果对象 {num, hasSign} 或 null（如果用户取消输入或输入无效）。
      */
-    PromptUtil.parseNumberWithSign = function (
+    PromptUtil.parseNumberWithSign = function(
         promptMessage,
         defaultValue,
         alertMessage
@@ -124,7 +103,7 @@ define(["linqUtil"], function (linqUtil) {
      * @param {string} [alertMessage="请重新输入合法的数字。"] - 输入无效时显示的警告信息。
      * @returns {{num: number, mode: "increase"|"decrease"|"unify", direction: 1|-1}} 解析结果对象 {num, mode, direction} 或 null（如果用户取消输入或输入无效）。}} 解析结果对象 {num, mode} 或 null（如果用户取消输入或输入无效）。
      */
-    PromptUtil.parseNumberWithMode = function (
+    PromptUtil.parseNumberWithMode = function(
         promptMessage,
         defaultValue,
         alertMessage
@@ -159,7 +138,7 @@ define(["linqUtil"], function (linqUtil) {
      * @param {object} [tipDictionary={"右": 1, "左": -1, " ": -1}] 提示字典
      * @returns {number} 输入的方向
      */
-    PromptUtil.parseDirection = function (promptMessage, tipDictionary) {
+    PromptUtil.parseDirection = function(promptMessage, tipDictionary) {
         if (tipDictionary === undefined) {
             tipDictionary = { 右: 1, 左: -1, " ": -1 };
         }

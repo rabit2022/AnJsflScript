@@ -23,11 +23,12 @@ if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
     throw new Error(msg);
 }
 
-require(["checkUtil", "loglevel", "xmlPanelUtil", "os"], function (
+require(["checkUtil", "loglevel", "xmlPanelUtil", "os", "chroma-js"], function(
     checkUtil,
     log,
     xmlPanelUtil,
-    os
+    os,
+    chroma
 ) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
@@ -71,12 +72,46 @@ require(["checkUtil", "loglevel", "xmlPanelUtil", "os"], function (
         );
         if (color === null) return null;
 
-        var alpha = xmlPanelUtil.parseNumber(panel.alpha, "透明度 应该使用数字");
-        if (alpha === null) return null;
+        // // TODO: 透明度切换 应该使用100或255,增加范围限制
+        // var alpha = xmlPanelUtil.parseNumber(panel.alpha, "透明度 应该使用数字");
+        // if (alpha === null) return null;
+
+        var alpha = 0;
+        var alpha_switch = panel.alpha_switch;
+        switch (alpha_switch) {
+            case "100":
+                alpha = xmlPanelUtil.parseNumber(
+                    panel.alpha,
+                    "透明度 应该使用数字(0-100)",
+                    {
+                        start: 0,
+                        end: 100
+                    });
+                // 将获取到的透明度值转换为0-255范围内的整数，做了输入值的合法性判断等处理
+                alpha = Math.floor((parseInt(alpha, 10) / 100) * 255);
+                break;
+            case "255":
+                alpha = xmlPanelUtil.parseNumber(
+                    panel.alpha,
+                    "透明度 应该使用数字(0-255)",
+                    {
+                        start: 0,
+                        end: 255
+                    });
+                break;
+            default:
+                throw new Error("透明度切换 应该使用100或255");
+        }
+
+        // 使用chroma-js设置透明度
+        const colorWithAlpha = chroma(color)
+            .alpha(alpha / 255)
+            .hex();
+        log.info("colorWithAlpha: " + colorWithAlpha);
+
         return {
             size: size,
-            color: color,
-            alpha: alpha
+            colorWithAlpha: colorWithAlpha,
         };
     }
 
@@ -87,9 +122,10 @@ require(["checkUtil", "loglevel", "xmlPanelUtil", "os"], function (
         // 检查XML面板
         var config = checkXMLPanel();
         if (config === null) return;
-        const { size, color, alpha } = config;
-        log.info("size: " + size + ", color: " + color + ", alpha: " + alpha);
-    }
+        const { size, colorWithAlpha } = config;
+        log.info("size: ", size, "colorWithAlpha: ", colorWithAlpha);
+
+        }
 
     Main();
 });

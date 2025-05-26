@@ -32,21 +32,56 @@ define(["chroma-js"], function (chroma) {
         }
         return panel;
     };
+    // /**
+    //  * 解析输入的字符串为数字
+    //  * @param {string} inputStr 输入的字符串
+    //  * @param {string} [alertMsg] 错误提示信息
+    //  * @returns {number}
+    //  */
+    // XMLPanelUtil.parseNumber = function (inputStr, alertMsg) {
+    //     if (inputStr === null || isNaN(Number(inputStr))) {
+    //         if (alertMsg !== undefined) {
+    //             alert(alertMsg);
+    //         }
+    //         return null;
+    //     }
+    //
+    //     return Number(inputStr);
+    // };
     /**
-     * 解析输入的字符串为数字
+     * 弹出提示框，获取输入的数字
      * @param {string} inputStr 输入的字符串
-     * @param {string} [alertMsg] 错误提示信息
-     * @returns {number}
+     * @param {string} [alertMessage="请重新输入。"] 输入错误时的提示信息
+     * @param {{start: number, end: number, step: number}} [range=null] 范围
+     * @returns {number} 输入的数字
      */
-    XMLPanelUtil.parseNumber = function (inputStr, alertMsg) {
-        if (inputStr === null || isNaN(Number(inputStr))) {
-            if (alertMsg !== undefined) {
-                alert(alertMsg);
-            }
+    XMLPanelUtil.parseNumber = function (inputStr, alertMessage, range) {
+
+        if (alertMessage === undefined || alertMessage === null) {
+            alertMessage = "请重新输入合法的数字。";
+        }
+
+        var inputForce = inputStr;
+        if (inputForce === null || isNaN(Number(inputForce))) {
+            alert(alertMessage);
             return null;
         }
 
-        return Number(inputStr);
+        var force = Number(inputForce);
+
+        if (range !== null && range !== undefined) {
+            var rangeList = $range(range.start, range.end, range.step);
+            if (!rangeList.contains(force)) {
+                var rangeStr =
+                    (range.start ? range.start : "") +
+                    (range.end ? "," + range.end : "") +
+                    (range.step ? "," + range.step : "");
+                alert("输入值超出范围 : range(" + rangeStr + ")，请重新输入。");
+                return null;
+            }
+        }
+
+        return force;
     };
     /**
      * 解析输入的字符串为字符串

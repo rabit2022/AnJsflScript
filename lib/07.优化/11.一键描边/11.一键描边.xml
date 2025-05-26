@@ -5,13 +5,22 @@
             <textbox id='size' value='1' width='80'/>
         </hbox>
         <hbox>
-            <label control='color' value='输入颜色值:'/>
+            <label control='color' value='输入颜色值:' tooltip='如 #FFFFFF，black等'/>
             <textbox id='color' value='#000000' width='80'/>
             <button id='color_btn' label='选择颜色' width='80' oncommand="color_btn_click()"/>
         </hbox>
         <hbox>
-            <label control='alpha' value='输入透明度:'/>
+            <label control='alpha' value='输入透明度:' tooltip='(0-100)'/>
             <textbox id='alpha' value='100' width='80'/>
+<!--            切换100,255-->
+<!--            <checkbox id='alpha_switch' label='0-100' checked="true"/>-->
+<!--            <checkbox id='alpha_switch' label='0-255'/>-->
+            <menulist class="control" id="alpha_switch" editable="" width="" flex="1" tabindex="" oncreate="" onsetfocus="">
+                <menupop class="control" id="menupop">
+                    <menuitem label="0-100" value="100" selected="" />
+                    <menuitem label="0-255" value="255" selected="" />
+                </menupop>
+            </menulist>
         </hbox>
         <separator/>
     </content>
