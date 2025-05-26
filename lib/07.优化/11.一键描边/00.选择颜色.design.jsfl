@@ -1,11 +1,10 @@
 /**
- * @file: 11.一键描边.jsfl
+ * @file: 00.选择颜色.design.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
- * @date: 2025/5/25 23:31
+ * @date: 2025/5/25 23:44
  * @project: AnJsflScript
- * @description:
- * @see:https://gitee.com/ninge/WindowSWF/tree/master/
+ * @description:生成00.选择颜色.xml文件
  */
 
 // bug,FirstRun.jsfl 未运行
@@ -23,11 +22,11 @@ if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
     throw new Error(msg);
 }
 
-require(["checkUtil", "loglevel", "xmlPanelUtil", "os"], function (
+require(["checkUtil", "loglevel", "XUL", "chroma-js"], function (
     checkUtil,
     log,
-    xmlPanelUtil,
-    os
+    XUL,
+    chroma
 ) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
@@ -54,41 +53,38 @@ require(["checkUtil", "loglevel", "xmlPanelUtil", "os"], function (
 
     // endregion doc
 
-    var [folder_name, basename] = os.path.split(fl.scriptURI);
-    var XMLPANEL = os.path.join(folder_name, "11.一键描边", "11.一键描边.xml");
-    log.info("XMLPANEL: " + XMLPANEL);
-
-    function checkXMLPanel() {
-        var panel = xmlPanelUtil.getXMLPanel(XMLPANEL);
-        if (panel === null) return null;
-
-        var size = xmlPanelUtil.parseNumber(panel.size, "描边大小 应该使用数字");
-        if (size === null) return null;
-
-        var color = xmlPanelUtil.parseColor(
-            panel.color,
-            "请输入描边颜色，如 #FFFFFF，black等"
-        );
-        if (color === null) return null;
-
-        var alpha = xmlPanelUtil.parseNumber(panel.alpha, "透明度 应该使用数字");
-        if (alpha === null) return null;
-        return {
-            size: size,
-            color: color,
-            alpha: alpha
-        };
-    }
-
     function Main() {
         // 检查选择的元件
         if (!CheckSelection(selection, "selectElement", "No limit")) return;
 
-        // 检查XML面板
-        var config = checkXMLPanel();
-        if (config === null) return;
-        const { size, color, alpha } = config;
-        log.info("size: " + size + ", color: " + color + ", alpha: " + alpha);
+        // 获取颜色名称数据库
+        const colorNames = chroma.colors;
+        log.info(colorNames);
+
+        var menuItems = [];
+        Object.entries(colorNames).forEach(function ([colorName, hex]) {
+            // log.info("key: ", key, "value: ", value);
+            var item = {
+                label: colorName,
+                value: hex
+            };
+            menuItems.push(item);
+        });
+        log.info(menuItems);
+
+        var xul = new XUL("选择颜色")
+            .addMenuList("bug", "bug", [
+                {
+                    label: "只能tab选中,第一个无法被鼠标选中,",
+                    value: "bug"
+                }
+            ])
+            .addMenuList("选择颜色", "select_color", menuItems);
+        xul.show();
+
+        log.info(xul.settings.select_color);
+
+        fl.runScript();
     }
 
     Main();

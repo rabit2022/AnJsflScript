@@ -6,7 +6,7 @@
  * @project: AnJsflScript
  * @description:
  */
-define(function () {
+define(["chroma-js"], function (chroma) {
     function XMLPanelUtil() {}
 
     XMLPanelUtil.getXMLPath = function () {
@@ -89,6 +89,25 @@ define(function () {
             alert("输入错误(方向只能输入空格或右)，请重新输入。");
             return null;
         }
+    };
+
+    /**
+     * 解析输入的颜色字符串为颜色对象
+     * @param {string} inputColor 输入的颜色字符串
+     * @param {string} [alertMsg] 错误提示信息
+     * @returns {string}
+     */
+    XMLPanelUtil.parseColor = function (inputColor, alertMsg) {
+        var color = chroma(inputColor);
+
+        if (!inputColor || !chroma.valid(color)) {
+            if (alertMsg !== undefined) {
+                alert(alertMsg);
+            }
+            return null;
+        }
+
+        return color.hex();
     };
 
     return XMLPanelUtil;

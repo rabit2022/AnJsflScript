@@ -1,4 +1,4 @@
-<dialog id="dialog" title=" 选择元件" buttons="accept,cancel">
+<dialog id="dialog" title=" 选择颜色" buttons="accept,cancel">
 	<content>
 		<grid>
 			<columns id="columns">
@@ -15,26 +15,163 @@
 					</menulist>
 				</row>
 				<row template="menulist">
-					<label value="选择元件 : " width="100"/>
-					<menulist class="control" id="selectedSymbol" editable="" width="180" flex="1" tabindex="" oncreate="if(window.xjsfl)xjsfl.ui.handleEvent('0', 'create', 'selectedSymbol');" onsetfocus="if(window.xjsfl)xjsfl.ui.handleEvent('0', 'setfocus', 'selectedSymbol');" onchange="if(window.xjsfl)xjsfl.ui.handleEvent('0', 'change', 'selectedSymbol');">
+					<label value="选择颜色 : " width="100"/>
+					<menulist class="control" id="select_color" editable="" width="180" flex="1" tabindex="" oncreate="if(window.xjsfl)xjsfl.ui.handleEvent('0', 'create', 'select_color');" onsetfocus="if(window.xjsfl)xjsfl.ui.handleEvent('0', 'setfocus', 'select_color');" onchange="if(window.xjsfl)xjsfl.ui.handleEvent('0', 'change', 'select_color');">
 						<menupop class="control" id="menupop">
-							<menuitem label="补间 2" value="补间 2" selected="true"/>
-							<menuitem label="补间 1" value="补间 1"/>
-							<menuitem label="一键分屏_右屏725" value="一键分屏_右屏725"/>
-							<menuitem label="一键分屏_右屏46" value="一键分屏_右屏46"/>
-							<menuitem label="一键分屏_右屏955" value="一键分屏_右屏955"/>
-							<menuitem label="一键分屏_右屏276" value="一键分屏_右屏276"/>
-							<menuitem label="一键分屏_右屏446" value="一键分屏_右屏446"/>
-							<menuitem label="灵魂出窍_404" value="灵魂出窍_404"/>
-							<menuitem label="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Group>_1_26" value="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Group>_1_26"/>
-							<menuitem label="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Group>_2_39" value="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Group>_2_39"/>
-							<menuitem label="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Path>_2_50" value="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Path>_2_50"/>
-							<menuitem label="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Path>_4_11" value="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Path>_4_11"/>
-							<menuitem label="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Path>_6_10" value="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Path>_6_10"/>
-							<menuitem label="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Path>_8_15" value="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Path>_8_15"/>
-							<menuitem label="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Path>_12_21" value="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Path>_12_21"/>
-							<menuitem label="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Path>_13_21" value="1.人物/贺晓晓/flash10.ai/图层 1/&lt;Path>_13_21"/>
-							<menuitem label="元件 1" value="元件 1"/>
+							<menuitem label="aliceblue" value="#f0f8ff" selected="true"/>
+							<menuitem label="antiquewhite" value="#faebd7"/>
+							<menuitem label="aqua" value="#00ffff"/>
+							<menuitem label="aquamarine" value="#7fffd4"/>
+							<menuitem label="azure" value="#f0ffff"/>
+							<menuitem label="beige" value="#f5f5dc"/>
+							<menuitem label="bisque" value="#ffe4c4"/>
+							<menuitem label="black" value="#000000"/>
+							<menuitem label="blanchedalmond" value="#ffebcd"/>
+							<menuitem label="blue" value="#0000ff"/>
+							<menuitem label="blueviolet" value="#8a2be2"/>
+							<menuitem label="brown" value="#a52a2a"/>
+							<menuitem label="burlywood" value="#deb887"/>
+							<menuitem label="cadetblue" value="#5f9ea0"/>
+							<menuitem label="chartreuse" value="#7fff00"/>
+							<menuitem label="chocolate" value="#d2691e"/>
+							<menuitem label="coral" value="#ff7f50"/>
+							<menuitem label="cornflowerblue" value="#6495ed"/>
+							<menuitem label="cornsilk" value="#fff8dc"/>
+							<menuitem label="crimson" value="#dc143c"/>
+							<menuitem label="cyan" value="#00ffff"/>
+							<menuitem label="darkblue" value="#00008b"/>
+							<menuitem label="darkcyan" value="#008b8b"/>
+							<menuitem label="darkgoldenrod" value="#b8860b"/>
+							<menuitem label="darkgray" value="#a9a9a9"/>
+							<menuitem label="darkgreen" value="#006400"/>
+							<menuitem label="darkgrey" value="#a9a9a9"/>
+							<menuitem label="darkkhaki" value="#bdb76b"/>
+							<menuitem label="darkmagenta" value="#8b008b"/>
+							<menuitem label="darkolivegreen" value="#556b2f"/>
+							<menuitem label="darkorange" value="#ff8c00"/>
+							<menuitem label="darkorchid" value="#9932cc"/>
+							<menuitem label="darkred" value="#8b0000"/>
+							<menuitem label="darksalmon" value="#e9967a"/>
+							<menuitem label="darkseagreen" value="#8fbc8f"/>
+							<menuitem label="darkslateblue" value="#483d8b"/>
+							<menuitem label="darkslategray" value="#2f4f4f"/>
+							<menuitem label="darkslategrey" value="#2f4f4f"/>
+							<menuitem label="darkturquoise" value="#00ced1"/>
+							<menuitem label="darkviolet" value="#9400d3"/>
+							<menuitem label="deeppink" value="#ff1493"/>
+							<menuitem label="deepskyblue" value="#00bfff"/>
+							<menuitem label="dimgray" value="#696969"/>
+							<menuitem label="dimgrey" value="#696969"/>
+							<menuitem label="dodgerblue" value="#1e90ff"/>
+							<menuitem label="firebrick" value="#b22222"/>
+							<menuitem label="floralwhite" value="#fffaf0"/>
+							<menuitem label="forestgreen" value="#228b22"/>
+							<menuitem label="fuchsia" value="#ff00ff"/>
+							<menuitem label="gainsboro" value="#dcdcdc"/>
+							<menuitem label="ghostwhite" value="#f8f8ff"/>
+							<menuitem label="gold" value="#ffd700"/>
+							<menuitem label="goldenrod" value="#daa520"/>
+							<menuitem label="gray" value="#808080"/>
+							<menuitem label="green" value="#008000"/>
+							<menuitem label="greenyellow" value="#adff2f"/>
+							<menuitem label="grey" value="#808080"/>
+							<menuitem label="honeydew" value="#f0fff0"/>
+							<menuitem label="hotpink" value="#ff69b4"/>
+							<menuitem label="indianred" value="#cd5c5c"/>
+							<menuitem label="indigo" value="#4b0082"/>
+							<menuitem label="ivory" value="#fffff0"/>
+							<menuitem label="khaki" value="#f0e68c"/>
+							<menuitem label="laserlemon" value="#ffff54"/>
+							<menuitem label="lavender" value="#e6e6fa"/>
+							<menuitem label="lavenderblush" value="#fff0f5"/>
+							<menuitem label="lawngreen" value="#7cfc00"/>
+							<menuitem label="lemonchiffon" value="#fffacd"/>
+							<menuitem label="lightblue" value="#add8e6"/>
+							<menuitem label="lightcoral" value="#f08080"/>
+							<menuitem label="lightcyan" value="#e0ffff"/>
+							<menuitem label="lightgoldenrod" value="#fafad2"/>
+							<menuitem label="lightgoldenrodyellow" value="#fafad2"/>
+							<menuitem label="lightgray" value="#d3d3d3"/>
+							<menuitem label="lightgreen" value="#90ee90"/>
+							<menuitem label="lightgrey" value="#d3d3d3"/>
+							<menuitem label="lightpink" value="#ffb6c1"/>
+							<menuitem label="lightsalmon" value="#ffa07a"/>
+							<menuitem label="lightseagreen" value="#20b2aa"/>
+							<menuitem label="lightskyblue" value="#87cefa"/>
+							<menuitem label="lightslategray" value="#778899"/>
+							<menuitem label="lightslategrey" value="#778899"/>
+							<menuitem label="lightsteelblue" value="#b0c4de"/>
+							<menuitem label="lightyellow" value="#ffffe0"/>
+							<menuitem label="lime" value="#00ff00"/>
+							<menuitem label="limegreen" value="#32cd32"/>
+							<menuitem label="linen" value="#faf0e6"/>
+							<menuitem label="magenta" value="#ff00ff"/>
+							<menuitem label="maroon" value="#800000"/>
+							<menuitem label="maroon2" value="#7f0000"/>
+							<menuitem label="maroon3" value="#b03060"/>
+							<menuitem label="mediumaquamarine" value="#66cdaa"/>
+							<menuitem label="mediumblue" value="#0000cd"/>
+							<menuitem label="mediumorchid" value="#ba55d3"/>
+							<menuitem label="mediumpurple" value="#9370db"/>
+							<menuitem label="mediumseagreen" value="#3cb371"/>
+							<menuitem label="mediumslateblue" value="#7b68ee"/>
+							<menuitem label="mediumspringgreen" value="#00fa9a"/>
+							<menuitem label="mediumturquoise" value="#48d1cc"/>
+							<menuitem label="mediumvioletred" value="#c71585"/>
+							<menuitem label="midnightblue" value="#191970"/>
+							<menuitem label="mintcream" value="#f5fffa"/>
+							<menuitem label="mistyrose" value="#ffe4e1"/>
+							<menuitem label="moccasin" value="#ffe4b5"/>
+							<menuitem label="navajowhite" value="#ffdead"/>
+							<menuitem label="navy" value="#000080"/>
+							<menuitem label="oldlace" value="#fdf5e6"/>
+							<menuitem label="olive" value="#808000"/>
+							<menuitem label="olivedrab" value="#6b8e23"/>
+							<menuitem label="orange" value="#ffa500"/>
+							<menuitem label="orangered" value="#ff4500"/>
+							<menuitem label="orchid" value="#da70d6"/>
+							<menuitem label="palegoldenrod" value="#eee8aa"/>
+							<menuitem label="palegreen" value="#98fb98"/>
+							<menuitem label="paleturquoise" value="#afeeee"/>
+							<menuitem label="palevioletred" value="#db7093"/>
+							<menuitem label="papayawhip" value="#ffefd5"/>
+							<menuitem label="peachpuff" value="#ffdab9"/>
+							<menuitem label="peru" value="#cd853f"/>
+							<menuitem label="pink" value="#ffc0cb"/>
+							<menuitem label="plum" value="#dda0dd"/>
+							<menuitem label="powderblue" value="#b0e0e6"/>
+							<menuitem label="purple" value="#800080"/>
+							<menuitem label="purple2" value="#7f007f"/>
+							<menuitem label="purple3" value="#a020f0"/>
+							<menuitem label="rebeccapurple" value="#663399"/>
+							<menuitem label="red" value="#ff0000"/>
+							<menuitem label="rosybrown" value="#bc8f8f"/>
+							<menuitem label="royalblue" value="#4169e1"/>
+							<menuitem label="saddlebrown" value="#8b4513"/>
+							<menuitem label="salmon" value="#fa8072"/>
+							<menuitem label="sandybrown" value="#f4a460"/>
+							<menuitem label="seagreen" value="#2e8b57"/>
+							<menuitem label="seashell" value="#fff5ee"/>
+							<menuitem label="sienna" value="#a0522d"/>
+							<menuitem label="silver" value="#c0c0c0"/>
+							<menuitem label="skyblue" value="#87ceeb"/>
+							<menuitem label="slateblue" value="#6a5acd"/>
+							<menuitem label="slategray" value="#708090"/>
+							<menuitem label="slategrey" value="#708090"/>
+							<menuitem label="snow" value="#fffafa"/>
+							<menuitem label="springgreen" value="#00ff7f"/>
+							<menuitem label="steelblue" value="#4682b4"/>
+							<menuitem label="tan" value="#d2b48c"/>
+							<menuitem label="teal" value="#008080"/>
+							<menuitem label="thistle" value="#d8bfd8"/>
+							<menuitem label="tomato" value="#ff6347"/>
+							<menuitem label="turquoise" value="#40e0d0"/>
+							<menuitem label="violet" value="#ee82ee"/>
+							<menuitem label="wheat" value="#f5deb3"/>
+							<menuitem label="white" value="#ffffff"/>
+							<menuitem label="whitesmoke" value="#f5f5f5"/>
+							<menuitem label="yellow" value="#ffff00"/>
+							<menuitem label="yellowgreen" value="#9acd32"/>
 						</menupop>
 					</menulist>
 				</row>

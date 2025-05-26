@@ -1,11 +1,10 @@
 /**
- * @file: 11.一键描边.jsfl
+ * @file: 00.选择颜色.design.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
- * @date: 2025/5/25 23:31
+ * @date: 2025/5/25 23:44
  * @project: AnJsflScript
  * @description:
- * @see:https://gitee.com/ninge/WindowSWF/tree/master/
  */
 
 // bug,FirstRun.jsfl 未运行
@@ -23,11 +22,10 @@ if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
     throw new Error(msg);
 }
 
-require(["checkUtil", "loglevel", "xmlPanelUtil", "os"], function (
+require(["checkUtil", "loglevel", "xmlPanelUtil"], function (
     checkUtil,
     log,
-    xmlPanelUtil,
-    os
+    xmlPanelUtil
 ) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
@@ -54,29 +52,19 @@ require(["checkUtil", "loglevel", "xmlPanelUtil", "os"], function (
 
     // endregion doc
 
-    var [folder_name, basename] = os.path.split(fl.scriptURI);
-    var XMLPANEL = os.path.join(folder_name, "11.一键描边", "11.一键描边.xml");
-    log.info("XMLPANEL: " + XMLPANEL);
+    // var [folder_name, basename] = os.path.split(fl.scriptURI);
+    // var XMLPANEL = os.path.join(folder_name, "11.一键描边", "00.选择颜色.xml");
+    // var XMLPANEL = os.path.join(folder_name, "00.选择颜色.xml");
+    // log.info("XMLPANEL：" + XMLPANEL);
 
+    // 直接获取同级即可
     function checkXMLPanel() {
-        var panel = xmlPanelUtil.getXMLPanel(XMLPANEL);
+        var panel = xmlPanelUtil.getXMLPanel();
         if (panel === null) return null;
 
-        var size = xmlPanelUtil.parseNumber(panel.size, "描边大小 应该使用数字");
-        if (size === null) return null;
-
-        var color = xmlPanelUtil.parseColor(
-            panel.color,
-            "请输入描边颜色，如 #FFFFFF，black等"
-        );
-        if (color === null) return null;
-
-        var alpha = xmlPanelUtil.parseNumber(panel.alpha, "透明度 应该使用数字");
-        if (alpha === null) return null;
+        var select_color = panel.select_color;
         return {
-            size: size,
-            color: color,
-            alpha: alpha
+            select_color: select_color
         };
     }
 
@@ -84,11 +72,14 @@ require(["checkUtil", "loglevel", "xmlPanelUtil", "os"], function (
         // 检查选择的元件
         if (!CheckSelection(selection, "selectElement", "No limit")) return;
 
-        // 检查XML面板
+        // 整齐排布
         var config = checkXMLPanel();
         if (config === null) return;
-        const { size, color, alpha } = config;
-        log.info("size: " + size + ", color: " + color + ", alpha: " + alpha);
+        const { select_color } = config;
+        log.info("选择颜色：" + select_color);
+
+        // 更新xul ui的属性
+        fl.xmlui.set("color", select_color);
     }
 
     Main();
