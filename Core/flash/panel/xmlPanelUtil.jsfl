@@ -32,22 +32,7 @@ define(["chroma-js"], function (chroma) {
         }
         return panel;
     };
-    // /**
-    //  * 解析输入的字符串为数字
-    //  * @param {string} inputStr 输入的字符串
-    //  * @param {string} [alertMsg] 错误提示信息
-    //  * @returns {number}
-    //  */
-    // XMLPanelUtil.parseNumber = function (inputStr, alertMsg) {
-    //     if (inputStr === null || isNaN(Number(inputStr))) {
-    //         if (alertMsg !== undefined) {
-    //             alert(alertMsg);
-    //         }
-    //         return null;
-    //     }
-    //
-    //     return Number(inputStr);
-    // };
+
     /**
      * 弹出提示框，获取输入的数字
      * @param {string} inputStr 输入的字符串

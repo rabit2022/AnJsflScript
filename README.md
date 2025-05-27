@@ -23,9 +23,9 @@
 
 ✔ **自动化工作流** - 简化重复性动画制作任务  
 ✔ **模块化架构** - 基于RequireJS的模块系统  
-✔ **跨版本兼容** - 支持Animate 2024+  
+✔ **跨版本兼容** - 支持Animate 2024 
 ✔ **完整类型支持** - 提供TypeScript类型定义  
-✔ **丰富工具集** - 80+实用脚本
+✔ **丰富工具集** - 100+实用脚本
 
 ------
 
@@ -45,12 +45,6 @@
 git clone https://github.com/rabit2022/AnJsflScript.git
 ```
 
-推荐路径：
-
-```
-%LOCALAPPDATA%\Adobe\Animate 2024\<语言>\Configuration\Commands\
-```
-
 #### 方式3：手动安装
 
 1. [下载ZIP包](https://github.com/rabit2022/AnJsflScript/tags)
@@ -58,7 +52,7 @@ git clone https://github.com/rabit2022/AnJsflScript.git
 
 ### 每次使用
 
-1. 启动Adobe Animate 2024+
+1. 启动Adobe Animate 2024
 2. 新建/打开FLA文档
 3. **必须**先运行`FirstRun.jsfl`
 
@@ -111,8 +105,8 @@ AnJsflScript/
 
 ❗ **系统要求**
 
-- Windows 10/11系统
-- Animate 2024+
+- Windows 11系统
+- Animate 2024
 
 ❗ **必做事项**
 
@@ -121,7 +115,7 @@ AnJsflScript/
 
 🔧 **常见问题**  
 Q：脚本不生效？  
-A：检查是否运行了FirstRun且文档已打开
+A：1. 检查是否运行了FirstRun且文档已打开；2. 系统要求是否满足，由于条件有限，只测试了当前使用的系统，其他系统无法保证兼容性。
 
 ------
 
@@ -150,25 +144,27 @@ A：检查是否运行了FirstRun且文档已打开
 
 ### 推荐项目
 
-[![xJSFL](https://img.shields.io/badge/xJSFL-框架-2196f3)](https://github.com/davestewart/xJSFL)
-[![FlashTool](https://img.shields.io/badge/FlashTool-工具集-2196f3)](https://github.com/hufang360/FlashTool)
 [![WindowSWF](https://img.shields.io/badge/WindowSWF-Gitee-4caf50)](https://gitee.com/ninge/WindowSWF/tree/master/)
+[![xJSFL](https://img.shields.io/badge/xJSFL-GitHub-2196f3)](https://github.com/davestewart/xJSFL)
+[![FlashTool](https://img.shields.io/badge/FlashTool-GitHub-2196f3)](https://github.com/hufang360/FlashTool)
+
+
 
 ------
 
 ## 📈 项目数据
 
-- 代码量：9,432行
-- 脚本数：80+
+- **代码行数**: 10938
+- **字符数量**: 272430
+- **脚本数量**: 97
 - 依赖库：28个
 - 访问量：![统计](https://profile-counter.glitch.me/AnJsflScript/count.svg)
 
 ------
 
 ## 关于作者
-
-[![B站](https://badgen.net/badge/B站/穹的兔兔/pink?icon=bilibili)](https://space.bilibili.com/453222786)
-[![GitHub](https://badgen.net/badge/GitHub/rabit2022/black?icon=github)](https://github.com/rabit2022)
+[![穹的兔兔](https://badgen.net/badge/bilibili/穹的兔兔/pink?icon=bilibili&labelColor=blue)](https://space.bilibili.com/453222786?spm_id_from=333.788.0.0)
+[![GitHub](https://badgen.net/badge/GitHub/rabit2022/pink?icon=github)](https://github.com/rabit2022)
 
 **联系我**：  
 📧 3101829204@qq.com  

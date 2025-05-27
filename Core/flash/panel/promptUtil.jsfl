@@ -51,7 +51,7 @@ define(["linqUtil", "xmlPanelUtil"], function (linqUtil, xmlPanelUtil) {
 
         // 显示提示框并获取用户输入
         var input = prompt(promptMessage, defaultValue);
-        if (input == null || input === "") {
+        if (input === null || input === "") {
             alert(alertMessage);
             return null;
         }
@@ -138,24 +138,7 @@ define(["linqUtil", "xmlPanelUtil"], function (linqUtil, xmlPanelUtil) {
      * @returns {number} 输入的方向
      */
     PromptUtil.parseDirection = function (promptMessage, tipDictionary) {
-        if (tipDictionary === undefined) {
-            tipDictionary = { 右: 1, 左: -1, " ": -1 };
-        }
-
-        var firstTip = Object.keys(tipDictionary)[0];
-        var inputDirection = prompt(promptMessage, firstTip);
-        // 右为1，左为-1   默认为右，空格为左
-        var direction = tipDictionary[firstTip];
-        if (inputDirection in tipDictionary) {
-            direction = tipDictionary[inputDirection];
-        } else if (inputDirection === null) {
-            alert("方向不能为空，请重新输入。");
-            return null;
-        } else {
-            alert("输入错误(方向只能输入空格或右)，请重新输入。");
-            return null;
-        }
-        return direction;
+        return xmlPanelUtil.parseDirection(promptMessage, tipDictionary);
     };
 
     return PromptUtil;

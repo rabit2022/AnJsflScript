@@ -328,9 +328,12 @@ define([
      * 处理多个元素
      * @param {Element} element - 要处理的元素。
      * @param {function} processFunc - 处理函数。
+     * @param {string} SymbolName="碎片" - 元件的名称。
      * @see:https://gitee.com/ninge/WindowSWF/tree/master/
      */
-    function processElements(element, processFunc) {
+    function processElements(element, processFunc, SymbolName) {
+        if (symbolName === undefined) symbolName = "碎片";
+
         var doc = fl.getDocumentDOM(); //文档
         var library = doc.library; //库文件
 
@@ -340,9 +343,10 @@ define([
         }
         // OnlySelectCurrent(element);
 
-        var MIDDLE_NAME = "完全分解-中转";
+        // var MIDDLE_NAME = "完全分解-中转";
+        var symbolName = generateNameUntilUnique(SymbolName);
+        CopySymbol(element, "auto", symbolName);
 
-        CopySymbol(element, "auto", MIDDLE_NAME);
         doc.enterEditMode("inPlace");
 
         function convertSel2ShapeInner(selection) {
@@ -382,9 +386,9 @@ define([
 
         doc.exitEditMode();
 
-        doc.breakApart();
+        // doc.breakApart();
 
-        library.deleteItem(nameGenerator.LastName);
+        // library.deleteItem(nameGenerator.LastName);
     }
 
     return {

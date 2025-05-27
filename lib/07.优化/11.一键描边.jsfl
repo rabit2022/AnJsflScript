@@ -130,8 +130,7 @@ require([
 
         // var stroke_type = panel.stroke_type;
         var stroke_type = xmlPanelUtil.parseString(
-            panel.stroke_type,
-            // hairline|solid|dashed|dotted|ragged|stipple|
+            panel.stroke_type, // hairline|solid|dashed|dotted|ragged|stipple|
             "请输入正确的描边类型。 如 hairline(细线), solid(实线), dashed(虚线), dotted(点线), ragged(不规则), stipple(斑马线)"
         );
         return {
@@ -158,7 +157,7 @@ require([
             doc.setStroke(colorWithAlpha, size, stroke_type);
         }
 
-        processElements(selection[0], setStroke);
+        processElements(selection[0], setStroke, "一键描边_");
     }
 
     Main();
