@@ -36,7 +36,7 @@ define([
 ) {
     const { IsSymbol, IsGroup } = ec;
     const { deleteLayers } = lo;
-    const { SelectAll, OnlySelectCurrent, SelectNone } = es;
+    const { SelectAll, OnlySelectCurrent, SelectNone, InvertSelection } = es;
     const { splitRectangle } = satUtil;
     const { checkVariableRedeclaration } = Tips;
 
@@ -49,7 +49,6 @@ define([
      *  @param {Element} element 元件
      * @param {"ask"|"skip"|"auto"} mode 复制模式，ask：弹出输入框，skip：直接复制，auto：自动生成名称
      * @param {string} [newName=origionName] 新元件名称，仅在 mode 为 auto 时有效
-     * @constructor
      */
     function CopySymbol(element, mode, newName) {
         var doc = fl.getDocumentDOM();
@@ -168,8 +167,7 @@ define([
 
                 var groups_and_symbols = doc.selection.filter(function (item) {
                     return (
-                        (IsGroup(item) || IsSymbol(item)) &&
-                        // effects:为了效果，必须排除影片剪辑，这样会有部分素材，有透明度的素材，不会石化，更加真实。
+                        (IsGroup(item) || IsSymbol(item)) && // effects:为了效果，必须排除影片剪辑，这样会有部分素材，有透明度的素材，不会石化，更加真实。
                         item.symbolType !== "movie clip"
                     );
                 });
@@ -326,11 +324,75 @@ define([
         doc.exitEditMode();
     }
 
+    /**
+     * 处理多个元素
+     * @param {Element} element - 要处理的元素。
+     * @param {function} processFunc - 处理函数。
+     * @see:https://gitee.com/ninge/WindowSWF/tree/master/
+     */
+    function processElements(element, processFunc) {
+        var doc = fl.getDocumentDOM(); //文档
+        var library = doc.library; //库文件
+
+        if (!IsSymbol(element)) {
+            log.error("请选择元件");
+            return;
+        }
+        // OnlySelectCurrent(element);
+
+        var MIDDLE_NAME = "完全分解-中转";
+
+        CopySymbol(element, "auto", MIDDLE_NAME);
+        doc.enterEditMode("inPlace");
+
+        function convertSel2ShapeInner(selection) {
+            SelectAll();
+
+            var groups_and_symbols = selection.filter(function (item) {
+                return (
+                    (IsGroup(item) || IsSymbol(item)) && // effects:为了效果，必须排除影片剪辑，这样会有部分素材，有透明度的素材，不会石化，更加真实。
+                    item.symbolType !== "movie clip"
+                );
+            });
+            // console.log('groups:', groups_and_symbols.length);
+
+            SelectAll(groups_and_symbols);
+            if (groups_and_symbols.length > 0) {
+                groups_and_symbols.forEach(function (item) {
+                    // processFunc(item);
+                    console.info("length:", groups_and_symbols.length);
+                    OnlySelectCurrent(item);
+                    doc.enterEditMode("inPlace");
+                    SelectAll();
+                    convertSel2ShapeInner(doc.selection);
+                    doc.exitEditMode();
+                });
+            }
+
+            // 选择非组元素
+            SelectAll();
+            InvertSelection(groups_and_symbols);
+
+            // 处理非组元素
+            var non_groups = doc.selection;
+            processFunc(non_groups);
+        }
+
+        convertSel2ShapeInner(doc.selection);
+
+        doc.exitEditMode();
+
+        doc.breakApart();
+
+        library.deleteItem(nameGenerator.LastName);
+    }
+
     return {
         CopySymbol: CopySymbol,
         breakApartToShape: breakApartToShape,
         breakApartToDrawingObject: breakApartToDrawingObject,
         splinterSymbol: splinterSymbol,
-        convertToSymbolWithBlanks: convertToSymbolWithBlanks
+        convertToSymbolWithBlanks: convertToSymbolWithBlanks,
+        processElements: processElements
     };
 });

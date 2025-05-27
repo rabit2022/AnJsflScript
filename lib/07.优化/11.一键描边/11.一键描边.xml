@@ -11,14 +11,31 @@
         </hbox>
         <hbox>
             <label control='alpha' value='输入透明度:' tooltip='(0-100)'/>
-            <textbox id='alpha' value='100' width='80'/>
+            <textbox id='alpha_value' value='100' width='80'/>
 <!--            切换100,255-->
 <!--            <checkbox id='alpha_switch' label='0-100' checked="true"/>-->
 <!--            <checkbox id='alpha_switch' label='0-255'/>-->
-            <menulist class="control" id="alpha_switch" editable="" width="" flex="1" tabindex="" oncreate="" onsetfocus="">
+            <menulist class="control" id="alpha_mode" editable="" width="" flex="1" tabindex="" oncreate="" onsetfocus="alpha_mode_change();">
                 <menupop class="control" id="menupop">
-                    <menuitem label="0-100" value="100" selected="" />
-                    <menuitem label="0-255" value="255" selected="" />
+                    <menuitem label="percent(%)" value="percent" selected="" />
+                    <menuitem label="byte(0-255)" value="byte" selected="" />
+                    <menuitem label="decimal(0-1)" value="decimal" selected="" />
+                </menupop>
+            </menulist>
+        </hbox>
+
+<!--        "hairline"|"solid"|"dashed"|"dotted"|"ragged"|"stipple"|"hatched"} strokeType-->
+        <hbox>
+            <label control='type' value='选择线类型:'/>
+            <menulist class="control" id="stroke_type" editable="" width="" flex="1" tabindex="" oncreate="" onsetfocus="">
+                <menupop class="control" id="menupop">
+                    <menuitem label="实线" value="solid" selected="" />
+                    <menuitem label="虚线" value="dashed" selected="" />
+                    <menuitem label="点线" value="dotted" selected="" />
+                    <menuitem label="斜线" value="ragged" selected="" />
+                    <menuitem label="斑点" value="stipple" selected="" />
+                    <menuitem label="刺绣" value="hatched" selected="" />
+                    <menuitem label="细线" value="hairline" selected="" />
                 </menupop>
             </menulist>
         </hbox>
@@ -65,5 +82,21 @@
 
 
         }
+
+        function alpha_mode_change() {
+        var alpha_mode = fl.xmlui.get("alpha_mode");
+            switch (alpha_mode) {
+                case "percent":
+                fl.xmlui.set("alpha_value", "100");
+                break;
+                case "byte":
+                fl.xmlui.set("alpha_value", "255");
+                break;
+                case "decimal":
+                fl.xmlui.set("alpha_value", "1");
+                break;
+            }
+        }
+
     </script>
 </dialog>

@@ -7,11 +7,10 @@
  * @description:
  */
 
-define(["linqUtil", "xmlPanelUtil"], function(linqUtil, xmlPanelUtil) {
+define(["linqUtil", "xmlPanelUtil"], function (linqUtil, xmlPanelUtil) {
     const { $range } = linqUtil;
 
-    function PromptUtil() {
-    }
+    function PromptUtil() {}
 
     /**
      * 弹出提示框，获取输入的数字
@@ -21,7 +20,7 @@ define(["linqUtil", "xmlPanelUtil"], function(linqUtil, xmlPanelUtil) {
      * @param {{start: number, end: number, step: number}} [range=null] 范围
      * @returns {number} 输入的数字
      */
-    PromptUtil.parseNumber = function(promptMessage, defaultValue, alertMessage, range) {
+    PromptUtil.parseNumber = function (promptMessage, defaultValue, alertMessage, range) {
         if (defaultValue === undefined || defaultValue === null) {
             defaultValue = 0;
         }
@@ -37,7 +36,7 @@ define(["linqUtil", "xmlPanelUtil"], function(linqUtil, xmlPanelUtil) {
      * @param {string} [alertMessage="请重新输入合法的数字。"] - 输入无效时显示的警告信息。
      * @returns {{num: number, hasSign: boolean}} 解析结果对象 {num, hasSign} 或 null（如果用户取消输入或输入无效）。
      */
-    PromptUtil.parseNumberWithSign = function(
+    PromptUtil.parseNumberWithSign = function (
         promptMessage,
         defaultValue,
         alertMessage
@@ -103,7 +102,7 @@ define(["linqUtil", "xmlPanelUtil"], function(linqUtil, xmlPanelUtil) {
      * @param {string} [alertMessage="请重新输入合法的数字。"] - 输入无效时显示的警告信息。
      * @returns {{num: number, mode: "increase"|"decrease"|"unify", direction: 1|-1}} 解析结果对象 {num, mode, direction} 或 null（如果用户取消输入或输入无效）。}} 解析结果对象 {num, mode} 或 null（如果用户取消输入或输入无效）。
      */
-    PromptUtil.parseNumberWithMode = function(
+    PromptUtil.parseNumberWithMode = function (
         promptMessage,
         defaultValue,
         alertMessage
@@ -138,7 +137,7 @@ define(["linqUtil", "xmlPanelUtil"], function(linqUtil, xmlPanelUtil) {
      * @param {object} [tipDictionary={"右": 1, "左": -1, " ": -1}] 提示字典
      * @returns {number} 输入的方向
      */
-    PromptUtil.parseDirection = function(promptMessage, tipDictionary) {
+    PromptUtil.parseDirection = function (promptMessage, tipDictionary) {
         if (tipDictionary === undefined) {
             tipDictionary = { 右: 1, 左: -1, " ": -1 };
         }

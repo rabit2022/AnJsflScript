@@ -23,14 +23,21 @@ if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
     throw new Error(msg);
 }
 
-require(["checkUtil", "loglevel", "xmlPanelUtil", "os", "chroma-js"], function(
-    checkUtil,
-    log,
-    xmlPanelUtil,
-    os,
-    chroma
-) {
+require([
+    "checkUtil",
+    "loglevel",
+    "xmlPanelUtil",
+    "os",
+    "chroma-js",
+    "lodash",
+    "ElementOperation",
+    "ElementSelect"
+], function (checkUtil, log, xmlPanelUtil, os, chroma, _, eo, es) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
+
+    const { processElements } = eo;
+
+    const { SelectAll, OnlySelectCurrent, SelectNone, InvertSelection } = es;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -72,60 +79,87 @@ require(["checkUtil", "loglevel", "xmlPanelUtil", "os", "chroma-js"], function(
         );
         if (color === null) return null;
 
-        // // TODO: 透明度切换 应该使用100或255,增加范围限制
-        // var alpha = xmlPanelUtil.parseNumber(panel.alpha, "透明度 应该使用数字");
-        // if (alpha === null) return null;
+        var alphaMode = panel.alpha_mode;
+        var alphaValue = panel.alpha_value; // 用户输入的原始值
+        var normalizedAlpha = 0.0; // 最终0-1范围的透明度
+        var parsedValue = 0; // 用于存储解析后的值
 
-        var alpha = 0;
-        var alpha_switch = panel.alpha_switch;
-        switch (alpha_switch) {
-            case "100":
-                alpha = xmlPanelUtil.parseNumber(
-                    panel.alpha,
-                    "透明度 应该使用数字(0-100)",
-                    {
-                        start: 0,
-                        end: 100
-                    });
-                // 将获取到的透明度值转换为0-255范围内的整数，做了输入值的合法性判断等处理
-                alpha = Math.floor((parseInt(alpha, 10) / 100) * 255);
+        switch (alphaMode) {
+            case "percent": // 0-100 → 0-1
+                parsedValue = xmlPanelUtil.parseNumber(alphaValue, "透明度应为0-100", {
+                    start: 0,
+                    end: 100
+                });
+                if (parsedValue === null) return null;
+                normalizedAlpha = parsedValue / 100;
                 break;
-            case "255":
-                alpha = xmlPanelUtil.parseNumber(
-                    panel.alpha,
-                    "透明度 应该使用数字(0-255)",
-                    {
-                        start: 0,
-                        end: 255
-                    });
+
+            case "byte": // 0-255 → 0-1
+                parsedValue = xmlPanelUtil.parseNumber(alphaValue, "透明度应为0-255", {
+                    start: 0,
+                    end: 255
+                });
+                if (parsedValue === null) return null;
+                normalizedAlpha = parsedValue / 255;
                 break;
+
+            case "decimal": // 0-1（直接使用）
+                parsedValue = xmlPanelUtil.parseNumber(alphaValue, "透明度应为0-1", {
+                    start: 0,
+                    end: 1
+                });
+                if (parsedValue === null) return null;
+                normalizedAlpha = parsedValue;
+                break;
+
             default:
-                throw new Error("透明度切换 应该使用100或255");
+                throw new Error(
+                    "不支持的透明度模式: " +
+                        alphaMode +
+                        "（可选: percent、byte、decimal）"
+                );
         }
 
-        // 使用chroma-js设置透明度
-        const colorWithAlpha = chroma(color)
-            .alpha(alpha / 255)
-            .hex();
-        log.info("colorWithAlpha: " + colorWithAlpha);
+        // 确保最终值在0-1范围内（防御性编程）
+        // normalizedAlpha = Math.max(0, Math.min(1, normalizedAlpha));
+        normalizedAlpha = _.clamp(normalizedAlpha, 0, 1);
 
+        // chroma直接使用0-1范围（不再额外除255）
+        var colorWithAlpha = chroma(color).alpha(normalizedAlpha).hex();
+        log.info("最终颜色（带透明度）: " + colorWithAlpha);
+
+        // var stroke_type = panel.stroke_type;
+        var stroke_type = xmlPanelUtil.parseString(
+            panel.stroke_type,
+            // hairline|solid|dashed|dotted|ragged|stipple|
+            "请输入正确的描边类型。 如 hairline(细线), solid(实线), dashed(虚线), dotted(点线), ragged(不规则), stipple(斑马线)"
+        );
         return {
             size: size,
             colorWithAlpha: colorWithAlpha,
+            stroke_type: stroke_type
         };
     }
 
     function Main() {
         // 检查选择的元件
-        if (!CheckSelection(selection, "selectElement", "No limit")) return;
+        if (!CheckSelection(selection, "selectElement", "Only one")) return;
 
         // 检查XML面板
         var config = checkXMLPanel();
         if (config === null) return;
-        const { size, colorWithAlpha } = config;
+        const { size, colorWithAlpha, stroke_type } = config;
         log.info("size: ", size, "colorWithAlpha: ", colorWithAlpha);
 
+        function setStroke(elements) {
+            // doc.selectAll();
+            SelectAll(elements);
+            // doc.setStroke(colorWithAlpha, size, "solid");
+            doc.setStroke(colorWithAlpha, size, stroke_type);
         }
+
+        processElements(selection[0], setStroke);
+    }
 
     Main();
 });

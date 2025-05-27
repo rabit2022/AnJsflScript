@@ -56,7 +56,6 @@ define(["chroma-js"], function (chroma) {
      * @returns {number} 输入的数字
      */
     XMLPanelUtil.parseNumber = function (inputStr, alertMessage, range) {
-
         if (alertMessage === undefined || alertMessage === null) {
             alertMessage = "请重新输入合法的数字。";
         }
@@ -70,14 +69,44 @@ define(["chroma-js"], function (chroma) {
         var force = Number(inputForce);
 
         if (range !== null && range !== undefined) {
-            var rangeList = $range(range.start, range.end, range.step);
-            if (!rangeList.contains(force)) {
-                var rangeStr =
-                    (range.start ? range.start : "") +
-                    (range.end ? "," + range.end : "") +
-                    (range.step ? "," + range.step : "");
-                alert("输入值超出范围 : range(" + rangeStr + ")，请重新输入。");
-                return null;
+            // 检查边界值是否有效
+            var hasStart = range.start !== undefined && range.start !== null;
+            var hasEnd = range.end !== undefined && range.end !== null;
+
+            if (hasStart || hasEnd) {
+                // 情况1：有step时，使用Linq.js进行整数步进检查
+                if (range.step !== undefined && range.step !== null) {
+                    var rangeList = $range(range.start || 0, range.end || 0, range.step);
+                    if (!rangeList.contains(force)) {
+                        var rangeStr =
+                            (hasStart ? range.start : "") +
+                            (hasEnd ? (hasStart ? "," : "") + range.end : "") +
+                            "," +
+                            range.step;
+                        alert(
+                            "输入值超出步进范围 : range(" + rangeStr + ")，请重新输入。"
+                        );
+                        return null;
+                    }
+                }
+                // 情况2：无step时，直接比较边界
+                else {
+                    var outOfRange = false;
+                    if (hasStart && force < range.start) {
+                        outOfRange = true;
+                    }
+                    if (hasEnd && force > range.end) {
+                        outOfRange = true;
+                    }
+                    if (outOfRange) {
+                        var rangeStr =
+                            (hasStart ? "≥" + range.start : "") +
+                            (hasStart && hasEnd ? " 且 " : "") +
+                            (hasEnd ? "≤" + range.end : "");
+                        alert("输入值超出允许范围 : " + rangeStr + "，请重新输入。");
+                        return null;
+                    }
+                }
             }
         }
 
