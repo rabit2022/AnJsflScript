@@ -75,11 +75,18 @@ define(function () {
         );
     }
 
+    // if (selection[j].symbolType == "graphic") {
+    function IsGraphic(element) {
+        var SymbolTypeIsGraphic = element.symbolType === "graphic";
+        return !IsGroup(element) && IsSymbol(element) && SymbolTypeIsGraphic;
+    }
+
     return {
         IsGroup: IsGroup,
         IsSymbol: IsSymbol,
         IsBitmap: IsBitmap,
         IsShape: IsShape,
-        IsDrawingObject: IsDrawingObject
+        IsDrawingObject: IsDrawingObject,
+        IsGraphic: IsGraphic
     };
 });

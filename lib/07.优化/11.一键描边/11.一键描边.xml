@@ -29,7 +29,7 @@
             <label control='type' value='选择线类型:'/>
             <menulist class="control" id="stroke_type" editable="" width="" flex="1" tabindex="" oncreate="" onsetfocus="">
                 <menupop class="control" id="menupop">
-                    <menuitem label="实线" value="solid" selected="" />
+                    <menuitem label="实线(推荐)" value="solid" selected="" />
                     <menuitem label="虚线" value="dashed" selected="" />
                     <menuitem label="点线" value="dotted" selected="" />
                     <menuitem label="斜线" value="ragged" selected="" />

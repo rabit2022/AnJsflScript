@@ -1,8 +1,8 @@
 /**
- * @file: 12.原样打散.jsfl
+ * @file: #03.一键改色.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
- * @date: 2025/5/28 00:25
+ * @date: 2025/5/28 21:40
  * @project: AnJsflScript
  * @description:
  */
@@ -22,10 +22,9 @@ if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
     throw new Error(msg);
 }
 
-require(["checkUtil", "loglevel", "ElementOperation"], function (checkUtil, log, eo) {
+require(["checkUtil", "loglevel"],
+    function (checkUtil, log) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
-
-    const { breakApartToShape } = eo;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -54,10 +53,7 @@ require(["checkUtil", "loglevel", "ElementOperation"], function (checkUtil, log,
         // 检查选择的元件
         if (!CheckSelection(selection, "selectElement", "No limit")) return;
 
-        selection.forEach(function (element) {
-            // 打散元件
-            breakApartToShape(element);
-        });
+
     }
 
     Main();
