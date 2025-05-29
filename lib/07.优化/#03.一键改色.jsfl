@@ -22,8 +22,7 @@ if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
     throw new Error(msg);
 }
 
-require(["checkUtil", "loglevel"],
-    function (checkUtil, log) {
+require(["checkUtil", "loglevel"], function (checkUtil, log) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
     // region doc
@@ -41,19 +40,17 @@ require(["checkUtil", "loglevel"],
     var curFrameIndex = timeline.currentFrame; //当前帧索引
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
-    // // 获取第一帧
-    // var frs = CheckSelectedFrames(timeline);
-    // if (frs === null) return;
-    // var firstLayer = layers[frs[0].layerIndex];
-    // var firstFrame = frs[0].startFrame;
+    // 获取第一帧
+    var frs = CheckSelectedFrames(timeline);
+    if (frs === null) return;
+    var firstLayer = layers[frs[0].layerIndex];
+    var firstFrame = frs[0].startFrame;
 
     // endregion doc
 
     function Main() {
         // 检查选择的元件
-        if (!CheckSelection(selection, "selectElement", "No limit")) return;
-
-
+        if (!CheckSelection(selection, "selectElement", "Not Zero")) return;
     }
 
     Main();

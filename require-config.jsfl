@@ -48,11 +48,11 @@ require.config({
         stackframe: "Third/stack/stackframe-1.3.4/stackframe",
         linq: "Third/utils/linq-4.0.3/linq",
         lodash: "Third/utils/lodash-4.17.21/lodash",
-        sprintf: "Third/utils/sprintf-js-1.1.3/sprintf",
+        "sprintf-js": "Third/utils/sprintf-js-1.1.3/sprintf-js",
         "fast-xml-parser": "Third/xml/fast-xml-parser-5.0.9/fast-xml-parser",
         xmldom: "Third/xml/xmldom-0.6.0/xmldom",
-        xpath: "Third/xml/xpath-0.0.34/xpath", // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\custom\xjsfl\ui\xjsfl.jsfl
-        xjsfl: "Third/custom/xjsfl/ui/xjsfl", // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\color\chroma.js-3.1.2\chroma.jsfl
+        xpath: "Third/xml/xpath-0.0.34/xpath",
+        xjsfl: "Third/custom/xjsfl/ui/xjsfl",
         "chroma-js": "Third/color/chroma.js-3.1.2/chroma-js",
 
         // 自定义模块
@@ -97,8 +97,8 @@ require.config({
         StringP: "Core/py/string/StringP",
         KeyFrameMode: "Core/Utils/KeyFrameMode",
         Tips: "Core/Utils/Tips",
-        // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Core\flash\graphics\DrawParallelogram.jsfl
-        DrawParallelogram: "Core/flash/graphics/DrawParallelogram"
+        DrawParallelogram: "Core/flash/graphics/DrawParallelogram",
+        FilterDefinitions: "Core/flash/filter/FilterDefinitions"
     },
     packages: []
 });

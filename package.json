@@ -50,5 +50,8 @@
     "type": "git",
     "url": "https://github.com/rabit2022/AnJsflScript.git"
   },
-  "readmeFilename": "README.md"
+  "readmeFilename": "README.md",
+  "dependencies": {
+    "@types/sprintf-js": "1.1.4"
+  }
 }

@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(["sprintf"], function (sp) {
+define(["sprintf-js"], function (sp) {
     const sprintf = sp.sprintf;
 
     /**

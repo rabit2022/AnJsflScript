@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(["random", "sprintf"], function (random, sp) {
+define(["random", "sprintf-js"], function (random, sp) {
     const sprintf = sp.sprintf;
     /**
      * 添加在 name 后面的随机数的位数，保证名称的唯一性。

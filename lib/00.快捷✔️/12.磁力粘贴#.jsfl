@@ -26,7 +26,7 @@ require([
     "loglevel",
     "SymbolNameGenerator",
     "os",
-    "sprintf",
+    "sprintf-js",
     "ElementSelect"
 ], function (
     { CheckDom: checkDom, CheckSelection: checkSelection },

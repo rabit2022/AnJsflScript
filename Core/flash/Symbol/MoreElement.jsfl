@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(["SAT", "sprintf"], function (sat, sp) {
+define(["SAT", "sprintf-js"], function (sat, sp) {
     var Vector = sat.V;
     var wrapRectByTopLeft = sat.GLOBALS.wrapRectByTopLeft;
     const sprintf = sp.sprintf;

@@ -176,7 +176,7 @@ define(function() {
 
         if (IsTemplateString(args[0])) {
             var formattedMessage = "";
-            require(["sprintf"], function({ sprintf }) {
+            require(["sprintf-js"], function({ sprintf }) {
                 // 使用 sprintf 格式化模板字符串
                 formattedMessage = sprintf.apply(null, args);
             });
