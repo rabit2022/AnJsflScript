@@ -17,6 +17,7 @@ define(function () {
      * @param {Number} blurY y轴模糊值
      * @param {'low'|'medium'|'high'} strength 可选品质
      * @see https://gitee.com/ninge/WindowSWF/tree/master/
+     * @deprecated 已弃用，请使用 {@link FilterDefinitions.BlurFilter}
      */
     function addBlurFilterToFrame(layer, frameIndex, blurX, blurY, strength) {
         //图层，第几帧，x轴数值，y轴数值，品质可选（low、medium，high）
@@ -58,7 +59,7 @@ define(function () {
     }
 
     /**
-     * 清除指定帧的滤镜
+     * 清除指定帧的 指定滤镜
      * @param {Layer} layer 图层对象
      * @param {Number} frameIndex 帧索引
      * @param {String} filterName 滤镜名称，如果不指定则清除所有滤镜

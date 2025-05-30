@@ -487,7 +487,7 @@ declare namespace SAT {
     export { Vector as V };
     export { Rectangle as R };
     export { Size as S };
-    export { Transform as Tr }; // T与泛型冲突
+    export { Transform as TR }; // T与泛型冲突
     export { FrameRange as FR };
     export { FrameRangeList as FRL };
     export { Scale as SC };
