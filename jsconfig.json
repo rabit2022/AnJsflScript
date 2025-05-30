@@ -61,8 +61,8 @@
       "StringP": ["Core/py/string/StringP"],
       "KeyFrameMode": ["Core/Utils/KeyFrameMode"],
       "Tips": ["Core/Utils/Tips"],
-//      DrawParallelogram: "Core/flash/graphics/DrawParallelogram"
-      "DrawParallelogram": ["Core/flash/graphics/DrawParallelogram"]
+      "DrawParallelogram": ["Core/flash/graphics/DrawParallelogram"],
+      "FilterDefinitions": ["Core/flash/filter/FilterDefinitions"]
     },
     "include": [
       "**/*.jsfl"

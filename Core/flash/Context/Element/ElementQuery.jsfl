@@ -46,8 +46,19 @@ define(["SAT"], function ({ Rectangle }) {
         }
         return maxRightElement;
     }
+    /**
+     * 获取symbol的 内部 总帧数
+     * @param {Element} symbol symbol元素
+     * @returns {number} frameCount
+     */
+    function getFrameCount(symbol) {
+        var symbolTimeline = symbol.libraryItem.timeline;
+        var frameCount = symbolTimeline.frameCount;
+        return frameCount;
+    }
     return {
         getName: getName,
-        getMaxRight: getMaxRight
+        getMaxRight: getMaxRight,
+        getFrameCount: getFrameCount
     };
 });

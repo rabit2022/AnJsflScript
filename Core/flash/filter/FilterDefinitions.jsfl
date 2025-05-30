@@ -162,8 +162,9 @@ define(function () {
     // ------------------------------------------------------------------------------------------------------------------------
     // AdjustColorFilter
     /**
-     * 调整颜色滤镜类
+     * 调整颜色  滤镜类
      * @constructor
+     * @class
      */
     function AdjustColorFilter() {
         BaseFilter.call(this, "adjustColorFilter");
