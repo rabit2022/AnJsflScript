@@ -77,6 +77,9 @@ define(function () {
         layer.setFiltersAtFrame(frameIndex, filters);
     }
     return {
+        /**
+         * @deprecated 已弃用，请使用 {@link FilterDefinitions.BlurFilter}
+         */
         addBlurFilterToFrame: addBlurFilterToFrame,
         addFilterToFrame: addFilterToFrame,
         clearFilterAtFrame: clearFilterAtFrame

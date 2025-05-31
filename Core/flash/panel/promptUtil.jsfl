@@ -7,9 +7,7 @@
  * @description:
  */
 
-define(["linqUtil", "xmlPanelUtil"], function (linqUtil, xmlPanelUtil) {
-    const { $range } = linqUtil;
-
+define(["xmlPanelUtil"], function (xmlPanelUtil) {
     function PromptUtil() {}
 
     /**

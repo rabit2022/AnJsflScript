@@ -6,7 +6,9 @@
  * @project: AnJsflScript
  * @description:
  */
-define(["chroma-js"], function (chroma) {
+define(["chroma-js", "linqUtil"], function (chroma, linqUtil) {
+    const { $range } = linqUtil;
+
     function XMLPanelUtil() {}
 
     XMLPanelUtil.getXMLPath = function () {

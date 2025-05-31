@@ -19,6 +19,7 @@
 // Filter
 define(function () {
     var FILTERS = {};
+    var FILTER_BUILDERS = {};
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______     ______     ______     ______     ______   __     __
     // /\  == \   /\  __ \   /\  ___\   /\  ___\   /\  ___\ /\ \   /\ \
@@ -34,6 +35,7 @@ define(function () {
     //
     // ------------------------------------------------------------------------------------------------------------------------
     // BaseFilter
+    // region BaseFilter
     /**
      * 滤镜基类
      * @constructor
@@ -145,6 +147,7 @@ define(function () {
     BaseFilter.toString = function () {
         return "[class BaseFilter]";
     };
+    // endregion BaseFilter
 
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______     _____       __     __  __     ______     ______   ______     ______     __
@@ -161,6 +164,7 @@ define(function () {
     //
     // ------------------------------------------------------------------------------------------------------------------------
     // AdjustColorFilter
+    // region AdjustColorFilter
     /**
      * 调整颜色  滤镜类
      * @constructor
@@ -230,6 +234,7 @@ define(function () {
     AdjustColorFilter.toString = function () {
         return "[class AdjustColorFilter]";
     };
+    // endregion AdjustColorFilter
 
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______     ______     __   __   ______     __         ______   __     __         ______
@@ -246,6 +251,7 @@ define(function () {
     //
     // ------------------------------------------------------------------------------------------------------------------------
     // BevelFilter
+    // region BevelFilter
     /**
      * 斜角滤镜类
      * @constructor
@@ -388,6 +394,7 @@ define(function () {
     BevelFilter.toString = function () {
         return "[class BevelFilter]";
     };
+    // endregion BevelFilter
 
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______     __         __  __     ______     ______   __     __
@@ -404,6 +411,7 @@ define(function () {
     //
     // ------------------------------------------------------------------------------------------------------------------------
     // BlurFilter
+    // region BlurFilter
     /**
      * 模糊滤镜类
      * @constructor
@@ -464,6 +472,8 @@ define(function () {
         return "[class BlurFilter]";
     };
 
+    // endregion BlurFilter
+
     // ------------------------------------------------------------------------------------------------------------------------
     //  _____     ______     ______     ______   ______     __  __     ______     _____     ______
     // /\  __-.  /\  == \   /\  __ \   /\  == \ /\  ___\   /\ \_\ \   /\  __ \   /\  __-.  /\  __ \
@@ -479,6 +489,7 @@ define(function () {
     //
     // ------------------------------------------------------------------------------------------------------------------------
     // DropShadowFilter
+    // region DropShadowFilter
     /**
      * 投影滤镜类
      * @constructor
@@ -611,6 +622,7 @@ define(function () {
     DropShadowFilter.toString = function () {
         return "[class DropShadowFilter]";
     };
+    // endregion DropShadowFilter
 
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______     __         ______     __     __     ______   __     __
@@ -627,10 +639,13 @@ define(function () {
     //
     // ------------------------------------------------------------------------------------------------------------------------
     // GlowFilter
+    // region GlowFilter
 
     /**
      * 高光滤镜类
      * @constructor
+     * @class GlowFilter
+     * @extends BaseFilter
      */
     function GlowFilter() {
         BaseFilter.call(this, "glowFilter");
@@ -700,7 +715,6 @@ define(function () {
      * @param {string} quality 指定模糊质量
      * @param {boolean} inner 是否为内高光
      * @param {boolean} knockout 是否为挖空滤镜
-     * @param {boolean} enabled 是否启用该滤镜
      * @returns {Filter}
      */
     GlowFilter.prototype.init = function (
@@ -710,8 +724,7 @@ define(function () {
         strength,
         quality,
         inner,
-        knockout,
-        enabled
+        knockout
     ) {
         this.blurX = blurX;
         this.blurY = blurY;
@@ -720,7 +733,6 @@ define(function () {
         this.quality = quality;
         this.inner = inner;
         this.knockout = knockout;
-        this.enabled = enabled;
         return this;
     };
 
@@ -731,6 +743,97 @@ define(function () {
     GlowFilter.toString = function () {
         return "[class GlowFilter]";
     };
+    // endregion GlowFilter
+
+    // region GlowFilterBuilder
+    /**
+     * 高光滤镜建造者类
+     * @constructor
+     * @class GlowFilterBuilder
+     */
+    function GlowFilterBuilder() {
+        this.glowFilter = new GlowFilter();
+    }
+    FILTER_BUILDERS["GlowFilterBuilder"] = GlowFilterBuilder;
+
+    /**
+     * 设置 X 方向的模糊量
+     * @param {number} blurX X 方向的模糊量
+     * @returns {GlowFilterBuilder} 返回当前建造者对象
+     */
+    GlowFilterBuilder.prototype.blurX = function (blurX) {
+        this.glowFilter.blurX = blurX;
+        return this;
+    };
+
+    /**
+     * 设置 Y 方向的模糊量
+     * @param {number} blurY Y 方向的模糊量
+     * @returns {GlowFilterBuilder} 返回当前建造者对象
+     */
+    GlowFilterBuilder.prototype.blurY = function (blurY) {
+        this.glowFilter.blurY = blurY;
+        return this;
+    };
+
+    /**
+     * 设置高光颜色
+     * @param {string|number} color 高光颜色
+     * @returns {GlowFilterBuilder} 返回当前建造者对象
+     */
+    GlowFilterBuilder.prototype.color = function (color) {
+        this.glowFilter.color = color;
+        return this;
+    };
+
+    /**
+     * 设置滤镜的百分比强度
+     * @param {number} strength 滤镜的百分比强度
+     * @returns {GlowFilterBuilder} 返回当前建造者对象
+     */
+    GlowFilterBuilder.prototype.strength = function (strength) {
+        this.glowFilter.strength = strength;
+        return this;
+    };
+
+    /**
+     * 设置模糊质量
+     * @param {string} quality 模糊质量
+     * @returns {GlowFilterBuilder} 返回当前建造者对象
+     */
+    GlowFilterBuilder.prototype.quality = function (quality) {
+        this.glowFilter.quality = quality;
+        return this;
+    };
+
+    /**
+     * 设置是否为内高光
+     * @param {boolean} inner 是否为内高光
+     * @returns {GlowFilterBuilder} 返回当前建造者对象
+     */
+    GlowFilterBuilder.prototype.inner = function (inner) {
+        this.glowFilter.inner = inner;
+        return this;
+    };
+
+    /**
+     * 设置是否为挖空滤镜
+     * @param {boolean} knockout 是否为挖空滤镜
+     * @returns {GlowFilterBuilder} 返回当前建造者对象
+     */
+    GlowFilterBuilder.prototype.knockout = function (knockout) {
+        this.glowFilter.knockout = knockout;
+        return this;
+    };
+
+    /**
+     * 构建并返回最终的 GlowFilter 对象
+     * @returns {GlowFilter} 构建好的 GlowFilter 对象
+     */
+    GlowFilterBuilder.prototype.build = function () {
+        return this.glowFilter;
+    };
+    // endregion GlowFilterBuilder
 
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______     ______     ______     _____     __     ______     __   __
@@ -754,6 +857,7 @@ define(function () {
     // ------------------------------------------------------------------------------------------------------------------------
     // GradientBevelFilter
 
+    // region GradientBevelFilter
     /**
      * 高光滤镜类
      * @constructor
@@ -868,6 +972,8 @@ define(function () {
     GradientBevelFilter.toString = function () {
         return "[class GradientBevelFilter]";
     };
+    // endregion GradientBevelFilter
+
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______     ______     ______     _____     __     ______     __   __     ______   ______
     // /\  ___\   /\  == \   /\  __ \   /\  __-.  /\ \   /\  ___\   /\ "-.\ \   /\__  _\ /\  ___\
@@ -884,6 +990,7 @@ define(function () {
     // ------------------------------------------------------------------------------------------------------------------------
     // GradientGlowFilter
 
+    // region GradientGlowFilter
     /**
      * 渐变发光滤镜类
      * @constructor
@@ -985,6 +1092,9 @@ define(function () {
     GradientGlowFilter.toString = function () {
         return "[class GradientGlowFilter]";
     };
+    // endregion GradientGlowFilter
+
+    FILTERS["BUILDERS"] = FILTER_BUILDERS;
 
     return FILTERS;
 });

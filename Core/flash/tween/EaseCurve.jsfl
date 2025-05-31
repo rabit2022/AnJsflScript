@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(function () {
+define(["lodash"], function (_) {
     /**
      * 缓动曲线类型
      * @private
@@ -52,6 +52,7 @@ define(function () {
      * 设置缓动曲线
      * @param {Timeline} timeline
      * @param {'No Ease'|'Classic Ease'|'Quad Ease-In'|'Cubic Ease-In'|'Quart Ease-In'|'Quint Ease-In'|'Sine Ease-In'|'Back Ease-In'|'Circ Ease-In'|'Bounce Ease-In'|'Elastic Ease-In'|'Quad Ease-Out'|'Cubic Ease-Out'|'Quart Ease-Out'|'Quint Ease-Out'|'Sine Ease-Out'|'Back Ease-Out'|'Circ Ease-Out'|'Bounce Ease-Out'|'Elastic Ease-Out'|'Quad Ease-In-Out'|'Cubic Ease-In-Out'|'Quart Ease-In-Out'|'Quint Ease-In-Out'|'Sine Ease-In-Out'|'Back Ease-In-Out'|'Circ Ease-In-Out'|'Bounce Ease-In-Out'|'Elastic Ease-In-Out'} easeCurve 缓动类型
+     * @throws {Error} 缓动类型不存在
      */
     function setEaseCurve(timeline, easeCurve) {
         var easeData = EASE_TYPES[easeCurve];
@@ -99,8 +100,30 @@ define(function () {
         }
     }
 
+    /**
+     * 设置缓动曲线,并且创建补间动画
+     * @param {Timeline} timeline
+     * @param {number[]} KEY_FRAMES 关键帧数组
+     * @param {'No Ease'|'Classic Ease'|'Quad Ease-In'|'Cubic Ease-In'|'Quart Ease-In'|'Quint Ease-In'|'Sine Ease-In'|'Back Ease-In'|'Circ Ease-In'|'Bounce Ease-In'|'Elastic Ease-In'|'Quad Ease-Out'|'Cubic Ease-Out'|'Quart Ease-Out'|'Quint Ease-Out'|'Sine Ease-Out'|'Back Ease-Out'|'Circ Ease-Out'|'Bounce Ease-Out'|'Elastic Ease-Out'|'Quad Ease-In-Out'|'Cubic Ease-In-Out'|'Quart Ease-In-Out'|'Quint Ease-In-Out'|'Sine Ease-In-Out'|'Back Ease-In-Out'|'Circ Ease-In-Out'|'Bounce Ease-In-Out'|'Elastic Ease-In-Out'} easeType 缓动类型
+     */
+    function setEaseCurveEx(timeline, KEY_FRAMES, easeType) {
+        // 补间动画
+        // 获取allKeyFrames first,last
+        var firstF = _.first(KEY_FRAMES);
+        var lastF = _.last(KEY_FRAMES);
+        // 选中所有帧
+        timeline.setSelectedFrames(firstF, lastF, true);
+
+        timeline.createMotionTween();
+        setEaseCurve(timeline, easeType);
+    }
+
     return {
+        /**
+         * @deprecated 请使用{@link setEaseCurveEx}
+         */
         setEaseCurve: setEaseCurve,
-        setClassicEaseCurve: setClassicEaseCurve
+        setClassicEaseCurve: setClassicEaseCurve,
+        setEaseCurveEx: setEaseCurveEx
     };
 });
