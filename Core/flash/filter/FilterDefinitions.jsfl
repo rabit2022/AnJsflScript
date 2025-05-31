@@ -236,6 +236,66 @@ define(function () {
     };
     // endregion AdjustColorFilter
 
+    // region AdjustColorFilterBuilder
+    /**
+     * 调整颜色滤镜构造器
+     * @constructor
+     */
+    function AdjustColorFilterBuilder() {
+        this.filter = new AdjustColorFilter();
+    }
+
+    /**
+     * 设置滤镜的亮度值
+     * @param {number} brightness 亮度值
+     * @returns {AdjustColorFilterBuilder}
+     */
+    AdjustColorFilterBuilder.prototype.setBrightness = function (brightness) {
+        this.filter.brightness = brightness;
+        return this;
+    };
+
+    /**
+     * 设置滤镜的对比度值
+     * @param {number} contrast 对比度值
+     * @returns {AdjustColorFilterBuilder}
+     */
+    AdjustColorFilterBuilder.prototype.setContrast = function (contrast) {
+        this.filter.contrast = contrast;
+        return this;
+    };
+
+    /**
+     * 设置滤镜的色相值
+     * @param {number} hue 色相值
+     * @returns {AdjustColorFilterBuilder}
+     */
+    AdjustColorFilterBuilder.prototype.setHue = function (hue) {
+        this.filter.hue = hue;
+        return this;
+    };
+
+    /**
+     * 设置滤镜的饱和度值
+     * @param {number} saturation 饱和度值
+     * @returns {AdjustColorFilterBuilder}
+     */
+    AdjustColorFilterBuilder.prototype.setSaturation = function (saturation) {
+        this.filter.saturation = saturation;
+        return this;
+    };
+
+    /**
+     * 构建滤镜对象
+     * @returns {AdjustColorFilter}
+     */
+    AdjustColorFilterBuilder.prototype.build = function () {
+        return this.filter;
+    };
+
+    FILTER_BUILDERS["AdjustColorFilter"] = AdjustColorFilterBuilder;
+    // endregion AdjustColorFilterBuilder
+
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______     ______     __   __   ______     __         ______   __     __         ______
     // /\  == \   /\  ___\   /\ \ / /  /\  ___\   /\ \       /\  ___\ /\ \   /\ \       /\__  _\
@@ -396,6 +456,146 @@ define(function () {
     };
     // endregion BevelFilter
 
+    // region BevelFilterBuilder
+    /**
+     * 斜角滤镜构造器
+     * @constructor
+     */
+    function BevelFilterBuilder() {
+        this.filter = new BevelFilter();
+    }
+
+    /**
+     * 设置阴影或高光的角度（以度为单位）
+     * @param {number} angle 阴影或高光的角度（以度为单位）
+     * @returns {BevelFilterBuilder}
+     */
+    BevelFilterBuilder.prototype.setAngle = function (angle) {
+        this.filter.angle = angle;
+        return this;
+    };
+
+    /**
+     * 设置 X 方向的模糊量（单位为像素）
+     * @param {number} blurX X 方向的模糊量（单位为像素）
+     * @returns {BevelFilterBuilder}
+     */
+    BevelFilterBuilder.prototype.setBlurX = function (blurX) {
+        this.filter.blurX = blurX;
+        return this;
+    };
+
+    /**
+     * 设置 Y 方向的模糊量（单位为像素）
+     * @param {number} blurY Y 方向的模糊量（单位为像素）
+     * @returns {BevelFilterBuilder}
+     */
+    BevelFilterBuilder.prototype.setBlurY = function (blurY) {
+        this.filter.blurY = blurY;
+        return this;
+    };
+
+    /**
+     * 设置滤镜效果与对象之间的距离（单位为像素）
+     * @param {number} distance 滤镜效果与对象之间的距离（单位为像素）
+     * @returns {BevelFilterBuilder}
+     */
+    BevelFilterBuilder.prototype.setDistance = function (distance) {
+        this.filter.distance = distance;
+        return this;
+    };
+
+    /**
+     * 设置高亮颜色
+     * @param {string|number} highlightColor 高亮颜色
+     * @returns {BevelFilterBuilder}
+     */
+    BevelFilterBuilder.prototype.setHighlightColor = function (highlightColor) {
+        this.filter.highlightColor = highlightColor;
+        return this;
+    };
+
+    /**
+     * 设置阴影颜色
+     * @param {string|number} shadowColor 阴影颜色
+     * @returns {BevelFilterBuilder}
+     */
+    BevelFilterBuilder.prototype.setShadowColor = function (shadowColor) {
+        this.filter.shadowColor = shadowColor;
+        return this;
+    };
+
+    /**
+     * 设置滤镜的百分比强度
+     * @param {number} strength 滤镜的百分比强度
+     * @returns {BevelFilterBuilder}
+     */
+    BevelFilterBuilder.prototype.setStrength = function (strength) {
+        this.filter.strength = strength;
+        return this;
+    };
+
+    /**
+     * 设置斜角或发光的类型
+     * @param {string} type 指定斜角或发光的类型
+     * @returns {BevelFilterBuilder}
+     */
+    BevelFilterBuilder.prototype.setType = function (type) {
+        this.filter.type = type;
+        return this;
+    };
+
+    /**
+     * 设置模糊质量
+     * @param {string} quality 指定模糊质量
+     * @returns {BevelFilterBuilder}
+     */
+    BevelFilterBuilder.prototype.setQuality = function (quality) {
+        this.filter.quality = quality;
+        return this;
+    };
+
+    /**
+     * 设置是否为内阴影
+     * @param {boolean} inner 是否为内阴影
+     * @returns {BevelFilterBuilder}
+     */
+    BevelFilterBuilder.prototype.setInner = function (inner) {
+        this.filter.inner = inner;
+        return this;
+    };
+
+    /**
+     * 设置是否为挖空滤镜
+     * @param {boolean} knockout 是否为挖空滤镜
+     * @returns {BevelFilterBuilder}
+     */
+    BevelFilterBuilder.prototype.setKnockout = function (knockout) {
+        this.filter.knockout = knockout;
+        return this;
+    };
+
+    /**
+     * 设置是否启用该滤镜
+     * @param {boolean} enabled 是否启用该滤镜 enabled
+     * @returns {BevelFilterBuilder}
+     */
+    BevelFilterBuilder.prototype.setEnabled = function (enabled) {
+        this.filter.enabled = enabled;
+        return this;
+    };
+
+    /**
+     * 构建滤镜对象
+     * @returns {BevelFilter}
+     */
+    BevelFilterBuilder.prototype.build = function () {
+        return this.filter;
+    };
+
+    FILTER_BUILDERS["BevelFilter"] = BevelFilterBuilder;
+    // endregion BevelFilterBuilder
+
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______     __         __  __     ______     ______   __     __
     // /\  == \   /\ \       /\ \/\ \   /\  == \   /\  ___\ /\ \   /\ \
@@ -473,6 +673,66 @@ define(function () {
     };
 
     // endregion BlurFilter
+
+    // region BlurFilterBuilder
+    /**
+     * 模糊滤镜构造器
+     * @constructor
+     */
+    function BlurFilterBuilder() {
+        this.filter = new BlurFilter();
+    }
+
+    /**
+     * 设置 X 方向的模糊量（单位为像素）
+     * @param {number} blurX X 方向的模糊量（单位为像素）
+     * @returns {BlurFilterBuilder}
+     */
+    BlurFilterBuilder.prototype.setBlurX = function (blurX) {
+        this.filter.blurX = blurX;
+        return this;
+    };
+
+    /**
+     * 设置 Y 方向的模糊量（单位为像素）
+     * @param {number} blurY Y 方向的模糊量（单位为像素）
+     * @returns {BlurFilterBuilder}
+     */
+    BlurFilterBuilder.prototype.setBlurY = function (blurY) {
+        this.filter.blurY = blurY;
+        return this;
+    };
+
+    /**
+     * 设置指定模糊质量
+     * @param {string} quality 指定模糊质量
+     * @returns {BlurFilterBuilder}
+     */
+    BlurFilterBuilder.prototype.setQuality = function (quality) {
+        this.filter.quality = quality;
+        return this;
+    };
+
+    /**
+     * 设置是否启用该滤镜
+     * @param {boolean} enabled 是否启用该滤镜 enabled
+     * @returns {BlurFilterBuilder}
+     */
+    BlurFilterBuilder.prototype.setEnabled = function (enabled) {
+        this.filter.enabled = enabled;
+        return this;
+    };
+
+    /**
+     * 构建滤镜对象
+     * @returns {BlurFilter}
+     */
+    BlurFilterBuilder.prototype.build = function () {
+        return this.filter;
+    };
+
+    FILTER_BUILDERS["BlurFilter"] = BlurFilterBuilder;
+    // endregion BlurFilterBuilder
 
     // ------------------------------------------------------------------------------------------------------------------------
     //  _____     ______     ______     ______   ______     __  __     ______     _____     ______
@@ -624,6 +884,136 @@ define(function () {
     };
     // endregion DropShadowFilter
 
+    // region DropShadowFilterBuilder
+    /**
+     * 投影滤镜构造器
+     * @constructor
+     */
+    function DropShadowFilterBuilder() {
+        this.filter = new DropShadowFilter();
+    }
+
+    /**
+     * 设置阴影的角度（以度为单位）
+     * @param {number} angle 阴影的角度（以度为单位）
+     * @returns {DropShadowFilterBuilder}
+     */
+    DropShadowFilterBuilder.prototype.setAngle = function (angle) {
+        this.filter.angle = angle;
+        return this;
+    };
+
+    /**
+     * 设置 X 方向的模糊量（单位为像素）
+     * @param {number} blurX X 方向的模糊量（单位为像素）
+     * @returns {DropShadowFilterBuilder}
+     */
+    DropShadowFilterBuilder.prototype.setBlurX = function (blurX) {
+        this.filter.blurX = blurX;
+        return this;
+    };
+
+    /**
+     * 设置 Y 方向的模糊量（单位为像素）
+     * @param {number} blurY Y 方向的模糊量（单位为像素）
+     * @returns {DropShadowFilterBuilder}
+     */
+    DropShadowFilterBuilder.prototype.setBlurY = function (blurY) {
+        this.filter.blurY = blurY;
+        return this;
+    };
+
+    /**
+     * 设置阴影与对象之间的距离（单位为像素）
+     * @param {number} distance 阴影与对象之间的距离（单位为像素）
+     * @returns {DropShadowFilterBuilder}
+     */
+    DropShadowFilterBuilder.prototype.setDistance = function (distance) {
+        this.filter.distance = distance;
+        return this;
+    };
+
+    /**
+     * 设置阴影颜色
+     * @param {string|number} color 阴影颜色
+     * @returns {DropShadowFilterBuilder}
+     */
+    DropShadowFilterBuilder.prototype.setColor = function (color) {
+        this.filter.color = color;
+        return this;
+    };
+
+    /**
+     * 设置滤镜的百分比强度
+     * @param {number} strength 滤镜的百分比强度
+     * @returns {DropShadowFilterBuilder}
+     */
+    DropShadowFilterBuilder.prototype.setStrength = function (strength) {
+        this.filter.strength = strength;
+        return this;
+    };
+
+    /**
+     * 设置指定模糊质量
+     * @param {string} quality 指定模糊质量
+     * @returns {DropShadowFilterBuilder}
+     */
+    DropShadowFilterBuilder.prototype.setQuality = function (quality) {
+        this.filter.quality = quality;
+        return this;
+    };
+
+    /**
+     * 设置是否为内阴影
+     * @param {boolean} inner 是否为内阴影
+     * @returns {DropShadowFilterBuilder}
+     */
+    DropShadowFilterBuilder.prototype.setInner = function (inner) {
+        this.filter.inner = inner;
+        return this;
+    };
+
+    /**
+     * 设置是否为挖空滤镜
+     * @param {boolean} knockout 是否为挖空滤镜
+     * @returns {DropShadowFilterBuilder}
+     */
+    DropShadowFilterBuilder.prototype.setKnockout = function (knockout) {
+        this.filter.knockout = knockout;
+        return this;
+    };
+
+    /**
+     * 设置是否隐藏源图像
+     * @param {boolean} hideObject 是否隐藏源图像
+     * @returns {DropShadowFilterBuilder}
+     */
+    DropShadowFilterBuilder.prototype.setHideObject = function (hideObject) {
+        this.filter.hideObject = hideObject;
+        return this;
+    };
+
+    /**
+     * 设置是否启用该滤镜
+     * @param {boolean} enabled 是否启用该滤镜 enabled
+     * @returns {DropShadowFilterBuilder}
+     */
+    DropShadowFilterBuilder.prototype.setEnabled = function (enabled) {
+        this.filter.enabled = enabled;
+        return this;
+    };
+
+    /**
+     * 构建滤镜对象
+     * @returns {DropShadowFilter}
+     */
+    DropShadowFilterBuilder.prototype.build = function () {
+        return this.filter;
+    };
+
+    FILTER_BUILDERS["DropShadowFilter"] = DropShadowFilterBuilder;
+    // endregion DropShadowFilter
+
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______     __         ______     __     __     ______   __     __
     // /\  ___\   /\ \       /\  __ \   /\ \  _ \ \   /\  ___\ /\ \   /\ \
@@ -757,71 +1147,65 @@ define(function () {
     FILTER_BUILDERS["GlowFilterBuilder"] = GlowFilterBuilder;
 
     /**
-     * 设置 X 方向的模糊量
-     * @param {number} blurX X 方向的模糊量
-     * @returns {GlowFilterBuilder} 返回当前建造者对象
+     * 设置 X 方向的模糊量（单位为像素）
+     * @param {number} blurX X 方向的模糊量（单位为像素）
+     * @returns {GlowFilterBuilder}
      */
-    GlowFilterBuilder.prototype.blurX = function (blurX) {
+    GlowFilterBuilder.prototype.setBlurX = function (blurX) {
         this.glowFilter.blurX = blurX;
         return this;
     };
-
     /**
-     * 设置 Y 方向的模糊量
-     * @param {number} blurY Y 方向的模糊量
-     * @returns {GlowFilterBuilder} 返回当前建造者对象
+     * 设置 Y 方向的模糊量（单位为像素）
+     * @param {number} blurY Y 方向的模糊量（单位为像素）
+     * @returns {GlowFilterBuilder}
      */
-    GlowFilterBuilder.prototype.blurY = function (blurY) {
+    GlowFilterBuilder.prototype.setBlurY = function (blurY) {
         this.glowFilter.blurY = blurY;
         return this;
     };
-
     /**
      * 设置高光颜色
      * @param {string|number} color 高光颜色
-     * @returns {GlowFilterBuilder} 返回当前建造者对象
+     * @returns {GlowFilterBuilder}
      */
-    GlowFilterBuilder.prototype.color = function (color) {
+    GlowFilterBuilder.prototype.setColor = function (color) {
         this.glowFilter.color = color;
         return this;
     };
-
     /**
      * 设置滤镜的百分比强度
      * @param {number} strength 滤镜的百分比强度
-     * @returns {GlowFilterBuilder} 返回当前建造者对象
+     * @returns {GlowFilterBuilder}
      */
-    GlowFilterBuilder.prototype.strength = function (strength) {
+    GlowFilterBuilder.prototype.setStrength = function (strength) {
         this.glowFilter.strength = strength;
         return this;
     };
-
     /**
-     * 设置模糊质量
-     * @param {string} quality 模糊质量
-     * @returns {GlowFilterBuilder} 返回当前建造者对象
+     * 设置指定模糊质量
+     * @param {string} quality 指定模糊质量
+     * @returns {GlowFilterBuilder}
      */
-    GlowFilterBuilder.prototype.quality = function (quality) {
+    GlowFilterBuilder.prototype.setQuality = function (quality) {
         this.glowFilter.quality = quality;
         return this;
     };
-
     /**
      * 设置是否为内高光
      * @param {boolean} inner 是否为内高光
-     * @returns {GlowFilterBuilder} 返回当前建造者对象
+     * @returns {GlowFilterBuilder}
      */
-    GlowFilterBuilder.prototype.inner = function (inner) {
+    GlowFilterBuilder.prototype.setInner = function (inner) {
         this.glowFilter.inner = inner;
         return this;
     };
-
     /**
      * 设置是否为挖空滤镜
      * @param {boolean} knockout 是否为挖空滤镜
-     * @returns {GlowFilterBuilder} 返回当前建造者对象
+     * @returns {GlowFilterBuilder}
      */
-    GlowFilterBuilder.prototype.knockout = function (knockout) {
+    GlowFilterBuilder.prototype.setKnockout = function (knockout) {
         this.glowFilter.knockout = knockout;
         return this;
     };
@@ -974,6 +1358,115 @@ define(function () {
     };
     // endregion GradientBevelFilter
 
+    // region GradientBevelFilterBuilder
+    /**
+     * 高光滤镜建造者类
+     * @constructor
+     */
+    function GradientBevelFilterBuilder() {
+        this.gradientBevelFilter = new GradientBevelFilter();
+    }
+    FILTER_BUILDERS["GradientBevelFilterBuilder"] = GradientBevelFilterBuilder;
+
+    /**
+     * 设置 X 方向的模糊量（单位为像素）
+     * @param {number} blurX X 方向的模糊量（单位为像素）
+     * @returns {GradientBevelFilterBuilder}
+     */
+    GradientBevelFilterBuilder.prototype.setBlurX = function (blurX) {
+        this.gradientBevelFilter.blurX = blurX;
+        return this;
+    };
+
+    /**
+     * 设置 Y 方向的模糊量（单位为像素）
+     * @param {number} blurY Y 方向的模糊量（单位为像素）
+     * @returns {GradientBevelFilterBuilder}
+     */
+    GradientBevelFilterBuilder.prototype.setBlurY = function (blurY) {
+        this.gradientBevelFilter.blurY = blurY;
+        return this;
+    };
+
+    /**
+     * 设置滤镜效果与对象之间的距离（单位为像素）
+     * @param {number} distance 滤镜效果与对象之间的距离（单位为像素）
+     * @returns {GradientBevelFilterBuilder}
+     */
+    GradientBevelFilterBuilder.prototype.setDistance = function (distance) {
+        this.gradientBevelFilter.distance = distance;
+        return this;
+    };
+
+    /**
+     * 设置滤镜的百分比强度
+     * @param {number} strength 滤镜的百分比强度
+     * @returns {GradientBevelFilterBuilder}
+     */
+    GradientBevelFilterBuilder.prototype.setStrength = function (strength) {
+        this.gradientBevelFilter.strength = strength;
+        return this;
+    };
+
+    /**
+     * 设置指定斜角或发光的类型
+     * @param {string} type 指定斜角或发光的类型
+     * @returns {GradientBevelFilterBuilder}
+     */
+    GradientBevelFilterBuilder.prototype.setType = function (type) {
+        this.gradientBevelFilter.type = type;
+        return this;
+    };
+
+    /**
+     * 设置指定模糊质量
+     * @param {string} quality 指定模糊质量
+     * @returns {GradientBevelFilterBuilder}
+     */
+    GradientBevelFilterBuilder.prototype.setQuality = function (quality) {
+        this.gradientBevelFilter.quality = quality;
+        return this;
+    };
+
+    /**
+     * 设置是否为内阴影
+     * @param {boolean} inner 是否为内阴影
+     * @returns {GradientBevelFilterBuilder}
+     */
+    GradientBevelFilterBuilder.prototype.setInner = function (inner) {
+        this.gradientBevelFilter.inner = inner;
+        return this;
+    };
+
+    /**
+     * 设置是否为挖空滤镜
+     * @param {boolean} knockout 是否为挖空滤镜
+     * @returns {GradientBevelFilterBuilder}
+     */
+    GradientBevelFilterBuilder.prototype.setKnockout = function (knockout) {
+        this.gradientBevelFilter.knockout = knockout;
+        return this;
+    };
+
+    /**
+     * 设置是否启用该滤镜
+     * @param {boolean} enabled 是否启用该滤镜
+     * @returns {GradientBevelFilterBuilder}
+     */
+    GradientBevelFilterBuilder.prototype.setEnabled = function (enabled) {
+        this.gradientBevelFilter.enabled = enabled;
+        return this;
+    };
+
+    /**
+     * 构建并返回最终的 GradientBevelFilter 对象
+     * @returns {GradientBevelFilter} 构建好的 GradientBevelFilter 对象
+     */
+    GradientBevelFilterBuilder.prototype.build = function () {
+        return this.gradientBevelFilter;
+    };
+    // endregion GradientBevelFilterBuilder
+
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______     ______     ______     _____     __     ______     __   __     ______   ______
     // /\  ___\   /\  == \   /\  __ \   /\  __-.  /\ \   /\  ___\   /\ "-.\ \   /\__  _\ /\  ___\
@@ -1093,6 +1586,95 @@ define(function () {
         return "[class GradientGlowFilter]";
     };
     // endregion GradientGlowFilter
+
+    // region GradientGlowFilterBuilder
+    /**
+     * 渐变发光滤镜建造者类
+     * @constructor
+     */
+    function GradientGlowFilterBuilder() {
+        this.gradientGlowFilter = new GradientGlowFilter();
+    }
+    FILTER_BUILDERS["GradientGlowFilterBuilder"] = GradientGlowFilterBuilder;
+
+    /**
+     * 设置 X 方向的模糊量（单位为像素）
+     * @param {number} blurX X 方向的模糊量（单位为像素）
+     * @returns {GradientGlowFilterBuilder}
+     */
+    GradientGlowFilterBuilder.prototype.setBlurX = function (blurX) {
+        this.gradientGlowFilter.blurX = blurX;
+        return this;
+    };
+
+    /**
+     * 设置 Y 方向的模糊量（单位为像素）
+     * @param {number} blurY Y 方向的模糊量（单位为像素）
+     * @returns {GradientGlowFilterBuilder}
+     */
+    GradientGlowFilterBuilder.prototype.setBlurY = function (blurY) {
+        this.gradientGlowFilter.blurY = blurY;
+        return this;
+    };
+
+    /**
+     * 设置滤镜的百分比强度
+     * @param {number} strength 滤镜的百分比强度
+     * @returns {GradientGlowFilterBuilder}
+     */
+    GradientGlowFilterBuilder.prototype.setStrength = function (strength) {
+        this.gradientGlowFilter.strength = strength;
+        return this;
+    };
+
+    /**
+     * 设置指定斜角或发光的类型
+     * @param {string} type 指定斜角或发光的类型
+     * @returns {GradientGlowFilterBuilder}
+     */
+    GradientGlowFilterBuilder.prototype.setType = function (type) {
+        this.gradientGlowFilter.type = type;
+        return this;
+    };
+
+    /**
+     * 设置指定模糊质量
+     * @param {string} quality 指定模糊质量
+     * @returns {GradientGlowFilterBuilder}
+     */
+    GradientGlowFilterBuilder.prototype.setQuality = function (quality) {
+        this.gradientGlowFilter.quality = quality;
+        return this;
+    };
+
+    /**
+     * 设置是否为挖空滤镜
+     * @param {boolean} knockout 是否为挖空滤镜
+     * @returns {GradientGlowFilterBuilder}
+     */
+    GradientGlowFilterBuilder.prototype.setKnockout = function (knockout) {
+        this.gradientGlowFilter.knockout = knockout;
+        return this;
+    };
+
+    /**
+     * 设置是否启用该滤镜
+     * @param {boolean} enabled 是否启用该滤镜
+     * @returns {GradientGlowFilterBuilder}
+     */
+    GradientGlowFilterBuilder.prototype.setEnabled = function (enabled) {
+        this.gradientGlowFilter.enabled = enabled;
+        return this;
+    };
+
+    /**
+     * 构建并返回最终的 GradientGlowFilter 对象
+     * @returns {GradientGlowFilter} 构建好的 GradientGlowFilter 对象
+     */
+    GradientGlowFilterBuilder.prototype.build = function () {
+        return this.gradientGlowFilter;
+    };
+    // endregion GradientGlowFilterBuilder
 
     FILTERS["BUILDERS"] = FILTER_BUILDERS;
 

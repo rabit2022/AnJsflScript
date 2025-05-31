@@ -94,9 +94,9 @@ require([
         log.info("SCALE_FACTOR:", SCALE_FACTOR);
 
         var glowFilter = new GlowFilterBuilder()
-            .blurX(30)
-            .blurY(30)
-            .strength(100)
+            .setBlurX(30)
+            .setBlurY(30)
+            .setStrength(100)
             .build();
         log.info("glowFilter:", glowFilter);
 
