@@ -35,7 +35,7 @@ define(function () {
 
     /**
      * 判断是否是 位图
-     * @param {Element} element 元素
+     * @param {Element|Item} element 元素
      * @returns {boolean} 是否是 位图
      */
     function IsBitmap(element) {
@@ -44,6 +44,17 @@ define(function () {
         var ItemIsBitmap = element.itemType === "bitmap";
 
         return !IsGroup(element) && (InstanceIsBitmap || ItemIsBitmap);
+    }
+
+    /**
+     * 判断是否是 声音
+     * @param {Item} item 元素
+     * @returns {boolean} 是否是 声音
+     */
+    function IsSound(item) {
+        var ItemIsSound = item.itemType === "sound";
+
+        return !IsGroup(item) && ItemIsSound;
     }
 
     /**
@@ -85,6 +96,7 @@ define(function () {
         IsGroup: IsGroup,
         IsSymbol: IsSymbol,
         IsBitmap: IsBitmap,
+        IsSound: IsSound,
         IsShape: IsShape,
         IsDrawingObject: IsDrawingObject,
         IsGraphic: IsGraphic
