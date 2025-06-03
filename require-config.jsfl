@@ -98,7 +98,9 @@ require.config({
         KeyFrameMode: "Core/Utils/KeyFrameMode",
         Tips: "Core/Utils/Tips",
         DrawParallelogram: "Core/flash/graphics/DrawParallelogram",
-        FilterDefinitions: "Core/flash/filter/FilterDefinitions"
+        FilterDefinitions: "Core/flash/filter/FilterDefinitions",
+        // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\custom\xjsfl\JSFLInterface.jsfl
+        JSFLInterface: "Third/custom/xjsfl/JSFLInterface"
     },
     packages: []
 });

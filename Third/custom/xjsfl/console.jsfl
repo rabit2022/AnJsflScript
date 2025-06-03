@@ -8,7 +8,10 @@
  * @see: https://github.com/davestewart/xJSFL
  */
 
-define(function() {
+define(["JSFLInterface"], function(JSFLInterface) {
+    const formatArgument = JSFLInterface.serializeToString;
+
+
     // --------------------------------------------------------------------------------
     // Log constants
 
@@ -47,20 +50,6 @@ define(function() {
     const FILE_LOG = LOG_FOLDER + "file.log";
 
     // region formatMessage
-    const FormatMessageType = {
-        TEMPLATE_STRING: "TEMPLATE_STRING", // 模板字符串情况
-        CUSTOM_TO_STRING: "CUSTOM_TO_STRING", // 具有自定义 toString 方法的对象
-        OBJECT: "OBJECT", // 普通对象
-        ARRAY: "ARRAY", // 数组
-        DATE: "DATE", // Date 对象
-        REGEXP: "REGEXP", // RegExp 对象
-        SIMPLE_TYPE: "SIMPLE_TYPE",// 简单类型情况
-        IAGUEMENT: "IAGUEMENT"// 多参数情况
-    };
-
-    // function IsTemplateString(str) {
-    //     return typeof str === 'string' && str.includes('%');
-    // }
     /**
      * @description: 判断一个字符串是否符合 `printf` 或类似库的模板字符串格式
      * ### 正则表达式解释
@@ -78,87 +67,6 @@ define(function() {
         const printfPattern = /%(\d+\$)?[+\-#0' ]*([0-9]+|\*)?(\.([0-9]+|\*))?([bBcCdisSuUfFeEgGoxXj])/;
 
         return typeof str === "string" && printfPattern.test(str);
-    }
-
-    function analyzeFormatMessageType(arg) {
-        // if (typeof arg === IAguement) {
-        if (Object.prototype.toString.call(arg) === "[object Arguments]") {
-            return FormatMessageType.IAGUEMENT;
-        }
-            // else if (typeof arg[0] === 'string' && arg[0].includes('%')) {
-            //     return FormatMessageType.TEMPLATE_STRING;
-        // }
-        else if (Array.isArray(arg)) {
-            return FormatMessageType.ARRAY;
-        } else if (arg instanceof Date) {
-            return FormatMessageType.DATE;
-        } else if (arg instanceof RegExp) {
-            return FormatMessageType.REGEXP;
-        } else if (typeof arg === "object" && arg !== null) {
-            if (typeof arg.toString === "function") {
-                if (arg.toString !== Object.prototype.toString) {
-                    return FormatMessageType.CUSTOM_TO_STRING;
-                } else {
-                    // arg.toString === [object Object]
-                    return FormatMessageType.OBJECT;
-                }
-            } else {
-                return FormatMessageType.OBJECT;
-            }
-        } else {
-            return FormatMessageType.SIMPLE_TYPE;
-        }
-    }
-
-    function useCircularJson(arg) {
-        // Cyclic structures cannot be serialized by `JSON.stringify`.
-        // json的循环引用问题
-        if ($continue === undefined) {
-            $continue = confirm("无法序列化对象。是否要使用 circular-json 代替？这可能导致性能下降，这个选项将会一直使用,结果可能并非你所期望。除非 运行 ReRun.jsfl 文件 ");
-        }
-        if (!$continue) {
-            return arg.toString() + "\n";
-        }
-
-        require(["circular-json"], function(CircularJSON) {
-            return CircularJSON.stringify(arg);
-        });
-    }
-
-    var $continue;
-
-    function formatArgument(arg) {
-        const messageType = analyzeFormatMessageType(arg);
-        // fl.trace(messageType);
-
-        switch (messageType) {
-            case FormatMessageType.IAGUEMENT:
-                arg = Array.prototype.map.call(arg, formatArgument);
-            // return arg;
-
-            case FormatMessageType.ARRAY:
-                try {
-                    return "\n" + JSON.stringify(arg, null, 2) + "\n";
-                } catch (e) {
-                    return useCircularJson(arg);
-                }
-            case FormatMessageType.DATE:
-                return arg.toISOString() + "\n";
-            case FormatMessageType.REGEXP:
-                return arg.toString() + "\n";
-            case FormatMessageType.CUSTOM_TO_STRING:
-                return arg.toString() + "\n";
-            case FormatMessageType.OBJECT:
-                try {
-                    return "\n" + JSON.stringify(arg, null, 2) + "\n";
-                } catch (e) {
-                    return useCircularJson(arg);
-                }
-            case FormatMessageType.SIMPLE_TYPE:
-                return String(arg) + "\n";
-            default:
-                throw new Error("Unknown message type");
-        }
     }
 
     /**
@@ -188,10 +96,9 @@ define(function() {
         }
     }
 
-
     // endregion formatMessage
 
-    // region log
+    // region file
     /**
      * Creates the text that will be traced or logged
      * @param    {String}    prefix        The message prefix
@@ -267,7 +174,8 @@ define(function() {
         }
     };
 
-    // endregion log
+    // endregion file
+
 // 存储计时器的起始时间
     const timers = {};
 // 存储计数器的计数

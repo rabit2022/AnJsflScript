@@ -13,7 +13,7 @@
     <option name="EXECUTE_SCRIPT_FILE" value="false" />
     <envs />
     <method v="2">
-      <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_外部工具_运行当前jsfl" />
+      <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_外部工具_运行当前jsfl文件" />
     </method>
   </configuration>
 </component>
