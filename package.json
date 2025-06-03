@@ -25,7 +25,7 @@
     "@types/loglevel": "1.6.3",
     "@types/path-browserify": "1.0.3",
     "@types/requirejs": "2.1.37",
-    "@types/sprintf": "0.1.2",
+    "@types/sprintf-js": "1.1.4",
     "@types/xmldom": "0.1.34",
     "eslint": "8.57.1",
     "eslint-config-airbnb": "19.0.4",
@@ -50,8 +50,5 @@
     "type": "git",
     "url": "https://github.com/rabit2022/AnJsflScript.git"
   },
-  "readmeFilename": "README.md",
-  "dependencies": {
-    "@types/sprintf-js": "1.1.4"
-  }
+  "readmeFilename": "README.md"
 }

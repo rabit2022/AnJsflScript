@@ -182,6 +182,10 @@ define(["JSFLInterface"], function(JSFLInterface) {
     const counters = {};
     var console = {
 
+        /**
+         * 打印调用栈信息,可以把报错地方替换为console.stack()，以显示报错的调用栈信息
+         * @param message
+         */
         stack: function(message) {
             require(["error-stack-parser"], function(ErrorStackParser) {
                 try {
