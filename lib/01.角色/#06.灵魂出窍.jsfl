@@ -28,8 +28,9 @@ require([
     "Context",
     "KeyFrameOperation",
     "LayerQuery",
-    "DrawRectangle"
-], function (checkUtil, sat, sng, Context, kfo, lq, dr) {
+    "DrawRectangle",
+    "loglevel"
+], function (checkUtil, sat, sng, Context, kfo, lq, dr, log) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
     const { Vector, Size } = sat;
@@ -39,20 +40,6 @@ require([
     const { getLayersIndexByName } = lq;
     const { convertToKeyframesSafety } = kfo;
     const { drawRectangleWithoutLine } = dr;
-
-    // var doc = fl.getDocumentDOM(); //文档
-    // if (!checkDom(doc)) return;
-    //
-    // var selection = doc.selection; //选择
-    // var library = doc.library; //库文件
-    // var timeline = doc.getTimeline(); //时间轴
-    //
-    // var layers = timeline.layers; //图层
-    // var curLayerIndex = timeline.currentLayer; //当前图层索引
-    // var curLayer = layers[curLayerIndex]; //当前图层
-    //
-    // var curFrameIndex = timeline.currentFrame; //当前帧索引
-    // var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
     const context = new Context();
     context.update();
@@ -90,6 +77,9 @@ require([
         return newRect;
     }
 
+    var symbolWidth = doc.selection[0].width;
+    var symbolHeight = doc.selection[0].height;
+
     function KFrames() {
         // 此时元件1  占用 第一个图层
         doc.enterEditMode("inPlace");
@@ -114,64 +104,6 @@ require([
         curLayer.setBlendModeAtFrame(0, "alpha");
 
         // TODO:设置笔触，填充，，填充透明度80
-        // var stroke = {
-        //     "thickness": 1,
-        //     "color": "#FF0000",
-        //     "originalcolor": "#FF0000",
-        //     "breakAtCorners": false,
-        //     "strokeHinting": false,
-        //     "scaleType": "normal",
-        //     "joinType": "round",
-        //     "capType": "round",
-        //     "miterLimit": 3,
-        //     "shapeFill": {
-        //         "tag": 0,
-        //         "color": "#FF0000",
-        //         "style": "solid",
-        //         "matrix": {
-        //             "a": 1,
-        //             "b": 0,
-        //             "c": 0,
-        //             "d": 1,
-        //             "tx": 0,
-        //             "ty": 0
-        //         }
-        //     },
-        //     "style": "solid"
-        // }
-        // var fill = {
-        //     "tag": 0,
-        //     "color": "#000000",
-        //     "style": "linearGradient",
-        //     "matrix": {
-        //         "a": 1,
-        //         "b": 0,
-        //         "c": 0,
-        //         "d": 1,
-        //         "tx": 0,
-        //         "ty": 0
-        //     },
-        //     "posArray": [
-        //         0,
-        //         130,
-        //         148,
-        //         255
-        //     ],
-        //     "colorArray": [
-        //         "#FFFFFFCC",
-        //         "#FFFFFFCC",
-        //         "#FFFFFF00",
-        //         "#FFFFFF00"
-        //     ],
-        //     "overflow": "Extend",
-        //     "linearRGB": true,
-        //     "focalPoint": 0
-        // }
-        //
-        // doc.setCustomStroke(stroke);
-        // doc.setCustomFill(fill);
-        // doc.setStroke("#FF0000", 1, "solid");
-        // doc.setFillColor("#FF0000");
 
         // 补帧 5s----150帧,不清楚有没有必要
 

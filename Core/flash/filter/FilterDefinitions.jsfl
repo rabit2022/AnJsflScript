@@ -45,6 +45,8 @@ define(function () {
         /**
          * 滤镜类型名称
          * @type {string}
+         * @readonly
+         * @values ["adjustColorFilter", "bevelFilter", "blurFilter", "dropShadowFilter", "glowFilter", "gradientGlowFilter"]
          */
         this.name = name;
 
