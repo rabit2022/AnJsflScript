@@ -156,27 +156,9 @@
      *   is not specified, the x scaling factor will be used.
      * @return {Vector} This for chaining.
      */
-    // Vector.prototype["scale"] = Vector.prototype.scale = function(x, y) {
-    //     this["x"] *= x;
-    //     this["y"] *= typeof y !== "undefined" ? y : x;
-    //     return this;
-    // };
     Vector.prototype["scale"] = Vector.prototype.scale = function(x, y) {
-        if (typeof x === "undefined") {
-            // 如果没有传入任何参数，抛出错误
-            throw new Error("At least one scale factor must be provided");
-        } else if (x instanceof Vector) {
-            var vector = x;
-            // 使用 Vector 对象的 x 和 y 分量作为缩放因子
-            this["x"] *= vector["x"];
-            this["y"] *= vector["y"];
-        } else if (x instanceof Number) {
-            // 如果传入了两个参数，分别对 x 和 y 分量进行缩放
-            this["x"] *= x;
-            this["y"] *= typeof y !== "undefined" ? y : x; // 如果 y 未定义，则使用 x 的值
-        } else {
-            throw new Error("Invalid scale factor  [" + x + "]   type: " + typeof x);
-        }
+        this["x"] *= x;
+        this["y"] *= typeof y !== "undefined" ? y : x;
         return this;
     };
 
@@ -1226,6 +1208,48 @@
 
     var getStageBounds = getStageRect;
 
+    /**
+     * 获取舞台尺寸
+     * @return {Size} 尺寸对象
+     */
+    function getStageSize() {
+        var doc = fl.getDocumentDOM();
+        return wrapSize(doc);
+    }
+
+    /**
+     * 获取摄像机矩形
+     * @param {Timeline} timeline 时间轴
+     * @param {number} frameIndex 帧索引
+     * @return {Rectangle} 矩形对象
+     */
+    function getCameraRect(timeline, frameIndex) {
+        const {width: stageWidth, height: stageHeight}=getStageSize();
+
+        var cameraPos = wrapPosition(timeline.camera.getPosition(frameIndex));
+        var cameraZoomRatio = timeline.camera.getZoom(frameIndex) / 100;
+        // var stageWidth = doc.width;
+        // var stageHeight = doc.height;
+        var cameraRect = new Rectangle(
+            -cameraPos.x,
+            -cameraPos.y,
+            -cameraPos.x + stageWidth / cameraZoomRatio,
+            -cameraPos.y + stageHeight / cameraZoomRatio
+        );
+        return cameraRect;
+    }
+    var getCameraBounds = getCameraRect;
+
+    /**
+     * 获取摄像机中心点坐标
+     * @param {Timeline} timeline 时间轴
+     * @param {number} frameIndex 帧索引
+     * @return {Vector} 点
+     */
+    function getCameraCenter(timeline, frameIndex) {
+        return getCameraRect(timeline, frameIndex).getCenterVector();
+    }
+
 
     SAT_GLOBALS["wrapRectByTopLeft"] = wrapRectByTopLeft;
     SAT_GLOBALS["wrapRectByCenter"] = wrapRectByCenter;
@@ -1239,6 +1263,13 @@
 
     SAT_GLOBALS["getStageBounds"] = getStageBounds;
     SAT_GLOBALS["getStageRect"] = getStageRect;
+
+    SAT_GLOBALS["getStageSize"] = getStageSize;
+
+    SAT_GLOBALS["getCameraRect"] = getCameraRect;
+    SAT_GLOBALS["getCameraBounds"] = getCameraBounds;
+
+    SAT_GLOBALS["getCameraCenter"] = getCameraCenter;
 
 
     /**

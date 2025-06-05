@@ -31,12 +31,13 @@ require(["checkUtil", "LayerQuery", "satUtil", "SAT", "ElementSelect"], function
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
     const { Vector, Rectangle } = sat;
-    const { wrapPosition } = sat.GLOBALS;
+    const { wrapPosition, getCameraRect } = sat.GLOBALS;
     const { moveRectSafety } = satUtil;
 
     const { getLayersByName } = lq;
     const { SelectStart, SelectAll } = es;
 
+    // region doc
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
 
@@ -50,20 +51,21 @@ require(["checkUtil", "LayerQuery", "satUtil", "SAT", "ElementSelect"], function
 
     var curFrameIndex = timeline.currentFrame; //当前帧索引
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
+    // endregion doc
 
-    function getCameraRect(cameraPos) {
-        // 摄像机缩放
-        var cameraZoom = timeline.camera.getZoom(curFrameIndex) / 100;
-        var stageWidth = doc.width;
-        var stageHeight = doc.height;
-        var cameraRect = new Rectangle(
-            -cameraPos.x,
-            -cameraPos.y,
-            -cameraPos.x + stageWidth / cameraZoom,
-            -cameraPos.y + stageHeight / cameraZoom
-        );
-        return cameraRect;
-    }
+    // function getCameraRect(cameraPos) {
+    //     // 摄像机缩放
+    //     var cameraZoom = timeline.camera.getZoom(curFrameIndex) / 100;
+    //     var stageWidth = doc.width;
+    //     var stageHeight = doc.height;
+    //     var cameraRect = new Rectangle(
+    //         -cameraPos.x,
+    //         -cameraPos.y,
+    //         -cameraPos.x + stageWidth / cameraZoom,
+    //         -cameraPos.y + stageHeight / cameraZoom
+    //     );
+    //     return cameraRect;
+    // }
 
     function getBgRect() {
         // 背景的边界
@@ -109,7 +111,7 @@ require(["checkUtil", "LayerQuery", "satUtil", "SAT", "ElementSelect"], function
         // 摄像机
         // 摄像机位置,左上角坐标
         var cameraPos = wrapPosition(timeline.camera.getPosition(curFrameIndex));
-        var cameraRect = getCameraRect(cameraPos);
+        var cameraRect = getCameraRect(timeline, curFrameIndex);
         var cameraCenter = cameraRect.getCenterVector();
 
         // 背景

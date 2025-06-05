@@ -14,16 +14,17 @@ define(["KeyFrameQuery", "Tips", "LayerQuery"], function (kfq, tips, lq) {
 
     /**
      * 安全的转换为关键帧
-     * 如果 需要转换的帧 已经是 关键帧，则不转换关键帧，以防止bug
-     * @bug(当前帧已经是关键帧，再次转换会把下一帧也变成关键帧)
+     * @note 如果 需要转换的帧 已经是 关键帧，则不转换关键帧，以防止 bug    2025/04/22
+     * @note bug:当前帧已经是关键帧，再次转换会把下一帧也变成关键帧  2025/04/22
+     * @note 现在会 先选中当前图层，当前帧，再转换为关键帧  2025/06/05
      * @param {Timeline} timeline 时间线
-     * @param {number[]|number} keyFramesIndex 帧数组
+     * @param {number[]|number} frameIndexs 帧数组
      * @param {Layer|number} [selectedLayer = curLayer]选中的图层
      */
-    function convertToKeyframesSafety(timeline, keyFramesIndex, selectedLayer) {
+    function convertToKeyframesSafety(timeline, frameIndexs, selectedLayer) {
         checkVariableRedeclaration(timeline, "timeline");
-        if (typeof keyFramesIndex === "number") {
-            keyFramesIndex = [keyFramesIndex];
+        if (typeof frameIndexs === "number") {
+            frameIndexs = [frameIndexs];
         }
 
         // timeline.convertToKeyframes(frame_1);
@@ -31,22 +32,27 @@ define(["KeyFrameQuery", "Tips", "LayerQuery"], function (kfq, tips, lq) {
         var curLayerIndex = timeline.currentLayer; //当前图层索引
         var curLayer = layers[curLayerIndex]; //当前图层
 
+        // 设置选中的图层
         if (selectedLayer === undefined) {
             selectedLayer = curLayer;
         } else {
             selectedLayer = convertToLayer(layers, selectedLayer);
+
             var layerIndex = convertToLayerIndex(layers, selectedLayer);
             timeline.currentLayer = layerIndex;
         }
 
         var keyFrames = getKeyFrames(selectedLayer);
 
-        for (var i = 0; i < keyFramesIndex.length; i++) {
-            var fr = keyFramesIndex[i];
-            if (keyFrames.includes(fr)) {
+        for (var i = 0; i < frameIndexs.length; i++) {
+            var frameIndex = frameIndexs[i];
+
+            if (keyFrames.includes(frameIndex)) {
                 continue;
             }
-            timeline.convertToKeyframes(fr);
+
+            timeline.setSelectedFrames(frameIndex, frameIndex+1);
+            timeline.convertToKeyframes(frameIndex);
         }
     }
 

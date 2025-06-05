@@ -2,7 +2,7 @@
 // Copyright 2012 - 2021 - Jim Riecken <jimr@jimr.ca>
 // Released under the MIT License.
 
-declare namespace SAT {
+declare namespace sat {
     type Corner =
         | "top right"
         | "top left"
@@ -64,8 +64,6 @@ declare namespace SAT {
         sub(other: Vector): Vector;
 
         scale(x: number, y?: number): Vector;
-
-        scale(x: Vector): Vector;
 
         project(other: Vector): Vector;
 
@@ -431,6 +429,14 @@ declare namespace SAT {
 
         export const getSymbolRect: typeof getSymbolBounds;
 
+        export function getStageSize(): Size;
+
+        export function getCameraRect(timeline: Timeline, frameIndex: number): Rectangle;
+
+        export const getCameraBounds: typeof getCameraRect;
+
+        export function getCameraCenter(timeline: Timeline, frameIndex: number): Vector;
+
 
         export function wrapRectByTopLeft(
             left: number,
@@ -496,5 +502,5 @@ declare namespace SAT {
 
 // export = SAT;
 declare module "SAT" {
-    export = SAT;
+    export = sat;
 }
