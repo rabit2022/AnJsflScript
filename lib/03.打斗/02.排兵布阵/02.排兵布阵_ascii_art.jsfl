@@ -28,7 +28,6 @@ require([
     "open",
     "MoreElement",
     "ElementSelect",
-    "Tips",
     "XUL"
 ], function (checkUtil, log, os, open, MoreElement, es, XUL) {
     const { CheckDom, CheckSelection } = checkUtil;

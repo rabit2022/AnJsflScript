@@ -1,29 +1,24 @@
-import { Interface } from './Interface';
+import { Interface } from "./Interface";
 
-export function Class(
-    classPath: string,
-    classDefinition: ClassDefinition,
-    local?: boolean
-): Function;
 
-export function getClass(classPath: string): Function;
+class Class {
+    constructor(classPath: string,
+                classDefinition: ClassDefinition,
+                local?: boolean);
 
-export function augment(target: any, extension: any, shouldOverride?: boolean): void;
+    static getClass(classPath: string): Function;
 
-export function extend(
-    TargetClass: Function,
-    extension: any,
-    shouldOverride?: boolean
-): void;
+    static augment(target: any, extension: any, shouldOverride?: boolean): void;
 
-export function inherit(SubClass: Function, SuperClass?: Function): void;
+    static extend(TargetClass: Function, extension: any, shouldOverride?: boolean): void;
 
-export function implement(
-    TargetClass: Function,
-    implementations?: Function | Function[]
-): void;
+    static inherit(SubClass: Function, SuperClass?: Function): void;
 
-export function namespace(namespacePath: string, exposedObject: any): void;
+    static implement(TargetClass: Function, implementations?: Function | Function[]): void;
+
+    static namespace(namespacePath: string, exposedObject: any): void;
+
+}
 
 interface ClassDefinition {
     /**
@@ -48,4 +43,9 @@ interface ClassDefinition {
      * 通用的访问器属性
      */
     [key: string]: any;
+}
+
+
+declare module "Class" {
+    export = Class;
 }

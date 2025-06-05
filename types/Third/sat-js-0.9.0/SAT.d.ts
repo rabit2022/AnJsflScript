@@ -494,7 +494,7 @@ declare namespace SAT {
     export { Skew as SK };
 }
 
-export = SAT;
-// declare module "sat" {
-//     export = SAT;
-// }
+// export = SAT;
+declare module "SAT" {
+    export = SAT;
+}
