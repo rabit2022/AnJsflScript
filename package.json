@@ -23,6 +23,7 @@
     "@types/linq": "2.2.33",
     "@types/lodash": "4.17.15",
     "@types/loglevel": "1.6.3",
+    "@types/numjs": "0.16.8",
     "@types/path-browserify": "1.0.3",
     "@types/requirejs": "2.1.37",
     "@types/sprintf-js": "1.1.4",

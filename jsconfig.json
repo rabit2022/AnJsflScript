@@ -61,7 +61,8 @@
       "KeyFrameMode": ["Core/Utils/KeyFrameMode"],
       "Tips": ["Core/Utils/Tips"],
       "DrawParallelogram": ["Core/flash/graphics/DrawParallelogram"],
-      "FilterDefinitions": ["Core/flash/filter/FilterDefinitions"]
+      "FilterDefinitions": ["Core/flash/filter/FilterDefinitions"],
+      "numpy": ["Core/py/numpy/numpy"]
     },
     "include": [
       "**/*.jsfl"

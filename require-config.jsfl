@@ -54,6 +54,10 @@ require.config({
         xpath: "Third/xml/xpath-0.0.34/xpath",
         xjsfl: "Third/custom/xjsfl/ui/xjsfl",
         "chroma-js": "Third/color/chroma.js-3.1.2/chroma-js",
+        mathjs: "Third/math/mathjs-14.5.2/mathjs",
+        numjs: "Third/math/numjs-0.16.1/numjs",
+        typedarray: "Third/polyfill/typedarray-0.0.7/typedarray",
+
 
         // 自定义模块
         BitmapOperation: "Core/flash/Bitmap/BitmapOperation",
@@ -99,8 +103,8 @@ require.config({
         Tips: "Core/Utils/Tips",
         DrawParallelogram: "Core/flash/graphics/DrawParallelogram",
         FilterDefinitions: "Core/flash/filter/FilterDefinitions",
-        // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\custom\xjsfl\JSFLInterface.jsfl
-        JSFLInterface: "Third/custom/xjsfl/JSFLInterface"
+        JSFLInterface: "Third/custom/xjsfl/JSFLInterface",
+        numpy: "Core/py/numpy/numpy"
     },
     packages: []
 });

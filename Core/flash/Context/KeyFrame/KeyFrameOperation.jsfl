@@ -63,6 +63,8 @@ define(["KeyFrameQuery", "Tips", "LayerQuery"], function (kfq, tips, lq) {
      * @param {Layer|number} [layer] 选中的图层
      */
     function KFrameOnlyOne(timeline, layer) {
+        checkVariableRedeclaration(timeline, "timeline");
+
         var CheckSelectedFrames;
         require(["checkUtil"], function (checkUtil) {
             CheckSelectedFrames = checkUtil.CheckSelectedFrames;

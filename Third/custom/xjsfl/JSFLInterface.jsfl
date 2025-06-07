@@ -21,7 +21,7 @@ define(function() {
      * @instance    JSFLInterface
      */
 
-    JSFLInterface =
+    var JSFLInterface =
         {
             /**
              * Serializes values to XML so they can be passed to Flash and be deserialized to values again
