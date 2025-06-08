@@ -32,9 +32,6 @@ require(["checkUtil", "loglevel", "SymbolNameGenerator", "KeyFrameOperation", "E
 
     const { FRAME_1 } = JSFLConstants.Numerics.frame.frameList;
 
-    var doc = CheckDom(); //文档
-    if (doc === null) return;
-
     // region doc
     var doc = CheckDom(); //文档
     if (doc === null) return;

@@ -27,8 +27,8 @@ require(["checkUtil", "loglevel"],
     const { CheckDom, CheckSelection,CheckSelectedFrames } = checkUtil;
 
     // region doc
-    var doc = CheckDom(); //文档
-    if (doc === null) return;
+    var doc = fl.getDocumentDOM(); //文档
+    if (!checkDom(doc)) return;
 
     var selection = doc.selection; //选择
     var library = doc.library; //库文件
@@ -41,11 +41,10 @@ require(["checkUtil", "loglevel"],
     var curFrameIndex = timeline.currentFrame; //当前帧索引
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
-    // 获取第一帧
-    var frs = CheckSelectedFrames(timeline);
-    if (frs === null) return;
-    var firstLayer = layers[frs[0].layerIndex];
-    var firstFrame = frs[0].startFrame;
+    // // 获取第一帧
+    // var frs = CheckSelectedFrames(timeline);
+    // if (!frs) return;
+    // const { firstSlLayerIndex, firstSlFrameIndex } = frs;
 
     // endregion doc
 

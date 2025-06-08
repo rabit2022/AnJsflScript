@@ -9,7 +9,6 @@
 # @Origin  :
 # @Description: $END$
 
-import pyfiglet
 
 # # # 获取所有字体样式
 # # fonts = pyfiglet.FigletFont.getFonts()
@@ -31,7 +30,11 @@ import pyfiglet
 #
 #     # 打印 ASCII 艺术
 #     print(ascii_art)
+
 import pyfiglet
+from my_base.clipboard import copy_to_clipboard
+
+
 
 def print_art_with_comments(text):
     """
@@ -41,7 +44,8 @@ def print_art_with_comments(text):
     text (str): 要转换为 ASCII 艺术的文本。
     """
     # 使用 pyfiglet 库生成 ASCII 艺术
-    ascii_art_text = pyfiglet.figlet_format(text,font="sub-zero")
+    ascii_art_text = pyfiglet.figlet_format(text,font="sub-zero",width=100)
+    print(ascii_art_text)
 
     # 在每一行艺术字前添加双杠空格
     formatted_art = ["// " + line for line in ascii_art_text.split("\n") if line]
@@ -54,11 +58,13 @@ def print_art_with_comments(text):
         "// " + text
     ]
 
-    # 打印 ASCII 艺术
-    for line in ascii_art:
-        print(line)
+    # # 打印 ASCII 艺术
+    # for line in ascii_art:
+    #     print(line)
+    return "\n".join(ascii_art)
 if __name__ == '__main__':
 
     # 调用函数，传入文本
-    text = "FrameRange"
-    print_art_with_comments(text)
+    text = "BitmapFill"
+    art = print_art_with_comments(text)
+    copy_to_clipboard(art)

@@ -16,7 +16,11 @@ folderPath = r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-maste
 extensions = [".jsfl"]
 exclude_folders = [
     "Third",
-    "test", "dp", "例子", "文档", "node_modules", r"lib\21.工具", r"lib\00.智能循环✔️", "types"
+    "test", "dp", "例子", "文档", "node_modules", r"lib\21.工具", r"lib\00.智能循环✔️", "types",
+# F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib\07.优化\11.一键描边
+    r"07.优化\11.一键描边",
+# F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib\21.代码工具
+    r"lib\21.代码工具",
 ]
 plist = FolderTraverser(folderPath, include_extensions=extensions, exclude_folders=exclude_folders).FilePaths
 
