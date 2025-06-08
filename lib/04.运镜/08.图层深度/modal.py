@@ -1,8 +1,8 @@
 # !/usr/bin/env python
 # -*-coding:utf-8 -*-
 # @Project : main.py
-# @File    : modal.py
-# @Time    : 2025/06/08 00:09
+# @File    : modal2.py
+# @Time    : 2025/06/08 22:37
 # @Author  : admin
 # @Version : python3.8
 # @IDE     : PyCharm
@@ -10,36 +10,40 @@
 # @Description: $END$
 
 import numpy as np
+import matplotlib.pyplot as plt
 
-def adaptive_ratio(current, target, max_ratio=10, min_ratio=-10):
-    """
-    自适应比例计算
+def adaptive_ratio(currentDepth, targetDepth, factor=602):
+    return (targetDepth + factor) / (currentDepth + factor)
 
-    参数:
-        current: 当前值
-        target: 目标值/原始值
-        max_ratio: 最大允许正比值 (默认10)
-        min_ratio: 最小允许负比值 (默认-10)
 
-    返回:
-        限制范围内的合理比值
-    """
-    EPSILON = 1e-10  # 内部极小常量
 
-    # 处理目标值为零或接近零的情况
-    if np.isclose(target, 0.0, atol=EPSILON):
-        if np.isclose(current, 0.0, atol=EPSILON):
-            return 0.0  # 0/0情况返回0
+def draw_adaptive_ratio():
 
-        # 根据current符号动态确定limit
-        limit = max_ratio if current > 0 else min_ratio
-        dynamic_target = current / limit
-        return current / (dynamic_target + np.copysign(EPSILON, dynamic_target))
+    # 设置目标深度范围
+    targetDepth_range = np.linspace(-5000, 10000, 100)
 
-    # 常规情况处理
-    signed_target = target + np.copysign(EPSILON, target)
-    raw_ratio = current / signed_target
+    # 设置不同的当前深度值
+    currentDepths = [0,1,10, 100, 500, 1000, 5000]
 
-    # 根据比值符号确定limit并应用平滑限制
-    limit = max_ratio if raw_ratio > 0 else min_ratio
-    return limit * np.tanh(raw_ratio / limit)
+    # 创建图形
+    plt.figure(figsize=(10, 6))
+
+    # 绘制不同当前深度下的比例曲线
+    for currentDepth in currentDepths:
+        ratios = [adaptive_ratio(currentDepth, targetDepth) for targetDepth in targetDepth_range]
+        plt.plot(targetDepth_range, ratios, label=f'currentDepth = {currentDepth}')
+
+    # 添加图例
+    plt.legend()
+
+    # 添加标题和标签
+    plt.title('Adaptive Ratio vs Target Depth')
+    plt.xlabel('Target Depth')
+    plt.ylabel('Adaptive Ratio')
+
+    # 显示图形
+    plt.grid(True)
+    plt.show()
+
+if __name__ == '__main__':
+    draw_adaptive_ratio()

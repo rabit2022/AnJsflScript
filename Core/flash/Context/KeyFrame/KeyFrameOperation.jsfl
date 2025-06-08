@@ -51,7 +51,7 @@ define(["KeyFrameQuery", "Tips", "LayerQuery"], function (kfq, tips, lq) {
                 continue;
             }
 
-            timeline.setSelectedFrames(frameIndex, frameIndex+1);
+            timeline.setSelectedFrames(frameIndex, frameIndex + 1);
             timeline.convertToKeyframes(frameIndex);
         }
     }

@@ -88,10 +88,9 @@ require(["checkUtil", "loglevel", "SAT"], function (checkUtil, log, SAT) {
             // 使用相对位置
             // 将位置变化表示为相对于某个基准点的相对位置
             // (x2-x1)/x1
-            frameData.relativeChangeRatio = framePosition
-                .sub(initialPosition);
+            frameData.relativeChangeRatio = framePosition.sub(initialPosition);
             // TODO:scale 参数变更
-                // .scale(initialPosition.invert());
+            // .scale(initialPosition.invert());
 
             log.info("相对位置变化比例：", frameData.relativeChangeRatio);
 

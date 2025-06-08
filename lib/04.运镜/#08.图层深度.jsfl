@@ -22,85 +22,113 @@ if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
     throw new Error(msg);
 }
 
-require(["checkUtil", "loglevel", "promptUtil", "KeyFrameOperation", "SAT","ElementSelect"],
-    function(checkUtil, log, promptUtil, kfo, sat,es) {
-        const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
+require([
+    "checkUtil",
+    "loglevel",
+    "promptUtil",
+    "KeyFrameOperation",
+    "SAT",
+    "ElementSelect", "os"
+], function(checkUtil, log, promptUtil, kfo, sat, es,
+            os) {
+    const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
-        const { convertToKeyframesSafety } = kfo;
+    const { convertToKeyframesSafety } = kfo;
 
-        const { Vector, Rectangle } = sat;
-        const { getCameraBounds, getCameraCenter,wrapPosition } = sat.GLOBALS;
+    const { Vector, Rectangle, Transform } = sat;
+    const { getCameraBounds, getCameraCenter, wrapPosition } = sat.GLOBALS;
 
-        const { OnlySelectCurrent } = es;
+    const { OnlySelectCurrent } = es;
 
-        // region doc
-        var doc = fl.getDocumentDOM(); //文档
-        if (!CheckDom(doc)) return;
+    // region doc
+    var doc = fl.getDocumentDOM(); //文档
+    if (!CheckDom(doc)) return;
 
-        var selection = doc.selection; //选择
-        var library = doc.library; //库文件
-        var timeline = doc.getTimeline(); //时间轴
+    var selection = doc.selection; //选择
+    var library = doc.library; //库文件
+    var timeline = doc.getTimeline(); //时间轴
 
-        var layers = timeline.layers; //图层
-        var curLayerIndex = timeline.currentLayer; //当前图层索引
-        var curLayer = layers[curLayerIndex]; //当前图层
+    var layers = timeline.layers; //图层
+    var curLayerIndex = timeline.currentLayer; //当前图层索引
+    var curLayer = layers[curLayerIndex]; //当前图层
 
-        var curFrameIndex = timeline.currentFrame; //当前帧索引
-        var curFrame = curLayer.frames[curFrameIndex]; //当前帧
+    var curFrameIndex = timeline.currentFrame; //当前帧索引
+    var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
-        // 获取第一帧
-        var frs = CheckSelectedFrames(timeline, "请选择添加图层深度的关键帧！");
-        if (!frs) return;
-        const { firstSlLayerIndex, firstSlFrameIndex, firstSlLayer, firstSlFrame } = frs;
+    // 获取第一帧
+    var frs = CheckSelectedFrames(timeline, "请选择添加图层深度的关键帧！");
+    if (!frs) return;
+    const { firstSlLayerIndex, firstSlFrameIndex, firstSlLayer, firstSlFrame } = frs;
 
-        // endregion doc
+    // endregion doc
 
-        function Main() {
-            // 检查选择的元件
-            if (!CheckSelection(selection, "selectElement", "No limit")) return;
+    var modal_path = os.path.join(os.getcwd(), "08.图层深度", "modal.jsfl");
+    log.info("modal_path", modal_path);
 
-            var currentDepth = firstSlLayer.getZDepthAtFrame(firstSlFrameIndex);
+    var adaptive_ratio = function(currentDepth, targetDepth, factor) {
+        throw new Error("adaptive_ratio not implemented");
+    };
+    require([modal_path], function(_) {
+        adaptive_ratio = _;
+    });
 
-            var targetDepth = promptUtil.parseNumber("请输入图层深度（-5000~10000）:",
-                currentDepth, "请输入合法的图层深度，范围为-5000~10000。",
-                {
-                    start: -5000,
-                    end: 10000,
-                    step: 1
-                });
-            if (targetDepth === null) return;
+    function Main() {
+        // 检查选择的元件
+        if (!CheckSelection(selection, "selectElement", "No limit")) return;
 
-            log.info("设置图层深度为：" + targetDepth);
+        var currentDepth = firstSlLayer.getZDepthAtFrame(firstSlFrameIndex);
 
-
-            convertToKeyframesSafety(timeline, firstSlFrameIndex, firstSlLayer);
-
-            // 开启摄像机
-            if (!timeline.camera.cameraEnabled) {
-                alert("使用该功能必须开启AN自带摄像机！");
-                timeline.camera.cameraEnabled = true;
+        var targetDepth = promptUtil.parseNumber(
+            "请输入图层深度（-5000~10000）:",
+            currentDepth,
+            "请输入合法的图层深度，范围为-5000~10000。",
+            {
+                start: -5000,
+                end: 10000,
+                step: 1
             }
+        );
+        if (targetDepth === null) return;
 
-            firstSlLayer.setZDepthAtFrame(firstSlFrameIndex, targetDepth);
+        log.info("设置图层深度为：" + targetDepth);
 
+        const SCALE_FACTOR = adaptive_ratio(currentDepth, targetDepth);
+        log.info("SCALE_FACTOR:", SCALE_FACTOR);
 
-            const cameraBounds = getCameraBounds(timeline, firstSlFrameIndex);
-            log.info("camera bounds", cameraBounds);
+        convertToKeyframesSafety(timeline, firstSlFrameIndex, firstSlLayer);
 
-            const cameraCenter = getCameraCenter(timeline, firstSlFrameIndex);
-            log.info("camera center", cameraCenter);
-
-
-            // TODO:每个元件节会放大对应的倍数。
-            selection.forEach(function(element) {
-                var elementPosition = wrapPosition(element);
-
-                OnlySelectCurrent(element);
-
-                // doc.scaleSelection();
-            });
-
+        // 开启摄像机
+        if (!timeline.camera.cameraEnabled) {
+            alert("使用该功能必须开启AN自带摄像机！");
+            timeline.camera.cameraEnabled = true;
         }
 
-        Main();
-    });
+        firstSlLayer.setZDepthAtFrame(firstSlFrameIndex, targetDepth);
+
+        const cameraBounds = getCameraBounds(timeline, firstSlFrameIndex);
+        log.info("camera bounds", cameraBounds);
+
+        const cameraCenter = getCameraCenter(timeline, firstSlFrameIndex);
+        log.info("camera center", cameraCenter);
+
+        selection.forEach(function(element) {
+            var elementPosition = wrapPosition(element);
+
+            OnlySelectCurrent(element);
+
+            // 还需要考虑元素的旋转、缩放、位移等属性。
+            // 缩放
+            doc.scaleSelection(SCALE_FACTOR, SCALE_FACTOR);
+
+            // 位移
+            // 先将元素移动到摄像机中心,并根据需要进行缩放调整
+            var offset = elementPosition.sub(cameraCenter) * SCALE_FACTOR;
+            var tr = new Transform(element).setPosition(offset);
+        });
+
+        // TODO:设置标签
+
+    }
+
+    Main();
+});

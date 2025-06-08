@@ -6,25 +6,21 @@
  * @project: AnJsflScript
  * @description:
  */
-define(function() {
+define(function () {
     /**
      * 判断两个数值是否在一定容差范围内相等。
      * 类似于 NumPy 的 np.isclose 函数。
      * @param {number} a - 第一个数值。
      * @param {number} b - 第二个数值。
-     * @param {number} [relTol=1e-9] - 相对容差。
-     * @param {number} [absTol=0.0] - 绝对容差。
+     * @param {number} [atol=1e-8] - 绝对容差。
+     * @param {number} [rtol=1e-5] - 相对容差。
      * @returns {boolean} 如果两个数值在容差范围内相等，则返回 true，否则返回 false。
      */
-    function isclose(a, b, relTol, absTol) {
-        if (typeof relTol === "undefined") {
-            relTol = 1e-9;
-        }
-        if (typeof absTol === "undefined") {
-            absTol = 0.0;
-        }
+    function isclose(a, b, atol, rtol) {
+        atol = atol || 1e-8; // 默认绝对容差
+        rtol = rtol || 1e-5; // 默认相对容差
 
-        return Math.abs(a - b) <= Math.max(relTol * Math.max(Math.abs(a), Math.abs(b)), absTol);
+        return Math.abs(a - b) <= atol + rtol * Math.abs(b);
     }
 
     /**
@@ -47,5 +43,4 @@ define(function() {
     };
 
     return numpy;
-
 });

@@ -58,7 +58,6 @@ require.config({
         numjs: "Third/math/numjs-0.16.1/numjs",
         typedarray: "Third/polyfill/typedarray-0.0.7/typedarray",
 
-
         // 自定义模块
         BitmapOperation: "Core/flash/Bitmap/BitmapOperation",
         checkUtil: "Core/flash/checkUtil",
