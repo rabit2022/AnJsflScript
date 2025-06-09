@@ -103,7 +103,11 @@ require.config({
         DrawParallelogram: "Core/flash/graphics/DrawParallelogram",
         FilterDefinitions: "Core/flash/filter/FilterDefinitions",
         JSFLInterface: "Third/custom/xjsfl/JSFLInterface",
-        numpy: "Core/py/numpy/numpy"
+        numpy: "Core/py/numpy/numpy",
+        // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Core\flash\Context\Frame\FrameOperation.jsfl
+        FrameOperation: "Core/flash/Context/Frame/FrameOperation",
+        // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Core\flash\Context\Frame\FrameQuery.jsfl
+        FrameQuery: "Core/flash/Context/Frame/FrameQuery"
     },
     packages: []
 });

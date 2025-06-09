@@ -14,7 +14,7 @@ function Context(dom, timeline, layer, frame, element) {
     this.layer = null;
     this.frame = null;
     this.element = null;
-    this.context = "";
+    this.context = '';
 
     this.setDOM(dom);
     if (!this.dom) return;
@@ -23,14 +23,13 @@ function Context(dom, timeline, layer, frame, element) {
     if (!this.timeline) return;
 
     this.setLayer(layer);
-    if (!this.layer || this.layer.layerType === "folder") return;
+    if (!this.layer || this.layer.layerType === 'folder') return;
 
     this.setFrame(frame);
     if (!this.frame) return;
 
     this.setElement(element);
 }
-
 
 /**
  * 创建上下文实例的工厂方法
@@ -41,54 +40,55 @@ function Context(dom, timeline, layer, frame, element) {
  * @param {boolean} [element=false] - 是否设置元素上下文
  * @returns {Context} 新的Context实例
  */
-Context.create = function(dom, timeline, layer, frame, element) {
+Context.create = function (dom, timeline, layer, frame, element) {
     return new Context(
         dom !== false,
         timeline !== false,
         layer !== false,
         frame !== false,
-        element === true
+        element === true,
     );
 };
 /**
  * 返回上下文的字符串表示
  * @returns {string}
  */
-Context.prototype.toString = function() {
-    var parts = ["[object Context"];
+Context.prototype.toString = function () {
+    var parts = ['[object Context'];
 
     if (this.dom) {
-        parts.push("dom=\"" + this.dom.name + "\"");
+        parts.push('dom="' + this.dom.name + '"');
     }
 
     if (this.timeline) {
-        parts.push("timeline=\"" + (this.item ? this.item.name : this.timeline.name) + "\"");
+        parts.push('timeline="' + (this.item ? this.item.name : this.timeline.name) + '"');
     }
 
     if (this.layer) {
-        parts.push("layer[" + this.curLayerIndex + "]=\"" + this.layer.name + "\"");
+        parts.push('layer[' + this.curLayerIndex + ']="' + this.layer.name + '"');
     }
 
     if (this.frame) {
         var index = this.keyframes.indexOf(this.frame);
-        parts.push("frame=" + (this.frame.name || this.frame.startFrame) +
-            (index >= 0 ? "(keyframe[" + index + "])" : ""));
+        parts.push(
+            'frame=' +
+                (this.frame.name || this.frame.startFrame) +
+                (index >= 0 ? '(keyframe[' + index + '])' : ''),
+        );
     }
 
     if (this.element) {
-        parts.push("element=\"" + (this.element.name ||
-            "<" + this.element.elementType + ">") + "\"");
+        parts.push('element="' + (this.element.name || '<' + this.element.elementType + '>') + '"');
     }
 
-    return parts.join(" ") + "]";
+    return parts.join(' ') + ']';
 };
-
 
 // clone,copy
-Context.prototype.clone = function() {
+Context.prototype.clone = function () {
     return new Context(this.dom, this.timeline, this.layer, this.frame, this.element);
 };
-Context.prototype.copy = function(context) {
+Context.prototype.copy = function (context) {
     this.dom = context.dom;
     this.item = context.item;
     this.timeline = context.timeline;
@@ -97,8 +97,8 @@ Context.prototype.copy = function(context) {
     this.element = context.element;
     this.context = context.context;
 };
-Context.toString = function() {
-    return "[class Context]";
+Context.toString = function () {
+    return '[class Context]';
 };
 
 module.exports = Context;

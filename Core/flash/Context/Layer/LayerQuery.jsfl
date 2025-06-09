@@ -60,7 +60,7 @@ define(function () {
      */
     function convertToLayerIndex(layers, layer) {
         // 获取图层索引
-        var layerIndex = 0;
+        var layerIndex = -1;
         if (typeof layer === "number") {
             layerIndex = layer;
         } else {

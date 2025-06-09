@@ -1823,11 +1823,19 @@
             }
             var doc = fl.getDocumentDOM(); //文档对象
             var timeline = doc.getTimeline(); //时间轴
+
             var layers = timeline.layers; //图层
+            var curLayerIndex = timeline.currentLayer; //当前图层索引
+            var curLayer = layers[curLayerIndex]; //当前图层
+
+            var frames = curLayer.frames; //当前图层的帧列表
+            var curFrameIndex = timeline.currentFrame; //当前帧索引
+            var curFrame = frames[curFrameIndex]; //当前帧
 
             var frameIndex = this.firstSlFrameIndex;
+            // console.log("firstSlFrameIndex=" + frameIndex);
 
-            return layers[frameIndex];
+            return frames[frameIndex];
         }
     });
 

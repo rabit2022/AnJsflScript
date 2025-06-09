@@ -1,5 +1,4 @@
 (function(){
-
 "use strict";
 
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
@@ -39,13 +38,13 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           this.layer = null;
           this.frame = null;
           this.element = null;
-          this.context = "";
+          this.context = '';
           this.setDOM(dom);
           if (!this.dom) return;
           this.setTimeline(timeline);
           if (!this.timeline) return;
           this.setLayer(layer);
-          if (!this.layer || this.layer.layerType === "folder") return;
+          if (!this.layer || this.layer.layerType === 'folder') return;
           this.setFrame(frame);
           if (!this.frame) return;
           this.setElement(element);
@@ -68,24 +67,24 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
          * @returns {string}
          */
         Context.prototype.toString = function () {
-          var parts = ["[object Context"];
+          var parts = ['[object Context'];
           if (this.dom) {
-            parts.push("dom=\"" + this.dom.name + "\"");
+            parts.push('dom="' + this.dom.name + '"');
           }
           if (this.timeline) {
-            parts.push("timeline=\"" + (this.item ? this.item.name : this.timeline.name) + "\"");
+            parts.push('timeline="' + (this.item ? this.item.name : this.timeline.name) + '"');
           }
           if (this.layer) {
-            parts.push("layer[" + this.curLayerIndex + "]=\"" + this.layer.name + "\"");
+            parts.push('layer[' + this.curLayerIndex + ']="' + this.layer.name + '"');
           }
           if (this.frame) {
             var index = this.keyframes.indexOf(this.frame);
-            parts.push("frame=" + (this.frame.name || this.frame.startFrame) + (index >= 0 ? "(keyframe[" + index + "])" : ""));
+            parts.push('frame=' + (this.frame.name || this.frame.startFrame) + (index >= 0 ? '(keyframe[' + index + '])' : ''));
           }
           if (this.element) {
-            parts.push("element=\"" + (this.element.name || "<" + this.element.elementType + ">") + "\"");
+            parts.push('element="' + (this.element.name || '<' + this.element.elementType + '>') + '"');
           }
-          return parts.join(" ") + "]";
+          return parts.join(' ') + ']';
         };
 
         // clone,copy
@@ -102,7 +101,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           this.context = context.context;
         };
         Context.toString = function () {
-          return "[class Context]";
+          return '[class Context]';
         };
         module.exports = Context;
 
@@ -120,12 +119,12 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 
         // enum
         var DomType = {
-          BOOLEAN: "boolean",
-          DOCUMENT: "document",
-          NUMBER: "number",
-          STRING: "string",
+          BOOLEAN: 'boolean',
+          DOCUMENT: 'document',
+          NUMBER: 'number',
+          STRING: 'string',
           // FILE: "file",
-          CONTEXT: "context"
+          CONTEXT: 'context'
         };
         var domStrategies = new StrategyManager();
         domStrategies.add(DomType.BOOLEAN, function (value) {
@@ -156,18 +155,18 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           return dom;
         });
         function DomFactory(value) {
-          if (typeof value === "boolean" || value === undefined) {
+          if (typeof value === 'boolean' || value === undefined) {
             return domStrategies.use(DomType.BOOLEAN, value);
           } else if (value instanceof Document) {
             return domStrategies.use(DomType.DOCUMENT, value);
-          } else if (typeof value === "number") {
+          } else if (typeof value === 'number') {
             return domStrategies.use(DomType.NUMBER, value);
-          } else if (typeof value === "string") {
+          } else if (typeof value === 'string') {
             return domStrategies.use(DomType.STRING, value);
           } else if (value instanceof Context) {
             return domStrategies.use(DomType.CONTEXT, value);
           } else {
-            throw new Error("Invalid dom type");
+            throw new Error('Invalid dom type');
           }
         }
 
@@ -208,7 +207,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         /**
          * doc , 兼容老版本的属性
          */
-        Object.defineProperty(Context.prototype, "doc", {
+        Object.defineProperty(Context.prototype, 'doc', {
           get: function get() {
             return this.dom;
           }
@@ -224,11 +223,11 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       function _src_doc_ElementJs(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
         // 定义枚举
         var ElementType = {
-          ELEMENT: "element",
-          BOOLEAN: "boolean",
-          ELEMENT_INDEX: "element_index",
-          ELEMENT_NAME: "element_name",
-          CONTEXT: "context"
+          ELEMENT: 'element',
+          BOOLEAN: 'boolean',
+          ELEMENT_INDEX: 'element_index',
+          ELEMENT_NAME: 'element_name',
+          CONTEXT: 'context'
         };
 
         // 策略管理器
@@ -270,11 +269,11 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         function ElementFactory(value, frame) {
           if (value instanceof Element) {
             return elementStrategy.use(ElementType.ELEMENT, value, frame);
-          } else if (typeof value === "boolean" || value === undefined) {
+          } else if (typeof value === 'boolean' || value === undefined) {
             return elementStrategy.use(ElementType.BOOLEAN, value, frame);
-          } else if (typeof value === "number") {
+          } else if (typeof value === 'number') {
             return elementStrategy.use(ElementType.ELEMENT_INDEX, value, frame);
-          } else if (typeof value === "string") {
+          } else if (typeof value === 'string') {
             return elementStrategy.use(ElementType.ELEMENT_NAME, value, frame);
           } else if (value instanceof Context) {
             return elementStrategy.use(ElementType.CONTEXT, value);
@@ -297,10 +296,37 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           var element = ElementFactory(value, this.frame);
           if (element) {
             this.element = element;
-            this.context = "element";
+            this.context = 'element';
           }
           return this;
         };
+
+        // AllElements
+        Object.defineProperty(Context.prototype, 'AllElements', {
+          get: function get() {
+            if (!this.layer || !this.timeline || !this.frame) return null;
+            return this.frame.elements;
+          }
+        });
+
+        // elements
+        Context.prototype.elements = this.AllElements;
+
+        // curElement
+        Object.defineProperty(Context.prototype, 'curElement', {
+          get: function get() {
+            if (!this.element) return null;
+            return this.element;
+          }
+        });
+
+        // curElementIndex
+        Object.defineProperty(Context.prototype, 'curElementIndex', {
+          get: function get() {
+            if (!this.element) return -1;
+            return this.AllElements.indexOf(this.element);
+          }
+        });
 
         /***/
       }),
@@ -317,12 +343,12 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 
         // 定义枚举
         var FrameType = {
-          FRAME: "frame",
-          BOOLEAN: "boolean",
-          FRAME_INDEX: "frame_index",
-          FRAME_NAME: "frame_name",
-          REGEXP: "regexp",
-          CONTEXT: "context"
+          FRAME: 'frame',
+          BOOLEAN: 'boolean',
+          FRAME_INDEX: 'frame_index',
+          FRAME_NAME: 'frame_name',
+          REGEXP: 'regexp',
+          CONTEXT: 'context'
         };
         var frameStrategy = new StrategyManager();
 
@@ -402,11 +428,11 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           var allLayers = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
           if (value instanceof Frame) {
             return frameStrategy.use(FrameType.FRAME, value);
-          } else if (typeof value === "boolean" || value === undefined) {
+          } else if (typeof value === 'boolean' || value === undefined) {
             return frameStrategy.use(FrameType.BOOLEAN, value, layer, timeline);
-          } else if (typeof value === "number") {
+          } else if (typeof value === 'number') {
             return frameStrategy.use(FrameType.FRAME_INDEX, value, layer);
-          } else if (typeof value === "string") {
+          } else if (typeof value === 'string') {
             return frameStrategy.use(FrameType.FRAME_NAME, value, layer, timeline, allLayers);
           } else if (value instanceof RegExp) {
             return frameStrategy.use(FrameType.REGEXP, value, layer);
@@ -429,13 +455,13 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           var frame = FrameFactory(value, this.layer, this.timeline, allLayers);
           if (frame) {
             this.frame = frame;
-            this.context = "frame";
+            this.context = 'frame';
           }
           return this;
         };
 
         // curFrameIndex
-        Object.defineProperty(Context.prototype, "curFrameIndex", {
+        Object.defineProperty(Context.prototype, 'curFrameIndex', {
           get: function get() {
             if (!this.layer || !this.timeline) return null;
             return this.timeline.currentFrame;
@@ -443,13 +469,24 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         });
 
         // curFrame
-        Object.defineProperty(Context.prototype, "curFrame", {
+        Object.defineProperty(Context.prototype, 'curFrame', {
           get: function get() {
             if (!this.layer || !this.timeline) return null;
             var curFrameIndex = this.timeline.currentFrame;
-            return this.layer.frames[curFrameIndex];
+            return this.AllFrames[curFrameIndex];
           }
         });
+
+        // AllFrames
+        Object.defineProperty(Context.prototype, 'AllFrames', {
+          get: function get() {
+            if (!this.layer || !this.timeline) return null;
+            return this.layer.frames;
+          }
+        });
+
+        // frames
+        Context.prototype.frames = this.AllFrames;
 
         /***/
       }),
@@ -521,11 +558,11 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 
         // enum
         var LayerType = {
-          LAYER: "layer",
-          BOOLEAN: "boolean",
-          LAYER_INDEX: "layer_index",
-          LAYER_NAME: "layer_name",
-          CONTEXT: "context"
+          LAYER: 'layer',
+          BOOLEAN: 'boolean',
+          LAYER_INDEX: 'layer_index',
+          LAYER_NAME: 'layer_name',
+          CONTEXT: 'context'
         };
         var layerStrategy = new StrategyManager();
         layerStrategy.add(LayerType.LAYER, function (value) {
@@ -558,11 +595,11 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         function LayerFactory(value, timeline) {
           if (value instanceof Layer) {
             return layerStrategy.use(LayerType.LAYER, value);
-          } else if (typeof value === "boolean" || value === undefined) {
+          } else if (typeof value === 'boolean' || value === undefined) {
             return layerStrategy.use(LayerType.BOOLEAN, value, timeline);
-          } else if (typeof value === "number") {
+          } else if (typeof value === 'number') {
             return layerStrategy.use(LayerType.LAYER_INDEX, value, timeline);
-          } else if (typeof value === "string") {
+          } else if (typeof value === 'string') {
             return layerStrategy.use(LayerType.LAYER_NAME, value, timeline);
           } else if (value instanceof Context) {
             return layerStrategy.use(LayerType.CONTEXT, value, timeline);
@@ -634,6 +671,36 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           }
         });
 
+        // layers
+        Context.prototype.layers = this.AllLayers;
+
+        /***/
+      }),
+      /***/"./src/doc/Library.js": (
+      /*!****************************!*\
+        !*** ./src/doc/Library.js ***!
+        \****************************/
+      /***/
+      function _src_doc_LibraryJs(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
+        var Context = __webpack_require__(/*! ../Context */"./src/Context.js");
+
+        // library
+        Object.defineProperty(Context.prototype, 'library', {
+          get: function get() {
+            return this.dom.library;
+          }
+        });
+
+        // items
+        Object.defineProperty(Context.prototype, 'items', {
+          get: function get() {
+            return this.dom.library.items;
+          }
+        });
+
+        // AllItems
+        Context.prototype.AllItems = this.items;
+
         /***/
       }),
       /***/"./src/doc/Selection.js": (
@@ -693,6 +760,10 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             return layer.frames[index];
           }
         });
+        Context.prototype.firstLayer = this.firstSlLayer;
+        Context.prototype.firstFrame = this.firstSlFrame;
+        Context.prototype.firstLayerIndex = this.firstSlLayerIndex;
+        Context.prototype.firstFrameIndex = this.firstSlFrameIndex;
 
         /***/
       }),
@@ -708,14 +779,14 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 
         // enum
         var TimelineType = {
-          TIMELINE: "TIMELINE",
-          BOOLEAN: "BOOLEAN",
-          SYMBOL_ITEM: "SYMBOL_ITEM",
-          SYMBOL_INSTANCE: "SYMBOL_INSTANCE",
-          CONTEXT: "CONTEXT",
-          LIBRARY_ITEM_PATH: "LIBRARY_ITEM_PATH",
-          SCENE_INDEX: "SCENE_INDEX",
-          DOCUMENT_ROOT: "DOCUMENT_ROOT"
+          TIMELINE: 'TIMELINE',
+          BOOLEAN: 'BOOLEAN',
+          SYMBOL_ITEM: 'SYMBOL_ITEM',
+          SYMBOL_INSTANCE: 'SYMBOL_INSTANCE',
+          CONTEXT: 'CONTEXT',
+          LIBRARY_ITEM_PATH: 'LIBRARY_ITEM_PATH',
+          SCENE_INDEX: 'SCENE_INDEX',
+          DOCUMENT_ROOT: 'DOCUMENT_ROOT'
         };
         var timelineStrategies = new StrategyManager();
         timelineStrategies.add(TimelineType.TIMELINE, function (value, dom) {
@@ -775,7 +846,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         function TimelineFactory(dom, value) {
           if (value instanceof Timeline) {
             return timelineStrategies.use(TimelineType.TIMELINE, value, dom);
-          } else if (typeof value === "boolean" || value === undefined) {
+          } else if (typeof value === 'boolean' || value === undefined) {
             return timelineStrategies.use(TimelineType.BOOLEAN, value, dom);
           } else if (value instanceof SymbolItem) {
             return timelineStrategies.use(TimelineType.SYMBOL_ITEM, value);
@@ -783,9 +854,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             return timelineStrategies.use(TimelineType.SYMBOL_INSTANCE, value);
           } else if (value instanceof Context) {
             return timelineStrategies.use(TimelineType.CONTEXT, value);
-          } else if (typeof value === "string") {
+          } else if (typeof value === 'string') {
             return timelineStrategies.use(TimelineType.LIBRARY_ITEM_PATH, value);
-          } else if (typeof value === "number" || value === null) {
+          } else if (typeof value === 'number' || value === null) {
             return timelineStrategies.use(TimelineType.SCENE_INDEX, value);
           } else {
             throw new Error("Invalid timeline value: ".concat(value));
@@ -827,22 +898,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           this.element = null;
         };
 
-        // library
-        Object.defineProperty(Context.prototype, "library", {
-          get: function get() {
-            return this.dom.library;
-          }
-        });
-
-        // items
-        Object.defineProperty(Context.prototype, "items", {
-          get: function get() {
-            return this.dom.library.items;
-          }
-        });
-
         // timelines
-        Object.defineProperty(Context.prototype, "timelines", {
+        Object.defineProperty(Context.prototype, 'timelines', {
           get: function get() {
             return this.dom.timelines;
           }
@@ -928,6 +985,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         __webpack_require__(/*! ./doc/Element */"./src/doc/Element.js");
         __webpack_require__(/*! ./doc/KeyFrames */"./src/doc/KeyFrames.js");
         __webpack_require__(/*! ./doc/current */"./src/doc/current.js");
+        __webpack_require__(/*! ./doc/Library */"./src/doc/Library.js");
         __webpack_require__(/*! ./select/select */"./src/select/select.js");
         __webpack_require__(/*! ./short/short */"./src/short/short.js");
         __webpack_require__(/*! ./doc/Selection */"./src/doc/Selection.js");
@@ -1136,7 +1194,6 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           var folderPath = scriptURI.substring(0, lastSlashIndex);
           return folderPath;
         }
-        ;
 
         /**
          * 创建一个上下文对象。
@@ -1148,17 +1205,17 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           // 匹配
           var match = shortString.match(SHORT_REG);
           if (match) {
-            var doc = match[1] || ""; // doc部分
+            var doc = match[1] || ''; // doc部分
             if (doc) {
               var isAbsolutePath = ABSOLUTE_PATH.test(doc); // 是否为绝对路径
               this.setDOM(isAbsolutePath ? doc : getcwd() + doc);
             }
-            var item = match[2] || ""; // item部分
+            var item = match[2] || ''; // item部分
             if (item) {
               // this.setItem(item);
               // 进入item层
             }
-            var layer = match[3] || ""; // layer部分
+            var layer = match[3] || ''; // layer部分
             if (layer) {
               // number
               if (layer.match(IS_NUMBER)) {
@@ -1166,7 +1223,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
               }
               this.setLayer(layer);
             }
-            var frame = match[4] || ""; // frame部分
+            var frame = match[4] || ''; // frame部分
             if (frame) {
               // number
               if (frame.match(IS_NUMBER)) {
@@ -1174,7 +1231,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
               }
               this.setFrame(frame);
             }
-            var element = match[5] || ""; // element部分
+            var element = match[5] || ''; // element部分
             if (element) {
               if (element.match(IS_NUMBER)) {
                 element = parseInt(element);
@@ -1182,7 +1239,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
               this.setElement(element);
             }
           } else {
-            throw new Error("Invalid short string, please check the format  doc>item~layer@frame:element\n" + "example:  file:///c|path/to.fla>path/to/item~layer index or layer name@frame number or name:element number or name");
+            throw new Error('Invalid short string, please check the format  doc>item~layer@frame:element\n' + 'example:  file:///c|path/to.fla>path/to/item~layer index or layer name@frame number or name:element number or name');
           }
         };
 
@@ -1498,5 +1555,4 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     /******/
   }();
 });
-
 })();

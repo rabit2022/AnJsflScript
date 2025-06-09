@@ -21,12 +21,13 @@
 //
 //     }
 // }
-const Context = require("../Context");
+const Context = require('../Context');
 
 // 正则表达式
 // doc>item~layer@frame:element
 // file:///c|path/to.fla>path/to/item~layer index or layer name@frame number or name:element number or name
-const SHORT_REG = /([file:\/\/\/|\./|/]+[^>~@:]*)?>?([^~@:]+)?>?([^~@:]+)?~?([^@:]+)?@?([^:]+)?:?(.+)?/;
+const SHORT_REG =
+    /([file:\/\/\/|\./|/]+[^>~@:]*)?>?([^~@:]+)?>?([^~@:]+)?~?([^@:]+)?@?([^:]+)?:?(.+)?/;
 const ABSOLUTE_PATH = /^file:\/\/\/[a-zA-Z]/; // 绝对路径
 const IS_NUMBER = /^\d+$/; // 数字
 /**
@@ -42,7 +43,7 @@ function getcwd() {
     // 获取脚本文件所在的文件夹路径
     var folderPath = scriptURI.substring(0, lastSlashIndex);
     return folderPath;
-};
+}
 
 /**
  * 创建一个上下文对象。
@@ -55,19 +56,18 @@ Context.prototype.from = function (shortString) {
     const match = shortString.match(SHORT_REG);
 
     if (match) {
-        const doc = match[1] || ""; // doc部分
+        const doc = match[1] || ''; // doc部分
         if (doc) {
             const isAbsolutePath = ABSOLUTE_PATH.test(doc); // 是否为绝对路径
-            this.setDOM(isAbsolutePath ? doc : getcwd() + doc)
+            this.setDOM(isAbsolutePath ? doc : getcwd() + doc);
         }
 
-
-        let item = match[2] || ""; // item部分
+        let item = match[2] || ''; // item部分
         if (item) {
             // this.setItem(item);
             // 进入item层
         }
-        let layer = match[3] || ""; // layer部分
+        let layer = match[3] || ''; // layer部分
         if (layer) {
             // number
             if (layer.match(IS_NUMBER)) {
@@ -75,7 +75,7 @@ Context.prototype.from = function (shortString) {
             }
             this.setLayer(layer);
         }
-        let frame = match[4] || ""; // frame部分
+        let frame = match[4] || ''; // frame部分
         if (frame) {
             // number
             if (frame.match(IS_NUMBER)) {
@@ -83,17 +83,17 @@ Context.prototype.from = function (shortString) {
             }
             this.setFrame(frame);
         }
-        let element = match[5] || ""; // element部分
+        let element = match[5] || ''; // element部分
         if (element) {
             if (element.match(IS_NUMBER)) {
                 element = parseInt(element);
             }
             this.setElement(element);
         }
-
     } else {
-        throw new Error("Invalid short string, please check the format  doc>item~layer@frame:element\n" +
-            "example:  file:///c|path/to.fla>path/to/item~layer index or layer name@frame number or name:element number or name");
+        throw new Error(
+            'Invalid short string, please check the format  doc>item~layer@frame:element\n' +
+                'example:  file:///c|path/to.fla>path/to/item~layer index or layer name@frame number or name:element number or name',
+        );
     }
-
-}
+};

@@ -6,11 +6,12 @@ require('./doc/Frame');
 require('./doc/Element');
 require('./doc/KeyFrames');
 require('./doc/current');
+require('./doc/Library');
 
 require('./select/select');
 
 require('./short/short');
 
-require('./doc/Selection')
+require('./doc/Selection');
 
 module.exports = Context;

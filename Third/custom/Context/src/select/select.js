@@ -1,5 +1,4 @@
-const Context = require("../Context");
-
+const Context = require('../Context');
 
 /**
  * 选择当前上下文对象的图层
@@ -92,7 +91,7 @@ Context.prototype.selectFrame = function (addToSelection) {
             this.timeline.setSelectedFrames(
                 this.frame.startFrame,
                 this.frame.startFrame + this.frame.duration,
-                !addToSelection
+                !addToSelection,
             );
 
             // 设置当前帧
@@ -125,7 +124,6 @@ Context.prototype.selectElement = function (addToSelection) {
     return this;
 };
 
-
 /**
  * Select the current context of the Context object
  * @returns    {Context}            Itself
@@ -149,4 +147,4 @@ Context.prototype.select = function () {
     }
 
     return this;
-}
+};

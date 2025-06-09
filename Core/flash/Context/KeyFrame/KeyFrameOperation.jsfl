@@ -7,10 +7,17 @@
  * @description:
  */
 
-define(["KeyFrameQuery", "Tips", "LayerQuery"], function (kfq, tips, lq) {
+define(["KeyFrameQuery", "Tips", "LayerQuery", "FrameQuery", "Context"], function (
+    kfq,
+    tips,
+    lq,
+    fq,
+    Context
+) {
     const { getKeyFrames } = kfq;
     const { checkVariableRedeclaration } = tips;
     const { convertToLayerIndex, convertToLayer } = lq;
+    const { convertToFrameIndex, convertToFrame } = fq;
 
     /**
      * 安全的转换为关键帧
@@ -18,20 +25,33 @@ define(["KeyFrameQuery", "Tips", "LayerQuery"], function (kfq, tips, lq) {
      * @note bug:当前帧已经是关键帧，再次转换会把下一帧也变成关键帧  2025/04/22
      * @note 现在会 先选中当前图层，当前帧，再转换为关键帧  2025/06/05
      * @param {Timeline} timeline 时间线
-     * @param {number[]|number} frameIndexs 帧数组
+     * @param {number[]|number|Frame|Frame[]} frameIndexs 帧数组
      * @param {Layer|number} [selectedLayer = curLayer]选中的图层
      */
     function convertToKeyframesSafety(timeline, frameIndexs, selectedLayer) {
+        // 重复定义
         checkVariableRedeclaration(timeline, "timeline");
-        if (typeof frameIndexs === "number") {
+
+        // region context
+        var context = new Context();
+        context.update();
+        context.setTimeline(timeline);
+        const { frames, layers, curLayer, keyframes } = context;
+        // endregion context
+
+        // region frameIndexs处理
+        // 转为数组
+        if (!Array.isArray(frameIndexs)) {
             frameIndexs = [frameIndexs];
         }
 
-        // timeline.convertToKeyframes(frame_1);
-        var layers = timeline.layers; //图层
-        var curLayerIndex = timeline.currentLayer; //当前图层索引
-        var curLayer = layers[curLayerIndex]; //当前图层
+        // 转为number[]
+        frameIndexs = frameIndexs.map(function (frame) {
+            return convertToFrameIndex(frames, frame);
+        });
+        // endregion frameIndexs处理
 
+        // region selectedLayer处理
         // 设置选中的图层
         if (selectedLayer === undefined) {
             selectedLayer = curLayer;
@@ -41,13 +61,12 @@ define(["KeyFrameQuery", "Tips", "LayerQuery"], function (kfq, tips, lq) {
             var layerIndex = convertToLayerIndex(layers, selectedLayer);
             timeline.currentLayer = layerIndex;
         }
-
-        var keyFrames = getKeyFrames(selectedLayer);
+        // endregion selectedLayer处理
 
         for (var i = 0; i < frameIndexs.length; i++) {
             var frameIndex = frameIndexs[i];
 
-            if (keyFrames.includes(frameIndex)) {
+            if (keyframes.includes(frameIndex)) {
                 continue;
             }
 

@@ -1,15 +1,15 @@
 // 定义枚举
 const ElementType = {
-    ELEMENT: "element",
-    BOOLEAN: "boolean",
-    ELEMENT_INDEX: "element_index",
-    ELEMENT_NAME: "element_name",
-    CONTEXT: "context"
+    ELEMENT: 'element',
+    BOOLEAN: 'boolean',
+    ELEMENT_INDEX: 'element_index',
+    ELEMENT_NAME: 'element_name',
+    CONTEXT: 'context',
 };
 
 // 策略管理器
-const {StrategyManager} = require("../strategy/strategy");
-const Context = require("../Context");
+const { StrategyManager } = require('../strategy/strategy');
+const Context = require('../Context');
 const elementStrategy = new StrategyManager();
 
 // 策略实现
@@ -21,7 +21,7 @@ elementStrategy
         throw new ReferenceError(`ReferenceError: Element not found in the current frame.`);
     })
     .add(ElementType.BOOLEAN, (value, frame) => {
-        if (value === true||value === undefined) {
+        if (value === true || value === undefined) {
             return frame.elements[0];
         }
     })
@@ -38,7 +38,7 @@ elementStrategy
         //     }
         // }
         // throw new ReferenceError(`ReferenceError: "${value}" is not a valid element name.`);
-        return frame.elements.find(element => element.name === value) || null;
+        return frame.elements.find((element) => element.name === value) || null;
     })
     .add(ElementType.CONTEXT, (value) => {
         return value.element;
@@ -48,11 +48,11 @@ elementStrategy
 function ElementFactory(value, frame) {
     if (value instanceof Element) {
         return elementStrategy.use(ElementType.ELEMENT, value, frame);
-    } else if (typeof value === "boolean"||value === undefined) {
+    } else if (typeof value === 'boolean' || value === undefined) {
         return elementStrategy.use(ElementType.BOOLEAN, value, frame);
-    } else if (typeof value === "number") {
+    } else if (typeof value === 'number') {
         return elementStrategy.use(ElementType.ELEMENT_INDEX, value, frame);
-    } else if (typeof value === "string") {
+    } else if (typeof value === 'string') {
         return elementStrategy.use(ElementType.ELEMENT_NAME, value, frame);
     } else if (value instanceof Context) {
         return elementStrategy.use(ElementType.CONTEXT, value);
@@ -76,7 +76,37 @@ Context.prototype.setElement = function (value) {
     const element = ElementFactory(value, this.frame);
     if (element) {
         this.element = element;
-        this.context = "element";
+        this.context = 'element';
     }
     return this;
 };
+
+// AllElements
+Object.defineProperty(Context.prototype, 'AllElements', {
+    get: function () {
+        if (!this.layer || !this.timeline || !this.frame) return null;
+
+        return this.frame.elements;
+    },
+});
+
+// elements
+Context.prototype.elements = this.AllElements;
+
+// curElement
+Object.defineProperty(Context.prototype, 'curElement', {
+    get: function () {
+        if (!this.element) return null;
+
+        return this.element;
+    },
+});
+
+// curElementIndex
+Object.defineProperty(Context.prototype, 'curElementIndex', {
+    get: function () {
+        if (!this.element) return -1;
+
+        return this.AllElements.indexOf(this.element);
+    },
+});

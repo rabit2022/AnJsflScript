@@ -1,5 +1,5 @@
 /**
- * @file: #08.图层深度.jsfl
+ * @file: 08.图层深度.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
  * @date: 2025/6/4 22:00
@@ -28,9 +28,10 @@ require([
     "promptUtil",
     "KeyFrameOperation",
     "SAT",
-    "ElementSelect", "os"
-], function(checkUtil, log, promptUtil, kfo, sat, es,
-            os) {
+    "ElementSelect",
+    "os",
+    "FrameOperation"
+], function (checkUtil, log, promptUtil, kfo, sat, es, os, fo) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
     const { convertToKeyframesSafety } = kfo;
@@ -39,6 +40,8 @@ require([
     const { getCameraBounds, getCameraCenter, wrapPosition } = sat.GLOBALS;
 
     const { OnlySelectCurrent } = es;
+
+    const { setLabel } = fo;
 
     // region doc
     var doc = fl.getDocumentDOM(); //文档
@@ -65,10 +68,10 @@ require([
     var modal_path = os.path.join(os.getcwd(), "08.图层深度", "modal.jsfl");
     log.info("modal_path", modal_path);
 
-    var adaptive_ratio = function(currentDepth, targetDepth, factor) {
+    var adaptive_ratio = function (currentDepth, targetDepth, factor) {
         throw new Error("adaptive_ratio not implemented");
     };
-    require([modal_path], function(_) {
+    require([modal_path], function (_) {
         adaptive_ratio = _;
     });
 
@@ -111,7 +114,7 @@ require([
         const cameraCenter = getCameraCenter(timeline, firstSlFrameIndex);
         log.info("camera center", cameraCenter);
 
-        selection.forEach(function(element) {
+        selection.forEach(function (element) {
             var elementPosition = wrapPosition(element);
 
             OnlySelectCurrent(element);
@@ -126,8 +129,12 @@ require([
             var tr = new Transform(element).setPosition(offset);
         });
 
-        // TODO:设置标签
-
+        // 设置标签
+        if (targetDepth > 0) {
+            setLabel(timeline, firstSlFrameIndex, "图层深度：" + targetDepth);
+        } else {
+            setLabel(timeline, firstSlFrameIndex, "", "none");
+        }
     }
 
     Main();

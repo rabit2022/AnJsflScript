@@ -1,14 +1,14 @@
-const {StrategyManager} = require("../strategy/strategy");
-const Context = require("../Context");
+const { StrategyManager } = require('../strategy/strategy');
+const Context = require('../Context');
 
 // enum
 const DomType = {
-    BOOLEAN: "boolean",
-    DOCUMENT: "document",
-    NUMBER: "number",
-    STRING: "string",
+    BOOLEAN: 'boolean',
+    DOCUMENT: 'document',
+    NUMBER: 'number',
+    STRING: 'string',
     // FILE: "file",
-    CONTEXT: "context",
+    CONTEXT: 'context',
 };
 
 const domStrategies = new StrategyManager();
@@ -46,18 +46,18 @@ domStrategies
     });
 
 function DomFactory(value) {
-    if (typeof value === "boolean" || value === undefined) {
+    if (typeof value === 'boolean' || value === undefined) {
         return domStrategies.use(DomType.BOOLEAN, value);
     } else if (value instanceof Document) {
         return domStrategies.use(DomType.DOCUMENT, value);
-    } else if (typeof value === "number") {
+    } else if (typeof value === 'number') {
         return domStrategies.use(DomType.NUMBER, value);
-    } else if (typeof value === "string") {
+    } else if (typeof value === 'string') {
         return domStrategies.use(DomType.STRING, value);
     } else if (value instanceof Context) {
         return domStrategies.use(DomType.CONTEXT, value);
     } else {
-        throw new Error("Invalid dom type");
+        throw new Error('Invalid dom type');
     }
 }
 
@@ -82,7 +82,7 @@ Context.prototype.setDOM = function (value) {
     }
     // return
     return this;
-}
+};
 
 /**
  * 清除依赖DOM的属性
@@ -98,10 +98,8 @@ Context.prototype.clearDependentProperties = function () {
 /**
  * doc , 兼容老版本的属性
  */
-Object.defineProperty(Context.prototype, "doc", {
+Object.defineProperty(Context.prototype, 'doc', {
     get: function () {
         return this.dom;
-    }
+    },
 });
-
-

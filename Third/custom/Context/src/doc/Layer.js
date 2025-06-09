@@ -1,13 +1,13 @@
-const {StrategyManager} = require("../strategy/strategy");
-const Context = require("../Context");
+const { StrategyManager } = require('../strategy/strategy');
+const Context = require('../Context');
 
 // enum
 const LayerType = {
-    LAYER: "layer",
-    BOOLEAN: "boolean",
-    LAYER_INDEX: "layer_index",
-    LAYER_NAME: "layer_name",
-    CONTEXT: "context"
+    LAYER: 'layer',
+    BOOLEAN: 'boolean',
+    LAYER_INDEX: 'layer_index',
+    LAYER_NAME: 'layer_name',
+    CONTEXT: 'context',
 };
 
 const layerStrategy = new StrategyManager();
@@ -28,7 +28,9 @@ layerStrategy
         const index = value;
         const layer = timeline.layers[index];
         if (!layer) {
-            throw new ReferenceError(`ReferenceError: "${value}" is not a valid layer index in Context.setLayer()`);
+            throw new ReferenceError(
+                `ReferenceError: "${value}" is not a valid layer index in Context.setLayer()`,
+            );
         }
         return layer;
     })
@@ -47,11 +49,11 @@ layerStrategy
 function LayerFactory(value, timeline) {
     if (value instanceof Layer) {
         return layerStrategy.use(LayerType.LAYER, value);
-    } else if (typeof value === "boolean"||value === undefined) {
-        return layerStrategy.use(LayerType.BOOLEAN,value, timeline);
-    } else if (typeof value === "number") {
+    } else if (typeof value === 'boolean' || value === undefined) {
+        return layerStrategy.use(LayerType.BOOLEAN, value, timeline);
+    } else if (typeof value === 'number') {
         return layerStrategy.use(LayerType.LAYER_INDEX, value, timeline);
-    } else if (typeof value === "string") {
+    } else if (typeof value === 'string') {
         return layerStrategy.use(LayerType.LAYER_NAME, value, timeline);
     } else if (value instanceof Context) {
         return layerStrategy.use(LayerType.CONTEXT, value, timeline);
@@ -79,8 +81,7 @@ Context.prototype.setLayer = function (value) {
         this.context = 'layer';
     }
     return this;
-}
-
+};
 
 /**
  * 清除依赖图层的属性
@@ -90,20 +91,19 @@ Context.prototype.clearFrameProperties = function () {
     this.element = null;
 };
 
-
 /**
  * 获取当前图层的索引
  * @property {number} curLayerIndex - 当前图层索引
  */
 Object.defineProperty(Context.prototype, 'curLayerIndex', {
-    get: function() {
+    get: function () {
         if (!this.timeline || !this.layer) return -1;
 
         var layers = this.timeline.layers;
         var index = layers.indexOf(this.layer);
 
         return index;
-    }
+    },
 });
 
 /**
@@ -111,11 +111,11 @@ Object.defineProperty(Context.prototype, 'curLayerIndex', {
  * @property {Layer} curLayer - 当前图层对象
  */
 Object.defineProperty(Context.prototype, 'curLayer', {
-    get: function() {
+    get: function () {
         if (!this.timeline || !this.layer) return null;
 
         return this.layer;
-    }
+    },
 });
 
 /**
@@ -123,10 +123,12 @@ Object.defineProperty(Context.prototype, 'curLayer', {
  * @property {Layer[]} layers - 所有图层对象
  */
 Object.defineProperty(Context.prototype, 'AllLayers', {
-    get: function() {
+    get: function () {
         if (!this.timeline) return [];
 
         return this.timeline.layers;
-    }
+    },
 });
 
+// layers
+Context.prototype.layers = this.AllLayers;

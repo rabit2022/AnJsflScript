@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "commonjs",
   "scripts": {
-    "build": "webpack && babel output --out-dir dist && rmdir /s /q output"
+    "build": "node build.js"
   },
   "devDependencies": {
     "typescript": "^5.2.2",

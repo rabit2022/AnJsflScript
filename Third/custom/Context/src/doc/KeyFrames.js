@@ -1,6 +1,6 @@
-const Context = require("../Context");
+const Context = require('../Context');
 
-Context.prototype.setKeyframe = function(keyframeIndex, layer) {
+Context.prototype.setKeyframe = function (keyframeIndex, layer) {
     // update the layer, if supplied
     if (layer) {
         this.setLayer(layer);
@@ -22,14 +22,12 @@ Context.prototype.setKeyframe = function(keyframeIndex, layer) {
     return this;
 };
 
-
-
 /**
  * 获取当前图层所有关键帧
  * @type {Array.<Frame>}
  */
 Object.defineProperty(Context.prototype, 'keyframes', {
-    get: function() {
+    get: function () {
         if (!this.layer) return [];
 
         var keyframes = [];
@@ -38,7 +36,8 @@ Object.defineProperty(Context.prototype, 'keyframes', {
 
         while (frameIndex < this.layer.frameCount) {
             var frame = this.layer.frames[frameIndex];
-            if (frame.startFrame === frameIndex) { // 是关键帧
+            if (frame.startFrame === frameIndex) {
+                // 是关键帧
                 keyframes[keyframeIndex++] = frame;
                 frameIndex += frame.duration;
             } else {
@@ -47,5 +46,5 @@ Object.defineProperty(Context.prototype, 'keyframes', {
         }
 
         return keyframes;
-    }
+    },
 });

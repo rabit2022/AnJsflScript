@@ -1,17 +1,16 @@
 // 策略管理器
-const { StrategyManager } = require("../strategy/strategy");
-const Context = require("../Context");
+const { StrategyManager } = require('../strategy/strategy');
+const Context = require('../Context');
 
 // 定义枚举
 const FrameType = {
-    FRAME: "frame",
-    BOOLEAN: "boolean",
-    FRAME_INDEX: "frame_index",
-    FRAME_NAME: "frame_name",
-    REGEXP: "regexp",
-    CONTEXT: "context"
+    FRAME: 'frame',
+    BOOLEAN: 'boolean',
+    FRAME_INDEX: 'frame_index',
+    FRAME_NAME: 'frame_name',
+    REGEXP: 'regexp',
+    CONTEXT: 'context',
 };
-
 
 const frameStrategy = new StrategyManager();
 
@@ -68,11 +67,11 @@ frameStrategy
 function FrameFactory(value, layer, timeline, allLayers = false) {
     if (value instanceof Frame) {
         return frameStrategy.use(FrameType.FRAME, value);
-    } else if (typeof value === "boolean"||value === undefined) {
+    } else if (typeof value === 'boolean' || value === undefined) {
         return frameStrategy.use(FrameType.BOOLEAN, value, layer, timeline);
-    } else if (typeof value === "number") {
+    } else if (typeof value === 'number') {
         return frameStrategy.use(FrameType.FRAME_INDEX, value, layer);
-    } else if (typeof value === "string") {
+    } else if (typeof value === 'string') {
         return frameStrategy.use(FrameType.FRAME_NAME, value, layer, timeline, allLayers);
     } else if (value instanceof RegExp) {
         return frameStrategy.use(FrameType.REGEXP, value, layer);
@@ -83,40 +82,51 @@ function FrameFactory(value, layer, timeline, allLayers = false) {
     }
 }
 
-
 /**
  * 设置帧对象
  * @param {*} value - 支持多种类型的帧参数
  * @param {Boolean} [allLayers=false] - 是否在所有图层中搜索（仅当指定帧名称时有效）
  * @returns {Context} 当前 Context 实例
  */
-Context.prototype.setFrame = function(value, allLayers = false) {
-    if(!this.layer || !this.timeline) return this;
+Context.prototype.setFrame = function (value, allLayers = false) {
+    if (!this.layer || !this.timeline) return this;
 
     const frame = FrameFactory(value, this.layer, this.timeline, allLayers);
     if (frame) {
         this.frame = frame;
-        this.context = "frame";
+        this.context = 'frame';
     }
 
     return this;
 };
 
 // curFrameIndex
-Object.defineProperty(Context.prototype, "curFrameIndex", {
-    get: function() {
+Object.defineProperty(Context.prototype, 'curFrameIndex', {
+    get: function () {
         if (!this.layer || !this.timeline) return null;
 
         return this.timeline.currentFrame;
-    }
+    },
 });
 
 // curFrame
-Object.defineProperty(Context.prototype, "curFrame", {
-    get: function() {
+Object.defineProperty(Context.prototype, 'curFrame', {
+    get: function () {
         if (!this.layer || !this.timeline) return null;
 
         const curFrameIndex = this.timeline.currentFrame;
-        return this.layer.frames[curFrameIndex];
-    }
+        return this.AllFrames[curFrameIndex];
+    },
 });
+
+// AllFrames
+Object.defineProperty(Context.prototype, 'AllFrames', {
+    get: function () {
+        if (!this.layer || !this.timeline) return null;
+
+        return this.layer.frames;
+    },
+});
+
+// frames
+Context.prototype.frames = this.AllFrames;

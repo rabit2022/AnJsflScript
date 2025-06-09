@@ -25,7 +25,7 @@ define(function () {
         if (factor === undefined) factor = 602;
 
         return (targetDepth + factor) / (currentDepth + factor);
-    };
+    }
 
     return adaptive_ratio;
 });

@@ -19,7 +19,7 @@ Object.defineProperty(Context.prototype, 'selection', {
 Object.defineProperty(Context.prototype, 'firstSlFrameIndex', {
     get: function () {
         const frs = this.timeline.getSelectedFrames();
-        if (!frs||frs.length === 0) return null;
+        if (!frs || frs.length === 0) return null;
 
         // [layerIndex,startFrame,endFrame]
         return frs[1];
@@ -29,7 +29,7 @@ Object.defineProperty(Context.prototype, 'firstSlFrameIndex', {
 Object.defineProperty(Context.prototype, 'firstSlLayerIndex', {
     get: function () {
         const frs = this.timeline.getSelectedFrames();
-        if (!frs||frs.length === 0) return null;
+        if (!frs || frs.length === 0) return null;
 
         // [layerIndex,startFrame,endFrame]
         return frs[0];
@@ -55,3 +55,8 @@ Object.defineProperty(Context.prototype, 'firstSlFrame', {
         return layer.frames[index];
     },
 });
+
+Context.prototype.firstLayer = this.firstSlLayer;
+Context.prototype.firstFrame = this.firstSlFrame;
+Context.prototype.firstLayerIndex = this.firstSlLayerIndex;
+Context.prototype.firstFrameIndex = this.firstSlFrameIndex;

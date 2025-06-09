@@ -19,7 +19,6 @@
       "JSFLConstants": ["Third/custom/xjsfl/JSFLConstants"],
 
 
-
       "BitmapOperation": ["Core/flash/Bitmap/BitmapOperation"],
       "checkUtil": ["Core/flash/checkUtil"],
       "ElementAnim": ["Core/flash/Context/Element/ElementAnim"],
@@ -62,10 +61,14 @@
       "Tips": ["Core/Utils/Tips"],
       "DrawParallelogram": ["Core/flash/graphics/DrawParallelogram"],
       "FilterDefinitions": ["Core/flash/filter/FilterDefinitions"],
-      "numpy": ["Core/py/numpy/numpy"]
+      "numpy": ["Core/py/numpy/numpy"],
+      "FrameOperation": ["Core/flash/Context/Frame/FrameOperation"],
+//      FrameQuery: "Core/flash/Context/Frame/FrameQuery"
+      "FrameQuery": ["Core/flash/Context/Frame/FrameQuery"]
     },
     "include": [
-      "**/*.jsfl"
+      "**/*.jsfl",
+      "types/**/*.d.ts"
     ],
     "exclude": [
       "node_modules"
