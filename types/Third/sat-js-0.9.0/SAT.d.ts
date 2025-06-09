@@ -47,9 +47,6 @@ declare namespace sat {
      * This is a simple 2D vector/point class,Vector has two parameters {x},{y}.
      */
     export class Vector extends VectorLike, SObject {
-        x: number;
-        y: number;
-
         constructor(x?: number, y?: number);
 
         perp(): Vector;
@@ -100,14 +97,6 @@ declare namespace sat {
 
         interpolate(other: Vector, f?: number): Vector;
 
-        copy(other: Vector): Vector;
-
-        clone(): Vector;
-
-        toString(): string;
-
-        toObj(): { x: number; y: number };
-
         toSize(): Size;
 
         toRectangle(): Rectangle;
@@ -122,7 +111,6 @@ declare namespace sat {
 
         static distance(pt1: Vector, pt2: Vector): number;
 
-        static toString(): string;
     }
 
     interface RectangleLike extends SObjectLike {
@@ -158,18 +146,11 @@ declare namespace sat {
      * This is a simple rectangle class,Rectangle has four parameters {left},{top},{right},{bottom}.
      */
     export interface Rectangle extends RectangleLike, SObject {
-        left: number;
-        top: number;
-        right: number;
-        bottom: number;
-
         readonly width: number;
         readonly height: number;
 
         readonly center: Vector;
         readonly size: Size;
-
-        // constructor(...args: any[]);
 
         addOffset(offset: number | Vector | Rectangle): Rectangle;
 
@@ -189,19 +170,8 @@ declare namespace sat {
 
         getPart(whichPart: Part, widthRatio?: number, heightRatio?: number): Rectangle;
 
-        copy(rect: Rectangle): Rectangle;
-
-        clone(): Rectangle;
-
         union(other: Rectangle): Rectangle;
 
-        toString(): string;
-
-        toObj(): RectangleLike;
-
-        static;
-
-        toString(): string;
     }
 
     // 将 Rectangle 的构造函数类型指定为 RectangleConstructor
@@ -216,9 +186,6 @@ declare namespace sat {
      * This is a simple size class,Size has two parameters {width},{height}.
      */
     export class Size extends SizeLike, SObject {
-        width: number;
-        height: number;
-
         readonly max_size: number;
         readonly min_size: number;
         readonly ratio: number;
@@ -233,17 +200,7 @@ declare namespace sat {
 
         getRatioHeight(nowWidth: number): number;
 
-        copy(size: Size): Size;
-
-        clone(): Size;
-
-        toString(): string;
-
-        toObj(): SizeLike;
-
         toVector(): Vector;
-
-        static toString(): string;
     }
 
 
@@ -256,22 +213,9 @@ declare namespace sat {
      * This is a simple scale class,Scale has two parameters {scaleX},{scaleY}.
      */
     export class Scale extends ScaleLike, SObject {
-        scaleX: number;
-        scaleY: number;
-
         constructor(scaleX: number, scaleY: number);
 
-        copy(scale: Scale): Scale;
-
-        clone(): Scale;
-
         toVector(): Vector;
-
-        toString(): string;
-
-        toObj(): ScaleLike;
-
-        static toString(): string;
     }
 
     interface SkewLike extends SObjectLike {
@@ -283,22 +227,9 @@ declare namespace sat {
      * This is a simple skew class,Skew has two parameters {skewX},{skewY}.
      */
     export class Skew extends SkewLike, SObject {
-        skewX: number;
-        skewY: number;
-
         constructor(skewX: number, skewY: number);
 
-        copy(skew: Skew): Skew;
-
-        clone(): Skew;
-
         toVector(): Vector;
-
-        toString(): string;
-
-        toObj(): SkewLike;
-
-        static toString(): string;
     }
 
     interface TransformLike extends SObjectLike {
@@ -312,13 +243,8 @@ declare namespace sat {
     /**
      * This is a simple transform class,Transform has six parameters {rotation},{scale},{position},{size},{skew}.
      */
-    export class Transform extends TransformLike {
+    export class Transform extends TransformLike, SObject {
         element: Element;
-        rotation: number;
-        scale: Scale;
-        position: Vector;
-        size: Size;
-        skew: Skew;
 
         constructor(element: Element);
 
@@ -332,9 +258,6 @@ declare namespace sat {
 
         setSkew(skew: Skew | SkewLike): this;
 
-        toString(): string;
-
-        static toString(): string;
     }
 
     interface FrameRangeLike extends SObjectLike {
@@ -346,28 +269,16 @@ declare namespace sat {
     /**
      * This is a simple frame range class,FrameRange has three parameters {layerIndex},{startFrame},{endFrame}.
      */
-    export class FrameRange extends FrameRangeLike {
-        layerIndex: number;
-        startFrame: number;
-        endFrame: number;
-
+    export class FrameRange extends FrameRangeLike, SObject {
         readonly duration: number;
 
         constructor(layerIndex: number, startFrame: number, endFrame?: number);
 
         intersects(other: FrameRange): boolean;
 
-        clone(): FrameRange;
-
-        copy(other: FrameRange): void;
-
         contain(fr2: FrameRange): boolean;
 
         toArray(): [number, number, number];
-
-        toString(): string;
-
-        static toString(): string;
     }
 
     /**
@@ -383,17 +294,39 @@ declare namespace sat {
 
         getUniqueLayerIndexes(): number[];
 
-        copy(frameRange: FrameRangeList | ArrayLike<FrameRange>): FrameRangeList;
-
-        clone(): FrameRangeList;
-
-        toString(): string;
-
-        static toString(): string;
-
         static from = Array.from;
 
         static of = Array.of;
+    }
+
+    interface LineSegmentLike extends SObjectLike {
+        startPoint: VectorLike;
+        endPoint: VectorLike;
+    }
+
+    /**
+     * This is a simple line segment class,LineSegment has two parameters {startPoint},{endPoint}.
+     */
+    export class LineSegment extends LineSegmentLike, SObject {
+        constructor(startPoint: Vector, endPoint: Vector);
+
+        getBounds(): Rectangle;
+
+        getCenter(): Vector;
+
+        getLength(): number;
+
+        getAngle(): number;
+
+        getNormal(): Vector;
+
+        getPointAt(t: number): Vector;
+
+        getNearestPointTo(point: Vector): Vector;
+
+        getDistanceToPoint(point: Vector): number;
+
+        toVector(): Vector;
     }
 
 
@@ -403,6 +336,30 @@ declare namespace sat {
         width: number,
         height: number
     }
+
+    interface CircleLike extends SObjectLike {
+        pos: VectorLike;
+        r: number;
+    }
+
+    export class Circle extends CircleLike, SObject {
+        constructor(pos?: Vector, r?: number);
+
+        getBounds(): Rectangle;
+
+        getArea(): number;
+
+        getCentroid(): Vector;
+
+        getDistanceToPoint(point: Vector): number;
+
+        getDistanceToSegment(segment: LineSegment): number;
+
+        containsPoint(point: Vector): boolean;
+
+        toVector(): Vector;
+    }
+
 
     /**
      * This is GLOLBALS namespace,it contains some global functions and variables.
@@ -492,7 +449,7 @@ declare namespace sat {
     }
 
 
-// 别名
+    // 别名
     export { Vector as V };
     export { Rectangle as R };
     export { Size as S };
@@ -501,6 +458,8 @@ declare namespace sat {
     export { FrameRangeList as FRL };
     export { Scale as SC };
     export { Skew as SK };
+    export { LineSegment as LS };
+    export { Circle as C };
 }
 
 // export = SAT;

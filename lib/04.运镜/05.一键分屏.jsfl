@@ -48,10 +48,7 @@ require([
     // 否则，建议使用 doc 方案，减少 库 的依赖
     const context = new Context();
     context.update();
-    const {
-        doc,
-        selection
-    } = context;
+    const { doc, selection } = context;
     const { firstSlLayerIndex, firstSlFrameIndex } = context;
     if (CheckDom(doc) === null) return;
 

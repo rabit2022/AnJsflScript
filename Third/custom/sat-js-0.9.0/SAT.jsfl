@@ -41,6 +41,94 @@
     var SAT_CHECk = {};
 
     // ------------------------------------------------------------------------------------------------------------------------
+    //  ______     ______     ______       __     ______     ______     ______
+    // /\  ___\   /\  __ \   /\  == \     /\ \   /\  ___\   /\  ___\   /\__  _\
+    // \ \___  \  \ \ \/\ \  \ \  __<    _\_\ \  \ \  __\   \ \ \____  \/_/\ \/
+    //  \/\_____\  \ \_____\  \ \_____\ /\_____\  \ \_____\  \ \_____\    \ \_\
+    //   \/_____/   \/_____/   \/_____/ \/_____/   \/_____/   \/_____/     \/_/
+    //
+    // ------------------------------------------------------------------------------------------------------------------------
+    // SObject
+    /**
+     * SObject 构造函数
+     * @constructor
+     */
+    function SObject() {
+    }
+
+    /**
+     * 复制 SObject 对象的属性
+     * @param {SObject} other 要复制的 SObject 对象
+     * @returns {SObject} 返回当前对象
+     */
+    SObject.prototype.copy = function(other) {
+        // if (!(other instanceof SObject)) {
+        //     throw new TypeError("The argument must be an instance of SObject.");
+        // }
+        for (var prop in other) {
+            if (other.hasOwnProperty(prop) && typeof this[prop] !== "function") {
+                this[prop] = other[prop];
+            }
+        }
+        return this;
+    };
+
+    /**
+     * 克隆 SObject 对象
+     * @returns {SObject} 返回克隆后的对象
+     */
+    SObject.prototype.clone = function() {
+        var cloned = new SObject();
+        cloned.copy(this);
+        return cloned;
+    };
+
+    /**
+     * 将 SObject 对象转换为向量表示
+     * @returns {Object} 返回一个表示向量的对象
+     */
+    SObject.prototype.toVector = function() {
+        throw new Error("Not implemented");
+    };
+
+    /**
+     * 返回对象的字符串表示
+     * @returns {string} 返回对象的字符串表示
+     */
+    SObject.prototype.toString = function() {
+        var props = [];
+        for (var prop in this) {
+            if (this.hasOwnProperty(prop) && typeof this[prop] !== "function") {
+                props.push(prop + "=" + this[prop]);
+            }
+        }
+        return this.constructor.name + "(" + props.join(", ") + ")";
+    };
+
+    /**
+     * 返回对象的属性值的普通对象表示
+     * @returns {Object} 返回对象的属性值的普通对象表示
+     */
+    SObject.prototype.toObj = function() {
+        var obj = {};
+        for (var prop in this) {
+            if (this.hasOwnProperty(prop) && typeof this[prop] !== "function") {
+                obj[prop] = this[prop];
+            }
+        }
+        return obj;
+    };
+
+    /**
+     * 静态方法，返回类的字符串表示
+     * @returns {string} 返回类的字符串表示
+     */
+    SObject.toString = function() {
+        return "[class " + this.name + "]";
+    };
+
+
+    // ------------------------------------------------------------------------------------------------------------------------
     //  __   __   ______     ______     ______   ______     ______
     // /\ \ / /  /\  ___\   /\  ___\   /\__  _\ /\  __ \   /\  == \
     // \ \ \'/   \ \  __\   \ \ \____  \/_/\ \/ \ \ \/\ \  \ \  __<
@@ -60,12 +148,23 @@
      * @constructor
      */
     function Vector(x, y) {
+        SObject.apply(this);
+
         if (x === undefined || y === undefined) {
             throw new Error("Both x and y must be defined");
         }
         this["x"] = x || 0;
         this["y"] = y || 0;
     }
+
+    Vector.prototype = Object.create(SObject.prototype);
+    Vector.prototype.constructor = Vector;
+
+    Vector.toString = SObject.toString;
+
+    Vector.prototype.toVector = function() {
+        return this;
+    };
 
     SAT["Vector"] = Vector;
     // Alias `Vector` as `V`
@@ -281,12 +380,7 @@
      * @param {Number} degrees - 旋转的角度（0 - 360 度）
      * @returns {Vector} - 返回当前点对象，其坐标已更新为旋转后的新位置
      */
-    Vector.prototype["orbit"] = Vector.prototype.orbit = function(
-        pt,
-        arcWidth,
-        arcHeight,
-        degrees
-    ) {
+    Vector.prototype["orbit"] = Vector.prototype.orbit = function(pt, arcWidth, arcHeight, degrees) {
         // 将角度转换为弧度，因为 Math.cos 和 Math.sin 需要弧度作为输入
         var radians = degrees * (Math.PI / 180);
 
@@ -318,10 +412,7 @@
      * @param {"top right"|"top left"|"bottom right"|"bottom left"|"top center"|"right center"|"bottom center"|"left center"|"center"} whichCorner 方向
      * @returns {boolean}
      */
-    Vector.prototype["IsInDirectionOf"] = Vector.prototype.IsInDirectionOf = function(
-        point,
-        whichCorner
-    ) {
+    Vector.prototype["IsInDirectionOf"] = Vector.prototype.IsInDirectionOf = function(point, whichCorner) {
         var deltaX = this.x - point.x;
         var deltaY = this.y - point.y;
         // y轴向下，x轴向右
@@ -388,42 +479,6 @@
     // --------------------------------------------------------------------------------
     // # Utility methods
 
-    // Copy the values of another Vector into this one.
-    /**
-     * @param {Vector} other The other Vector.
-     * @return {Vector} This for chaining.
-     */
-    Vector.prototype["copy"] = Vector.prototype.copy = function(other) {
-        this["x"] = other["x"];
-        this["y"] = other["y"];
-        return this;
-    };
-
-    // Create a new vector with the same coordinates as this on.
-    /**
-     * @return {Vector} The new cloned vector
-     */
-    Vector.prototype["clone"] = Vector.prototype.clone = function() {
-        return new Vector(this["x"], this["y"]);
-    };
-
-    /**
-     * 字符串
-     * @returns {string}
-     */
-    Vector.prototype["toString"] = Vector.prototype.toString = function() {
-        return "Vector(" + this.x + ", " + this.y + ")";
-        // return sprintf('Vector(%d, %d)', this.x, this.y);
-    };
-
-    /**
-     * 转换为对象
-     * @return {{x:number,y:number}}
-     */
-    Vector.prototype["toObj"] = Vector.prototype.toObj = function() {
-        return { x: this.x, y: this.y };
-    };
-
     /**
      * 转换为Size对象
      * @returns {Size}
@@ -453,10 +508,6 @@
      */
     Vector.prototype["toSkew"] = Vector.prototype.toSkew = function() {
         return new Skew(this.x, this.y);
-    };
-
-    Vector.toString = function() {
-        return "[class Vector]";
     };
 
     // ----------------------------------------------------------------------------------------------------
@@ -581,6 +632,8 @@
      * @constructor
      */
     function Rectangle() {
+        SObject.apply(this);
+
         // variables
         var args = arguments;
         var $dom = fl.getDocumentDOM();
@@ -673,6 +726,11 @@
         // this.height = this.bottom - this.top;
     }
 
+    Rectangle.prototype = Object.create(SObject.prototype);
+    Rectangle.prototype.constructor = Rectangle;
+
+    Rectangle.toString = SObject.toString;
+
     Object.defineProperty(Rectangle.prototype, "width", {
         get: function() {
             return this.right - this.left;
@@ -710,12 +768,7 @@
         } else if (offset instanceof Vector) {
             offset = new Rectangle(offset.x, offset.y, offset.x, offset.y);
         }
-        return new Rectangle(
-            this.left + offset.left,
-            this.top + offset.top,
-            this.right + offset.right,
-            this.bottom + offset.bottom
-        );
+        return new Rectangle(this.left + offset.left, this.top + offset.top, this.right + offset.right, this.bottom + offset.bottom);
     };
 
     /**
@@ -730,12 +783,7 @@
         } else if (offset instanceof Vector) {
             offset = new Rectangle(offset.x, offset.y, offset.x, offset.y);
         }
-        return new Rectangle(
-            this.left - offset.left,
-            this.top - offset.top,
-            this.right - offset.right,
-            this.bottom - offset.bottom
-        );
+        return new Rectangle(this.left - offset.left, this.top - offset.top, this.right - offset.right, this.bottom - offset.bottom);
     };
 
     /**
@@ -836,12 +884,7 @@
      * @returns {boolean} 包含返回true，否则返回false
      */
     Rectangle.prototype.contains = function(rect) {
-        return (
-            this.left <= rect.left &&
-            this.top <= rect.top &&
-            this.right >= rect.right &&
-            this.bottom >= rect.bottom
-        );
+        return (this.left <= rect.left && this.top <= rect.top && this.right >= rect.right && this.bottom >= rect.bottom);
     };
 
     /**
@@ -926,64 +969,24 @@
 
         switch (whichPart) {
             case "top right":
-                return new Rectangle(
-                    right - widthInversePart,
-                    top,
-                    right,
-                    top + heightPart
-                );
+                return new Rectangle(right - widthInversePart, top, right, top + heightPart);
             case "top left":
                 return new Rectangle(left, top, left + widthPart, top + heightPart);
             case "bottom right":
-                return new Rectangle(
-                    right - widthInversePart,
-                    bottom - heightInversePart,
-                    right,
-                    bottom
-                );
+                return new Rectangle(right - widthInversePart, bottom - heightInversePart, right, bottom);
             case "bottom left":
-                return new Rectangle(
-                    left,
-                    bottom - heightInversePart,
-                    left + widthPart,
-                    bottom
-                );
+                return new Rectangle(left, bottom - heightInversePart, left + widthPart, bottom);
             case "top center":
-                return new Rectangle(
-                    centerX - halfWidthPart,
-                    top,
-                    centerX + halfWidthPart,
-                    top + heightPart
-                );
+                return new Rectangle(centerX - halfWidthPart, top, centerX + halfWidthPart, top + heightPart);
             case "right center":
                 // console.log("right center",widthRatio,heightRatio);
-                return new Rectangle(
-                    right - widthInversePart,
-                    centerY - halfHeightPart,
-                    right,
-                    centerY + halfHeightPart
-                );
+                return new Rectangle(right - widthInversePart, centerY - halfHeightPart, right, centerY + halfHeightPart);
             case "bottom center":
-                return new Rectangle(
-                    centerX - halfWidthPart,
-                    bottom - heightPart,
-                    centerX + halfWidthPart,
-                    bottom
-                );
+                return new Rectangle(centerX - halfWidthPart, bottom - heightPart, centerX + halfWidthPart, bottom);
             case "left center":
-                return new Rectangle(
-                    left,
-                    centerY - halfHeightPart,
-                    left + widthPart,
-                    centerY + halfHeightPart
-                );
+                return new Rectangle(left, centerY - halfHeightPart, left + widthPart, centerY + halfHeightPart);
             case "center":
-                return new Rectangle(
-                    centerX - halfWidthPart,
-                    centerY - halfHeightPart,
-                    centerX + halfWidthPart,
-                    centerY + halfHeightPart
-                );
+                return new Rectangle(centerX - halfWidthPart, centerY - halfHeightPart, centerX + halfWidthPart, centerY + halfHeightPart);
             case "top":
                 return new Rectangle(left, top, right, top + heightPart);
             case "right":
@@ -999,30 +1002,6 @@
 
     // --------------------------------------------------------------------------------
     // # Utility methods
-    /**
-     * 复制一个矩形
-     * @param {Rectangle} rect 矩形
-     * @returns {Rectangle} 矩形
-     */
-    Rectangle.prototype.copy = function(rect) {
-        if (!rect) return this;
-        this.left = rect.left;
-        this.top = rect.top;
-        this.right = rect.right;
-        this.bottom = rect.bottom;
-
-        // this.width = this.right - this.left;
-        // this.height = this.bottom - this.top;
-        return this;
-    };
-
-    /**
-     * 克隆一个矩形
-     * @returns {Rectangle} 矩形
-     */
-    Rectangle.prototype.clone = function() {
-        return new Rectangle(this.left, this.top, this.right, this.bottom);
-    };
 
     /**
      * 合并两个矩形，返回一个能够包含两个矩形的最小矩形。
@@ -1039,29 +1018,6 @@
         return new Rectangle(minLeft, minTop, maxRight, maxBottom);
     };
 
-    /**
-     * 字符串
-     * @returns {string} 字符串
-     */
-    Rectangle.prototype.toString = function() {
-        return ("Rectangle(left=" + this.left + ", top=" + this.top + ", right=" + this.right + ", bottom=" + this.bottom + ")");
-    };
-
-    Rectangle.toString = function() {
-        return "[class Rectangle]";
-    };
-    /**
-     * 转换为对象
-     * @returns {{left:number,top:number,right:number,bottom:number}} 矩形对象
-     */
-    Rectangle.prototype.toObj = function() {
-        return {
-            left: this.left,
-            top: this.top,
-            right: this.right,
-            bottom: this.bottom
-        };
-    };
 
     /**
      * 由左上角坐标和宽高创建矩形
@@ -1112,12 +1068,7 @@
                 var centerY = args[1];
                 var width = args[2];
                 var height = args[3];
-                return new Rectangle(
-                    centerX - width / 2,
-                    centerY - height / 2,
-                    centerX + width / 2,
-                    centerY + height / 2
-                );
+                return new Rectangle(centerX - width / 2, centerY - height / 2, centerX + width / 2, centerY + height / 2);
                 // eslint-disable-next-line no-unreachable
                 break;
             default:
@@ -1181,8 +1132,7 @@
 
         const finalRect = wrapRectByCenter(center, size);
         return finalRect;
-    };
-    var getSymbolBounds = getSymbolRect;
+    };var getSymbolBounds = getSymbolRect;
 
     /**
      * 获取舞台中心点坐标
@@ -1224,20 +1174,16 @@
      * @return {Rectangle} 矩形对象
      */
     function getCameraRect(timeline, frameIndex) {
-        const {width: stageWidth, height: stageHeight}=getStageSize();
+        const { width: stageWidth, height: stageHeight } = getStageSize();
 
         var cameraPos = wrapPosition(timeline.camera.getPosition(frameIndex));
         var cameraZoomRatio = timeline.camera.getZoom(frameIndex) / 100;
         // var stageWidth = doc.width;
         // var stageHeight = doc.height;
-        var cameraRect = new Rectangle(
-            -cameraPos.x,
-            -cameraPos.y,
-            -cameraPos.x + stageWidth / cameraZoomRatio,
-            -cameraPos.y + stageHeight / cameraZoomRatio
-        );
+        var cameraRect = new Rectangle(-cameraPos.x, -cameraPos.y, -cameraPos.x + stageWidth / cameraZoomRatio, -cameraPos.y + stageHeight / cameraZoomRatio);
         return cameraRect;
     }
+
     var getCameraBounds = getCameraRect;
 
     /**
@@ -1279,14 +1225,7 @@
      * @private
      */
     function IsRectangleLike(obj) {
-        return (
-            obj &&
-            typeof obj === "object" &&
-            typeof obj.left === "number" &&
-            typeof obj.top === "number" &&
-            typeof obj.right === "number" &&
-            typeof obj.bottom === "number"
-        );
+        return (obj && typeof obj === "object" && typeof obj.left === "number" && typeof obj.top === "number" && typeof obj.right === "number" && typeof obj.bottom === "number");
     }
 
     SAT_CHECk["IsRectangleLike"] = IsRectangleLike;
@@ -1311,9 +1250,19 @@
      * @class {Size} Size
      */
     function Size(width, height) {
+        SObject.apply(this);
+
         this.width = width;
         this.height = height;
     }
+
+    SAT["Size"] = Size;
+    SAT["S"] = Size;
+
+    Size.prototype = Object.create(SObject.prototype);
+    Size.prototype.constructor = Size;
+
+    Size.toString = SObject.toString;
 
     Object.defineProperty(Size.prototype, "ratio", {
         get: function() {
@@ -1331,16 +1280,6 @@
         }
     });
 
-    SAT["Size"] = Size;
-    SAT["S"] = Size;
-
-    /**
-     * 克隆一个尺寸
-     * @returns {Size} 尺寸
-     */
-    Size.prototype.clone = function() {
-        return new Size(this.width, this.height);
-    };
 
     /**
      * 相加两个尺寸
@@ -1366,31 +1305,9 @@
     Size.prototype.getRatioHeight = function(nowWidth) {
         return nowWidth / this.ratio;
     };
-    // copy
-    Size.prototype.copy = function(size) {
-        this.width = size.width;
-        this.height = size.height;
-        return this;
-    };
-    Size.prototype.clone = function() {
-        return new Size(this.width, this.height);
-    };
-
-    Size.prototype.toString = function() {
-        return "Size(" + this.width + ", " + this.height + ")";
-        // return sprintf('Size(width=%s, height=%s)', this.width, this.height);
-    };
-
-    Size.prototype.toObj = function() {
-        return { width: this.width, height: this.height };
-    };
 
     Size.prototype.toVector = function() {
         return new Vector(this.width, this.height);
-    };
-
-    Size.toString = function() {
-        return "[class Size]";
     };
 
     function wrapSize(element) {
@@ -1400,12 +1317,7 @@
     SAT_GLOBALS["wrapSize"] = wrapSize;
 
     function IsSizeLike(obj) {
-        return (
-            obj &&
-            typeof obj === "object" &&
-            typeof obj.width === "number" &&
-            typeof obj.height === "number"
-        );
+        return (obj && typeof obj === "object" && typeof obj.width === "number" && typeof obj.height === "number");
     }
 
     SAT_CHECk["IsSizeLike"] = IsSizeLike;
@@ -1420,45 +1332,27 @@
     // ------------------------------------------------------------------------------------------------------------------------
     // Scale
     function Scale(scaleX, scaleY) {
+        SObject.apply(this);
+
         this.scaleX = scaleX;
         this.scaleY = scaleY;
     }
 
     SAT["Scale"] = Scale;
     SAT["SC"] = Scale;
-    Scale.prototype.copy = function(scale) {
-        this.scaleX = scale.scaleX;
-        this.scaleY = scale.scaleY;
-        return this;
-    };
 
-    Scale.prototype.clone = function() {
-        return new Scale(this.scaleX, this.scaleY);
-    };
-    // toVector
+    Scale.prototype = Object.create(SObject.prototype);
+    Scale.prototype.constructor = Scale;
+
+    Scale.toString = SObject.toString;
+
+
     Scale.prototype.toVector = function() {
         return new Vector(this.scaleX, this.scaleY);
     };
 
-    Scale.prototype.toString = function() {
-        return "Scale(scaleX=" + this.scaleX + ", scaleY=" + this.scaleY + ")";
-    };
-
-    Scale.prototype.toObj = function() {
-        return { scaleX: this.scaleX, scaleY: this.scaleY };
-    };
-
-    Scale.toString = function() {
-        return "[class Scale]";
-    };
-
     function IsScaleLike(obj) {
-        return (
-            obj &&
-            typeof obj === "object" &&
-            typeof obj.scaleX === "number" &&
-            typeof obj.scaleY === "number"
-        );
+        return (obj && typeof obj === "object" && typeof obj.scaleX === "number" && typeof obj.scaleY === "number");
     }
 
     SAT_CHECk["IsScaleLike"] = IsScaleLike;
@@ -1480,39 +1374,18 @@
     SAT["Skew"] = Skew;
     SAT["SK"] = Skew;
 
-    Skew.prototype.copy = function(skew) {
-        this.skewX = skew.skewX;
-        this.skewY = skew.skewY;
-        return this;
-    };
+    Skew.prototype = Object.create(SObject.prototype);
+    Skew.prototype.constructor = Skew;
 
-    Skew.prototype.clone = function() {
-        return new Skew(this.skewX, this.skewY);
-    };
-    // toVector
+    Skew.toString = SObject.toString;
+
+
     Skew.prototype.toVector = function() {
         return new Vector(this.skewX, this.skewY);
     };
 
-    Skew.prototype.toString = function() {
-        return "Skew(skewX=" + this.skewX + ", skewY=" + this.skewY + ")";
-    };
-
-    Skew.prototype.toObj = function() {
-        return { skewX: this.skewX, skewY: this.skewY };
-    };
-
-    Skew.toString = function() {
-        return "[class Skew]";
-    };
-
     function IsSkewLike(obj) {
-        return (
-            obj &&
-            typeof obj === "object" &&
-            typeof obj.skewX === "number" &&
-            typeof obj.skewY === "number"
-        );
+        return (obj && typeof obj === "object" && typeof obj.skewX === "number" && typeof obj.skewY === "number");
     }
 
     SAT_CHECk["IsSkewLike"] = IsSkewLike;
@@ -1543,6 +1416,8 @@
      * @class Transform
      */
     function Transform(element) {
+        SObject.apply(this);
+
         this.element = element;
         // 旋转
         this.rotation = element.rotation;
@@ -1558,6 +1433,11 @@
 
     SAT["Transform"] = Transform;
     SAT["TR"] = Transform;
+
+    Transform.prototype = Object.create(SObject.prototype);
+    Transform.prototype.constructor = Transform;
+
+    Transform.toString = SObject.toString;
 
     Transform.prototype.setRotation = function(rotation) {
         this.element.rotation = rotation;
@@ -1605,14 +1485,6 @@
         return this;
     };
 
-    Transform.prototype.toString = function() {
-        return "Transform(rotation=" + this.rotation + ", scale=" + this.scale + ", position=" + this.position + ", size=" + this.size + ", skew=" + this.skew + ")";
-    };
-
-    Transform.toString = function() {
-        return "[class Transform]";
-    };
-
     /**
      * 包装一个对象为Transform对象
      * @param {Element} element 要包装的对象
@@ -1625,15 +1497,7 @@
     SAT_GLOBALS["wrapTransform"] = wrapTransform;
 
     function IsTransformLike(obj) {
-        return (
-            obj &&
-            typeof obj === "object" &&
-            typeof obj.rotation === "number" &&
-            IsVectorLike(obj.scale) &&
-            IsVectorLike(obj.position) &&
-            IsSizeLike(obj.size) &&
-            IsVectorLike(obj.skew)
-        );
+        return (obj && typeof obj === "object" && typeof obj.rotation === "number" && IsVectorLike(obj.scale) && IsVectorLike(obj.position) && IsSizeLike(obj.size) && IsVectorLike(obj.skew));
     }
 
     SAT_CHECk["IsTransformLike"] = IsTransformLike;
@@ -1662,6 +1526,8 @@
      * @param {number} [endFrame=startFrame+1] 结束帧
      */
     function FrameRange(layerIndex, startFrame, endFrame) {
+        SObject.apply(this);
+
         this.layerIndex = layerIndex;
         this.startFrame = startFrame;
         this.endFrame = endFrame || startFrame + 1;
@@ -1669,6 +1535,11 @@
 
     SAT["FrameRange"] = FrameRange;
     SAT["FR"] = FrameRange;
+
+    FrameRange.prototype = Object.create(SObject.prototype);
+    FrameRange.prototype.constructor = FrameRange;
+
+    FrameRange.toString = SObject.toString;
 
     /**
      * 帧范围的持续时间
@@ -1688,17 +1559,6 @@
      */
     FrameRange.prototype.intersects = function(other) {
         return this.startFrame <= other.endFrame && other.startFrame <= this.endFrame;
-    };
-
-    FrameRange.prototype.clone = function() {
-        return new FrameRange(this.layerIndex, this.startFrame, this.endFrame);
-    };
-
-    // copy
-    FrameRange.prototype.copy = function(other) {
-        this.layerIndex = other.layerIndex;
-        this.startFrame = other.startFrame;
-        this.endFrame = other.endFrame;
     };
 
     /**
@@ -1721,35 +1581,9 @@
     FrameRange.prototype.toArray = function() {
         return [this.layerIndex, this.startFrame, this.endFrame];
     };
-    /**
-     * 输出字符串
-     * @return {string} 字符串
-     */
-    FrameRange.prototype.toString = function() {
-        return (
-            "FrameRange(layerIndex=" +
-            this.layerIndex +
-            ", startFrame=" +
-            this.startFrame +
-            ", endFrame=" +
-            this.endFrame +
-            ")"
-        );
-    };
-
-    FrameRange.toString = function() {
-        return "[Object FrameRange]";
-    };
-
 
     function IsFrameRangeLike(obj) {
-        return (
-            obj &&
-            typeof obj === "object" &&
-            typeof obj.layerIndex === "number" &&
-            typeof obj.startFrame === "number" &&
-            typeof obj.endFrame === "number"
-        );
+        return (obj && typeof obj === "object" && typeof obj.layerIndex === "number" && typeof obj.startFrame === "number" && typeof obj.endFrame === "number");
     }
 
     SAT_CHECk["IsFrameRangeLike"] = IsFrameRangeLike;
@@ -1776,6 +1610,7 @@
      */
     function FrameRangeList() {
         Array.apply(this, arguments); // 调用 Array 的构造函数
+        SObject.apply(this);
     }
 
     SAT["FrameRangeList"] = FrameRangeList;
@@ -1785,6 +1620,14 @@
     FrameRangeList.prototype = Object.create(Array.prototype);
     FrameRangeList.prototype.constructor = FrameRangeList;
 
+    // 混入 mixin 方法
+    Object.assign(FrameRangeList.prototype, SObject.prototype);
+
+    // 手动复制 静态方法
+    FrameRangeList.from = Array.from;
+    FrameRangeList.of = Array.of;
+
+    FrameRangeList.toString = SObject.toString;
 
     Object.defineProperty(FrameRangeList.prototype, "firstSlFrameIndex", {
         get: function() {
@@ -1855,60 +1698,186 @@
         return uniqueLayerIndexes;
     };
 
-    FrameRangeList.prototype.clone = function() {
-        var newList = new FrameRangeList();
-        for (var i = 0; i < this.length; i++) {
-            newList.push(this[i].clone());
-        }
-        return newList;
-    };
-    FrameRangeList.prototype.copy = function(frameRange) {
-        // 清空列表
-        this.length = 0;
-
-        for (var i = 0; i < frameRange.length; i++) {
-            this.push(frameRange[i].clone());
-        }
-        return this;
-    };
-    /**
-     * 覆盖 toString 方法
-     * @returns {string} 列表的字符串表示
-     */
-    FrameRangeList.prototype.toString = function() {
-        var frameStrings = this.map(function(frame) {
-            return frame.toString();
-        });
-        return "FrameRangeList(" + frameStrings.join(",\n") + ")";
-    };
-
-    // 手动复制 Array 的静态方法
-    FrameRangeList.from = Array.from;
-    FrameRangeList.of = Array.of;
-
-    FrameRangeList.toString = function() {
-        return "[class FrameRangeList]";
-    };
-
 
     function IsElementBoundsLike(obj) {
-        return (
-            obj &&
-            typeof obj === "object" &&
-            typeof obj.left === "number" &&
-            typeof obj.top === "number" &&
-            typeof obj.width === "number" &&
-            typeof obj.height === "number"
-        );
+        return (obj && typeof obj === "object" && typeof obj.left === "number" && typeof obj.top === "number" && typeof obj.width === "number" && typeof obj.height === "number");
     }
 
     SAT_CHECk["IsElementBoundsLike"] = IsElementBoundsLike;
 
+    // ------------------------------------------------------------------------------------------------------------------------
+    //  __         __     __   __     ______     ______     ______     ______
+    // /\ \       /\ \   /\ "-.\ \   /\  ___\   /\  ___\   /\  ___\   /\  ___\
+    // \ \ \____  \ \ \  \ \ \-.  \  \ \  __\   \ \___  \  \ \  __\   \ \ \__ \
+    //  \ \_____\  \ \_\  \ \_\\"\_\  \ \_____\  \/\_____\  \ \_____\  \ \_____\
+    //   \/_____/   \/_/   \/_/ \/_/   \/_____/   \/_____/   \/_____/   \/_____/
+    //
+    //  __    __     ______     __   __     ______
+    // /\ "-./  \   /\  ___\   /\ "-.\ \   /\__  _\
+    // \ \ \-./\ \  \ \  __\   \ \ \-.  \  \/_/\ \/
+    //  \ \_\ \ \_\  \ \_____\  \ \_\\"\_\    \ \_\
+    //   \/_/  \/_/   \/_____/   \/_/ \/_/     \/_/
+    //
+    // ------------------------------------------------------------------------------------------------------------------------
+    // LineSegment
+    /**
+     * 线段类
+     * @param {Vector} startPoint 起点
+     * @param {Vector} endPoint 终点
+     * @constructor
+     */
+    function LineSegment(startPoint, endPoint) {
+        SObject.apply(this);
+
+        this.startPoint = startPoint;
+        this.endPoint = endPoint;
+    }
+
+    SAT["LineSegment"] = LineSegment;
+    SAT["LS"] = LineSegment;
+
+    LineSegment.prototype = Object.create(SObject.prototype);
+    LineSegment.prototype.constructor = LineSegment;
+
+    LineSegment.toString = SObject.toString;
+
+    LineSegment.prototype.toVector = function() {
+        var dx = this.endPoint.x - this.startPoint.x;
+        var dy = this.endPoint.y - this.startPoint.y;
+        return new Vector(dx, dy);
+    };
+
+    LineSegment.prototype.getBounds = function() {
+        var left = Math.min(this.startPoint.x, this.endPoint.x);
+        var top = Math.min(this.startPoint.y, this.endPoint.y);
+        var right = Math.max(this.startPoint.x, this.endPoint.x);
+        var bottom = Math.max(this.startPoint.y, this.endPoint.y);
+        return {
+            left: left, top: top, width: right - left, height: bottom - top
+        };
+    };
+
+    LineSegment.prototype.getCenter = function() {
+        var x = (this.startPoint.x + this.endPoint.x) / 2;
+        var y = (this.startPoint.y + this.endPoint.y) / 2;
+        return new Vector(x, y);
+    };
+
+    LineSegment.prototype.getLength = function() {
+        var dx = this.endPoint.x - this.startPoint.x;
+        var dy = this.endPoint.y - this.startPoint.y;
+        return Math.sqrt(dx * dx + dy * dy);
+    };
+
+    LineSegment.prototype.getAngle = function() {
+        var dx = this.endPoint.x - this.startPoint.x;
+        var dy = this.endPoint.y - this.startPoint.y;
+        return Math.atan2(dy, dx);
+    };
+
+    LineSegment.prototype.getNormal = function() {
+        var dx = this.endPoint.x - this.startPoint.x;
+        var dy = this.endPoint.y - this.startPoint.y;
+        var length = Math.sqrt(dx * dx + dy * dy);
+        var normal = new Vector(-dy / length, dx / length);
+        return normal;
+    };
+
+    LineSegment.prototype.getPointAt = function(t) {
+        var x = this.startPoint.x + (this.endPoint.x - this.startPoint.x) * t;
+        var y = this.startPoint.y + (this.endPoint.y - this.startPoint.y) * t;
+        return new Vector(x, y);
+    };
+
+    LineSegment.prototype.getNearestPointTo = function(point) {
+        var dx = this.endPoint.x - this.startPoint.x;
+        var dy = this.endPoint.y - this.startPoint.y;
+        var a = dx * dx + dy * dy;
+        var b = 2 * (dx * (this.startPoint.x - point.x) + dy * (this.startPoint.y - point.y));
+        var c = (this.startPoint.x - point.x) * (this.startPoint.x - point.x) + (this.startPoint.y - point.y) * (this.startPoint.y - point.y) - 1;
+        var t = Math.max(0, Math.min(1, (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a)));
+        var x = this.startPoint.x + (this.endPoint.x - this.startPoint.x) * t;
+        var y = this.startPoint.y + (this.endPoint.y - this.startPoint.y) * t;
+        return new Vector(x, y);
+    };
+
+    LineSegment.prototype.getDistanceToPoint = function(point) {
+        var nearestPoint = this.getNearestPointTo(point);
+        var dx = nearestPoint.x - point.x;
+        var dy = nearestPoint.y - point.y;
+        return Math.sqrt(dx * dx + dy * dy);
+    };
+
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //  ______     __     ______     ______     __         ______
+    // /\  ___\   /\ \   /\  == \   /\  ___\   /\ \       /\  ___\
+    // \ \ \____  \ \ \  \ \  __<   \ \ \____  \ \ \____  \ \  __\
+    //  \ \_____\  \ \_\  \ \_\ \_\  \ \_____\  \ \_____\  \ \_____\
+    //   \/_____/   \/_/   \/_/ /_/   \/_____/   \/_____/   \/_____/
+    //
+    // ------------------------------------------------------------------------------------------------------------------------
+    // Circle
+    /**
+     * 圆类
+     * @param {Vector} pos 圆心
+     * @param {number} r 半径
+     * @constructor
+     */
+    function Circle(pos, r) {
+        SObject.apply(this);
+
+        this.pos = pos;
+        this.r = r;
+    }
+
+    SAT["Circle"] = Circle;
+    SAT["C"] = Circle;
+
+    Circle.prototype = Object.create(SObject.prototype);
+    Circle.prototype.constructor = Circle;
+
+    Circle.toString = SObject.toString;
+
+    Circle.prototype.toVector = function() {
+        return this.pos.clone();
+    };
+
+    Circle.prototype.getBounds = function() {
+        var left = this.pos.x - this.r;
+        var top = this.pos.y - this.r;
+        var right = this.pos.x + this.r;
+        var bottom = this.pos.y + this.r;
+        return new Rectangle(left, top, right, bottom);
+    };
+
+    Circle.prototype.getArea = function() {
+        return Math.PI * this.r * this.r;
+    };
+
+    Circle.prototype.getCentroid = function() {
+        return this.pos.clone();
+    };
+
+    Circle.prototype.getDistanceToPoint = function(point) {
+        var dx = this.pos.x - point.x;
+        var dy = this.pos.y - point.y;
+        return Math.sqrt(dx * dx + dy * dy) - this.r;
+    };
+
+    Circle.prototype.getDistanceToSegment = function(segment) {
+        var nearestPoint = segment.getNearestPointTo(this.pos);
+        return this.getDistanceToPoint(nearestPoint);
+    };
+
+    Circle.prototype.containsPoint = function(point) {
+        return this.getDistanceToPoint(point) <= 0;
+    };
+
+
     SAT["GLOBALS"] = SAT_GLOBALS;
     SAT["CHECk"] = SAT_CHECk;
 
-
     return SAT;
-    // });
 }));
 
