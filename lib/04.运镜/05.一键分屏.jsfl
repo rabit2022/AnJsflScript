@@ -50,14 +50,7 @@ require([
     context.update();
     const {
         doc,
-        selection,
-        library,
-        timeline,
-        AllLayers,
-        curLayerIndex,
-        curLayer,
-        curFrameIndex,
-        curFrame
+        selection
     } = context;
     const { firstSlLayerIndex, firstSlFrameIndex } = context;
     if (CheckDom(doc) === null) return;
@@ -111,13 +104,6 @@ require([
         curLayer.name = "背景层";
 
         timeline.addNewLayer("遮罩层");
-
-        // context.update();
-        // var fr = new FrameRange(
-        //     context.curLayerIndex,
-        //     context.curFrameIndex,
-        //     context.curFrameIndex + 1
-        // );
 
         var expandRect = getExpandRect(direction);
         if (!expandRect) return;
