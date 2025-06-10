@@ -22,57 +22,87 @@ if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
     throw new Error(msg);
 }
 
-require(["checkUtil", "loglevel", "LayerOperation"], function (checkUtil, log, lo) {
-    const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
+require(["checkUtil", "loglevel", "LayerOperation", "SAT"],
+    function(checkUtil, log, lo, sat) {
+        const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
-    const { addNewLayerSafety } = lo;
+        const { addNewLayerSafety } = lo;
 
-    // region doc
-    var doc = fl.getDocumentDOM(); //文档
-    if (!CheckDom(doc)) return;
+        const { Vector, LineSegment } = sat;
 
-    var selection = doc.selection; //选择
-    var library = doc.library; //库文件
-    var timeline = doc.getTimeline(); //时间轴
+        // region doc
+        var doc = fl.getDocumentDOM(); //文档
+        if (!CheckDom(doc)) return;
 
-    var layers = timeline.layers; //图层
-    var curLayerIndex = timeline.currentLayer; //当前图层索引
-    var curLayer = layers[curLayerIndex]; //当前图层
+        var selection = doc.selection; //选择
+        var library = doc.library; //库文件
+        var timeline = doc.getTimeline(); //时间轴
 
-    var frames = curLayer.frames; //当前图层的帧列表
-    var curFrameIndex = timeline.currentFrame; //当前帧索引
-    var curFrame = frames[curFrameIndex]; //当前帧
+        var layers = timeline.layers; //图层
+        var curLayerIndex = timeline.currentLayer; //当前图层索引
+        var curLayer = layers[curLayerIndex]; //当前图层
 
-    // // 获取第一帧
-    // var frs = CheckSelectedFrames(timeline);
-    // if (!frs) return;
-    // const { firstSlLayerIndex, firstSlFrameIndex } = frs;
+        var frames = curLayer.frames; //当前图层的帧列表
+        var curFrameIndex = timeline.currentFrame; //当前帧索引
+        var curFrame = frames[curFrameIndex]; //当前帧
 
-    // endregion doc
+        // // 获取第一帧
+        // var frs = CheckSelectedFrames(timeline);
+        // if (!frs) return;
+        // const { firstSlLayerIndex, firstSlFrameIndex } = frs;
 
-    function Main() {
-        // 检查选择的元件
-        if (!CheckSelection(selection, "selectElement", "No limit")) return;
+        // endregion doc
 
-        // 禁用相机
-        if (timeline.camera.cameraEnabled === true) {
-            timeline.camera.cameraEnabled = false;
+        const stageRect = sat.ENTITY.STAGE.getBounds();
+        log.info("stageRect:", stageRect);
+
+        // 8条线段
+        // 点到矩形边缘的距离
+        var margin = 20;
+        // 线段长度
+        var lineLength = 100;
+        var conorPoints = [
+            stageRect.getCorner("top left").add(new Vector(margin, margin)),
+            stageRect.getCorner("top right").add(new Vector(-margin, margin)),
+            stageRect.getCorner("bottom left").add(new Vector(margin, -margin)),
+            stageRect.getCorner("bottom right").add(new Vector(-margin, -margin))
+        ];
+        log.info("conorPoints:", conorPoints);
+        var lines = [
+            LineSegment.from(conorPoints[0], "right", lineLength),
+            LineSegment.from(conorPoints[0], "bottom", lineLength),
+            LineSegment.from(conorPoints[1], "left", lineLength),
+            LineSegment.from(conorPoints[1], "bottom", lineLength),
+            LineSegment.from(conorPoints[2], "top", lineLength),
+            LineSegment.from(conorPoints[2], "right", lineLength),
+            LineSegment.from(conorPoints[3], "top", lineLength),
+            LineSegment.from(conorPoints[3], "left", lineLength)
+        ];
+        log.info("lines:", lines);
+
+        function Main() {
+            // 检查选择的元件
+            if (!CheckSelection(selection, "selectElement", "No limit")) return;
+
+            // 禁用相机
+            if (timeline.camera.cameraEnabled === true) {
+                timeline.camera.cameraEnabled = false;
+            }
+
+            // 查找或创建“摄像机”图层
+            var cameraLayerIndex = addNewLayerSafety(timeline, "摄像机");
+
+            // TODO:是否库中存在摄像机元件
+            if (library.itemExists("辅助相机")) {
+                throw new Error("Not implemented yet");
+            }
+
+            // 画线
+
+            // 画矩形框
+
+            // 添加as代码
         }
 
-        // 查找或创建“摄像机”图层
-        var cameraLayerIndex = addNewLayerSafety(timeline, "摄像机");
-
-        // TODO:是否库中存在摄像机元件
-        if (library.itemExists("辅助相机")) {
-            throw new Error("Not implemented yet");
-        }
-
-        // 画线
-
-        // 画矩形框
-
-        // 添加as代码
-    }
-
-    Main();
-});
+        Main();
+    });

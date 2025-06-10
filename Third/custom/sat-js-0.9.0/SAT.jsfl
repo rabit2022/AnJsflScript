@@ -103,9 +103,10 @@
      * @returns {SObject} 返回克隆后的对象
      */
     SObject.prototype.clone = function() {
-        var cloned = new SObject();
-        cloned.copy(this);
-        return cloned;
+        var SObjectConstructor = this.constructor;
+        var sObject = new SObjectConstructor();
+        sObject.copy(this);
+        return sObject;
     };
 
     /**
@@ -1801,6 +1802,37 @@
         var dy = nearestPoint.y - point.y;
         return Math.sqrt(dx * dx + dy * dy);
     };
+
+    // static from(startPoint: Vector, direction: DirectionType,distance: number): LineSegment;
+    /**
+     * 从起点出发，方向为 direction，距离为 distance 的线段
+     * @param {Vector} startPoint 起点
+     * @param {DirectionType} direction 方向
+     * @param {number} distance 距离
+     * @return {LineSegment} 线段
+     */
+    LineSegment.from = function(startPoint, direction, distance) {
+        var endPoint = getOrigin();
+        switch (direction) {
+            case "left":
+                endPoint = startPoint.clone().add(new Vector(-distance, 0));
+                break;
+            case "top":
+                endPoint = startPoint.clone().add(new Vector(0, -distance));
+                break;
+            case "right":
+                endPoint = startPoint.clone().add(new Vector(distance, 0));
+                break;
+            case "bottom":
+                endPoint = startPoint.clone().add(new Vector(0, distance));
+                break;
+            default:
+                throw new Error("Invalid direction: " + direction);
+                break;
+        }
+        return new LineSegment(startPoint, endPoint);
+    };
+
 
     function IsLineSegmentLike(obj) {
         return (obj && typeof obj === "object" && IsVectorLike(obj.startPoint) && IsVectorLike(obj.endPoint));

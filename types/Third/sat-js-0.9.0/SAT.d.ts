@@ -22,12 +22,27 @@ declare namespace sat {
     interface SObjectLike {
     }
 
-    export class SObject {
+    // export class SObject {
+    //     constructor();
+    //
+    //     copy(other: SObject): SObject;
+    //
+    //     clone(): SObject;
+    //
+    //     toVector(): Vector;
+    //
+    //     toString(): string;
+    //
+    //     toObj(): SObjectLike;
+    //
+    //     static toString(): string;
+    // }
+    export class SObject<T extends SObject<T>> {
         constructor();
 
-        copy(other: SObject): SObject;
+        copy(other: T): T;
 
-        clone(): SObject;
+        clone(): T;
 
         toVector(): Vector;
 
@@ -46,7 +61,7 @@ declare namespace sat {
     /**
      * This is a simple 2D vector/point class,Vector has two parameters {x},{y}.
      */
-    export class Vector extends VectorLike, SObject {
+    export class Vector extends VectorLike, SObject<Vector> {
         constructor(x?: number, y?: number);
 
         perp(): Vector;
@@ -176,8 +191,11 @@ declare namespace sat {
         findBoundingRectangle(elements: Array<Element>): Rectangle;
 
         fromTopLeft(left: number, top: number, width: number, height: number): Rectangle;
+
         fromTopLeft(leftTop: Vector | VectorLike, size: Size | SizeLike): Rectangle;
+
         fromCenter(centerX: number, centerY: number, width: number, height: number): Rectangle;
+
         fromCenter(center: Vector | VectorLike, size: Size | SizeLike): Rectangle;
     }
 
@@ -341,6 +359,8 @@ declare namespace sat {
         getDistanceToPoint(point: Vector): number;
 
         toVector(): Vector;
+
+        static from(startPoint: Vector, direction: DirectionType, distance: number): LineSegment;
     }
 
 
@@ -447,6 +467,7 @@ declare namespace sat {
          * @deprecated use {@link ENTITY.SYMBOL.getBounds} instead.
          */
         export function getSymbolBounds(element: ElementBoundsLike | Element): Rectangle;
+
         /**
          * @deprecated use {@link ENTITY.SYMBOL.getBounds} instead.
          */
@@ -461,6 +482,7 @@ declare namespace sat {
          * @deprecated use {@link ENTITY.CAMERA.getBounds} instead.
          */
         export function getCameraRect(timeline: Timeline, frameIndex: number): Rectangle;
+
         /**
          * @deprecated use {@link ENTITY.CAMERA.getBounds} instead.
          */
