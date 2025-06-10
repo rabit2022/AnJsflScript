@@ -40,6 +40,31 @@
     var SAT_GLOBALS = {};
     var SAT_CHECk = {};
 
+    /**
+     * 继承宏
+     * @param {Function} SUB_CLASS 子类
+     * @param {Function} SUPER_CLASS 父类
+     * @param {Object} [properties] 子类属性
+     */
+    function INHERIT_MACRO(SUB_CLASS, SUPER_CLASS, properties) {
+        // 继承父类原型
+        SUB_CLASS.prototype = Object.create(SUPER_CLASS.prototype);
+        SUB_CLASS.prototype.constructor = SUB_CLASS;
+
+        // 添加父类引用
+        SUB_CLASS.superConstructor = SUPER_CLASS;
+        SUB_CLASS.superClass = SUPER_CLASS.prototype;
+
+        // 继承父类 静态方法
+        Object.assign(SUB_CLASS, SUPER_CLASS);
+
+        // 添加属性或方法
+        if (properties) {
+            Object.assign(SUB_CLASS.prototype, properties);
+        }
+    }
+
+
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______     ______     ______       __     ______     ______     ______
     // /\  ___\   /\  __ \   /\  == \     /\ \   /\  ___\   /\  ___\   /\__  _\
@@ -148,7 +173,7 @@
      * @constructor
      */
     function Vector(x, y) {
-        SObject.apply(this);
+        SObject.apply(this, arguments);
 
         if (x === undefined || y === undefined) {
             throw new Error("Both x and y must be defined");
@@ -157,10 +182,7 @@
         this["y"] = y || 0;
     }
 
-    Vector.prototype = Object.create(SObject.prototype);
-    Vector.prototype.constructor = Vector;
-
-    Vector.toString = SObject.toString;
+    INHERIT_MACRO(Vector, SObject);
 
     Vector.prototype.toVector = function() {
         return this;
@@ -548,6 +570,8 @@
         return Math.sqrt(x * x + y * y);
     };
 
+    Vector.from = wrapPosition;
+
     // ----------------------------------------------------------------------------------------------------
     // # Wrappers for Vector
 
@@ -560,23 +584,6 @@
         return new Vector(element.x, element.y);
     }
 
-    /**
-     * 转换为Scale对象
-     * @param {ScaleLike|Element|Scale} element 缩放对象
-     * @return {Scale}
-     */
-    function wrapScale(element) {
-        return new Scale(element.scaleX, element.scaleY);
-    }
-
-    /**
-     * 转换为Skew对象
-     * @param {Element|Skew|SkewLike} element 斜切对象
-     * @return {Skew}
-     */
-    function wrapSkew(element) {
-        return new Skew(element.skewX, element.skewY);
-    }
 
     /**
      * 取零点
@@ -596,8 +603,6 @@
     }
 
     SAT_GLOBALS["wrapPosition"] = wrapPosition;
-    SAT_GLOBALS["wrapScale"] = wrapScale;
-    SAT_GLOBALS["wrapSkew"] = wrapSkew;
     SAT_GLOBALS["getOrigin"] = getOrigin;
     SAT_GLOBALS["getTopLeft"] = getTopLeft;
 
@@ -632,7 +637,7 @@
      * @constructor
      */
     function Rectangle() {
-        SObject.apply(this);
+        SObject.apply(this, arguments);
 
         // variables
         var args = arguments;
@@ -721,15 +726,9 @@
                 this.bottom = args[3];
                 break;
         }
-
-        // this.width = this.right - this.left;
-        // this.height = this.bottom - this.top;
     }
 
-    Rectangle.prototype = Object.create(SObject.prototype);
-    Rectangle.prototype.constructor = Rectangle;
-
-    Rectangle.toString = SObject.toString;
+    INHERIT_MACRO(Rectangle, SObject);
 
     Object.defineProperty(Rectangle.prototype, "width", {
         get: function() {
@@ -1018,6 +1017,7 @@
         return new Rectangle(minLeft, minTop, maxRight, maxBottom);
     };
 
+    Rectangle.findBoundingRectangle = findBoundingRectangle;
 
     /**
      * 由左上角坐标和宽高创建矩形
@@ -1132,7 +1132,8 @@
 
         const finalRect = wrapRectByCenter(center, size);
         return finalRect;
-    };var getSymbolBounds = getSymbolRect;
+    };
+    var getSymbolBounds = getSymbolRect;
 
     /**
      * 获取舞台中心点坐标
@@ -1250,7 +1251,7 @@
      * @class {Size} Size
      */
     function Size(width, height) {
-        SObject.apply(this);
+        SObject.apply(this, arguments);
 
         this.width = width;
         this.height = height;
@@ -1259,10 +1260,7 @@
     SAT["Size"] = Size;
     SAT["S"] = Size;
 
-    Size.prototype = Object.create(SObject.prototype);
-    Size.prototype.constructor = Size;
-
-    Size.toString = SObject.toString;
+    INHERIT_MACRO(Size, SObject);
 
     Object.defineProperty(Size.prototype, "ratio", {
         get: function() {
@@ -1309,6 +1307,7 @@
     Size.prototype.toVector = function() {
         return new Vector(this.width, this.height);
     };
+    Size.from = wrapSize;
 
     function wrapSize(element) {
         return new Size(element.width, element.height);
@@ -1332,7 +1331,7 @@
     // ------------------------------------------------------------------------------------------------------------------------
     // Scale
     function Scale(scaleX, scaleY) {
-        SObject.apply(this);
+        SObject.apply(this, arguments);
 
         this.scaleX = scaleX;
         this.scaleY = scaleY;
@@ -1341,21 +1340,28 @@
     SAT["Scale"] = Scale;
     SAT["SC"] = Scale;
 
-    Scale.prototype = Object.create(SObject.prototype);
-    Scale.prototype.constructor = Scale;
-
-    Scale.toString = SObject.toString;
+    INHERIT_MACRO(Scale, SObject);
 
 
     Scale.prototype.toVector = function() {
         return new Vector(this.scaleX, this.scaleY);
     };
+    Scale.from = wrapScale;
 
     function IsScaleLike(obj) {
         return (obj && typeof obj === "object" && typeof obj.scaleX === "number" && typeof obj.scaleY === "number");
     }
 
     SAT_CHECk["IsScaleLike"] = IsScaleLike;
+
+    /**
+     * 转换为Scale对象
+     * @param {ScaleLike|Element|Scale} element 缩放对象
+     * @return {Scale}
+     */
+    function wrapScale(element) {
+        return new Scale(element.scaleX, element.scaleY);
+    }
 
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______     __  __     ______     __     __
@@ -1374,11 +1380,7 @@
     SAT["Skew"] = Skew;
     SAT["SK"] = Skew;
 
-    Skew.prototype = Object.create(SObject.prototype);
-    Skew.prototype.constructor = Skew;
-
-    Skew.toString = SObject.toString;
-
+    INHERIT_MACRO(Scale, SObject);
 
     Skew.prototype.toVector = function() {
         return new Vector(this.skewX, this.skewY);
@@ -1389,6 +1391,15 @@
     }
 
     SAT_CHECk["IsSkewLike"] = IsSkewLike;
+
+    /**
+     * 转换为Skew对象
+     * @param {Element|Skew|SkewLike} element 斜切对象
+     * @return {Skew}
+     */
+    function wrapSkew(element) {
+        return new Skew(element.skewX, element.skewY);
+    }
 
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -1416,7 +1427,7 @@
      * @class Transform
      */
     function Transform(element) {
-        SObject.apply(this);
+        SObject.apply(this, arguments);
 
         this.element = element;
         // 旋转
@@ -1434,10 +1445,7 @@
     SAT["Transform"] = Transform;
     SAT["TR"] = Transform;
 
-    Transform.prototype = Object.create(SObject.prototype);
-    Transform.prototype.constructor = Transform;
-
-    Transform.toString = SObject.toString;
+    INHERIT_MACRO(Scale, SObject);
 
     Transform.prototype.setRotation = function(rotation) {
         this.element.rotation = rotation;
@@ -1484,6 +1492,7 @@
         this.skew = skew;
         return this;
     };
+    Transform.from = wrapTransform;
 
     /**
      * 包装一个对象为Transform对象
@@ -1526,7 +1535,7 @@
      * @param {number} [endFrame=startFrame+1] 结束帧
      */
     function FrameRange(layerIndex, startFrame, endFrame) {
-        SObject.apply(this);
+        SObject.apply(this, arguments);
 
         this.layerIndex = layerIndex;
         this.startFrame = startFrame;
@@ -1536,10 +1545,7 @@
     SAT["FrameRange"] = FrameRange;
     SAT["FR"] = FrameRange;
 
-    FrameRange.prototype = Object.create(SObject.prototype);
-    FrameRange.prototype.constructor = FrameRange;
-
-    FrameRange.toString = SObject.toString;
+    INHERIT_MACRO(Scale, SObject);
 
     /**
      * 帧范围的持续时间
@@ -1551,6 +1557,7 @@
             return this.endFrame - this.startFrame;
         }
     });
+
 
     /**
      * 判断两个帧范围是否有重叠
@@ -1610,24 +1617,14 @@
      */
     function FrameRangeList() {
         Array.apply(this, arguments); // 调用 Array 的构造函数
-        SObject.apply(this);
+        SObject.apply(this, arguments);
     }
 
     SAT["FrameRangeList"] = FrameRangeList;
     SAT["FRL"] = FrameRangeList;
 
-    // 继承 Array 的原型
-    FrameRangeList.prototype = Object.create(Array.prototype);
-    FrameRangeList.prototype.constructor = FrameRangeList;
-
-    // 混入 mixin 方法
-    Object.assign(FrameRangeList.prototype, SObject.prototype);
-
-    // 手动复制 静态方法
-    FrameRangeList.from = Array.from;
-    FrameRangeList.of = Array.of;
-
-    FrameRangeList.toString = SObject.toString;
+    INHERIT_MACRO(FrameRangeList, Array);
+    INHERIT_MACRO(FrameRangeList, SObject);
 
     Object.defineProperty(FrameRangeList.prototype, "firstSlFrameIndex", {
         get: function() {
@@ -1727,7 +1724,7 @@
      * @constructor
      */
     function LineSegment(startPoint, endPoint) {
-        SObject.apply(this);
+        SObject.apply(this, arguments);
 
         this.startPoint = startPoint;
         this.endPoint = endPoint;
@@ -1736,10 +1733,7 @@
     SAT["LineSegment"] = LineSegment;
     SAT["LS"] = LineSegment;
 
-    LineSegment.prototype = Object.create(SObject.prototype);
-    LineSegment.prototype.constructor = LineSegment;
-
-    LineSegment.toString = SObject.toString;
+    INHERIT_MACRO(LineSegment, SObject);
 
     LineSegment.prototype.toVector = function() {
         var dx = this.endPoint.x - this.startPoint.x;
@@ -1808,6 +1802,12 @@
         return Math.sqrt(dx * dx + dy * dy);
     };
 
+    function IsLineSegmentLike(obj) {
+        return (obj && typeof obj === "object" && IsVectorLike(obj.startPoint) && IsVectorLike(obj.endPoint));
+    }
+
+    SAT_CHECk["IsLineSegmentLike"] = IsLineSegmentLike;
+
 
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______     __     ______     ______     __         ______
@@ -1825,7 +1825,7 @@
      * @constructor
      */
     function Circle(pos, r) {
-        SObject.apply(this);
+        SObject.apply(this, arguments);
 
         this.pos = pos;
         this.r = r;
@@ -1834,14 +1834,18 @@
     SAT["Circle"] = Circle;
     SAT["C"] = Circle;
 
-    Circle.prototype = Object.create(SObject.prototype);
-    Circle.prototype.constructor = Circle;
-
-    Circle.toString = SObject.toString;
+    INHERIT_MACRO(Circle, SObject);
 
     Circle.prototype.toVector = function() {
         return this.pos.clone();
     };
+
+    // d
+    Object.defineProperty(Circle.prototype, "d", {
+        get: function() {
+            return 2 * this.r;
+        }
+    });
 
     Circle.prototype.getBounds = function() {
         var left = this.pos.x - this.r;
@@ -1874,9 +1878,36 @@
         return this.getDistanceToPoint(point) <= 0;
     };
 
+    function IsCircleLike(obj) {
+        return (obj && typeof obj === "object" && IsVectorLike(obj.pos) && typeof obj.r === "number");
+    }
+
+    SAT_CHECk["IsCircleLike"] = IsCircleLike;
+
+    var SAT_ENTITY = {
+        ELEMENT: {
+            getOrigin: getOrigin,
+            getTopLeft: getTopLeft
+        },
+        SYMBOL: {
+            getCenter: getSymbolCenter,
+            getBounds: getSymbolBounds
+        },
+        STAGE: {
+            getCenter: getStageCenter,
+            getBounds: getStageBounds,
+            getSize: getStageSize
+        },
+        CAMERA: {
+            getBounds: getCameraBounds,
+            getCenter: getCameraCenter
+        }
+    };
+
 
     SAT["GLOBALS"] = SAT_GLOBALS;
     SAT["CHECk"] = SAT_CHECk;
+    SAT["ENTITY"] = SAT_ENTITY;
 
     return SAT;
 }));

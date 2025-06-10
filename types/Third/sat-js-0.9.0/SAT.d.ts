@@ -111,6 +111,7 @@ declare namespace sat {
 
         static distance(pt1: Vector, pt2: Vector): number;
 
+        static from(element: Element | VectorLike | Vector): Vector;
     }
 
     interface RectangleLike extends SObjectLike {
@@ -172,6 +173,12 @@ declare namespace sat {
 
         union(other: Rectangle): Rectangle;
 
+        findBoundingRectangle(elements: Array<Element>): Rectangle;
+
+        fromTopLeft(left: number, top: number, width: number, height: number): Rectangle;
+        fromTopLeft(leftTop: Vector | VectorLike, size: Size | SizeLike): Rectangle;
+        fromCenter(centerX: number, centerY: number, width: number, height: number): Rectangle;
+        fromCenter(center: Vector | VectorLike, size: Size | SizeLike): Rectangle;
     }
 
     // 将 Rectangle 的构造函数类型指定为 RectangleConstructor
@@ -201,6 +208,8 @@ declare namespace sat {
         getRatioHeight(nowWidth: number): number;
 
         toVector(): Vector;
+
+        static from(element: Element | Document | Size | SizeLike): Size;
     }
 
 
@@ -216,6 +225,8 @@ declare namespace sat {
         constructor(scaleX: number, scaleY: number);
 
         toVector(): Vector;
+
+        static from(element: Element | ScaleLike | Scale): Scale;
     }
 
     interface SkewLike extends SObjectLike {
@@ -230,6 +241,8 @@ declare namespace sat {
         constructor(skewX: number, skewY: number);
 
         toVector(): Vector;
+
+        static from(element: Element | SkewLike | Skew): Skew;
     }
 
     interface TransformLike extends SObjectLike {
@@ -258,6 +271,7 @@ declare namespace sat {
 
         setSkew(skew: Skew | SkewLike): this;
 
+        static from(element: Element): Transform;
     }
 
     interface FrameRangeLike extends SObjectLike {
@@ -343,6 +357,8 @@ declare namespace sat {
     }
 
     export class Circle extends CircleLike, SObject {
+        readonly d: number;
+
         constructor(pos?: Vector, r?: number);
 
         getBounds(): Rectangle;
@@ -360,71 +376,145 @@ declare namespace sat {
         toVector(): Vector;
     }
 
+    export namespace ENTITY {
+        export class ELEMENT {
+            static getOrigin(): Vector;
+
+            static getTopLeft(element: ElementBoundsLike | Element): Vector;
+        }
+
+        export class SYMBOL {
+            static getCenter(element: ElementBoundsLike | Element): Vector;
+
+            static getBounds(element: ElementBoundsLike | Element): Rectangle;
+        }
+
+        export class STAGE {
+            static getCenter(): Vector;
+
+            static getBounds(): Rectangle;
+
+            static getSize(): Size;
+        }
+
+        export class CAMERA {
+            static getBounds(timeline: Timeline, frameIndex: number): Rectangle;
+
+            static getCenter(timeline: Timeline, frameIndex: number): Vector;
+        }
+    }
 
     /**
-     * This is GLOLBALS namespace,it contains some global functions and variables.
+     * @deprecated use {@link ENTITY} instead.
      */
     export namespace GLOBALS {
+        /**
+         * @deprecated use {@link Vector.from} instead.
+         */
         export function wrapPosition(element: VectorLike | Element | Vector): Vector;
 
-        export function wrapScale(
-            element: ScaleLike | Scale | Element
-        ): Scale;
-
-        export function wrapSkew(element: SkewLike | Skew | Element): Skew;
-
+        /**
+         * @deprecated use {@link ENTITY.ELEMENT.getOrigin} instead.
+         */
         export function getOrigin(): Vector;
 
+        /**
+         * @deprecated use {@link ENTITY.ELEMENT.getTopLeft} instead.
+         */
         export function getTopLeft(element: ElementBoundsLike | Element): Vector;
 
+        /**
+         * @deprecated use {@link ENTITY.SYMBOL.getCenter} instead.
+         */
         export function getSymbolCenter(element: ElementBoundsLike | Element): Vector;
 
+        /**
+         * @deprecated use {@link ENTITY.STAGE.getCenter} instead.
+         */
         export function getStageCenter(): Vector;
 
+        /**
+         * @deprecated use {@link ENTITY.STAGE.getBounds} instead.
+         */
         export function getStageBounds(): Rectangle;
 
+        /**
+         * @deprecated use {@link ENTITY.STAGE.getBounds} instead.
+         */
         export const getStageRect: typeof getStageBounds;
 
+        /**
+         * @deprecated use {@link ENTITY.SYMBOL.getBounds} instead.
+         */
         export function getSymbolBounds(element: ElementBoundsLike | Element): Rectangle;
-
+        /**
+         * @deprecated use {@link ENTITY.SYMBOL.getBounds} instead.
+         */
         export const getSymbolRect: typeof getSymbolBounds;
 
+        /**
+         * @deprecated use {@link ENTITY.STAGE.getSize} instead.
+         */
         export function getStageSize(): Size;
 
+        /**
+         * @deprecated use {@link ENTITY.CAMERA.getBounds} instead.
+         */
         export function getCameraRect(timeline: Timeline, frameIndex: number): Rectangle;
-
+        /**
+         * @deprecated use {@link ENTITY.CAMERA.getBounds} instead.
+         */
         export const getCameraBounds: typeof getCameraRect;
 
+        /**
+         * @deprecated use {@link ENTITY.CAMERA.getCenter} instead.
+         */
         export function getCameraCenter(timeline: Timeline, frameIndex: number): Vector;
 
 
+        /**
+         * @deprecated use {@link Rectangle.fromTopLeft} instead.
+         */
         export function wrapRectByTopLeft(
             left: number,
             top: number,
             width: number,
             height: number
         ): Rectangle;
+        /**
+         * @deprecated use {@link Rectangle.fromTopLeft} instead.
+         */
         export function wrapRectByTopLeft(
             leftTop: Vector | VectorLike,
             size: Size | SizeLike
         ): Rectangle;
 
+        /**
+         * @deprecated use {@link Rectangle.fromCenter} instead.
+         */
         export function wrapRectByCenter(
             centerX: number,
             centerY: number,
             width: number,
             height: number
         ): Rectangle;
+        /**
+         * @deprecated use {@link Rectangle.fromCenter} instead.
+         */
         export function wrapRectByCenter(
             center: Vector | VectorLike,
             size: Size | SizeLike
         ): Rectangle;
 
+        /**
+         * @deprecated use {@link Size.from} instead.
+         */
         export function wrapSize(element: Element | Document | Size | SizeLike): Size;
 
+        /**
+         * @deprecated use {@link Transform.from} instead.
+         */
         export function wrapTransform(element: Element): Transform;
-
-        export function findBoundingRectangle(elements: Array<Element>): Rectangle;
     }
 
     /**
@@ -446,6 +536,10 @@ declare namespace sat {
         export function IsScaleLike(obj: any): boolean;
 
         export function IsSkewLike(obj: any): boolean;
+
+        export function IsLineSegmentLike(obj: any): boolean;
+
+        export function IsCircleLike(obj: any): boolean;
     }
 
 

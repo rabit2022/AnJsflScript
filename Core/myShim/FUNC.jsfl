@@ -67,61 +67,79 @@ define(["sprintf-js"], function (sp) {
      *    使用 `this._super.methodName.call(this, ...args)` 调用父类方法。
      *    示例：`this._super.sayHello.call(this);`
      */
-    function INHERIT_MACRO(child, $parent, $properties) {
-        // variables
-        var parent, properties;
+    // function INHERIT_MACRO(child, $parent, $properties) {
+    //     // variables
+    //     var parent, properties;
+    //
+    //     // grab correct arguments
+    //     [$parent, $properties].forEach(function (arg) {
+    //         if (typeof arg === "function") parent = arg;
+    //         else if (typeof arg === "object") properties = arg;
+    //     });
+    //
+    //     // extend child from a parent
+    //     if (parent) {
+    //         // set up the inheritance chain
+    //         function Inheritance() {
+    //             //this.superConstructor		= parent;
+    //             //this.superClass				= parent.prototype;
+    //         }
+    //
+    //         Inheritance.prototype = parent.prototype;
+    //         child.prototype = new Inheritance();
+    //         child.prototype.constructor = child;
+    //
+    //         // create references to parent
+    //         child.superConstructor = parent;
+    //         child.superClass = parent.prototype;
+    //
+    //         // create super methods
+    //         // can this be done?
+    //     }
+    //
+    //     // add properties to child
+    //     if (properties) {
+    //         for (var name in properties) {
+    //             // check for accessors
+    //             var getter = properties.__lookupGetter__(name);
+    //             var setter = properties.__lookupSetter__(name);
+    //
+    //             // assign accessors
+    //             if (getter || setter) {
+    //                 if (getter) {
+    //                     child.prototype.__defineGetter__(name, getter);
+    //                 }
+    //                 if (setter) {
+    //                     child.prototype.__defineSetter__(name, setter);
+    //                 }
+    //             }
+    //
+    //             // assign vanilla properties
+    //             else {
+    //                 child.prototype[name] = properties[name];
+    //             }
+    //         }
+    //     }
+    // }
 
-        // grab correct arguments
-        // for each(var arg in [$parent, $properties])
-        [$parent, $properties].forEach(function (arg) {
-            if (typeof arg === "function") parent = arg;
-            else if (typeof arg === "object") properties = arg;
-        });
+    function INHERIT_MACRO(SUB_CLASS, SUPER_CLASS, properties) {
+        // 继承父类原型
+        SUB_CLASS.prototype = Object.create(SUPER_CLASS.prototype);
+        SUB_CLASS.prototype.constructor = SUB_CLASS;
 
-        // extend child from a parent
-        if (parent) {
-            // set up the inheritance chain
-            function Inheritance() {
-                //this.superConstructor		= parent;
-                //this.superClass				= parent.prototype;
-            }
+        // 添加父类引用
+        SUB_CLASS.superConstructor = SUPER_CLASS;
+        SUB_CLASS.superClass = SUPER_CLASS.prototype;
 
-            Inheritance.prototype = parent.prototype;
-            child.prototype = new Inheritance();
-            child.prototype.constructor = child;
+        // 继承父类 静态方法
+        Object.assign(SUB_CLASS, SUPER_CLASS);
 
-            // create references to parent
-            child.superConstructor = parent;
-            child.superClass = parent.prototype;
-
-            // create super methods
-            // can this be done?
-        }
-
-        // add properties to child
+        // 添加属性或方法
         if (properties) {
-            for (var name in properties) {
-                // check for accessors
-                var getter = properties.__lookupGetter__(name);
-                var setter = properties.__lookupSetter__(name);
-
-                // assign accessors
-                if (getter || setter) {
-                    if (getter) {
-                        child.prototype.__defineGetter__(name, getter);
-                    }
-                    if (setter) {
-                        child.prototype.__defineSetter__(name, setter);
-                    }
-                }
-
-                // assign vanilla properties
-                else {
-                    child.prototype[name] = properties[name];
-                }
-            }
+            Object.assign(SUB_CLASS.prototype, properties);
         }
     }
+
 
     /**
      * 定义属性
@@ -154,28 +172,14 @@ define(["sprintf-js"], function (sp) {
      * console.writeToLog(instance.name); // 输出：Mary
      */
     function PROPERTY(CLASS, name, descriptor) {
-        // 确保至少提供了一个 get 或 set 方法
-        if (!descriptor.get && !descriptor.set) {
-            throw new Error(
-                sprintf(
-                    "PROPERTY: At least one of 'get' or'set' must be provided for property '%s'.\nExample: descriptor = { get: function() { return this._value; } };",
-                    name
-                )
-            );
-        }
-
-        // 动态创建属性描述对象
-        // 防止es5-shim报错
-        var attr = {
-            enumerable: true, // 属性可枚举
-            configurable: true // 属性可配置
-        };
-        if (descriptor.get) attr.get = descriptor.get;
-        if (descriptor.set) attr.set = descriptor.set;
-        attr.writable = !!descriptor.set; // 如果有 setter，则允许写操作
-
         // 定义属性
-        Object.defineProperty(CLASS.prototype, name, attr);
+        Object.defineProperty(CLASS.prototype, name, {
+            enumerable: true, // 属性可枚举
+            configurable: true, // 属性可配置
+            get: descriptor.get || undefined,
+            set: descriptor.set || undefined,
+            writable: !!descriptor.set // 如果有 setter，则允许写操作
+        });
     }
 
     /**
