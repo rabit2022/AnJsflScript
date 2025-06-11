@@ -1,5 +1,5 @@
 /**
- * @file: 02.智能补间.jsfl
+ * @file: 20.智能补间.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
  * @date: 2025/3/24 23:47
@@ -8,20 +8,24 @@
  * @see : https://community.adobe.com/t5/animate-discussions/intelligent-tween-jsfl/m-p/12875796
  */
 
-// bug,FirstRun.jsfl 未运行
-if (typeof require === "undefined") {
-    var msg =
-        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
-    fl.trace(msg);
-    throw new Error(msg);
-}
+(function () {
+    function exit(msg) {
+        fl.trace(msg);
+        throw new Error(msg);
+    }
 
-// bug,Temp 未解压
-if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
-    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
-    fl.trace(msg);
-    throw new Error(msg);
-}
+    // bug,FirstRun.jsfl 未运行
+    if (typeof require === "undefined") {
+        exit(
+            "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔"
+        );
+    }
+
+    // bug,Temp 未解压
+    if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+        exit("【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔");
+    }
+})();
 require(["checkUtil", "loglevel", "KeyFrameChecker", "Tween"], function (
     checkUtil,
     log,

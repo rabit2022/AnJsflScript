@@ -7,10 +7,9 @@
  * @description:
  */
 
-define(["chroma-js""SObject", "FUNC"], function (chroma,so,FUNC) {
+define(["chroma-js", "SObject", "FUNC"], function (chroma, so, FUNC) {
     const { INHERIT_MACRO } = FUNC;
     const { SObject } = so;
-
 
     var STROKES = {};
     var STROKE_BUILDERS = {};
@@ -36,7 +35,7 @@ define(["chroma-js""SObject", "FUNC"], function (chroma,so,FUNC) {
      * @class
      */
     function BaseStroke(style) {
-        SObject.call(this,arguments);
+        SObject.call(this, arguments);
         /**
          * 是否锐化转角
          * @type {boolean}
@@ -128,7 +127,7 @@ define(["chroma-js""SObject", "FUNC"], function (chroma,so,FUNC) {
      * @class
      */
     function BaseStrokeBuilder() {
-        SObject.call(this,arguments);
+        SObject.call(this, arguments);
 
         this.stroke = new BaseStroke();
     }
@@ -373,7 +372,6 @@ define(["chroma-js""SObject", "FUNC"], function (chroma,so,FUNC) {
         this.dash2 = 1;
     }
     INHERIT_MACRO(DashedStroke, SObject);
-
 
     STROKES["DashedStroke"] = DashedStroke;
 

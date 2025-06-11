@@ -1,5 +1,5 @@
 /**
- * @file: 00.当前图层有几个音频.jsfl
+ * @file: #00.当前图层有几个音频.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
  * @date: 2025/3/18 20:51
@@ -7,20 +7,24 @@
  * @description:
  */
 
-// bug,FirstRun.jsfl 未运行
-if (typeof require === "undefined") {
-    var msg =
-        "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔";
-    fl.trace(msg);
-    throw new Error(msg);
-}
+(function () {
+    function exit(msg) {
+        fl.trace(msg);
+        throw new Error(msg);
+    }
 
-// bug,Temp 未解压
-if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
-    var msg = "【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔";
-    fl.trace(msg);
-    throw new Error(msg);
-}
+    // bug,FirstRun.jsfl 未运行
+    if (typeof require === "undefined") {
+        exit(
+            "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔"
+        );
+    }
+
+    // bug,Temp 未解压
+    if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
+        exit("【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔");
+    }
+})();
 require(["checkUtil", "loglevel", "KeyFrameQuery", "LayerChecker"], function (
     checkUtil,
     log,
