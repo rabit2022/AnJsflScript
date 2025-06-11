@@ -47,3 +47,19 @@
 
     Main();
 })();
+
+/*
+All properties:[[object Window]]
+Properties:
+flash
+fl
+App
+app
+animate
+an
+window
+document
+
+Functions:
+
+ */

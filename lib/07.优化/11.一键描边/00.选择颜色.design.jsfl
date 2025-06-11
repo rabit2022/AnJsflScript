@@ -8,22 +8,12 @@
  */
 
 (function () {
-    function exit(msg) {
-        fl.trace(msg);
-        throw new Error(msg);
+    function getProjectPath() {
+        const index = fl.scriptURI.lastIndexOf("AnJsflScript");
+        if (index !== -1) return fl.scriptURI.substring(0, index + "AnJsflScript".length);
+        throw new Error("Can't find project path.");
     }
-
-    // bug,FirstRun.jsfl 未运行
-    if (typeof require === "undefined") {
-        exit(
-            "【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔"
-        );
-    }
-
-    // bug,Temp 未解压
-    if ($ProjectFileDir$.includes("AppData/Local/Temp")) {
-        exit("【温馨提示】当前项目文件没有解压，请解压后再运行。 \n 作者：@穹的兔兔");
-    }
+    fl.runScript(getProjectPath() + "/config/require/CheckEnvironment.jsfl");
 })();
 
 require(["checkUtil", "loglevel", "XUL", "chroma-js"], function (

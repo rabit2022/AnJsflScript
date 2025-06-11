@@ -101,15 +101,6 @@
     }
 
     function Main() {
-        // bug:没有 打开 fla 文件时
-        // doc没有打开时，无法获取DOM元素，因此需要先打开doc
-        if (!fl.getDocumentDOM()) {
-            alert(
-                "【温馨提示】请打开一个【.fla】文件，再尝试运行这个文件。\n作者：b站 @穹的兔兔"
-            );
-            return;
-        }
-
         // 全局变量
         window.importFlashScripts = importFlashScripts;
         /**

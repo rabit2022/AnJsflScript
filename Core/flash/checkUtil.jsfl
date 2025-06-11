@@ -1,4 +1,4 @@
-﻿/**
+﻿22; /**
  * @file: checkUtil.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
@@ -218,6 +218,7 @@ define(["Tips", "SAT"], function (Tips, SAT) {
         const { getSelectedFrs } = kfq;
 
         var frs = getSelectedFrs(timeline);
+        if (!CheckSelection(frs, "selectFrame", "Not Zero")) return null;
 
         if (range) {
             const { min, max, onlyFirst } = range;
