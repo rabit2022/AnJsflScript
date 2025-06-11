@@ -57,6 +57,7 @@ require.config({
         mathjs: "Third/math/mathjs-14.5.2/mathjs",
         numjs: "Third/math/numjs-0.16.1/numjs",
         typedarray: "Third/polyfill/typedarray-0.0.7/typedarray",
+        SObject: "Third/custom/Object/SObject",
 
         // 自定义模块
         BitmapOperation: "Core/flash/Bitmap/BitmapOperation",
@@ -104,10 +105,11 @@ require.config({
         FilterDefinitions: "Core/flash/filter/FilterDefinitions",
         JSFLInterface: "Third/custom/xjsfl/JSFLInterface",
         numpy: "Core/py/numpy/numpy",
-        // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Core\flash\Context\Frame\FrameOperation.jsfl
         FrameOperation: "Core/flash/Context/Frame/FrameOperation",
-        // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Core\flash\Context\Frame\FrameQuery.jsfl
-        FrameQuery: "Core/flash/Context/Frame/FrameQuery"
+        FrameQuery: "Core/flash/Context/Frame/FrameQuery",
+        ColorPanel: "Core/flash/color/ColorPanel",
+        FillDefinitions: "Core/flash/color/FillDefinitions",
+        StrokeDefinitions: "Core/flash/color/StrokeDefinitions"
     },
     packages: []
 });

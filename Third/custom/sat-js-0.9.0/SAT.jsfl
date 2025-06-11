@@ -77,6 +77,7 @@
     /**
      * SObject 构造函数
      * @constructor
+     * @note  子类必须有 无参构造函数，否则clone方法会报错
      */
     function SObject() {
     }
@@ -176,9 +177,9 @@
     function Vector(x, y) {
         SObject.apply(this, arguments);
 
-        if (x === undefined || y === undefined) {
-            throw new Error("Both x and y must be defined");
-        }
+        // if (x === undefined || y === undefined) {
+        //     throw new Error("Both x and y must be defined");
+        // }
         this["x"] = x || 0;
         this["y"] = y || 0;
     }
@@ -1828,7 +1829,6 @@
                 break;
             default:
                 throw new Error("Invalid direction: " + direction);
-                break;
         }
         return new LineSegment(startPoint, endPoint);
     };

@@ -7,7 +7,10 @@
  * @description:
  */
 
-define(function () {
+define(["chroma-js", "SObject", "FUNC"], function (chroma, so, FUNC) {
+    const { INHERIT_MACRO } = FUNC;
+    const { SObject } = so;
+
     var FILLS = {};
     var FILL_BUILDERS = {};
     // ------------------------------------------------------------------------------------------------------------------------
@@ -27,6 +30,8 @@ define(function () {
      * @param {string} style - 填充样式
      */
     function BaseFill(style) {
+        SObject.call(this, arguments);
+
         /**
          * 填充样式
          * @type {string}
@@ -35,9 +40,8 @@ define(function () {
         this.style = style || "solid";
     }
 
-    BaseFill.toString = function () {
-        return "[class BaseFill]";
-    };
+    INHERIT_MACRO(BaseFill, SObject);
+
     // endregion BaseFill
     // ------------------------------------------------------------------------------------------------------------------------
     //  __   __     ______     ______   __     __         __
@@ -59,14 +63,9 @@ define(function () {
         BaseFill.call(this, "noFill");
     }
 
-    NoFill.prototype = Object.create(BaseFill.prototype);
-    NoFill.prototype.constructor = NoFill;
+    INHERIT_MACRO(NoFill, BaseFill);
 
     FILLS["NoFill"] = NoFill;
-
-    NoFill.toString = function () {
-        return "[class NoFill]";
-    };
     // endregion NoFill
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______     ______     __         __     _____     ______   __     __         __
@@ -95,13 +94,50 @@ define(function () {
         this.color = "#000000";
     }
 
-    SolidFill.prototype = Object.create(BaseFill.prototype);
-    SolidFill.prototype.constructor = SolidFill;
+    INHERIT_MACRO(SolidFill, BaseFill);
     FILLS["SolidFill"] = SolidFill;
-    SolidFill.toString = function () {
-        return "[class SolidFill]";
-    };
+
     // endregion SolidFill
+
+    // region SolidFillBuilder
+    /**
+     * 固体填充构造器
+     * @constructor
+     * @class
+     */
+    function SolidFillBuilder() {
+        this.fill = new SolidFill();
+    }
+
+    FILL_BUILDERS["SolidFillBuilder"] = SolidFillBuilder;
+
+    /**
+     * 设置填充颜色
+     * @param {string|number|W3CX11ColorName} color - 填充颜色
+     * @returns {SolidFillBuilder}
+     */
+    SolidFillBuilder.prototype.setColor = function (color) {
+        color = chroma(color).hex();
+
+        this.fill.color = color;
+        return this;
+    };
+    // setAlpha
+    /**
+     * 设置填充透明度
+     * @param {number} alpha - 填充透明度
+     * @returns {SolidFillBuilder}
+     */
+    SolidFillBuilder.prototype.setAlpha = function (alpha) {
+        this.fill.color = chroma(this.fill.color).alpha(alpha).hex();
+        return this;
+    };
+
+    SolidFillBuilder.prototype.build = function () {
+        return this.fill;
+    };
+    // endregion SolidFillBuilder
+
     // ------------------------------------------------------------------------------------------------------------------------
     //  __         __     __   __     ______     ______     ______     ______     ______     ______
     // /\ \       /\ \   /\ "-.\ \   /\  ___\   /\  __ \   /\  == \   /\  ___\   /\  == \   /\  __ \
@@ -187,7 +223,7 @@ define(function () {
         this.fill = new LinearGradientFill();
     }
 
-    FILL_BUILDERS["LinearGradientFill"] = LinearGradientFillBuilder;
+    FILL_BUILDERS["LinearGradientFillBuilder"] = LinearGradientFillBuilder;
 
     /**
      * 添加颜色停止点
@@ -337,7 +373,7 @@ define(function () {
         this.fill = new RadialGradientFill();
     }
 
-    FILL_BUILDERS["RadialGradientFill"] = RadialGradientFillBuilder;
+    FILL_BUILDERS["RadialGradientFillBuilder"] = RadialGradientFillBuilder;
 
     /**
      * 添加颜色停止点
@@ -457,7 +493,7 @@ define(function () {
         this.fill = new BitmapFill();
     }
 
-    FILL_BUILDERS["BitmapFill"] = BitmapFillBuilder;
+    FILL_BUILDERS["BitmapFillBuilder"] = BitmapFillBuilder;
 
     /**
      * 设置位图路径和名称

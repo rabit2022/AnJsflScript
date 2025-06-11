@@ -7,9 +7,11 @@
  * @description:
  */
 
-define([], function () {
-    // var FILTERS = {};
-    // var FILTER_BUILDERS = {};
+define(["chroma-js""SObject", "FUNC"], function (chroma,so,FUNC) {
+    const { INHERIT_MACRO } = FUNC;
+    const { SObject } = so;
+
+
     var STROKES = {};
     var STROKE_BUILDERS = {};
     // ------------------------------------------------------------------------------------------------------------------------
@@ -34,6 +36,7 @@ define([], function () {
      * @class
      */
     function BaseStroke(style) {
+        SObject.call(this,arguments);
         /**
          * 是否锐化转角
          * @type {boolean}
@@ -78,8 +81,21 @@ define([], function () {
         /**
          * 笔触的填充设置
          * @type {Fill}
+         * @note 如果设置为{}，Animate 会闪退
          */
-        this.shapeFill = {};
+        this.shapeFill = {
+            tag: 0,
+            color: "#000000",
+            style: style || "solid",
+            matrix: {
+                a: 1,
+                b: 0,
+                c: 0,
+                d: 1,
+                tx: 0,
+                ty: 0
+            }
+        };
 
         /**
          * 笔触的缩放类型
@@ -102,9 +118,7 @@ define([], function () {
         this.miterLimit = 4;
     }
 
-    BaseStroke.toString = function () {
-        return "[class BaseStroke]";
-    };
+    INHERIT_MACRO(BaseStroke, SObject);
     // endregion BaseStroke
 
     // region BaseStrokeBuilder
@@ -114,15 +128,18 @@ define([], function () {
      * @class
      */
     function BaseStrokeBuilder() {
+        SObject.call(this,arguments);
+
         this.stroke = new BaseStroke();
     }
+    INHERIT_MACRO(BaseStrokeBuilder, SObject);
 
     /**
      * 设置是否锐化转角
      * @param {boolean} breakAtCorners
      * @returns {BaseStrokeBuilder}
      */
-    BaseStrokeBuilder.prototype.breakAtCorners = function (breakAtCorners) {
+    BaseStrokeBuilder.prototype.setBreakAtCorners = function (breakAtCorners) {
         this.stroke.breakAtCorners = breakAtCorners;
         return this;
     };
@@ -131,7 +148,7 @@ define([], function () {
      * @param {string} capType
      * @returns {BaseStrokeBuilder}
      */
-    BaseStrokeBuilder.prototype.capType = function (capType) {
+    BaseStrokeBuilder.prototype.setCapType = function (capType) {
         this.stroke.capType = capType;
         return this;
     };
@@ -140,7 +157,7 @@ define([], function () {
      * @param {boolean} strokeHinting
      * @returns {BaseStrokeBuilder}
      */
-    BaseStrokeBuilder.prototype.strokeHinting = function (strokeHinting) {
+    BaseStrokeBuilder.prototype.setStrokeHinting = function (strokeHinting) {
         this.stroke.strokeHinting = strokeHinting;
         return this;
     };
@@ -149,8 +166,9 @@ define([], function () {
      * @param {string} style
      * @returns {BaseStrokeBuilder}
      */
-    BaseStrokeBuilder.prototype.style = function (style) {
+    BaseStrokeBuilder.prototype.setStyle = function (style) {
         this.stroke.style = style;
+        this.stroke.shapeFill.style = style;
         return this;
     };
     /**
@@ -158,17 +176,32 @@ define([], function () {
      * @param {number} thickness
      * @returns {BaseStrokeBuilder}
      */
-    BaseStrokeBuilder.prototype.thickness = function (thickness) {
+    BaseStrokeBuilder.prototype.setThickness = function (thickness) {
         this.stroke.thickness = thickness;
         return this;
     };
     /**
      * 设置笔触颜色
-     * @param {string|number} color
+     * @param {string|number|W3CX11ColorName} color
      * @returns {BaseStrokeBuilder}
      */
-    BaseStrokeBuilder.prototype.color = function (color) {
+    BaseStrokeBuilder.prototype.setColor = function (color) {
+        color = chroma(color).hex();
+
         this.stroke.color = color;
+        this.stroke.shapeFill.color = color;
+        return this;
+    };
+    /**
+     * 设置笔触颜色的透明度
+     * @param {number} alpha
+     * @returns {BaseStrokeBuilder}
+     */
+    BaseStrokeBuilder.prototype.setAlpha = function (alpha) {
+        var color = chroma(this.stroke.color).alpha(alpha).hex();
+
+        this.stroke.color = color;
+        this.stroke.shapeFill.color = color;
         return this;
     };
     /**
@@ -176,7 +209,7 @@ define([], function () {
      * @param {Fill} shapeFill
      * @returns {BaseStrokeBuilder}
      */
-    BaseStrokeBuilder.prototype.shapeFill = function (shapeFill) {
+    BaseStrokeBuilder.prototype.setShapeFill = function (shapeFill) {
         this.stroke.shapeFill = shapeFill;
         return this;
     };
@@ -185,7 +218,7 @@ define([], function () {
      * @param {string} scaleType
      * @returns {BaseStrokeBuilder}
      */
-    BaseStrokeBuilder.prototype.scaleType = function (scaleType) {
+    BaseStrokeBuilder.prototype.setScaleType = function (scaleType) {
         this.stroke.scaleType = scaleType;
         return this;
     };
@@ -194,7 +227,7 @@ define([], function () {
      * @param {string} joinType
      * @returns {BaseStrokeBuilder}
      */
-    BaseStrokeBuilder.prototype.joinType = function (joinType) {
+    BaseStrokeBuilder.prototype.setJoinType = function (joinType) {
         this.stroke.joinType = joinType;
         return this;
     };
@@ -203,7 +236,7 @@ define([], function () {
      * @param {number} miterLimit
      * @returns {BaseStrokeBuilder}
      */
-    BaseStrokeBuilder.prototype.miterLimit = function (miterLimit) {
+    BaseStrokeBuilder.prototype.setMiterLimit = function (miterLimit) {
         this.stroke.miterLimit = miterLimit;
         return this;
     };
@@ -235,15 +268,10 @@ define([], function () {
     function NoStroke() {
         BaseStroke.call(this, "noStroke");
     }
-
-    NoStroke.prototype = Object.create(BaseStroke.prototype);
-    NoStroke.prototype.constructor = NoStroke;
+    INHERIT_MACRO(NoStroke, SObject);
 
     STROKES["NoStroke"] = NoStroke;
 
-    NoStroke.toString = function () {
-        return "[class NoStroke]";
-    };
     // endregion NoStroke
 
     // region NoStrokeBuilder
@@ -256,10 +284,9 @@ define([], function () {
         this.stroke = new NoStroke();
     }
 
-    NoStrokeBuilder.prototype = Object.create(BaseStrokeBuilder.prototype);
-    NoStrokeBuilder.prototype.constructor = NoStrokeBuilder;
+    INHERIT_MACRO(NoStrokeBuilder, BaseStrokeBuilder);
 
-    STROKE_BUILDERS["NoStroke"] = NoStrokeBuilder;
+    STROKE_BUILDERS["NoStrokeBuilder"] = NoStrokeBuilder;
 
     // endregion NoStrokeBuilder
     // ------------------------------------------------------------------------------------------------------------------------
@@ -287,14 +314,10 @@ define([], function () {
     function SolidStroke() {
         BaseStroke.call(this, "solid");
     }
+    INHERIT_MACRO(SolidStroke, SObject);
 
-    SolidStroke.prototype = Object.create(BaseStroke.prototype);
-    SolidStroke.prototype.constructor = SolidStroke;
     STROKES["SolidStroke"] = SolidStroke;
 
-    SolidStroke.toString = function () {
-        return "[class SolidStroke]";
-    };
     // endregion SolidStroke
 
     // region SolidStrokeBuilder
@@ -307,10 +330,9 @@ define([], function () {
         this.stroke = new SolidStroke();
     }
 
-    SolidStrokeBuilder.prototype = Object.create(BaseStrokeBuilder.prototype);
-    SolidStrokeBuilder.prototype.constructor = SolidStrokeBuilder;
+    INHERIT_MACRO(SolidStrokeBuilder, BaseStrokeBuilder);
 
-    STROKE_BUILDERS["SolidStroke"] = SolidStrokeBuilder;
+    STROKE_BUILDERS["SolidStrokeBuilder"] = SolidStrokeBuilder;
 
     // endregion SolidStrokeBuilder
     // ------------------------------------------------------------------------------------------------------------------------
@@ -350,15 +372,11 @@ define([], function () {
          */
         this.dash2 = 1;
     }
+    INHERIT_MACRO(DashedStroke, SObject);
 
-    DashedStroke.prototype = Object.create(BaseStroke.prototype);
-    DashedStroke.prototype.constructor = DashedStroke;
 
     STROKES["DashedStroke"] = DashedStroke;
 
-    DashedStroke.toString = function () {
-        return "[class DashedStroke]";
-    };
     // endregion DashedStroke
 
     // region DashedStrokeBuilder
@@ -371,15 +389,14 @@ define([], function () {
         this.stroke = new DashedStroke();
     }
 
-    DashedStrokeBuilder.prototype = Object.create(BaseStrokeBuilder.prototype);
-    DashedStrokeBuilder.prototype.constructor = DashedStrokeBuilder;
+    INHERIT_MACRO(DashedStrokeBuilder, BaseStrokeBuilder);
 
     /**
      * 设置虚线的实心部分长度
      * @param {number} dash1
      * @returns {DashedStrokeBuilder}
      */
-    DashedStrokeBuilder.prototype.dash1 = function (dash1) {
+    DashedStrokeBuilder.prototype.setDash1 = function (dash1) {
         this.stroke.dash1 = dash1;
         return this;
     };
@@ -388,12 +405,12 @@ define([], function () {
      * @param {number} dash2
      * @returns {DashedStrokeBuilder}
      */
-    DashedStrokeBuilder.prototype.dash2 = function (dash2) {
+    DashedStrokeBuilder.prototype.setDash2 = function (dash2) {
         this.stroke.dash2 = dash2;
         return this;
     };
 
-    STROKE_BUILDERS["DashedStroke"] = DashedStrokeBuilder;
+    STROKE_BUILDERS["DashedStrokeBuilder"] = DashedStrokeBuilder;
 
     // endregion DashedStrokeBuilder
 
@@ -430,14 +447,10 @@ define([], function () {
         this.dotSpace = 1;
     }
 
-    DottedStroke.prototype = Object.create(BaseStroke.prototype);
-    DottedStroke.prototype.constructor = DottedStroke;
+    INHERIT_MACRO(DottedStroke, SObject);
 
     STROKES["DottedStroke"] = DottedStroke;
 
-    DottedStroke.toString = function () {
-        return "[class DottedStroke]";
-    };
     // endregion DottedStroke
 
     // region DottedStrokeBuilder
@@ -450,20 +463,19 @@ define([], function () {
         this.stroke = new DottedStroke();
     }
 
-    DottedStrokeBuilder.prototype = Object.create(BaseStrokeBuilder.prototype);
-    DottedStrokeBuilder.prototype.constructor = DottedStrokeBuilder;
+    INHERIT_MACRO(DottedStrokeBuilder, BaseStrokeBuilder);
 
     /**
      * 设置点线中点之间的距离
      * @param {number} dotSpace
      * @returns {DottedStrokeBuilder}
      */
-    DottedStrokeBuilder.prototype.dotSpace = function (dotSpace) {
+    DottedStrokeBuilder.prototype.setDotSpace = function (dotSpace) {
         this.stroke.dotSpace = dotSpace;
         return this;
     };
 
-    STROKE_BUILDERS["DottedStroke"] = DottedStrokeBuilder;
+    STROKE_BUILDERS["DottedStrokeBuilder"] = DottedStrokeBuilder;
 
     // endregion DottedStrokeBuilder
     // ------------------------------------------------------------------------------------------------------------------------
@@ -512,15 +524,10 @@ define([], function () {
          */
         this.waveLength = "short";
     }
-
-    RaggedStroke.prototype = Object.create(BaseStroke.prototype);
-    RaggedStroke.prototype.constructor = RaggedStroke;
+    INHERIT_MACRO(RaggedStroke, SObject);
 
     STROKES["RaggedStroke"] = RaggedStroke;
 
-    RaggedStroke.toString = function () {
-        return "[class RaggedStroke]";
-    };
     // endregion RaggedStroke
 
     // region RaggedStrokeBuilder
@@ -533,15 +540,14 @@ define([], function () {
         this.stroke = new RaggedStroke();
     }
 
-    RaggedStrokeBuilder.prototype = Object.create(BaseStrokeBuilder.prototype);
-    RaggedStrokeBuilder.prototype.constructor = RaggedStrokeBuilder;
+    INHERIT_MACRO(RaggedStrokeBuilder, BaseStrokeBuilder);
 
     /**
      * 设置锯齿状线的模式
      * @param {string} pattern
      * @returns {RaggedStrokeBuilder}
      */
-    RaggedStrokeBuilder.prototype.pattern = function (pattern) {
+    RaggedStrokeBuilder.prototype.setPattern = function (pattern) {
         this.stroke.pattern = pattern;
         return this;
     };
@@ -550,7 +556,7 @@ define([], function () {
      * @param {string} waveHeight
      * @returns {RaggedStrokeBuilder}
      */
-    RaggedStrokeBuilder.prototype.waveHeight = function (waveHeight) {
+    RaggedStrokeBuilder.prototype.setWaveHeight = function (waveHeight) {
         this.stroke.waveHeight = waveHeight;
         return this;
     };
@@ -559,12 +565,12 @@ define([], function () {
      * @param {string} waveLength
      * @returns {RaggedStrokeBuilder}
      */
-    RaggedStrokeBuilder.prototype.waveLength = function (waveLength) {
+    RaggedStrokeBuilder.prototype.setWaveLength = function (waveLength) {
         this.stroke.waveLength = waveLength;
         return this;
     };
 
-    STROKE_BUILDERS["RaggedStroke"] = RaggedStrokeBuilder;
+    STROKE_BUILDERS["RaggedStrokeBuilder"] = RaggedStrokeBuilder;
 
     // endregion RaggedStrokeBuilder
     // ------------------------------------------------------------------------------------------------------------------------
@@ -613,15 +619,10 @@ define([], function () {
          */
         this.density = "dense";
     }
-
-    StippleStroke.prototype = Object.create(BaseStroke.prototype);
-    StippleStroke.prototype.constructor = StippleStroke;
+    INHERIT_MACRO(StippleStroke, SObject);
 
     STROKES["StippleStroke"] = StippleStroke;
 
-    StippleStroke.toString = function () {
-        return "[class StippleStroke]";
-    };
     // endregion StippleStroke
 
     // region StippleStrokeBuilder
@@ -634,15 +635,14 @@ define([], function () {
         this.stroke = new StippleStroke();
     }
 
-    StippleStrokeBuilder.prototype = Object.create(BaseStrokeBuilder.prototype);
-    StippleStrokeBuilder.prototype.constructor = StippleStrokeBuilder;
+    INHERIT_MACRO(StippleStrokeBuilder, BaseStrokeBuilder);
 
     /**
      * 设置斑点线的点大小
      * @param {"tiny"|"small"|"medium"|"large"} dotSize
      * @returns {StippleStrokeBuilder}
      */
-    StippleStrokeBuilder.prototype.dotSize = function (dotSize) {
+    StippleStrokeBuilder.prototype.setDotSize = function (dotSize) {
         this.stroke.dotSize = dotSize;
         return this;
     };
@@ -651,7 +651,7 @@ define([], function () {
      * @param {"one size"|"small variation"|"varied sizes"|"random sizes"} variation
      * @returns {StippleStrokeBuilder}
      */
-    StippleStrokeBuilder.prototype.variation = function (variation) {
+    StippleStrokeBuilder.prototype.setVariation = function (variation) {
         this.stroke.variation = variation;
         return this;
     };
@@ -660,12 +660,12 @@ define([], function () {
      * @param {"very dense"|"dense"|"sparse"|"very sparse"} density
      * @returns {StippleStrokeBuilder}
      */
-    StippleStrokeBuilder.prototype.density = function (density) {
+    StippleStrokeBuilder.prototype.setDenensity = function (density) {
         this.stroke.density = density;
         return this;
     };
 
-    STROKE_BUILDERS["StippleStroke"] = StippleStrokeBuilder;
+    STROKE_BUILDERS["StippleStrokeBuilder"] = StippleStrokeBuilder;
 
     // endregion StippleStrokeBuilder
     // ------------------------------------------------------------------------------------------------------------------------
@@ -736,14 +736,10 @@ define([], function () {
         this.space = "close";
     }
 
-    HatchedStroke.prototype = Object.create(BaseStroke.prototype);
-    HatchedStroke.prototype.constructor = HatchedStroke;
+    INHERIT_MACRO(HatchedStroke, SObject);
 
     STROKES["HatchedStroke"] = HatchedStroke;
 
-    HatchedStroke.toString = function () {
-        return "[class HatchedStroke]";
-    };
     // endregion HatchedStroke
 
     // region HatchedStrokeBuilder
@@ -756,15 +752,14 @@ define([], function () {
         this.stroke = new HatchedStroke();
     }
 
-    HatchedStrokeBuilder.prototype = Object.create(BaseStrokeBuilder.prototype);
-    HatchedStrokeBuilder.prototype.constructor = HatchedStrokeBuilder;
+    INHERIT_MACRO(HatchedStrokeBuilder, BaseStrokeBuilder);
 
     /**
      * 设置斑马线的曲线类型
      * @param {"straight"|"slight curve"|"medium curve"|"very curved"} curve
      * @returns {HatchedStrokeBuilder}
      */
-    HatchedStrokeBuilder.prototype.curve = function (curve) {
+    HatchedStrokeBuilder.prototype.setCurve = function (curve) {
         this.stroke.curve = curve;
         return this;
     };
@@ -773,7 +768,7 @@ define([], function () {
      * @param {"hairline"|"thin"|"medium"|"thick"} hatchThickness
      * @returns {HatchedStrokeBuilder}
      */
-    HatchedStrokeBuilder.prototype.hatchThickness = function (hatchThickness) {
+    HatchedStrokeBuilder.prototype.setHatchThickness = function (hatchThickness) {
         this.stroke.hatchThickness = hatchThickness;
         return this;
     };
@@ -782,7 +777,7 @@ define([], function () {
      * @param {"none"|"bounce"|"loose"|"wild"} jiggle
      * @returns {HatchedStrokeBuilder}
      */
-    HatchedStrokeBuilder.prototype.jiggle = function (jiggle) {
+    HatchedStrokeBuilder.prototype.setJiggle = function (jiggle) {
         this.stroke.jiggle = jiggle;
         return this;
     };
@@ -791,7 +786,7 @@ define([], function () {
      * @param {"none"|"slight"|"medium"|"free"} rotate
      * @returns {HatchedStrokeBuilder}
      */
-    HatchedStrokeBuilder.prototype.rotate = function (rotate) {
+    HatchedStrokeBuilder.prototype.setRotate = function (rotate) {
         this.stroke.rotate = rotate;
         return this;
     };
@@ -800,7 +795,7 @@ define([], function () {
      * @param {"equal"|"slight variation"|"medium variation"|"random"} length
      * @returns {HatchedStrokeBuilder}
      */
-    HatchedStrokeBuilder.prototype.length = function (length) {
+    HatchedStrokeBuilder.prototype.setLength = function (length) {
         this.stroke.length = length;
         return this;
     };
@@ -809,12 +804,12 @@ define([], function () {
      * @param {"very close"|"close"|"distant"|"very distant"} space
      * @returns {HatchedStrokeBuilder}
      */
-    HatchedStrokeBuilder.prototype.space = function (space) {
+    HatchedStrokeBuilder.prototype.setSpace = function (space) {
         this.stroke.space = space;
         return this;
     };
 
-    STROKE_BUILDERS["HatchedStroke"] = HatchedStrokeBuilder;
+    STROKE_BUILDERS["HatchedStrokeBuilder"] = HatchedStrokeBuilder;
 
     // endregion HatchedStrokeBuilder
 

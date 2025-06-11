@@ -17,6 +17,7 @@
       "satUtil": ["Third/custom/utils/satUtil"],
       "console": ["Third/custom/xjsfl/console"],
       "JSFLConstants": ["Third/custom/xjsfl/JSFLConstants"],
+      "SObject": ["Third/custom/Object/SObject"],
 
 
       "BitmapOperation": ["Core/flash/Bitmap/BitmapOperation"],
@@ -63,8 +64,10 @@
       "FilterDefinitions": ["Core/flash/filter/FilterDefinitions"],
       "numpy": ["Core/py/numpy/numpy"],
       "FrameOperation": ["Core/flash/Context/Frame/FrameOperation"],
-//      FrameQuery: "Core/flash/Context/Frame/FrameQuery"
-      "FrameQuery": ["Core/flash/Context/Frame/FrameQuery"]
+      "FrameQuery": ["Core/flash/Context/Frame/FrameQuery"],
+      "ColorPanel": ["Core/flash/color/ColorPanel"],
+      "FillDefinitions": ["Core/flash/color/FillDefinitions"],
+      "StrokeDefinitions": ["Core/flash/color/StrokeDefinitions"]
     },
     "include": [
       "**/*.jsfl",

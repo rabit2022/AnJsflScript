@@ -22,21 +22,6 @@ declare namespace sat {
     interface SObjectLike {
     }
 
-    // export class SObject {
-    //     constructor();
-    //
-    //     copy(other: SObject): SObject;
-    //
-    //     clone(): SObject;
-    //
-    //     toVector(): Vector;
-    //
-    //     toString(): string;
-    //
-    //     toObj(): SObjectLike;
-    //
-    //     static toString(): string;
-    // }
     export class SObject<T extends SObject<T>> {
         constructor();
 
@@ -156,12 +141,20 @@ declare namespace sat {
         new(centerPos: Vector, radius: number): Rectangle;
 
         new(left: number, top: number, right: number, bottom: number): Rectangle;
+
+        fromTopLeft(left: number, top: number, width: number, height: number): Rectangle;
+
+        fromTopLeft(leftTop: Vector | VectorLike, size: Size | SizeLike): Rectangle;
+
+        fromCenter(centerX: number, centerY: number, width: number, height: number): Rectangle;
+
+        fromCenter(center: Vector | VectorLike, size: Size | SizeLike): Rectangle;
     }
 
     /**
      * This is a simple rectangle class,Rectangle has four parameters {left},{top},{right},{bottom}.
      */
-    export interface Rectangle extends RectangleLike, SObject {
+    export interface Rectangle extends RectangleLike, SObject<Rectangle> {
         readonly width: number;
         readonly height: number;
 
@@ -190,13 +183,7 @@ declare namespace sat {
 
         findBoundingRectangle(elements: Array<Element>): Rectangle;
 
-        fromTopLeft(left: number, top: number, width: number, height: number): Rectangle;
 
-        fromTopLeft(leftTop: Vector | VectorLike, size: Size | SizeLike): Rectangle;
-
-        fromCenter(centerX: number, centerY: number, width: number, height: number): Rectangle;
-
-        fromCenter(center: Vector | VectorLike, size: Size | SizeLike): Rectangle;
     }
 
     // 将 Rectangle 的构造函数类型指定为 RectangleConstructor
@@ -210,7 +197,7 @@ declare namespace sat {
     /**
      * This is a simple size class,Size has two parameters {width},{height}.
      */
-    export class Size extends SizeLike, SObject {
+    export class Size extends SizeLike, SObject<Size> {
         readonly max_size: number;
         readonly min_size: number;
         readonly ratio: number;
@@ -239,7 +226,7 @@ declare namespace sat {
     /**
      * This is a simple scale class,Scale has two parameters {scaleX},{scaleY}.
      */
-    export class Scale extends ScaleLike, SObject {
+    export class Scale extends ScaleLike, SObject<Scale> {
         constructor(scaleX: number, scaleY: number);
 
         toVector(): Vector;
@@ -255,7 +242,7 @@ declare namespace sat {
     /**
      * This is a simple skew class,Skew has two parameters {skewX},{skewY}.
      */
-    export class Skew extends SkewLike, SObject {
+    export class Skew extends SkewLike, SObject<Skew> {
         constructor(skewX: number, skewY: number);
 
         toVector(): Vector;
@@ -274,7 +261,7 @@ declare namespace sat {
     /**
      * This is a simple transform class,Transform has six parameters {rotation},{scale},{position},{size},{skew}.
      */
-    export class Transform extends TransformLike, SObject {
+    export class Transform extends TransformLike, SObject<Transform> {
         element: Element;
 
         constructor(element: Element);
@@ -301,7 +288,7 @@ declare namespace sat {
     /**
      * This is a simple frame range class,FrameRange has three parameters {layerIndex},{startFrame},{endFrame}.
      */
-    export class FrameRange extends FrameRangeLike, SObject {
+    export class FrameRange extends FrameRangeLike, SObject<FrameRange> {
         readonly duration: number;
 
         constructor(layerIndex: number, startFrame: number, endFrame?: number);
@@ -316,7 +303,7 @@ declare namespace sat {
     /**
      * This is a FrameRangeList class,FrameRangeList is an array of FrameRange.
      */
-    export class FrameRangeList extends Array<FrameRange>, SObject {
+    export class FrameRangeList extends Array<FrameRange>, SObject<FrameRangeList> {
         readonly firstSlFrameIndex: number | null; // 第一个选中帧的索引
         readonly firstSlLayerIndex: number | null; // 第一个选中图层的索引
         readonly firstSlLayer: Layer | null; // 第一个选中图层对象
@@ -325,10 +312,6 @@ declare namespace sat {
         constructor();
 
         getUniqueLayerIndexes(): number[];
-
-        static from = Array.from;
-
-        static of = Array.of;
     }
 
     interface LineSegmentLike extends SObjectLike {
@@ -339,7 +322,7 @@ declare namespace sat {
     /**
      * This is a simple line segment class,LineSegment has two parameters {startPoint},{endPoint}.
      */
-    export class LineSegment extends LineSegmentLike, SObject {
+    export class LineSegment extends LineSegmentLike, SObject<LineSegment> {
         constructor(startPoint: Vector, endPoint: Vector);
 
         getBounds(): Rectangle;
@@ -376,7 +359,7 @@ declare namespace sat {
         r: number;
     }
 
-    export class Circle extends CircleLike, SObject {
+    export class Circle extends CircleLike, SObject<Circle> {
         readonly d: number;
 
         constructor(pos?: Vector, r?: number);

@@ -140,7 +140,6 @@ define(["sprintf-js"], function (sp) {
         }
     }
 
-
     /**
      * 定义属性
      * @param {Function} CLASS - 目标对象
