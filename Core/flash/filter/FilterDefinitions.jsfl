@@ -17,8 +17,9 @@
 //
 // ------------------------------------------------------------------------------------------------------------------------
 // Filter
-define(["SObject","FUNC"],function (SObject,FUNC) {
-    const {INHERIT_MACRO}=FUNC;
+define(["SObject", "FUNC"], function (so, FUNC) {
+    const { INHERIT_MACRO } = FUNC;
+    const { SObject } = so;
 
     var FILTERS = {};
     var FILTER_BUILDERS = {};
@@ -44,6 +45,7 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
      * @param {string} name 滤镜类型名称
      */
     function BaseFilter(name) {
+        SObject.call(this, arguments);
         /**
          * 滤镜类型名称
          * @type {string}
@@ -58,79 +60,7 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
          */
         this.enabled = true;
     }
-
-    /**
-     * 设置滤镜属性
-     * @param {string} prop 属性名
-     * @param {*} value 属性值
-     * @returns {Filter}
-     */
-    BaseFilter.prototype.set = function (prop, value) {
-        this[prop] = value;
-        return this;
-    };
-
-    /**
-     * 获取滤镜属性
-     * @param {string} prop 属性名
-     * @returns {*}
-     */
-    BaseFilter.prototype.get = function (prop) {
-        return this[prop];
-    };
-
-    /**
-     * 复制滤镜属性
-     * @param {Filter} filter 滤镜对象
-     * @returns {Filter}
-     */
-    BaseFilter.prototype.copy = function (filter) {
-        for (var prop in filter) {
-            if (filter.hasOwnProperty(prop)) {
-                this[prop] = filter[prop];
-            }
-        }
-        return this;
-    };
-
-    /**
-     * 克隆滤镜对象
-     * @returns {Filter}
-     */
-    BaseFilter.prototype.clone = function () {
-        var FilterConstructor = this.constructor;
-        var filter = new FilterConstructor();
-        filter.copy(this);
-        return filter;
-    };
-
-    /**
-     * 返回对象的字符串表示
-     * @returns {string}
-     */
-    BaseFilter.prototype.toString = function () {
-        var props = [];
-        for (var prop in this) {
-            if (this.hasOwnProperty(prop) && typeof this[prop] !== "function") {
-                props.push(prop + "=" + this[prop]);
-            }
-        }
-        return this.constructor.name + "(" + props.join(", ") + ")";
-    };
-
-    /**
-     * 返回对象的属性值的普通对象表示
-     * @returns {Object}
-     */
-    BaseFilter.prototype.toObj = function () {
-        var obj = {};
-        for (var prop in this) {
-            if (this.hasOwnProperty(prop) && typeof this[prop] !== "function") {
-                obj[prop] = this[prop];
-            }
-        }
-        return obj;
-    };
+    INHERIT_MACRO(BaseFilter, SObject);
 
     /**
      * 从对象中创建滤镜对象
@@ -143,15 +73,48 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
         filterObj.copy(filter);
         return filterObj;
     };
+    // endregion BaseFilter
+
+    // region BaseFilterBuilder
+    /**
+     * 滤镜构造器基类
+     * @constructor
+     */
+    function BaseFilterBuilder() {
+        SObject.call(this, arguments);
+        this.filter = new BaseFilter();
+    }
+    INHERIT_MACRO(BaseFilterBuilder, SObject);
 
     /**
-     * 返回对象的字符串表示
-     * @returns {string}
+     * 设置滤镜是否启用
+     * @param {boolean} enabled 是否启用
+     * @returns {BaseFilterBuilder}
      */
-    BaseFilter.toString = function () {
-        return "[class BaseFilter]";
+    BaseFilterBuilder.prototype.setEnabled = function (enabled) {
+        this.filter.enabled = enabled;
+        return this;
     };
-    // endregion BaseFilter
+
+    /**
+     * 构建滤镜对象
+     * @returns {BaseFilter}
+     */
+    BaseFilterBuilder.prototype.build = function () {
+        return this.filter;
+    };
+
+    /**
+     * 克隆滤镜构造器
+     * @note 由于内部的滤镜对象是单例的，因此克隆构造器时需要克隆滤镜对象
+     * @returns {BaseFilterBuilder}
+     */
+    BaseFilterBuilder.prototype.clone = function () {
+        this.filter = this.filter.clone();
+        SObject.prototype.clone();
+        return this;
+    };
+    // endregion BaseFilterBuilder
 
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______     _____       __     __  __     ______     ______   ______     ______     __
@@ -206,12 +169,7 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
         this.saturation = 0;
     }
 
-    // 继承基类
-    AdjustColorFilter.prototype = Object.create(BaseFilter.prototype);
-    AdjustColorFilter.prototype.constructor = AdjustColorFilter;
-
-    // 静态属性
-    AdjustColorFilter.from = BaseFilter.from;
+    INHERIT_MACRO(AdjustColorFilter, BaseFilter);
 
     FILTERS["AdjustColorFilter"] = AdjustColorFilter;
 
@@ -231,13 +189,6 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
         return this;
     };
 
-    /**
-     * 静态方法，返回类名的字符串表示
-     * @returns {string}
-     */
-    AdjustColorFilter.toString = function () {
-        return "[class AdjustColorFilter]";
-    };
     // endregion AdjustColorFilter
 
     // region AdjustColorFilterBuilder
@@ -246,8 +197,10 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
      * @constructor
      */
     function AdjustColorFilterBuilder() {
+        BaseFilterBuilder.call(this, arguments);
         this.filter = new AdjustColorFilter();
     }
+    INHERIT_MACRO(AdjustColorFilterBuilder, BaseFilterBuilder);
 
     /**
      * 设置滤镜的亮度值
@@ -397,12 +350,7 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
         this.knockout = false;
     }
 
-    // 继承基类
-    BevelFilter.prototype = Object.create(BaseFilter.prototype);
-    BevelFilter.prototype.constructor = BevelFilter;
-
-    // 静态属性
-    BevelFilter.from = BaseFilter.from;
+    INHERIT_MACRO(BevelFilter, BaseFilter);
 
     FILTERS["BevelFilter"] = BevelFilter;
 
@@ -451,13 +399,6 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
         return this;
     };
 
-    /**
-     * 静态方法，返回类名的字符串表示
-     * @returns {string}
-     */
-    BevelFilter.toString = function () {
-        return "[class BevelFilter]";
-    };
     // endregion BevelFilter
 
     // region BevelFilterBuilder
@@ -466,8 +407,10 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
      * @constructor
      */
     function BevelFilterBuilder() {
+        BaseFilterBuilder.call(this, arguments);
         this.filter = new BevelFilter();
     }
+    INHERIT_MACRO(BevelFilterBuilder, BaseFilterBuilder);
 
     /**
      * 设置阴影或高光的角度（以度为单位）
@@ -645,12 +588,7 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
         this.quality = "medium";
     }
 
-    // 继承基类
-    BlurFilter.prototype = Object.create(BaseFilter.prototype);
-    BlurFilter.prototype.constructor = BlurFilter;
-
-    // 静态属性
-    BlurFilter.from = BaseFilter.from;
+    INHERIT_MACRO(BlurFilter, BaseFilter);
 
     FILTERS["BlurFilter"] = BlurFilter;
 
@@ -668,14 +606,6 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
         return this;
     };
 
-    /**
-     * 静态方法，返回类名的字符串表示
-     * @returns {string}
-     */
-    BlurFilter.toString = function () {
-        return "[class BlurFilter]";
-    };
-
     // endregion BlurFilter
 
     // region BlurFilterBuilder
@@ -684,8 +614,10 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
      * @constructor
      */
     function BlurFilterBuilder() {
+        BaseFilterBuilder.call(this, arguments);
         this.filter = new BlurFilter();
     }
+    INHERIT_MACRO(BlurFilterBuilder, BaseFilterBuilder);
 
     /**
      * 设置 X 方向的模糊量（单位为像素）
@@ -725,16 +657,6 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
      */
     BlurFilterBuilder.prototype.setQuality = function (quality) {
         this.filter.quality = quality;
-        return this;
-    };
-
-    /**
-     * 设置是否启用该滤镜
-     * @param {boolean} enabled 是否启用该滤镜 enabled
-     * @returns {BlurFilterBuilder}
-     */
-    BlurFilterBuilder.prototype.setEnabled = function (enabled) {
-        this.filter.enabled = enabled;
         return this;
     };
 
@@ -839,12 +761,7 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
         this.hideObject = false;
     }
 
-    // 继承基类
-    DropShadowFilter.prototype = Object.create(BaseFilter.prototype);
-    DropShadowFilter.prototype.constructor = DropShadowFilter;
-
-    // 静态属性
-    DropShadowFilter.from = BaseFilter.from;
+    INHERIT_MACRO(DropShadowFilter, BaseFilter);
 
     FILTERS["DropShadowFilter"] = DropShadowFilter;
 
@@ -890,13 +807,6 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
         return this;
     };
 
-    /**
-     * 静态方法，返回类名的字符串表示
-     * @returns {string}
-     */
-    DropShadowFilter.toString = function () {
-        return "[class DropShadowFilter]";
-    };
     // endregion DropShadowFilter
 
     // region DropShadowFilterBuilder
@@ -905,8 +815,10 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
      * @constructor
      */
     function DropShadowFilterBuilder() {
+        BaseFilterBuilder.call(this, arguments);
         this.filter = new DropShadowFilter();
     }
+    INHERIT_MACRO(DropShadowFilterBuilder, BaseFilterBuilder);
 
     /**
      * 设置阴影的角度（以度为单位）
@@ -1009,16 +921,6 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
     };
 
     /**
-     * 设置是否启用该滤镜
-     * @param {boolean} enabled 是否启用该滤镜 enabled
-     * @returns {DropShadowFilterBuilder}
-     */
-    DropShadowFilterBuilder.prototype.setEnabled = function (enabled) {
-        this.filter.enabled = enabled;
-        return this;
-    };
-
-    /**
      * 构建滤镜对象
      * @returns {DropShadowFilter}
      */
@@ -1102,12 +1004,7 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
         this.knockout = false;
     }
 
-    // 继承基类
-    GlowFilter.prototype = Object.create(BaseFilter.prototype);
-    GlowFilter.prototype.constructor = GlowFilter;
-
-    // 静态属性
-    GlowFilter.from = BaseFilter.from;
+    INHERIT_MACRO(GlowFilter, BaseFilter);
 
     FILTERS["GlowFilter"] = GlowFilter;
 
@@ -1141,13 +1038,6 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
         return this;
     };
 
-    /**
-     * 静态方法，返回类名的字符串表示
-     * @returns {string}
-     */
-    GlowFilter.toString = function () {
-        return "[class GlowFilter]";
-    };
     // endregion GlowFilter
 
     // region GlowFilterBuilder
@@ -1157,8 +1047,10 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
      * @class GlowFilterBuilder
      */
     function GlowFilterBuilder() {
+        BaseFilterBuilder.call(this, arguments);
         this.glowFilter = new GlowFilter();
     }
+    INHERIT_MACRO(GlowFilterBuilder, BaseFilterBuilder);
 
     FILTER_BUILDERS["GlowFilterBuilder"] = GlowFilterBuilder;
 
@@ -1320,12 +1212,7 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
         this.knockout = false;
     }
 
-    // 继承基类
-    GradientBevelFilter.prototype = Object.create(BaseFilter.prototype);
-    GradientBevelFilter.prototype.constructor = GradientBevelFilter;
-
-    // 静态属性
-    GradientBevelFilter.from = BaseFilter.from;
+    INHERIT_MACRO(GradientBevelFilter, BaseFilter);
 
     FILTERS["GradientBevelFilter"] = GradientBevelFilter;
 
@@ -1365,13 +1252,6 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
         return this;
     };
 
-    /**
-     * 静态方法，返回类名的字符串表示
-     * @returns {string}
-     */
-    GradientBevelFilter.toString = function () {
-        return "[class GradientBevelFilter]";
-    };
     // endregion GradientBevelFilter
 
     // region GradientBevelFilterBuilder
@@ -1380,8 +1260,10 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
      * @constructor
      */
     function GradientBevelFilterBuilder() {
+        BaseFilterBuilder.call(this, arguments);
         this.gradientBevelFilter = new GradientBevelFilter();
     }
+    INHERIT_MACRO(GradientBevelFilterBuilder, BaseFilterBuilder);
 
     FILTER_BUILDERS["GradientBevelFilterBuilder"] = GradientBevelFilterBuilder;
 
@@ -1466,16 +1348,6 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
     };
 
     /**
-     * 设置是否启用该滤镜
-     * @param {boolean} enabled 是否启用该滤镜
-     * @returns {GradientBevelFilterBuilder}
-     */
-    GradientBevelFilterBuilder.prototype.setEnabled = function (enabled) {
-        this.gradientBevelFilter.enabled = enabled;
-        return this;
-    };
-
-    /**
      * 构建并返回最终的 GradientBevelFilter 对象
      * @returns {GradientBevelFilter} 构建好的 GradientBevelFilter 对象
      */
@@ -1556,12 +1428,7 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
         this.enabled = true;
     }
 
-    // 继承基类
-    GradientGlowFilter.prototype = Object.create(BaseFilter.prototype);
-    GradientGlowFilter.prototype.constructor = GradientGlowFilter;
-
-    // 静态属性
-    GradientGlowFilter.from = BaseFilter.from;
+    INHERIT_MACRO(GradientGlowFilter, BaseFilter);
 
     FILTERS["GradientGlowFilter"] = GradientGlowFilter;
 
@@ -1595,13 +1462,6 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
         return this;
     };
 
-    /**
-     * 静态方法，返回类名的字符串表示
-     * @returns {string}
-     */
-    GradientGlowFilter.toString = function () {
-        return "[class GradientGlowFilter]";
-    };
     // endregion GradientGlowFilter
 
     // region GradientGlowFilterBuilder
@@ -1610,8 +1470,10 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
      * @constructor
      */
     function GradientGlowFilterBuilder() {
+        BaseFilterBuilder.call(this, arguments);
         this.gradientGlowFilter = new GradientGlowFilter();
     }
+    INHERIT_MACRO(GradientGlowFilterBuilder, BaseFilterBuilder);
 
     FILTER_BUILDERS["GradientGlowFilterBuilder"] = GradientGlowFilterBuilder;
 
@@ -1672,16 +1534,6 @@ define(["SObject","FUNC"],function (SObject,FUNC) {
      */
     GradientGlowFilterBuilder.prototype.setKnockout = function (knockout) {
         this.gradientGlowFilter.knockout = knockout;
-        return this;
-    };
-
-    /**
-     * 设置是否启用该滤镜
-     * @param {boolean} enabled 是否启用该滤镜
-     * @returns {GradientGlowFilterBuilder}
-     */
-    GradientGlowFilterBuilder.prototype.setEnabled = function (enabled) {
-        this.gradientGlowFilter.enabled = enabled;
         return this;
     };
 

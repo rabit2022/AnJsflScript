@@ -17,15 +17,18 @@ require([
     "loglevel",
     "FilterDefinitions",
     "JSFLConstants",
-    "linqUtil"
-], function (checkUtil, log, fd, JSFLConstants, linqUtil) {
+    "linqUtil","KeyFrameOperation","FramesSelect"
+], function (checkUtil, log, fd, JSFLConstants, 
+             linqUtil,kfo,fms) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
     const { BlurFilterBuilder } = fd.BUILDERS;
 
     const { FRAME_1, FRAME_2, FRAME_3, FRAME_4 } = JSFLConstants.Numerics.frame.frameList;
-
     const { $addOffset } = linqUtil;
+    
+    const { convertToKeyframesSafety } = kfo;
+    const { SelectStartFms } = fms;
 
     // region doc
     var doc = fl.getDocumentDOM(); //文档
@@ -52,13 +55,14 @@ require([
 
     var KEY_FRAMES = [FRAME_1, FRAME_2, FRAME_3, FRAME_4];
     KEY_FRAMES = $addOffset(KEY_FRAMES, firstSlFrameIndex);
+    log.info("KEY_FRAMES", KEY_FRAMES);
 
     var BLUR = [10, 30, 50, null];
     var builder = new BlurFilterBuilder().setQuality("medium");
     var FILTERS = [
         builder.clone().setBlur(BLUR[0]).build(),
-        builder.setBlur(BLUR[1]).build(),
-        builder.setBlur(BLUR[2]).build(),
+        builder.clone().setBlur(BLUR[1]).build(),
+        builder.clone().setBlur(BLUR[2]).build(),
         null
     ];
     log.info("模糊滤镜列表");
@@ -76,9 +80,23 @@ require([
             alert("请勿选择多个图层！");
             return;
         }
+        timeline.currentLayer = totalLayers[0];
+        
+        // 关键帧
+        convertToKeyframesSafety(timeline, KEY_FRAMES);
 
-        var blurFilter = new BlurFilterBuilder().setBlur(10).setQuality("medium").build();
-        log.info("添加模糊滤镜", blurFilter);
+        // 添加滤镜
+        for (var i = 0; i < KEY_FRAMES.length; i++) {
+            var frameIndex = KEY_FRAMES[i];
+            var filter = FILTERS[i];
+            log.info(frameIndex, filter);
+            if (filter) {
+                curLayer.setFiltersAtFrame(frameIndex, [filter]);
+            }
+        }
+
+        // 重置选择
+        SelectStartFms(timeline, frs);
     }
 
     Main();

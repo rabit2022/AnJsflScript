@@ -22,11 +22,8 @@ define(function() {
      * @returns {SObject} 返回当前对象
      */
     SObject.prototype.copy = function(other) {
-        // if (!(other instanceof SObject)) {
-        //     throw new TypeError("The argument must be an instance of SObject.");
-        // }
         for (var prop in other) {
-            if (other.hasOwnProperty(prop) && typeof this[prop] !== "function") {
+            if (other.hasOwnProperty(prop) && typeof other[prop] !== "function") {
                 this[prop] = other[prop];
             }
         }
@@ -80,7 +77,6 @@ define(function() {
     SObject.toString = function() {
         return "[class " + this.name + "]";
     };
-
 
     return {
         SObject: SObject
