@@ -16,22 +16,26 @@
         fl.trace(msg);
         throw new Error(msg);
     }
+
     /**
-     * 获取项目路径，提取 "AnJsflScript" 及其之前的路径部分
+     * 获取项目路径，提取 "AnJsflScript","AnJsflScript-master", "AnJsflScript-dev" 及其之前的路径部分
      * @returns {string} - 提取的项目路径或错误信息
      */
     function getProjectPath() {
-        const ProjectName = "AnJsflScript";
-        const __filename__ = fl.scriptURI;
+        const pattern = /AnJsflScript(?:-[a-zA-Z0-9]+)?/;
+        const match = fl.scriptURI.match(pattern);
 
-        const index = __filename__.lastIndexOf(ProjectName);
-        if (index !== -1) {
-            return __filename__.substring(0, index + ProjectName.length);
-        } else {
-            exit(
-                "【温馨提示】你可能使用的是盗版软件，这个是开源的项目，如果花费了金钱购买，请退款。\n\n作者：@穹的兔兔\n QQ：3101829204\n 地址：https://github.com/rabit2022/AnJsflScript"
-            );
+        if (match) {
+            const projectName = match[0];
+            const index = fl.scriptURI.lastIndexOf(projectName);
+
+            const projectPath = fl.scriptURI.substring(0, index + projectName.length);
+            return projectPath;
         }
+
+        exit(
+            "【温馨提示】你可能使用的是盗版软件，这个是开源的项目，如果花费了金钱购买，请退款。\n\n作者：@穹的兔兔\n QQ：3101829204\n 地址：https://github.com/rabit2022/AnJsflScript"
+        );
     }
 
     /**
@@ -50,6 +54,7 @@
         result = result.replace("file:/", "file:///");
         return result;
     };
+
     // polyfills
     function String_includes(str, search) {
         return str.indexOf(search) !== -1;

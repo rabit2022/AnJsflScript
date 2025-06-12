@@ -8,12 +8,12 @@
  */
 
 (function () {
-    function getProjectPath() {
-        const index = fl.scriptURI.lastIndexOf("AnJsflScript");
-        if (index !== -1) return fl.scriptURI.substring(0, index + "AnJsflScript".length);
-        throw new Error("Can't find project path.");
-    }
-    fl.runScript(getProjectPath() + "/config/require/CheckEnvironment.jsfl");
+    const match = fl.scriptURI.match(/AnJsflScript(?:-[a-zA-Z0-9]+)?/);
+    if (!match) throw new Error("Can't find project path [" + fl.scriptURI + "]");
+    const index = fl.scriptURI.lastIndexOf(match[0]);
+    const projectPath = fl.scriptURI.substring(0, index + match[0].length);
+    if (typeof require === "undefined")
+        fl.runScript(projectPath + "/config/require/CheckEnvironment.jsfl");
 })();
 require([
     "checkUtil",
@@ -60,6 +60,7 @@ require([
 
     // 关键帧 4，7,10
     const KEY_FRAMES = [FRAME_4, FRAME_7, FRAME_10];
+
     function Main() {
         // 检查选择的元件
         if (!checkSelection(selection, "selectElement", "Only one")) return;

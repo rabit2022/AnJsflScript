@@ -4,10 +4,10 @@
         <label value="清理模式："/>
         <radiogroup id="cleanMode">
             <hbox>
-                <radio label="！！！删除所有未使用" value="deleteUnused" />
-                <radio label="删除未使用音频" value="deleteAudio" />
-                <radio label="删除未使用图片" value="deleteImage" />
-                <radio label="删除未使用元件" value="deleteSymbol" />
+                <radio label="！！！删除所有未使用" value="deleteUnused"/>
+                <radio label="删除未使用音频" value="deleteAudio"/>
+                <radio label="删除未使用图片" value="deleteImage"/>
+                <radio label="删除未使用元件" value="deleteSymbol"/>
             </hbox>
         </radiogroup>
         <separator/>
