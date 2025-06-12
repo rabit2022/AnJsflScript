@@ -1,3 +1,6 @@
+// I don't know why need it,but more plugins in supermarket use similar code as this,so I keep it here.
+// If you can tell me why, I will be grateful for your help.
+
 import flash.display.MovieClip;
 import flash.geom.Matrix;
 import flash.display.DisplayObject;

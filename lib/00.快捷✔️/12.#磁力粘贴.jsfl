@@ -1,5 +1,5 @@
 /**
- * @file: 12.磁力粘贴#.jsfl
+ * @file: 12.#磁力粘贴.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
  * @date: 2025/3/7 0:36
@@ -120,25 +120,51 @@ require([
         // 检查选择的元件
         if (!checkSelection(selection, "selectElement", "No limit")) return;
 
-        alert("此功能需要相应的网站支持，暂时只有函数的实现,请查看代码");
+        // alert("此功能需要相应的网站支持，暂时只有函数的实现,请查看代码");
 
         // 1，从剪切板获取 加密的磁力链接
-        // var magnetLink = getStringFromClipboard();
-        // if (magnetLink === null) return;
-        // log.info('magnetLink = ' + magnetLink);
+        var magnetLink = getStringFromClipboard();
+        if (magnetLink === null) return;
+        log.info("magnetLink = " + magnetLink);
+
         // 2,解密链接，获取资源url
-        // 3,调用命令行工具下载.fla文件资源，到本地缓存目录
-        // var imageUrl = 'https://img.soogif.com/RTKInXlfxFwm13iuWK5CgekAUfNQMH75.gif';
-        // var imageName = generateNameUntilUnique('image_') + '.png';
-        // var localPath = FLfile.uriToPlatformPath(os.path.join(LOCAL_CACHE_PATH, imageName));
-        //
-        // log.info('imageUrl = ' + imageUrl);
-        // log.info('localPath = ' + localPath);
-        // downloadFileFromWeb(imageUrl, localPath);
+
+        var fileExt = os.path.extname(magnetLink);
+        if (fileExt !== ".fla") {
+            alert("请复制正确的.fla文件链接(必须以.fla结尾):[" + magnetLink + "]");
+            return;
+        }
+
+        var localUri = "";
+        if (magnetLink.startsWith("file:///")) {
+            // 本地链接
+            localUri = magnetLink;
+        } else if (magnetLink.startsWith("https://")) {
+            // 网络链接
+            // 3,调用命令行工具下载.fla文件资源，到本地缓存目录
+            // var imageUrl = 'https://img.soogif.com/RTKInXlfxFwm13iuWK5CgekAUfNQMH75.gif';
+            // var imageName = generateNameUntilUnique('image_') + '.png';
+            // var localPath = FLfile.uriToPlatformPath(os.path.join(LOCAL_CACHE_PATH, imageName));
+            // log.info('imageUrl = ' + imageUrl);
+            // log.info('localPath = ' + localPath);
+            var filename = os.path.basename(magnetLink);
+            localUri = os.path.join(LOCAL_CACHE_PATH, filename);
+
+            var platformPath = FLfile.uriToPlatformPath(localUri);
+            downloadFileFromWeb(magnetLink, platformPath);
+        } else {
+            alert("请复制正确的磁力链接");
+            return;
+        }
+
+        if (!os.path.exists(localUri)) {
+            alert("文件不存在：" + localUri);
+            return;
+        }
 
         // 4,打开.fla文件，复制资源，粘贴到当前文档当前帧,关闭.fla文件
         // var flaUri = os.path.join(LOCAL_CACHE_PATH, '万能头.fla');
-        // openFlaAndPaste(flaUri);
+        openFlaAndPaste(localUri);
     }
 
     Main();

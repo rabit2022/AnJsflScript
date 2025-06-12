@@ -20,7 +20,20 @@ require([
     "LayerQuery",
     "DrawRectangle",
     "loglevel"
-], function (checkUtil, sat, sng, Context, kfo, lq, dr, log) {
+    // "StrokeDefinitions",
+    // "FillDefinitions",
+    // "ColorPanel"
+], function (
+    checkUtil,
+    sat,
+    sng,
+    Context,
+    kfo,
+    lq,
+    dr,
+    log
+    // sd, fd, cp
+) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
     const { Vector, Size } = sat;
@@ -31,28 +44,14 @@ require([
     const { convertToKeyframesSafety } = kfo;
     const { drawRectangleWithoutLine } = dr;
 
+    // const { NoStroke } = sd;
+    // const { LinearGradientFillBuilder } = fd.BUILDERS;
+    // const { setCustomPanel, resetCustomPanel } = cp;
+
     const context = new Context();
     context.update();
-    const {
-        doc,
-        selection,
-        library,
-        timeline,
-        AllLayers,
-        curLayerIndex,
-        curLayer,
-        curFrameIndex,
-        curFrame
-    } = context;
+    const { doc, selection, library, timeline, AllLayers } = context;
     const { firstSlLayerIndex, firstSlFrameIndex } = context;
-
-    // 渐变遮罩层
-    var MASK_LAYER_INDEX = 0;
-    // 宽高=位置+100
-    var MASK_WIDTH = 100;
-    var MASK_HEIGHT = 100;
-
-    // offset=Point(-width,height/5)
 
     function getRect(element) {
         const bounds = getSymbolBounds(element);
@@ -70,6 +69,22 @@ require([
     var symbolWidth = doc.selection[0].width;
     var symbolHeight = doc.selection[0].height;
 
+    function getPos1() {
+        // 0----128
+        // 720----133
+        var x = symbolWidth;
+        var y = x / 144 + 128;
+        return parseInt(y);
+    }
+
+    function getPos2() {
+        // 0----132
+        // 720----164
+        var x = symbolWidth;
+        var y = (2 * x) / 45 + 132;
+        return parseInt(y);
+    }
+
     function KFrames() {
         // 此时元件1  占用 第一个图层
         doc.enterEditMode("inPlace");
@@ -79,6 +94,17 @@ require([
         var timeline = context.timeline;
         var newLayerIndex = timeline.addNewLayer("渐变遮罩", "normal", true);
 
+        // TODO:设置笔触，填充，，填充透明度80
+        // var stroke = new NoStroke();
+        // var fill = new LinearGradientFillBuilder()
+        //     .addColorStop(0, "#FFFFFFCC")
+        //     .addColorStop(getPos1(), "#FFFFFFCC")
+        //     .addColorStop(getPos2(), "#FFFFFF00")
+        //     .addColorStop(255, "#FFFFFF00")
+        //     .build();
+        // log.info("fill", fill);
+        // setCustomPanel(stroke, fill);
+
         // 4.2 添加一个shape 长方形，铺满 元件的轮廓
         // 宽高=位置+100
         var rect = getRect(selection[0]);
@@ -87,13 +113,11 @@ require([
 
         // 设置 混合模式为 alpha
 
-        // bug:doc.setBlendMode 只能在元件生效，不能在图层生效
+        // doc.setBlendMode 只能在元件生效，不能在图层生效
         // doc.setBlendMode('alpha')
         context.update();
         var curLayer = context.curLayer;
         curLayer.setBlendModeAtFrame(0, "alpha");
-
-        // TODO:设置笔触，填充，，填充透明度80
 
         // 补帧 5s----150帧,不清楚有没有必要
 
@@ -127,8 +151,7 @@ require([
         var symbolName = generateNameUntilUnique("灵魂出窍_");
         doc.convertToSymbol("graphic", symbolName, "center");
 
-        var element = selection[0];
-        var eleSize = wrapSize(element);
+        var eleSize = wrapSize(selection[0]);
 
         // 4. 编辑模式
         KFrames();

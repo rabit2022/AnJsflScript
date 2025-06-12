@@ -21,8 +21,9 @@ require([
     "FillDefinitions",
     "ColorPanel",
     "os",
-    "ElementQuery"
-], function (checkUtil, log, lo, sat, sd, fd, cp, os, eq) {
+    "ElementQuery",
+    "JSFLConstants"
+], function (checkUtil, log, lo, sat, sd, fd, cp, os, eq, JSFLConstants) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
     const { addNewLayerSafety, renameLayer } = lo;
@@ -33,6 +34,7 @@ require([
     const { SolidFillBuilder } = fd.BUILDERS;
     const { setCustomPanel, resetCustomPanel } = cp;
     const { getName } = eq;
+    const { FRAME_1 } = JSFLConstants.Numerics.frame.frameList;
 
     // region doc
     var doc = fl.getDocumentDOM(); //文档
@@ -184,7 +186,7 @@ require([
         drawLineAndRect();
 
         // 选中“摄像机”图层 的所有元件
-        timeline.setSelectedFrames([0, 0, 1]);
+        timeline.setSelectedFrames([cameraLayerIndex, FRAME_1, FRAME_1 + 1]);
 
         doc.convertToSymbol("movie clip", SECONDARY_CAMERA_NAME, "center");
 

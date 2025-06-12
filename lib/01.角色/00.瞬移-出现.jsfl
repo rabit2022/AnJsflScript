@@ -27,7 +27,7 @@ require([
         CheckSelection: checkSelection,
         CheckSelectedFrames: checkSelectedFrames
     } = checkUtil;
-    const { FRAME_1, FRAME_2, FRAME_3, FRAME_4, FRAME_5 } =
+    const { FRAME_1, FRAME_2, FRAME_3, FRAME_4, FRAME_5,FRAME_9 } =
         JSFLConstants.Numerics.frame.frameList;
     const { setClassicEaseCurve } = curve;
     const { DeleteSelection } = es;
@@ -51,7 +51,8 @@ require([
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
     // 关键帧
-    var KEY_FRAMES = convertToProgrammeIndex([1, 2, 3, 4, 5, 9]);
+    // var KEY_FRAMES = convertToProgrammeIndex([1, 2, 3, 4, 5, 9]);
+    var KEY_FRAMES = [FRAME_1, FRAME_2, FRAME_3, FRAME_4, FRAME_5, FRAME_9];
     log.info("关键帧", KEY_FRAMES);
 
     // 滤镜效果

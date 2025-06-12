@@ -5,8 +5,13 @@
 docs   改文档，比如README
 [style]   改代码风格，不影响功能
 test   加测试、改测试
-chore   杂项，比如改。gitignore、构建脚本
+[chore]   杂项，比如改。gitignore、构建脚本
 [perf]   性能优化
 ci    CI/CD相关改动
 build   改构建系统或依赖
-revert   回滚某个提交
+[revert]   回滚某个提交
+
+[bug]   暂时发现的bug，计划修复
+[next]    下个版本计划
+[question]   疑问，需要确认
+[dp]     需求变更

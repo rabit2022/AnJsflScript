@@ -162,6 +162,8 @@ define(["loglevel", "path-browserify"], function (log, path) {
         return [root, ext];
     };
 
+    OSPath.extname = path.extname;
+
     // 自定义函数
     /**
      * 获取路径的基本名称（basename）并去除其后缀（extension）。
