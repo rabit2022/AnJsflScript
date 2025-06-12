@@ -20,8 +20,9 @@ require([
     "StrokeDefinitions",
     "FillDefinitions",
     "ColorPanel",
-    "os"
-], function (checkUtil, log, lo, sat, sd, fd, cp, os) {
+    "os",
+    "ElementQuery"
+], function (checkUtil, log, lo, sat, sd, fd, cp, os, eq) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
     const { addNewLayerSafety, renameLayer } = lo;
@@ -31,6 +32,7 @@ require([
     const { SolidStrokeBuilder } = sd.BUILDERS;
     const { SolidFillBuilder } = fd.BUILDERS;
     const { setCustomPanel, resetCustomPanel } = cp;
+    const { getName } = eq;
 
     // region doc
     var doc = fl.getDocumentDOM(); //文档
@@ -108,7 +110,7 @@ require([
 
     function getScripText() {
         const scriptPath = os.path.join(os.getcwd(), "04.辅助相机.as");
-        log.info("scriptPath", scriptPath);
+        // log.info("scriptPath", scriptPath);
 
         var scriptText = "";
         require(["text!" + scriptPath], function (text) {
@@ -116,7 +118,7 @@ require([
         });
         if (scriptText == "")
             throw new Error("Can't find script file [" + scriptPath + "]");
-        log.info("scriptText", scriptText);
+        // log.info("scriptText", scriptText);
         return scriptText;
     }
 
@@ -126,11 +128,11 @@ require([
 
         renameLayer(timeline, 0, "图像");
         var scriptLayerIndex = timeline.addNewLayer("Script", "normal", true);
-        log.info("scriptLayerIndex:", scriptLayerIndex);
+        // log.info("scriptLayerIndex:", scriptLayerIndex);
 
         // 添加as代码
         var toAddScriptFrame = timeline.layers[scriptLayerIndex].frames[0];
-        log.info("toAddScriptFrame:", toAddScriptFrame);
+        // log.info("toAddScriptFrame:", toAddScriptFrame);
         toAddScriptFrame.actionScript = getScripText();
 
         doc.exitEditMode();
@@ -147,10 +149,34 @@ require([
 
         // 查找或创建“摄像机”图层
         var cameraLayerIndex = addNewLayerSafety(timeline, "摄像机");
+        // log.info("cameraLayerIndex:", cameraLayerIndex);
 
-        // TODO:是否库中存在摄像机元件
+        // 如果“辅助相机”图层 “辅助相机-AnJsflScript” 已经存在，则直接选中该图层
+        if (
+            doc.selection.length === 1 &&
+            getName(doc.selection[0]) === SECONDARY_CAMERA_NAME
+        ) {
+            log.info("“辅助相机”图层 “辅助相机-AnJsflScript” 已经存在，直接选中该图层");
+            // 选中“辅助相机”图层,跳过此次操作
+            timeline.setSelectedLayers(cameraLayerIndex);
+            alert("辅助相机已添加，动画制作更流畅！");
+            return;
+        }
+
+        // 清空“摄像机”图层的元件
+        // timeline.setSelectedLayers(cameraLayerIndex);
+        if (doc.selection.length > 0) {
+            doc.deleteSelection();
+        }
+
+        // 库中存在摄像机元件
         if (library.itemExists(SECONDARY_CAMERA_NAME)) {
-            throw new Error("Not implemented yet");
+            // throw new Error("Not implemented yet");
+            var stageCenter = sat.ENTITY.STAGE.getCenter();
+            log.info("stageCenter:", stageCenter);
+
+            library.addItemToDocument(stageCenter, SECONDARY_CAMERA_NAME);
+            return;
         }
 
         setColorPanel();

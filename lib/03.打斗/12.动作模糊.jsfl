@@ -17,16 +17,17 @@ require([
     "loglevel",
     "FilterDefinitions",
     "JSFLConstants",
-    "linqUtil","KeyFrameOperation","FramesSelect"
-], function (checkUtil, log, fd, JSFLConstants, 
-             linqUtil,kfo,fms) {
+    "linqUtil",
+    "KeyFrameOperation",
+    "FramesSelect"
+], function (checkUtil, log, fd, JSFLConstants, linqUtil, kfo, fms) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
     const { BlurFilterBuilder } = fd.BUILDERS;
 
     const { FRAME_1, FRAME_2, FRAME_3, FRAME_4 } = JSFLConstants.Numerics.frame.frameList;
     const { $addOffset } = linqUtil;
-    
+
     const { convertToKeyframesSafety } = kfo;
     const { SelectStartFms } = fms;
 
@@ -81,7 +82,7 @@ require([
             return;
         }
         timeline.currentLayer = totalLayers[0];
-        
+
         // 关键帧
         convertToKeyframesSafety(timeline, KEY_FRAMES);
 
