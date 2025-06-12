@@ -1,5 +1,5 @@
 /**
- * @file: #04.辅助相机.jsfl
+ * @file: 04.辅助相机.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
  * @date: 2025/6/9 20:24
@@ -7,14 +7,10 @@
  * @description:
  */
 
-(function () {
-    const match = fl.scriptURI.match(/AnJsflScript(?:-[a-zA-Z0-9]+)?/);
-    if (!match) throw new Error("Can't find project path [" + fl.scriptURI + "]");
-    const index = fl.scriptURI.lastIndexOf(match[0]);
-    const projectPath = fl.scriptURI.substring(0, index + match[0].length);
-    if (typeof require === "undefined")
-        fl.runScript(projectPath + "/config/require/CheckEnvironment.jsfl");
-})();
+// @formatter:off
+// prettier-ignore
+(function(){const m=fl.scriptURI.match(/AnJsflScript(?:-[a-zA-Z0-9]+)?/);if(!m)throw new Error("Can't find project path ["+fl.scriptURI+"]");const i=fl.scriptURI.lastIndexOf(m[0]);const p=fl.scriptURI.substring(0,i+m[0].length);typeof require=="undefined"&&fl.runScript(p+"/config/require/CheckEnvironment.jsfl")})();
+// @formatter:on
 
 require([
     "checkUtil",
@@ -23,11 +19,12 @@ require([
     "SAT",
     "StrokeDefinitions",
     "FillDefinitions",
-    "ColorPanel"
-], function (checkUtil, log, lo, sat, sd, fd, cp) {
+    "ColorPanel",
+    "os"
+], function (checkUtil, log, lo, sat, sd, fd, cp, os) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
-    const { addNewLayerSafety } = lo;
+    const { addNewLayerSafety, renameLayer } = lo;
 
     const { Vector, LineSegment } = sat;
 
@@ -98,16 +95,46 @@ require([
         ];
         log.info("lines:", lines);
 
+        // 画矩形
+        doc.addNewRectangle(stageRect, 0);
+
         // 画线
         lines.forEach(function (line) {
             doc.addNewLine(line.startPoint, line.endPoint);
         });
-
-        // 画矩形框
-        doc.addNewRectangle(stageRect, 0);
     }
 
-    const SECONDARY_CAMERA_NAME = "辅助相机";
+    const SECONDARY_CAMERA_NAME = "辅助相机-AnJsflScript";
+
+    function getScripText() {
+        const scriptPath = os.path.join(os.getcwd(), "04.辅助相机.as");
+        log.info("scriptPath", scriptPath);
+
+        var scriptText = "";
+        require(["text!" + scriptPath], function (text) {
+            scriptText = text;
+        });
+        if (scriptText == "")
+            throw new Error("Can't find script file [" + scriptPath + "]");
+        log.info("scriptText", scriptText);
+        return scriptText;
+    }
+
+    function KFrames() {
+        doc.enterEditMode("inPlace");
+        var timeline = doc.getTimeline();
+
+        renameLayer(timeline, 0, "图像");
+        var scriptLayerIndex = timeline.addNewLayer("Script", "normal", true);
+        log.info("scriptLayerIndex:", scriptLayerIndex);
+
+        // 添加as代码
+        var toAddScriptFrame = timeline.layers[scriptLayerIndex].frames[0];
+        log.info("toAddScriptFrame:", toAddScriptFrame);
+        toAddScriptFrame.actionScript = getScripText();
+
+        doc.exitEditMode();
+    }
 
     function Main() {
         // 检查选择的元件
@@ -130,9 +157,16 @@ require([
 
         drawLineAndRect();
 
-        // 添加as代码
+        // 选中“摄像机”图层 的所有元件
+        timeline.setSelectedFrames([0, 0, 1]);
+
+        doc.convertToSymbol("movie clip", SECONDARY_CAMERA_NAME, "center");
+
+        KFrames();
 
         resetCustomPanel();
+
+        alert("辅助相机已添加，动画制作更流畅！");
     }
 
     Main();

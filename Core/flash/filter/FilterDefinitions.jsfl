@@ -17,7 +17,9 @@
 //
 // ------------------------------------------------------------------------------------------------------------------------
 // Filter
-define(function () {
+define(["SObject","FUNC"],function (SObject,FUNC) {
+    const {INHERIT_MACRO}=FUNC;
+
     var FILTERS = {};
     var FILTER_BUILDERS = {};
     // ------------------------------------------------------------------------------------------------------------------------
@@ -295,7 +297,7 @@ define(function () {
         return this.filter;
     };
 
-    FILTER_BUILDERS["AdjustColorFilter"] = AdjustColorFilterBuilder;
+    FILTER_BUILDERS["AdjustColorFilterBuilder"] = AdjustColorFilterBuilder;
     // endregion AdjustColorFilterBuilder
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -595,7 +597,7 @@ define(function () {
         return this.filter;
     };
 
-    FILTER_BUILDERS["BevelFilter"] = BevelFilterBuilder;
+    FILTER_BUILDERS["BevelFilterBuilder"] = BevelFilterBuilder;
     // endregion BevelFilterBuilder
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -706,6 +708,17 @@ define(function () {
     };
 
     /**
+     * 设置模糊量（单位为像素）
+     * @param {number} blur 模糊量（单位为像素）
+     * @returns {BlurFilterBuilder}
+     */
+    BlurFilterBuilder.prototype.setBlur = function (blur) {
+        this.filter.blurX = blur;
+        this.filter.blurY = blur;
+        return this;
+    };
+
+    /**
      * 设置指定模糊质量
      * @param {string} quality 指定模糊质量
      * @returns {BlurFilterBuilder}
@@ -733,7 +746,7 @@ define(function () {
         return this.filter;
     };
 
-    FILTER_BUILDERS["BlurFilter"] = BlurFilterBuilder;
+    FILTER_BUILDERS["BlurFilterBuilder"] = BlurFilterBuilder;
     // endregion BlurFilterBuilder
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -1013,7 +1026,7 @@ define(function () {
         return this.filter;
     };
 
-    FILTER_BUILDERS["DropShadowFilter"] = DropShadowFilterBuilder;
+    FILTER_BUILDERS["DropShadowFilterBuilder"] = DropShadowFilterBuilder;
     // endregion DropShadowFilter
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -1146,6 +1159,7 @@ define(function () {
     function GlowFilterBuilder() {
         this.glowFilter = new GlowFilter();
     }
+
     FILTER_BUILDERS["GlowFilterBuilder"] = GlowFilterBuilder;
 
     /**
@@ -1368,6 +1382,7 @@ define(function () {
     function GradientBevelFilterBuilder() {
         this.gradientBevelFilter = new GradientBevelFilter();
     }
+
     FILTER_BUILDERS["GradientBevelFilterBuilder"] = GradientBevelFilterBuilder;
 
     /**
@@ -1597,6 +1612,7 @@ define(function () {
     function GradientGlowFilterBuilder() {
         this.gradientGlowFilter = new GradientGlowFilter();
     }
+
     FILTER_BUILDERS["GradientGlowFilterBuilder"] = GradientGlowFilterBuilder;
 
     /**

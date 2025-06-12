@@ -134,11 +134,26 @@ define(["LayerQuery", "Tips", "loglevel"], function (lq, Tips, log) {
         layers[layerIndex].parentLayer = parentLayer_;
     }
 
+    /**
+     * 重命名图层
+     * @param {Timeline} timeline 时间轴
+     * @param {Number|Layer} layer 图层
+     * @param {String} newName 新名称
+     */
+    function renameLayer(timeline, layer, newName) {
+        var layers = timeline.layers; //图层
+
+        var layerIndex = convertToLayerIndex(layers, layer);
+
+        layers[layerIndex].name = newName;
+    }
+
     return {
         deleteLayers: deleteLayers,
         swapLayers: swapLayers,
         clearEmptyLayers: clearEmptyLayers,
         addNewLayerSafety: addNewLayerSafety,
-        setParentLayer: setParentLayer
+        setParentLayer: setParentLayer,
+        renameLayer: renameLayer
     };
 });
