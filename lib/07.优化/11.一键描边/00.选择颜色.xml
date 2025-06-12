@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <dialog id="dialog" title=" 选择颜色" buttons="accept,cancel">
     <content>
         <grid>

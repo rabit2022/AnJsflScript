@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <dialog title='修改线条' buttons='accept, cancel'>
     <content>
         <hbox>

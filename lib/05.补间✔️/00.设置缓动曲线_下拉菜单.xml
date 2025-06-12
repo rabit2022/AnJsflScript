@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <dialog id="MotionBlurOptions" title="设置缓动曲线" buttons="accept,cancel">
     <grid>
         <columns>

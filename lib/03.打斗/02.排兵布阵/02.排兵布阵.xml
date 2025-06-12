@@ -1,4 +1,5 @@
-﻿<dialog id="layoutDialog" title="排布模式选择" buttons="accept,cancel">
+﻿<?xml version="1.0"?>
+<dialog id="layoutDialog" title="排布模式选择" buttons="accept,cancel">
     <label value="请输入排布模式:"/>
     <radiogroup id="layoutRadioGroup" orient="horizontal">
         <hbox> <!-- 使用hbox来水平排列所有元素 -->

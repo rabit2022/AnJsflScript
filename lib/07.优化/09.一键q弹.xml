@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <dialog title="q弹" buttons="accept, cancel">
     <rows>
         <!-- 抖动帧数设置-->
