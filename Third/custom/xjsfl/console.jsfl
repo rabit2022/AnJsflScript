@@ -197,12 +197,13 @@ define(["JSFLInterface"], function(JSFLInterface) {
             });
         },
 
-        trace: function() {
-            var message = formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
-
-            trace("\n⚡admin  TRACE  ❯❯ " + message + "\n");
-            writeToLog(message + "\n", Log.TRACE, 3);
-        },
+        // trace: function() {
+        //     var message = formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments
+        //
+        //     trace("\n⚡admin  TRACE  ❯❯ " + message + "\n");
+        //     writeToLog(message + "\n", Log.TRACE, 3);
+        // },
+        trace:trace,
 
         debug: function() {
             var message = formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments

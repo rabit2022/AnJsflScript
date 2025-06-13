@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0"?>
 <dialog id="characterLayoutDialog" title="人物排列设置" buttons="accept,cancel">
     <grid>
-        <!--                <columns>-->
-        <!--                    <column/>-->
-        <!--                    <column/>-->
-        <!--                </columns>-->
+        <columns>
+            <column/>
+            <column/>
+        </columns>
         <rows>
             <row>
                 <label value="摇头力度:"/>
             </row>
             <row>
-                <textbox id="shakeIntensity" value="3"/>
+                <textbox id="shakeIntensity" value="3" size="40"/>
             </row>
             <separator/>
 
@@ -18,7 +18,7 @@
                 <label value="表情帧数(表情元件帧数，例如6帧表情)："/>
             </row>
             <row>
-                <textbox id="motionFrameCount" value="6"/>
+                <textbox id="motionFrameCount" value="6" size="40"/>
             </row>
             <separator/>
 
@@ -45,6 +45,21 @@
                         <spacer flex="1"/> <!-- 添加一个spacer来填充剩余空间 -->
                         <radio id="traditional" label="传统摇头" value="traditional" selected="true"/>
                         <radio id="smooth" label="丝滑摇头" value="smooth"/>
+                    </hbox>
+                </radiogroup>
+            </row>
+            <separator/>
+
+
+            <row>
+                <label value="请选择表情切换方式:"/>
+            </row>
+            <row>
+                <radiogroup id="frameSelector" orient="horizontal">
+                    <hbox>
+                        <spacer flex="1"/> <!-- 添加一个spacer来填充剩余空间 -->
+                        <radio id="keyFrame" label="帧选择器-关键顿" value="keyFrame" selected="true"/>
+                        <radio id="label" label="帧选择器-标签(更流畅)" value="label"/>
                     </hbox>
                 </radiogroup>
             </row>
