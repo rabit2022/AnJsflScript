@@ -37,7 +37,8 @@ require(["checkUtil", "ElementSelect"], function (checkUtil, es) {
         /**
          * @type {Matrix}
          */
-        var worldViewMatrixAnti = fl.tempWorldViewMatrixAnti;
+        var worldViewMatrixAnti =
+            window.AnJsflScript.GLOBALS["00.跨域剪切.jsfl-tempWorldViewMatrixAnti"];
         if (!worldViewMatrixAnti) {
             fl.trace("未找到之前的观察矩阵。请先运行脚本：00.跨域剪切.jsfl");
             return;

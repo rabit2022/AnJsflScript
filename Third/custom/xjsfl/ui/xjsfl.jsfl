@@ -488,7 +488,7 @@ xjsfl.output={
 	error:console.error
 }
 
-xjsfl.uri=$ProjectFileDir$+"/";
+xjsfl.uri=window.AnJsflScript.$ProjectFileDir$+"/";
 // ------------------------------------------------------------------------------------------------------------------------
 //
 //  ██████ ██ ██

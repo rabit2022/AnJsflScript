@@ -45,7 +45,7 @@ define(["JSFLInterface"], function(JSFLInterface) {
     // --------------------------------------------------------------------------------
     // 常量
     const trace = fl.trace;
-    const LOG_FOLDER = window.$ProjectFileDir$ + "/Logs/";
+    const LOG_FOLDER = window.AnJsflScript.$ProjectFileDir$ + "/Logs/";
     const MAIN_LOG = LOG_FOLDER + "main.log";
     const FILE_LOG = LOG_FOLDER + "file.log";
 

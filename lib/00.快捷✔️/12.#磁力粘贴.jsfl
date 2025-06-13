@@ -41,7 +41,7 @@ require([
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
     //本地缓存路径
-    const LOCAL_CACHE_PATH = $ProjectFileDir$ + "/cache/";
+    const LOCAL_CACHE_PATH = window.AnJsflScript.$ProjectFileDir$ + "/cache/";
     if (!os.path.exists(LOCAL_CACHE_PATH)) {
         os.mkdir(LOCAL_CACHE_PATH);
     }

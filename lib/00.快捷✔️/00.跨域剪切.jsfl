@@ -40,7 +40,8 @@ require(["checkUtil"], function (checkUtil) {
 
         // 记录当前视图矩阵
         var tempWorldViewMatrixAnti = doc.viewMatrix;
-        fl.tempWorldViewMatrixAnti = tempWorldViewMatrixAnti;
+        window.AnJsflScript.GLOBALS["00.跨域剪切.jsfl-tempWorldViewMatrixAnti"] =
+            tempWorldViewMatrixAnti;
 
         // 复制元件
         doc.clipCut();

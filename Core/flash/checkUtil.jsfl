@@ -7,9 +7,10 @@
  * @description:
  */
 
-define(["Tips", "SAT"], function (Tips, SAT) {
+define(["Tips", "SAT", "KeyFrameQuery"], function (Tips, SAT, kfq) {
     const { checkVariableRedeclaration } = Tips;
     const { FrameRange, FrameRangeList } = SAT;
+    const { getSelectedFrs } = kfq;
 
     /**
      * 检查选择的元件或帧是否符合指定的模式和条件。
@@ -210,14 +211,8 @@ define(["Tips", "SAT"], function (Tips, SAT) {
     function CheckSelectedFrames(timeline, exTips, condition, range) {
         if (condition === undefined) condition = "Not Zero";
 
-        // KeyFrameQuery
-        var kfq;
-        require(["KeyFrameQuery"], function (KeyFrameQuery) {
-            kfq = KeyFrameQuery;
-        });
-        const { getSelectedFrs } = kfq;
+        var frs = FrameRangeList.from(getSelectedFrs(timeline));
 
-        var frs = getSelectedFrs(timeline);
         if (!CheckSelection(frs, "selectFrame", "Not Zero")) return null;
 
         if (range) {
@@ -246,14 +241,38 @@ define(["Tips", "SAT"], function (Tips, SAT) {
             if (!CheckSelection(frs, "selectFrame", condition, exTips)) return null;
         }
 
-        frs = FrameRangeList.from(frs);
-
         return frs;
+    }
+
+    // // 请勿选择多个图层！
+    // var totalLayers = frs.getUniqueLayerIndexes();
+    // if (totalLayers.length > 1) {
+    //     alert("请勿选择多个图层！");
+    //     return;
+    // }
+    /**
+     * 检查选中的图层是否符合指定的条件
+     * @param {Timeline} timeline - 时间轴对象。
+     * @param {string} [exTips] - 额外提示信息。
+     * @param {"No limit"|"Not Zero"|"Zero"|"Only one"|"Only two"|"More"|
+     * ">0"|"=0"|"=1"|"=2"|">1"} [condition="Not Zero"] - 检查条件
+     * @returns {Array}
+     */
+    function CheckSelectedLayers(timeline, condition, exTips) {
+        if (condition === undefined) condition = "Not Zero";
+
+        var frs = FrameRangeList.from(getSelectedFrs(timeline));
+        var totalLayers = frs.getUniqueLayerIndexes();
+
+        if (!CheckSelection(totalLayers, "selectLayer", condition, exTips)) return null;
+
+        return totalLayers;
     }
 
     return {
         CheckSelection: CheckSelection,
         CheckDom: CheckDom,
-        CheckSelectedFrames: CheckSelectedFrames
+        CheckSelectedFrames: CheckSelectedFrames,
+        CheckSelectedLayers: CheckSelectedLayers
     };
 });

@@ -101,19 +101,24 @@
     }
 
     function Main() {
-        // 全局变量
-        window.importFlashScripts = importFlashScripts;
+        window.AnJsflScript = {};
+        window.AnJsflScript.importFlashScripts = importFlashScripts;
         /**
          * 项目文件夹路径
          * @type {string}
          */
-        window.$ProjectFileDir$ = getcwd();
+        window.AnJsflScript.$ProjectFileDir$ = getcwd();
+        /**
+         * 其他脚本的  存储变量
+         * @type {{}}
+         */
+        window.AnJsflScript.GLOBALS = {};
 
         var config = {
             "require-js": "Third/modules/requirejs-2.3.7/require-js"
         };
         // 导入模块,相对路径导入
-        importFlashScripts(config["require-js"]);
+        window.AnJsflScript.importFlashScripts(config["require-js"]);
 
         require([
             // 导入配置文件
@@ -138,7 +143,7 @@
             // 显示提示信息
             const { alertMessage } = Tips;
             alertMessage("loading success!");
-            if (!$ProjectFileDir$.includes("AnJsflScript")) {
+            if (!window.AnJsflScript.$ProjectFileDir$.includes("AnJsflScript")) {
                 alertMessage("loading might be not allowed!");
             }
         });

@@ -2163,7 +2163,7 @@ var requirejs, require, define;
             }
         } else if (isFlash) {
             // In a flash environment, use importFlashScripts to load the script.
-            importFlashScripts(url);
+            window.AnJsflScript.importFlashScripts(url);
 
             //Account for anonymous modules
             context.completeLoad(moduleName);

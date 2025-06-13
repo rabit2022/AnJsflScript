@@ -276,6 +276,8 @@ declare namespace sat {
 
         setSkew(skew: Skew | SkewLike): this;
 
+        moveSelectionBy(distanceToMove:VectorLike|Vector): this;
+
         static from(element: Element): Transform;
     }
 
@@ -298,6 +300,8 @@ declare namespace sat {
         contain(fr2: FrameRange): boolean;
 
         toArray(): [number, number, number];
+
+        getFirstFrame(): FrameRange;
     }
 
     /**

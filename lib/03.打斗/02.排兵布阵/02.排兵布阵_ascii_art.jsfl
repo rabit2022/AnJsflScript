@@ -41,7 +41,7 @@ require([
 
     // 资源文件夹路径ascii_art_library
     const ASCII_ART_LIBRARY_PATH = os.path.join(
-        $ProjectFileDir$,
+        window.AnJsflScript.$ProjectFileDir$,
         "./config/ascii_art_library/"
     );
     log.info("ASCII_ART_LIBRARY_PATH:", ASCII_ART_LIBRARY_PATH);

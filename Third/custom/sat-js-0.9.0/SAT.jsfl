@@ -1454,6 +1454,14 @@
         this.rotation = rotation;
         return this;
     };
+
+    // moveSelectionBy
+    Transform.prototype.moveSelectionBy = function( distanceToMove) {
+        this.element.x += distanceToMove.x;
+        this.element.y += distanceToMove.y;
+        this.position=this.position.clone().add(distanceToMove);
+        return this;
+    }
     /**
      * 设置缩放
      * @param {Vector|Scale} scale 缩放比例
@@ -1547,7 +1555,7 @@
     SAT["FrameRange"] = FrameRange;
     SAT["FR"] = FrameRange;
 
-    INHERIT_MACRO(Scale, SObject);
+    INHERIT_MACRO(FrameRange, SObject);
 
     /**
      * 帧范围的持续时间
@@ -1591,6 +1599,16 @@
         return [this.layerIndex, this.startFrame, this.endFrame];
     };
 
+    /**
+     * 获取当前帧范围的第一帧
+     * @return {FrameRange} 第一帧范围
+     */
+    FrameRange.prototype.getFirstFrame = function() {
+        var fr=this.clone();
+        fr.endFrame=fr.startFrame+1;
+        return fr;
+    };
+
     function IsFrameRangeLike(obj) {
         return (obj && typeof obj === "object" && typeof obj.layerIndex === "number" && typeof obj.startFrame === "number" && typeof obj.endFrame === "number");
     }
@@ -1626,7 +1644,10 @@
     SAT["FRL"] = FrameRangeList;
 
     INHERIT_MACRO(FrameRangeList, Array);
-    INHERIT_MACRO(FrameRangeList, SObject);
+    // INHERIT_MACRO(FrameRangeList, SObject);
+    Object.assign(FrameRangeList.prototype, SObject.prototype);
+    Object.assign(FrameRangeList, SObject);
+
 
     Object.defineProperty(FrameRangeList.prototype, "firstSlFrameIndex", {
         get: function() {

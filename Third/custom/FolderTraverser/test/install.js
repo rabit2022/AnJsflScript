@@ -99,7 +99,7 @@ if (isNode) {
 
     os = require('os');
     shutil = require('shutil');
-    ProjectFileDir = $ProjectFileDir$;
+    ProjectFileDir = window.AnJsflScript.$ProjectFileDir$;
 } else {
     throw new Error('Unsupported environment');
 }

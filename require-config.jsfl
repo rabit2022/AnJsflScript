@@ -9,7 +9,7 @@
 
 require.config({
     // context: 'Core', // 设置模块的加载上下文
-    baseUrl: window.$ProjectFileDir$, // 设置模块的基础路径
+    baseUrl: window.AnJsflScript.$ProjectFileDir$, // 设置模块的基础路径
     // baseUrl: '.', // 设置模块的基础路径
     paths: {
         // 发布到npm的模块，由node_modules文件夹进行代码补全

@@ -9,9 +9,10 @@
 
 (function () {
     var PROPERTY = window;
+    // var PROPERTY = Array
     // var PROPERTY = XML;
     // var PROPERTY = document;
-    function Main() {
+    function Main(PROPERTY) {
         fl.trace("All properties:[" + PROPERTY + "]");
         // 创建两个数组，分别存储普通属性和函数
         var properties = [];
@@ -45,7 +46,7 @@
         });
     }
 
-    Main();
+    Main(PROPERTY);
 })();
 
 /*

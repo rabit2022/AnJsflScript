@@ -20,7 +20,7 @@ define(["Utils","XULControl","XULEvent","XML","xjsfl"],function(Utils,XULControl
 	 * @returns {string} XML字符串
 	 */
 	function loadTemplate(templateName) {
-		const dirname = $ProjectFileDir$;
+		// const dirname = window.AnJsflScript.$ProjectFileDir$;
 
 		// requirejs + text! 加载模板文件
 		var template = '';
