@@ -44,7 +44,7 @@ def print_art_with_comments(text):
     text (str): 要转换为 ASCII 艺术的文本。
     """
     # 使用 pyfiglet 库生成 ASCII 艺术
-    ascii_art_text = pyfiglet.figlet_format(text,font="sub-zero",width=100)
+    ascii_art_text = pyfiglet.figlet_format(text,font="sub-zero",width=80)
     print(ascii_art_text)
 
     # 在每一行艺术字前添加双杠空格
@@ -65,6 +65,6 @@ def print_art_with_comments(text):
 if __name__ == '__main__':
 
     # 调用函数，传入文本
-    text = "BitmapFill"
+    text = "Circle"
     art = print_art_with_comments(text)
     copy_to_clipboard(art)

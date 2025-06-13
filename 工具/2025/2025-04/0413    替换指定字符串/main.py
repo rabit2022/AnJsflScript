@@ -34,36 +34,22 @@ def parser_content(content, fileobj):
     return result
 
 
-# # 要插入的指定文字
-# replace_text = r"""
-# if (typeof require === 'undefined') {
-#     var msg =
-#         '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\n 作者：@穹的兔兔';
-#     fl.trace(msg);
-#     throw new Error(msg);
-# }
-# """
-# to_text = r"""
-# // bug,FirstRun.jsfl 未运行
-# if (typeof require === 'undefined') {
-#     var msg =
-#         '【温馨提示】请先运行FirstRun.jsfl,然后再尝试运行这个脚本。\\n 作者：@穹的兔兔';
-#     fl.trace(msg);
-#     throw new Error(msg);
-# }
-#
-# // bug,Temp 未解压
-# if ($ProjectFileDir$.includes('AppData/Local/Temp')) {
-#     var msg = '【温馨提示】当前项目文件没有解压，请解压后再运行。 \\n 作者：@穹的兔兔';
-#     fl.trace(msg);
-#     throw new Error(msg);
-# }
-# """
+# 要插入的指定文字
+replace_text = r"""
+// prettier-ignore
+(function(){const m=fl.scriptURI.match(/AnJsflScript(?:-[a-zA-Z0-9]+)?/);if(!m)throw new Error("Can't find project path ["+fl.scriptURI+"]");const i=fl.scriptURI.lastIndexOf(m[0]);const p=fl.scriptURI.substring(0,i+m[0].length);typeof require=="undefined"&&fl.runScript(p+"/config/require/CheckEnvironment.jsfl")})();
+"""
+to_text = r"""
+// @formatter:off
+// prettier-ignore
+(function(){const m=fl.scriptURI.match(/AnJsflScript(?:-[a-zA-Z0-9]+)?/);if(!m)throw new Error("Can't find project path ["+fl.scriptURI+"]");const i=fl.scriptURI.lastIndexOf(m[0]);const p=fl.scriptURI.substring(0,i+m[0].length);typeof require=="undefined"&&fl.runScript(p+"/config/require/CheckEnvironment.jsfl")})();
+// @formatter:on
+"""
 
 
 contents = files.read_files(parser_content)
 # print(content)
-# for con in contents:
-#     print(con)
+for con in contents:
+    print(con)
 
-# files.write_new_content(contents)
+files.write_new_content(contents)
