@@ -34,7 +34,6 @@ define(function () {
         return Math.sign(y) * Math.abs(x);
     }
 
-
     /**
      * 判断一个数值是否是另一个数值的整数倍。
      * @param {number} num - 要判断的数值。
@@ -43,9 +42,9 @@ define(function () {
      * @returns {boolean} 如果 num 是 divisor 的整数倍，则返回 true，否则返回 false。
      */
     function isMultiple(num, divisor, tolerance) {
-        if (tolerance===undefined) tolerance = 1e-9;
+        if (tolerance === undefined) tolerance = 1e-9;
         // 检查输入是否为数字
-        if (typeof num !== 'number' || typeof divisor !== 'number') {
+        if (typeof num !== "number" || typeof divisor !== "number") {
             throw new TypeError("输入必须是数字");
         }
 

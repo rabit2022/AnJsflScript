@@ -19,6 +19,9 @@ cache/**
 .eslintcache
 ~$计划更新.xlsx
 
+# dist
+#dist/**
+output/**
 
 # 清除缓存
 # git rm -r --cached .

@@ -1,7 +1,16 @@
 # .prettierignore
+
 Third/
 node_modules/
+
 #test/
 types/
 
+# 打包的文件夹
+dist/
+output/
 
+cache/
+
+# 打包的配置文件
+webpack.config.js
