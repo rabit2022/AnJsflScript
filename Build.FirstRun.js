@@ -170,7 +170,7 @@ async function buildProject() {
 
         // 打包
         console.log("Running Webpack...");
-        await runCommand("npx webpack");
+        await runCommand("npx webpack --config webpack.FirstRun.config.js");
 
         // 转换ES5
         console.log("Running Babel...");

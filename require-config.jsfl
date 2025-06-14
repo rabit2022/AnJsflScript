@@ -111,6 +111,6 @@ require.config({
         StringP: "Core/py/string/StringP",
         KeyFrameMode: "Core/Utils/KeyFrameMode",
         Tips: "Core/Utils/Tips"
-    }, packages: []
+    },
+    packages: []
 });
-

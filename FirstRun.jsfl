@@ -221,7 +221,6 @@
     // endregion setTimeout polyfill
 
     function Main() {
-
         window.AnJsflScript = {};
         window.AnJsflScript.importFlashScripts = importFlashScripts;
         /**

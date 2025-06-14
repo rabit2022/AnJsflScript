@@ -18,8 +18,8 @@ window.define = undefined;
 // 由于setTimeout的polyfill，与原生有差别，导致require.js加载失败，所以也要重置setTimeout
 window.setTimeout = undefined;
 
-if (typeof require!=="undefined") {
-    require(["loglevel"], function(log) {
+if (typeof require !== "undefined") {
+    require(["loglevel"], function (log) {
         log.setLevel(log.levels.TRACE);
     });
 }

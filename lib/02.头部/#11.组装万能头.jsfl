@@ -19,8 +19,8 @@ require([
     "ElementQuery",
     "numpy"
 ], function (checkUtil, log, xmlPanelUtil, ec, eq, np) {
-    var checkDom = checkUtil.CheckDom,
-        checkSelection = checkUtil.CheckSelection;
+    const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
+
     const { IsSymbol } = ec;
     const { getName } = eq;
 
@@ -151,16 +151,9 @@ require([
     }
 
     function Main() {
+        // prettier-ignore
         // 检查选择的元件
-        if (
-            !checkSelection(
-                selection,
-                "selectElement",
-                "Only two",
-                "请确保同时选中了头和万能表情！"
-            )
-        )
-            return;
+        if (!checkSelection(selection, "selectElement", "Only two", "请确保同时选中了头和万能表情！")) return;
 
         // 分开 头部 和 万能表情
         var headconfig = checkHeadAndExpression(selection);
