@@ -128,6 +128,9 @@ require([
         // 检查选择的元件
         if (!checkSelection(selection, "selectElement", "Only one")) return;
 
+        alert("灵魂出窍 bug 太多，已经废弃，计划重写");
+        return;
+
         doc.clipCopy();
 
         // 1.创建新的图层---- 灵魂出窍，

@@ -16,8 +16,7 @@ require.config({
         Class: "Third/Class/Class.js-0.0.1/Class",
         Interface: "Third/Class/Class.js-0.0.1/Interface",
         "chroma-js": "Third/color/chroma.js-3.1.2/chroma-js",
-        Context: "Third/custom/Context/Context",
-        Context: "Third/custom/Context/dist/Context",
+        Context: "Third/custom/Context/Context", // Context: "Third/custom/Context/dist/Context",
         Navigation: "Third/custom/FlashTool/Navigation",
         FolderTraverser: "Third/custom/FolderTraverser/FolderTraverser",
         SObject: "Third/custom/Object/SObject",
@@ -59,8 +58,7 @@ require.config({
         "sprintf-js": "Third/utils/sprintf-js-1.1.3/sprintf-js",
         "fast-xml-parser": "Third/xml/fast-xml-parser-5.0.9/fast-xml-parser",
         xmldom: "Third/xml/xmldom-0.6.0/xmldom",
-        xpath: "Third/xml/xpath-0.0.34/xpath",
-        // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\polyfill\es6-promise-4.6.8\es6-promise.auto.jsfl
+        xpath: "Third/xml/xpath-0.0.34/xpath", // F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\polyfill\es6-promise-4.6.8\es6-promise.auto.jsfl
         "es6-promise": "Third/polyfill/es6-promise-4.6.8/es6-promise.auto",
 
         // 自定义模块
@@ -113,6 +111,6 @@ require.config({
         StringP: "Core/py/string/StringP",
         KeyFrameMode: "Core/Utils/KeyFrameMode",
         Tips: "Core/Utils/Tips"
-    },
-    packages: []
+    }, packages: []
 });
+

@@ -1,10 +1,10 @@
 /**
- * @file: FirstRun.jsfl
+ * @file: FirstRun.webpack.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
  * @date: 2024/12/16 16:45
  * @project: AnJsflScript
- * @description:每一次打开An时，都要 执行此脚本，用于初始化一些必要的模块。
+ * @description:无法运行，只用于生成 webpack 打包文件
  */
 
 (function () {
@@ -221,8 +221,6 @@
     // endregion setTimeout polyfill
 
     function Main() {
-        window.setTimeout = setTimeout;
-
         window.AnJsflScript = {};
         // window.AnJsflScript.importFlashScripts = importFlashScripts;
         /**
@@ -242,6 +240,10 @@
         // // 导入模块,相对路径导入
         // window.AnJsflScript.importFlashScripts(config["require-js"]);
 
+        // 由于setTimeout的polyfill，与原生有差别，导致require.js加载失败，所以必须先加载require.js
+        // 想要使用Promise(es6-shim或es6-sham),需要在 setTimeout
+        window.setTimeout = setTimeout;
+
         // 导入Promise模块
         // require会被babel翻译为Promise,导致报错
         /* provided dependency */ var Promise = __webpack_require__(/*! es6-promise */ "./Third/polyfill/es6-promise-4.6.8/es6-promise.auto.jsfl")["Promise"];
@@ -249,6 +251,8 @@
         require([
             // 导入配置文件
             // "./require-config",
+
+            "es6-promise",
 
             // 导入shims, 避免其他模块依赖时报错
             "es5-shim", // es5,es2009
