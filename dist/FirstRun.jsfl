@@ -114,6 +114,7 @@ function Main(){window.setTimeout=setTimeout;window.AnJsflScript={};// window.An
 // // 导入模块,相对路径导入
 // window.AnJsflScript.importFlashScripts(config["require-js"]);
 // 导入Promise模块
+// require会被babel翻译为Promise,导致报错
 /* provided dependency */var Promise=__webpack_require__(/*! es6-promise */"./Third/polyfill/es6-promise-4.6.8/es6-promise.auto.jsfl")["Promise"];Promise.resolve(/*! AMD require */).then(function(){[// 导入配置文件
 // "./require-config",
 // 导入shims, 避免其他模块依赖时报错

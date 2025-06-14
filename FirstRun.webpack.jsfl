@@ -243,6 +243,7 @@
         // window.AnJsflScript.importFlashScripts(config["require-js"]);
 
         // 导入Promise模块
+        // require会被babel翻译为Promise,导致报错
         /* provided dependency */ var Promise = __webpack_require__(/*! es6-promise */ "./Third/polyfill/es6-promise-4.6.8/es6-promise.auto.jsfl")["Promise"];
 
         require([

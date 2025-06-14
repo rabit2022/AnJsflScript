@@ -80,6 +80,10 @@ async function processFile(filename) {
         AllPaths["./dist"],
         AllPaths["filename.jsfl"]
     );
+    AllPaths["./dist/filename.min.jsfl"] = path.join(
+        AllPaths["./dist"],
+        AllPaths["filename.jsfl"].replace(/\.jsfl$/, ".min.jsfl")
+    );
     AllPaths["./filename.jsfl"] = path.join(AllPaths["."], AllPaths["filename.jsfl"]);
 
     console.log(`Processing file: ${filename}`);
@@ -106,6 +110,11 @@ async function processFile(filename) {
     // // 复制文件到根目录
     // console.log(`Copying file to current directory: ${filename}`);
     // await copyFileToCurrentDirectory(AllPaths["./dist/filename.jsfl"], AllPaths["./filename.jsfl"]);
+
+    // 压缩文件
+    const compressCommand = `npx terser "${AllPaths["./dist/filename.jsfl"]}" -o "${AllPaths["./dist/filename.min.jsfl"]}" --compress drop_console=true --mangle`;
+    console.log(`Running compress command: ${compressCommand}`);
+    await runCommand(compressCommand);
 }
 
 // 构建项目
@@ -117,10 +126,6 @@ async function buildProject() {
         console.log("Running Webpack...");
         await runCommand("npx webpack");
 
-        // // 在webpack.config.js顶部添加
-        // if (!fs.existsSync('dist')) {
-        //     fs.mkdirSync('dist');
-        // }
         // 转换ES5
         console.log("Running Babel...");
         await runCommand("npx babel output --out-dir dist");
@@ -137,12 +142,13 @@ async function buildProject() {
         // }
 
         // 获取dist目录下所有文件
-        const distFiles = fs.readdirSync(distDir).filter((file) => file.endsWith(".js"));
+        const distFiles = fs
+            .readdirSync(distDir)
+            .filter((file) => file.endsWith(".js") || file.endsWith(".jsfl"));
 
         // 处理每个文件
         for (const filename of distFiles) {
             await processFile(filename);
-            // console.log(`Processing file: ${filename}`);
         }
 
         console.log("Build process completed successfully.");

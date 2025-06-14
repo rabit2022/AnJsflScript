@@ -35,6 +35,7 @@ module.exports = {
     },
 
     mode: "development",
+    // mode: "production",
     devtool: "source-map",
 
     // 模块解析规则
