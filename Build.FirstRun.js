@@ -1,124 +1,7 @@
-const { exec } = require("child_process");
 const fs = require("fs");
 const path = require("path");
-const Terser = require("terser");
 
-// 执行命令并处理输出
-async function runCommand(command) {
-    return new Promise((resolve, reject) => {
-        exec(command, (error, stdout, stderr) => {
-            if (error) {
-                console.error(`Error: ${error.message}`);
-                console.error(`Error code: ${error.code}`);
-                console.error(`Error signal: ${error.signal}`);
-                reject(error);
-                return;
-            }
-            if (stderr) {
-                console.error(`Stderr: ${stderr}`);
-            }
-            console.log(`Stdout: ${stdout}`);
-            resolve(stdout);
-        });
-    });
-}
-
-// 删除目录
-async function deleteDirectory(dirPath) {
-    return new Promise((resolve, reject) => {
-        fs.rmdir(dirPath, { recursive: true }, (err) => {
-            if (err) {
-                console.error(`Error deleting directory ${dirPath}: ${err}`);
-                reject(err);
-            } else {
-                console.log(`Deleted directory: ${dirPath}`);
-                resolve();
-            }
-        });
-    });
-}
-
-// 复制文件到当前目录
-async function copyFile(sourcePath, targetPath) {
-    return new Promise((resolve, reject) => {
-        fs.copyFile(sourcePath, targetPath, (err) => {
-            if (err) {
-                console.error(`Error copying file: ${err}`);
-                reject(err);
-            } else {
-                console.log(`File copied to: ${targetPath}`);
-                resolve();
-            }
-        });
-    });
-}
-
-// 压缩文件
-async function compressFile(inputFile, outputFile) {
-    // 创建outputFile
-    // 确保目录存在
-    if (!fs.existsSync(path.dirname(outputFile))) {
-        fs.mkdirSync(path.dirname(outputFile), { recursive: true });
-    }
-
-    const code = fs.readFileSync(inputFile, "utf8");
-
-    // // 替换八进制转义序列
-    // const replacedOctal = code.replace(/\\([0-7]{1,3})/g, (match, octal) => {
-    //     const code = parseInt(octal, 8);
-    //     return `\\u${code.toString(16).padStart(4, '0')}`;
-    // });
-    //
-    // // 替换汉字为 \\ 开头的字符串
-    // const replacedContent = replacedOctal.replace(/[\u4e00-\u9fa5]/g, (match) => {
-    //     return `\\${match.charCodeAt(0).toString(16)}`;
-    // });
-
-    // 使用 Terser 压缩代码
-    Terser.minify(code, {
-        compress: {
-            drop_console: true // 删除 console.log
-        },
-        mangle: true,
-        format: {
-            comments: false // 删除注释
-        }
-    })
-        .then((result) => {
-            fs.writeFile(outputFile, result.code, "utf8", (err) => {
-                if (err) {
-                    console.error("Error writing file:", err);
-                    return;
-                }
-                console.log("Compression and replacement complete.");
-            });
-        })
-        .catch((error) => {
-            console.error("Error compressing file:", error);
-        });
-}
-
-// 添加闭包
-async function addClosure(inputFile, outputFile) {
-    // 读取源文件
-    console.log(`Reading file: ${inputFile}`);
-    const content = fs.readFileSync(inputFile, "utf-8");
-
-    // 添加闭包
-    const newContent = `(function(){\n${content}\n})();`;
-
-    // 写入新文件
-    console.log(`Writing file: ${outputFile}`);
-    fs.writeFileSync(outputFile, newContent, "utf-8");
-
-    // 删除源文件
-    await fs.unlink(inputFile, (err) => {
-        if (err) throw err;
-        console.log("File deleted successfully :", inputFile);
-    });
-
-    console.log(`File processed and renamed: ${inputFile} -> ${outputFile}`);
-}
+const { runCommand, deleteDirectory,copyFile, compressFile, addClosure } = require("./config/build/utils");
 
 // 修改文件内容并重命名
 async function processFile(filename) {
@@ -188,7 +71,9 @@ async function buildProject() {
         // }
 
         // 获取dist目录下所有文件
-        const distFiles = fs.readdirSync(distDir).filter((file) => file.endsWith("FirstRun.js"));
+        const distFiles = fs
+            .readdirSync(distDir)
+            .filter((file) => file.endsWith("FirstRun.js"));
 
         // 处理每个文件
         for (const filename of distFiles) {

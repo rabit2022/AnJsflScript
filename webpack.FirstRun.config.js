@@ -2,10 +2,9 @@ const { merge } = require("webpack-merge");
 const common = require("./webpack.config");
 
 module.exports = merge(common, {
-    name: "FirstRun",
+    name: "FirstRun", // FirstRun 的 webpack 配置
     entry: {
         // FirstRun.webpack.jsfl
         FirstRun: "./config/build/FirstRun.webpack.jsfl"
     }
-
 });

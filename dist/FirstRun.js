@@ -1,4 +1,3 @@
-(function(){
 "use strict";function _typeof2(o){"@babel/helpers - typeof";return _typeof2="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(o){return typeof o;}:function(o){return o&&"function"==typeof Symbol&&o.constructor===Symbol&&o!==Symbol.prototype?"symbol":typeof o;},_typeof2(o);}var __AnJsflScript;/******/(function(){// webpackBootstrap
 /******/var __webpack_modules__={/***/"./Core/Utils/Tips.jsfl":(/*!******************************!*\
   !*** ./Core/Utils/Tips.jsfl ***!
@@ -2355,4 +2354,3 @@ var alertMessage=Tips.alertMessage;alertMessage("loading success!");if(!window.A
 /******/// Load entry module and return exports
 /******/// This entry module used 'module' so it can't be inlined
 /******/var __webpack_exports__=__webpack_require__("./config/build/FirstRun.webpack.jsfl");/******/__AnJsflScript=__webpack_exports__;/******//******/})();
-})();

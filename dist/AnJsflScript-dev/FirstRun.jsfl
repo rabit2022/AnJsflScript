@@ -12526,6 +12526,10 @@ var __AnJsflScript;
                 // 显示提示信息
                 var alertMessage = Tips.alertMessage;
                 alertMessage("loading success!");
+                fl.trace(window.AnJsflScript.$ProjectFileDir$.includes("AnJsflScript"));
+                fl.trace(fl.scriptURI)
+
+
                 if (!window.AnJsflScript.$ProjectFileDir$.includes("AnJsflScript")) {
                   alertMessage("loading might be not allowed!");
                 }

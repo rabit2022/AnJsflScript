@@ -29,24 +29,25 @@ define(function () {
             "\n 地址：https://github.com/rabit2022/AnJsflScript"
     };
 
-    function TryLoad(moduleName) {
-        var msg =
-            alertMessageConfig[moduleName] || alertMessageConfig["default!"] + moduleName;
-        var ok = confirm(msg);
-        if (!ok) return;
-
-        // 加载模块
-        var XUL;
-        try {
-            requirejs([moduleName], function (module) {
-                XUL = module;
-            });
-        } catch (e) {
-            alert(alertMessageConfig["failed!"] + moduleName + "\n\n" + e.message);
-        }
-
-        return XUL;
-    }
+    // 动态模块，打包不允许使用
+    // function TryLoad(moduleName) {
+    //     var msg =
+    //         alertMessageConfig[moduleName] || alertMessageConfig["default!"] + moduleName;
+    //     var ok = confirm(msg);
+    //     if (!ok) return;
+    //
+    //     // 加载模块
+    //     var XUL;
+    //     try {
+    //         require([moduleName], function (module) {
+    //             XUL = module;
+    //         });
+    //     } catch (e) {
+    //         alert(alertMessageConfig["failed!"] + moduleName + "\n\n" + e.message);
+    //     }
+    //
+    //     return XUL;
+    // }
 
     /**
      * 检查变量是否被重新声明
@@ -55,7 +56,7 @@ define(function () {
      */
     function checkVariableRedeclaration(variable, name) {
         var assert;
-        requirejs(["assert"], function (module) {
+        require(["assert"], function (module) {
             assert = module;
         });
         if (typeof variable === "undefined") {
@@ -73,7 +74,7 @@ define(function () {
     }
 
     return {
-        TryLoad: TryLoad,
+        // TryLoad: TryLoad,
         checkVariableRedeclaration: checkVariableRedeclaration,
         alertMessage: alertMessage
     };

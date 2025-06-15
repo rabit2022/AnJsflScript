@@ -137,6 +137,7 @@ module.exports = {
             "KeyFrameMode": path.resolve(__dirname, "Core/Utils/KeyFrameMode"),
             "Tips": path.resolve(__dirname, "Core/Utils/Tips"),
 
+            // "CheckEnvironment": path.resolve(__dirname, "config/require/CheckEnvironment"),
 
         }
     },
