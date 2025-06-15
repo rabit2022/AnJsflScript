@@ -188,7 +188,7 @@ async function buildProject() {
         // }
 
         // 获取dist目录下所有文件
-        const distFiles = fs.readdirSync(distDir).filter((file) => file.endsWith(".js"));
+        const distFiles = fs.readdirSync(distDir).filter((file) => file.endsWith("FirstRun.js"));
 
         // 处理每个文件
         for (const filename of distFiles) {

@@ -13,4 +13,4 @@ output/
 cache/
 
 # 打包的配置文件
-webpack.FirstRun.config.js
+**/**config**

@@ -49,7 +49,7 @@
     "webpack-merge": "6.0.1"
   },
   "scripts": {
-    "format": "prettier --write \"**/*.{js,ts,jsfl}\" --ignore-path .prettierignore",
+    "format": "prettier --write \"**/*.{js,ts,jsfl}\" --ignore-path config/codestyle/.prettierignore",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "open-an": "powershell -File config/start/open-an.ps1",

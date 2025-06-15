@@ -246,7 +246,7 @@
 
         require([
             // 导入配置文件
-            "./require-config",
+            "./config/require/require.config",
 
             "es6-promise",
 
