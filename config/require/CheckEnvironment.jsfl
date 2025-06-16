@@ -7,7 +7,7 @@
  * @description:
  */
 
-(function () {
+(function() {
     /**
      * 退出程序并输出错误信息
      * @param {string} msg - 错误信息
@@ -22,7 +22,7 @@
      * @returns {string} - 提取的项目路径或错误信息
      */
     function getProjectPath() {
-        const pattern = /AnJsflScript(?:-[a-zA-Z0-9]+)?/;
+        const pattern = fl.scriptURI.match(/(?:^|.*[\\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\\/]|$)/)[1];
         const match = fl.scriptURI.match(pattern);
 
         if (match) {
@@ -43,7 +43,7 @@
      * @param {...string} paths - 要合并的路径数组。
      * @return {string} - 合并后的路径。
      */
-    var OSPath_join = function () {
+    var OSPath_join = function() {
         var paths = Array.prototype.slice.call(arguments, 0);
         var result = paths.join("/").replace(/\/+/g, "/");
         if (result.length > 0 && result.charAt(result.length - 1) === "/") {
