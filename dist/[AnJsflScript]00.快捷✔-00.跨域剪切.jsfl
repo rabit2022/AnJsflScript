@@ -5942,12 +5942,12 @@ var __AnJsflScript;
 
       /***/
     }),
-    /***/"./lib/00.快捷✔️/00.跨域剪切.jsfl": (
-    /*!**********************************!*\
-      !*** ./lib/00.快捷✔️/00.跨域剪切.jsfl ***!
-      \**********************************/
+    /***/"./lib/00.快捷✔/00.跨域剪切.webpack.jsfl": (
+    /*!*****************************************!*\
+      !*** ./lib/00.快捷✔/00.跨域剪切.webpack.jsfl ***!
+      \*****************************************/
     /***/
-    function _lib_00快捷️_00跨域剪切Jsfl(module, exports, __webpack_require__) {
+    function _lib_00快捷_00跨域剪切WebpackJsfl(module, exports, __webpack_require__) {
       var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
       !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
         "use strict";
@@ -5963,13 +5963,7 @@ var __AnJsflScript;
 
         // @formatter:off
         // prettier-ignore
-        (function () {
-          var m = fl.scriptURI.match(/AnJsflScript(?:-[a-zA-Z0-9]+)/);
-          if (!m) throw new Error("Can't find project path [" + fl.scriptURI + "]");
-          var i = fl.scriptURI.lastIndexOf(m[0]);
-          var p = fl.scriptURI.substring(0, i + m[0].length);
-          typeof AnJsflScript == "undefined" && fl.runScript(p + "/config/require/CheckEnvironment.jsfl");
-        })();
+        // (function(){const m=fl.scriptURI.match(/AnJsflScript(?:-[a-zA-Z0-9]+)/);if(!m)throw new Error("Can't find project path ["+fl.scriptURI+"]");const i=fl.scriptURI.lastIndexOf(m[0]);const p=fl.scriptURI.substring(0,i+m[0].length);typeof AnJsflScript=="undefined"&&fl.runScript(p+"/config/require/CheckEnvironment.jsfl")})();
         // @formatter:on
         Promise.resolve(/*! AMD require */).then(function () {
           var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(/*! checkUtil */"./Core/flash/checkUtil.jsfl")];
@@ -6093,7 +6087,7 @@ var __AnJsflScript;
   /******/ // Load entry module and return exports
   /******/ // This entry module used 'module' so it can't be inlined
   /******/
-  var __webpack_exports__ = __webpack_require__("./lib/00.快捷✔️/00.跨域剪切.jsfl");
+  var __webpack_exports__ = __webpack_require__("./lib/00.快捷✔/00.跨域剪切.webpack.jsfl");
   /******/
   __AnJsflScript = __webpack_exports__;
   /******/

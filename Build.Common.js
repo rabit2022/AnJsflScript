@@ -5,6 +5,7 @@ const {
     runCommand,
     deleteDirectory,
     copyFile,
+    deleteFile,
     compressFile,
     addClosure
 } = require("./config/build/utils");
@@ -26,40 +27,34 @@ async function prepareBuild() {
     for (const [key, value] of Object.entries(origionEntries)) {
         // console.log(key, value);
         const sourceFile = value + ".jsfl";
-        const webpackFile = webpackEntries[key] + ".webpack.jsfl";
+        const webpackFile = webpackEntries[key] + ".jsfl";
 
         console.log(`Reading source file: ${sourceFile}`);
         var sourceCode = fs.readFileSync(sourceFile, "utf8");
 
         // 替换代码
-        const replaceText = `
-// @formatter:off
-// prettier-ignore
-(function(){const m=fl.scriptURI.match(/AnJsflScript(?:-[a-zA-Z0-9]+)/);if(!m)throw new Error("Can't find project path ["+fl.scriptURI+"]");const i=fl.scriptURI.lastIndexOf(m[0]);const p=fl.scriptURI.substring(0,i+m[0].length);typeof AnJsflScript=="undefined"&&fl.runScript(p+"/config/require/CheckEnvironment.jsfl")})();
-// @formatter:on
-        `;
-        const toText = `
-// // @formatter:off
-// // prettier-ignore
-// (function(){const m=fl.scriptURI.match(/AnJsflScript(?:-[a-zA-Z0-9]+)/);if(!m)throw new Error("Can't find project path ["+fl.scriptURI+"]");const i=fl.scriptURI.lastIndexOf(m[0]);const p=fl.scriptURI.substring(0,i+m[0].length);typeof AnJsflScript=="undefined"&&fl.runScript(p+"/FirstRun.jsfl")})();
-// // @formatter:on
-ngfngfng
-        `;
-        // // sourceCode = sourceCode.replace(replace, to);
-        // // 使用正则表达式进行全局替换
-        // // sourceCode = sourceCode.replace(new RegExp(replace.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), to);
-        // // sourceCode = sourceCode.replaceAll(replace, to);
-        //
-        // const replaceRegex = new RegExp(replaceText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gs');
-        sourceCode = sourceCode.replace(replaceRegex, toText);
+        const replaceText = `(function(){const m=fl.scriptURI.match(/AnJsflScript(?:-[a-zA-Z0-9]+)/);if(!m)throw new Error("Can't find project path ["+fl.scriptURI+"]");const i=fl.scriptURI.lastIndexOf(m[0]);const p=fl.scriptURI.substring(0,i+m[0].length);typeof AnJsflScript=="undefined"&&fl.runScript(p+"/config/require/CheckEnvironment.jsfl")})();`;
+        const toText = `// (function(){const m=fl.scriptURI.match(/AnJsflScript(?:-[a-zA-Z0-9]+)/);if(!m)throw new Error("Can't find project path ["+fl.scriptURI+"]");const i=fl.scriptURI.lastIndexOf(m[0]);const p=fl.scriptURI.substring(0,i+m[0].length);typeof AnJsflScript=="undefined"&&fl.runScript(p+"/config/require/CheckEnvironment.jsfl")})();`;
 
+        sourceCode = sourceCode.replace(replaceText, toText);
 
         console.log(`Writing webpack file: ${webpackFile}`);
         fs.writeFileSync(webpackFile, sourceCode, "utf8");
     }
 }
 
-prepareBuild();
+// prepareBuild();
+async function afterBuild() {
+    // 删除webpack文件
+    const webpackEntries = CommonConfig.entry;
+    for (const [key, value] of Object.entries(webpackEntries)) {
+        const webpackFile = value + ".jsfl";
+        console.log(`Deleting webpack file: ${webpackFile}`);
+
+        await deleteFile(webpackFile);
+    }
+}
+// afterBuild();
 
 // 修改文件内容并重命名
 async function processFile(filename) {
@@ -92,21 +87,23 @@ async function processFile(filename) {
     console.log(`Adding closure to file: ${AllPaths["./dist/filename.jsfl"]}`);
     await addClosure(AllPaths["./dist/filename.js"], AllPaths["./dist/filename.jsfl"]);
 
-    // // 复制文件到根目录
-    // console.log(`Copying file to current directory: ${filename}`);
-    // await copyFileToCurrentDirectory(AllPaths["./dist/filename.jsfl"], AllPaths["./filename.jsfl"]);
-
     // 压缩文件
     console.log(`Compressing file: ${AllPaths["./dist/filename.jsfl"]}`);
     await compressFile(
         AllPaths["./dist/filename.jsfl"],
         AllPaths["./dist/filename.min.jsfl"]
     );
+
 }
 
 // 构建项目
 async function buildProject() {
     try {
+        // 准备构建
+        console.log("Preparing build...");
+        await prepareBuild();
+
+
         // 打包
         console.log("Running Webpack...");
         await runCommand("npx webpack --config webpack.Common.config.js");
@@ -118,13 +115,13 @@ async function buildProject() {
         const outputDir = path.resolve(__dirname, "output");
         const distDir = path.resolve(__dirname, "dist");
 
-        // // 清空输出目录 output
-        // if (fs.existsSync(outputDir)) {
-        //     console.log('Deleting output directory...');
-        //     await deleteDirectory(outputDir);
-        // } else {
-        //     console.log('Output directory does not exist, skipping deletion.');
-        // }
+        // 清空输出目录 output
+        if (fs.existsSync(outputDir)) {
+            console.log('Deleting output directory...');
+            await deleteDirectory(outputDir);
+        } else {
+            console.log('Output directory does not exist, skipping deletion.');
+        }
 
         // 获取dist目录下所有文件
         const distFiles = fs
@@ -136,22 +133,37 @@ async function buildProject() {
             await processFile(filename);
         }
 
+        // 后处理
+        console.log("Running afterBuild...");
+        await afterBuild();
+
         console.log("Build process completed successfully.");
     } catch (error) {
         console.error("Build process failed:", error);
     }
 }
 
-// buildProject();
-// // 带性能监控的执行
-// (async () => {
-//     const start = Date.now();
-//     try {
-//         const report = await buildProject();
-//         console.log(`构建成功，耗时 ${(Date.now() - start) / 1000}秒`);
-//         // console.log(report);
-//     } catch (error) {
-//         console.error(`构建失败，已运行 ${(Date.now() - start) / 1000}秒`);
-//         throw error;
-//     }
-// })();
+// // 准备构建
+// console.log("Preparing build...");
+// prepareBuild();
+//
+// // 打包
+// console.log("Running Webpack...");
+// runCommand("npx webpack --config webpack.Common.config.js");
+//
+// // // 后处理
+// // console.log("Running afterBuild...");
+// // afterBuild();
+
+// 带性能监控的执行
+(async () => {
+    const start = Date.now();
+    try {
+        const report = await buildProject();
+        console.log(`构建成功，耗时 ${(Date.now() - start) / 1000}秒`);
+        // console.log(report);
+    } catch (error) {
+        console.error(`构建失败，已运行 ${(Date.now() - start) / 1000}秒`);
+        throw error;
+    }
+})();

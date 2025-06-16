@@ -52,13 +52,16 @@
     "format": "prettier --write \"**/*.{js,ts,jsfl}\" --ignore-path config/codestyle/.prettierignore",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
+
     "open-an": "powershell -File config/start/open-an.ps1",
     "open-test-file": "powershell -File config/start/open-test-file.ps1",
     "FirstRun": "powershell -File config/start/FirstRun.ps1",
     "ReRun": "powershell -File config/start/ReRun.ps1",
     "run-current-file": "powershell -File config/start/run-current-file.ps1",
+
     "build:FirstRun": "node Build.FirstRun.js",
-    "build": "npm run build:FirstRun"
+    "build:Common": "webpack --config config/build/webpack.config.js",
+    "build": "npm run build:FirstRun && npm run build:Common"
   },
   "repository": {
     "type": "git",

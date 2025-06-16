@@ -62,13 +62,13 @@ async function buildProject() {
         const outputDir = path.resolve(__dirname, "output");
         const distDir = path.resolve(__dirname, "dist");
 
-        // // 清空输出目录 output
-        // if (fs.existsSync(outputDir)) {
-        //     console.log('Deleting output directory...');
-        //     await deleteDirectory(outputDir);
-        // } else {
-        //     console.log('Output directory does not exist, skipping deletion.');
-        // }
+        // 清空输出目录 output
+        if (fs.existsSync(outputDir)) {
+            console.log('Deleting output directory...');
+            await deleteDirectory(outputDir);
+        } else {
+            console.log('Output directory does not exist, skipping deletion.');
+        }
 
         // 获取dist目录下所有文件
         const distFiles = fs

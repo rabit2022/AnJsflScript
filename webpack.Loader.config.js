@@ -38,5 +38,6 @@ console.log("entries", entries);
 
 module.exports = merge(common, {
     name: "Loader",// 运行其他的脚本的打包配置
-    entry: entries
+    entry: entries,
+
 });

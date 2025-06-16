@@ -39,6 +39,21 @@ async function deleteDirectory(dirPath) {
     });
 }
 
+// 删除文件
+async function deleteFile(filePath) {
+    return new Promise((resolve, reject) => {
+        fs.unlink(filePath, (err) => {
+            if (err) {
+                console.error(`Error deleting file ${filePath}: ${err}`);
+                reject(err);
+            } else {
+                console.log(`Deleted file: ${filePath}`);
+                resolve();
+            }
+        });
+    });
+}
+
 // 复制文件到当前目录
 async function copyFile(sourcePath, targetPath) {
     return new Promise((resolve, reject) => {
@@ -121,7 +136,38 @@ async function addClosure(inputFile, outputFile) {
     console.log(`File processed and renamed: ${inputFile} -> ${outputFile}`);
 }
 
-// 动态生成入口配置，递归遍历子文件夹
+
+function formatPath(path) {
+    // 步骤1：找到 "lib" 的位置
+    const libIndex = path.indexOf('lib');
+    if (libIndex === -1) {
+        throw new Error('路径中未找到 "lib" 部分');
+    }
+
+    // 步骤2：提取 "lib" 后的部分
+    const libPath = path.substring(libIndex + 4); // 跳过 "lib" 和反斜杠
+
+    // 步骤3：分割为数组
+    const parts = libPath.split('\\').filter(Boolean); // 过滤掉空字符串
+
+    // 步骤4：使用 "_" 连接数组
+    const connectedString = parts.join('-');
+
+    // 步骤5：添加前缀
+    const result = `[AnJsflScript]${connectedString}`;
+
+    return result;
+}
+
+
+/**
+ * 获取入口配置
+ * {
+ *   '[AnJsflScript]00.快捷✔-00.跨域剪切': 'F:\\04_ps\\沙雕动画\\_素材库\\WindowSWF-master\\WindowSWF-master\\AnJsflScript\\lib\\000.跨域剪切'
+ * }
+ * @param {string} dir 入口目录
+ * @returns {object} 入口配置
+ */
 function getEntries(dir) {
     const entries = {};
     const files = fs.readdirSync(dir, { withFileTypes: true }); // 使用 withFileTypes 获取文件类型信息
@@ -134,22 +180,28 @@ function getEntries(dir) {
             Object.assign(entries, subEntries); // 将子目录中的入口文件合并到 entries 中
         } else if (path.extname(file.name) === ".jsfl") {
             // 如果是 .jsfl 文件，添加到入口配置中
-            const name = path.basename(file.name, ".jsfl"); // 去掉扩展名
-            const modulePath = filePath.replace(/.jsfl$/, ""); // 去掉扩展名
+            // const name = path.basename(file.name, ".jsfl"); // 去掉扩展名
 
-            entries[name] = modulePath; // 使用文件名作为入口名称
+
+            let modulePath = filePath.replace(/.jsfl$/, ""); // 去掉扩展名
+
+            let savePath = formatPath(modulePath); // 组成新的入口名称
+
+            // savePath=savePath.replace("✔️", ""); // 去掉特殊字符
+            // modulePath += ".webpack"; // 加上 webpack 配置文件名
+
+            entries[savePath] = modulePath; // 使用文件名作为入口名称
         }
     });
 
     return entries;
 }
-
-
 module.exports = {
     runCommand,
     deleteDirectory,
     copyFile,
     compressFile,
     addClosure,
+    deleteFile,
     getEntries,
 }

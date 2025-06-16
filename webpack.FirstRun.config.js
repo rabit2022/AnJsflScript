@@ -6,5 +6,6 @@ module.exports = merge(common, {
     entry: {
         // FirstRun.webpack.jsfl
         FirstRun: "./config/build/FirstRun.webpack.jsfl"
-    }
+    },
+
 });
