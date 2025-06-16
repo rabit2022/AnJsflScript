@@ -9,7 +9,7 @@
 
 // @formatter:off
 // prettier-ignore
-(function(){const m=fl.scriptURI.match(/(?:^|.*[\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\/]|$)/)[1];;if(!m)throw new Error("Can't find project path ["+fl.scriptURI+"]");const i=fl.scriptURI.lastIndexOf(m[0]);const p=fl.scriptURI.substring(0,i+m[0].length);;typeof AnJsflScript=="undefined"&&fl.runScript(p+"/config/require/CheckEnvironment.jsfl")})();
+(function(){const m=fl.scriptURI.match(/(?:^|.*[\\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\\/]|$)/)[1];;if(!m)throw new Error("Can't find project path ["+fl.scriptURI+"]");const i=fl.scriptURI.lastIndexOf(m[0]);const p=fl.scriptURI.substring(0,i+m[0].length);;typeof AnJsflScript=="undefined"&&fl.runScript(p+"/config/require/CheckEnvironment.jsfl")})();
 // @formatter:on
 
 require([
@@ -144,57 +144,9 @@ require([
         // 检查选择的元件
         if (!CheckSelection(selection, "selectElement", "No limit")) return;
 
-        // 禁用相机
-        if (timeline.camera.cameraEnabled === true) {
-            timeline.camera.cameraEnabled = false;
-        }
-
-        // 查找或创建“摄像机”图层
-        var cameraLayerIndex = addNewLayerSafety(timeline, "摄像机");
-        // log.info("cameraLayerIndex:", cameraLayerIndex);
-
-        // 如果“辅助相机”图层 “辅助相机-AnJsflScript” 已经存在，则直接选中该图层
-        if (
-            doc.selection.length === 1 &&
-            getName(doc.selection[0]) === SECONDARY_CAMERA_NAME
-        ) {
-            log.info("“辅助相机”图层 “辅助相机-AnJsflScript” 已经存在，直接选中该图层");
-            // 选中“辅助相机”图层,跳过此次操作
-            timeline.setSelectedLayers(cameraLayerIndex);
-            alert("辅助相机已添加，动画制作更流畅！");
-            return;
-        }
-
-        // 清空“摄像机”图层的元件
-        // timeline.setSelectedLayers(cameraLayerIndex);
-        if (doc.selection.length > 0) {
-            doc.deleteSelection();
-        }
-
-        // 库中存在摄像机元件
-        if (library.itemExists(SECONDARY_CAMERA_NAME)) {
-            // throw new Error("Not implemented yet");
-            var stageCenter = sat.ENTITY.STAGE.getCenter();
-            log.info("stageCenter:", stageCenter);
-
-            library.addItemToDocument(stageCenter, SECONDARY_CAMERA_NAME);
-            return;
-        }
-
-        setColorPanel();
-
-        drawLineAndRect();
-
-        // 选中“摄像机”图层 的所有元件
-        timeline.setSelectedFrames([cameraLayerIndex, FRAME_1, FRAME_1 + 1]);
-
-        doc.convertToSymbol("movie clip", SECONDARY_CAMERA_NAME, "center");
-
-        KFrames();
-
-        resetCustomPanel();
-
-        alert("辅助相机已添加，动画制作更流畅！");
+        fl.trace("获取script Text");
+        var scriptText = getScripText();
+        fl.trace(scriptText);
     }
 
     Main();
