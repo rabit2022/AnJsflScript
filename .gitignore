@@ -20,7 +20,7 @@ cache/**
 ~$计划更新.xlsx
 
 # dist
-#dist/**
+dist/**
 output/**
 
 # 清除缓存

@@ -137,6 +137,32 @@ async function addClosure(inputFile, outputFile) {
 }
 
 
+// 添加 不格式化 注释
+async function addNoFormatComment(inputFile, outputFile) {
+    // @formatter:off
+    // prettier-ignore
+    // (function(){var m=fl.scriptURI.match(/(?:^|.*[\\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\\/]|$)/)[1];;if(!m)throw new Error("Can't find project path ["+fl.scriptURI+"]");var i=fl.scriptURI.lastIndexOf(m[0]);var p=fl.scriptURI.substring(0,i+m[0].length);;typeof AnJsflScript=="undefined"&&fl.runScript(p+"/config/require/CheckEnvironment.jsfl")})();
+    // @formatter:on
+// 读取源文件
+    console.log(`Reading file: ${inputFile}`);
+    const content = fs.readFileSync(inputFile, "utf-8");
+
+    // 添加闭包
+    const newContent = `(function(){\n${content}\n})();`;
+
+    // 写入新文件
+    console.log(`Writing file: ${outputFile}`);
+    fs.writeFileSync(outputFile, newContent, "utf-8");
+
+    // 删除源文件
+    await fs.unlink(inputFile, (err) => {
+        if (err) throw err;
+        console.log("File deleted successfully :", inputFile);
+    });
+
+    console.log(`File processed and renamed: ${inputFile} -> ${outputFile}`);
+}
+
 function formatPath(path) {
     // 步骤1：找到 "lib" 的位置
     const libIndex = path.indexOf('lib');

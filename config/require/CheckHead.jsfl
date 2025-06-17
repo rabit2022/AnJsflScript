@@ -9,14 +9,14 @@
 
 (function() {
     function getProjectPath() {
-        const pattern = fl.scriptURI.match(/(?:^|.*[\\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\\/]|$)/)[1];
-        const match = fl.scriptURI.match(pattern);
+        var pattern = fl.scriptURI.match(/(?:^|.*[\\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\\/]|$)/)[1];
+        var match = fl.scriptURI.match(pattern);
 
         if (match) {
-            const projectName = match[0];
-            const index = fl.scriptURI.lastIndexOf(projectName);
+            var projectName = match[0];
+            var index = fl.scriptURI.lastIndexOf(projectName);
 
-            const projectPath = fl.scriptURI.substring(0, index + projectName.length);
+            var projectPath = fl.scriptURI.substring(0, index + projectName.length);
             return projectPath;
         }
 
@@ -25,11 +25,12 @@
 
     if (typeof require === "undefined") {
         fl.runScript(getProjectPath() + "/config/require/CheckEnvironment.jsfl");
+        // fl.trace("project path: " + getProjectPath());
     }
 })();
 
 
 // @formatter:off
 // prettier-ignore
-(function(){const m=fl.scriptURI.match(/(?:^|.*[\\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\\/]|$)/)[1];;if(!m)throw new Error("Can't find project path ["+fl.scriptURI+"]");const i=fl.scriptURI.lastIndexOf(m[0]);const p=fl.scriptURI.substring(0,i+m[0].length);;typeof AnJsflScript=="undefined"&&fl.runScript(p+"/config/require/CheckEnvironment.jsfl")})();
+// (function(){var m=fl.scriptURI.match(/(?:^|.*[\\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\\/]|$)/)[1];;if(!m)throw new Error("Can't find project path ["+fl.scriptURI+"]");var i=fl.scriptURI.lastIndexOf(m[0]);var p=fl.scriptURI.substring(0,i+m[0].length);;typeof AnJsflScript=="undefined"&&fl.runScript(p+"/config/require/CheckEnvironment.jsfl")})();
 // @formatter:on
