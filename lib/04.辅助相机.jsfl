@@ -22,8 +22,8 @@ require([
     "ColorPanel",
     "os",
     "ElementQuery",
-    "JSFLConstants"
-], function (checkUtil, log, lo, sat, sd, fd, cp, os, eq, JSFLConstants) {
+    "JSFLConstants", "COMPATIBILITY"
+], function(checkUtil, log, lo, sat, sd, fd, cp, os, eq, JSFLConstants, COMPATIBILITY) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
     const { addNewLayerSafety, renameLayer } = lo;
@@ -35,6 +35,12 @@ require([
     const { setCustomPanel, resetCustomPanel } = cp;
     const { getName } = eq;
     const { FRAME_1 } = JSFLConstants.Numerics.frame.frameList;
+
+    const {
+        __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_RELATIVE_PATH__,
+        __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_ABSOLUTE_PATH__,
+        __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_TEXT__
+    } = COMPATIBILITY;
 
     // region doc
     var doc = fl.getDocumentDOM(); //文档
@@ -103,7 +109,7 @@ require([
         doc.addNewRectangle(stageRect, 0);
 
         // 画线
-        lines.forEach(function (line) {
+        lines.forEach(function(line) {
             doc.addNewLine(line.startPoint, line.endPoint);
         });
     }
@@ -112,27 +118,25 @@ require([
 
     // function getScripText() {
     //     const scriptPath = os.path.join(os.getcwd(), "04.辅助相机.as");
-    //     // log.info("scriptPath", scriptPath);
+    //     // // log.info("scriptPath", scriptPath);
+    //     //
+    //     // var scriptText = "";
+    //     // require(["text!" + scriptPath], function (text) {
+    //     //     scriptText = text;
+    //     // });
     //
     //     var scriptText = "";
-    //     require(["text!" + scriptPath], function (text) {
-    //         scriptText = text;
+    //     // require(["./04.辅助相机.as"], function (text) {
+    //     //     scriptText = text;
+    //     // });
+    //     require([__WEBPACK_COMPATIBILITY_TEXT_PLUGIN_RELATIVE_PATH__("./04.辅助相机.as")], function (text) {
+    //         scriptText = __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_TEXT__(text);
     //     });
     //     if (scriptText == "")
     //         throw new Error("Can't find script file [" + scriptPath + "]");
     //     // log.info("scriptText", scriptText);
     //     return scriptText;
     // }
-    function getScripText(callback) {
-        require([__WEBPACK_COMPATIBILITY_TEXT_PLUGIN_RELATIVE_PATH__("./04.辅助相机.as")], function(text) {
-            const scriptText = __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_TEXT__(text);
-            if (!scriptText) {
-                callback(new Error("Can't find script file [./04.辅助相机.as]"));
-            } else {
-                callback(null, scriptText);
-            }
-        });
-    }
 
     function KFrames() {
         doc.enterEditMode("inPlace");
@@ -145,76 +149,53 @@ require([
         // 添加as代码
         var toAddScriptFrame = timeline.layers[scriptLayerIndex].frames[0];
         // log.info("toAddScriptFrame:", toAddScriptFrame);
+        toAddScriptFrame.actionScript = getScripText();
+
+        doc.exitEditMode();
+    }
+
+    function getScriptText() {
+        function getScriptTextInner(callback) {
+            require([__WEBPACK_COMPATIBILITY_TEXT_PLUGIN_ABSOLUTE_PATH__("./config/ui/dialog.xul")], function(text) {
+                const scriptText = __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_TEXT__(text);
+                if (!scriptText) {
+                    callback(new Error("Can't find script file [./04.辅助相机.as]"));
+                } else {
+                    callback(null, scriptText);
+                }
+            });
+        }
 
         var scriptText1 = "";
-        getScripText(function(err, scriptText) {
+        getScriptTextInner(function(err, scriptText) {
             if (err) {
                 fl.trace(err.message);
                 return;
             }
             scriptText1 = scriptText;
         });
-
-        toAddScriptFrame.actionScript = scriptText1;
-
-        doc.exitEditMode();
+        return scriptText1;
     }
 
     function Main() {
         // 检查选择的元件
         if (!CheckSelection(selection, "selectElement", "No limit")) return;
 
-        // 禁用相机
-        if (timeline.camera.cameraEnabled === true) {
-            timeline.camera.cameraEnabled = false;
-        }
+        // fl.trace("获取script Text");
+        // var scriptText = getScripText();
+        // fl.trace(scriptText);
 
-        // 查找或创建“摄像机”图层
-        var cameraLayerIndex = addNewLayerSafety(timeline, "摄像机");
-        // log.info("cameraLayerIndex:", cameraLayerIndex);
-
-        // 如果“辅助相机”图层 “辅助相机-AnJsflScript” 已经存在，则直接选中该图层
-        if (
-            doc.selection.length === 1 &&
-            getName(doc.selection[0]) === SECONDARY_CAMERA_NAME
-        ) {
-            log.info("“辅助相机”图层 “辅助相机-AnJsflScript” 已经存在，直接选中该图层");
-            // 选中“辅助相机”图层,跳过此次操作
-            timeline.setSelectedLayers(cameraLayerIndex);
-            alert("辅助相机已添加，动画制作更流畅！");
-            return;
-        }
-
-        // 清空“摄像机”图层的元件
-        // timeline.setSelectedLayers(cameraLayerIndex);
-        if (doc.selection.length > 0) {
-            doc.deleteSelection();
-        }
-
-        // 库中存在摄像机元件
-        if (library.itemExists(SECONDARY_CAMERA_NAME)) {
-            // throw new Error("Not implemented yet");
-            var stageCenter = sat.ENTITY.STAGE.getCenter();
-            log.info("stageCenter:", stageCenter);
-
-            library.addItemToDocument(stageCenter, SECONDARY_CAMERA_NAME);
-            return;
-        }
-
-        setColorPanel();
-
-        drawLineAndRect();
-
-        // 选中“摄像机”图层 的所有元件
-        timeline.setSelectedFrames([cameraLayerIndex, FRAME_1, FRAME_1 + 1]);
-
-        doc.convertToSymbol("movie clip", SECONDARY_CAMERA_NAME, "center");
-
-        KFrames();
-
-        resetCustomPanel();
-
-        alert("辅助相机已添加，动画制作更流畅！");
+        // var scriptText1 = "";
+        // getScriptText(function(err, scriptText) {
+        //     if (err) {
+        //         fl.trace(err.message);
+        //         return;
+        //     }
+        //     scriptText1 = scriptText;
+        // });
+        // fl.trace(scriptText1);
+        var scriptText = getScriptText();
+        fl.trace(scriptText);
     }
 
     Main();

@@ -9,7 +9,7 @@
 
 // @formatter:off
 // prettier-ignore
-"undefined"==typeof require&&fl.runScript(function(){var r=fl.scriptURI.match(/(?:^|.*[\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\/]|$)/)[1],t=fl.scriptURI.match(r);if(t){var n=t[0],i=fl.scriptURI.lastIndexOf(n);return fl.scriptURI.substring(0,i+n.length)}throw new Error("Can't find project path ["+fl.scriptURI+"]")}()+"/config/require/CheckEnvironment.jsfl");
+// "undefined"==typeof require&&fl.runScript(function(){var r=fl.scriptURI.match(/(?:^|.*[\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\/]|$)/)[1],t=fl.scriptURI.match(r);if(t){var n=t[0],i=fl.scriptURI.lastIndexOf(n);return fl.scriptURI.substring(0,i+n.length)}throw new Error("Can't find project path ["+fl.scriptURI+"]")}()+"/config/require/CheckEnvironment.jsfl");
 // @formatter:on
 
 require([
@@ -27,7 +27,7 @@ require([
     "FramesSelect",
     "lodash",
     "EaseCurve",
-    "chroma-js"
+    "chroma-js","COMPATIBILITY"
 ], function (
     checkUtil,
     log,
@@ -43,7 +43,7 @@ require([
     fms,
     _,
     ec,
-    chroma
+    chroma,COMPATIBILITY
 ) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
@@ -60,6 +60,8 @@ require([
     const { setClassicEaseCurve } = ec;
 
     const { getStageRect } = SAT.GLOBALS;
+
+    const {__WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__}=COMPATIBILITY;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -97,7 +99,8 @@ require([
     var ALPHA_FRAMES = [_.first(KEY_FRAMES), _.last(KEY_FRAMES)];
 
     function checkXMLPanel() {
-        var panel = getXMLPanel();
+        // var panel = getXMLPanel();
+        var panel = ./09.一键转场.xml;
         if (panel === null) return null;
 
         return { transitionMode: panel.transitionModeGroup };

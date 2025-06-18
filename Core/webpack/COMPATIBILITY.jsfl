@@ -6,7 +6,8 @@
  * @project: AnJsflScript
  * @description:
  */
-define(["os"], function(os) {
+define(["os","xmlPanelUtil"], function(os, xmlPanelUtil) {
+    const {getXMLPanel,getXMLPath}=xmlPanelUtil;
     /**
      * @description: 兼容requirejs的text插件
      * @param {string} textPluginPath: text插件的 相对路径
@@ -39,10 +40,23 @@ define(["os"], function(os) {
         return text.default || text;
     }
 
+    // 相对路径,同名的xml文件，返回Panel对象
+    /**
+     * @description: 兼容requirejs的xml插件
+     * @param {string} xmlPath: xml插件的 相对路径
+     * @return {XMLPanel}: flash 的实际xmlPanel对象
+     */
+    function __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__(xmlPath) {
+        const absolutePath = os.path.join(os.getcwd(), xmlPath);
+        const xmlPanel = getXMLPanel(absolutePath);
+        return xmlPanel;
+    }
+
     return {
         __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_RELATIVE_PATH__: __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_RELATIVE_PATH__,
         __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_ABSOLUTE_PATH__: __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_ABSOLUTE_PATH__,
-        __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_TEXT__: __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_TEXT__
+        __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_TEXT__: __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_TEXT__,
+        __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__: __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__
     }
 
 });
