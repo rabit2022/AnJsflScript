@@ -1,9 +1,7 @@
 const fs = require("fs");
 const path = require("path");
-const CommonConfig = require("./webpack.Common.config");
+// const CommonConfig = require("./webpack.Common.config");
 const CheckHeadConfig = require("./config/require/webpack.CheckHead");
-
-
 
 const {
     runCommand,
@@ -11,11 +9,46 @@ const {
     copyFile,
     deleteFile,
     compressFile,
-    addClosure
+    addClosure,
+    getEntries,
+    getObjectEntryByIndex,
+    getObjectLength
 } = require("./config/build/utils");
 
-async function prepareBuild() {
-    const webpackEntries = CommonConfig.entry;
+function getEntry() {
+    const libDir = path.resolve(__dirname, "lib");
+    const entries = getEntries(libDir);
+
+    const newEntries = {};
+    for (const [key, value] of Object.entries(entries)) {
+        // entries[key] = `${value}.webpack`;
+        if (!value.endsWith(".Text")) {
+            // console.log("value", value);
+            newEntries[key] = `${value}.webpack`;
+        }
+    }
+    return newEntries;
+}
+
+async function writeNewConfig(webpackEntries) {
+    const webpackConfig = path.resolve(__dirname, "./webpack.Common.config.js");
+
+    const jsonString = JSON.stringify(webpackEntries);
+    const newConfig = `
+const { merge } = require("webpack-merge");
+const common = require("./webpack.config");
+
+module.exports = merge(common, {
+    name: "Common", // 普通的脚本文件配置
+    // entry多个文件时，总是会打包chunk,暂时没有办法解决，只能手动修改webpack.config.js文件
+    entry: ${jsonString}
+});
+    `;
+    await fs.writeFileSync(webpackConfig, newConfig, "utf-8");
+}
+
+async function prepareBuild(webpackEntries) {
+    // const webpackEntries = CommonConfig.entry;
 
     // 创建一个深拷贝
     const origionEntries = structuredClone(webpackEntries);
@@ -37,7 +70,10 @@ async function prepareBuild() {
         var sourceCode = fs.readFileSync(sourceFile, "utf8");
 
         // 替换代码
-        sourceCode = sourceCode.replace(CheckHeadConfig.custom.Head, "// "+CheckHeadConfig.custom.Head);
+        sourceCode = sourceCode.replace(
+            CheckHeadConfig.custom.Head,
+            "// " + CheckHeadConfig.custom.Head
+        );
 
         console.log(`Writing webpack file: ${webpackFile}`);
         fs.writeFileSync(webpackFile, sourceCode, "utf8");
@@ -45,9 +81,9 @@ async function prepareBuild() {
 }
 
 // prepareBuild();
-async function afterBuild() {
+async function afterBuild(webpackEntries) {
     // 删除webpack文件
-    const webpackEntries = CommonConfig.entry;
+    // const webpackEntries = CommonConfig.entry;
     for (const [key, value] of Object.entries(webpackEntries)) {
         const webpackFile = value + ".jsfl";
         console.log(`Deleting webpack file: ${webpackFile}`);
@@ -55,7 +91,6 @@ async function afterBuild() {
         await deleteFile(webpackFile);
     }
 }
-// afterBuild();
 
 // 修改文件内容并重命名
 async function processFile(filename) {
@@ -94,50 +129,60 @@ async function processFile(filename) {
         AllPaths["./dist/filename.jsfl"],
         AllPaths["./dist/filename.min.jsfl"]
     );
-
 }
 
 // 构建项目
 async function buildProject() {
     try {
-        // 准备构建
-        console.log("Preparing build...");
-        await prepareBuild();
+        const entry = getEntry();
 
+        for (let index = 0; index < getObjectLength(entry); index++) {
+            const value = getObjectEntryByIndex(entry, index);
+            console.log("Entry:", value);
 
-        // 打包
-        console.log("Running Webpack...");
-        await runCommand("npx webpack --config webpack.Common.config.js");
+            // 准备构建
+            console.log("Preparing build...");
+            await prepareBuild(value);
 
-        // 转换ES5
-        console.log("Running Babel...");
-        await runCommand("npx babel output --out-dir dist");
+            // 写入新配置
+            console.log("Writing new config...");
+            await writeNewConfig(value);
 
-        const outputDir = path.resolve(__dirname, "output");
-        const distDir = path.resolve(__dirname, "dist");
+            // 打包
+            console.log("Running Webpack...");
+            await runCommand("npx webpack --config webpack.Common.config.js");
 
-        // 清空输出目录 output
-        if (fs.existsSync(outputDir)) {
-            console.log('Deleting output directory...');
-            await deleteDirectory(outputDir);
-        } else {
-            console.log('Output directory does not exist, skipping deletion.');
+            // 转换ES5
+            console.log("Running Babel...");
+            await runCommand("npx babel output --out-dir dist");
+
+            const outputDir = path.resolve(__dirname, "output");
+            const distDir = path.resolve(__dirname, "dist");
+
+            // 清空输出目录 output
+            if (fs.existsSync(outputDir)) {
+                console.log("Deleting output directory...");
+                await deleteDirectory(outputDir);
+            } else {
+                console.log("Output directory does not exist, skipping deletion.");
+            }
+
+            // 获取dist目录下所有文件
+            const distFiles = fs
+                .readdirSync(distDir)
+                .filter((file) => file.endsWith(".js") && !file.endsWith("FirstRun.js"));
+
+            // 处理每个文件
+            for (const filename of distFiles) {
+                await processFile(filename);
+            }
+
+            // 后处理
+            console.log("Running afterBuild...");
+            await afterBuild(value);
+
+            break;
         }
-
-        // 获取dist目录下所有文件
-        const distFiles = fs
-            .readdirSync(distDir)
-            .filter((file) => file.endsWith(".js") && !file.endsWith("FirstRun.js"));
-
-        // 处理每个文件
-        for (const filename of distFiles) {
-            await processFile(filename);
-        }
-
-        // 后处理
-        console.log("Running afterBuild...");
-        await afterBuild();
-
         console.log("Build process completed successfully.");
     } catch (error) {
         console.error("Build process failed:", error);

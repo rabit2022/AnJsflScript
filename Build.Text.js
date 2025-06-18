@@ -9,7 +9,10 @@ const {
     copyFile,
     deleteFile,
     compressFile,
-    addClosure, getEntries
+    addClosure,
+    getEntries,
+    getObjectEntryByIndex,
+    getObjectLength
 } = require("./config/build/utils");
 
 function replaceRelativePath(str) {
@@ -20,25 +23,39 @@ function replaceRelativePath(str) {
     return match;
 }
 
-
 function getEntry() {
     const libDir = path.resolve(__dirname, "lib");
-    const entries = getEntries(libDir);
-
+    let entries = getEntries(libDir);
     const newEntries = {};
+    // 把value添加.webpack后缀
     for (const [key, value] of Object.entries(entries)) {
-        // entries[key] = `${value}.webpack`;
         if (value.endsWith(".Text")) {
-            // console.log("value", value);
             newEntries[key] = `${value}.webpack`;
         }
     }
+    return newEntries;
 }
 
+async function writeNewConfig(webpackEntries) {
+    const webpackConfig = path.resolve(__dirname, "./webpack.Text.config.js");
 
+    const jsonString = JSON.stringify(webpackEntries);
+    const newConfig = `
+const { merge } = require("webpack-merge");
+const common = require("./webpack.config");
 
-async function prepareBuild() {
-    const webpackEntries =getEntry();
+module.exports = merge(common, {
+    name: "Text", // requirejs text 插件
+    // entry多个文件时，总是会打包chunk,暂时没有办法解决，只能手动修改webpack.config.js文件
+    entry: ${jsonString}
+});
+    
+    `;
+    await fs.writeFileSync(webpackConfig, newConfig, "utf-8");
+}
+
+async function prepareBuild(webpackEntries) {
+    // const webpackEntries =getEntry();
 
     // 创建一个深拷贝
     const origionEntries = structuredClone(webpackEntries);
@@ -46,9 +63,6 @@ async function prepareBuild() {
         // webpackEntries[key] = value + '.webpack';
         origionEntries[key] = value.replace(/\.webpack$/, "");
     });
-
-    // console.log("webpackEntries", webpackEntries);
-    // console.log("origionEntries", origionEntries);
 
     // 读取源文件
     for (const [key, value] of Object.entries(origionEntries)) {
@@ -74,9 +88,8 @@ async function prepareBuild() {
     }
 }
 
-// prepareBuild();
-async function afterBuild() {
-    const webpackEntries = getEntry();
+async function afterBuild(webpackEntries) {
+    // const webpackEntries = getEntry();
     // 删除webpack文件
     for (const [key, value] of Object.entries(webpackEntries)) {
         const webpackFile = value + ".jsfl";
@@ -85,8 +98,6 @@ async function afterBuild() {
         await deleteFile(webpackFile);
     }
 }
-
-// afterBuild();
 
 // 修改文件内容并重命名
 async function processFile(filename) {
@@ -130,44 +141,58 @@ async function processFile(filename) {
 // 构建项目
 async function buildProject() {
     try {
-        // 准备构建
-        console.log("Preparing build...");
-        await prepareBuild();
+        const entry = getEntry();
+        console.log("Entries:", entry);
 
-        // 打包
-        console.log("Running Webpack...");
-        await runCommand("npx webpack --config webpack.Text.config.js");
+        for (let index = 0; index < getObjectLength(entry); index++) {
+            const value = getObjectEntryByIndex(entry, index);
+            console.log("Entry:", value);
 
-        // 转换ES5
-        console.log("Running Babel...");
-        await runCommand("npx babel output --out-dir dist");
+            // 准备构建
+            console.log("Preparing build...");
+            await prepareBuild(value);
 
-        const outputDir = path.resolve(__dirname, "output");
-        const distDir = path.resolve(__dirname, "dist");
+            // 写入新配置
+            console.log("Writing new config...");
+            await writeNewConfig(value);
 
-        // 清空输出目录 output
-        if (fs.existsSync(outputDir)) {
-            console.log("Deleting output directory...");
-            await deleteDirectory(outputDir);
-        } else {
-            console.log("Output directory does not exist, skipping deletion.");
+            // 打包
+            console.log("Running Webpack...");
+            await runCommand("npx webpack --config webpack.Text.config.js");
+
+            // 转换ES5
+            console.log("Running Babel...");
+            await runCommand("npx babel output --out-dir dist");
+
+            const outputDir = path.resolve(__dirname, "output");
+            const distDir = path.resolve(__dirname, "dist");
+
+            // 清空输出目录 output
+            if (fs.existsSync(outputDir)) {
+                console.log("Deleting output directory...");
+                await deleteDirectory(outputDir);
+            } else {
+                console.log("Output directory does not exist, skipping deletion.");
+            }
+
+            // 获取dist目录下所有文件
+            const distFiles = fs
+                .readdirSync(distDir)
+                .filter((file) => file.endsWith(".js") && !file.endsWith("FirstRun.js"));
+
+            // 处理每个文件
+            for (const filename of distFiles) {
+                await processFile(filename);
+            }
+
+            // 后处理
+            console.log("Running afterBuild...");
+            await afterBuild(value);
+
         }
-
-        // 获取dist目录下所有文件
-        const distFiles = fs
-            .readdirSync(distDir)
-            .filter((file) => file.endsWith(".js") && !file.endsWith("FirstRun.js"));
-
-        // 处理每个文件
-        for (const filename of distFiles) {
-            await processFile(filename);
-        }
-
-        // 后处理
-        console.log("Running afterBuild...");
-        await afterBuild();
 
         console.log("Build process completed successfully.");
+
     } catch (error) {
         console.error("Build process failed:", error);
     }

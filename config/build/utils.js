@@ -222,6 +222,26 @@ function getEntries(dir) {
 
     return entries;
 }
+
+
+
+function getObjectEntryByIndex(obj, index) {
+    const keys = Object.keys(obj);
+    if (index >= 0 && index < keys.length) {
+        const key = keys[index];
+        // return {key: obj[key]};
+        var returnObj = {};
+        returnObj[key] = obj[key];
+        return returnObj;
+    }
+    return obj; // 如果索引无效，返回整个对象
+}
+
+function getObjectLength(obj) {
+    const length = Object.keys(obj).length; // 3
+    return length;
+}
+
 module.exports = {
     runCommand,
     deleteDirectory,
@@ -230,4 +250,6 @@ module.exports = {
     addClosure,
     deleteFile,
     getEntries,
+    getObjectEntryByIndex,
+    getObjectLength,
 }
