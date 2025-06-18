@@ -9,7 +9,7 @@
 
 // @formatter:off
 // prettier-ignore
-(function(){const m=fl.scriptURI.match( /(?:^|.*[\\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\\/]|$)/)[1];fl.trace(m);if(!m)throw new Error("Can't find project path ["+fl.scriptURI+"]");const i=fl.scriptURI.lastIndexOf(m[0]);const p=fl.scriptURI.substring(0,i+m[0].length);fl.trace(p+"/config/require/CheckEnvironment.jsfl");typeof AnJsflScript=="undefined"&&fl.runScript(p+"/config/require/CheckEnvironment.jsfl")})();
+"undefined"==typeof require&&fl.runScript(function(){var r=fl.scriptURI.match(/(?:^|.*[\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\/]|$)/)[1],t=fl.scriptURI.match(r);if(t){var n=t[0],i=fl.scriptURI.lastIndexOf(n);return fl.scriptURI.substring(0,i+n.length)}throw new Error("Can't find project path ["+fl.scriptURI+"]")}()+"/config/require/CheckEnvironment.jsfl");
 // @formatter:on
 
 require([
@@ -22,8 +22,8 @@ require([
     "ColorPanel",
     "os",
     "ElementQuery",
-    "JSFLConstants"
-], function (checkUtil, log, lo, sat, sd, fd, cp, os, eq, JSFLConstants) {
+    "JSFLConstants", "COMPATIBILITY"
+], function(checkUtil, log, lo, sat, sd, fd, cp, os, eq, JSFLConstants, COMPATIBILITY) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
     const { addNewLayerSafety, renameLayer } = lo;
@@ -35,6 +35,12 @@ require([
     const { setCustomPanel, resetCustomPanel } = cp;
     const { getName } = eq;
     const { FRAME_1 } = JSFLConstants.Numerics.frame.frameList;
+
+    const {
+        __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_RELATIVE_PATH__,
+        __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_ABSOLUTE_PATH__,
+        __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_TEXT__
+    } = COMPATIBILITY;
 
     // region doc
     var doc = fl.getDocumentDOM(); //文档
@@ -103,26 +109,34 @@ require([
         doc.addNewRectangle(stageRect, 0);
 
         // 画线
-        lines.forEach(function (line) {
+        lines.forEach(function(line) {
             doc.addNewLine(line.startPoint, line.endPoint);
         });
     }
 
     const SECONDARY_CAMERA_NAME = "辅助相机-AnJsflScript";
 
-    function getScripText() {
-        const scriptPath = os.path.join(os.getcwd(), "04.辅助相机.as");
-        // log.info("scriptPath", scriptPath);
-
-        var scriptText = "";
-        require(["text!" + scriptPath], function (text) {
-            scriptText = text;
-        });
-        if (scriptText == "")
-            throw new Error("Can't find script file [" + scriptPath + "]");
-        // log.info("scriptText", scriptText);
-        return scriptText;
-    }
+    // function getScripText() {
+    //     const scriptPath = os.path.join(os.getcwd(), "04.辅助相机.as");
+    //     // // log.info("scriptPath", scriptPath);
+    //     //
+    //     // var scriptText = "";
+    //     // require(["text!" + scriptPath], function (text) {
+    //     //     scriptText = text;
+    //     // });
+    //
+    //     var scriptText = "";
+    //     // require(["./04.辅助相机.as"], function (text) {
+    //     //     scriptText = text;
+    //     // });
+    //     require([__WEBPACK_COMPATIBILITY_TEXT_PLUGIN_RELATIVE_PATH__("./04.辅助相机.as")], function (text) {
+    //         scriptText = __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_TEXT__(text);
+    //     });
+    //     if (scriptText == "")
+    //         throw new Error("Can't find script file [" + scriptPath + "]");
+    //     // log.info("scriptText", scriptText);
+    //     return scriptText;
+    // }
 
     function KFrames() {
         doc.enterEditMode("inPlace");
@@ -140,13 +154,39 @@ require([
         doc.exitEditMode();
     }
 
+
+    function getScriptText(callback) {
+
+        // D:\project\沙雕动画\AnJsflScript\config\ui\dialog.xul
+        // require([__WEBPACK_COMPATIBILITY_TEXT_PLUGIN_ABSOLUTE_PATH__("./config/ui/dialog.xul")], function(text) {
+        require(["D:\\project\\沙雕动画\\AnJsflScript\\config\\ui\\dialog.xul"], function(text) {
+            const scriptText = __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_TEXT__(text);
+            if (!scriptText) {
+                callback(new Error("Can't find script file [./04.辅助相机.as]"));
+            } else {
+                callback(null, scriptText);
+            }
+        });
+    }
+
+
     function Main() {
         // 检查选择的元件
         if (!CheckSelection(selection, "selectElement", "No limit")) return;
 
-        fl.trace("获取script Text");
-        var scriptText = getScripText();
-        fl.trace(scriptText);
+        // fl.trace("获取script Text");
+        // var scriptText = getScripText();
+        // fl.trace(scriptText);
+
+        var scriptText1 = "";
+        getScriptText(function(err, scriptText) {
+            if (err) {
+                fl.trace(err.message);
+                return;
+            }
+            scriptText1 = scriptText;
+        });
+        fl.trace(scriptText1);
     }
 
     Main();

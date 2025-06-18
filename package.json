@@ -42,6 +42,7 @@
     "eslint-plugin-jsx-a11y": "6.10.2",
     "eslint-plugin-prettier": "5.2.3",
     "prettier": "3.5.2",
+    "raw-loader": "4.0.2",
     "rxjs": "7.8.2",
     "terser": "5.42.0",
     "webpack": "5.99.9",
@@ -52,13 +53,11 @@
     "format": "prettier --write \"**/*.{js,ts,jsfl}\" --ignore-path config/codestyle/.prettierignore",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-
     "open-an": "powershell -File config/start/open-an.ps1",
     "open-test-file": "powershell -File config/start/open-test-file.ps1",
     "FirstRun": "powershell -File config/start/FirstRun.ps1",
     "ReRun": "powershell -File config/start/ReRun.ps1",
     "run-current-file": "powershell -File config/start/run-current-file.ps1",
-
     "build:FirstRun": "node Build.FirstRun.js",
     "build:Common": "webpack --config config/build/webpack.config.js",
     "build": "npm run build:FirstRun && npm run build:Common"

@@ -12,6 +12,7 @@ module.exports = {
         path: path.resolve(__dirname, "output"),
         filename: "[name].js",
         library: "__AnJsflScript", // 定义一个全局变量
+        chunkFilename: "[name].chunk.js", // 禁用哈希
         libraryTarget: "var",
         globalObject: "this"
     },
@@ -23,8 +24,10 @@ module.exports = {
         // 强制合并所有模块
         concatenateModules: true,
         // 确保所有依赖内联
-        usedExports: false,
-        sideEffects: false
+        usedExports: false,// 关闭Tree Shaking
+        sideEffects: false,
+        chunkIds: "deterministic", // 禁用动态导入分块
+        minimize: false // ④ 关闭压缩（避免隐藏合并）
     },
 
     mode: "development",
@@ -138,7 +141,7 @@ module.exports = {
             "Tips": path.resolve(__dirname, "Core/Utils/Tips"),
 
             // "CheckEnvironment": path.resolve(__dirname, "config/require/CheckEnvironment"),
-
+            "COMPATIBILITY":path.resolve(__dirname,"Core/webpack/COMPATIBILITY")
         }
     },
 
@@ -165,6 +168,11 @@ module.exports = {
                         ]
                     }
                 }
+            },
+            {
+                // as,txt,xml,xul
+                test: /\.as$|\.txt$|\.xml$|\.xul$/,
+                use: "raw-loader"
             }
         ]
     },
@@ -176,11 +184,18 @@ module.exports = {
         }),
         // 强制限制为单文件
         new webpack.optimize.LimitChunkCountPlugin({
-            maxChunks: 1 // 关键：强制只生成1个文件
+            maxChunks: 1, // 关键：强制只生成1个文件
+            // chunkOverhead: 0,
+            // entryChunkMultiplicator: Infinity // 入口文件永不合并
         }),
         // 自动注入Promise
         new webpack.ProvidePlugin({
             Promise: ["es6-promise", "Promise"] // 自动注入Promise
         })
-    ]
+    ],
+    // 5. 关闭所有可能触发分块的特性
+    experiments: {
+        topLevelAwait: false, // 禁用顶级await
+        outputModule: false // 禁用ES模块输出
+    }
 };

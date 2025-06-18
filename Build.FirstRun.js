@@ -3,6 +3,7 @@ const path = require("path");
 
 const { runCommand, deleteDirectory,copyFile, compressFile, addClosure } = require("./config/build/utils");
 
+
 // 修改文件内容并重命名
 async function processFile(filename) {
     var AllPaths = {

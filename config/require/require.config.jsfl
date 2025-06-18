@@ -110,8 +110,10 @@ require.config({
         "random": "Core/py/random/random",
         "StringP": "Core/py/string/StringP",
         "KeyFrameMode": "Core/Utils/KeyFrameMode",
-        "Tips": "Core/Utils/Tips"
+        "Tips": "Core/Utils/Tips",
 
+        // D:\project\沙雕动画\AnJsflScript\Core\webpack\COMPATIBILITY.jsfl
+        "COMPATIBILITY": "Core/webpack/COMPATIBILITY",
 
     }, packages: []
 });

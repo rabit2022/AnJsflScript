@@ -1,9 +1,7 @@
 const fs = require("fs");
 const path = require("path");
-const CommonConfig = require("./webpack.Common.config");
+// const CommonConfig = require("./webpack.Text.config");
 const CheckHeadConfig = require("./config/require/webpack.CheckHead");
-
-
 
 const {
     runCommand,
@@ -11,11 +9,36 @@ const {
     copyFile,
     deleteFile,
     compressFile,
-    addClosure
+    addClosure, getEntries
 } = require("./config/build/utils");
 
+function replaceRelativePath(str) {
+    const match = str.match(
+        /__WEBPACK_COMPATIBILITY_TEXT_PLUGIN_RELATIVE_PATH__\(("[^"]+"|'[^']+')\)/
+    );
+    // console.log(match);
+    return match;
+}
+
+
+function getEntry() {
+    const libDir = path.resolve(__dirname, "lib");
+    const entries = getEntries(libDir);
+
+    const newEntries = {};
+    for (const [key, value] of Object.entries(entries)) {
+        // entries[key] = `${value}.webpack`;
+        if (value.endsWith(".Text")) {
+            // console.log("value", value);
+            newEntries[key] = `${value}.webpack`;
+        }
+    }
+}
+
+
+
 async function prepareBuild() {
-    const webpackEntries = CommonConfig.entry;
+    const webpackEntries =getEntry();
 
     // 创建一个深拷贝
     const origionEntries = structuredClone(webpackEntries);
@@ -24,8 +47,8 @@ async function prepareBuild() {
         origionEntries[key] = value.replace(/\.webpack$/, "");
     });
 
-    console.log("webpackEntries", webpackEntries);
-    console.log("origionEntries", origionEntries);
+    // console.log("webpackEntries", webpackEntries);
+    // console.log("origionEntries", origionEntries);
 
     // 读取源文件
     for (const [key, value] of Object.entries(origionEntries)) {
@@ -37,7 +60,14 @@ async function prepareBuild() {
         var sourceCode = fs.readFileSync(sourceFile, "utf8");
 
         // 替换代码
-        sourceCode = sourceCode.replace(CheckHeadConfig.custom.Head, "// "+CheckHeadConfig.custom.Head);
+        sourceCode = sourceCode.replace(
+            CheckHeadConfig.custom.Head,
+            "// " + CheckHeadConfig.custom.Head
+        );
+
+        // text!./filename.as    相对路径的处理
+        var relativePath = replaceRelativePath(sourceCode);
+        sourceCode = sourceCode.replaceAll(relativePath[0], relativePath[1]);
 
         console.log(`Writing webpack file: ${webpackFile}`);
         fs.writeFileSync(webpackFile, sourceCode, "utf8");
@@ -46,8 +76,8 @@ async function prepareBuild() {
 
 // prepareBuild();
 async function afterBuild() {
+    const webpackEntries = getEntry();
     // 删除webpack文件
-    const webpackEntries = CommonConfig.entry;
     for (const [key, value] of Object.entries(webpackEntries)) {
         const webpackFile = value + ".jsfl";
         console.log(`Deleting webpack file: ${webpackFile}`);
@@ -55,6 +85,7 @@ async function afterBuild() {
         await deleteFile(webpackFile);
     }
 }
+
 // afterBuild();
 
 // 修改文件内容并重命名
@@ -94,7 +125,6 @@ async function processFile(filename) {
         AllPaths["./dist/filename.jsfl"],
         AllPaths["./dist/filename.min.jsfl"]
     );
-
 }
 
 // 构建项目
@@ -104,10 +134,9 @@ async function buildProject() {
         console.log("Preparing build...");
         await prepareBuild();
 
-
         // 打包
         console.log("Running Webpack...");
-        await runCommand("npx webpack --config webpack.Common.config.js");
+        await runCommand("npx webpack --config webpack.Text.config.js");
 
         // 转换ES5
         console.log("Running Babel...");
@@ -118,10 +147,10 @@ async function buildProject() {
 
         // 清空输出目录 output
         if (fs.existsSync(outputDir)) {
-            console.log('Deleting output directory...');
+            console.log("Deleting output directory...");
             await deleteDirectory(outputDir);
         } else {
-            console.log('Output directory does not exist, skipping deletion.');
+            console.log("Output directory does not exist, skipping deletion.");
         }
 
         // 获取dist目录下所有文件

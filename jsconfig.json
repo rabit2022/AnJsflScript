@@ -69,7 +69,10 @@
       "random": ["Core/py/random/random"],
       "StringP": ["Core/py/string/StringP"],
       "KeyFrameMode": ["Core/Utils/KeyFrameMode"],
-      "Tips": ["Core/Utils/Tips"]
+      "Tips": ["Core/Utils/Tips"],
+
+
+      "COMPATIBILITY": ["Core/webpack/COMPATIBILITY"]
     },
     "include": [
       "**/*.jsfl",
