@@ -28,6 +28,10 @@ require([
     const { IsBitmap, IsSymbol } = ec;
     const { getName } = eq;
     const { generateNameUntilUnique, generateNameUseLast } = sng;
+    const {parseNumber}=xmlPanelUtil;
+
+    const {__WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__}=COMPATIBILITY;
+
 
     // region doc
     var doc = CheckDom(); //文档
@@ -53,7 +57,8 @@ require([
     // endregion doc
 
     function checkXMLPanel() {
-        var panel = xmlPanelUtil.getXMLPanel();
+        // var panel = xmlPanelUtil.getXMLPanel();
+        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./13.特效压缩.xml")
         if (panel === null) return null;
 
         var frameSkipInterval = 0;

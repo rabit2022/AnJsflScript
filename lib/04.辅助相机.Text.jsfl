@@ -154,47 +154,11 @@ require([
         doc.exitEditMode();
     }
 
-    function getScriptText() {
-        function getScriptTextInner(callback) {
-            require([__WEBPACK_COMPATIBILITY_TEXT_PLUGIN_ABSOLUTE_PATH__("./config/ui/dialog.xul")], function(text) {
-                const scriptText = __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_TEXT__(text);
-                if (!scriptText) {
-                    callback(new Error("Can't find script file [./04.辅助相机.as]"));
-                } else {
-                    callback(null, scriptText);
-                }
-            });
-        }
-
-        var scriptText1 = "";
-        getScriptTextInner(function(err, scriptText) {
-            if (err) {
-                fl.trace(err.message);
-                return;
-            }
-            scriptText1 = scriptText;
-        });
-        return scriptText1;
-    }
-
     function Main() {
         // 检查选择的元件
         if (!CheckSelection(selection, "selectElement", "No limit")) return;
 
-        // fl.trace("获取script Text");
-        // var scriptText = getScripText();
-        // fl.trace(scriptText);
-
-        // var scriptText1 = "";
-        // getScriptText(function(err, scriptText) {
-        //     if (err) {
-        //         fl.trace(err.message);
-        //         return;
-        //     }
-        //     scriptText1 = scriptText;
-        // });
-        // fl.trace(scriptText1);
-        var scriptText = getScriptText();
+        var scriptText = __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_RELATIVE_PATH__("./04.辅助相机.as");
         fl.trace(scriptText);
     }
 

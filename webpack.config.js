@@ -154,7 +154,9 @@ module.exports = {
                 use: {
                     loader: "babel-loader",
                     options: {
+                        sourceType: "script", // 关闭严格模式
                         presets: ["@babel/preset-env"],
+
                         plugins: [
                             // 将 require() 转换为 AMD 格式（兼容 JSFL）
                             [

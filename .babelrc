@@ -1,5 +1,6 @@
 {
   "presets": [
     "@babel/preset-env"
-  ]
+  ],
+  "sourceType": "script",// 关闭严格模式
 }

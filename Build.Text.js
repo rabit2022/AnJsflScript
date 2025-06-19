@@ -36,6 +36,16 @@ function replaceXMLPanelRelativePath(str) {
     return match;
 }
 
+function removeQuotes(str) {
+    // 使用正则表达式去除左右两侧的单引号或双引号
+    return str.replace(/^["']|["']$/g, '');
+}
+
+function addQuotes(str) {
+    // 使用单引号包裹字符串
+    return `"${str}"`;
+}
+
 function getEntry() {
     const libDir = path.resolve(__dirname, "lib");
     let entries = getEntries(libDir);
@@ -95,7 +105,13 @@ async function prepareBuild(webpackEntries) {
         // text!./filename.as    相对路径的处理
         var relativePath = replaceRelativePath(sourceCode);
         if (relativePath) {
-            sourceCode = sourceCode.replaceAll(relativePath[0], relativePath[1]);
+            // console.log(`Reading relative path: ${relativePath}`);
+            var sourceFileDir = path.dirname(sourceFile);
+            var relativePathStr = removeQuotes(relativePath[1]);
+            var absolutePathStr = path.resolve(sourceFileDir, relativePathStr);
+            var fileContent = fs.readFileSync(absolutePathStr, "utf8");
+            var singleLineString = JSON.stringify(fileContent.toString());
+            sourceCode = sourceCode.replaceAll(relativePath[0], singleLineString);
         }
 
         // text!./filename.as      绝对路径的处理
@@ -103,40 +119,20 @@ async function prepareBuild(webpackEntries) {
         // console.log(`Reading absolute path: ${absolutePath}`);
         if (absolutePath) {
             const absolutePathStr = path.resolve(__dirname, absolutePath[1]);
-            // 将路径中的反斜杠替换为双反斜杠
-            const escapedPathStr = absolutePathStr.replace(/\\/g, "\\\\");
-            sourceCode = sourceCode.replaceAll(absolutePath[0], `"${escapedPathStr}"`);
+            var fileContent = fs.readFileSync(absolutePathStr, "utf8");
+            var singleLineString = JSON.stringify(fileContent.toString());
+            sourceCode = sourceCode.replaceAll(absolutePath[0], singleLineString);
         }
 
         // xmlPanel 相对路径的处理
         var xmlPath = replaceXMLPanelRelativePath(sourceCode);
         if (xmlPath) {
-            var toText = `
-        function getScriptText() {
-        function getScriptTextInner(callback) {
-            require([__WEBPACK_COMPATIBILITY_TEXT_PLUGIN_ABSOLUTE_PATH__("./config/ui/dialog.xul")], function(text) {
-                const scriptText = __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_TEXT__(text);
-                if (!scriptText) {
-                    callback(new Error("Can't find script file [./04.辅助相机.as]"));
-                } else {
-                    callback(null, scriptText);
-                }
-            });
-        }
-
-        var scriptText1 = "";
-        getScriptTextInner(function(err, scriptText) {
-            if (err) {
-                fl.trace(err.message);
-                return;
-            }
-            scriptText1 = scriptText;
-        });
-        return scriptText1;
-    }
-            
-            `;
-            sourceCode = sourceCode.replaceAll(xmlPath[0], xmlPath[1]);
+            var sourceFileDir = path.dirname(sourceFile);
+            var xmlPathStr = removeQuotes(xmlPath[1]);
+            var absolutePathStr = path.resolve(sourceFileDir, xmlPathStr);
+            var fileContent = fs.readFileSync(absolutePathStr, "utf8");
+            var singleLineString = JSON.stringify(fileContent.toString());
+            sourceCode = sourceCode.replaceAll(addQuotes(xmlPath[1]), singleLineString);
         }
 
         console.log(`Writing webpack file: ${webpackFile}`);
@@ -208,44 +204,44 @@ async function buildProject() {
             console.log("Preparing build...");
             await prepareBuild(value);
 
-            break;
+            // break;
 
-            // // 写入新配置
-            // console.log("Writing new config...");
-            // await writeNewConfig(value);
-            //
-            // // 打包
-            // console.log("Running Webpack...");
-            // await runCommand("npx webpack --config webpack.Text.config.js");
-            //
-            // // 转换ES5
-            // console.log("Running Babel...");
-            // await runCommand("npx babel output --out-dir dist");
-            //
-            // const outputDir = path.resolve(__dirname, "output");
-            // const distDir = path.resolve(__dirname, "dist");
-            //
-            // // 清空输出目录 output
-            // if (fs.existsSync(outputDir)) {
-            //     console.log("Deleting output directory...");
-            //     await deleteDirectory(outputDir);
-            // } else {
-            //     console.log("Output directory does not exist, skipping deletion.");
-            // }
-            //
-            // // 获取dist目录下所有文件
-            // const distFiles = fs
-            //     .readdirSync(distDir)
-            //     .filter((file) => file.endsWith(".js") && !file.endsWith("FirstRun.js"));
-            //
-            // // 处理每个文件
-            // for (const filename of distFiles) {
-            //     await processFile(filename);
-            // }
-            //
-            // // 后处理
-            // console.log("Running afterBuild...");
-            // await afterBuild(value);
+            // 写入新配置
+            console.log("Writing new config...");
+            await writeNewConfig(value);
+
+            // 打包
+            console.log("Running Webpack...");
+            await runCommand("npx webpack --config webpack.Text.config.js");
+
+            // 转换ES5
+            console.log("Running Babel...");
+            await runCommand("npx babel output --out-dir dist");
+
+            const outputDir = path.resolve(__dirname, "output");
+            const distDir = path.resolve(__dirname, "dist");
+
+            // 清空输出目录 output
+            if (fs.existsSync(outputDir)) {
+                console.log("Deleting output directory...");
+                await deleteDirectory(outputDir);
+            } else {
+                console.log("Output directory does not exist, skipping deletion.");
+            }
+
+            // 获取dist目录下所有文件
+            const distFiles = fs
+                .readdirSync(distDir)
+                .filter((file) => file.endsWith(".js") && !file.endsWith("FirstRun.js"));
+
+            // 处理每个文件
+            for (const filename of distFiles) {
+                await processFile(filename);
+            }
+
+            // 后处理
+            console.log("Running afterBuild...");
+            await afterBuild(value);
         }
 
         console.log("Build process completed successfully.");

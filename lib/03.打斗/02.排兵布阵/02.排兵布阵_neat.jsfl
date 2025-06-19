@@ -11,15 +11,19 @@
 // prettier-ignore
 "undefined"==typeof require&&fl.runScript(function(){var r=fl.scriptURI.match(/(?:^|.*[\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\/]|$)/)[1],t=fl.scriptURI.match(r);if(t){var n=t[0],i=fl.scriptURI.lastIndexOf(n);return fl.scriptURI.substring(0,i+n.length)}throw new Error("Can't find project path ["+fl.scriptURI+"]")}()+"/config/require/CheckEnvironment.jsfl");
 // @formatter:on
-require(["checkUtil", "xmlPanelUtil", "MoreElement"], function (
+require(["checkUtil", "xmlPanelUtil", "MoreElement", "COMPATIBILITY"], function (
     checkUtil,
     xmlPanelUtil,
-    MoreElement
+    MoreElement,
+    COMPATIBILITY
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
-    // var MoreElement = me.MoreElement;
+    const {parseNumber}=xmlPanelUtil;
+    
+    const {__WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__}=COMPATIBILITY;
 
+    // region doc
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
 
@@ -33,27 +37,29 @@ require(["checkUtil", "xmlPanelUtil", "MoreElement"], function (
 
     var curFrameIndex = timeline.currentFrame; //当前帧索引
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
+    // endregion doc
 
     function checkXMLPanel() {
-        var panel = xmlPanelUtil.getXMLPanel();
+        // var panel = getXMLPanel();
+        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./02.排兵布阵_neat.xml");
         if (panel === null) return null;
 
-        var horizontalCount = xmlPanelUtil.parseNumber(
+        var horizontalCount = parseNumber(
             panel.horizontalCount,
             "横向排布数量只能输入数字，请重新输入。"
         );
         if (horizontalCount === null) return null;
-        var horizontalSpacing = xmlPanelUtil.parseNumber(
+        var horizontalSpacing = parseNumber(
             panel.horizontalSpacing,
             "横向排布间距只能输入数字，请重新输入。"
         );
         if (horizontalSpacing === null) return null;
-        var verticalCount = xmlPanelUtil.parseNumber(
+        var verticalCount = parseNumber(
             panel.verticalCount,
             "纵向排布数量只能输入数字，请重新输入。"
         );
         if (verticalCount === null) return null;
-        var verticalSpacing = xmlPanelUtil.parseNumber(
+        var verticalSpacing = parseNumber(
             panel.verticalSpacing,
             "纵向排布间距只能输入数字，请重新输入。"
         );
@@ -74,10 +80,7 @@ require(["checkUtil", "xmlPanelUtil", "MoreElement"], function (
         // 整齐排布
         var config = checkXMLPanel();
         if (config === null) return;
-        var horizontalCount = config.horizontalCount;
-        var horizontalSpacing = config.horizontalSpacing;
-        var verticalCount = config.verticalCount;
-        var verticalSpacing = config.verticalSpacing;
+        const { horizontalCount, horizontalSpacing, verticalCount, verticalSpacing }= config;
 
         var firstElement = selection[0];
         var me = new MoreElement(firstElement, horizontalSpacing, verticalSpacing);

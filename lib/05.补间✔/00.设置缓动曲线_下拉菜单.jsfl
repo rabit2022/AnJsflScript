@@ -11,17 +11,23 @@
 // prettier-ignore
 "undefined"==typeof require&&fl.runScript(function(){var r=fl.scriptURI.match(/(?:^|.*[\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\/]|$)/)[1],t=fl.scriptURI.match(r);if(t){var n=t[0],i=fl.scriptURI.lastIndexOf(n);return fl.scriptURI.substring(0,i+n.length)}throw new Error("Can't find project path ["+fl.scriptURI+"]")}()+"/config/require/CheckEnvironment.jsfl");
 // @formatter:on
-require(["checkUtil", "xmlPanelUtil", "EaseCurve", "Tween"], function (
+require(["checkUtil", "xmlPanelUtil", "EaseCurve", "Tween", "COMPATIBILITY"], function (
     checkUtil,
     xmlPanelUtil,
     curve,
-    twn
+    twn,
+    COMPATIBILITY
 ) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     const { setEaseCurve, setClassicEaseCurve } = curve;
     const { createTween } = twn;
 
+    const {parseNumber}=xmlPanelUtil;
+
+    const {__WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__}=COMPATIBILITY;
+
+    // region doc
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
 
@@ -35,9 +41,11 @@ require(["checkUtil", "xmlPanelUtil", "EaseCurve", "Tween"], function (
 
     var curFrameIndex = timeline.currentFrame; //当前帧索引
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
+    // endregion doc
 
     function checkXMLPanel() {
-        var panel = xmlPanelUtil.getXMLPanel();
+        // var panel = getXMLPanel();
+        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./00.设置缓动曲线_下拉菜单.xml")
         if (panel === null) return null;
 
         var easeType = panel.easeType;
@@ -51,7 +59,7 @@ require(["checkUtil", "xmlPanelUtil", "EaseCurve", "Tween"], function (
             return null;
         }
 
-        var intensity = xmlPanelUtil.parseNumber(panel.intensity, "请设置缓动强度");
+        var intensity = parseNumber(panel.intensity, "请设置缓动强度");
         if (intensity === null) return null;
 
         return {
@@ -68,9 +76,7 @@ require(["checkUtil", "xmlPanelUtil", "EaseCurve", "Tween"], function (
         var config = checkXMLPanel();
         if (config === null) return;
 
-        var easeType = config.easeType;
-        var easeInOut = config.easeInOut;
-        var intensity = config.intensity;
+        const { easeType, easeInOut, intensity } = config;
 
         if (easeType === "Classic") {
             setClassicEaseCurve(timeline, easeInOut, intensity);

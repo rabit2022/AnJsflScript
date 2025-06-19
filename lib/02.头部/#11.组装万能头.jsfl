@@ -17,14 +17,19 @@ require([
     "xmlPanelUtil",
     "ElementChecker",
     "ElementQuery",
-    "numpy"
-], function (checkUtil, log, xmlPanelUtil, ec, eq, np) {
+    "numpy","COMPATIBILITY"
+], function (checkUtil, log, xmlPanelUtil, ec, eq, np,COMPATIBILITY) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
     const { IsSymbol } = ec;
     const { getName } = eq;
 
     const { isMultiple } = np;
+    
+    const {parseNumber, parseString}=xmlPanelUtil;
+
+    const {__WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__}=COMPATIBILITY;
+
 
     // region doc
     var doc = fl.getDocumentDOM(); //文档
@@ -46,32 +51,33 @@ require([
     log.setLevel(log.levels.INFO);
 
     function checkXMLPanel() {
-        var panel = xmlPanelUtil.getXMLPanel();
+        // var panel = getXMLPanel();
+        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./11.组装万能头.xml")
         if (panel === null) return null;
 
-        var shakeIntensity = xmlPanelUtil.parseNumber(
+        var shakeIntensity = parseNumber(
             panel.shakeIntensity,
             "摇头强度只能输入数字，请重新输入。"
         );
         if (shakeIntensity === null) return null;
-        var motionFrameCount = xmlPanelUtil.parseNumber(
+        var motionFrameCount = parseNumber(
             panel.motionFrameCount,
             "表情帧数只能输入数字，请重新输入。"
         );
         if (motionFrameCount === null) return null;
-        var headDirection = xmlPanelUtil.parseNumber(
+        var headDirection = parseNumber(
             panel.headDirection,
             "头部朝向只能输入数字，请重新输入。"
         );
         if (headDirection === null) return null;
-        var shakeMode = xmlPanelUtil.parseString(
+        var shakeMode = parseString(
             panel.shakeMode,
             "摇头模式只能输入 (传统摇头 丝滑摇头)，请重新输入。"
         );
         if (shakeMode === null) return null;
 
         // frameSelector
-        var frameSelector = xmlPanelUtil.parseString(
+        var frameSelector = parseString(
             panel.frameSelector,
             "帧选择器只能输入 (keyFrame,label)，请重新输入。"
         );

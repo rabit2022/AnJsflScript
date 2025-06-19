@@ -21,13 +21,17 @@ require([
     "chroma-js",
     "lodash",
     "ElementOperation",
-    "ElementSelect"
-], function (checkUtil, log, xmlPanelUtil, os, chroma, _, eo, es) {
+    "ElementSelect",
+    "COMPATIBILITY"
+], function (checkUtil, log, xmlPanelUtil, os, chroma, _, eo, es, COMPATIBILITY) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
     const { processElements } = eo;
 
     const { SelectAll, OnlySelectCurrent, SelectNone, InvertSelection } = es;
+    const {parseNumber, parseString, parseColor}=xmlPanelUtil;
+
+    const {__WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__}=COMPATIBILITY;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -52,18 +56,19 @@ require([
 
     // endregion doc
 
-    var [folder_name, basename] = os.path.split(fl.scriptURI);
-    var XMLPANEL = os.path.join(folder_name, "11.一键描边", "11.一键描边.xml");
-    log.info("XMLPANEL: " + XMLPANEL);
+    // var [folder_name, basename] = os.path.split(fl.scriptURI);
+    // var XMLPANEL = os.path.join(folder_name, "11.一键描边", "11.一键描边.xml");
+    // log.info("XMLPANEL: " + XMLPANEL);
 
     function checkXMLPanel() {
-        var panel = xmlPanelUtil.getXMLPanel(XMLPANEL);
+        // var panel = getXMLPanel(XMLPANEL);
+        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./11.一键描边/11.一键描边.xml");
         if (panel === null) return null;
 
-        var size = xmlPanelUtil.parseNumber(panel.size, "描边大小 应该使用数字");
+        var size = parseNumber(panel.size, "描边大小 应该使用数字");
         if (size === null) return null;
 
-        var color = xmlPanelUtil.parseColor(
+        var color = parseColor(
             panel.color,
             "请输入描边颜色，如 #FFFFFF，black等"
         );
@@ -76,7 +81,7 @@ require([
 
         switch (alphaMode) {
             case "percent": // 0-100 → 0-1
-                parsedValue = xmlPanelUtil.parseNumber(alphaValue, "透明度应为0-100", {
+                parsedValue = parseNumber(alphaValue, "透明度应为0-100", {
                     start: 0,
                     end: 100
                 });
@@ -85,7 +90,7 @@ require([
                 break;
 
             case "byte": // 0-255 → 0-1
-                parsedValue = xmlPanelUtil.parseNumber(alphaValue, "透明度应为0-255", {
+                parsedValue = parseNumber(alphaValue, "透明度应为0-255", {
                     start: 0,
                     end: 255
                 });
@@ -94,7 +99,7 @@ require([
                 break;
 
             case "decimal": // 0-1（直接使用）
-                parsedValue = xmlPanelUtil.parseNumber(alphaValue, "透明度应为0-1", {
+                parsedValue = parseNumber(alphaValue, "透明度应为0-1", {
                     start: 0,
                     end: 1
                 });
@@ -119,7 +124,7 @@ require([
         log.info("最终颜色（带透明度）: " + colorWithAlpha);
 
         // var stroke_type = panel.stroke_type;
-        var stroke_type = xmlPanelUtil.parseString(
+        var stroke_type = parseString(
             panel.stroke_type, // hairline|solid|dashed|dotted|ragged|stipple|
             "请输入正确的描边类型。 如 hairline(细线), solid(实线), dashed(虚线), dotted(点线), ragged(不规则), stipple(斑马线)"
         );

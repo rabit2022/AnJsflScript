@@ -19,8 +19,8 @@ require([
     "JSFLConstants",
     "EaseCurve",
     "FramesSelect",
-    "KeyFrameOperation"
-], function (checkUtil, xmlPanelUtil, sng, satUtil, JSFLConstants, curve, fms, kfo) {
+    "KeyFrameOperation","COMPATIBILITY"
+], function (checkUtil, xmlPanelUtil, sng, satUtil, JSFLConstants, curve, fms, kfo, COMPATIBILITY) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
     const { getShakeHeadTrPoint } = satUtil;
@@ -29,6 +29,9 @@ require([
     const { SelectAllFms } = fms;
     const { convertToKeyframesSafety } = kfo;
     const { generateNameUntilUnique, generateNameUseLast } = sng;
+    const {parseNumber}=xmlPanelUtil;
+
+    const {__WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__}=COMPATIBILITY;
 
     var descriptions = {
         file: "08.丝滑摇头.jsfl",
@@ -52,9 +55,7 @@ require([
         ]
     };
 
-    var pointUtil = satUtil.PointUtil,
-        rectUtil = satUtil.RectUtil;
-
+    // region doc
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
 
@@ -68,20 +69,22 @@ require([
 
     var curFrameIndex = timeline.currentFrame; //当前帧索引
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
+    // endregion doc
 
     const KEY_FRAMES = [FRAME_4, FRAME_7];
 
     function checkXMLPanel() {
-        var panel = xmlPanelUtil.getXMLPanel();
+        // var panel = getXMLPanel();
+        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./08.丝滑摇头.xml");
         if (panel === null) return null;
 
-        var shakeIntensity = xmlPanelUtil.parseNumber(
+        var shakeIntensity = parseNumber(
             panel.shakeIntensity,
             "摇头强度只能输入数字，请重新输入。"
         );
         if (shakeIntensity === null) return null;
 
-        var headDirection = xmlPanelUtil.parseNumber(panel.headDirection);
+        var headDirection = parseNumber(panel.headDirection);
         if (headDirection === null) return null;
 
         return { shakeIntensity: shakeIntensity, headDirection: headDirection };

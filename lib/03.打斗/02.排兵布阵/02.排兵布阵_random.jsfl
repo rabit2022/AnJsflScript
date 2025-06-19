@@ -17,14 +17,20 @@ require([
     "satUtil",
     "xmlPanelUtil",
     "random",
-    "ElementSelect"
-], function (checkUtil, sat, satUtil, xmlPanelUtil, random, es) {
+    "ElementSelect",
+    "COMPATIBILITY"
+], function (checkUtil, sat, satUtil, xmlPanelUtil, random, es, COMPATIBILITY) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
     const { Vector } = sat;
     const { wrapPosition, wrapTransform, wrapRectByCenter } = sat.GLOBALS;
     const { generateRandomPointInRect } = satUtil;
     const { OnlySelectCurrent } = es;
 
+    const {parseNumber}=xmlPanelUtil;
+
+    const {__WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__}=COMPATIBILITY;
+
+    // region doc
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
 
@@ -38,17 +44,19 @@ require([
 
     var curFrameIndex = timeline.currentFrame; //当前帧索引
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
+    // endregion doc
 
     function checkXMLPanel() {
-        var panel = xmlPanelUtil.getXMLPanel();
+        // var panel = getXMLPanel();
+        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./02.排兵布阵_random.xml")
         if (panel === null) return null;
 
-        var horizontalCount = xmlPanelUtil.parseNumber(
+        var horizontalCount = parseNumber(
             panel.horizontalCount,
             "横向排布数量只能输入数字，请重新输入。"
         );
         if (horizontalCount === null) return null;
-        var horizontalSpacing = xmlPanelUtil.parseNumber(
+        var horizontalSpacing = parseNumber(
             panel.horizontalSpacing,
             "横向排布间距只能输入数字，请重新输入。"
         );

@@ -19,8 +19,8 @@ require([
     "JSFLConstants",
     "EaseCurve",
     "FramesSelect",
-    "KeyFrameOperation"
-], function (checkUtil, xmlPanelUtil, sng, satUtil, JSFLConstants, curve, fms, kfo) {
+    "KeyFrameOperation","COMPATIBILITY"
+], function (checkUtil, xmlPanelUtil, sng, satUtil, JSFLConstants, curve, fms, kfo, COMPATIBILITY) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
     const { getShakeHeadTrPoint } = satUtil;
@@ -29,7 +29,10 @@ require([
     const { SelectNoneFms } = fms;
     const { convertToKeyframesSafety } = kfo;
     const { generateNameUntilUnique, generateNameUseLast } = sng;
+    const {parseNumber}=xmlPanelUtil;
 
+    const {__WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__}=COMPATIBILITY;
+    
     var descriptions = {
         file: "01.虾仁摇头.jsfl",
         "file description": "输出 摇头动作的元件,没有说话时的头部动作",
@@ -46,16 +49,17 @@ require([
     };
 
     function checkXMLPanel() {
-        var panel = xmlPanelUtil.getXMLPanel();
+        // var panel = getXMLPanel();
+        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./01.虾仁摇头.xml")
         if (panel === null) return null;
 
-        var shakeIntensity = xmlPanelUtil.parseNumber(
+        var shakeIntensity = parseNumber(
             panel.shakeIntensity,
             "摇头力度只能输入数字，请重新输入。"
         );
         if (shakeIntensity === null) return null;
 
-        var headDirection = xmlPanelUtil.parseNumber(
+        var headDirection = parseNumber(
             panel.headDirection,
             "头部朝向只能输入数字，请重新输入。"
         );

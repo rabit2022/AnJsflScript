@@ -17,13 +17,19 @@ require([
     "xmlPanelUtil",
     "linqUtil",
     "JSFLConstants",
-    "LayerOperation"
-], function (checkUtil, log, xmlPanelUtil, linqUtil, JSFLConstants, lo) {
+    "LayerOperation",
+    "COMPATIBILITY"
+], function (checkUtil, log, xmlPanelUtil, linqUtil, JSFLConstants, lo, COMPATIBILITY) {
     const { CheckDom, CheckSelection } = checkUtil;
     const { $range, convertToProgrammeIndex } = linqUtil;
     const { FRAME_1 } = JSFLConstants.Numerics.frame.frameList;
     const { swapLayers } = lo;
 
+    const {parseNumber, parseString}=xmlPanelUtil;
+
+    const {__WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__}=COMPATIBILITY;
+
+    // region doc
     var doc = fl.getDocumentDOM(); //文档
     if (!CheckDom(doc)) return;
 
@@ -37,25 +43,27 @@ require([
 
     var curFrameIndex = timeline.currentFrame; //当前帧索引
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
+    // endregion doc
 
     function checkXMLPanel() {
-        var xmlPanel = xmlPanelUtil.getXMLPanel();
+        // var xmlPanel = getXMLPanel();
+        var xmlPanel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./12.批量错开层.xml")
         if (xmlPanel === null) return;
 
-        var copyCount = xmlPanelUtil.parseNumber(
+        var copyCount = parseNumber(
             xmlPanel.copyCount,
             "复制数量 必须为整数，例如 5,请重新输入。"
         );
         if (copyCount === null) return;
 
-        var frameInterval = xmlPanelUtil.parseNumber(
+        var frameInterval = parseNumber(
             xmlPanel.frameInterval,
             "帧间隔 必须为整数，例如 1,请重新输入。"
         );
         if (frameInterval === null) return;
 
         // appearanceOrder 顺序
-        var appearanceOrder = xmlPanelUtil.parseString(
+        var appearanceOrder = parseString(
             xmlPanel.appearanceOrder,
             '顺序 必须为 "从下往上" 或 "从上往下"，请重新输入。'
         );
@@ -98,14 +106,8 @@ require([
         var config = checkXMLPanel();
         if (config === undefined) return;
 
-        var copyCount = config.copyCount;
-        var frameInterval = config.frameInterval;
-        var appearanceOrder = config.appearanceOrder;
+        const { copyCount, frameInterval, appearanceOrder } = config;
 
-        // log.debug('config', config);
-        // log.debug('copyCount', copyCount);
-        // log.debug('frameInterval', frameInterval);
-        // log.debug('appearanceOrder', appearanceOrder);
 
         // 复制当前图层
         timeline.copyLayers();

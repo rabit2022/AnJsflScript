@@ -55,15 +55,24 @@ require([
 
     // endregion doc
 
-    var modal_path = os.path.join(os.getcwd(), "08.图层深度", "modal.jsfl");
-    log.info("modal_path", modal_path);
+    /**
+     * 自适应比例计算（取消提前计算limit的版本）
+     *
+     * @param {number} currentDepth 当前深度
+     * @param {number} targetDepth 目标深度
+     * @param {number} [factor=602] 缩放因子
+     * @returns {number} 限制范围内的合理比值
+     * @see 08.自适应函数.md
+     */
+    function adaptive_ratio(currentDepth, targetDepth, factor) {
+        /**
+         * 缩放因子
+         * 来源：[-5000,10000]->[-10,20] 确定 缩放因子
+         */
+        if (factor === undefined) factor = 602;
 
-    var adaptive_ratio = function (currentDepth, targetDepth, factor) {
-        throw new Error("adaptive_ratio not implemented");
-    };
-    require([modal_path], function (_) {
-        adaptive_ratio = _;
-    });
+        return (targetDepth + factor) / (currentDepth + factor);
+    }
 
     function Main() {
         // 检查选择的元件
