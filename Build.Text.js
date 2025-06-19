@@ -219,6 +219,10 @@ async function processFile(filename) {
         AllPaths["./dist/filename.jsfl"],
         AllPaths["./dist/filename.min.jsfl"]
     );
+
+    // 删除源文件
+    console.log(`Deleting source file: ${AllPaths["./dist/filename.jsfl"]}`);
+    await deleteFile(AllPaths["./dist/filename.jsfl"]);
 }
 
 // 构建项目

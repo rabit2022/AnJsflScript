@@ -22,10 +22,13 @@ function getEntry() {
     const newEntries = {};
     for (const [key, value] of Object.entries(entries)) {
         // entries[key] = `${value}.webpack`;
-        if (!value.endsWith(".T")||!value.endsWith(".TD")) {
+        console.log("key", key);
+        console.log("value", value);
+        if (value.endsWith(".T") || value.endsWith(".TD")) {
             // console.log("value", value);
-            newEntries[key] = `${value}.webpack`;
+            continue;
         }
+        newEntries[key] = `${value}.webpack`;
     }
     return newEntries;
 }
@@ -129,12 +132,17 @@ async function processFile(filename) {
         AllPaths["./dist/filename.jsfl"],
         AllPaths["./dist/filename.min.jsfl"]
     );
+
+    // 删除源文件
+    console.log(`Deleting source file: ${AllPaths["./dist/filename.jsfl"]}`);
+    await deleteFile(AllPaths["./dist/filename.jsfl"]);
 }
 
 // 构建项目
 async function buildProject() {
     try {
         const entry = getEntry();
+        console.log("Entry:", entry);
 
         for (let index = 0; index < getObjectLength(entry); index++) {
             const value = getObjectEntryByIndex(entry, index);
@@ -181,9 +189,9 @@ async function buildProject() {
             console.log("Running afterBuild...");
             await afterBuild(value);
 
-            break;
+            // break;
         }
-        console.log("Build process completed successfully.");
+        // console.log("Build process completed successfully.");
     } catch (error) {
         console.error("Build process failed:", error);
     }
