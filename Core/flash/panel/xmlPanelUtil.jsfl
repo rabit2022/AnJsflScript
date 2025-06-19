@@ -41,7 +41,7 @@ define(["chroma-js", "linqUtil", "open", "os"], function(chroma, linqUtil, open,
         if (panelPath === undefined) {
             panelPath = XMLPanelUtil.getXMLPath();
         }
-        console.log("XMLPanelUtil.getXMLPanel", panelPath);
+        // console.log("XMLPanelUtil.getXMLPanel", panelPath);
 
         var doc = fl.getDocumentDOM(); //文档
 

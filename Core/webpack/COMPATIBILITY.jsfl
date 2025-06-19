@@ -59,26 +59,33 @@ define(["os", "xmlPanelUtil"], function(os, xmlPanelUtil) {
      * @return {XMLPanel}: flash 的实际xmlPanel对象
      */
     function __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__(xmlPath) {
-        console.log(xmlPath);
+        // console.log(xmlPath);
         if (xmlPath.endsWith(".xml")) {
             // 相对路径
             const absolutePath = os.path.join(os.getcwd(), xmlPath);
-            console.log(absolutePath);
+            // console.log(absolutePath);
             var xmlPanel = getXMLPanel(absolutePath);
             return xmlPanel;
-        }else {
+        } else {
             // text
-            var text =xmlPath;
+            var text = xmlPath;
             var xmlPanel = getXMLPanelT(text);
             return xmlPanel;
         }
     }
 
+    function __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__(relativePath) {
+        var absolutePath = os.path.join(os.getcwd(), relativePath);
+        require([absolutePath]);
+    }
+
+
     return {
         __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_RELATIVE_PATH__: __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_RELATIVE_PATH__,
         __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_ABSOLUTE_PATH__: __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_ABSOLUTE_PATH__,
         // __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_TEXT__: __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_TEXT__,
-        __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__: __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__
+        __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__: __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__,
+        __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__: __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__
     };
 
 });

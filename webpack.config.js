@@ -56,10 +56,10 @@ module.exports = {
             "JSFLInterface": path.resolve(__dirname, "Third/custom/xjsfl/JSFLInterface"),
             "Utils": path.resolve(__dirname, "Third/custom/xjsfl/ui/Utils"),
             "xjsfl": path.resolve(__dirname, "Third/custom/xjsfl/ui/xjsfl"),
-            "XML": path.resolve(__dirname, "Third/custom/xjsfl/ui/XML"),
-            "XUL": path.resolve(__dirname, "Third/custom/xjsfl/ui/XUL"),
-            "XULControl": path.resolve(__dirname, "Third/custom/xjsfl/ui/XULControl"),
-            "XULEvent": path.resolve(__dirname, "Third/custom/xjsfl/ui/XULEvent"),
+            // "XML": path.resolve(__dirname, "Third/custom/xjsfl/ui/XML"),
+            // "XUL": path.resolve(__dirname, "Third/custom/xjsfl/ui/XUL"),
+            // "XULControl": path.resolve(__dirname, "Third/custom/xjsfl/ui/XULControl"),
+            // "XULEvent": path.resolve(__dirname, "Third/custom/xjsfl/ui/XULEvent"),
             "eventemitter3": path.resolve(__dirname, "Third/event/eventemitter3-5.0.1/eventemitter3"),
             "rxjs": path.resolve(__dirname, "Third/event/rxjs-7.8.2/rxjs.umd"),
             "circular-json": path.resolve(__dirname, "Third/json/circular-json-0.5.9/circular-json.amd"),
@@ -187,8 +187,6 @@ module.exports = {
         // 强制限制为单文件
         new webpack.optimize.LimitChunkCountPlugin({
             maxChunks: 1, // 关键：强制只生成1个文件
-            // chunkOverhead: 0,
-            // entryChunkMultiplicator: Infinity // 入口文件永不合并
         }),
         // 自动注入Promise
         new webpack.ProvidePlugin({
@@ -200,4 +198,5 @@ module.exports = {
         topLevelAwait: false, // 禁用顶级await
         outputModule: false // 禁用ES模块输出
     }
+
 };

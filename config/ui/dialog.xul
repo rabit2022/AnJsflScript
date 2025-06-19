@@ -18,8 +18,8 @@
 					<label value="选择字符画 : " width="100"/>
 					<menulist class="control" id="ascii-art-menu" editable="" width="180" flex="1" tabindex="" oncreate="if(window.xjsfl)xjsfl.ui.handleEvent('0', 'create', 'ascii-art-menu');" onsetfocus="if(window.xjsfl)xjsfl.ui.handleEvent('0', 'setfocus', 'ascii-art-menu');" onchange="if(window.xjsfl)xjsfl.ui.handleEvent('0', 'change', 'ascii-art-menu');">
 						<menupop class="control" id="menupop">
-							<menuitem label="一万人" value="file:///F|/04_ps/沙雕动画/_素材库/WindowSWF-master/WindowSWF-master/AnJsflScript/config/ascii_art_library/一万人.txt" selected="true"/>
-							<menuitem label="圣地" value="file:///F|/04_ps/沙雕动画/_素材库/WindowSWF-master/WindowSWF-master/AnJsflScript/config/ascii_art_library/圣地.txt"/>
+							<menuitem label="一万人" value="file:///D|/project/沙雕动画/AnJsflScript/config/ascii_art_library/一万人.txt" selected="true"/>
+							<menuitem label="圣地" value="file:///D|/project/沙雕动画/AnJsflScript/config/ascii_art_library/圣地.txt"/>
 						</menupop>
 					</menulist>
 				</row>

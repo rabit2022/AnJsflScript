@@ -12,7 +12,9 @@
 // XUL
 
 
-define(["Utils","XULControl","XULEvent","XML","xjsfl"],function(Utils,XULControl,XULEvent){
+define(["Utils","XULControl","XULEvent","XML","xjsfl","COMPATIBILITY"],
+	function(Utils,XULControl,XULEvent,_,_,COMPATIBILITY){
+	const {__WEBPACK_COMPATIBILITY_TEXT_PLUGIN_ABSOLUTE_PATH__}=COMPATIBILITY;
 
 	/**
 	 * 加载XML模板文件
@@ -67,7 +69,8 @@ define(["Utils","XULControl","XULEvent","XML","xjsfl"],function(Utils,XULControl
 
 			// public properties
 			// 	this.xml		= xjsfl.file.load('xul/dialog.xul', 'template', true);
-				this.xml		= loadTemplate('xul/dialog.xul', 'template', true);
+			// 	this.xml		= loadTemplate('xul/dialog.xul', 'template', true);
+				this.xml		= new XML(__WEBPACK_COMPATIBILITY_TEXT_PLUGIN_ABSOLUTE_PATH__('./config/xul/dialog.xul'));
 
 				this.controls	= {};
 				this.settings	= {};
@@ -83,7 +86,8 @@ define(["Utils","XULControl","XULEvent","XML","xjsfl"],function(Utils,XULControl
 
 			// load controls
 			// 	var xml			= xjsfl.file.load('xul/controls.xul', 'template', true);
-				var xml			= loadTemplate('xul/controls.xul', 'template', true);
+			// 	var xml			= loadTemplate('xul/controls.xul', 'template', true);
+				var xml			= new XML(__WEBPACK_COMPATIBILITY_TEXT_PLUGIN_ABSOLUTE_PATH__('./config/xul/controls.xul'));
 				for each(var node in xml.grid.rows.*)
 				{
 					XUL.templates[node.@template.toString()] = node.copy();

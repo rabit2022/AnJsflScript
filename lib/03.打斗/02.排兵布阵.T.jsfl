@@ -21,9 +21,12 @@ require(["checkUtil", "xmlPanelUtil", "os", "loglevel", "COMPATIBILITY"], functi
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
 
-    const {__WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__}=COMPATIBILITY;
+    const {
+        __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__,
+        __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__
+    } = COMPATIBILITY;
 
-
+    // region doc
     var doc = fl.getDocumentDOM(); //文档
     if (!checkDom(doc)) return;
 
@@ -37,22 +40,16 @@ require(["checkUtil", "xmlPanelUtil", "os", "loglevel", "COMPATIBILITY"], functi
 
     var curFrameIndex = timeline.currentFrame; //当前帧索引
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
-
-
-    var [folder_name, basename] = os.path.split(fl.scriptURI);
-    // console.log(folder_name);
-    // console.log(basename);
-    var onlyName = os.path.$basenameWithoutExt(fl.scriptURI);
-    var XMLFOLDER = "02.排兵布阵";
+// endregion doc
 
     function checkXMLPanel() {
-        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./02.排兵布阵/02.排兵布阵.xml")
+        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./02.排兵布阵/02.排兵布阵.xml");
         if (panel == null) return null;
 
         var radioGroup = panel.layoutRadioGroup;
         if (radioGroup == null) return null;
 
-        return {radioGroup: radioGroup};
+        return { radioGroup: radioGroup };
     }
 
     function Main() {
@@ -65,40 +62,16 @@ require(["checkUtil", "xmlPanelUtil", "os", "loglevel", "COMPATIBILITY"], functi
 
         switch (radioGroup) {
             case "neat":
-                // fl.trace("整齐排布");
-                var SCRIPT_PATH = os.path.join(
-                    folder_name,
-                    XMLFOLDER,
-                    onlyName + "_neat.jsfl"
-                );
-                fl.runScript(SCRIPT_PATH);
+                __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__("./02.排兵布阵/02.排兵布阵_neat.TD.jsfl");
                 break;
             case "staggered":
-                // fl.trace("交错排布");
-                var SCRIPT_PATH = os.path.join(
-                    folder_name,
-                    XMLFOLDER,
-                    onlyName + "_staggered.jsfl"
-                );
-                fl.runScript(SCRIPT_PATH);
+                __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__("./02.排兵布阵/02.排兵布阵_staggered.TD.jsfl");
                 break;
             case "random":
-                // fl.trace("随机排布");
-                var SCRIPT_PATH = os.path.join(
-                    folder_name,
-                    XMLFOLDER,
-                    onlyName + "_random.jsfl"
-                );
-                fl.runScript(SCRIPT_PATH);
+                __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__("./02.排兵布阵/02.排兵布阵_random.TD.jsfl");
                 break;
             case "ascii_art":
-                var SCRIPT_PATH = os.path.join(
-                    folder_name,
-                    XMLFOLDER,
-                    onlyName + "_ascii_art.jsfl"
-                );
-                log.info(SCRIPT_PATH);
-                fl.runScript(SCRIPT_PATH);
+                __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__("./02.排兵布阵/02.排兵布阵_ascii_art.TD.jsfl");
                 break;
             default:
                 throw new Error("未知排布方式");

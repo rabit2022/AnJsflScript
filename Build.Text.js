@@ -16,29 +16,35 @@ const {
 } = require("./config/build/utils");
 
 function replaceRelativePath(str) {
-    const match = str.match(
-        /__WEBPACK_COMPATIBILITY_TEXT_PLUGIN_RELATIVE_PATH__\(("[^"]+"|'[^']+')\)/
+    const match = str.matchAll(
+        /__WEBPACK_COMPATIBILITY_TEXT_PLUGIN_RELATIVE_PATH__\(("[^"]+"|'[^']+')\)/g
     );
     // console.log(match);
     return match;
 }
 
 function replaceAbsolutePath(str) {
-    const regex = /__WEBPACK_COMPATIBILITY_TEXT_PLUGIN_ABSOLUTE_PATH__\("([^"]+)"\)/;
-    const match = str.match(regex);
+    const regex = /__WEBPACK_COMPATIBILITY_TEXT_PLUGIN_ABSOLUTE_PATH__\("([^"]+)"\)/g;
+    const match = str.matchAll(regex);
     return match;
 }
 
 // var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./09.一键转场.xml");
 function replaceXMLPanelRelativePath(str) {
-    const regex = /__WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__\("([^"]+)"\)/;
-    const match = str.match(regex);
+    const regex = /__WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__\("([^"]+)"\)/g;
+    const match = str.matchAll(regex);
     return match;
+}
+
+function replaceRunScriptRelativePath(str) {
+    const regex = /__WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__\("([^"]+)"\)/g;
+    const matches = str.matchAll(regex);
+    return matches;
 }
 
 function removeQuotes(str) {
     // 使用正则表达式去除左右两侧的单引号或双引号
-    return str.replace(/^["']|["']$/g, '');
+    return str.replace(/^["']|["']$/g, "");
 }
 
 function addQuotes(str) {
@@ -46,13 +52,25 @@ function addQuotes(str) {
     return `"${str}"`;
 }
 
+function getEntry0() {
+    const libDir = path.resolve(__dirname, "lib");
+    let entries = getEntries(libDir);
+    const newEntries = {};
+    // 把value添加.webpack后缀
+    for (const [key, value] of Object.entries(entries)) {
+        if (value.endsWith(".TD")) {// Text Depends
+            newEntries[key] = `${value}.webpack`;
+        }
+    }
+    return newEntries;
+}
 function getEntry() {
     const libDir = path.resolve(__dirname, "lib");
     let entries = getEntries(libDir);
     const newEntries = {};
     // 把value添加.webpack后缀
     for (const [key, value] of Object.entries(entries)) {
-        if (value.endsWith(".Text")) {
+        if (value.endsWith(".T")) {// Text
             newEntries[key] = `${value}.webpack`;
         }
     }
@@ -104,35 +122,48 @@ async function prepareBuild(webpackEntries) {
 
         // text!./filename.as    相对路径的处理
         var relativePath = replaceRelativePath(sourceCode);
-        if (relativePath) {
-            // console.log(`Reading relative path: ${relativePath}`);
+        for (const match of relativePath) {
             var sourceFileDir = path.dirname(sourceFile);
-            var relativePathStr = removeQuotes(relativePath[1]);
+            var relativePathStr = removeQuotes(match[1]);
             var absolutePathStr = path.resolve(sourceFileDir, relativePathStr);
             var fileContent = fs.readFileSync(absolutePathStr, "utf8");
             var singleLineString = JSON.stringify(fileContent.toString());
-            sourceCode = sourceCode.replaceAll(relativePath[0], singleLineString);
+            sourceCode = sourceCode.replaceAll(match[0], singleLineString);
         }
 
         // text!./filename.as      绝对路径的处理
         var absolutePath = replaceAbsolutePath(sourceCode);
         // console.log(`Reading absolute path: ${absolutePath}`);
-        if (absolutePath) {
-            const absolutePathStr = path.resolve(__dirname, absolutePath[1]);
+        for (const match of absolutePath) {
+            const absolutePathStr = path.resolve(__dirname, match[1]);
             var fileContent = fs.readFileSync(absolutePathStr, "utf8");
             var singleLineString = JSON.stringify(fileContent.toString());
-            sourceCode = sourceCode.replaceAll(absolutePath[0], singleLineString);
+            sourceCode = sourceCode.replaceAll(match[0], singleLineString);
         }
 
         // xmlPanel 相对路径的处理
         var xmlPath = replaceXMLPanelRelativePath(sourceCode);
-        if (xmlPath) {
+        for (const match of xmlPath) {
             var sourceFileDir = path.dirname(sourceFile);
-            var xmlPathStr = removeQuotes(xmlPath[1]);
+            var xmlPathStr = removeQuotes(match[1]);
             var absolutePathStr = path.resolve(sourceFileDir, xmlPathStr);
             var fileContent = fs.readFileSync(absolutePathStr, "utf8");
             var singleLineString = JSON.stringify(fileContent.toString());
-            sourceCode = sourceCode.replaceAll(addQuotes(xmlPath[1]), singleLineString);
+            sourceCode = sourceCode.replaceAll(addQuotes(match[1]), singleLineString);
+        }
+
+        // runScript 相对路径的处理
+        var runScriptPath = replaceRunScriptRelativePath(sourceCode);
+        for (const match of runScriptPath) {
+            console.log(`Reading runScript path: ${match}`);
+            var sourceFileDir = path.dirname(sourceFile);
+            var runScriptPathStr = removeQuotes(match[1]);
+            var absolutePathStr = path.resolve(sourceFileDir, runScriptPathStr);
+            absolutePathStr = absolutePathStr.replace(/\\/g, "/");
+            absolutePathStr = absolutePathStr.replace(/\.jsfl$/, ".webpack.jsfl");
+
+            var toText=`require(["${absolutePathStr}"]);`;
+            sourceCode = sourceCode.replaceAll(match[0], toText);
         }
 
         console.log(`Writing webpack file: ${webpackFile}`);
@@ -193,9 +224,20 @@ async function processFile(filename) {
 // 构建项目
 async function buildProject() {
     try {
+        const entry0 = getEntry0();
+        console.log("Entries:", entry0);
+
+        for (let index = 0; index < getObjectLength(entry0); index++) {
+            const value = getObjectEntryByIndex(entry0, index);
+            console.log("Entry:", value);
+
+            // 准备构建
+            console.log("Preparing build...");
+            await prepareBuild(value);
+        }
+
         const entry = getEntry();
         console.log("Entries:", entry);
-
         for (let index = 0; index < getObjectLength(entry); index++) {
             const value = getObjectEntryByIndex(entry, index);
             console.log("Entry:", value);
@@ -203,8 +245,6 @@ async function buildProject() {
             // 准备构建
             console.log("Preparing build...");
             await prepareBuild(value);
-
-            // break;
 
             // 写入新配置
             console.log("Writing new config...");
@@ -238,6 +278,16 @@ async function buildProject() {
             for (const filename of distFiles) {
                 await processFile(filename);
             }
+
+            // 后处理
+            console.log("Running afterBuild...");
+            await afterBuild(value);
+        }
+
+
+        for (let index = 0; index < getObjectLength(entry0); index++) {
+            const value = getObjectEntryByIndex(entry0, index);
+            console.log("Entry:", value);
 
             // 后处理
             console.log("Running afterBuild...");

@@ -116,44 +116,6 @@ require([
 
     const SECONDARY_CAMERA_NAME = "辅助相机-AnJsflScript";
 
-    // function getScripText() {
-    //     const scriptPath = os.path.join(os.getcwd(), "04.辅助相机.as");
-    //     // log.info("scriptPath", scriptPath);
-    //
-    //     var scriptText = "";
-    //     require(["text!" + scriptPath], function (text) {
-    //         scriptText = text;
-    //     });
-    //     if (scriptText == "")
-    //         throw new Error("Can't find script file [" + scriptPath + "]");
-    //     // log.info("scriptText", scriptText);
-    //     return scriptText;
-    // }
-
-    // 兼容性代码
-    function getScriptText() {
-        function getScriptTextInner(callback) {
-            require([__WEBPACK_COMPATIBILITY_TEXT_PLUGIN_RELATIVE_PATH__("./04.辅助相机.as")], function(text) {
-                const scriptText = __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_TEXT__(text);
-                if (!scriptText) {
-                    callback(new Error("Can't find script file [./04.辅助相机.as]"));
-                } else {
-                    callback(null, scriptText);
-                }
-            });
-        }
-
-        var scriptText1 = "";
-        getScriptTextInner(function(err, scriptText) {
-            if (err) {
-                fl.trace(err.message);
-                return;
-            }
-            scriptText1 = scriptText;
-        });
-        return scriptText1;
-    }
-
     function KFrames() {
         doc.enterEditMode("inPlace");
         var timeline = doc.getTimeline();
@@ -166,7 +128,8 @@ require([
         var toAddScriptFrame = timeline.layers[scriptLayerIndex].frames[0];
         // log.info("toAddScriptFrame:", toAddScriptFrame);
 
-        toAddScriptFrame.actionScript = getScriptText();
+        // toAddScriptFrame.actionScript = getScriptText();
+        toAddScriptFrame.actionScript = __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_RELATIVE_PATH__("./04.辅助相机.as");
 
         doc.exitEditMode();
     }

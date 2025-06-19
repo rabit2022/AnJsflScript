@@ -22,7 +22,7 @@ function getEntry() {
     const newEntries = {};
     for (const [key, value] of Object.entries(entries)) {
         // entries[key] = `${value}.webpack`;
-        if (!value.endsWith(".Text")) {
+        if (!value.endsWith(".T")||!value.endsWith(".TD")) {
             // console.log("value", value);
             newEntries[key] = `${value}.webpack`;
         }
@@ -57,8 +57,8 @@ async function prepareBuild(webpackEntries) {
         origionEntries[key] = value.replace(/\.webpack$/, "");
     });
 
-    console.log("webpackEntries", webpackEntries);
-    console.log("origionEntries", origionEntries);
+    // console.log("webpackEntries", webpackEntries);
+    // console.log("origionEntries", origionEntries);
 
     // 读取源文件
     for (const [key, value] of Object.entries(origionEntries)) {

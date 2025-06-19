@@ -17,12 +17,16 @@ require([
     "loglevel",
     "xmlPanelUtil",
     "ElementQuery",
-    "ElementChecker"
-], function (checkUtil, log, xmlPanelUtil, eq, ec) {
+    "ElementChecker",
+    "COMPATIBILITY"
+], function (checkUtil, log, xmlPanelUtil, eq, ec, COMPATIBILITY) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
     const { getName } = eq;
     const { IsBitmap, IsSound, IsSymbol } = ec;
+    const {parseNumber}=xmlPanelUtil;
+
+    const {__WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__}=COMPATIBILITY;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -50,7 +54,8 @@ require([
     var items = library.items; // 库中的项
 
     function checkXMLPanel() {
-        var panel = xmlPanelUtil.getXMLPanel();
+        // var panel = xmlPanelUtil.getXMLPanel();
+        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./07.批量库清理.xml")
         if (panel === null) return;
 
         var cleanMode = panel.cleanMode; // 清理模式
