@@ -1,8 +1,14 @@
 const fs = require("fs");
 const path = require("path");
 
-const { runCommand, deleteDirectory,copyFile, compressFile, addClosure } = require("./config/build/utils");
-
+const {
+    runCommand,
+    deleteDirectory,
+    copyFile,
+    compressFile,
+    addClosure,
+    deleteFile
+} = require("./config/build/utils");
 
 // 修改文件内容并重命名
 async function processFile(filename) {
@@ -69,10 +75,10 @@ async function buildProject() {
 
         // 清空输出目录 output
         if (fs.existsSync(outputDir)) {
-            console.log('Deleting output directory...');
+            console.log("Deleting output directory...");
             await deleteDirectory(outputDir);
         } else {
-            console.log('Output directory does not exist, skipping deletion.');
+            console.log("Output directory does not exist, skipping deletion.");
         }
 
         // 获取dist目录下所有文件

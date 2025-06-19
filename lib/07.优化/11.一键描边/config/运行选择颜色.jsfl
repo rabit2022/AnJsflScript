@@ -29,7 +29,7 @@
     var folderPath = getcwd();
     // console.log(folderPath);
 
-    var select_color_script = join(folderPath, "11.一键描边", "00.选择颜色.jsfl");
+    var select_color_script = join(folderPath, "11.一键描边", "00.选择颜色.I.jsfl");
     // console.log(select_color_script);
 
     fl.runScript(select_color_script);

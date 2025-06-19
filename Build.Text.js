@@ -58,19 +58,25 @@ function getEntry0() {
     const newEntries = {};
     // 把value添加.webpack后缀
     for (const [key, value] of Object.entries(entries)) {
-        if (value.endsWith(".TD")) {// Text Depends
+        if (value.endsWith(".I") || value.includes("#")) {
+            continue;
+        }
+        if (value.endsWith(".TD")) {
+            // Text Depends
             newEntries[key] = `${value}.webpack`;
         }
     }
     return newEntries;
 }
+
 function getEntry() {
     const libDir = path.resolve(__dirname, "lib");
     let entries = getEntries(libDir);
     const newEntries = {};
     // 把value添加.webpack后缀
     for (const [key, value] of Object.entries(entries)) {
-        if (value.endsWith(".T")) {// Text
+        if (value.endsWith(".T")) {
+            // Text
             newEntries[key] = `${value}.webpack`;
         }
     }
@@ -162,7 +168,7 @@ async function prepareBuild(webpackEntries) {
             absolutePathStr = absolutePathStr.replace(/\\/g, "/");
             absolutePathStr = absolutePathStr.replace(/\.jsfl$/, ".webpack.jsfl");
 
-            var toText=`require(["${absolutePathStr}"]);`;
+            var toText = `require(["${absolutePathStr}"]);`;
             sourceCode = sourceCode.replaceAll(match[0], toText);
         }
 
@@ -287,7 +293,6 @@ async function buildProject() {
             console.log("Running afterBuild...");
             await afterBuild(value);
         }
-
 
         for (let index = 0; index < getObjectLength(entry0); index++) {
             const value = getObjectEntryByIndex(entry0, index);

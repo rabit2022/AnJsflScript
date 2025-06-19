@@ -21,14 +21,17 @@ function getEntry() {
 
     const newEntries = {};
     for (const [key, value] of Object.entries(entries)) {
-        // entries[key] = `${value}.webpack`;
-        console.log("key", key);
-        console.log("value", value);
-        if (value.endsWith(".T") || value.endsWith(".TD")) {
-            // console.log("value", value);
+        if (
+            value.endsWith(".T") ||
+            value.endsWith(".TD") ||
+            value.endsWith(".I") ||
+            value.includes("#")
+        ) {
             continue;
         }
-        newEntries[key] = `${value}.webpack`;
+        if (value.includes("")) {
+            newEntries[key] = `${value}.webpack`;
+        }
     }
     return newEntries;
 }
