@@ -266,7 +266,8 @@ define(["Tips", "SAT", "KeyFrameQuery"], function (Tips, SAT, kfq) {
 
         var selectedLayers = timeline.getSelectedLayers();
 
-        if (!CheckSelection(selectedLayers, "selectLayer", condition, exTips)) return null;
+        if (!CheckSelection(selectedLayers, "selectLayer", condition, exTips))
+            return null;
 
         return selectedLayers;
     }

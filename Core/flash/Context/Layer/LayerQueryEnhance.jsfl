@@ -40,13 +40,16 @@ define([
                 continue;
             }
 
+            // 文件夹图层
             if (FOLDER_TYPE.test(layer.layerType)) {
                 // 检查文件夹是否为空
                 if (IsEmptyFolder(timeline, i)) {
                     emptyLayers.push(i);
                     i += countChild(timeline, i);
                 }
-            } else {
+            }
+            // 普通图层
+            else {
                 // 检查普通图层是否为空
                 if (IsLayerBlank(layer)) {
                     emptyLayers.push(i);

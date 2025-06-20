@@ -11,7 +11,6 @@ define(["LayerHierarchy", "FolderQuery", "LayerChecker", "Tips"], function (
     lh,
     fq,
     lc,
-    fc,
     Tips
 ) {
     const { countChild } = lh;

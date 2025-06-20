@@ -15,14 +15,12 @@ window.setTimeout = undefined;
 
 // if (typeof require !== "undefined") {
 require(["loglevel"], function (log) {
-
     // fl.trace("ReRun: Reloading RequireJS");
 
     // 清除当前的 RequireJS 实例
     window.requirejs = undefined;
     window.require = undefined;
     window.define = undefined;
-
 
     // fl.trace("ReRun: Reloading RequireJS");
     log.setLevel(log.levels.TRACE);

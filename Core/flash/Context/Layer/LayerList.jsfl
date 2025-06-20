@@ -82,8 +82,8 @@
  *         """
  *         pass
  */
-define(["LayerOperation"],function (lo) {
-    const {swapLayers}= lo;
+define(["LayerOperation"], function (lo) {
+    const { swapLayers } = lo;
 
     function LayerList(context) {
         this.context = context;
@@ -92,7 +92,7 @@ define(["LayerOperation"],function (lo) {
         this.update();
     }
 
-    LayerList.prototype.update = function (){
+    LayerList.prototype.update = function () {
         this.context.update();
 
         /**
@@ -100,7 +100,7 @@ define(["LayerOperation"],function (lo) {
          * @type {Layer[]}
          */
         this.layers = this.timeline.layers;
-    }
+    };
 
     /**
      * @description: 添加一个图层

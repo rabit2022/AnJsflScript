@@ -17,6 +17,8 @@ define(["FUNC"], function (FUNC) {
      * @see https://github.com/hufang360/FlashTool
      */
     function IsFrameBlank(frame) {
+        // 元件数量为0
+        // 动作脚本为空
         return frame.elements.length === 0 && IsEmpty(frame.actionScript);
     }
 

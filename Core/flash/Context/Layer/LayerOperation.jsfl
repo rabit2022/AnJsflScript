@@ -7,8 +7,15 @@
  * @description:
  */
 
-define(["LayerQuery", "Tips", "loglevel"], function (lq, Tips, log) {
-    const { convertToLayerIndex, getEmptyLayers, getLayersIndexByName } = lq;
+define(["LayerQuery", "Tips", "loglevel", "LayerQueryEnhance"], function (
+    lq,
+    Tips,
+    log,
+    lqe
+) {
+    const { convertToLayerIndex, getLayersIndexByName } = lq;
+    const { getEmptyLayers } = lqe;
+
     const { checkVariableRedeclaration } = Tips;
 
     /**

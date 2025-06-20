@@ -56,8 +56,13 @@ define(["FUNC", "FrameChecker"], function (FUNC, fc) {
      * @see https://github.com/hufang360/FlashTool
      */
     function IsLayerBlank(layer) {
-        var lastKF = layer.frames[layer.frames.length - 1].startFrame;
+        // hasSound
+        if (hasSound(layer)) {
+            return false;
+        }
 
+        // 判断 帧 是否为空白
+        var lastKF = layer.frames[layer.frames.length - 1].startFrame;
         while (lastKF >= 0) {
             if (!IsFrameBlank(layer.frames[lastKF])) {
                 return false;

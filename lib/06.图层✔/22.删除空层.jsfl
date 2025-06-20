@@ -1,10 +1,11 @@
 /**
- * @file: 21.图层解锁.jsfl
+ * @file: 22.删除空层.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
- * @date: 2025/6/20 21:15
+ * @date: 2025/6/20 21:48
  * @project: AnJsflScript
  * @description:
+ * @see https://github.com/hufang360/FlashTool
  */
 
 // @formatter:off
@@ -12,9 +13,11 @@
 (function(){const m=fl.scriptURI.match(/AnJsflScript(?:-[a-zA-Z0-9]+)?/);if(!m)throw new Error("Can't find project path ["+fl.scriptURI+"]");const i=fl.scriptURI.lastIndexOf(m[0]);const p=fl.scriptURI.substring(0,i+m[0].length);typeof require=="undefined"&&fl.runScript(p+"/config/require/CheckEnvironment.jsfl")})();
 // @formatter:on
 
-require(["checkUtil", "loglevel"], function (checkUtil, log) {
+require(["checkUtil", "loglevel", "LayerOperation"], function (checkUtil, log, lo) {
     const { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } =
         checkUtil;
+
+    const { clearEmptyLayers } = lo;
 
     // region doc
     var doc = fl.getDocumentDOM(); //文档
@@ -40,20 +43,18 @@ require(["checkUtil", "loglevel"], function (checkUtil, log) {
     // 检查选择的元件
     if (!CheckSelection(selection, "selectElement", "No limit")) return;
 
-    // 检查选择的图层
-    var selectedLayers = CheckSelectedLayers(timeline, "Not Zero");
-    if (!selectedLayers) return;
-
+    // // 检查选择的图层
+    // if (!CheckSelectedLayers(timeline, "No limit")) return;
     // endregion doc
 
     function Main() {
-        log.info("selectedLayers", selectedLayers);
-
-        selectedLayers.forEach(function (layerIndex) {
-            var layer = layers[layerIndex];
-            layer.locked = true;
-            log.info("lock layer", layer.name);
-        });
+        // 空层的判定条件
+        // 1. 忽略特定名称的图层
+        // 2. 文件夹图层,只指定文件夹，不指定子文件夹，删除时删除子文件夹
+        // 3. 没有声音的图层
+        // 4. 元件数量为0
+        // 5. 动作脚本为空
+        clearEmptyLayers();
     }
 
     Main();

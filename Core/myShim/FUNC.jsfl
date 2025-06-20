@@ -339,10 +339,11 @@ define(["sprintf-js"], function (sp) {
         var args = Array.prototype.slice.call(arguments);
         var props = args.slice(1); // 去掉第一个参数，剩下的都是属性路径或默认值
 
-        // 最后一个参数作为默认值
+        var rootObj = args[0];
+        args.shift(); // 去除第一个参数
+
         var defaultValue = args[args.length - 1];
-        // 去除最后一个参数
-        props.pop();
+        props.pop(); // 去除最后一个参数
 
         // 如果根对象为空，直接返回默认值
         if (!rootObj) return defaultValue;

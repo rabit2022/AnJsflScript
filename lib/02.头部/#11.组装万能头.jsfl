@@ -18,12 +18,13 @@ require([
     "ElementChecker",
     "ElementQuery",
     "numpy",
-    "COMPATIBILITY","SAT"
-], function (checkUtil, log, xmlPanelUtil, ec, eq, np, COMPATIBILITY,sat) {
+    "COMPATIBILITY",
+    "SAT"
+], function (checkUtil, log, xmlPanelUtil, ec, eq, np, COMPATIBILITY, sat) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
     const { IsSymbol } = ec;
-    const { getName,getFrameCount } = eq;
+    const { getName, getFrameCount } = eq;
 
     const { isMultiple } = np;
 
@@ -34,7 +35,7 @@ require([
         __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__
     } = COMPATIBILITY;
 
-    const {Vector}=sat;
+    const { Vector } = sat;
 
     // region doc
     var doc = fl.getDocumentDOM(); //文档
@@ -196,7 +197,9 @@ require([
 
         window.AnJsflScript.GLOBALS["11.组装万能头-config"] = config;
         window.AnJsflScript.GLOBALS["11.组装万能头-headconfig"] = headconfig;
-        window.AnJsflScript.GLOBALS["11.组装万能头-ElementPosition"] = Vector.from(selection[0]);
+        window.AnJsflScript.GLOBALS["11.组装万能头-ElementPosition"] = Vector.from(
+            selection[0]
+        );
 
         // switch (frameSelector) {
         //     case "keyFrame":

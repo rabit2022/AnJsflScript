@@ -37,9 +37,7 @@ require([
     const { getName } = eq;
     const { FRAME_1 } = JSFLConstants.Numerics.frame.frameList;
 
-    const {
-        __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_RELATIVE_PATH__,
-    } = COMPATIBILITY;
+    const { __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_RELATIVE_PATH__ } = COMPATIBILITY;
     // region doc
     var doc = fl.getDocumentDOM(); //文档
     if (!CheckDom(doc)) return;
