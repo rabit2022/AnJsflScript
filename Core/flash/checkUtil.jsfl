@@ -256,17 +256,19 @@ define(["Tips", "SAT", "KeyFrameQuery"], function (Tips, SAT, kfq) {
      * @param {string} [exTips] - 额外提示信息。
      * @param {"No limit"|"Not Zero"|"Zero"|"Only one"|"Only two"|"More"|
      * ">0"|"=0"|"=1"|"=2"|">1"} [condition="Not Zero"] - 检查条件
-     * @returns {Array}
+     * @returns {number[]}
      */
     function CheckSelectedLayers(timeline, condition, exTips) {
         if (condition === undefined) condition = "Not Zero";
 
-        var frs = FrameRangeList.from(getSelectedFrs(timeline));
-        var totalLayers = frs.getUniqueLayerIndexes();
+        // var frs = FrameRangeList.from(getSelectedFrs(timeline));
+        // var selectedLayers = frs.getUniqueLayerIndexes();
 
-        if (!CheckSelection(totalLayers, "selectLayer", condition, exTips)) return null;
+        var selectedLayers = timeline.getSelectedLayers();
 
-        return totalLayers;
+        if (!CheckSelection(selectedLayers, "selectLayer", condition, exTips)) return null;
+
+        return selectedLayers;
     }
 
     return {

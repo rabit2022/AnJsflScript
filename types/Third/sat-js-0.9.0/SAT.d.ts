@@ -315,6 +315,9 @@ declare namespace sat {
 
         constructor();
 
+        /**
+         * @deprecated use {@link Timeline.prototype.getSelectedLayers} instead.
+         */
         getUniqueLayerIndexes(): number[];
     }
 
