@@ -11,7 +11,7 @@
 // prettier-ignore
 "undefined"==typeof require&&fl.runScript(function(){var r=fl.scriptURI.match(/(?:^|.*[\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\/]|$)/)[1],t=fl.scriptURI.match(r);if(t){var n=t[0],i=fl.scriptURI.lastIndexOf(n);return fl.scriptURI.substring(0,i+n.length)}throw new Error("Can't find project path ["+fl.scriptURI+"]")}()+"/config/require/CheckEnvironment.jsfl");
 // @formatter:on
-require(["checkUtil", "xmlPanelUtil", "os", "loglevel", "COMPATIBILITY"], function(
+require(["checkUtil", "xmlPanelUtil", "os", "loglevel", "COMPATIBILITY"], function (
     checkUtil,
     xmlPanelUtil,
     os,
@@ -40,10 +40,12 @@ require(["checkUtil", "xmlPanelUtil", "os", "loglevel", "COMPATIBILITY"], functi
 
     var curFrameIndex = timeline.currentFrame; //当前帧索引
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
-// endregion doc
+    // endregion doc
 
     function checkXMLPanel() {
-        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./02.排兵布阵/02.排兵布阵.xml");
+        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__(
+            "./02.排兵布阵/02.排兵布阵.xml"
+        );
         if (panel == null) return null;
 
         var radioGroup = panel.layoutRadioGroup;
@@ -62,13 +64,19 @@ require(["checkUtil", "xmlPanelUtil", "os", "loglevel", "COMPATIBILITY"], functi
 
         switch (radioGroup) {
             case "neat":
-                __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__("./02.排兵布阵/02.排兵布阵_neat.TD.jsfl");
+                __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__(
+                    "./02.排兵布阵/02.排兵布阵_neat.TD.jsfl"
+                );
                 break;
             case "staggered":
-                __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__("./02.排兵布阵/02.排兵布阵_staggered.TD.jsfl");
+                __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__(
+                    "./02.排兵布阵/02.排兵布阵_staggered.TD.jsfl"
+                );
                 break;
             case "random":
-                __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__("./02.排兵布阵/02.排兵布阵_random.TD.jsfl");
+                __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__(
+                    "./02.排兵布阵/02.排兵布阵_random.TD.jsfl"
+                );
                 break;
             case "ascii_art":
                 // __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__("./02.排兵布阵/02.排兵布阵_ascii_art.TD.jsfl");

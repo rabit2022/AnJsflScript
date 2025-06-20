@@ -19,8 +19,19 @@ require([
     "JSFLConstants",
     "EaseCurve",
     "FramesSelect",
-    "KeyFrameOperation","COMPATIBILITY"
-], function (checkUtil, xmlPanelUtil, sng, satUtil, JSFLConstants, curve, fms, kfo, COMPATIBILITY) {
+    "KeyFrameOperation",
+    "COMPATIBILITY"
+], function (
+    checkUtil,
+    xmlPanelUtil,
+    sng,
+    satUtil,
+    JSFLConstants,
+    curve,
+    fms,
+    kfo,
+    COMPATIBILITY
+) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
     const { getShakeHeadTrPoint } = satUtil;
@@ -29,9 +40,9 @@ require([
     const { SelectAllFms } = fms;
     const { convertToKeyframesSafety } = kfo;
     const { generateNameUntilUnique, generateNameUseLast } = sng;
-    const {parseNumber}=xmlPanelUtil;
+    const { parseNumber } = xmlPanelUtil;
 
-    const {__WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__}=COMPATIBILITY;
+    const { __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__ } = COMPATIBILITY;
 
     var descriptions = {
         file: "08.丝滑摇头.jsfl",
@@ -75,7 +86,8 @@ require([
 
     function checkXMLPanel() {
         // var panel = getXMLPanel();
-        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./08.丝滑摇头.xml");
+        var panel =
+            __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./08.丝滑摇头.xml");
         if (panel === null) return null;
 
         var shakeIntensity = parseNumber(

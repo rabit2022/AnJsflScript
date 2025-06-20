@@ -25,9 +25,9 @@ require([
     const { FRAME_1 } = JSFLConstants.Numerics.frame.frameList;
     const { swapLayers } = lo;
 
-    const {parseNumber, parseString}=xmlPanelUtil;
+    const { parseNumber, parseString } = xmlPanelUtil;
 
-    const {__WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__}=COMPATIBILITY;
+    const { __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__ } = COMPATIBILITY;
 
     // region doc
     var doc = fl.getDocumentDOM(); //文档
@@ -47,7 +47,8 @@ require([
 
     function checkXMLPanel() {
         // var xmlPanel = getXMLPanel();
-        var xmlPanel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./12.批量错开层.xml")
+        var xmlPanel =
+            __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./12.批量错开层.xml");
         if (xmlPanel === null) return;
 
         var copyCount = parseNumber(
@@ -107,7 +108,6 @@ require([
         if (config === undefined) return;
 
         const { copyCount, frameInterval, appearanceOrder } = config;
-
 
         // 复制当前图层
         timeline.copyLayers();

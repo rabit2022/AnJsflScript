@@ -1,9 +1,7 @@
-
 const { exec } = require("child_process");
 const fs = require("fs");
 const path = require("path");
 const Terser = require("terser");
-
 
 async function runCommand(command) {
     return new Promise((resolve, reject) => {
@@ -136,14 +134,13 @@ async function addClosure(inputFile, outputFile) {
     console.log(`File processed and renamed: ${inputFile} -> ${outputFile}`);
 }
 
-
 // 添加 不格式化 注释
 async function addNoFormatComment(inputFile, outputFile) {
     // @formatter:off
     // prettier-ignore
     // (function(){var m=fl.scriptURI.match(/(?:^|.*[\\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\\/]|$)/)[1];;if(!m)throw new Error("Can't find project path ["+fl.scriptURI+"]");var i=fl.scriptURI.lastIndexOf(m[0]);var p=fl.scriptURI.substring(0,i+m[0].length);;typeof AnJsflScript=="undefined"&&fl.runScript(p+"/config/require/CheckEnvironment.jsfl")})();
     // @formatter:on
-// 读取源文件
+    // 读取源文件
     console.log(`Reading file: ${inputFile}`);
     const content = fs.readFileSync(inputFile, "utf-8");
 
@@ -165,7 +162,7 @@ async function addNoFormatComment(inputFile, outputFile) {
 
 function formatPath(path) {
     // 步骤1：找到 "lib" 的位置
-    const libIndex = path.indexOf('lib');
+    const libIndex = path.indexOf("lib");
     if (libIndex === -1) {
         throw new Error('路径中未找到 "lib" 部分');
     }
@@ -174,17 +171,16 @@ function formatPath(path) {
     const libPath = path.substring(libIndex + 4); // 跳过 "lib" 和反斜杠
 
     // 步骤3：分割为数组
-    const parts = libPath.split('\\').filter(Boolean); // 过滤掉空字符串
+    const parts = libPath.split("\\").filter(Boolean); // 过滤掉空字符串
 
     // 步骤4：使用 "_" 连接数组
-    const connectedString = parts.join('-');
+    const connectedString = parts.join("-");
 
     // 步骤5：添加前缀
     const result = `[AnJsflScript]${connectedString}`;
 
     return result;
 }
-
 
 /**
  * 获取入口配置
@@ -208,7 +204,6 @@ function getEntries(dir) {
             // 如果是 .jsfl 文件，添加到入口配置中
             // const name = path.basename(file.name, ".jsfl"); // 去掉扩展名
 
-
             let modulePath = filePath.replace(/.jsfl$/, ""); // 去掉扩展名
 
             let savePath = formatPath(modulePath); // 组成新的入口名称
@@ -222,8 +217,6 @@ function getEntries(dir) {
 
     return entries;
 }
-
-
 
 function getObjectEntryByIndex(obj, index) {
     const keys = Object.keys(obj);
@@ -251,5 +244,5 @@ module.exports = {
     deleteFile,
     getEntries,
     getObjectEntryByIndex,
-    getObjectLength,
-}
+    getObjectLength
+};

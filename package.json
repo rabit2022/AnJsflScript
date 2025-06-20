@@ -60,9 +60,9 @@
     "ReRun": "powershell -File config/start/ReRun.ps1",
     "run-current-file": "powershell -File config/start/run-current-file.ps1",
 
-    "build:FirstRun": "node Build.FirstRun.js",
-    "build:Common": "node Build.Common.js",
-    "Build:Text": "node Build.Text.js",
+    "build:FirstRun": "node config/build/Build.FirstRun.js",
+    "build:Common": "node config/build/Build.Common.js",
+    "Build:Text": "node config/build/Build.Text.js",
     "build": "npm run build:FirstRun && npm run build:Common && npm run Build:Text"
   },
   "repository": {

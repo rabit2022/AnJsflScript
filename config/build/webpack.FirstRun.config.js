@@ -5,7 +5,7 @@ module.exports = merge(common, {
     name: "FirstRun", // FirstRun 的 webpack 配置
     entry: {
         // FirstRun.webpack.jsfl
-        FirstRun: "./config/build/FirstRun.webpack.jsfl"
+        FirstRun: "./FirstRun.webpack.jsfl"
     },
 
 });

@@ -24,9 +24,9 @@ require([
 
     const { getName } = eq;
     const { IsBitmap, IsSound, IsSymbol } = ec;
-    const {parseNumber}=xmlPanelUtil;
+    const { parseNumber } = xmlPanelUtil;
 
-    const {__WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__}=COMPATIBILITY;
+    const { __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__ } = COMPATIBILITY;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -55,7 +55,8 @@ require([
 
     function checkXMLPanel() {
         // var panel = xmlPanelUtil.getXMLPanel();
-        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./07.批量库清理.xml")
+        var panel =
+            __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./07.批量库清理.xml");
         if (panel === null) return;
 
         var cleanMode = panel.cleanMode; // 清理模式

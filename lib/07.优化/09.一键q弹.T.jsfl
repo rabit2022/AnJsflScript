@@ -11,13 +11,13 @@
 // prettier-ignore
 "undefined"==typeof require&&fl.runScript(function(){var r=fl.scriptURI.match(/(?:^|.*[\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\/]|$)/)[1],t=fl.scriptURI.match(r);if(t){var n=t[0],i=fl.scriptURI.lastIndexOf(n);return fl.scriptURI.substring(0,i+n.length)}throw new Error("Can't find project path ["+fl.scriptURI+"]")}()+"/config/require/CheckEnvironment.jsfl");
 // @formatter:on
-require(["checkUtil", "xmlPanelUtil", "SymbolNameGenerator", "SAT", "COMPATIBILITY"], function(
-    checkUtil,
-    xmlPanelUtil,
-    sng,
-    sat,
-    COMPATIBILITY
-) {
+require([
+    "checkUtil",
+    "xmlPanelUtil",
+    "SymbolNameGenerator",
+    "SAT",
+    "COMPATIBILITY"
+], function (checkUtil, xmlPanelUtil, sng, sat, COMPATIBILITY) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
     const { getOrigin } = sat.GLOBALS;
@@ -40,12 +40,11 @@ require(["checkUtil", "xmlPanelUtil", "SymbolNameGenerator", "SAT", "COMPATIBILI
 
     var curFrameIndex = timeline.currentFrame; //当前帧索引
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
-// endregion doc
-    
-    
+    // endregion doc
+
     function checkXMLPanel() {
         // var panel = getXMLPanel();
-        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("09.一键q弹.xml")
+        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("09.一键q弹.xml");
         if (panel === null) return null;
 
         var amplitude = parseNumber(

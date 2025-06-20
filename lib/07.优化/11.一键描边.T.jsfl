@@ -29,9 +29,9 @@ require([
     const { processElements } = eo;
 
     const { SelectAll, OnlySelectCurrent, SelectNone, InvertSelection } = es;
-    const {parseNumber, parseString, parseColor}=xmlPanelUtil;
+    const { parseNumber, parseString, parseColor } = xmlPanelUtil;
 
-    const {__WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__}=COMPATIBILITY;
+    const { __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__ } = COMPATIBILITY;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -62,16 +62,15 @@ require([
 
     function checkXMLPanel() {
         // var panel = getXMLPanel(XMLPANEL);
-        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./11.一键描边/11.一键描边.xml");
+        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__(
+            "./11.一键描边/11.一键描边.xml"
+        );
         if (panel === null) return null;
 
         var size = parseNumber(panel.size, "描边大小 应该使用数字");
         if (size === null) return null;
 
-        var color = parseColor(
-            panel.color,
-            "请输入描边颜色，如 #FFFFFF，black等"
-        );
+        var color = parseColor(panel.color, "请输入描边颜色，如 #FFFFFF，black等");
         if (color === null) return null;
 
         var alphaMode = panel.alpha_mode;

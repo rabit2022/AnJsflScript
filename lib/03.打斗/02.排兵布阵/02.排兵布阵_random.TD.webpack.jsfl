@@ -9,7 +9,7 @@
 
 // @formatter:off
 // prettier-ignore
-"undefined"==typeof require&&fl.runScript(function(){var r=fl.scriptURI.match(/(?:^|.*[\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\/]|$)/)[1],t=fl.scriptURI.match(r);if(t){var n=t[0],i=fl.scriptURI.lastIndexOf(n);return fl.scriptURI.substring(0,i+n.length)}throw new Error("Can't find project path ["+fl.scriptURI+"]")}()+"/config/require/CheckEnvironment.jsfl");
+// "undefined"==typeof require&&fl.runScript(function(){var r=fl.scriptURI.match(/(?:^|.*[\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\/]|$)/)[1],t=fl.scriptURI.match(r);if(t){var n=t[0],i=fl.scriptURI.lastIndexOf(n);return fl.scriptURI.substring(0,i+n.length)}throw new Error("Can't find project path ["+fl.scriptURI+"]")}()+"/config/require/CheckEnvironment.jsfl");
 // @formatter:on
 require([
     "checkUtil",
@@ -26,9 +26,9 @@ require([
     const { generateRandomPointInRect } = satUtil;
     const { OnlySelectCurrent } = es;
 
-    const { parseNumber } = xmlPanelUtil;
+    const {parseNumber}=xmlPanelUtil;
 
-    const { __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__ } = COMPATIBILITY;
+    const {__WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__}=COMPATIBILITY;
 
     // region doc
     var doc = fl.getDocumentDOM(); //文档
@@ -48,8 +48,7 @@ require([
 
     function checkXMLPanel() {
         // var panel = getXMLPanel();
-        var panel =
-            __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./02.排兵布阵_random.xml");
+        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("﻿<?xml version=\"1.0\"?>\r\n<dialog id=\"characterLayoutDialog\" title=\"人物排列设置\" buttons=\"accept,cancel\">\r\n    <grid>\r\n        <rows>\r\n            <row>\r\n                <label value=\"横向人物数量：\"/>\r\n            </row>\r\n            <row>\r\n                <textbox id=\"horizontalCount\" value=\"30\"/>\r\n            </row>\r\n            <separator/>\r\n\r\n\r\n            <row>\r\n                <label value=\"横向间距(单位：多少倍身宽)：\"/>\r\n            </row>\r\n            <row>\r\n                <textbox id=\"horizontalSpacing\" value=\"3\"/>\r\n            </row>\r\n            <separator/>\r\n        </rows>\r\n    </grid>\r\n</dialog>")
         if (panel === null) return null;
 
         var horizontalCount = parseNumber(

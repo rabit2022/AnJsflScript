@@ -17,19 +17,22 @@ require([
     "xmlPanelUtil",
     "ElementChecker",
     "ElementQuery",
-    "numpy","COMPATIBILITY"
-], function (checkUtil, log, xmlPanelUtil, ec, eq, np,COMPATIBILITY) {
+    "numpy",
+    "COMPATIBILITY"
+], function (checkUtil, log, xmlPanelUtil, ec, eq, np, COMPATIBILITY) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
     const { IsSymbol } = ec;
     const { getName } = eq;
 
     const { isMultiple } = np;
-    
-    const {parseNumber, parseString}=xmlPanelUtil;
 
-    const {__WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__}=COMPATIBILITY;
+    const { parseNumber, parseString } = xmlPanelUtil;
 
+    const {
+        __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__,
+        __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__
+    } = COMPATIBILITY;
 
     // region doc
     var doc = fl.getDocumentDOM(); //文档
@@ -52,7 +55,8 @@ require([
 
     function checkXMLPanel() {
         // var panel = getXMLPanel();
-        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./11.组装万能头.xml")
+        var panel =
+            __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./11.组装万能头.xml");
         if (panel === null) return null;
 
         var shakeIntensity = parseNumber(
@@ -146,7 +150,7 @@ require([
 
         // 检查表情帧数是否为持续时间的倍数
         if (!isMultiple(EXPRESSION_DURATION, motionFrameCount)) {
-            console.trace(
+            fl.trace(
                 "优化建议：万能表情中单个表情持续了" +
                     EXPRESSION_DURATION +
                     "帧，但输入的表情帧数为" +
@@ -185,6 +189,23 @@ require([
         log.debug("frameSelector:", frameSelector);
 
         checkMotionFrameCount(expression, motionFrameCount);
+
+        window.AnJsflScript.GLOBALS["11.组装万能头-config"] = config;
+
+        switch (frameSelector) {
+            case "keyFrame":
+                __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__(
+                    "./11.组装万能头/帧选择器-关键帧.jsfl"
+                );
+                break;
+            case "label":
+                __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__(
+                    "./11.组装万能头/帧选择器-标签.jsfl"
+                );
+                break;
+            default:
+                throw new Error("帧选择器只能输入 (keyFrame,label)！");
+        }
     }
 
     Main();

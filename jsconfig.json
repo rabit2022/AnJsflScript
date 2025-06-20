@@ -72,7 +72,8 @@
       "Tips": ["Core/Utils/Tips"],
 
 
-      "COMPATIBILITY": ["Core/webpack/COMPATIBILITY"]
+      "COMPATIBILITY": ["Core/webpack/COMPATIBILITY"],
+      "LayerList": ["Core/flash/Context/Layer/LayerList",
     },
     "include": [
       "**/*.jsfl",

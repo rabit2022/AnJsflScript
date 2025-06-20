@@ -20,8 +20,20 @@ require([
     "EaseCurve",
     "Tween",
     "FramesSelect",
-    "KeyFrameOperation","COMPATIBILITY"
-], function (checkUtil, et, sng, xmlPanelUtil, JSFLConstants, curve, twn, fms, kfo, COMPATIBILITY) {
+    "KeyFrameOperation",
+    "COMPATIBILITY"
+], function (
+    checkUtil,
+    et,
+    sng,
+    xmlPanelUtil,
+    JSFLConstants,
+    curve,
+    twn,
+    fms,
+    kfo,
+    COMPATIBILITY
+) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
     const { FRAME_15, FRAME_30 } = JSFLConstants.Numerics.frame.frameList;
@@ -32,9 +44,9 @@ require([
     const { convertToKeyframesSafety } = kfo;
     const { generateNameUntilUnique, generateNameUseLast } = sng;
 
-    const {parseNumber, parseDirection}=xmlPanelUtil;
+    const { parseNumber, parseDirection } = xmlPanelUtil;
 
-    const {__WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__}=COMPATIBILITY;
+    const { __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__ } = COMPATIBILITY;
 
     // region doc
     var doc = fl.getDocumentDOM(); //文档
@@ -55,13 +67,11 @@ require([
     const KEY_FRAMES = [FRAME_15, FRAME_30]; //关键帧
     function checkXMLPanel() {
         // var panel = getXMLPanel();
-        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./04.裙带飘动.xml")
+        var panel =
+            __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./04.裙带飘动.xml");
         if (panel === null) return null;
 
-        var angle = parseNumber(
-            panel.angle,
-            "角度只能输入数字，请重新输入。"
-        );
+        var angle = parseNumber(panel.angle, "角度只能输入数字，请重新输入。");
         if (angle === null) return null;
         // 检查输入角度是否在1~10之间
         if (angle < 1 || angle > 10) {

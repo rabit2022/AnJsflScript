@@ -27,7 +27,8 @@ require([
     "FramesSelect",
     "lodash",
     "EaseCurve",
-    "chroma-js","COMPATIBILITY"
+    "chroma-js",
+    "COMPATIBILITY"
 ], function (
     checkUtil,
     log,
@@ -43,7 +44,8 @@ require([
     fms,
     _,
     ec,
-    chroma,COMPATIBILITY
+    chroma,
+    COMPATIBILITY
 ) {
     const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
 
@@ -61,7 +63,7 @@ require([
 
     const { getStageRect } = SAT.GLOBALS;
 
-    const {__WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__}=COMPATIBILITY;
+    const { __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__ } = COMPATIBILITY;
 
     // region doc
     var doc = CheckDom(); //文档
@@ -100,7 +102,8 @@ require([
 
     function checkXMLPanel() {
         // var panel = getXMLPanel();
-        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./09.一键转场.xml");
+        var panel =
+            __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./09.一键转场.xml");
         if (panel === null) return null;
 
         return { transitionMode: panel.transitionModeGroup };

@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 // const CommonConfig = require("./webpack.Text.config");
-const CheckHeadConfig = require("./config/require/webpack.CheckHead");
+const CheckHeadConfig = require("./webpack.CheckHead.config");
 
 const {
     runCommand,
@@ -13,7 +13,9 @@ const {
     getEntries,
     getObjectEntryByIndex,
     getObjectLength
-} = require("./config/build/utils");
+} = require("./utils");
+
+var dirname = path.resolve(__dirname, "../../");
 
 function replaceRelativePath(str) {
     const match = str.matchAll(
@@ -53,7 +55,7 @@ function addQuotes(str) {
 }
 
 function getEntry0() {
-    const libDir = path.resolve(__dirname, "lib");
+    const libDir = path.resolve(dirname, "lib");
     let entries = getEntries(libDir);
     const newEntries = {};
     // 把value添加.webpack后缀
@@ -70,7 +72,7 @@ function getEntry0() {
 }
 
 function getEntry() {
-    const libDir = path.resolve(__dirname, "lib");
+    const libDir = path.resolve(dirname, "lib");
     let entries = getEntries(libDir);
     const newEntries = {};
     // 把value添加.webpack后缀
@@ -141,7 +143,7 @@ async function prepareBuild(webpackEntries) {
         var absolutePath = replaceAbsolutePath(sourceCode);
         // console.log(`Reading absolute path: ${absolutePath}`);
         for (const match of absolutePath) {
-            const absolutePathStr = path.resolve(__dirname, match[1]);
+            const absolutePathStr = path.resolve(dirname, match[1]);
             var fileContent = fs.readFileSync(absolutePathStr, "utf8");
             var singleLineString = JSON.stringify(fileContent.toString());
             sourceCode = sourceCode.replaceAll(match[0], singleLineString);
@@ -191,9 +193,9 @@ async function afterBuild(webpackEntries) {
 // 修改文件内容并重命名
 async function processFile(filename) {
     var AllPaths = {
-        ".": path.resolve(__dirname),
-        "./dist": path.resolve(__dirname, "dist"),
-        "./output": path.resolve(__dirname, "output"),
+        ".": path.resolve(dirname),
+        "./dist": path.resolve(dirname, "dist"),
+        "./output": path.resolve(dirname, "output"),
         "filename.js": filename,
         "filename.jsfl": filename.replace(/\.js$/, ".jsfl")
     };
@@ -266,10 +268,13 @@ async function buildProject() {
 
             // 转换ES5
             console.log("Running Babel...");
-            await runCommand("npx babel output --out-dir dist");
+            // await runCommand("npx babel output --out-dir dist");
+            await runCommand(
+                "npx babel ../../output --out-dir ../../dist --config-file ./.babelrc"
+            );
 
-            const outputDir = path.resolve(__dirname, "output");
-            const distDir = path.resolve(__dirname, "dist");
+            const outputDir = path.resolve(dirname, "output");
+            const distDir = path.resolve(dirname, "dist");
 
             // 清空输出目录 output
             if (fs.existsSync(outputDir)) {

@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 // const CommonConfig = require("./webpack.Common.config");
-const CheckHeadConfig = require("./config/require/webpack.CheckHead");
+const CheckHeadConfig = require("./webpack.CheckHead.config");
 
 const {
     runCommand,
@@ -13,10 +13,12 @@ const {
     getEntries,
     getObjectEntryByIndex,
     getObjectLength
-} = require("./config/build/utils");
+} = require("./utils");
+
+var dirname = path.resolve(__dirname, "../../");
 
 function getEntry() {
-    const libDir = path.resolve(__dirname, "lib");
+    const libDir = path.resolve(dirname, "lib");
     const entries = getEntries(libDir);
 
     const newEntries = {};
@@ -101,9 +103,9 @@ async function afterBuild(webpackEntries) {
 // 修改文件内容并重命名
 async function processFile(filename) {
     var AllPaths = {
-        ".": path.resolve(__dirname),
-        "./dist": path.resolve(__dirname, "dist"),
-        "./output": path.resolve(__dirname, "output"),
+        ".": path.resolve(dirname),
+        "./dist": path.resolve(dirname, "dist"),
+        "./output": path.resolve(dirname, "output"),
         "filename.js": filename,
         "filename.jsfl": filename.replace(/\.js$/, ".jsfl")
     };
@@ -165,10 +167,12 @@ async function buildProject() {
 
             // 转换ES5
             console.log("Running Babel...");
-            await runCommand("npx babel output --out-dir dist");
+            await runCommand(
+                "npx babel ../../output --out-dir ../../dist --config-file ./.babelrc"
+            );
 
-            const outputDir = path.resolve(__dirname, "output");
-            const distDir = path.resolve(__dirname, "dist");
+            const outputDir = path.resolve(dirname, "output");
+            const distDir = path.resolve(dirname, "dist");
 
             // 清空输出目录 output
             if (fs.existsSync(outputDir)) {

@@ -9,7 +9,7 @@
 
 // @formatter:off
 // prettier-ignore
-"undefined"==typeof require&&fl.runScript(function(){var r=fl.scriptURI.match(/(?:^|.*[\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\/]|$)/)[1],t=fl.scriptURI.match(r);if(t){var n=t[0],i=fl.scriptURI.lastIndexOf(n);return fl.scriptURI.substring(0,i+n.length)}throw new Error("Can't find project path ["+fl.scriptURI+"]")}()+"/config/require/CheckEnvironment.jsfl");
+// "undefined"==typeof require&&fl.runScript(function(){var r=fl.scriptURI.match(/(?:^|.*[\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\/]|$)/)[1],t=fl.scriptURI.match(r);if(t){var n=t[0],i=fl.scriptURI.lastIndexOf(n);return fl.scriptURI.substring(0,i+n.length)}throw new Error("Can't find project path ["+fl.scriptURI+"]")}()+"/config/require/CheckEnvironment.jsfl");
 // @formatter:on
 
 require([
@@ -129,8 +129,7 @@ require([
         // log.info("toAddScriptFrame:", toAddScriptFrame);
 
         // toAddScriptFrame.actionScript = getScriptText();
-        toAddScriptFrame.actionScript =
-            __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_RELATIVE_PATH__("./04.辅助相机.as");
+        toAddScriptFrame.actionScript = "// I don't know why need it,but more plugins in supermarket use similar code as this,so I keep it here.\r\n// If you can tell me why, I will be grateful for your help.\r\n\r\nimport flash.display.MovieClip;\r\nimport flash.geom.Matrix;\r\nimport flash.display.DisplayObject;\r\nvar cameraTrans:Transform = new Transform(this);\r\nvar stageTrans:Transform = new Transform(root);\r\nvar rt:MovieClip = root as MovieClip;\r\nrt.camera = this;\r\nvisible = false;\r\nfunction updateParallaxes() {\r\n    if (rt.parallaxes != undefined) {\r\n        var prlx:Array = rt.parallaxes as Array;\r\n        var mc:MovieClip;\r\n        for (var i = 0; i < prlx.length; i++) {\r\n            mc = prlx[i] as MovieClip;\r\n            mc.move(this);\r\n        }\r\n    }\r\n}\r\nstage.addEventListener(Event.ENTER_FRAME, updateStage);\r\nfunction updateStage(...rest) {\r\n    parent.filters = filters;\r\n    stageTrans.colorTransform = cameraTrans.colorTransform;\r\n    var stageMatrix:Matrix = getFinalMatrix();\r\n    stageMatrix.invert();\r\n    stageMatrix.translate(stage.stageWidth * 0.5, stage.stageHeight * 0.5);\r\n    stageTrans.matrix = stageMatrix;\r\n    updateParallaxes();\r\n}\r\naddEventListener(Event.REMOVED_FROM_STAGE, resetStage);\r\nfunction resetStage(...rest) {\r\n    stage.removeEventListener(Event.ENTER_FRAME, updateStage);\r\n    stageTrans.matrix = new Matrix();\r\n    stageTrans.colorTransform = new ColorTransform();\r\n    parent.filters = new Array();\r\n    if (rt.camera == this) {\r\n        rt.camera = undefined;\r\n    }\r\n}\r\nfunction getFinalMatrix():Matrix {\r\n    var finalMX:Matrix = this.transform.matrix.clone();\r\n    var p:DisplayObject = parent;\r\n    while (p != root) {\r\n        finalMX.concat(p.transform.matrix);\r\n        p = p.parent;\r\n    }\r\n    return finalMX;\r\n}\r\nupdateStage();";
 
         doc.exitEditMode();
     }

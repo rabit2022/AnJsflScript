@@ -23,9 +23,9 @@ require(["checkUtil", "xmlPanelUtil", "EaseCurve", "Tween", "COMPATIBILITY"], fu
     const { setEaseCurve, setClassicEaseCurve } = curve;
     const { createTween } = twn;
 
-    const {parseNumber}=xmlPanelUtil;
+    const { parseNumber } = xmlPanelUtil;
 
-    const {__WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__}=COMPATIBILITY;
+    const { __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__ } = COMPATIBILITY;
 
     // region doc
     var doc = fl.getDocumentDOM(); //文档
@@ -45,7 +45,10 @@ require(["checkUtil", "xmlPanelUtil", "EaseCurve", "Tween", "COMPATIBILITY"], fu
 
     function checkXMLPanel() {
         // var panel = getXMLPanel();
-        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./00.设置缓动曲线_下拉菜单.xml")
+        var panel =
+            __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__(
+                "./00.设置缓动曲线_下拉菜单.xml"
+            );
         if (panel === null) return null;
 
         var easeType = panel.easeType;

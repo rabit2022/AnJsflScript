@@ -114,6 +114,8 @@ require.config({
 
         // D:\project\沙雕动画\AnJsflScript\Core\webpack\COMPATIBILITY.jsfl
         "COMPATIBILITY": "Core/webpack/COMPATIBILITY",
+        // D:\project\沙雕动画\AnJsflScript\Core\flash\Context\Layer\LayerList.jsfl
+        "LayerList": "Core/flash/Context/Layer/LayerList",
 
     }, packages: []
 });

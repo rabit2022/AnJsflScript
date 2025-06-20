@@ -9,9 +9,9 @@
 
 // @formatter:off
 // prettier-ignore
-"undefined"==typeof require&&fl.runScript(function(){var r=fl.scriptURI.match(/(?:^|.*[\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\/]|$)/)[1],t=fl.scriptURI.match(r);if(t){var n=t[0],i=fl.scriptURI.lastIndexOf(n);return fl.scriptURI.substring(0,i+n.length)}throw new Error("Can't find project path ["+fl.scriptURI+"]")}()+"/config/require/CheckEnvironment.jsfl");
+// "undefined"==typeof require&&fl.runScript(function(){var r=fl.scriptURI.match(/(?:^|.*[\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\/]|$)/)[1],t=fl.scriptURI.match(r);if(t){var n=t[0],i=fl.scriptURI.lastIndexOf(n);return fl.scriptURI.substring(0,i+n.length)}throw new Error("Can't find project path ["+fl.scriptURI+"]")}()+"/config/require/CheckEnvironment.jsfl");
 // @formatter:on
-require(["checkUtil", "xmlPanelUtil", "MoreElement", "COMPATIBILITY"], function (
+require(["checkUtil", "xmlPanelUtil", "MoreElement","COMPATIBILITY"], function (
     checkUtil,
     xmlPanelUtil,
     MoreElement,
@@ -20,9 +20,9 @@ require(["checkUtil", "xmlPanelUtil", "MoreElement", "COMPATIBILITY"], function 
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
     // var MoreElement = me.MoreElement;
-    const { parseNumber } = xmlPanelUtil;
+    const {parseNumber}=xmlPanelUtil;
 
-    const { __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__ } = COMPATIBILITY;
+    const {__WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__}=COMPATIBILITY;
 
     // region doc
     var doc = fl.getDocumentDOM(); //文档
@@ -42,9 +42,7 @@ require(["checkUtil", "xmlPanelUtil", "MoreElement", "COMPATIBILITY"], function 
 
     function checkXMLPanel() {
         // var panel = getXMLPanel();
-        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__(
-            "./02.排兵布阵_staggered.xml"
-        );
+        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("﻿<?xml version=\"1.0\"?>\r\n<dialog id=\"characterLayoutDialog\" title=\"人物排列设置\" buttons=\"accept,cancel\">\r\n    <grid>\r\n        <!--        <columns>-->\r\n        <!--            <column flex=\"1\"/>-->\r\n        <!--            <column flex=\"3\"/>-->\r\n        <!--        </columns>-->\r\n        <rows>\r\n            <row>\r\n                <label value=\"横向人物数量：\"/>\r\n            </row>\r\n            <row>\r\n                <textbox id=\"horizontalCount\" value=\"8\"/>\r\n            </row>\r\n            <separator/>\r\n\r\n            <row>\r\n                <label value=\"横向间距(单位：多少倍身宽)：\"/>\r\n            </row>\r\n            <row>\r\n                <textbox id=\"horizontalSpacing\" value=\"1.2\"/>\r\n            </row>\r\n            <separator/>\r\n\r\n            <row>\r\n                <label value=\"纵向人物数量：\"/>\r\n            </row>\r\n            <row>\r\n                <textbox id=\"verticalCount\" value=\"4\"/>\r\n            </row>\r\n            <separator/>\r\n\r\n            <row>\r\n                <label value=\"纵向间距：\"/>\r\n            </row>\r\n            <row>\r\n                <textbox id=\"verticalSpacing\" value=\"0.3\"/>\r\n            </row>\r\n            <separator/>\r\n\r\n\r\n        </rows>\r\n    </grid>\r\n</dialog>");
         if (panel === null) return null;
 
         var horizontalCount = parseNumber(
@@ -83,8 +81,8 @@ require(["checkUtil", "xmlPanelUtil", "MoreElement", "COMPATIBILITY"], function 
         // 整齐排布
         var config = checkXMLPanel();
         if (config === null) return;
-        const { horizontalCount, horizontalSpacing, verticalCount, verticalSpacing } =
-            config;
+        const { horizontalCount, horizontalSpacing, verticalCount, verticalSpacing }= config;
+
 
         var firstElement = selection[0];
         var me = new MoreElement(firstElement, horizontalSpacing, verticalSpacing);

@@ -10,7 +10,7 @@ const head = `"undefined"==typeof require&&fl.runScript(function(){var r=fl.scri
 
 
 module.exports = {
-    entry: "./CheckHead.jsfl",
+    entry: "../require/CheckHead.jsfl",
     output: {
         path: path.resolve(__dirname, "output"),
         filename: "./[name].zip.jsfl",

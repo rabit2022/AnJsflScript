@@ -6,38 +6,35 @@
  * @project: AnJsflScript
  * @description:
  */
-define(["chroma-js", "linqUtil", "open", "os"], function(chroma, linqUtil, open, os) {
+define(["chroma-js", "linqUtil", "open", "os"], function (chroma, linqUtil, open, os) {
     const { $range } = linqUtil;
 
-    function XMLPanelUtil() {
-    }
+    function XMLPanelUtil() {}
 
-    XMLPanelUtil.getXMLPath = function() {
+    XMLPanelUtil.getXMLPath = function () {
         var XMLPANEL = fl.scriptURI.split(".jsfl").join(".xml");
         return XMLPANEL;
     };
 
-    XMLPanelUtil.getXMLText = function(absolutPath) {
+    XMLPanelUtil.getXMLText = function (absolutPath) {
         if (absolutPath === undefined) absolutPath = XMLPanelUtil.getXMLPath();
         var text = "";
         with (open(absolutPath, "r", "utf-8")) {
             text = f.read();
         }
         return text;
-
     };
 
-    XMLPanelUtil.getXMLTextRP = function(relativePath) {
+    XMLPanelUtil.getXMLTextRP = function (relativePath) {
         var absolutePath = os.path.join(os.getcwd(), relativePath);
         return XMLPanelUtil.getXMLText(absolutePath);
     };
-
 
     /**
      * 获取XML面板
      * @param {string} [panelPath] 面板路径，默认使用当前脚本的XML路径
      */
-    XMLPanelUtil.getXMLPanel = function(panelPath) {
+    XMLPanelUtil.getXMLPanel = function (panelPath) {
         if (panelPath === undefined) {
             panelPath = XMLPanelUtil.getXMLPath();
         }
@@ -57,7 +54,7 @@ define(["chroma-js", "linqUtil", "open", "os"], function(chroma, linqUtil, open,
      * 获取XML面板
      * @param {string} [xmlText] 面板路径，默认使用当前脚本的XML路径
      */
-    XMLPanelUtil.getXMLPanelT = function(xmlText) {
+    XMLPanelUtil.getXMLPanelT = function (xmlText) {
         if (xmlText === undefined) {
             throw new Error("xmlText不能为空");
         }
@@ -76,7 +73,7 @@ define(["chroma-js", "linqUtil", "open", "os"], function(chroma, linqUtil, open,
      * @param {{start: number, end: number, step: number}} [range=null] 范围
      * @returns {number} 输入的数字
      */
-    XMLPanelUtil.parseNumber = function(inputStr, alertMessage, range) {
+    XMLPanelUtil.parseNumber = function (inputStr, alertMessage, range) {
         if (alertMessage === undefined || alertMessage === null) {
             alertMessage = "请重新输入合法的数字。";
         }
@@ -139,7 +136,7 @@ define(["chroma-js", "linqUtil", "open", "os"], function(chroma, linqUtil, open,
      * @param {string} [alertMsg] 错误提示信息
      * @returns {string}
      */
-    XMLPanelUtil.parseString = function(inputStr, alertMsg) {
+    XMLPanelUtil.parseString = function (inputStr, alertMsg) {
         if (inputStr === null) {
             if (alertMsg !== undefined) {
                 alert(alertMsg);
@@ -155,7 +152,7 @@ define(["chroma-js", "linqUtil", "open", "os"], function(chroma, linqUtil, open,
      * @param {object} [tipDictionary={"右": 1, "左": -1, " ": -1}] 方向提示字典
      * @returns {number}
      */
-    XMLPanelUtil.parseDirection = function(inputDirection, tipDictionary) {
+    XMLPanelUtil.parseDirection = function (inputDirection, tipDictionary) {
         // var inputDirection = dialog.direction;
         if (tipDictionary === null) {
             tipDictionary = { 右: 1, 左: -1, " ": -1 };
@@ -182,7 +179,7 @@ define(["chroma-js", "linqUtil", "open", "os"], function(chroma, linqUtil, open,
      * @param {string} [alertMsg] 错误提示信息
      * @returns {string}
      */
-    XMLPanelUtil.parseColor = function(inputColor, alertMsg) {
+    XMLPanelUtil.parseColor = function (inputColor, alertMsg) {
         var color = chroma(inputColor);
 
         if (!inputColor || !chroma.valid(color)) {
