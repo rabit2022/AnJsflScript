@@ -131,4 +131,9 @@ Object.defineProperty(Context.prototype, 'AllLayers', {
 });
 
 // layers
-Context.prototype.layers = this.AllLayers;
+// Context.prototype.layers = this.AllLayers;
+Object.defineProperty(Context.prototype, 'layers', {
+    get: function () {
+        return this.AllLayers;
+    },
+});

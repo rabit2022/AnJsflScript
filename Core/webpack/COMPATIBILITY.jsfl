@@ -76,9 +76,10 @@ define(["os", "xmlPanelUtil"], function(os, xmlPanelUtil) {
 
     function __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__(relativePath) {
         var absolutePath = os.path.join(os.getcwd(), relativePath);
-        require([absolutePath]);
-        // 取消模块定义,这是动态模块加载，需要可以重复执行
-        requirejs.undef(absolutePath);
+        // require([absolutePath]);
+        // // 取消模块定义,这是动态模块加载，需要可以重复执行
+        // requirejs.undef(absolutePath);
+        fl.runScript(absolutePath);
     }
 
 

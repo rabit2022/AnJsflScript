@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(function () {
+define(function() {
     /**
      * 获取包含指定名称的图层或其索引
      * @param {Array.<Layer>} layers 图层数组

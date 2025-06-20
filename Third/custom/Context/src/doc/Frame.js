@@ -129,4 +129,9 @@ Object.defineProperty(Context.prototype, 'AllFrames', {
 });
 
 // frames
-Context.prototype.frames = this.AllFrames;
+// Context.prototype.frames = this.AllFrames;
+Object.defineProperty(Context.prototype, 'frames', {
+    get: function () {
+        return this.AllFrames;
+    },
+});

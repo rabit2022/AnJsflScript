@@ -39,8 +39,6 @@ require([
 
     const {
         __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_RELATIVE_PATH__,
-        __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_ABSOLUTE_PATH__,
-        __WEBPACK_COMPATIBILITY_TEXT_PLUGIN_TEXT__
     } = COMPATIBILITY;
     // region doc
     var doc = fl.getDocumentDOM(); //文档

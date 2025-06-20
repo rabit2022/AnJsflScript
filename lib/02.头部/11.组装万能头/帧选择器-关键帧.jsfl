@@ -54,7 +54,6 @@ require(["checkUtil", "loglevel", "SymbolNameGenerator", "COMPATIBILITY"], funct
     // endregion doc
 
     function Main() {
-        console.log("开始组装万能头...");
         var symbolName = generateNameUntilUnique("组装万能头_"); // 生成符号名称
         doc.convertToSymbol("graphic", symbolName, "center"); // 将选中的元素转换为符号
 

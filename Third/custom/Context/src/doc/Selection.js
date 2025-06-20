@@ -56,7 +56,24 @@ Object.defineProperty(Context.prototype, 'firstSlFrame', {
     },
 });
 
-Context.prototype.firstLayer = this.firstSlLayer;
-Context.prototype.firstFrame = this.firstSlFrame;
-Context.prototype.firstLayerIndex = this.firstSlLayerIndex;
-Context.prototype.firstFrameIndex = this.firstSlFrameIndex;
+Object.defineProperty(Context.prototype, 'firstLayer', {
+    get: function () {
+        return this.firstSlLayer;
+    },
+});
+Object.defineProperty(Context.prototype, 'firstFrame', {
+    get: function () {
+        return this.firstSlFrame;
+    },
+});
+Object.defineProperty(Context.prototype, 'firstLayerIndex', {
+    get: function () {
+        return this.firstSlLayerIndex;
+    },
+});
+Object.defineProperty(Context.prototype, 'firstFrameIndex', {
+    get: function () {
+        return this.firstSlFrameIndex;
+    },
+});
+

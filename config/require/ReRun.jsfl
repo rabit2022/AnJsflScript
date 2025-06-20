@@ -7,10 +7,14 @@
  * @description:
  */
 
+// 清除输出面板
+fl.outputPanel.clear();
+
+// 由于setTimeout的polyfill，与原生有差别，导致require.js加载失败，所以也要重置setTimeout
+window.setTimeout = undefined;
+
 // if (typeof require !== "undefined") {
 require(["loglevel"], function (log) {
-    // 清除输出面板
-    fl.outputPanel.clear();
 
     // fl.trace("ReRun: Reloading RequireJS");
 
@@ -19,8 +23,6 @@ require(["loglevel"], function (log) {
     window.require = undefined;
     window.define = undefined;
 
-    // 由于setTimeout的polyfill，与原生有差别，导致require.js加载失败，所以也要重置setTimeout
-    window.setTimeout = undefined;
 
     // fl.trace("ReRun: Reloading RequireJS");
     log.setLevel(log.levels.TRACE);

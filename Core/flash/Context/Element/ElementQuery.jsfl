@@ -56,6 +56,7 @@ define(["SAT"], function ({ Rectangle }) {
         var frameCount = symbolTimeline.frameCount;
         return frameCount;
     }
+
     return {
         getName: getName,
         getMaxRight: getMaxRight,

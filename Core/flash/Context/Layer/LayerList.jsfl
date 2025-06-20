@@ -82,10 +82,24 @@
  *         """
  *         pass
  */
-define(function () {
-    function LayerList(timeline) {
-        this.timeline = timeline;
-        this.layers = timeline.layers;
+define(["LayerOperation"],function (lo) {
+    const {swapLayers}= lo;
+
+    function LayerList(context) {
+        this.context = context;
+        this.timeline = context.timeline;
+
+        this.update();
+    }
+
+    LayerList.prototype.update = function (){
+        this.context.update();
+
+        /**
+         * @description: 图层列表
+         * @type {Layer[]}
+         */
+        this.layers = this.timeline.layers;
     }
 
     /**
@@ -96,7 +110,29 @@ define(function () {
      */
     LayerList.prototype.append = function (layerName, layerType) {
         this.timeline.currentLayer = this.layers.length - 1;
-        this.timeline.addNewLayer(layerName || "", layerType || "", true);
+        var newLayer = this.timeline.addNewLayer(layerName || "", layerType || "", false);
+
+        this.update();
+
+        // this.timeline.currentLayer = newLayer;
+    };
+
+    // sort
+    /**
+     * @description: 排序图层
+     * @param {function(Layer,Layer)} compareFn 比较函数 1:layer1>layer2,-1:layer1<layer2,0:layer1=layer2
+     * @param {boolean} [reverse] 是否倒序
+     * @return {void}
+     */
+    LayerList.prototype.sort = function (compareFn) {
+        for (var i = 0; i < this.layers.length; i++) {
+            for (var j = i + 1; j < this.layers.length; j++) {
+                if (compareFn(this.layers[i], this.layers[j]) > 0) {
+                    swapLayers(this.timeline, i, j);
+                }
+            }
+        }
+        this.update();
     };
 
     return LayerList;

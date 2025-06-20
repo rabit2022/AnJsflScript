@@ -1543,6 +1543,7 @@
      * @param {number} layerIndex 图层索引
      * @param {number} startFrame 开始帧
      * @param {number} [endFrame=startFrame+1] 结束帧
+     * @constructor
      */
     function FrameRange(layerIndex, startFrame, endFrame) {
         SObject.apply(this, arguments);

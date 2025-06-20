@@ -91,7 +91,13 @@ Object.defineProperty(Context.prototype, 'AllElements', {
 });
 
 // elements
-Context.prototype.elements = this.AllElements;
+// Context.prototype.elements = this.AllElements;
+Object.defineProperty(Context.prototype, 'elements', {
+    get: function () {
+        return this.AllElements;
+    },
+});
+
 
 // curElement
 Object.defineProperty(Context.prototype, 'curElement', {

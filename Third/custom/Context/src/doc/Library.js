@@ -15,4 +15,9 @@ Object.defineProperty(Context.prototype, 'items', {
 });
 
 // AllItems
-Context.prototype.AllItems = this.items;
+// Context.prototype.AllItems = this.items;
+Object.defineProperty(Context.prototype, 'AllItems', {
+    get: function () {
+        return this.items;
+    },
+});

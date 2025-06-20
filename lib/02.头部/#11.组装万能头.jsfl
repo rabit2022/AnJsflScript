@@ -18,12 +18,12 @@ require([
     "ElementChecker",
     "ElementQuery",
     "numpy",
-    "COMPATIBILITY"
-], function (checkUtil, log, xmlPanelUtil, ec, eq, np, COMPATIBILITY) {
+    "COMPATIBILITY","SAT"
+], function (checkUtil, log, xmlPanelUtil, ec, eq, np, COMPATIBILITY,sat) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
     const { IsSymbol } = ec;
-    const { getName } = eq;
+    const { getName,getFrameCount } = eq;
 
     const { isMultiple } = np;
 
@@ -33,6 +33,8 @@ require([
         __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__,
         __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__
     } = COMPATIBILITY;
+
+    const {Vector}=sat;
 
     // region doc
     var doc = fl.getDocumentDOM(); //文档
@@ -51,7 +53,7 @@ require([
 
     // endregion doc
 
-    log.setLevel(log.levels.INFO);
+    // log.setLevel(log.levels.TRACE);
 
     function checkXMLPanel() {
         // var panel = getXMLPanel();
@@ -105,13 +107,15 @@ require([
     function checkHeadAndExpression(selection) {
         var isAllSymbol = selection.every(IsSymbol);
         if (!isAllSymbol) {
-            alert("请确保选择的元件都是符号！");
+            alert("请确保选择的元件都是 元件！");
             return null;
         }
 
-        var frameCounts = selection.map(function (element) {
-            return element.libraryItem.timeline.frameCount;
-        });
+        // var frameCounts = selection.map(function (element) {
+        //     // return element.libraryItem.timeline.frameCount;
+        //     return getFrameCount(element);
+        // });
+        var frameCounts = selection.map(getFrameCount);
         log.debug("frameCounts:", frameCounts);
 
         // 找到最大值
@@ -191,21 +195,23 @@ require([
         checkMotionFrameCount(expression, motionFrameCount);
 
         window.AnJsflScript.GLOBALS["11.组装万能头-config"] = config;
+        window.AnJsflScript.GLOBALS["11.组装万能头-headconfig"] = headconfig;
+        window.AnJsflScript.GLOBALS["11.组装万能头-ElementPosition"] = Vector.from(selection[0]);
 
-        switch (frameSelector) {
-            case "keyFrame":
-                __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__(
-                    "./11.组装万能头/帧选择器-关键帧.jsfl"
-                );
-                break;
-            case "label":
-                __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__(
-                    "./11.组装万能头/帧选择器-标签.jsfl"
-                );
-                break;
-            default:
-                throw new Error("帧选择器只能输入 (keyFrame,label)！");
-        }
+        // switch (frameSelector) {
+        //     case "keyFrame":
+        //         __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__(
+        //             "./11.组装万能头/帧选择器-关键帧.jsfl"
+        //         );
+        //         break;
+        //     case "label":
+        //         __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__(
+        //             "./11.组装万能头/帧选择器-标签.jsfl"
+        //         );
+        //         break;
+        //     default:
+        //         throw new Error("帧选择器只能输入 (keyFrame,label)！");
+        // }
     }
 
     Main();

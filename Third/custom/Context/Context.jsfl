@@ -310,7 +310,12 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         });
 
         // elements
-        Context.prototype.elements = this.AllElements;
+        // Context.prototype.elements = this.AllElements;
+        Object.defineProperty(Context.prototype, 'elements', {
+          get: function get() {
+            return this.AllElements;
+          }
+        });
 
         // curElement
         Object.defineProperty(Context.prototype, 'curElement', {
@@ -486,7 +491,12 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         });
 
         // frames
-        Context.prototype.frames = this.AllFrames;
+        // Context.prototype.frames = this.AllFrames;
+        Object.defineProperty(Context.prototype, 'frames', {
+          get: function get() {
+            return this.AllFrames;
+          }
+        });
 
         /***/
       }),
@@ -506,7 +516,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           // exit early if no timeline
           if (!this.timeline) {
             throw new ReferenceError('ReferenceError: Cannot set Keyframe as Context has no Timeline');
-            return this;
+            // removed by dead control flow
+            {}
           }
 
           // find the keyframe
@@ -672,7 +683,12 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         });
 
         // layers
-        Context.prototype.layers = this.AllLayers;
+        // Context.prototype.layers = this.AllLayers;
+        Object.defineProperty(Context.prototype, 'layers', {
+          get: function get() {
+            return this.AllLayers;
+          }
+        });
 
         /***/
       }),
@@ -699,7 +715,12 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         });
 
         // AllItems
-        Context.prototype.AllItems = this.items;
+        // Context.prototype.AllItems = this.items;
+        Object.defineProperty(Context.prototype, 'AllItems', {
+          get: function get() {
+            return this.items;
+          }
+        });
 
         /***/
       }),
@@ -760,10 +781,26 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             return layer.frames[index];
           }
         });
-        Context.prototype.firstLayer = this.firstSlLayer;
-        Context.prototype.firstFrame = this.firstSlFrame;
-        Context.prototype.firstLayerIndex = this.firstSlLayerIndex;
-        Context.prototype.firstFrameIndex = this.firstSlFrameIndex;
+        Object.defineProperty(Context.prototype, 'firstLayer', {
+          get: function get() {
+            return this.firstSlLayer;
+          }
+        });
+        Object.defineProperty(Context.prototype, 'firstFrame', {
+          get: function get() {
+            return this.firstSlFrame;
+          }
+        });
+        Object.defineProperty(Context.prototype, 'firstLayerIndex', {
+          get: function get() {
+            return this.firstSlLayerIndex;
+          }
+        });
+        Object.defineProperty(Context.prototype, 'firstFrameIndex', {
+          get: function get() {
+            return this.firstSlFrameIndex;
+          }
+        });
 
         /***/
       }),
