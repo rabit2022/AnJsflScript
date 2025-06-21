@@ -82,39 +82,59 @@
  *         """
  *         pass
  */
-define(["LayerOperation"], function (lo) {
+define(["LayerOperation"], function(lo) {
     const { swapLayers } = lo;
 
-    function LayerList(context) {
-        this.context = context;
-        this.timeline = context.timeline;
+    // todo:考虑局部，layers指定的情况
 
-        this.update();
-    }
+    function LayerList(timeline, layers) {
+        // this.context = context;
+        // this.timeline = context.timeline;
 
-    LayerList.prototype.update = function () {
-        this.context.update();
+        var doc = fl.getDocumentDOM();
+        this.timeline = timeline || doc.getTimeline();
 
         /**
          * @description: 图层列表
          * @type {Layer[]}
          */
-        this.layers = this.timeline.layers;
-    };
+        this.layers = layers || this.timeline.layers;
+        // this.update();
+
+        this.origionalLayers = this.timeline.layers;
+    }
+
+    // LayerList.prototype.update = function () {
+    //     this.context.update();
+    //
+    //     /**
+    //      * @description: 图层列表
+    //      * @type {Layer[]}
+    //      */
+    //     this.layers = this.timeline.layers;
+    // };
 
     /**
      * @description: 添加一个图层
      * @param {string} [layerName] 图层名称
      * @param {"normal"|"guide"|"guided"|"mask"|"masked"|"folder"} [layerType] 图层类型
-     * @return {void}
+     * @return {number}
      */
-    LayerList.prototype.append = function (layerName, layerType) {
-        this.timeline.currentLayer = this.layers.length - 1;
-        var newLayer = this.timeline.addNewLayer(layerName || "", layerType || "", false);
+    LayerList.prototype.append = function(layerName, layerType) {
+        this.timeline.currentLayer = this.f(this.layers.length - 1);
 
-        this.update();
+        // 添加新图层
+        var newLayerIndex = this.timeline.addNewLayer(
+            layerName || "",
+            layerType || "",
+            false
+        );
 
-        // this.timeline.currentLayer = newLayer;
+        // 维护layers列表
+        var newLayer = this.timeline.layers[newLayerIndex];
+        this.layers.push(newLayer);
+
+        return newLayerIndex;
     };
 
     // sort
@@ -124,16 +144,51 @@ define(["LayerOperation"], function (lo) {
      * @param {boolean} [reverse] 是否倒序
      * @return {void}
      */
-    LayerList.prototype.sort = function (compareFn) {
+    LayerList.prototype.sort = function(compareFn) {
         for (var i = 0; i < this.layers.length; i++) {
             for (var j = i + 1; j < this.layers.length; j++) {
                 if (compareFn(this.layers[i], this.layers[j]) > 0) {
                     swapLayers(this.timeline, i, j);
+
+                    // 维护layers
+                    swapLayersArray(this.layers, i, j);
                 }
             }
         }
-        this.update();
     };
+
+    function swapLayersArray(arr, i, j) {
+        var temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    LayerList.prototype.reverse = function() {
+        for (var i = 0; i < this.layers.length / 2; i++) {
+            var from = this.f( i);
+            var to = this.f(this.layers.length - 1 - i);
+
+            swapLayers(this.timeline, from, to);
+        }
+
+        // 维护layers
+        reverseArr(this.layers);
+    };
+
+    // this.layers   ->    this.timeline.layers
+    LayerList.prototype.f=function( toMoveArrIndex) {
+        var toMoveLayer = this.layers[toMoveArrIndex];
+        var toMoveLayerIndex = this.origionalLayers.indexOf(toMoveLayer);
+        return toMoveLayerIndex;
+    }
+
+    function reverseArr(arr) {
+        var len = arr.length;
+        for (var i = 0; i < len / 2; i++) {
+            swapLayersArray(arr, i, len - 1 - i);
+        }
+        return arr;
+    }
 
     return LayerList;
 });

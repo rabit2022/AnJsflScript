@@ -90,7 +90,7 @@ require([
         doc.distributeToLayers();
 
         // 排序
-        var layerList = new LayerList(context);
+        var layerList = new LayerList(timeline);
         layerList.sort(function (a, b) {
             var aFc = getFrameCount(a.frames[0].elements[0]);
             var bFc = getFrameCount(b.frames[0].elements[0]);
@@ -98,7 +98,9 @@ require([
             return bFc - aFc;
         });
 
-        layerList.append("摇头动作", "normal");
+        var newLayer = layerList.append("摇头动作", "normal");
+
+        timeline.currentLayer = newLayer;
     }
 
     // 添加摇头标记
