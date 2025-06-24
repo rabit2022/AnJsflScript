@@ -81,9 +81,10 @@ document = fl.getDocumentDOM(); //文档
 /**
  * @since Animate 2020
  * @param {number} frameIndex
- * @param {Layer} layer
+ * @param {Layer|number} layer
  * @note 该方法设置指定帧的指定层的父级为指定层。
  * @bug 参数顺序错误，导致无法设置父级。
+ * @bug 当 layer 是Layer无法工作时，可以传入数字，具体原因未知。
  */
 Layer.prototype.setRigParentAtFrame = function (layer, frameIndex) {
 };

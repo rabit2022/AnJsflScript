@@ -5,6 +5,7 @@
  * @date: 2025/5/25 10:14
  * @project: AnJsflScript
  * @description:
+ * @see https://community.adobe.com/t5/animate-discussions/unparent-layers-with-jsfl/m-p/14851064
  */
 
 // @formatter:off
@@ -13,7 +14,7 @@
 // @formatter:on
 
 require(["checkUtil", "loglevel", "SAT"], function (checkUtil, log, SAT) {
-    const { CheckDom, CheckSelection, CheckSelectedFrames } = checkUtil;
+    const {CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers} = checkUtil;
 
     const { FrameRangeList } = SAT;
 
@@ -32,33 +33,31 @@ require(["checkUtil", "loglevel", "SAT"], function (checkUtil, log, SAT) {
     var curFrameIndex = timeline.currentFrame; //当前帧索引
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
-    // 获取第一帧
-    var frs = CheckSelectedFrames(timeline);
-    if (frs === null) return;
-    var firstLayer = layers[frs[0].layerIndex];
-    var firstFrame = frs[0].startFrame;
+    // // 获取第一帧
+    // var selectedFrames = CheckSelectedFrames(timeline);
+    // if (!selectedFrames) return;
+    // const { firstSlLayerIndex, firstSlFrameIndex } = frs;
 
+    // 检查选择的元件
+    if (!CheckSelection(selection, "selectElement", "No limit")) return;
+
+    // 检查选择的图层
+    var selectedLayers = CheckSelectedLayers(timeline, "No limit");
+    if (!selectedLayers) return;
     // endregion doc
 
     function Main() {
-        // 检查选择的元件
-        if (!CheckSelection(selection, "selectElement", "No limit")) return;
+        log.info("selectedLayers:", selectedLayers);
 
-        // 获取所有选中的图层
-
-        // var frList = FrameRangeList.from(frs);
-        // log.info("frList:", frList);
-
-        var layerList = frs.getUniqueLayerIndexes();
-        log.info("layerList:", layerList);
-
-        layerList.forEach(function (layerIndex) {
+        for (var i = 0; i < selectedLayers.length; i++) {
+            var layerIndex = selectedLayers[i];
             var layer = layers[layerIndex];
-            layer.layerType = "normal";
-        });
 
-        var rect = new SAT.Rectangle(0, 0, 10, 10);
-        var size = rect.getSize();
+            log.info("layer", layer.name,"frameIndex:", curFrameIndex);
+            // layer.setRigParentAtFrame(layer, curFrameIndex);
+            layer.setRigParentAtFrame(layerIndex, curFrameIndex);
+        }
+
     }
 
     Main();

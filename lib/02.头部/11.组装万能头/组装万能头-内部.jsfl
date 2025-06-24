@@ -20,7 +20,7 @@ require([
     "ElementQuery",
     "SAT",
     "JSFLConstants"
-], function (checkUtil, log, Context, LayerList, eq, sat, JSFLConstants) {
+], function(checkUtil, log, Context, LayerList, eq, sat, JSFLConstants) {
     const { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } =
         checkUtil;
 
@@ -29,33 +29,6 @@ require([
 
     const { FRAME_1 } = JSFLConstants.Numerics.frame.frameList;
 
-    // // region doc
-    // var doc = fl.getDocumentDOM(); //文档
-    // if (!CheckDom(doc)) return;
-    //
-    // var selection = doc.selection; //选择
-    // var library = doc.library; //库文件
-    // var timeline = doc.getTimeline(); //时间轴
-    //
-    // var layers = timeline.layers; //图层
-    // var curLayerIndex = timeline.currentLayer; //当前图层索引
-    // var curLayer = layers[curLayerIndex]; //当前图层
-    //
-    // var frames = curLayer.frames; //当前图层的帧列表
-    // var curFrameIndex = timeline.currentFrame; //当前帧索引
-    // var curFrame = frames[curFrameIndex]; //当前帧
-    //
-    // // // 获取第一帧
-    // // var frs = CheckSelectedFrames(timeline);
-    // // if (!frs) return;
-    // // const { firstSlLayerIndex, firstSlFrameIndex } = frs;
-    //
-    // // 检查选择的元件
-    // if (!CheckSelection(selection, "selectElement", "No limit")) return;
-    //
-    // // // 检查选择的图层
-    // // if (!CheckSelectedLayers(timeline, "No limit")) return;
-    // // endregion doc
 
     // region Context
     // 这个用于 变量 经常update的地方，例如：doc.enterEditMode("inPlace");
@@ -91,7 +64,7 @@ require([
 
         // 排序
         var layerList = new LayerList(timeline);
-        layerList.sort(function (a, b) {
+        layerList.sort(function(a, b) {
             var aFc = getFrameCount(a.frames[0].elements[0]);
             var bFc = getFrameCount(b.frames[0].elements[0]);
             log.debug("aFc:", aFc, "bFc:", bFc);
@@ -114,22 +87,28 @@ require([
         var circleBounds = circle.getBounds();
         log.info("circleBounds:", circleBounds);
 
-        // 如果“摇头标记” 已经存在
-        if (library.itemExists(SHACK_MARK_NAME)) {
-            library.addItemToDocument(center, SHACK_MARK_NAME);
-            return;
+        function addShakeSymbol() {
+            // 如果“摇头标记” 已经存在
+            if (library.itemExists(SHACK_MARK_NAME)) {
+                library.addItemToDocument(center, SHACK_MARK_NAME);
+                return;
+            }
+
+            // 添加一个圆形作为摇头标记
+            doc.addNewOval(circleBounds.toObj());
+
+            timeline.setSelectedFrames(FRAME_1, FRAME_1 + 1);
+
+            // 转换为 元件
+            doc.convertToSymbol("graphic", SHACK_MARK_NAME, "center");
         }
 
-        // 添加一个圆形作为摇头标记
-        doc.addNewOval(circleBounds.toObj());
-
-        timeline.setSelectedFrames(FRAME_1, FRAME_1 + 1);
-
         // 转换为 元件
-        doc.convertToSymbol("graphic", SHACK_MARK_NAME, "center");
+        addShakeSymbol();
 
         // 设置 透明度 为 0
         doc.setInstanceAlpha(0);
+
     }
 
     // 设置父级视图
@@ -143,7 +122,10 @@ require([
     }
 
     // todo:摇头动作
-    function shakeAction() {}
+    function shakeAction() {
+
+
+    }
 
     function Main() {
         // var config = window.AnJsflScript.GLOBALS["11.组装万能头-config"];
@@ -189,7 +171,7 @@ require([
         //
         // // currentLayer:2
         // drawShakeMark(elementPosition);
-        //
+
         // setParentView();
 
         // // 按照表情的长度，插入帧数
@@ -199,6 +181,8 @@ require([
         //
         // // 选中 摇头标记 图层
         // timeline.setSelectedLayers(SHAKE_LAYER_INDEX);
+
+        shakeAction();
     }
 
     Main();

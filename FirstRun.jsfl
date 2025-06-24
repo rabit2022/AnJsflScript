@@ -100,126 +100,6 @@
         });
     }
 
-    // region setTimeout polyfill
-    /**
-     * 用于存储所有定时器的数组。
-     * @type {Array.<{eventID: number, startTime: number, delay: number}>}
-     */
-    var timers = [];
-
-    /**
-     * 模拟 JavaScript 的 Timeout 对象。
-     * @constructor
-     * @param {function} callbackFunction - 延迟后要执行的回调函数。
-     * @param {number} delay - 延迟时间（单位：毫秒）。
-     */
-    function Timeout(callbackFunction, delay) {
-        /**
-         * 延迟时间（单位：毫秒）。
-         * @type {number}
-         */
-        this._idleTimeout = delay;
-
-        /**
-         * 回调函数。
-         * @type {function}
-         */
-        this._onTimeout = callbackFunction;
-
-        /**
-         * 定时器的唯一标识符。
-         * @type {number|null}
-         */
-        this._timerID = null;
-
-        /**
-         * 是否已被销毁（取消）。
-         * @type {boolean}
-         */
-        this._destroyed = false;
-
-        // 初始化定时器
-        this._startTimer();
-    }
-
-    /**
-     * 启动定时器。
-     * @private
-     */
-    Timeout.prototype._startTimer = function () {
-        var self = this;
-
-        // 获取当前时间戳
-        var startTime = new Date().getTime();
-
-        /**
-         * 检查延迟是否已达到的回调函数。
-         * @private
-         */
-        function checkDelay() {
-            var currentTime = new Date().getTime();
-            if (currentTime - startTime >= self._idleTimeout && !self._destroyed) {
-                self._onTimeout(); // 执行目标回调函数
-                self._clearTimer(); // 清除定时器
-            }
-        }
-
-        // 注册 mouseMove 事件侦听器
-        var eventID = fl.addEventListener("mouseMove", checkDelay);
-
-        // 生成一个唯一的定时器 ID
-        var timerID = timers.length;
-
-        // 将定时器信息存储到 timers 数组中
-        timers.push({
-            eventID: eventID,
-            startTime: startTime,
-            delay: self._idleTimeout
-        });
-
-        // 保存定时器 ID
-        self._timerID = timerID;
-    };
-
-    /**
-     * 清除定时器。
-     * @private
-     */
-    Timeout.prototype._clearTimer = function () {
-        if (this._timerID !== null) {
-            // 获取对应的事件 ID
-            var eventID = timers[this._timerID].eventID;
-
-            // 移除事件侦听器
-            fl.removeEventListener("mouseMove", eventID);
-
-            // 从 timers 数组中移除该定时器
-            timers.splice(this._timerID, 1);
-
-            // 标记为销毁
-            this._destroyed = true;
-        }
-    };
-
-    /**
-     * 取消定时器。
-     */
-    Timeout.prototype.clear = function () {
-        this._clearTimer();
-    };
-
-    /**
-     * 创建一个 Timeout 实例。
-     * @param {function} callbackFunction - 延迟后要执行的回调函数。
-     * @param {number} delay - 延迟时间（单位：毫秒）。
-     * @returns {Timeout} 返回一个 Timeout 实例。
-     */
-    function setTimeout(callbackFunction, delay) {
-        return new Timeout(callbackFunction, delay);
-    }
-
-    // endregion setTimeout polyfill
-
     function Main() {
         window.AnJsflScript = {};
         window.AnJsflScript.importFlashScripts = importFlashScripts;
@@ -242,7 +122,7 @@
 
         // 由于setTimeout的polyfill，与原生有差别，导致require.js加载失败，所以必须先加载require.js
         // 想要使用Promise(es6-shim或es6-sham),需要在 setTimeout
-        window.setTimeout = setTimeout;
+        // window.setTimeout = setTimeout;
 
         require([
             // 导入配置文件

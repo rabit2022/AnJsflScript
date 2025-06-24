@@ -244,12 +244,6 @@ define(["Tips", "SAT", "KeyFrameQuery"], function (Tips, SAT, kfq) {
         return frs;
     }
 
-    // // 请勿选择多个图层！
-    // var totalLayers = frs.getUniqueLayerIndexes();
-    // if (totalLayers.length > 1) {
-    //     alert("请勿选择多个图层！");
-    //     return;
-    // }
     /**
      * 检查选中的图层是否符合指定的条件
      * @param {Timeline} timeline - 时间轴对象。
