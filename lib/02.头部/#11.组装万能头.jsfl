@@ -59,7 +59,7 @@ require([
     function checkXMLPanel() {
         // var panel = getXMLPanel();
         var panel =
-            __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./11.组装万能头.xml");
+            __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./11.组装万能头/11.组装万能头.xml");
         if (panel === null) return null;
 
         var shakeIntensity = parseNumber(
