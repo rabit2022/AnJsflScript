@@ -19,8 +19,10 @@ require([
     "ElementQuery",
     "numpy",
     "COMPATIBILITY",
-    "SAT"
-], function (checkUtil, log, xmlPanelUtil, ec, eq, np, COMPATIBILITY, sat) {
+    "SAT",
+    "store-js",
+    "FramesSelect"
+], function (checkUtil, log, xmlPanelUtil, ec, eq, np, COMPATIBILITY, sat, store, fms) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
     const { IsSymbol } = ec;
@@ -29,6 +31,7 @@ require([
     const { isMultiple } = np;
 
     const { parseNumber, parseString } = xmlPanelUtil;
+    const { SelectStartFms } = fms;
 
     const {
         __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__,
@@ -52,14 +55,27 @@ require([
     var curFrameIndex = timeline.currentFrame; //当前帧索引
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
+    // 获取第一帧
+    var selectedFrames = CheckSelectedFrames(timeline);
+    if (!selectedFrames) return;
+    const { firstSlLayerIndex, firstSlFrameIndex } = selectedFrames;
+
+    // prettier-ignore
+    // 检查选择的元件
+    if (!checkSelection(selection, "selectElement", "Only two", "请确保同时选中了头和万能表情！")) return;
+
+    // // 检查选择的图层
+    // if (!CheckSelectedLayers(timeline, "No limit")) return;
     // endregion doc
 
     // log.setLevel(log.levels.TRACE);
+    const ns_store = store.namespace("11-组装万能头");
 
     function checkXMLPanel() {
         // var panel = getXMLPanel();
-        var panel =
-            __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./11.组装万能头/11.组装万能头.xml");
+        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__(
+            "./11.组装万能头/11.组装万能头.xml"
+        );
         if (panel === null) return null;
 
         var shakeIntensity = parseNumber(
@@ -112,10 +128,6 @@ require([
             return null;
         }
 
-        // var frameCounts = selection.map(function (element) {
-        //     // return element.libraryItem.timeline.frameCount;
-        //     return getFrameCount(element);
-        // });
         var frameCounts = selection.map(getFrameCount);
         log.debug("frameCounts:", frameCounts);
 
@@ -136,40 +148,36 @@ require([
         };
     }
 
-    function getElementInfo(element) {
-        var itemTimeline = element.libraryItem.timeline;
-
-        var frameCount = itemTimeline.frameCount;
-        var duration = itemTimeline.layers[0].frames[0].duration;
-        return {
-            frameCount: frameCount,
-            duration: duration
-        };
+    function getExpressionDuration(expression) {
+        var itemTimeline = expression.libraryItem.timeline;
+        var firstExpression = itemTimeline.layers[0].frames[0];
+        return firstExpression.duration;
     }
 
     function checkMotionFrameCount(expression, motionFrameCount) {
-        const { frameCount: EXPRESSION_FRAME_COUNT, duration: EXPRESSION_DURATION } =
-            getElementInfo(expression);
-        log.debug("frameCount:", EXPRESSION_FRAME_COUNT);
-        log.debug("duration:", EXPRESSION_DURATION);
+        const MAX_MOTION_FRAME_COUNT = getFrameCount(expression);
+        const EXPRESSION_DURATION = getExpressionDuration(expression);
+        log.debug("MAX_MOTION_FRAME_COUNT:", MAX_MOTION_FRAME_COUNT);
+        log.debug("EXPRESSION_DURATION:", EXPRESSION_DURATION);
 
         // 检查表情帧数是否为持续时间的倍数
         if (!isMultiple(EXPRESSION_DURATION, motionFrameCount)) {
             fl.trace(
-                "优化建议：万能表情中单个表情持续了" +
+                "[ERROR] 优化建议：万能表情中单个表情持续了" +
                     EXPRESSION_DURATION +
                     "帧，但输入的表情帧数为" +
                     motionFrameCount +
                     "帧，两者不是倍数关系，建议检查..."
             );
+            return;
         }
+        return {
+            MAX_MOTION_FRAME_COUNT: MAX_MOTION_FRAME_COUNT,
+            EXPRESSION_DURATION: EXPRESSION_DURATION
+        };
     }
 
     function Main() {
-        // prettier-ignore
-        // 检查选择的元件
-        if (!checkSelection(selection, "selectElement", "Only two", "请确保同时选中了头和万能表情！")) return;
-
         // 分开 头部 和 万能表情
         var headconfig = checkHeadAndExpression(selection);
         if (!headconfig) return;
@@ -193,13 +201,15 @@ require([
         log.debug("shakeMode:", shakeMode);
         log.debug("frameSelector:", frameSelector);
 
-        checkMotionFrameCount(expression, motionFrameCount);
+        var motionConfig = checkMotionFrameCount(expression, motionFrameCount);
+        if (!motionConfig) return;
+        const { MAX_MOTION_FRAME_COUNT, EXPRESSION_DURATION } = motionConfig;
 
-        window.AnJsflScript.GLOBALS["11.组装万能头-config"] = config;
-        window.AnJsflScript.GLOBALS["11.组装万能头-headconfig"] = headconfig;
-        window.AnJsflScript.GLOBALS["11.组装万能头-ElementPosition"] = Vector.from(
-            selection[0]
-        );
+        ns_store.set("config", config);
+        // ns_store.set("headconfig", headconfig);
+        ns_store.set("ElementPosition", Vector.from(selection[0]));
+        ns_store.set("MAX_MOTION_FRAME_COUNT", MAX_MOTION_FRAME_COUNT);
+        ns_store.set("EXPRESSION_DURATION", EXPRESSION_DURATION);
 
         // switch (frameSelector) {
         //     case "keyFrame":
@@ -215,6 +225,8 @@ require([
         //     default:
         //         throw new Error("帧选择器只能输入 (keyFrame,label)！");
         // }
+
+        SelectStartFms(timeline, selectedFrames);
     }
 
     Main();

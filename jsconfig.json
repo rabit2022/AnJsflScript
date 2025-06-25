@@ -18,6 +18,7 @@
       "console": ["Third/custom/xjsfl/console"],
       "JSFLConstants": ["Third/custom/xjsfl/JSFLConstants"],
       "SObject": ["Third/custom/Object/SObject"],
+      "store-js": ["Third/utils/store-2.0.12/store"],
 
 
 

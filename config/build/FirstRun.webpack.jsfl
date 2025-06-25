@@ -28,11 +28,6 @@
          * @type {string}
          */
         window.AnJsflScript.$ProjectFileDir$ = getcwd();
-        /**
-         * 其他脚本的  存储变量
-         * @type {{}}
-         */
-        window.AnJsflScript.GLOBALS = {};
 
         // 导入Promise模块
         // require会被babel翻译为Promise,导致报错

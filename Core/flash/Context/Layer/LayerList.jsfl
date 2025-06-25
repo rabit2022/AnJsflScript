@@ -82,7 +82,7 @@
  *         """
  *         pass
  */
-define(["LayerOperation"], function(lo) {
+define(["LayerOperation"], function (lo) {
     const { swapLayers } = lo;
 
     // todo:考虑局部，layers指定的情况
@@ -120,7 +120,7 @@ define(["LayerOperation"], function(lo) {
      * @param {"normal"|"guide"|"guided"|"mask"|"masked"|"folder"} [layerType] 图层类型
      * @return {number}
      */
-    LayerList.prototype.append = function(layerName, layerType) {
+    LayerList.prototype.append = function (layerName, layerType) {
         this.timeline.currentLayer = this.f(this.layers.length - 1);
 
         // 添加新图层
@@ -144,7 +144,7 @@ define(["LayerOperation"], function(lo) {
      * @param {boolean} [reverse] 是否倒序
      * @return {void}
      */
-    LayerList.prototype.sort = function(compareFn) {
+    LayerList.prototype.sort = function (compareFn) {
         for (var i = 0; i < this.layers.length; i++) {
             for (var j = i + 1; j < this.layers.length; j++) {
                 if (compareFn(this.layers[i], this.layers[j]) > 0) {
@@ -163,9 +163,9 @@ define(["LayerOperation"], function(lo) {
         arr[j] = temp;
     }
 
-    LayerList.prototype.reverse = function() {
+    LayerList.prototype.reverse = function () {
         for (var i = 0; i < this.layers.length / 2; i++) {
-            var from = this.f( i);
+            var from = this.f(i);
             var to = this.f(this.layers.length - 1 - i);
 
             swapLayers(this.timeline, from, to);
@@ -176,11 +176,11 @@ define(["LayerOperation"], function(lo) {
     };
 
     // this.layers   ->    this.timeline.layers
-    LayerList.prototype.f=function( toMoveArrIndex) {
+    LayerList.prototype.f = function (toMoveArrIndex) {
         var toMoveLayer = this.layers[toMoveArrIndex];
         var toMoveLayerIndex = this.origionalLayers.indexOf(toMoveLayer);
         return toMoveLayerIndex;
-    }
+    };
 
     function reverseArr(arr) {
         var len = arr.length;

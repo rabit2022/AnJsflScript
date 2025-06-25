@@ -14,7 +14,8 @@
 // @formatter:on
 
 require(["checkUtil", "loglevel", "SAT"], function (checkUtil, log, SAT) {
-    const {CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers} = checkUtil;
+    const { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } =
+        checkUtil;
 
     const { FrameRangeList } = SAT;
 
@@ -53,11 +54,10 @@ require(["checkUtil", "loglevel", "SAT"], function (checkUtil, log, SAT) {
             var layerIndex = selectedLayers[i];
             var layer = layers[layerIndex];
 
-            log.info("layer", layer.name,"frameIndex:", curFrameIndex);
+            log.info("layer", layer.name, "frameIndex:", curFrameIndex);
             // layer.setRigParentAtFrame(layer, curFrameIndex);
             layer.setRigParentAtFrame(layerIndex, curFrameIndex);
         }
-
     }
 
     Main();

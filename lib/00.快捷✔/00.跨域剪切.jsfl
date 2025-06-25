@@ -11,7 +11,7 @@
 // prettier-ignore
 "undefined"==typeof require&&fl.runScript(function(){var r=fl.scriptURI.match(/(?:^|.*[\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\/]|$)/)[1],t=fl.scriptURI.match(r);if(t){var n=t[0],i=fl.scriptURI.lastIndexOf(n);return fl.scriptURI.substring(0,i+n.length)}throw new Error("Can't find project path ["+fl.scriptURI+"]")}()+"/config/require/CheckEnvironment.jsfl");
 // @formatter:on
-require(["checkUtil"], function (checkUtil) {
+require(["checkUtil", "loglevel", "store-js"], function (checkUtil, log, store) {
     var checkDom = checkUtil.CheckDom,
         checkSelection = checkUtil.CheckSelection;
 
@@ -40,8 +40,13 @@ require(["checkUtil"], function (checkUtil) {
 
         // 记录当前视图矩阵
         var tempWorldViewMatrixAnti = doc.viewMatrix;
-        window.AnJsflScript.GLOBALS["00.跨域剪切.jsfl-tempWorldViewMatrixAnti"] =
-            tempWorldViewMatrixAnti;
+        // window.AnJsflScript.GLOBALS["00.跨域剪切.jsfl-tempWorldViewMatrixAnti"] =
+        //     tempWorldViewMatrixAnti;
+        var ns_store = store.namespace("00-跨域剪切");
+        ns_store.set("tempWorldViewMatrixAnti", tempWorldViewMatrixAnti);
+
+        var test = ns_store.get("tempWorldViewMatrixAnti");
+        log.info("tempWorldViewMatrixAnti", test);
 
         // 复制元件
         doc.clipCut();

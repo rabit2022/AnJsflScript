@@ -19,8 +19,10 @@ require([
     "LayerList",
     "ElementQuery",
     "SAT",
-    "JSFLConstants"
-], function(checkUtil, log, Context, LayerList, eq, sat, JSFLConstants) {
+    "JSFLConstants",
+    "store-js", "COMPATIBILITY"
+], function(checkUtil, log, Context, LayerList, eq, sat,
+            JSFLConstants, store, COMPATIBILITY) {
     const { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } =
         checkUtil;
 
@@ -28,7 +30,9 @@ require([
     const { Circle, Vector } = sat;
 
     const { FRAME_1 } = JSFLConstants.Numerics.frame.frameList;
-
+    const {
+        __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__
+    } = COMPATIBILITY;
 
     // region Context
     // 这个用于 变量 经常update的地方，例如：doc.enterEditMode("inPlace");
@@ -41,7 +45,6 @@ require([
         library,
         timeline,
         layers,
-        // AllLayers,
         curLayerIndex,
         curLayer,
         curFrameIndex,
@@ -56,6 +59,8 @@ require([
     const HEAD_LAYER_INDEX = 0;
     const EMOTION_LAYER_INDEX = 1;
     const SHAKE_LAYER_INDEX = 2;
+
+    const ns_store = store.namespace("11-组装万能头");
 
     // 设置图层
     function setLayers() {
@@ -108,7 +113,6 @@ require([
 
         // 设置 透明度 为 0
         doc.setInstanceAlpha(0);
-
     }
 
     // 设置父级视图
@@ -121,66 +125,50 @@ require([
         EMOTION_LAYER.setRigParentAtFrame(SHAKE_LAYER, FRAME_1);
     }
 
-    // todo:摇头动作
+    // 摇头动作
     function shakeAction() {
-
-
+        __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__("./摇头动作.jsfl");
     }
 
     function Main() {
-        // var config = window.AnJsflScript.GLOBALS["11.组装万能头-config"];
-        // if (!config) {
-        //     fl.trace("[ERROR] Can't find config.");
-        //     return;
-        // }
-        // log.info("config:", config);
-        // var elementPosition =window.AnJsflScript.GLOBALS["11.组装万能头-ElementPosition"];
-        // if (!elementPosition) {
-        //     fl.trace("[ERROR] Can't find elementPosition.");
-        //     return;
-        // }
-        // var headconfig = window.AnJsflScript.GLOBALS["11.组装万能头-headconfig"];
-        // if (!headconfig) {
-        //     fl.trace("[ERROR] Can't find headconfig.");
-        //     return;
-        // }
-        // const {head, expression} = headconfig;
+        // const ElementPosition=ns_store.get("ElementPosition");
+        // const MAX_MOTION_FRAME_COUNT =ns_store.get("MAX_MOTION_FRAME_COUNT");
 
-        var config = {
-            shakeIntensity: 3,
-            motionFrameCount: 6,
-            headDirection: -1,
-            shakeMode: "traditional",
-            frameSelector: "keyFrame"
-        };
-        var elementPosition = { x: 458.75, y: 312.05 };
+        // region test
+        // var config = {
+        //     shakeIntensity: 3,
+        //     motionFrameCount: 6,
+        //     headDirection: -1,
+        //     shakeMode: "traditional",
+        //     frameSelector: "keyFrame"
+        // };
+        var ElementPosition = { x: 458.75, y: 312.05 };
         log.info("layers：", layers, layers.length);
         // log.info("layers：", AllLayers, AllLayers.length);
-        var headconfig = {
-            head: layers[1].frames[0].elements[0],
-            expression: layers[0].frames[0].elements[0]
-        };
-        const { head, expression } = headconfig;
+        // var headconfig = {
+        //     head: layers[1].frames[0].elements[0],
+        //     expression: layers[0].frames[0].elements[0]
+        // };
+        // const { head, expression } = headconfig;
+        const MAX_MOTION_FRAME_COUNT = 300;
+        // endregion test
 
         // currentSelection: head,expression
-
-        // setLayers();
+        setLayers();
 
         // context.update();
         // log.debug("currentLayer:", context.curLayerIndex);
-        //
-        // // currentLayer:2
-        // drawShakeMark(elementPosition);
 
-        // setParentView();
+        // currentLayer:2
+        drawShakeMark(ElementPosition);
 
-        // // 按照表情的长度，插入帧数
-        // const EXPRESSION_FRAME_COUNT = getFrameCount(expression);
-        // log.debug("EXPRESSION_FRAME_COUNT:", EXPRESSION_FRAME_COUNT);
-        // timeline.insertFrames(EXPRESSION_FRAME_COUNT - 1, true); // 在时间轴上插入帧
-        //
-        // // 选中 摇头标记 图层
-        // timeline.setSelectedLayers(SHAKE_LAYER_INDEX);
+        setParentView();
+
+        // 按照表情的长度，插入帧数
+        timeline.insertFrames(MAX_MOTION_FRAME_COUNT - 1, true); // 在时间轴上插入帧
+
+        // 选中 摇头标记 图层
+        timeline.setSelectedLayers(SHAKE_LAYER_INDEX);
 
         shakeAction();
     }

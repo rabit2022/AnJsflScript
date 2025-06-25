@@ -104,6 +104,9 @@ var alias = {
 
     "COMPATIBILITY":path.resolve(dirname,"Core/webpack/COMPATIBILITY"),
     "LayerList": path.resolve(dirname, "Core/flash/Context/Layer/LayerList"),
+
+    // "store-js": "Third/utils/store-js-2.0.4/store-js",
+    "store-js": path.resolve(dirname, "Third/utils/store-js-2.0.4/store-js"),
 };
 // console.log(alias);
 

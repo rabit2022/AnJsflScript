@@ -108,11 +108,6 @@
          * @type {string}
          */
         window.AnJsflScript.$ProjectFileDir$ = getcwd();
-        /**
-         * 其他脚本的  存储变量
-         * @type {{}}
-         */
-        window.AnJsflScript.GLOBALS = {};
 
         var config = {
             "require-js": "Third/modules/requirejs-2.3.7/require-js"

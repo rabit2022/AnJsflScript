@@ -60,6 +60,8 @@ require.config({
         "fast-xml-parser": "Third/xml/fast-xml-parser-5.0.9/fast-xml-parser",
         "xmldom": "Third/xml/xmldom-0.6.0/xmldom",
         "xpath": "Third/xml/xpath-0.0.34/xpath",
+        // H:\project\沙雕动画\AnJsflScript\Third\utils\store-js-2.0.4\store-js.jsfl
+        "store-js": "Third/utils/store-js-2.0.4/store-js",
 
 // 自定义模块
         "BitmapOperation": "Core/flash/Bitmap/BitmapOperation",

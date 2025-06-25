@@ -12,18 +12,25 @@
 (function(){const m=fl.scriptURI.match(/AnJsflScript(?:-[a-zA-Z0-9]+)?/);if(!m)throw new Error("Can't find project path ["+fl.scriptURI+"]");const i=fl.scriptURI.lastIndexOf(m[0]);const p=fl.scriptURI.substring(0,i+m[0].length);typeof require=="undefined"&&fl.runScript(p+"/config/require/CheckEnvironment.jsfl")})();
 // @formatter:on
 
-require(["checkUtil", "loglevel", "SymbolNameGenerator", "COMPATIBILITY"], function (
-    checkUtil,
-    log,
-    sng,
-    COMPATIBILITY
-) {
+require([
+    "checkUtil",
+    "loglevel",
+    "SymbolNameGenerator",
+    "COMPATIBILITY",
+    "store-js",
+    "linqUtil",
+    "KeyFrameOperation"
+], function (checkUtil, log, sng, COMPATIBILITY, store, linqUtil, kfo) {
     const { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } =
         checkUtil;
 
     const { generateNameUntilUnique, generateNameUseLast } = sng;
 
     const { __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__ } = COMPATIBILITY;
+
+    const { $range } = linqUtil;
+
+    const { convertToKeyframesSafety } = kfo;
 
     // region doc
     var doc = fl.getDocumentDOM(); //文档
@@ -53,7 +60,12 @@ require(["checkUtil", "loglevel", "SymbolNameGenerator", "COMPATIBILITY"], funct
     // if (!CheckSelectedLayers(timeline, "No limit")) return;
     // endregion doc
 
+    const ns_store = store.namespace("11-组装万能头");
+
     function Main() {
+        const MAX_MOTION_FRAME_COUNT = ns_store.get("MAX_MOTION_FRAME_COUNT");
+        const EXPRESSION_DURATION = ns_store.get("EXPRESSION_DURATION");
+
         var symbolName = generateNameUntilUnique("组装万能头_"); // 生成符号名称
         doc.convertToSymbol("graphic", symbolName, "center"); // 将选中的元素转换为符号
 
@@ -66,7 +78,19 @@ require(["checkUtil", "loglevel", "SymbolNameGenerator", "COMPATIBILITY"], funct
         __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__("./组装万能头-内部.jsfl");
 
         doc.exitEditMode();
+
+        timeline.insertFrames(MAX_MOTION_FRAME_COUNT - 1, true);
+
+        // 转换为关键帧
+        var KEY_FRAMES = $range(
+            0,
+            MAX_MOTION_FRAME_COUNT,
+            EXPRESSION_DURATION
+        ).toArray();
+        convertToKeyframesSafety(timeline, KEY_FRAMES); // 将帧转换为关键帧
+
         doc.exitEditMode();
     }
+
     Main();
 });

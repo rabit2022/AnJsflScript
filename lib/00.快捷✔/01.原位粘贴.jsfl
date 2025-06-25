@@ -11,7 +11,12 @@
 // prettier-ignore
 "undefined"==typeof require&&fl.runScript(function(){var r=fl.scriptURI.match(/(?:^|.*[\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\/]|$)/)[1],t=fl.scriptURI.match(r);if(t){var n=t[0],i=fl.scriptURI.lastIndexOf(n);return fl.scriptURI.substring(0,i+n.length)}throw new Error("Can't find project path ["+fl.scriptURI+"]")}()+"/config/require/CheckEnvironment.jsfl");
 // @formatter:on
-require(["checkUtil", "ElementSelect"], function (checkUtil, es) {
+require(["checkUtil", "ElementSelect", "loglevel", "store-js"], function (
+    checkUtil,
+    es,
+    log,
+    store
+) {
     const { CheckDom: checkDom, CheckSelection: checkSelection } = checkUtil;
 
     const { SelectNone } = es;
@@ -34,11 +39,13 @@ require(["checkUtil", "ElementSelect"], function (checkUtil, es) {
         // 检查选择的元件
         if (!checkSelection(selection, "selectElement", "No limit")) return;
 
+        var ns_store = store.namespace("00-跨域剪切");
         /**
          * @type {Matrix}
          */
-        var worldViewMatrixAnti =
-            window.AnJsflScript.GLOBALS["00.跨域剪切.jsfl-tempWorldViewMatrixAnti"];
+        // var worldViewMatrixAnti =
+        //     window.AnJsflScript.GLOBALS["00.跨域剪切.jsfl-tempWorldViewMatrixAnti"];
+        var worldViewMatrixAnti = ns_store.get("tempWorldViewMatrixAnti");
         if (!worldViewMatrixAnti) {
             fl.trace("未找到之前的观察矩阵。请先运行脚本：00.跨域剪切.jsfl");
             return;

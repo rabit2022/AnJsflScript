@@ -53,13 +53,11 @@
     "format": "prettier --write \"**/*.{js,ts,jsfl}\" --ignore-path config/codestyle/.prettierignore",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-
     "open-an": "powershell -File config/start/open-an.ps1",
     "open-test-file": "powershell -File config/start/open-test-file.ps1",
     "FirstRun": "powershell -File config/start/FirstRun.ps1",
     "ReRun": "powershell -File config/start/ReRun.ps1",
     "run-current-file": "powershell -File config/start/run-current-file.ps1",
-
     "build:FirstRun": "node config/build/Build.FirstRun.js",
     "build:Common": "node config/build/Build.Common.js",
     "Build:Text": "node config/build/Build.Text.js",

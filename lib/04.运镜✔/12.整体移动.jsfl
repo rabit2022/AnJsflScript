@@ -12,13 +12,14 @@
 "undefined"==typeof require&&fl.runScript(function(){var r=fl.scriptURI.match(/(?:^|.*[\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\/]|$)/)[1],t=fl.scriptURI.match(r);if(t){var n=t[0],i=fl.scriptURI.lastIndexOf(n);return fl.scriptURI.substring(0,i+n.length)}throw new Error("Can't find project path ["+fl.scriptURI+"]")}()+"/config/require/CheckEnvironment.jsfl");
 // @formatter:on
 
-require(["checkUtil", "loglevel", "SAT", "FramesSelect", "ElementSelect"], function (
-    checkUtil,
-    log,
-    sat,
-    fms,
-    es
-) {
+require([
+    "checkUtil",
+    "loglevel",
+    "SAT",
+    "FramesSelect",
+    "ElementSelect",
+    "store-js"
+], function (checkUtil, log, sat, fms, es, store) {
     const { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } =
         checkUtil;
 
@@ -50,6 +51,8 @@ require(["checkUtil", "loglevel", "SAT", "FramesSelect", "ElementSelect"], funct
 
     // endregion doc
 
+    var ns_store = store.namespace("12-整体移动");
+
     function Main() {
         // 检查选择的元件
         if (!CheckSelection(selection, "selectElement", "Only one")) return;
@@ -59,15 +62,17 @@ require(["checkUtil", "loglevel", "SAT", "FramesSelect", "ElementSelect"], funct
 
         var IMPORTANT_ELEMENT = selection[0];
 
-        var INITIAL_POSITION =
-            window.AnJsflScript.GLOBALS["12.整体移动.jsfl-INITIAL_POSITION"];
+        // var INITIAL_POSITION =
+        //     window.AnJsflScript.GLOBALS["12.整体移动.jsfl-INITIAL_POSITION"];
+        var INITIAL_POSITION = ns_store.get("INITIAL_POSITION");
         log.info("INITIAL_POSITION:", INITIAL_POSITION);
         if (!INITIAL_POSITION) {
             log.info("记录初始位置");
             var initialPosition = Vector.from(IMPORTANT_ELEMENT);
 
-            window.AnJsflScript.GLOBALS["12.整体移动.jsfl-INITIAL_POSITION"] =
-                initialPosition;
+            // window.AnJsflScript.GLOBALS["12.整体移动.jsfl-INITIAL_POSITION"] =
+            //     initialPosition;
+            ns_store.set("INITIAL_POSITION", initialPosition);
 
             alert("整体移动已开启：请移动对象后【再次点击此按钮】！");
             return;
@@ -79,7 +84,8 @@ require(["checkUtil", "loglevel", "SAT", "FramesSelect", "ElementSelect"], funct
         var DELTA_MOVE = FINAL_POSITION.clone().sub(INITIAL_POSITION);
         log.info("移动距离：", DELTA_MOVE);
 
-        window.AnJsflScript.GLOBALS["12.整体移动.jsfl-INITIAL_POSITION"] = undefined;
+        // window.AnJsflScript.GLOBALS["12.整体移动.jsfl-INITIAL_POSITION"] = undefined;
+        ns_store.remove("INITIAL_POSITION");
 
         // 选中当前图层 当前帧，选中 非选择对象，移动
         frs.forEach(function (fr, index) {
