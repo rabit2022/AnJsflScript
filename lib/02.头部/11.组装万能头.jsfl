@@ -201,6 +201,7 @@ require([
         if (!motionConfig) return;
         const { MAX_MOTION_FRAME_COUNT, EXPRESSION_DURATION } = motionConfig;
 
+        ns_store.clearAll();
         ns_store.set("config", config);
         ns_store.set("ElementPosition", Vector.from(selection[0]));
         ns_store.set("MAX_MOTION_FRAME_COUNT", MAX_MOTION_FRAME_COUNT);
