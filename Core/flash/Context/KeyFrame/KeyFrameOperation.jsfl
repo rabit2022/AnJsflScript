@@ -7,16 +7,17 @@
  * @description:
  */
 
-define([ "Tips", "LayerQuery", "FrameQuery", "Context"], function (
+define([ "Tips", "LayerQuery", "FrameQuery", "Context","FrameChecker"], function (
     tips,
     lq,
     fq,
-    Context
+    Context,fc
 ) {
     // const { getKeyFrames } = kfq;
     const { checkVariableRedeclaration } = tips;
     const { convertToLayerIndex, convertToLayer } = lq;
     const { convertToFrameIndex, convertToFrame } = fq;
+    const { IsNoneFrame } = fc;
 
     /**
      * 安全的转换为关键帧
@@ -62,13 +63,17 @@ define([ "Tips", "LayerQuery", "FrameQuery", "Context"], function (
         }
         // endregion selectedLayer处理
 
-        console.log(keyframeIndexes);
+        // console.log(keyframeIndexes);
 
         for (var i = 0; i < frameIndexs.length; i++) {
             var frameIndex = frameIndexs[i];
 
             // 已经是关键帧，则跳过
             if (keyframeIndexes.includes(frameIndex)) {
+                continue;
+            }
+            // 是否无效帧
+            if (IsNoneFrame(selectedLayer, frameIndex)) {
                 continue;
             }
 

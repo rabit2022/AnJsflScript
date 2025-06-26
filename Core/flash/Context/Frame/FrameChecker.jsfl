@@ -22,7 +22,20 @@ define(["FUNC"], function (FUNC) {
         return frame.elements.length === 0 && IsEmpty(frame.actionScript);
     }
 
+    /**
+     * 检查是否为无效帧
+     * @note 无效帧指的是  帧索引   超过了  最大帧索引
+     * @param {Layer} layer 要检查的层
+     * @param {Number} frameIndex 要检查的帧索引
+     * @return {Boolean} 帧是否为无效帧
+     */
+    function IsNoneFrame(layer,frameIndex) {
+        var max_frames = layer.frames.length;
+        return frameIndex >= max_frames;
+    }
+
     return {
-        IsFrameBlank: IsFrameBlank
+        IsFrameBlank: IsFrameBlank,
+        IsNoneFrame: IsNoneFrame
     };
 });
