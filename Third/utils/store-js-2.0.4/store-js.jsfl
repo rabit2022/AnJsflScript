@@ -1007,7 +1007,11 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             _seenPlugins: [],
             _namespacePrefix: '',
             _namespaceRegexp: null,
-            _legalNamespace: /^[a-zA-Z0-9_\-]+$/,
+            // _legalNamespace: /^[a-zA-Z0-9_\-]+$/,
+
+            // 修改：支持中文命名空间
+            _legalNamespace: /^[a-zA-Z0-9_\-\u4e00-\u9fff]+$/,
+
             // alpha-numeric + underscore and dash
 
             _storage: function _storage() {

@@ -20,9 +20,19 @@ require([
     "ElementQuery",
     "SAT",
     "JSFLConstants",
-    "store-js", "COMPATIBILITY"
-], function(checkUtil, log, Context, LayerList, eq, sat,
-            JSFLConstants, store, COMPATIBILITY) {
+    "store-js",
+    "COMPATIBILITY"
+], function (
+    checkUtil,
+    log,
+    Context,
+    LayerList,
+    eq,
+    sat,
+    JSFLConstants,
+    store,
+    COMPATIBILITY
+) {
     const { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } =
         checkUtil;
 
@@ -30,9 +40,7 @@ require([
     const { Circle, Vector } = sat;
 
     const { FRAME_1 } = JSFLConstants.Numerics.frame.frameList;
-    const {
-        __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__
-    } = COMPATIBILITY;
+    const { __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__ } = COMPATIBILITY;
 
     // region Context
     // 这个用于 变量 经常update的地方，例如：doc.enterEditMode("inPlace");
@@ -69,7 +77,7 @@ require([
 
         // 排序
         var layerList = new LayerList(timeline);
-        layerList.sort(function(a, b) {
+        layerList.sort(function (a, b) {
             var aFc = getFrameCount(a.frames[0].elements[0]);
             var bFc = getFrameCount(b.frames[0].elements[0]);
             log.debug("aFc:", aFc, "bFc:", bFc);
@@ -131,13 +139,12 @@ require([
     }
 
     function Main() {
-        const ElementPosition=ns_store.get("ElementPosition");
-        const MAX_MOTION_FRAME_COUNT =ns_store.get("MAX_MOTION_FRAME_COUNT");
-        if(!ElementPosition||!MAX_MOTION_FRAME_COUNT) {
+        const ElementPosition = ns_store.get("ElementPosition");
+        const MAX_MOTION_FRAME_COUNT = ns_store.get("MAX_MOTION_FRAME_COUNT");
+        if (!ElementPosition || !MAX_MOTION_FRAME_COUNT) {
             alert("[组装万能头-内部]    请先运行脚本  11.组装万能头.jsfl");
             return;
         }
-
 
         // region test
         // // var config = {

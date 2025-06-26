@@ -103,10 +103,10 @@ require([
     }
 
     function Main() {
-        const ElementPosition=ns_store.get("ElementPosition");
-        const MAX_MOTION_FRAME_COUNT =ns_store.get("MAX_MOTION_FRAME_COUNT");
-        const config=ns_store.get("config");
-        if(!ElementPosition||!MAX_MOTION_FRAME_COUNT||!config) {
+        const ElementPosition = ns_store.get("ElementPosition");
+        const MAX_MOTION_FRAME_COUNT = ns_store.get("MAX_MOTION_FRAME_COUNT");
+        const config = ns_store.get("config");
+        if (!ElementPosition || !MAX_MOTION_FRAME_COUNT || !config) {
             alert("[摇头动作]    请先运行脚本  11.组装万能头.jsfl");
             return;
         }
@@ -134,7 +134,6 @@ require([
             shakeMode,
             frameSelector
         } = config;
-
 
         // 每一个表情的帧数:6
         const MOTION_FRAME_COUNT = motionFrameCount;

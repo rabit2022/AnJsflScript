@@ -12,7 +12,7 @@
 // JSFLInterface
 
 
-define(function() {
+define(["universal-cookie"],function(Cookie) {
 
 
     /**
@@ -139,7 +139,9 @@ define(function() {
                     BASIC_OBJECT: "BASIC_OBJECT", // 基本数据类型对象
 
                     CIRCULAR_REFERENCE_ARRAY: "CIRCULAR_REFERENCE_ARRAY", // 循环引用数组
-                    CIRCULAR_REFERENCE_OBJECT: "CIRCULAR_REFERENCE_OBJECT" // 循环引用对象
+                    CIRCULAR_REFERENCE_OBJECT: "CIRCULAR_REFERENCE_OBJECT", // 循环引用对象
+
+                    COOKIE_STRING: "COOKIE_STRING" // cookie 字符串
                 };
 
                 function isArrayWithBasicTypes(arr) {
@@ -252,6 +254,18 @@ define(function() {
                     return result;
                 }
 
+                /**
+                 * 判断一个字符串是否符合 cookie 格式
+                 * @param {string} str 要判断的字符串
+                 * @returns {boolean} 是否符合 cookie 格式
+                 */
+                function IsCookieString(str) {
+                    // 正则表达式匹配 cookie 格式
+                    const cookiePattern = /^([a-zA-Z0-9_]+)=([^;]*)/;
+
+                    return typeof str === "string" && cookiePattern.test(str);
+                }
+
                 function analyzeFormatMessageType(arg) {
                     if (arg === null) {
                         return FormatMessageType.NULL;
@@ -261,7 +275,10 @@ define(function() {
                         return FormatMessageType.BOOLEAN;
                     } else if (typeof arg === "number") {
                         return FormatMessageType.NUMBER;
-                    } else if (typeof arg === "function") {
+                    } else if (IsCookieString(arg)) {
+                        return FormatMessageType.COOKIE_STRING;
+                    }
+                    else if (typeof arg === "function") {
                         return FormatMessageType.FUNCTION;
                     } else if (Object.prototype.toString.call(arg) === "[object Arguments]") {
                         return FormatMessageType.IAGUEMENT;
@@ -292,6 +309,12 @@ define(function() {
                 function formatArgument(arg) {
                     const messageType = analyzeFormatMessageType(arg);
                     switch (messageType) {
+                        case FormatMessageType.COOKIE_STRING:
+                            var cookie = new Cookie(arg);
+                            var obj=cookie.cookies;
+                            return JSON.stringify(obj) + "\n";
+                            // return formatArgument(obj);
+
                         case FormatMessageType.IAGUEMENT:
                             arg = Array.prototype.map.call(arg, formatArgument);
 

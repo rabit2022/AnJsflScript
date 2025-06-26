@@ -67,7 +67,7 @@ require([
         const EXPRESSION_DURATION = ns_store.get("EXPRESSION_DURATION");
         log.info("MAX_MOTION_FRAME_COUNT:", MAX_MOTION_FRAME_COUNT);
         log.info("EXPRESSION_DURATION:", EXPRESSION_DURATION);
-        if(!MAX_MOTION_FRAME_COUNT ||!EXPRESSION_DURATION) {
+        if (!MAX_MOTION_FRAME_COUNT || !EXPRESSION_DURATION) {
             alert("[帧选择器-关键帧]    请先运行脚本  11.组装万能头.jsfl");
             return;
         }
@@ -81,18 +81,17 @@ require([
         doc.enterEditMode("inPlace");
         doc.enterEditMode("inPlace");
 
-        __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__("./组装万能头-内部.jsfl");
+        // __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__("./组装万能头-内部.jsfl");
 
         doc.exitEditMode();
+
+        // 刷新时间轴
+        timeline = doc.getTimeline(); // 时间轴
 
         timeline.insertFrames(MAX_MOTION_FRAME_COUNT - 1, true);
 
         // 转换为关键帧
-        var KEY_FRAMES = $range(
-            0,
-            MAX_MOTION_FRAME_COUNT,
-            EXPRESSION_DURATION
-        ).toArray();
+        var KEY_FRAMES = $range(0, MAX_MOTION_FRAME_COUNT, EXPRESSION_DURATION).toArray();
         convertToKeyframesSafety(timeline, KEY_FRAMES); // 将帧转换为关键帧
 
         doc.exitEditMode();

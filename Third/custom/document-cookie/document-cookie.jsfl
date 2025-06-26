@@ -78,6 +78,7 @@ define(["universal-cookie"], function(Cookie) {
         var newCookie = new Cookie(cookieString);
         var oldCookie = _cookie;
 
+        // cookies 存有 cookie 解析后的对象，这里需要合并
         var properties = Object.assign(Object.assign({}, oldCookie.cookies), newCookie.cookies);
 
         oldCookie.cookies = properties;

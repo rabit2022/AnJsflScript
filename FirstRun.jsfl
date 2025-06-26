@@ -123,8 +123,7 @@
             // 导入配置文件
             "./config/require/require.config",
 
-            "document-cookie",// loglevel,store.js 依赖 document.cookie
-            "es6-promise",// babel 转译 依赖 Promise
+            "es6-promise", // babel 转译 依赖 Promise
 
             // 导入shims, 避免其他模块依赖时报错
             "es5-shim", // es5,es2009
@@ -135,7 +134,9 @@
             "es2017", // es8,es2017
 
             "json3",
-            "console"
+            "console",
+
+            "document-cookie" // loglevel,store.js 依赖 document.cookie
         ]);
 
         require(["loglevel", "Tips"], function (log, Tips) {

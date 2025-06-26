@@ -70,6 +70,18 @@ define(["JSFLInterface"], function(JSFLInterface) {
     }
 
     /**
+     * 判断一个字符串是否符合 cookie 格式
+     * @param {string} str 要判断的字符串
+     * @returns {boolean} 是否符合 cookie 格式
+     */
+    function IsCookieString(str) {
+        // 正则表达式匹配 cookie 格式
+        const cookiePattern = /^([a-zA-Z0-9_]+)=([^;]*)/;
+
+        return typeof str === "string" && cookiePattern.test(str);
+    }
+
+    /**
      * 处理参数
      * 1,,支持多个字符串参数
      * 2, 支持 sprintf 模板化字符串
@@ -82,7 +94,15 @@ define(["JSFLInterface"], function(JSFLInterface) {
     function formatMessage() {
         var args = Array.prototype.slice.call(arguments); // 将 arguments 转换为数组
 
-        if (IsTemplateString(args[0])) {
+        function useSerialized() {
+            // 处理参数
+            var formattedArgs = args.map(formatArgument);
+            return formattedArgs.join("\n");
+        }
+
+        if (IsCookieString(args[0])) {
+            return useSerialized();
+        } else if (IsTemplateString(args[0])) {
             var formattedMessage = "";
             require(["sprintf-js"], function({ sprintf }) {
                 // 使用 sprintf 格式化模板字符串
@@ -90,9 +110,7 @@ define(["JSFLInterface"], function(JSFLInterface) {
             });
             return formattedMessage + "\t";
         } else {
-            // 处理参数
-            var formattedArgs = args.map(formatArgument);
-            return formattedArgs.join("\n");
+            return useSerialized();
         }
     }
 
@@ -203,7 +221,7 @@ define(["JSFLInterface"], function(JSFLInterface) {
         //     trace("\n⚡admin  TRACE  ❯❯ " + message + "\n");
         //     writeToLog(message + "\n", Log.TRACE, 3);
         // },
-        trace:trace,
+        trace: trace,
 
         debug: function() {
             var message = formatMessage.apply(null, arguments); // 使用 formatMessage 处理 arguments

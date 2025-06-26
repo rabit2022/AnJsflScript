@@ -70,8 +70,8 @@ require([
     // endregion doc
 
     // log.setLevel(log.levels.TRACE);
-    // const ns_store = store.namespace("11-");
-    const ns_store = store;
+    const ns_store = store.namespace("11-组装万能头");
+    // const ns_store = store;
 
     function checkXMLPanel() {
         // var panel = getXMLPanel();
@@ -214,33 +214,35 @@ require([
         ns_store.set("MAX_MOTION_FRAME_COUNT", MAX_MOTION_FRAME_COUNT);
         ns_store.set("EXPRESSION_DURATION", EXPRESSION_DURATION);
 
+        var test_motionFrameCount = ns_store.get("MAX_MOTION_FRAME_COUNT");
+        log.debug("test:", test_motionFrameCount, MAX_MOTION_FRAME_COUNT);
 
-        var test_motionFrameCount=ns_store.get("MAX_MOTION_FRAME_COUNT");
-        log.debug("test:", test_motionFrameCount,MAX_MOTION_FRAME_COUNT);
+        var test_config = ns_store.get("config");
+        log.debug("test:", test_config, config);
 
-        var test_config=ns_store.get("config");
-        log.debug("test:", test_config,config);
+        var test_ElementPosition = ns_store.get("ElementPosition");
+        log.debug("test:", test_ElementPosition, Vector.from(selection[0]));
 
-        var test_ElementPosition=ns_store.get("ElementPosition");
-        log.debug("test:", test_ElementPosition,Vector.from(selection[0]));
+        var test_EXPRESSION_DURATION = ns_store.get("EXPRESSION_DURATION");
+        log.debug("test:", test_EXPRESSION_DURATION, EXPRESSION_DURATION);
 
-        var test_EXPRESSION_DURATION=ns_store.get("EXPRESSION_DURATION");
-        log.debug("test:", test_EXPRESSION_DURATION,EXPRESSION_DURATION);
+        // fl.trace(document.cookie)
+        console.log(document.cookie);
 
-        // switch (frameSelector) {
-        //     case "keyFrame":
-        //         __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__(
-        //             "./11.组装万能头/帧选择器-关键帧.jsfl"
-        //         );
-        //         break;
-        //     case "label":
-        //         __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__(
-        //             "./11.组装万能头/帧选择器-标签.jsfl"
-        //         );
-        //         break;
-        //     default:
-        //         throw new Error("帧选择器只能输入 (keyFrame,label)！");
-        // }
+        switch (frameSelector) {
+            case "keyFrame":
+                __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__(
+                    "./11.组装万能头/帧选择器-关键帧.jsfl"
+                );
+                break;
+            case "label":
+                __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__(
+                    "./11.组装万能头/帧选择器-标签.jsfl"
+                );
+                break;
+            default:
+                throw new Error("帧选择器只能输入 (keyFrame,label)！");
+        }
 
         SelectStartFms(timeline, selectedFrames);
     }

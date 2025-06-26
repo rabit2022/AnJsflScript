@@ -37,7 +37,6 @@
             // 导入配置文件
             // "./require-config",
 
-            "document-cookie",// loglevel,store.js 依赖 document.cookie
             "es6-promise",
 
             // 导入shims, 避免其他模块依赖时报错
@@ -48,8 +47,9 @@
             "es7-shim", // es7,es2016
             "es2017", // es8,es2017
 
-            "json3"
+            "json3",
             // "console"
+            "document-cookie",// loglevel,store.js 依赖 document.cookie
         ]);
 
         require(["loglevel", "Tips"], function (log, Tips) {
