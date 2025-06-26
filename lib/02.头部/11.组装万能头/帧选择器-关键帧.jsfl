@@ -81,7 +81,7 @@ require([
         doc.enterEditMode("inPlace");
         doc.enterEditMode("inPlace");
 
-        // __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__("./组装万能头-内部.jsfl");
+        __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__("./组装万能头-内部.jsfl");
 
         doc.exitEditMode();
 

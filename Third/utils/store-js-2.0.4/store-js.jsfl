@@ -1243,8 +1243,6 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           clearAll: clearAll
         };
         var doc = Global.document;
-        console.log('cookieStorage is available',doc.cookie);
-
         function read(key) {
           if (!key || !_has(key)) {
             return null;

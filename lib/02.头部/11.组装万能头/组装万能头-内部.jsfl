@@ -42,31 +42,39 @@ require([
     const { FRAME_1 } = JSFLConstants.Numerics.frame.frameList;
     const { __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__ } = COMPATIBILITY;
 
-    // region Context
-    // 这个用于 变量 经常update的地方，例如：doc.enterEditMode("inPlace");
-    // 否则，建议使用 doc 方案，减少 库 的依赖
-    const context = new Context();
-    context.update();
-    const {
-        doc,
-        selection,
-        library,
-        timeline,
-        layers,
-        curLayerIndex,
-        curLayer,
-        curFrameIndex,
-        curFrame
-    } = context;
-    const { firstSlLayerIndex, firstSlFrameIndex } = context;
+    // region doc
+    var doc = fl.getDocumentDOM(); //文档
+    if (!CheckDom(doc)) return;
+
+    var selection = doc.selection; //选择
+    var library = doc.library; //库文件
+    var timeline = doc.getTimeline(); //时间轴
+
+    var layers = timeline.layers; //图层
+    var curLayerIndex = timeline.currentLayer; //当前图层索引
+    var curLayer = layers[curLayerIndex]; //当前图层
+
+    var frames = curLayer.frames; //当前图层的帧列表
+    var curFrameIndex = timeline.currentFrame; //当前帧索引
+    var curFrame = frames[curFrameIndex]; //当前帧
+
+    // // 获取第一帧
+    // var selectedFrames = CheckSelectedFrames(timeline);
+    // if (!selectedFrames) return;
+    // const { firstSlLayerIndex, firstSlFrameIndex } = frs;
 
     // 检查选择的元件
     if (!CheckSelection(selection, "selectElement", "No limit")) return;
-    // endregion Context
 
-    const HEAD_LAYER_INDEX = 0;
-    const EMOTION_LAYER_INDEX = 1;
+    // // 检查选择的图层
+    // var selectedLayers = CheckSelectedLayers(timeline, "No limit");
+    // if (!selectedLayers) return;
+    // endregion doc
+
+    const MOTION_LAYER_INDEX = 0;
+    const HEAD_LAYER_INDEX = 1;
     const SHAKE_LAYER_INDEX = 2;
+
 
     const ns_store = store.namespace("11-组装万能头");
 
@@ -87,14 +95,15 @@ require([
         var newLayer = layerList.append("摇头动作", "normal");
 
         timeline.currentLayer = newLayer;
+        // log.debug("newLayer:", newLayer);
     }
 
     // 添加摇头标记
     function drawShakeMark(elementPosition) {
         const SHACK_MARK_NAME = "摇头标记-AnJsflScript";
 
-        // var center=new Vector();
-        var center = elementPosition;
+        var center = new Vector();
+        // var center = elementPosition;
         var radius = 5;
         var circle = new Circle(center, radius);
         var circleBounds = circle.getBounds();
@@ -125,12 +134,13 @@ require([
 
     // 设置父级视图
     function setParentView() {
+        // 必须更新，因为 图层 已经变为3个
+        const MOTION_LAYER = timeline.layers[MOTION_LAYER_INDEX];
         const HEAD_LAYER = timeline.layers[HEAD_LAYER_INDEX];
-        const EMOTION_LAYER = timeline.layers[EMOTION_LAYER_INDEX];
         const SHAKE_LAYER = timeline.layers[SHAKE_LAYER_INDEX];
 
         HEAD_LAYER.setRigParentAtFrame(SHAKE_LAYER, FRAME_1);
-        EMOTION_LAYER.setRigParentAtFrame(SHAKE_LAYER, FRAME_1);
+        MOTION_LAYER.setRigParentAtFrame(SHAKE_LAYER, FRAME_1);
     }
 
     // 摇头动作

@@ -29,7 +29,7 @@ define(["FUNC"], function (FUNC) {
      * @param {Number} frameIndex 要检查的帧索引
      * @return {Boolean} 帧是否为无效帧
      */
-    function IsNoneFrame(layer,frameIndex) {
+    function IsNoneFrame(layer, frameIndex) {
         var max_frames = layer.frames.length;
         return frameIndex >= max_frames;
     }

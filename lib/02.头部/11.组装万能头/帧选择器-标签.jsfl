@@ -12,14 +12,22 @@
 (function(){const m=fl.scriptURI.match(/AnJsflScript(?:-[a-zA-Z0-9]+)?/);if(!m)throw new Error("Can't find project path ["+fl.scriptURI+"]");const i=fl.scriptURI.lastIndexOf(m[0]);const p=fl.scriptURI.substring(0,i+m[0].length);typeof require=="undefined"&&fl.runScript(p+"/config/require/CheckEnvironment.jsfl")})();
 // @formatter:on
 
-require(["checkUtil", "loglevel", "COMPATIBILITY"], function (
+require(["checkUtil", "loglevel", "COMPATIBILITY", "SymbolNameGenerator", "LayerList",
+    "linqUtil", "store-js", "KeyFrameOperation", "FrameOperation"], function(
     checkUtil,
     log,
-    COMPATIBILITY
+    COMPATIBILITY, sng,
+    LayerList, linqUtil,
+    store, kfo, fo
 ) {
     const { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } =
         checkUtil;
     const { __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__ } = COMPATIBILITY;
+
+    const { generateNameUntilUnique, generateNameUseLast } = sng;
+    const { $range } = linqUtil;
+    const { convertToKeyframesSafety } = kfo;
+    const { setLabel } = fo;
 
     // region doc
     var doc = fl.getDocumentDOM(); //文档
@@ -49,13 +57,41 @@ require(["checkUtil", "loglevel", "COMPATIBILITY"], function (
     // if (!CheckSelectedLayers(timeline, "No limit")) return;
     // endregion doc
 
+    const ns_store = store.namespace("11-组装万能头");
+
     function Main() {
+        const MAX_MOTION_FRAME_COUNT = ns_store.get("MAX_MOTION_FRAME_COUNT");
+        const EXPRESSION_DURATION = ns_store.get("EXPRESSION_DURATION");
+        log.info("MAX_MOTION_FRAME_COUNT:", MAX_MOTION_FRAME_COUNT);
+        log.info("EXPRESSION_DURATION:", EXPRESSION_DURATION);
+        if (!MAX_MOTION_FRAME_COUNT || !EXPRESSION_DURATION) {
+            alert("[帧选择器-关键帧]    请先运行脚本  11.组装万能头.jsfl");
+            return;
+        }
+
+
         var symbolName = generateNameUntilUnique("组装万能头_"); // 生成符号名称
         doc.convertToSymbol("graphic", symbolName, "center"); // 将选中的元素转换为符号
 
         doc.enterEditMode("inPlace");
 
         __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__("./组装万能头-内部.jsfl");
+
+        // 刷新时间轴
+        timeline = doc.getTimeline(); // 时间轴
+
+        var layerList = new LayerList(timeline);
+        var newLayerIndex = layerList.append("表情", "normal");
+
+        // 转换为关键帧
+        var KEY_FRAMES = $range(0, MAX_MOTION_FRAME_COUNT, EXPRESSION_DURATION);
+        // convertToKeyframesSafety(timeline, KEY_FRAMES); // 将帧转换为关键帧
+        KEY_FRAMES.forEach(function(keyFrame, index) {
+            convertToKeyframesSafety(timeline, keyFrame); // 将帧转换为关键帧
+
+            // 设置帧的标签
+            setLabel(timeline, keyFrame, "(表情" + (index + 1) + ")", "name"); // 设置帧的名称
+        });
 
         doc.exitEditMode();
     }

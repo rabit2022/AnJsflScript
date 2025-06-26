@@ -7,11 +7,12 @@
  * @description:
  */
 
-define([ "Tips", "LayerQuery", "FrameQuery", "Context","FrameChecker"], function (
+define(["Tips", "LayerQuery", "FrameQuery", "Context", "FrameChecker"], function (
     tips,
     lq,
     fq,
-    Context,fc
+    Context,
+    fc
 ) {
     // const { getKeyFrames } = kfq;
     const { checkVariableRedeclaration } = tips;

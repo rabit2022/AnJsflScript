@@ -104,16 +104,6 @@ define(["LayerOperation"], function (lo) {
         this.origionalLayers = this.timeline.layers;
     }
 
-    // LayerList.prototype.update = function () {
-    //     this.context.update();
-    //
-    //     /**
-    //      * @description: 图层列表
-    //      * @type {Layer[]}
-    //      */
-    //     this.layers = this.timeline.layers;
-    // };
-
     /**
      * @description: 添加一个图层
      * @param {string} [layerName] 图层名称
@@ -121,7 +111,8 @@ define(["LayerOperation"], function (lo) {
      * @return {number}
      */
     LayerList.prototype.append = function (layerName, layerType) {
-        this.timeline.currentLayer = this.f(this.layers.length - 1);
+        // console.log("LayerList.append", this.layers.length - 1,this.f(this.layers.length - 1));
+        this.timeline.currentLayer = this.layers.length - 1;
 
         // 添加新图层
         var newLayerIndex = this.timeline.addNewLayer(

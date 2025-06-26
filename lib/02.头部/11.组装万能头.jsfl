@@ -1,5 +1,5 @@
 ﻿/**
- * @file: #11.组装万能头.jsfl
+ * @file: #
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
  * @date: 2025/1/24 19:50
@@ -22,7 +22,7 @@ require([
     "SAT",
     "store-js",
     "FramesSelect"
-], function (checkUtil, log, xmlPanelUtil, ec, eq, np, COMPATIBILITY, sat, store, fms) {
+], function(checkUtil, log, xmlPanelUtil, ec, eq, np, COMPATIBILITY, sat, store, fms) {
     const { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } =
         checkUtil;
 
@@ -71,6 +71,7 @@ require([
 
     // log.setLevel(log.levels.TRACE);
     const ns_store = store.namespace("11-组装万能头");
+
     // const ns_store = store;
 
     function checkXMLPanel() {
@@ -166,10 +167,10 @@ require([
         if (!isMultiple(EXPRESSION_DURATION, motionFrameCount)) {
             fl.trace(
                 "[ERROR] 优化建议：万能表情中单个表情持续了" +
-                    EXPRESSION_DURATION +
-                    "帧，但输入的表情帧数为" +
-                    motionFrameCount +
-                    "帧，两者不是倍数关系，建议检查..."
+                EXPRESSION_DURATION +
+                "帧，但输入的表情帧数为" +
+                motionFrameCount +
+                "帧，两者不是倍数关系，建议检查..."
             );
             return;
         }
@@ -184,8 +185,6 @@ require([
         var headconfig = checkHeadAndExpression(selection);
         if (!headconfig) return;
         const { head, expression } = headconfig;
-        log.log("head:", getName(head));
-        log.log("expression:", getName(expression));
 
         // 读取XML面板配置
         var config = checkXMLPanel();
@@ -197,37 +196,16 @@ require([
             shakeMode,
             frameSelector
         } = config;
-        // log.debug("shakeIntensity:", shakeIntensity);
-        // log.debug("motionFrameCount:", motionFrameCount);
-        // log.debug("headDirection:", headDirection);
-        // log.debug("shakeMode:", shakeMode);
-        // log.debug("frameSelector:", frameSelector);
 
         var motionConfig = checkMotionFrameCount(expression, motionFrameCount);
         if (!motionConfig) return;
         const { MAX_MOTION_FRAME_COUNT, EXPRESSION_DURATION } = motionConfig;
-        // log.debug("MAX_MOTION_FRAME_COUNT:", MAX_MOTION_FRAME_COUNT);
-        // log.debug("EXPRESSION_DURATION:", EXPRESSION_DURATION);
 
         ns_store.set("config", config);
         ns_store.set("ElementPosition", Vector.from(selection[0]));
         ns_store.set("MAX_MOTION_FRAME_COUNT", MAX_MOTION_FRAME_COUNT);
         ns_store.set("EXPRESSION_DURATION", EXPRESSION_DURATION);
 
-        var test_motionFrameCount = ns_store.get("MAX_MOTION_FRAME_COUNT");
-        log.debug("test:", test_motionFrameCount, MAX_MOTION_FRAME_COUNT);
-
-        var test_config = ns_store.get("config");
-        log.debug("test:", test_config, config);
-
-        var test_ElementPosition = ns_store.get("ElementPosition");
-        log.debug("test:", test_ElementPosition, Vector.from(selection[0]));
-
-        var test_EXPRESSION_DURATION = ns_store.get("EXPRESSION_DURATION");
-        log.debug("test:", test_EXPRESSION_DURATION, EXPRESSION_DURATION);
-
-        // fl.trace(document.cookie)
-        console.log(document.cookie);
 
         switch (frameSelector) {
             case "keyFrame":

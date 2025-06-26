@@ -58,49 +58,16 @@ require([
     // if (!selectedLayers) return;
     // endregion doc
 
-    const HEAD_LAYER_INDEX = 0;
-    const EMOTION_LAYER_INDEX = 1;
+    const MOTION_LAYER_INDEX = 0;
+    const HEAD_LAYER_INDEX = 1;
     const SHAKE_LAYER_INDEX = 2;
 
+    const MOTION_LAYER = layers[MOTION_LAYER_INDEX];
     const HEAD_LAYER = layers[HEAD_LAYER_INDEX];
-    const EMOTION_LAYER = layers[EMOTION_LAYER_INDEX];
     const SHAKE_LAYER = layers[SHAKE_LAYER_INDEX];
+    log.info("shake layer", SHAKE_LAYER.name,SHAKE_LAYER.frames.length);
 
     const ns_store = store.namespace("11-组装万能头");
-
-    function shakeHead(
-        HALF_MOTION_FRAME,
-        frameIndex,
-        shakeIntensity,
-        headDirection,
-        shakeMode
-    ) {
-        // 关键帧：3,6
-        var KEY_FRAMES = [HALF_MOTION_FRAME, frameIndex];
-        convertToKeyframesSafety(timeline, KEY_FRAMES);
-
-        // @note:08.丝滑摇头.jsfl
-        var HALF_MOTION_ELEMENT = HEAD_LAYER.frames[HALF_MOTION_FRAME].elements[0];
-        var tr = new Transform(HALF_MOTION_ELEMENT).setPosition(
-            new Vector(headDirection * shakeIntensity, shakeIntensity)
-        );
-
-        switch (shakeMode) {
-            case "traditional":
-                // 传统摇头
-                break;
-            case "smooth":
-                // 平滑摇头
-                timeline.setSelectedFrames(
-                    frameIndex,
-                    frameIndex + MOTION_FRAME_COUNT - 1
-                );
-                setClassicEaseCurve(timeline);
-                break;
-            default:
-                throw new Error("Invalid shake mode: " + shakeMode);
-        }
-    }
 
     function Main() {
         const ElementPosition = ns_store.get("ElementPosition");
@@ -111,22 +78,6 @@ require([
             return;
         }
 
-        // region test
-        // var config = {
-        //     shakeIntensity: 3,
-        //     motionFrameCount: 6,
-        //     headDirection: -1,
-        //     shakeMode: "traditional",
-        //     frameSelector: "keyFrame"
-        // };
-        //
-        // // var headconfig = {
-        // //     head: layers[1].frames[0].elements[0], expression: layers[0].frames[0].elements[0]
-        // // };
-        // // const { head, expression } = headconfig;
-        // const MAX_MOTION_FRAME_COUNT = 300;
-        // endregion test
-
         const {
             shakeIntensity,
             motionFrameCount,
@@ -134,6 +85,35 @@ require([
             shakeMode,
             frameSelector
         } = config;
+
+        function shakeHead(HALF_MOTION_FRAME, frameIndex) {
+            // 关键帧：3,6
+            var KEY_FRAMES = [HALF_MOTION_FRAME, frameIndex];
+            convertToKeyframesSafety(timeline, KEY_FRAMES);
+
+            // @note:08.丝滑摇头.jsfl
+            var HALF_MOTION_ELEMENT = SHAKE_LAYER.frames[HALF_MOTION_FRAME].elements[0];
+            log.info("HALF_MOTION_ELEMENT", HALF_MOTION_FRAME);
+            var tr = new Transform(HALF_MOTION_ELEMENT).setPosition(
+                new Vector(headDirection * shakeIntensity, shakeIntensity)
+            );
+
+            switch (shakeMode) {
+                case "traditional":
+                    // 传统摇头
+                    break;
+                case "smooth":
+                    // 平滑摇头
+                    timeline.setSelectedFrames(
+                        frameIndex,
+                        frameIndex + MOTION_FRAME_COUNT - 1
+                    );
+                    setClassicEaseCurve(timeline);
+                    break;
+                default:
+                    throw new Error("Invalid shake mode: " + shakeMode);
+            }
+        }
 
         // 每一个表情的帧数:6
         const MOTION_FRAME_COUNT = motionFrameCount;
@@ -163,25 +143,19 @@ require([
         // 295,300
         var LAST_HALF_MOTION_FRAME = lastFrameIndex - HALF_MOTION_FRAME_COUNT;
         if (LAST_HALF_MOTION_FRAME < MAX_MOTION_FRAME_COUNT) {
-            shakeHead(
-                LAST_HALF_MOTION_FRAME,
-                lastFrameIndex,
-                shakeIntensity,
-                headDirection,
-                shakeMode
-            );
+            shakeHead(LAST_HALF_MOTION_FRAME, lastFrameIndex);
 
-            // 多加了一帧
-            var shake_layer_frames = SHAKE_LAYER.frameCount;
-            if (shake_layer_frames > MAX_MOTION_FRAME_COUNT) {
-                // 301,300
-                var offset = shake_layer_frames - MAX_MOTION_FRAME_COUNT;
-                // var startFrame = MAX_MOTION_FRAME_COUNT-1;
-                var startFrame = shake_layer_frames - offset - 1;
-                // convertToKeyframesSafety(timeline, startFrame);
-                // 299,300
-                timeline.removeFrames(startFrame, shake_layer_frames - 1);
-            }
+            // // 多加了一帧
+            // var shake_layer_frames = SHAKE_LAYER.frameCount;
+            // if (shake_layer_frames > MAX_MOTION_FRAME_COUNT) {
+            //     // 301,300
+            //     var offset = shake_layer_frames - MAX_MOTION_FRAME_COUNT;
+            //     // var startFrame = MAX_MOTION_FRAME_COUNT-1;
+            //     var startFrame = shake_layer_frames - offset - 1;
+            //     // convertToKeyframesSafety(timeline, startFrame);
+            //     // 299,300
+            //     timeline.removeFrames(startFrame, shake_layer_frames - 1);
+            // }
         }
     }
 
