@@ -161,8 +161,15 @@ declare module "Context" {
         /**
          * 当前图层所有关键帧
          * @type {Frame[]}
+         * @deprecated 请使用{@link Context.keyframeIndexes}替代
          */
         readonly keyframes: Frame[];
+
+        /**
+         * 当前图层所有关键帧索引
+         * @type {number[]}
+         */
+        readonly keyframeIndexes: number[];
 
         /**
          * 所有帧对象

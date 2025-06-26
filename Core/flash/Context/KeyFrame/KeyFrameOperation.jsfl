@@ -7,14 +7,13 @@
  * @description:
  */
 
-define(["KeyFrameQuery", "Tips", "LayerQuery", "FrameQuery", "Context"], function (
-    kfq,
+define([ "Tips", "LayerQuery", "FrameQuery", "Context"], function (
     tips,
     lq,
     fq,
     Context
 ) {
-    const { getKeyFrames } = kfq;
+    // const { getKeyFrames } = kfq;
     const { checkVariableRedeclaration } = tips;
     const { convertToLayerIndex, convertToLayer } = lq;
     const { convertToFrameIndex, convertToFrame } = fq;
@@ -36,7 +35,7 @@ define(["KeyFrameQuery", "Tips", "LayerQuery", "FrameQuery", "Context"], functio
         var context = new Context();
         context.update();
         context.setTimeline(timeline);
-        const { frames, layers, curLayer, keyframes } = context;
+        const { frames, layers, curLayer, keyframeIndexes } = context;
         // endregion context
 
         // region frameIndexs处理
@@ -63,10 +62,13 @@ define(["KeyFrameQuery", "Tips", "LayerQuery", "FrameQuery", "Context"], functio
         }
         // endregion selectedLayer处理
 
+        console.log(keyframeIndexes);
+
         for (var i = 0; i < frameIndexs.length; i++) {
             var frameIndex = frameIndexs[i];
 
-            if (keyframes.includes(frameIndex)) {
+            // 已经是关键帧，则跳过
+            if (keyframeIndexes.includes(frameIndex)) {
                 continue;
             }
 
