@@ -37,6 +37,7 @@
             // 导入配置文件
             // "./require-config",
 
+            "document-cookie",// loglevel,store.js 依赖 document.cookie
             "es6-promise",
 
             // 导入shims, 避免其他模块依赖时报错

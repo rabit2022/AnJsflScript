@@ -131,26 +131,31 @@ require([
     }
 
     function Main() {
-        // const ElementPosition=ns_store.get("ElementPosition");
-        // const MAX_MOTION_FRAME_COUNT =ns_store.get("MAX_MOTION_FRAME_COUNT");
+        const ElementPosition=ns_store.get("ElementPosition");
+        const MAX_MOTION_FRAME_COUNT =ns_store.get("MAX_MOTION_FRAME_COUNT");
+        if(!ElementPosition||!MAX_MOTION_FRAME_COUNT) {
+            alert("[组装万能头-内部]    请先运行脚本  11.组装万能头.jsfl");
+            return;
+        }
+
 
         // region test
-        // var config = {
-        //     shakeIntensity: 3,
-        //     motionFrameCount: 6,
-        //     headDirection: -1,
-        //     shakeMode: "traditional",
-        //     frameSelector: "keyFrame"
-        // };
-        var ElementPosition = { x: 458.75, y: 312.05 };
-        log.info("layers：", layers, layers.length);
-        // log.info("layers：", AllLayers, AllLayers.length);
-        // var headconfig = {
-        //     head: layers[1].frames[0].elements[0],
-        //     expression: layers[0].frames[0].elements[0]
-        // };
-        // const { head, expression } = headconfig;
-        const MAX_MOTION_FRAME_COUNT = 300;
+        // // var config = {
+        // //     shakeIntensity: 3,
+        // //     motionFrameCount: 6,
+        // //     headDirection: -1,
+        // //     shakeMode: "traditional",
+        // //     frameSelector: "keyFrame"
+        // // };
+        // var ElementPosition = { x: 458.75, y: 312.05 };
+        // log.info("layers：", layers, layers.length);
+        // // log.info("layers：", AllLayers, AllLayers.length);
+        // // var headconfig = {
+        // //     head: layers[1].frames[0].elements[0],
+        // //     expression: layers[0].frames[0].elements[0]
+        // // };
+        // // const { head, expression } = headconfig;
+        // const MAX_MOTION_FRAME_COUNT = 300;
         // endregion test
 
         // currentSelection: head,expression

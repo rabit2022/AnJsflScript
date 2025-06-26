@@ -1,0 +1,55 @@
+{
+  "name": "universal-cookie",
+  "version": "8.0.1",
+  "description": "Universal cookies for JavaScript",
+  "main": "cjs/index.js",
+  "types": "cjs/index.d.ts",
+  "module": "esm/index.mjs",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./esm/index.d.mts",
+        "default": "./esm/index.mjs"
+      },
+      "require": {
+        "types": "./cjs/index.d.ts",
+        "default": "./cjs/index.js"
+      },
+      "default": "./cjs/index.js"
+    }
+  },
+  "sideEffects": false,
+  "files": [
+    "esm",
+    "cjs",
+    "umd",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bendotcodes/cookies.git"
+  },
+  "bugs": "https://github.com/bendotcodes/cookies/issues",
+  "homepage": "https://github.com/bendotcodes/cookies/tree/main/packages/universal-cookie#readme",
+  "keywords": [
+    "universal",
+    "isomophic",
+    "cookie"
+  ],
+  "author": "Benoit Tremblay <me@ben.codes>",
+  "license": "MIT",
+  "scripts": {
+    "prebuild": "rimraf esm && rimraf cjs && rimraf umd",
+    "build": "rollup -c",
+    "postbuild": "node ../../tools/fix-typescript-typedef.mjs ./esm"
+  },
+  "dependencies": {
+    "cookie": "^1.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.26.4",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.36.0",
+    "typescript": "^5.8.2"
+  }
+}

@@ -62,6 +62,11 @@ require.config({
         "xpath": "Third/xml/xpath-0.0.34/xpath",
         // H:\project\沙雕动画\AnJsflScript\Third\utils\store-js-2.0.4\store-js.jsfl
         "store-js": "Third/utils/store-js-2.0.4/store-js",
+        // H:\project\沙雕动画\AnJsflScript\Third\cookie\universal-cookie-8.0.1\universal-cookie.jsfl
+        "universal-cookie": "Third/cookie/universal-cookie-8.0.1/universal-cookie",
+        // H:\project\沙雕动画\AnJsflScript\Third\custom\document-cookie\document-cookie.jsfl
+        "document-cookie": "Third/custom/document-cookie/document-cookie",
+
 
 // 自定义模块
         "BitmapOperation": "Core/flash/Bitmap/BitmapOperation",

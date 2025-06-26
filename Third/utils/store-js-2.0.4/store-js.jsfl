@@ -17,6 +17,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       function _entryJs(module, __unused_webpack_exports, __webpack_require__) {
         module.exports = __webpack_require__(/*! ./node_modules/store-js/dist/store.everything */"./node_modules/store-js/dist/store.everything.js");
 
+        // 修改：支持中文命名空间
+        // _legalNamespace: /^[a-zA-Z0-9_\-\u4e00-\u9fff]+$/,
+
         /***/
       }),
       /***/"./node_modules/store-js/dist/store.everything.js": (
@@ -1004,9 +1007,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             _seenPlugins: [],
             _namespacePrefix: '',
             _namespaceRegexp: null,
-            // _legalNamespace: /^[a-zA-Z0-9_\-]+$/,
-            // 修改：支持中文命名空间
-            _legalNamespace: /^[a-zA-Z0-9_\-\u4e00-\u9fff]+$/,
+            _legalNamespace: /^[a-zA-Z0-9_\-]+$/,
             // alpha-numeric + underscore and dash
 
             _storage: function _storage() {
@@ -1238,12 +1239,16 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           clearAll: clearAll
         };
         var doc = Global.document;
+        console.log('cookieStorage is available',doc.cookie);
+
         function read(key) {
           if (!key || !_has(key)) {
             return null;
           }
           var regexpStr = "(?:^|.*;\\s*)" + escape(key).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*((?:[^;](?!;))*[^;]?).*";
-          return unescape(doc.cookie.replace(new RegExp(regexpStr), "$1"));
+          // return unescape(doc.cookie.replace(new RegExp(regexpStr), "$1"));
+          var result =  unescape(doc.cookie.replace(new RegExp(regexpStr), "$1"));
+          return result;
         }
         function each(callback) {
           var cookies = doc.cookie.split(/; ?/g);

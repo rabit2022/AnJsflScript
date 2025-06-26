@@ -65,6 +65,12 @@ require([
     function Main() {
         const MAX_MOTION_FRAME_COUNT = ns_store.get("MAX_MOTION_FRAME_COUNT");
         const EXPRESSION_DURATION = ns_store.get("EXPRESSION_DURATION");
+        log.info("MAX_MOTION_FRAME_COUNT:", MAX_MOTION_FRAME_COUNT);
+        log.info("EXPRESSION_DURATION:", EXPRESSION_DURATION);
+        if(!MAX_MOTION_FRAME_COUNT ||!EXPRESSION_DURATION) {
+            alert("[帧选择器-关键帧]    请先运行脚本  11.组装万能头.jsfl");
+            return;
+        }
 
         var symbolName = generateNameUntilUnique("组装万能头_"); // 生成符号名称
         doc.convertToSymbol("graphic", symbolName, "center"); // 将选中的元素转换为符号

@@ -14,7 +14,7 @@
     <envs />
     <method v="2">
       <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_外部工具_ReRun" />
-      <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_外部工具_ReRun" />
+      <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_外部工具_FirstRun" />
       <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_外部工具_运行当前jsfl文件" />
     </method>
   </configuration>

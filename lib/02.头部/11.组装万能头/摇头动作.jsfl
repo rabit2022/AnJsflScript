@@ -103,18 +103,30 @@ require([
     }
 
     function Main() {
-        // const ElementPosition=ns_store.get("ElementPosition");
-        // const MAX_MOTION_FRAME_COUNT =ns_store.get("MAX_MOTION_FRAME_COUNT");\
-        // const config=ns_store.get("config");
+        const ElementPosition=ns_store.get("ElementPosition");
+        const MAX_MOTION_FRAME_COUNT =ns_store.get("MAX_MOTION_FRAME_COUNT");
+        const config=ns_store.get("config");
+        if(!ElementPosition||!MAX_MOTION_FRAME_COUNT||!config) {
+            alert("[摇头动作]    请先运行脚本  11.组装万能头.jsfl");
+            return;
+        }
 
         // region test
-        var config = {
-            shakeIntensity: 3,
-            motionFrameCount: 6,
-            headDirection: -1,
-            shakeMode: "traditional",
-            frameSelector: "keyFrame"
-        };
+        // var config = {
+        //     shakeIntensity: 3,
+        //     motionFrameCount: 6,
+        //     headDirection: -1,
+        //     shakeMode: "traditional",
+        //     frameSelector: "keyFrame"
+        // };
+        //
+        // // var headconfig = {
+        // //     head: layers[1].frames[0].elements[0], expression: layers[0].frames[0].elements[0]
+        // // };
+        // // const { head, expression } = headconfig;
+        // const MAX_MOTION_FRAME_COUNT = 300;
+        // endregion test
+
         const {
             shakeIntensity,
             motionFrameCount,
@@ -122,13 +134,6 @@ require([
             shakeMode,
             frameSelector
         } = config;
-
-        // var headconfig = {
-        //     head: layers[1].frames[0].elements[0], expression: layers[0].frames[0].elements[0]
-        // };
-        // const { head, expression } = headconfig;
-        const MAX_MOTION_FRAME_COUNT = 300;
-        // endregion test
 
 
         // 每一个表情的帧数:6
