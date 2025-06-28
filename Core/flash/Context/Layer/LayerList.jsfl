@@ -181,5 +181,33 @@ define(["LayerOperation"], function (lo) {
         return arr;
     }
 
+    /**
+     * @description: 插入一个图层
+     * @param {number} index 插入位置
+     * @param {string} [layerName] 图层名称
+     * @param {"normal"|"guide"|"guided"|"mask"|"masked"|"folder"} [layerType] 图层类型
+     * @return {number}
+     */
+    LayerList.prototype.insert = function (index, layerName, layerType) {
+        // 选中目标图层
+        this.timeline.currentLayer = index;
+
+        // 添加新图层
+        var newLayerIndex = this.timeline.addNewLayer(
+            layerName || "",
+            layerType || "",
+            true
+        );
+
+        // 维护layers
+        arrInsert(this.layers, index, this.timeline.layers[newLayerIndex]);
+
+        return newLayerIndex;
+    };
+
+    function arrInsert(arr, index, item) {
+        arr.splice(index, 0, item);
+    }
+
     return LayerList;
 });

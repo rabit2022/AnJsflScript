@@ -12,14 +12,17 @@
 (function(){const m=fl.scriptURI.match(/AnJsflScript(?:-[a-zA-Z0-9]+)?/);if(!m)throw new Error("Can't find project path ["+fl.scriptURI+"]");const i=fl.scriptURI.lastIndexOf(m[0]);const p=fl.scriptURI.substring(0,i+m[0].length);typeof require=="undefined"&&fl.runScript(p+"/config/require/CheckEnvironment.jsfl")})();
 // @formatter:on
 
-require(["checkUtil", "loglevel", "COMPATIBILITY", "SymbolNameGenerator", "LayerList",
-    "linqUtil", "store-js", "KeyFrameOperation", "FrameOperation"], function(
-    checkUtil,
-    log,
-    COMPATIBILITY, sng,
-    LayerList, linqUtil,
-    store, kfo, fo
-) {
+require([
+    "checkUtil",
+    "loglevel",
+    "COMPATIBILITY",
+    "SymbolNameGenerator",
+    "LayerList",
+    "linqUtil",
+    "store-js",
+    "KeyFrameOperation",
+    "FrameOperation"
+], function (checkUtil, log, COMPATIBILITY, sng, LayerList, linqUtil, store, kfo, fo) {
     const { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } =
         checkUtil;
     const { __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__ } = COMPATIBILITY;
@@ -69,7 +72,6 @@ require(["checkUtil", "loglevel", "COMPATIBILITY", "SymbolNameGenerator", "Layer
             return;
         }
 
-
         var symbolName = generateNameUntilUnique("组装万能头_"); // 生成符号名称
         doc.convertToSymbol("graphic", symbolName, "center"); // 将选中的元素转换为符号
 
@@ -86,7 +88,7 @@ require(["checkUtil", "loglevel", "COMPATIBILITY", "SymbolNameGenerator", "Layer
         // 转换为关键帧
         var KEY_FRAMES = $range(0, MAX_MOTION_FRAME_COUNT, EXPRESSION_DURATION);
         // convertToKeyframesSafety(timeline, KEY_FRAMES); // 将帧转换为关键帧
-        KEY_FRAMES.forEach(function(keyFrame, index) {
+        KEY_FRAMES.forEach(function (keyFrame, index) {
             convertToKeyframesSafety(timeline, keyFrame); // 将帧转换为关键帧
 
             // 设置帧的标签

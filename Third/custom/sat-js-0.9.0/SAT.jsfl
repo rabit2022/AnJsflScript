@@ -1959,6 +1959,7 @@
     };
 
 
+
     SAT["GLOBALS"] = SAT_GLOBALS;
     SAT["CHECk"] = SAT_CHECk;
     SAT["ENTITY"] = SAT_ENTITY;

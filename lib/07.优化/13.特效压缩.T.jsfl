@@ -109,11 +109,8 @@ require([
 
         var frameCount = timeline.frameCount;
         var layerCount = timeline.layerCount;
-        for (
-            var frameIndex = 0;
-            frameIndex < frameCount;
-            frameIndex += frameSkipInterval
-        ) {
+        // prettier-ignore
+        for (var frameIndex = 0; frameIndex < frameCount; frameIndex += frameSkipInterval) {
             for (var layerIndex = 0; layerIndex < layerCount; layerIndex++) {
                 timeline.currentLayer = layerIndex;
                 timeline.removeFrames(frameIndex, frameIndex + frameSkipCount);

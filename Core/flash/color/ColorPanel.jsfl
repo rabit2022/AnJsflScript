@@ -14,8 +14,8 @@ define(function () {
 
     /**
      * 设置自定义颜色面板
-     * @param {BaseStroke|Stroke} stroke 颜色值
-     * @param {BaseFill|Fill} fill 颜色值
+     * @param {BaseStroke|Stroke} [stroke] 颜色值
+     * @param {BaseFill|Fill} [fill] 颜色值
      */
     function setCustomPanel(stroke, fill) {
         var doc = fl.getDocumentDOM(); //文档
@@ -28,8 +28,8 @@ define(function () {
         if (stroke === undefined && stroke_cache !== null) stroke = stroke_cache;
         if (fill === undefined && fill_cache !== null) fill = fill_cache;
 
-        doc.setCustomStroke(stroke);
-        doc.setCustomFill(fill);
+        if (!stroke) doc.setCustomStroke(stroke);
+        if (!fill) doc.setCustomFill(fill);
     }
 
     /**
@@ -40,7 +40,12 @@ define(function () {
 
         doc.setCustomStroke(stroke_cache);
         doc.setCustomFill(fill_cache);
+
+        // 清空缓存
+        stroke_cache = null;
+        fill_cache = null;
     }
+
     return {
         setCustomPanel: setCustomPanel,
         resetCustomPanel: resetCustomPanel

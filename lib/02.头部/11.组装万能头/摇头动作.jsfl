@@ -65,7 +65,7 @@ require([
     const MOTION_LAYER = layers[MOTION_LAYER_INDEX];
     const HEAD_LAYER = layers[HEAD_LAYER_INDEX];
     const SHAKE_LAYER = layers[SHAKE_LAYER_INDEX];
-    log.info("shake layer", SHAKE_LAYER.name,SHAKE_LAYER.frames.length);
+    log.info("shake layer", SHAKE_LAYER.name, SHAKE_LAYER.frames.length);
 
     const ns_store = store.namespace("11-组装万能头");
 

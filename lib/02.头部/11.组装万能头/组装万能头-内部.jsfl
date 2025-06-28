@@ -75,7 +75,6 @@ require([
     const HEAD_LAYER_INDEX = 1;
     const SHAKE_LAYER_INDEX = 2;
 
-
     const ns_store = store.namespace("11-组装万能头");
 
     // 设置图层

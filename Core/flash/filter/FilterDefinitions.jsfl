@@ -1072,6 +1072,17 @@ define(["SObject", "FUNC"], function (so, FUNC) {
         this.glowFilter.blurY = blurY;
         return this;
     };
+
+    /**
+     * 设置模糊量（单位为像素）
+     * @param {number} blur 模糊量（单位为像素）
+     * @returns {GlowFilterBuilder}
+     */
+    GlowFilterBuilder.prototype.setBlur = function (blur) {
+        this.glowFilter.blurX = blur;
+        this.glowFilter.blurY = blur;
+        return this;
+    };
     /**
      * 设置高光颜色
      * @param {string|number} color 高光颜色

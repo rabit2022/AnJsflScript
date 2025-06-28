@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(['SAT', 'random'], function(sat, random) {
+define(['SAT', 'random',"loglevel"], function(sat, random,log) {
     var wrapPosition = sat.GLOBALS.wrapPosition;
     var Vector = sat.Vector,
         Rectangle = sat.Rectangle;
@@ -25,7 +25,11 @@ define(['SAT', 'random'], function(sat, random) {
         // x:中间位置, y: height*5/6
         // element
         var elePos = wrapPosition(element);
+        // log.info("elePos: ",elePos);
+
         var eleRect = new Rectangle(element);
+        // log.info("eleRect: " ,eleRect);
+
 
         // trPoint
         var botttomPart = eleRect.getPart('bottom', 1 - ratio);

@@ -22,7 +22,7 @@ require([
     "SAT",
     "store-js",
     "FramesSelect"
-], function(checkUtil, log, xmlPanelUtil, ec, eq, np, COMPATIBILITY, sat, store, fms) {
+], function (checkUtil, log, xmlPanelUtil, ec, eq, np, COMPATIBILITY, sat, store, fms) {
     const { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } =
         checkUtil;
 
@@ -167,10 +167,10 @@ require([
         if (!isMultiple(EXPRESSION_DURATION, motionFrameCount)) {
             fl.trace(
                 "[ERROR] 优化建议：万能表情中单个表情持续了" +
-                EXPRESSION_DURATION +
-                "帧，但输入的表情帧数为" +
-                motionFrameCount +
-                "帧，两者不是倍数关系，建议检查..."
+                    EXPRESSION_DURATION +
+                    "帧，但输入的表情帧数为" +
+                    motionFrameCount +
+                    "帧，两者不是倍数关系，建议检查..."
             );
             return;
         }
@@ -206,7 +206,6 @@ require([
         ns_store.set("ElementPosition", Vector.from(selection[0]));
         ns_store.set("MAX_MOTION_FRAME_COUNT", MAX_MOTION_FRAME_COUNT);
         ns_store.set("EXPRESSION_DURATION", EXPRESSION_DURATION);
-
 
         switch (frameSelector) {
             case "keyFrame":
