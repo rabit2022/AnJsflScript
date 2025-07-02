@@ -1,26 +1,20 @@
 /**
- * @file: 00.智能循环.jsfl
+ * @file: 00.缓入-传统.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
- * @date: 2024/12/5 22:22
+ * @date: 2025/7/2 23:27
  * @project: AnJsflScript
  * @description:
- * @see https://gitee.com/ninge/WindowSWF/tree/master/
  */
 
 // @formatter:off
 // prettier-ignore
 "undefined"==typeof require&&fl.runScript(function(){var r=fl.scriptURI.match(/(?:^|.*[\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\/]|$)/)[1],t=fl.scriptURI.match(r);if(t){var n=t[0],i=fl.scriptURI.lastIndexOf(n);return fl.scriptURI.substring(0,i+n.length)}throw new Error("Can't find project path ["+fl.scriptURI+"]")}()+"/config/require/CheckEnvironment.jsfl");
 // @formatter:on
-require(["checkUtil", "KeyFrameOperation"], function (
-    checkUtil,
-    kfo
-    // { KFrameOnlyOne }
-) {
+
+require(["checkUtil", "loglevel"], function (checkUtil, log) {
     const { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } =
         checkUtil;
-
-    const { KFrameOnlyOne } = kfo;
 
     // region doc
     var doc = fl.getDocumentDOM(); //文档
@@ -52,20 +46,8 @@ require(["checkUtil", "KeyFrameOperation"], function (
     // endregion doc
 
     function Main() {
-        // 关键帧
-        KFrameOnlyOne(timeline);
+        setClassicEaseCurve(timeline, easeInOut, intensity);
 
-        for (var i = 0; i < selection.length; i++) {
-            var element = selection[i];
-            element.loop = "loop";
-
-            var timeline1 = element.libraryItem.timeline;
-            var layer = timeline1.layers[0];
-            // 获取关键帧的起始帧
-            var startFrame = layer.frames[element.firstFrame].startFrame;
-            element.firstFrame = startFrame;
-            element.lastFrame = layer.frames[startFrame].duration + startFrame - 1;
-        }
     }
 
     Main();

@@ -35,7 +35,7 @@ require([
     "ElementChecker",
     "ElementSelect",
     "ElementQuery"
-], function(checkUtil, log, ec, es, eq) {
+], function (checkUtil, log, ec, es, eq) {
     const { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } =
         checkUtil;
 
@@ -80,9 +80,9 @@ require([
         var timeline = doc.getTimeline(); //时间轴
 
         var layers = timeline.layers; //图层
-        layers.forEach(function(layer) {
+        layers.forEach(function (layer) {
             var frames = layer.frames;
-            for (var frameIndex = 0; frameIndex < frames.length;) {
+            for (var frameIndex = 0; frameIndex < frames.length; ) {
                 var frame = frames[frameIndex];
                 var duration = frame.duration;
                 if (duration >= 30) {
@@ -108,12 +108,12 @@ require([
 
                 // 继续深入
                 var elements = frame.elements;
-                var symbolElements = elements.map(function(element) {
+                var symbolElements = elements.map(function (element) {
                     if (!IsGroup(element) && IsSymbol(element)) {
                         return element;
                     }
                 });
-                symbolElements.forEach(function(symbolElement) {
+                symbolElements.forEach(function (symbolElement) {
                     if (!symbolElement) return; // undefined
 
                     // ai 文件夹下的文件不处理,会报错，似乎无法选中
@@ -135,16 +135,13 @@ require([
 
     function Main() {
         // var element = selection[0]; //选择的元件
-        selection.forEach(function(element) {
-
+        selection.forEach(function (element) {
             SelectNone();
             OnlySelectCurrent(element);
             if (!IsGroup(element) && IsSymbol(element)) {
                 cleanUp(element);
             }
-
         });
-
     }
 
     Main();

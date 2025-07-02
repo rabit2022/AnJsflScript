@@ -18,27 +18,42 @@ require([
     "os",
     "sprintf-js",
     "ElementSelect"
-], function (
-    { CheckDom: checkDom, CheckSelection: checkSelection },
-    log,
-    { generateNameUntilUnique, generateNameUseLast },
-    os,
-    { sprintf },
-    { SelectAll }
-) {
-    const doc = fl.getDocumentDOM(); //文档
-    if (!checkDom(doc)) return;
+], function (checkUtil, log, sng, os, sp, es) {
+    const { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } =
+        checkUtil;
 
-    const selection = doc.selection; //选择
-    const library = doc.library; //库文件
-    const timeline = doc.getTimeline(); //时间轴
+    const { generateNameUntilUnique, generateNameUseLast } = sng;
+    const { sprintf } = sp;
+    const { SelectAll } = es;
+
+    // region doc
+    var doc = fl.getDocumentDOM(); //文档
+    if (!CheckDom(doc)) return;
+
+    var selection = doc.selection; //选择
+    var library = doc.library; //库文件
+    var timeline = doc.getTimeline(); //时间轴
 
     var layers = timeline.layers; //图层
     var curLayerIndex = timeline.currentLayer; //当前图层索引
     var curLayer = layers[curLayerIndex]; //当前图层
 
+    var frames = curLayer.frames; //当前图层的帧列表
     var curFrameIndex = timeline.currentFrame; //当前帧索引
-    var curFrame = curLayer.frames[curFrameIndex]; //当前帧
+    var curFrame = frames[curFrameIndex]; //当前帧
+
+    // // 获取第一帧
+    // var selectedFrames = CheckSelectedFrames(timeline);
+    // if (!selectedFrames) return;
+    // const { firstSlLayerIndex, firstSlFrameIndex } = selectedFrames;
+
+    // 检查选择的元件
+    if (!CheckSelection(selection, "selectElement", "No limit")) return;
+
+    // // 检查选择的图层
+    // var selectedLayers = CheckSelectedLayers(timeline, "No limit");
+    // if (!selectedLayers) return;
+    // endregion doc
 
     //本地缓存路径
     const LOCAL_CACHE_PATH = window.AnJsflScript.$ProjectFileDir$ + "/cache/";
@@ -117,9 +132,6 @@ require([
     }
 
     function Main() {
-        // 检查选择的元件
-        if (!checkSelection(selection, "selectElement", "No limit")) return;
-
         // alert("此功能需要相应的网站支持，暂时只有函数的实现,请查看代码");
 
         // 1，从剪切板获取 加密的磁力链接

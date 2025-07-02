@@ -67,7 +67,7 @@ require([
     function adaptive_ratio(currentDepth, targetDepth, factor) {
         /**
          * 缩放因子
-         * 来源：[-5000,10000]->[-10,20] 确定 缩放因子
+         * @note: [-5000,10000]->[-10,20] 确定 缩放因子
          */
         if (factor === undefined) factor = 602;
 

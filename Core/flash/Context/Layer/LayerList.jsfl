@@ -82,7 +82,7 @@
  *         """
  *         pass
  */
-define(["LayerOperation"], function(lo) {
+define(["LayerOperation"], function (lo) {
     const { swapLayers } = lo;
 
     // 考虑局部，layers指定的情况
@@ -106,12 +106,12 @@ define(["LayerOperation"], function(lo) {
      * @readonly
      */
     Object.defineProperty(LayerList.prototype, "layers", {
-        get: function() {
+        get: function () {
             switch (this._mode) {
                 case "selected":
                     var selectedLayers = this.timeline.getSelectedLayers();
                     var globalLayers = this.timeline.layers;
-                    var layers = selectedLayers.map(function(layer) {
+                    var layers = selectedLayers.map(function (layer) {
                         return globalLayers[layer];
                     });
                     return layers;
@@ -123,14 +123,13 @@ define(["LayerOperation"], function(lo) {
         }
     });
 
-
     /**
      * @description: 添加一个图层
      * @param {string} [layerName] 图层名称
      * @param {"normal"|"guide"|"guided"|"mask"|"masked"|"folder"} [layerType] 图层类型
      * @return {number}
      */
-    LayerList.prototype.append = function(layerName, layerType) {
+    LayerList.prototype.append = function (layerName, layerType) {
         var globalEndIndex = this.f(this.layers.length - 1);
         this.timeline.currentLayer = globalEndIndex;
 
@@ -155,7 +154,7 @@ define(["LayerOperation"], function(lo) {
      * @param {boolean} [reverse] 是否倒序
      * @return {void}
      */
-    LayerList.prototype.sort = function(compareFn) {
+    LayerList.prototype.sort = function (compareFn) {
         for (var i = 0; i < this.layers.length; i++) {
             for (var j = i + 1; j < this.layers.length; j++) {
                 if (compareFn(this.layers[i], this.layers[j]) > 0) {
@@ -163,14 +162,12 @@ define(["LayerOperation"], function(lo) {
                     var global_j = this.f(j);
 
                     swapLayers(this.timeline, global_i, global_j);
-
                 }
             }
         }
     };
 
-
-    LayerList.prototype.reverse = function() {
+    LayerList.prototype.reverse = function () {
         for (var i = 0; i < this.layers.length / 2; i++) {
             var from = this.f(i);
             var to = this.f(this.layers.length - 1 - i);
@@ -187,14 +184,13 @@ define(["LayerOperation"], function(lo) {
      * @param {Layer} toMoveLayer 待移动图层
      * @return {number} 全局图层索引
      */
-    LayerList.prototype.f = function(toMoveArrIndex) {
+    LayerList.prototype.f = function (toMoveArrIndex) {
         var toMoveLayer = this.layers[toMoveArrIndex];
 
         var globalLayers = this.timeline.layers;
         var toMoveLayerIndex = globalLayers.indexOf(toMoveLayer);
         return toMoveLayerIndex;
     };
-
 
     /**
      * @description: 插入一个图层
@@ -203,7 +199,7 @@ define(["LayerOperation"], function(lo) {
      * @param {"normal"|"guide"|"guided"|"mask"|"masked"|"folder"} [layerType] 图层类型
      * @return {number}
      */
-    LayerList.prototype.insert = function(index, layerName, layerType) {
+    LayerList.prototype.insert = function (index, layerName, layerType) {
         // 选中目标图层
         var globalIndex = this.f(index);
         this.timeline.currentLayer = globalIndex;
@@ -215,10 +211,8 @@ define(["LayerOperation"], function(lo) {
             true
         );
 
-
         return newLayerIndex;
     };
-
 
     return LayerList;
 });
