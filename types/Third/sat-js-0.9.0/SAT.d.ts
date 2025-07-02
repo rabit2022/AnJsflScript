@@ -276,7 +276,7 @@ declare namespace sat {
 
         setSkew(skew: Skew | SkewLike): this;
 
-        moveSelectionBy(distanceToMove:VectorLike|Vector): this;
+        moveSelectionBy(distanceToMove: VectorLike | Vector): this;
 
         static from(element: Element): Transform;
     }
