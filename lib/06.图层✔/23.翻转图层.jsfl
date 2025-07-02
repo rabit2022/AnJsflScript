@@ -51,7 +51,7 @@ require(["checkUtil", "loglevel", "LayerList"], function (checkUtil, log, LayerL
             return layers[layer];
         });
 
-        var layerList = new LayerList(timeline, selectedLayers);
+        var layerList = new LayerList(timeline, "selected");
         layerList.reverse();
     }
 

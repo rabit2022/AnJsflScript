@@ -12,9 +12,14 @@
 "undefined"==typeof require&&fl.runScript(function(){var r=fl.scriptURI.match(/(?:^|.*[\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\/]|$)/)[1],t=fl.scriptURI.match(r);if(t){var n=t[0],i=fl.scriptURI.lastIndexOf(n);return fl.scriptURI.substring(0,i+n.length)}throw new Error("Can't find project path ["+fl.scriptURI+"]")}()+"/config/require/CheckEnvironment.jsfl");
 // @formatter:on
 
-require(["checkUtil", "loglevel"],
-    function(checkUtil, log) {
+require(["checkUtil", "loglevel", "LayerOperation", "KeyFrameOperation", "SymbolNameGenerator"],
+    function(checkUtil, log, lo, kfo, sng) {
         const { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } = checkUtil;
+
+        const { addNewLayerSafety } = lo;
+        const { convertToKeyframesSafety } = kfo;
+        const { generateNameUntilUnique, generateNameUseLast } = sng;
+
 
         // region doc
         var doc = fl.getDocumentDOM(); //文档
@@ -32,10 +37,10 @@ require(["checkUtil", "loglevel"],
         var curFrameIndex = timeline.currentFrame; //当前帧索引
         var curFrame = frames[curFrameIndex]; //当前帧
 
-        // // 获取第一帧
-        // var selectedFrames = CheckSelectedFrames(timeline);
-        // if (!selectedFrames) return;
-        // const { firstSlLayerIndex, firstSlFrameIndex } = frs;
+        // 获取第一帧
+        var selectedFrames = CheckSelectedFrames(timeline);
+        if (!selectedFrames) return;
+        const { firstSlLayerIndex, firstSlFrameIndex } = selectedFrames;
 
         // 检查选择的元件
         if (!CheckSelection(selection, "selectElement", "Only one")) return;
@@ -45,8 +50,25 @@ require(["checkUtil", "loglevel"],
         // if (!selectedLayers) return;
         // endregion doc
 
+        function addNewSymbol(timeline) {
+            doc.clipCopy();
+
+            // 1.创建新的图层---- 灵魂出窍，
+            addNewLayerSafety(timeline, "newLayer");
+
+            convertToKeyframesSafety(timeline, firstSlFrameIndex);
+
+            doc.clipPaste(true);
+
+            // 3.包装为一个新的元件
+            var symbolName = generateNameUntilUnique("灵魂出窍_");
+            doc.convertToSymbol("graphic", symbolName, "center");
+
+        }
+
         function Main() {
 
+            addNewSymbol(timeline);
 
         }
 
