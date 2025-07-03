@@ -73,7 +73,8 @@
 
 
       "COMPATIBILITY": ["Core/webpack/COMPATIBILITY"],
-      "LayerList": ["Core/flash/Context/Layer/LayerList",
+      "LayerList": ["Core/flash/Context/Layer/LayerList"],
+      "StringPaser": ["Core/flash/panel/StringPaser"]
     },
     "include": [
       "**/*.jsfl",

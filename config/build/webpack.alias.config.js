@@ -108,6 +108,8 @@ var alias = {
     "store-js": path.resolve(dirname, "Third/utils/store-js-2.0.4/store-js"),
     "universal-cookie": path.resolve(dirname, "Third/cookie/universal-cookie-8.0.1/universal-cookie"),
     "document-cookie": path.resolve(dirname, "Third/custom/document-cookie/document-cookie"),
+    // "StringPaser": "Core/flash/panel/StringPaser",
+    "StringPaser": path.resolve(dirname, "Core/flash/panel/StringPaser"),
 
 
 };

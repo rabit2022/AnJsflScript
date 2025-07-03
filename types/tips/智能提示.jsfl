@@ -33,7 +33,8 @@ SymbolInstance.prototype.lastFrame = -1;
  * } Element - 所有可视化对象
  */
 // * Parameter|Filter|TextAttrs|TextRun
-Element = function () {};
+Element = function() {
+};
 
 /**
  * @typedef {Item|
@@ -41,14 +42,16 @@ Element = function () {};
  * VideoItem|SpriteSheetExporter|TextureAtlasExporter
  * }  Item - 所有物品
  */
-Item = function () {};
+Item = function() {
+};
 
 /**
  * 运行命令行
  * 重要：可以调用 powershell,cmd,bash等命令行工具,python,java等脚本语言,以及执行其他可执行文件
  * @param {string} commandLine - 命令行参数
  */
-FlashFile.prototype.runCommandLine = function (commandLine) {};
+FlashFile.prototype.runCommandLine = function(commandLine) {
+};
 
 /**
  * 必须为非0的整数
@@ -59,7 +62,8 @@ FlashFile.prototype.runCommandLine = function (commandLine) {};
  * @param {number} tx  必须为非0的整数
  * @param {number} ty  必须为非0的整数
  */
-Camera.prototype.setPosition = function (frameIndex, tx, ty) {};
+Camera.prototype.setPosition = function(frameIndex, tx, ty) {
+};
 
 /**
  *  Flash 应用程序
@@ -86,5 +90,19 @@ document = fl.getDocumentDOM(); //文档
  * @bug 参数顺序错误，导致无法设置父级。
  * @bug 当 layer 是Layer无法工作时，可以传入数字，具体原因未知。
  */
-Layer.prototype.setRigParentAtFrame = function (layer, frameIndex) {
+Layer.prototype.setRigParentAtFrame = function(layer, frameIndex) {
 };
+
+// 以下不只是 Timeline 的方法
+Shape.prototype.getCustomStroke = function() {
+};
+
+Shape.prototype.setCustomStroke = function(customStroke) {
+};
+
+Shape.prototype.getCustomFill = function() {
+};
+
+Shape.prototype.setCustomFill = function(customFill) {
+};
+

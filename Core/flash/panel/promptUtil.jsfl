@@ -7,7 +7,9 @@
  * @description:
  */
 
-define(["xmlPanelUtil"], function (xmlPanelUtil) {
+define(["StringPaser"], function (sp) {
+    const { parseNumber, parseDirection, parseColor } = sp;
+
     function PromptUtil() {}
 
     /**
@@ -24,7 +26,7 @@ define(["xmlPanelUtil"], function (xmlPanelUtil) {
         }
         var inputForce = prompt(promptMessage, defaultValue);
 
-        return xmlPanelUtil.parseNumber(inputForce, alertMessage, range);
+        return parseNumber(inputForce, alertMessage, range);
     };
 
     /**
@@ -130,14 +132,9 @@ define(["xmlPanelUtil"], function (xmlPanelUtil) {
     };
 
     /**
-     * 弹出提示框，获取输入的方向
-     * @param {string} promptMessage 提示信息
-     * @param {object} [tipDictionary={"右": 1, "左": -1, " ": -1}] 提示字典
-     * @returns {number} 输入的方向
+     * @deprecated 请使用 {@link StringPaser.parseDirection} 代替。
      */
-    PromptUtil.parseDirection = function (promptMessage, tipDictionary) {
-        return xmlPanelUtil.parseDirection(promptMessage, tipDictionary);
-    };
+    PromptUtil.parseDirection = parseDirection;
 
     return PromptUtil;
 });

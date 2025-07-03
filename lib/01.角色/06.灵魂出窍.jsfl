@@ -137,7 +137,7 @@ require([
     function addRect(timeline) {
         function getRect(element) {
             const bounds = getSymbolBounds(element);
-            log.info("element", element.libraryItem.name, "bounds", bounds);
+            // log.info("element", element.libraryItem.name, "bounds", bounds);
             const size = bounds.size;
             const addSize = new Size(100, 100);
             const newSize = size.clone().add(addSize);

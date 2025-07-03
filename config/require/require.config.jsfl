@@ -123,6 +123,7 @@ require.config({
         "COMPATIBILITY": "Core/webpack/COMPATIBILITY",
         // D:\project\沙雕动画\AnJsflScript\Core\flash\Context\Layer\LayerList.jsfl
         "LayerList": "Core/flash/Context/Layer/LayerList",
-
+        // H:\project\沙雕动画\AnJsflScript\Core\flash\panel\StringPaser.jsfl
+        "StringPaser": "Core/flash/panel/StringPaser",
     }, packages: []
 });
