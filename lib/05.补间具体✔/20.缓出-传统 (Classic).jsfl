@@ -48,7 +48,7 @@ require(["checkUtil", "loglevel", "EaseCurve"], function (checkUtil, log, ec) {
     // endregion doc
 
     function Main() {
-        setClassicEaseCurve(timeline, "Ease-In", 0);
+        setClassicEaseCurve(timeline, "Ease-Out", 0);
     }
 
     Main();

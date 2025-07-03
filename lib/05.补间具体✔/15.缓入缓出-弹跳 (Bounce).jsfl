@@ -16,7 +16,7 @@ require(["checkUtil", "loglevel", "EaseCurve"], function (checkUtil, log, ec) {
     const { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } =
         checkUtil;
 
-    const { setClassicEaseCurve } = ec;
+    const { setEaseCurve } = ec;
 
     // region doc
     var doc = fl.getDocumentDOM(); //文档
@@ -48,7 +48,8 @@ require(["checkUtil", "loglevel", "EaseCurve"], function (checkUtil, log, ec) {
     // endregion doc
 
     function Main() {
-        setClassicEaseCurve(timeline, "Ease-In", 0);
+        timeline.createMotionTween();
+        setEaseCurve(timeline, "Bounce Ease-In-Out");
     }
 
     Main();
