@@ -1019,7 +1019,96 @@
         return new Rectangle(minLeft, minTop, maxRight, maxBottom);
     };
 
-    Rectangle.findBoundingRectangle = findBoundingRectangle;
+    Rectangle.fromElements = findBoundingRectangle;
+    Rectangle.fromTopLeft = wrapRectByTopLeft;
+    Rectangle.fromCenter = wrapRectByCenter;
+    Rectangle.fromVectors = function(vectors) {
+        // 创建一个初始矩形
+        var rect = new Rectangle(0, 0, 0, 0);
+
+        // 遍历所有向量，更新矩形的边界
+        for (var i = 0; i < vectors.length; i++) {
+            var vector = vectors[i];
+
+            // 在第一次迭代时初始化矩形的边界
+            if (i === 0) {
+                rect.left = vector.x;
+                rect.top = vector.y;
+                rect.right = vector.x;
+                rect.bottom = vector.y;
+            } else {
+                // 更新矩形的边界
+                rect.left = Math.min(rect.left, vector.x);
+                rect.top = Math.min(rect.top, vector.y);
+                rect.right = Math.max(rect.right, vector.x);
+                rect.bottom = Math.max(rect.bottom, vector.y);
+            }
+        }
+        return rect;
+    };
+
+    Rectangle.fromRects = function(rects) {
+        // 创建一个初始矩形
+        var rect = new Rectangle(0, 0, 0, 0);
+
+        // 遍历所有矩形，更新矩形的边界
+        for (var i = 0; i < rects.length; i++) {
+            var r = rects[i];
+
+            // 在第一次迭代时初始化矩形的边界
+            if (i === 0) {
+                rect.left = r.left;
+                rect.top = r.top;
+                rect.right = r.right;
+                rect.bottom = r.bottom;
+            } else {
+                // 更新矩形的边界
+                rect.left = Math.min(rect.left, r.left);
+                rect.top = Math.min(rect.top, r.top);
+                rect.right = Math.max(rect.right, r.right);
+                rect.bottom = Math.max(rect.bottom, r.bottom);
+            }
+        }
+        return rect;
+
+    };
+    /**
+     * 旋转矩形
+     * @param {number} angle 角度
+     * @param {Corner} [whichCorner="center"] 哪个角点
+     * @returns {Rectangle} 矩形
+     */
+    Rectangle.prototype.rotate = function(angle, whichCorner) {
+        // 默认旋转中心为矩形中心
+        whichCorner = whichCorner || "center";
+
+        // 将角度转换为弧度
+        var radians = angle * (Math.PI / 180);
+
+        // 获取旋转中心点的坐标
+        var center = this.getCorner(whichCorner);
+
+        // 获取矩形的四个顶点坐标
+        var topLeft = this.getCorner("top left");
+        var topRight = this.getCorner("top right");
+        var bottomLeft = this.getCorner("bottom left");
+        var bottomRight = this.getCorner("bottom right");
+
+        function rotate(vector, radians, center) {
+            return vector.sub(center).rotate(radians).add(center);
+        }
+
+        // 旋转每个顶点
+        var rotatedTopLeft = rotate(topLeft, radians, center);
+        var rotatedTopRight = rotate(topRight, radians, center);
+        var rotatedBottomLeft = rotate(bottomLeft, radians, center);
+        var rotatedBottomRight = rotate(bottomRight, radians, center);
+
+        // 根据旋转后的顶点重新计算矩形的边界
+        var newRect = Rectangle.fromVectors([rotatedTopLeft, rotatedTopRight, rotatedBottomRight, rotatedBottomLeft]);
+
+        return newRect;
+    };
 
     /**
      * 由左上角坐标和宽高创建矩形
@@ -1456,12 +1545,12 @@
     };
 
     // moveSelectionBy
-    Transform.prototype.moveSelectionBy = function( distanceToMove) {
+    Transform.prototype.moveSelectionBy = function(distanceToMove) {
         this.element.x += distanceToMove.x;
         this.element.y += distanceToMove.y;
-        this.position=this.position.clone().add(distanceToMove);
+        this.position = this.position.clone().add(distanceToMove);
         return this;
-    }
+    };
     /**
      * 设置缩放
      * @param {Vector|Scale} scale 缩放比例
@@ -1605,8 +1694,8 @@
      * @return {FrameRange} 第一帧范围
      */
     FrameRange.prototype.getFirstFrame = function() {
-        var fr=this.clone();
-        fr.endFrame=fr.startFrame+1;
+        var fr = this.clone();
+        fr.endFrame = fr.startFrame + 1;
         return fr;
     };
 
@@ -1957,7 +2046,6 @@
             getCenter: getCameraCenter
         }
     };
-
 
 
     SAT["GLOBALS"] = SAT_GLOBALS;

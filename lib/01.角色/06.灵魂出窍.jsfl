@@ -21,8 +21,9 @@ require([
     "SAT",
     "StrokeDefinitions",
     "FillDefinitions",
-    "ColorPanel"
-], function (checkUtil, log, lo, kfo, sng, sat, sd, fd, cp) {
+    "ColorPanel",
+    "JSFLConstants"
+], function (checkUtil, log, lo, kfo, sng, sat, sd, fd, cp, JSFLConstants) {
     const { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } =
         checkUtil;
 
@@ -30,11 +31,14 @@ require([
     const { convertToKeyframesSafety } = kfo;
     const { generateNameUntilUnique, generateNameUseLast } = sng;
 
-    const { Vector, Size } = sat;
+    const { Vector, Size, Rectangle } = sat;
+    const getSymbolBounds = sat.ENTITY.SYMBOL.getBounds;
 
     const { NoStroke } = sd;
     const { LinearGradientFillBuilder } = fd.BUILDERS;
     const { setCustomPanel, resetCustomPanel } = cp;
+
+    const { FPS } = JSFLConstants.Numerics.frame.frameRate;
 
     // region doc
     var doc = fl.getDocumentDOM(); //文档
@@ -69,23 +73,25 @@ require([
         doc.clipCopy();
 
         // 1.创建新的图层---- 灵魂出窍，
-        addNewLayerSafety(timeline, "灵魂出窍");
+        var newLayerIndex = addNewLayerSafety(timeline, "灵魂出窍");
 
         convertToKeyframesSafety(timeline, firstSlFrameIndex);
 
         doc.clipPaste(true);
 
-        // 5. 移动到左上角
-        var eleSize = Size.from(selection[0]);
-        var moveDirection = new Vector(-1.5, -0.3);
-        var distanceToMove = eleSize.toVector().scale(moveDirection.x, moveDirection.y);
-        log.info("distanceToMove", distanceToMove);
-
-        doc.moveSelectionBy(distanceToMove);
+        // // 5. 移动到左上角
+        // var eleSize = Size.from(selection[0]);
+        // var moveDirection = new Vector(-1.5, -0.3);
+        // var distanceToMove = eleSize.toVector().scale(moveDirection.x, moveDirection.y);
+        // log.info("distanceToMove", distanceToMove);
+        //
+        // doc.moveSelectionBy(distanceToMove);
 
         // 3.包装为一个新的元件
         var symbolName = generateNameUntilUnique("灵魂出窍_");
         doc.convertToSymbol("graphic", symbolName, "center");
+
+        return newLayerIndex;
     }
 
     function setColorPanel() {
@@ -120,20 +126,45 @@ require([
         setCustomPanel(stroke, fill);
     }
 
-    function EditInner() {
+    /**
+     * ## LinearGradientFill 线性渐变填充
+     *
+     * ### 问题:只能从左向右填充,需要实现从上到下填充,怎么办?
+     * ### 解决方案:
+     * 1. 画出一个矩形,然后设置渐变填充(从左向右填充)
+     * 2. 旋转90,转为从上到下填充.
+     */
+    function addRect(timeline) {
         function getRect(element) {
             const bounds = getSymbolBounds(element);
-            // log.info("bounds", bounds,bounds.center,bounds.size);
+            log.info("element", element.libraryItem.name, "bounds", bounds);
             const size = bounds.size;
             const addSize = new Size(100, 100);
             const newSize = size.clone().add(addSize);
 
-            const newRect = wrapRectByCenter(bounds.center, newSize);
+            const newRect = Rectangle.fromCenter(bounds.center, newSize);
 
             // log.info("newRect", newRect);
             return newRect;
         }
 
+        // 设置笔触，填充，，填充透明度80
+        setColorPanel();
+
+        // 4.2 添加一个shape 长方形，铺满 元件的轮廓
+        // 宽高=位置+100
+        var rect = getRect(selection[0]);
+        rect = rect.rotate(-90);
+
+        doc.addNewRectangle(rect, 0);
+
+        // timeline.setSelectedLayers(0);
+
+        timeline.setSelectedFrames(0, 1);
+        doc.rotateSelection(90);
+    }
+
+    function EditInner() {
         // 此时元件1  占用 第一个图层
         doc.enterEditMode("inPlace");
 
@@ -142,13 +173,7 @@ require([
 
         var newLayerIndex = timeline.addNewLayer("渐变遮罩", "normal", true);
 
-        // 设置笔触，填充，，填充透明度80
-        setColorPanel();
-
-        // 4.2 添加一个shape 长方形，铺满 元件的轮廓
-        // 宽高=位置+100
-        var rect = getRect(selection[0]);
-        doc.addNewRectangle(rect, 0);
+        addRect(timeline);
 
         // 设置 混合模式为 alpha
         // doc.setBlendMode 只能在元件生效，不能在图层生效
@@ -160,14 +185,29 @@ require([
         curLayer.setBlendModeAtFrame(0, "alpha");
 
         // 补帧 5s----150帧,不清楚有没有必要
+        var toInsert = FPS * 5;
+        timeline.insertFrames(toInsert - 1, true);
 
         doc.exitEditMode();
     }
 
     function Main() {
-        addNewSymbol(timeline);
+        var newLayerIndex = addNewSymbol(timeline);
 
         EditInner();
+
+        // 5. 移动到左上角
+        var eleSize = Size.from(selection[0]);
+        var moveDirection = new Vector(-1.5, -0.3);
+        var distanceToMove = eleSize.toVector().scale(moveDirection.x, moveDirection.y);
+        log.info("distanceToMove", distanceToMove);
+
+        doc.moveSelectionBy(distanceToMove);
+
+        var layers = timeline.layers; //图层
+        var newLayer = layers[newLayerIndex]; //新图层
+
+        newLayer.setBlendModeAtFrame(firstSlFrameIndex, "layer");
     }
 
     Main();

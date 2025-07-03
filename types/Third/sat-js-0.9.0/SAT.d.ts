@@ -149,6 +149,12 @@ declare namespace sat {
         fromCenter(centerX: number, centerY: number, width: number, height: number): Rectangle;
 
         fromCenter(center: Vector | VectorLike, size: Size | SizeLike): Rectangle;
+
+        fromVectors(vectors: Vector[]): Rectangle;
+
+        fromElements(elements: Array<Element>): Rectangle;
+
+        fromRects(rects: Rectangle[]): Rectangle;
     }
 
     /**
@@ -181,8 +187,8 @@ declare namespace sat {
 
         union(other: Rectangle): Rectangle;
 
-        findBoundingRectangle(elements: Array<Element>): Rectangle;
 
+        rotate(angle: number, whichCorner?: Corner): Rectangle;
 
     }
 
