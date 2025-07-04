@@ -1,8 +1,8 @@
 /**
- * @file: 10.位图转矢量.jsfl
+ * @file: 20.复制滤镜.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
- * @date: 2025/7/3 21:19
+ * @date: 2025/7/4 20:36
  * @project: AnJsflScript
  * @description:
  */
@@ -12,11 +12,10 @@
 "undefined"==typeof require&&fl.runScript(function(){var r=fl.scriptURI.match(/(?:^|.*[\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\/]|$)/)[1],t=fl.scriptURI.match(r);if(t){var n=t[0],i=fl.scriptURI.lastIndexOf(n);return fl.scriptURI.substring(0,i+n.length)}throw new Error("Can't find project path ["+fl.scriptURI+"]")}()+"/config/require/CheckEnvironment.jsfl");
 // @formatter:on
 
-require(["checkUtil", "loglevel", "ElementChecker"], function (checkUtil, log, ec) {
+require(["checkUtil", "loglevel", "store-js"], function (checkUtil, log, store) {
     const { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } =
         checkUtil;
 
-    const { IsBitmap } = ec;
     // region doc
     var doc = fl.getDocumentDOM(); //文档
     if (!CheckDom(doc)) return;
@@ -33,10 +32,11 @@ require(["checkUtil", "loglevel", "ElementChecker"], function (checkUtil, log, e
     var curFrameIndex = timeline.currentFrame; //当前帧索引
     var curFrame = frames[curFrameIndex]; //当前帧
 
-    // // 获取第一帧
-    // var selectedFrames = CheckSelectedFrames(timeline);
-    // if (!selectedFrames) return;
-    // const { firstSlLayerIndex, firstSlFrameIndex } = selectedFrames;
+    // 获取第一帧
+    var selectedFrames = CheckSelectedFrames(timeline);
+    if (!selectedFrames) return;
+    const { firstSlLayerIndex, firstSlFrameIndex, firstSlLayer, firstSlFrame } =
+        selectedFrames;
 
     // 检查选择的元件
     if (!CheckSelection(selection, "selectElement", "No limit")) return;
@@ -46,15 +46,14 @@ require(["checkUtil", "loglevel", "ElementChecker"], function (checkUtil, log, e
     // if (!selectedLayers) return;
     // endregion doc
 
-    function Main() {
-        var element = doc.selection[0]; //选择
-        if (!IsBitmap(element)) {
-            fl.trace("请选择位图");
-            return;
-        }
+    const ns_store = store.namespace("20-复制滤镜");
 
-        // “ 修改 ”>“ 位图 ”>“ 跟踪位图 ”(转矢量)
-        doc.traceBitmap(50, 100, "normal", "normal");
+    function Main() {
+        var filters = firstSlLayer.getFiltersAtFrame(firstSlFrameIndex);
+
+        // log.info("filters: ", filters);
+        ns_store.remove("FILTERS");
+        ns_store.set("FILTERS", filters);
     }
 
     Main();

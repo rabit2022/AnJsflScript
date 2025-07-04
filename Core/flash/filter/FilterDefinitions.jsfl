@@ -851,6 +851,17 @@ define(["SObject", "FUNC"], function (so, FUNC) {
     };
 
     /**
+     * 设置模糊量（单位为像素）
+     * @param {number} blur 模糊量（单位为像素）
+     * @returns {DropShadowFilterBuilder}
+     */
+    DropShadowFilterBuilder.prototype.setBlur = function (blur) {
+        this.filter.blurX = blur;
+        this.filter.blurY = blur;
+        return this;
+    };
+
+    /**
      * 设置阴影与对象之间的距离（单位为像素）
      * @param {number} distance 阴影与对象之间的距离（单位为像素）
      * @returns {DropShadowFilterBuilder}
