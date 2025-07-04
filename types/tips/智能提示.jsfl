@@ -106,3 +106,11 @@ Shape.prototype.getCustomFill = function() {
 Shape.prototype.setCustomFill = function(customFill) {
 };
 
+/**
+ * @since Animate 2020
+ * @param {number} frameIndex
+ * @param {"normal"|"layer"|"multiply"|"screen"|"overlay"|"hardlight"|"lighten"|"darken"|"difference"|"add"|"subtract"|"invert"|"alpha"|"erase"} blendModeString
+ */
+Layer.prototype.setBlendModeAtFrame = function (frameIndex, blendModeString) {
+};
+
