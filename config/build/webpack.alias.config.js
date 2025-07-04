@@ -110,7 +110,8 @@ var alias = {
     "document-cookie": path.resolve(dirname, "Third/custom/document-cookie/document-cookie"),
     // "StringPaser": "Core/flash/panel/StringPaser",
     "StringPaser": path.resolve(dirname, "Core/flash/panel/StringPaser"),
-
+    // "ColorTransformDefinitions": "Core/flash/ColorTransformDefinitions",
+    "ColorTransformDefinitions": path.resolve(dirname, "Core/flash/ColorTransformDefinitions"),
 
 };
 // console.log(alias);
