@@ -1,0 +1,195 @@
+<?xml version="1.0"?>
+<dialog id="dialog" title=" 选择颜色" buttons="accept,cancel">
+    <content>
+        <grid>
+            <columns id="columns">
+                <column flex="1"/>
+                <column flex="2"/>
+            </columns>
+            <rows id="controls">
+                <row template="menulist">
+                    <label value="bug : " width="100"/>
+                    <menulist class="control" id="bug" editable="" width="180" flex="1" tabindex=""
+                              oncreate="if(window.xjsfl)xjsfl.ui.handleEvent('0', 'create', 'bug');"
+                              onsetfocus="if(window.xjsfl)xjsfl.ui.handleEvent('0', 'setfocus', 'bug');"
+                              onchange="if(window.xjsfl)xjsfl.ui.handleEvent('0', 'change', 'bug');">
+                        <menupop class="control" id="menupop">
+                            <menuitem label="只能tab选中,第一个无法被鼠标选中," value="bug" selected="true"/>
+                        </menupop>
+                    </menulist>
+                </row>
+                <row template="menulist">
+                    <label value="选择颜色 : " width="100"/>
+                    <menulist class="control" id="select_color" editable="" width="180" flex="1" tabindex=""
+                              oncreate="if(window.xjsfl)xjsfl.ui.handleEvent('0', 'create', 'select_color');"
+                              onsetfocus="if(window.xjsfl)xjsfl.ui.handleEvent('0', 'setfocus', 'select_color');"
+                              onchange="if(window.xjsfl)xjsfl.ui.handleEvent('0', 'change', 'select_color');">
+                        <menupop class="control" id="menupop">
+                            <menuitem label="爱丽丝蓝" value="#f0f8ff" selected="true"/>
+                            <menuitem label="古董白" value="#faebd7"/>
+                            <menuitem label="水绿色" value="#00ffff"/>
+                            <menuitem label="碧绿色" value="#7fffd4"/>
+                            <menuitem label="天蓝色" value="#f0ffff"/>
+                            <menuitem label="米色" value="#f5f5dc"/>
+                            <menuitem label="桔黄色" value="#ffe4c4"/>
+                            <menuitem label="黑色" value="#000000"/>
+                            <menuitem label="杏仁白" value="#ffebcd"/>
+                            <menuitem label="蓝色" value="#0000ff"/>
+                            <menuitem label="蓝紫罗兰" value="#8a2be2"/>
+                            <menuitem label="棕色" value="#a52a2a"/>
+                            <menuitem label="栗木色" value="#deb887"/>
+                            <menuitem label="军校蓝" value="#5f9ea0"/>
+                            <menuitem label="查特酒绿" value="#7fff00"/>
+                            <menuitem label="巧克力色" value="#d2691e"/>
+                            <menuitem label="珊瑚色" value="#ff7f50"/>
+                            <menuitem label="矢车菊蓝" value="#6495ed"/>
+                            <menuitem label="玉米丝色" value="#fff8dc"/>
+                            <menuitem label="深红色" value="#dc143c"/>
+                            <menuitem label="青色" value="#00ffff"/>
+                            <menuitem label="深蓝色" value="#00008b"/>
+                            <menuitem label="深青色" value="#008b8b"/>
+                            <menuitem label="深金菊黄" value="#b8860b"/>
+                            <menuitem label="深灰色" value="#a9a9a9"/>
+                            <menuitem label="深绿色" value="#006400"/>
+                            <menuitem label="深灰色" value="#a9a9a9"/>
+                            <menuitem label="深卡其色" value="#bdb76b"/>
+                            <menuitem label="深品红" value="#8b008b"/>
+                            <menuitem label="深橄榄绿" value="#556b2f"/>
+                            <menuitem label="深橙色" value="#ff8c00"/>
+                            <menuitem label="深兰花紫" value="#9932cc"/>
+                            <menuitem label="深红色" value="#8b0000"/>
+                            <menuitem label="深鲑鱼色" value="#e9967a"/>
+                            <menuitem label="深海绿" value="#8fbc8f"/>
+                            <menuitem label="深蓝宝石" value="#483d8b"/>
+                            <menuitem label="深石板灰" value="#2f4f4f"/>
+                            <menuitem label="深石板灰" value="#2f4f4f"/>
+                            <menuitem label="深绿宝石" value="#00ced1"/>
+                            <menuitem label="深紫罗兰" value="#9400d3"/>
+                            <menuitem label="深粉红" value="#ff1493"/>
+                            <menuitem label="深天蓝" value="#00bfff"/>
+                            <menuitem label="暗灰色" value="#696969"/>
+                            <menuitem label="暗灰色" value="#696969"/>
+                            <menuitem label="道奇蓝" value="#1e90ff"/>
+                            <menuitem label="火砖色" value="#b22222"/>
+                            <menuitem label="花白色" value="#fffaf0"/>
+                            <menuitem label="森林绿" value="#228b22"/>
+                            <menuitem label="洋红色" value="#ff00ff"/>
+                            <menuitem label="淡灰色" value="#dcdcdc"/>
+                            <menuitem label="幽灵白" value="#f8f8ff"/>
+                            <menuitem label="金色" value="#ffd700"/>
+                            <menuitem label="金菊黄" value="#daa520"/>
+                            <menuitem label="灰色" value="#808080"/>
+                            <menuitem label="绿色" value="#008000"/>
+                            <menuitem label="查特酒绿" value="#adff2f"/>
+                            <menuitem label="灰色" value="#808080"/>
+                            <menuitem label="蜂蜜白" value="#f0fff0"/>
+                            <menuitem label="热粉红" value="#ff69b4"/>
+                            <menuitem label="印第安红" value="#cd5c5c"/>
+                            <menuitem label="靛蓝" value="#4b0082"/>
+                            <menuitem label="象牙白" value="#fffff0"/>
+                            <menuitem label="卡其色" value="#f0e68c"/>
+                            <menuitem label="激光柠檬" value="#ffff54"/>
+                            <menuitem label="薰衣草色" value="#e6e6fa"/>
+                            <menuitem label="薰衣草粉" value="#fff0f5"/>
+                            <menuitem label="草地绿" value="#7cfc00"/>
+                            <menuitem label="柠檬绸" value="#fffacd"/>
+                            <menuitem label="浅蓝色" value="#add8e6"/>
+                            <menuitem label="浅珊瑚色" value="#f08080"/>
+                            <menuitem label="浅青色" value="#e0ffff"/>
+                            <menuitem label="浅金菊黄" value="#fafad2"/>
+                            <menuitem label="浅金菊黄" value="#fafad2"/>
+                            <menuitem label="浅灰色" value="#d3d3d3"/>
+                            <menuitem label="浅绿色" value="#90ee90"/>
+                            <menuitem label="浅灰色" value="#d3d3d3"/>
+                            <menuitem label="浅粉色" value="#ffb6c1"/>
+                            <menuitem label="浅鲑鱼色" value="#ffa07a"/>
+                            <menuitem label="浅海绿" value="#20b2aa"/>
+                            <menuitem label="浅天蓝" value="#87cefa"/>
+                            <menuitem label="浅石板灰" value="#778899"/>
+                            <menuitem label="浅石板灰" value="#778899"/>
+                            <menuitem label="浅钢蓝" value="#b0c4de"/>
+                            <menuitem label="浅黄色" value="#ffffe0"/>
+                            <menuitem label="酸橙绿" value="#00ff00"/>
+                            <menuitem label="酸橙绿" value="#32cd32"/>
+                            <menuitem label="亚麻布" value="#faf0e6"/>
+                            <menuitem label="品红" value="#ff00ff"/>
+                            <menuitem label="栗色" value="#800000"/>
+                            <menuitem label="栗色2" value="#7f0000"/>
+                            <menuitem label="栗色3" value="#b03060"/>
+                            <menuitem label="中等碧绿色" value="#66cdaa"/>
+                            <menuitem label="中等蓝色" value="#0000cd"/>
+                            <menuitem label="中等兰花紫" value="#ba55d3"/>
+                            <menuitem label="中等紫色" value="#9370db"/>
+                            <menuitem label="中等海绿" value="#3cb371"/>
+                            <menuitem label="中等石板蓝" value="#7b68ee"/>
+                            <menuitem label="中等春绿" value="#00fa9a"/>
+                            <menuitem label="中等绿宝石" value="#48d1cc"/>
+                            <menuitem label="中等紫罗兰红" value="#c71585"/>
+                            <menuitem label="午夜蓝" value="#191970"/>
+                            <menuitem label="薄荷奶油" value="#f5fffa"/>
+                            <menuitem label="薄雾玫瑰" value="#ffe4e1"/>
+                            <menuitem label="鹿皮色" value="#ffe4b5"/>
+                            <menuitem label="纳瓦霍白" value="#ffdead"/>
+                            <menuitem label="海军蓝" value="#000080"/>
+                            <menuitem label="老花边" value="#fdf5e6"/>
+                            <menuitem label="橄榄色" value="#808000"/>
+                            <menuitem label="橄榄绿" value="#6b8e23"/>
+                            <menuitem label="橙色" value="#ffa500"/>
+                            <menuitem label="橙红色" value="#ff4500"/>
+                            <menuitem label="兰花紫" value="#da70d6"/>
+                            <menuitem label="淡金菊黄" value="#eee8aa"/>
+                            <menuitem label="淡绿色" value="#98fb98"/>
+                            <menuitem label="淡绿宝石" value="#afeeee"/>
+                            <menuitem label="淡紫罗兰红" value="#db7093"/>
+                            <menuitem label="木瓜色" value="#ffefd5"/>
+                            <menuitem label="桃色" value="#ffdab9"/>
+                            <menuitem label="秘鲁色" value="#cd853f"/>
+                            <menuitem label="粉色" value="#ffc0cb"/>
+                            <menuitem label="李子色" value="#dda0dd"/>
+                            <menuitem label="粉末蓝" value="#b0e0e6"/>
+                            <menuitem label="紫色" value="#800080"/>
+                            <menuitem label="紫色2" value="#7f007f"/>
+                            <menuitem label="紫色3" value="#a020f0"/>
+                            <menuitem label="丽贝卡紫" value="#663399"/>
+                            <menuitem label="红色" value="#ff0000"/>
+                            <menuitem label="玫瑰棕色" value="#bc8f8f"/>
+                            <menuitem label="皇家蓝" value="#4169e1"/>
+                            <menuitem label="马鞍棕色" value="#8b4513"/>
+                            <menuitem label="鲑鱼色" value="#fa8072"/>
+                            <menuitem label="沙棕色" value="#f4a460"/>
+                            <menuitem label="海绿色" value="#2e8b57"/>
+                            <menuitem label="贝壳白" value="#fff5ee"/>
+                            <menuitem label="赭石色" value="#a0522d"/>
+                            <menuitem label="银色" value="#c0c0c0"/>
+                            <menuitem label="天蓝色" value="#87ceeb"/>
+                            <menuitem label="石板蓝" value="#6a5acd"/>
+                            <menuitem label="石板灰" value="#708090"/>
+                            <menuitem label="石板灰" value="#708090"/>
+                            <menuitem label="雪白" value="#fffafa"/>
+                            <menuitem label="春绿色" value="#00ff7f"/>
+                            <menuitem label="钢蓝" value="#4682b4"/>
+                            <menuitem label="茶色" value="#d2b48c"/>
+                            <menuitem label="水绿色" value="#008080"/>
+                            <menuitem label="蓟色" value="#d8bfd8"/>
+                            <menuitem label="番茄红" value="#ff6347"/>
+                            <menuitem label="绿宝石" value="#40e0d0"/>
+                            <menuitem label="紫罗兰色" value="#ee82ee"/>
+                            <menuitem label="小麦色" value="#f5deb3"/>
+                            <menuitem label="白色" value="#ffffff"/>
+                            <menuitem label="白烟色" value="#f5f5f5"/>
+                            <menuitem label="黄色" value="#ffff00"/>
+                            <menuitem label="黄绿色" value="#9acd32"/>
+                        </menupop>
+                    </menulist>
+                </row>
+            </rows>
+        </grid>
+    </content>
+    <script>
+        if(window.xjsfl)
+        {
+        xjsfl.ui.handleEvent(0, 'initialize');
+        }
+    </script>
+    <property id="xulid" value="0"/>
+</dialog>

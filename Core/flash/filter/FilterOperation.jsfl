@@ -15,7 +15,7 @@ define(function () {
      * @param {Number} frameIndex 帧索引
      * @param {Number} blurX x轴模糊值
      * @param {Number} blurY y轴模糊值
-     * @param {'low'|'medium'|'high'} strength 可选品质
+     * @param {"low"|"medium"|"high"} strength 可选品质
      * @see https://gitee.com/ninge/WindowSWF/tree/master/
      * @deprecated 已弃用，请使用 {@link FilterDefinitions.BlurFilter}
      */
@@ -51,8 +51,16 @@ define(function () {
         // 获取当前帧的滤镜数组，如果不存在则初始化为空数组
         var filters = layer.getFiltersAtFrame(frameIndex) || [];
 
-        // 将新滤镜添加到数组中
-        filters.push(filter);
+        // 如果滤镜名称已存在，则替换掉原滤镜
+        var index = filters.findIndex(function (item) {
+            return item.name === filter.name;
+        });
+        if (index !== -1) {
+            filters[index] = filter;
+        } else {
+            // 将新滤镜添加到数组中
+            filters.push(filter);
+        }
 
         // 将更新后的滤镜数组设置回指定帧
         layer.setFiltersAtFrame(frameIndex, filters);
@@ -76,6 +84,7 @@ define(function () {
         }
         layer.setFiltersAtFrame(frameIndex, filters);
     }
+
     return {
         /**
          * @deprecated 已弃用，请使用 {@link FilterDefinitions.BlurFilter}

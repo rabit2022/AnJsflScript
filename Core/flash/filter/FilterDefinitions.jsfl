@@ -60,6 +60,7 @@ define(["SObject", "FUNC"], function (so, FUNC) {
          */
         this.enabled = true;
     }
+
     INHERIT_MACRO(BaseFilter, SObject);
 
     /**
@@ -84,6 +85,7 @@ define(["SObject", "FUNC"], function (so, FUNC) {
         SObject.call(this, arguments);
         this.filter = new BaseFilter();
     }
+
     INHERIT_MACRO(BaseFilterBuilder, SObject);
 
     /**
@@ -200,6 +202,7 @@ define(["SObject", "FUNC"], function (so, FUNC) {
         BaseFilterBuilder.call(this, arguments);
         this.filter = new AdjustColorFilter();
     }
+
     INHERIT_MACRO(AdjustColorFilterBuilder, BaseFilterBuilder);
 
     /**
@@ -410,6 +413,7 @@ define(["SObject", "FUNC"], function (so, FUNC) {
         BaseFilterBuilder.call(this, arguments);
         this.filter = new BevelFilter();
     }
+
     INHERIT_MACRO(BevelFilterBuilder, BaseFilterBuilder);
 
     /**
@@ -617,6 +621,7 @@ define(["SObject", "FUNC"], function (so, FUNC) {
         BaseFilterBuilder.call(this, arguments);
         this.filter = new BlurFilter();
     }
+
     INHERIT_MACRO(BlurFilterBuilder, BaseFilterBuilder);
 
     /**
@@ -818,6 +823,7 @@ define(["SObject", "FUNC"], function (so, FUNC) {
         BaseFilterBuilder.call(this, arguments);
         this.filter = new DropShadowFilter();
     }
+
     INHERIT_MACRO(DropShadowFilterBuilder, BaseFilterBuilder);
 
     /**
@@ -1061,6 +1067,7 @@ define(["SObject", "FUNC"], function (so, FUNC) {
         BaseFilterBuilder.call(this, arguments);
         this.glowFilter = new GlowFilter();
     }
+
     INHERIT_MACRO(GlowFilterBuilder, BaseFilterBuilder);
 
     FILTER_BUILDERS["GlowFilterBuilder"] = GlowFilterBuilder;
@@ -1094,6 +1101,7 @@ define(["SObject", "FUNC"], function (so, FUNC) {
         this.glowFilter.blurY = blur;
         return this;
     };
+
     /**
      * 设置高光颜色
      * @param {string|number} color 高光颜色
@@ -1103,6 +1111,7 @@ define(["SObject", "FUNC"], function (so, FUNC) {
         this.glowFilter.color = color;
         return this;
     };
+
     /**
      * 设置滤镜的百分比强度
      * @param {number} strength 滤镜的百分比强度
@@ -1285,6 +1294,7 @@ define(["SObject", "FUNC"], function (so, FUNC) {
         BaseFilterBuilder.call(this, arguments);
         this.gradientBevelFilter = new GradientBevelFilter();
     }
+
     INHERIT_MACRO(GradientBevelFilterBuilder, BaseFilterBuilder);
 
     FILTER_BUILDERS["GradientBevelFilterBuilder"] = GradientBevelFilterBuilder;
@@ -1495,6 +1505,7 @@ define(["SObject", "FUNC"], function (so, FUNC) {
         BaseFilterBuilder.call(this, arguments);
         this.gradientGlowFilter = new GradientGlowFilter();
     }
+
     INHERIT_MACRO(GradientGlowFilterBuilder, BaseFilterBuilder);
 
     FILTER_BUILDERS["GradientGlowFilterBuilder"] = GradientGlowFilterBuilder;
@@ -1532,6 +1543,7 @@ define(["SObject", "FUNC"], function (so, FUNC) {
     /**
      * 设置指定斜角或发光的类型
      * @param {string} type 指定斜角或发光的类型
+     * @returns {GradientGlowFilterBuilder}
      * @returns {GradientGlowFilterBuilder}
      */
     GradientGlowFilterBuilder.prototype.setType = function (type) {
