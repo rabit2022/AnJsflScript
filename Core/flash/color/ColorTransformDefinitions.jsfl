@@ -7,12 +7,20 @@
  * @description:
  */
 
-define(["SObject", "FUNC"], function (so, FUNC) {
+define(["SObject", "FUNC", "chroma-js", "ElementSelect"], function (
+    so,
+    FUNC,
+    chroma,
+    es
+) {
     const { SObject } = so;
     const { INHERIT_MACRO } = FUNC;
 
+    const { SelectAll } = es;
+
     var COLOR_TRANSFORM = {};
     var COLOR_TRANSFORM_BUILDERS = {};
+    var COLOR_TRANSFORM_INSTANCES = {};
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______     ______     ______     ______     ______     ______     __         ______     ______
     // /\  == \   /\  __ \   /\  ___\   /\  ___\   /\  ___\   /\  __ \   /\ \       /\  __ \   /\  == \
@@ -155,6 +163,21 @@ define(["SObject", "FUNC"], function (so, FUNC) {
     COLOR_TRANSFORM["NoneColorTransform"] = NoneColorTransform;
     // endregion NoneColorTransform
 
+    // region setInstanceNone
+    function setInstanceNone(elements) {
+        if (!Array.isArray(elements)) {
+            elements = [elements];
+        }
+
+        elements.forEach(function (element) {
+            element.colorMode = "none";
+        });
+    }
+
+    COLOR_TRANSFORM_INSTANCES["setInstanceNone"] = setInstanceNone;
+
+    // endregion setInstanceNone
+
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______     ______     __     ______     __  __     ______   __   __     ______     ______
     // /\  == \   /\  == \   /\ \   /\  ___\   /\ \_\ \   /\__  _\ /\ "-.\ \   /\  ___\   /\  ___\
@@ -210,6 +233,20 @@ define(["SObject", "FUNC"], function (so, FUNC) {
     };
     // endregion BrightnessColorTransformBuilder
 
+    // region setInstanceBrightness
+    function setInstanceBrightness(elements, brightness) {
+        if (!Array.isArray(elements)) {
+            elements = [elements];
+        }
+        SelectAll(elements);
+
+        var doc = fl.getDocumentDOM(); //文档
+        doc.setInstanceBrightness(brightness);
+    }
+
+    COLOR_TRANSFORM_INSTANCES["setInstanceBrightness"] = setInstanceBrightness;
+
+    // endregion setInstanceBrightness
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______   __     __   __     ______   ______     ______     __         ______     ______
     // /\__  _\ /\ \   /\ "-.\ \   /\__  _\ /\  ___\   /\  __ \   /\ \       /\  __ \   /\  == \
@@ -290,7 +327,39 @@ define(["SObject", "FUNC"], function (so, FUNC) {
         this.colorTransform.tintBlue = tintBlue;
         return this;
     };
+
+    TintColorTransformBuilder.prototype.setInstanceTint = function (color, strength) {
+        const { red, green, blue } = chroma(color).rgb();
+        this.colorTransform.tintRed = red;
+        this.colorTransform.tintGreen = green;
+        this.colorTransform.tintBlue = blue;
+
+        this.colorTransform.tintPercent = strength;
+        return this;
+    };
+
     // endregion TintColorTransformBuilder
+
+    // region setInstanceTint
+    function setInstanceTint(elements, color, strength) {
+        if (!Array.isArray(elements)) {
+            elements = [elements];
+        }
+        SelectAll(elements);
+
+        var doc = fl.getDocumentDOM(); //文档
+        doc.setInstanceTint(color, strength);
+    }
+
+    function setInstanceTintRGB(elements, tintPercent, tintRed, tintGreen, tintBlue) {
+        const color = chroma.rgb(tintRed, tintGreen, tintBlue).hex();
+        setInstanceTint(elements, color, tintPercent);
+    }
+
+    COLOR_TRANSFORM_INSTANCES["setInstanceTint"] = setInstanceTint;
+    COLOR_TRANSFORM_INSTANCES["setInstanceTintRGB"] = setInstanceTintRGB;
+
+    // endregion setInstanceTint
 
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______     _____     __   __   ______     __   __     ______     ______     _____     ______
@@ -319,7 +388,7 @@ define(["SObject", "FUNC"], function (so, FUNC) {
         /**
          * 色彩效果
          * @type {string}
-         * @values ["none", "tint", "brightness", "alpha", "color"]
+         * @values ["none", "tint", "brightness", "alpha", "advanced"]
          */
         this.mode = "Advanced";
         /**
@@ -459,7 +528,100 @@ define(["SObject", "FUNC"], function (so, FUNC) {
     };
     // endregion AdvancedColorTransformBuilder
 
+    // region setInstanceAdvancedColor
+    function setInstanceAdvancedColor(elements, advancedColorTransform) {
+        if (!Array.isArray(elements)) {
+            elements = [elements];
+        }
+
+        SelectAll(elements);
+
+        elements.forEach(function (element) {
+            element.colorMode = "advanced";
+
+            element.colorAlphaAmount = advancedColorTransform.colorAlphaAmount;
+            element.colorAlphaPercent = advancedColorTransform.colorAlphaPercent;
+            element.colorRedAmount = advancedColorTransform.colorRedAmount;
+            element.colorRedPercent = advancedColorTransform.colorRedPercent;
+            element.colorGreenAmount = advancedColorTransform.colorGreenAmount;
+            element.colorGreenPercent = advancedColorTransform.colorGreenPercent;
+            element.colorBlueAmount = advancedColorTransform.colorBlueAmount;
+            element.colorBluePercent = advancedColorTransform.colorBluePercent;
+        });
+    }
+
+    COLOR_TRANSFORM_INSTANCES["setInstanceAdvancedColor"] = setInstanceAdvancedColor;
+    // endregion setInstanceAdvancedColor
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //  ______     __         ______   __  __     ______     ______     ______
+    // /\  __ \   /\ \       /\  == \ /\ \_\ \   /\  __ \   /\  ___\   /\  __ \
+    // \ \  __ \  \ \ \____  \ \  _-/ \ \  __ \  \ \  __ \  \ \ \____  \ \ \/\ \
+    //  \ \_\ \_\  \ \_____\  \ \_\    \ \_\ \_\  \ \_\ \_\  \ \_____\  \ \_____\
+    //   \/_/\/_/   \/_____/   \/_/     \/_/\/_/   \/_/\/_/   \/_____/   \/_____/
+    //
+    //  __         ______     ______     ______   ______     ______     __   __
+    // /\ \       /\  __ \   /\  == \   /\__  _\ /\  == \   /\  __ \   /\ "-.\ \
+    // \ \ \____  \ \ \/\ \  \ \  __<   \/_/\ \/ \ \  __<   \ \  __ \  \ \ \-.  \
+    //  \ \_____\  \ \_____\  \ \_\ \_\    \ \_\  \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\
+    //   \/_____/   \/_____/   \/_/ /_/     \/_/   \/_/ /_/   \/_/\/_/   \/_/ \/_/
+    //
+    //  ______     ______   ______     ______     __    __
+    // /\  ___\   /\  ___\ /\  __ \   /\  == \   /\ "-./  \
+    // \ \___  \  \ \  __\ \ \ \/\ \  \ \  __<   \ \ \-./\ \
+    //  \/\_____\  \ \_\    \ \_____\  \ \_\ \_\  \ \_\ \ \_\
+    //   \/_____/   \/_/     \/_____/   \/_/ /_/   \/_/  \/_/
+    //
+    // ------------------------------------------------------------------------------------------------------------------------
+    // AlphaColorTransform
+    // region AlphaColorTransform
+    function AlphaColorTransform() {
+        BaseColorTransform.call(this, "Alpha");
+        /**
+         * 透明度
+         * @type {number}
+         * @range [0, 100]
+         * @default 100
+         */
+        this.alphaPercent = 100;
+    }
+
+    INHERIT_MACRO(AlphaColorTransform, BaseColorTransform);
+    COLOR_TRANSFORM["AlphaColorTransform"] = AlphaColorTransform;
+    // endregion AlphaColorTransform
+
+    // region AlphaColorTransformBuilder
+    function AlphaColorTransformBuilder() {
+        BaseColorTransformBuilder.call(this);
+        this.colorTransform = new AlphaColorTransform();
+    }
+
+    INHERIT_MACRO(AlphaColorTransformBuilder, BaseColorTransformBuilder);
+    COLOR_TRANSFORM_BUILDERS["AlphaColorTransformBuilder"] = AlphaColorTransformBuilder;
+
+    AlphaColorTransformBuilder.prototype.setAlphaPercent = function (alphaPercent) {
+        this.colorTransform.alphaPercent = alphaPercent;
+        return this;
+    };
+    // endregion AlphaColorTransformBuilder
+
+    // region setInstanceAlpha
+    function setInstanceAlpha(elements, alphaPercent) {
+        if (!Array.isArray(elements)) {
+            elements = [elements];
+        }
+
+        SelectAll(elements);
+
+        var doc = fl.getDocumentDOM(); //文档
+        doc.setInstanceAlpha(alphaPercent);
+    }
+
+    COLOR_TRANSFORM_INSTANCES["setInstanceAlpha"] = setInstanceAlpha;
+    // endregion setInstanceAlpha
+
     COLOR_TRANSFORM["BUILDERS"] = COLOR_TRANSFORM_BUILDERS;
+    COLOR_TRANSFORM["INSTANCES"] = COLOR_TRANSFORM_INSTANCES;
 
     return COLOR_TRANSFORM;
 });

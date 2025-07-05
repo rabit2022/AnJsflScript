@@ -10,7 +10,7 @@
 define(["SAT"], function ({ Rectangle }) {
     /**
      * 获取element的名称
-     * @param {Element} element 元素
+     * @param {Element|Item|Layer} element 元素
      * @returns {string} 名称
      */
     function getName(element) {

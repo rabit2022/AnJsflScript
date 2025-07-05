@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<dialog title='一键阴影' buttons='accept, cancel'>
+    <vbox>
+        <label value='选择人物朝向：'/>
+        <radiogroup id='direction'>
+            <hbox>
+                <radio label='左' value='left'/>
+                <radio label='右' value='right'/>
+            </hbox>
+        </radiogroup>
+        <separator/>
+    </vbox>
+</dialog>

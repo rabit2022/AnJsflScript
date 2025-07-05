@@ -83,6 +83,8 @@ define(["linqUtil", "chroma-js"], function (linqUtil, chroma) {
      */
     function parseDirection(inputDirection, tipDictionary) {
         // var inputDirection = dialog.direction;
+        // console.log(inputDirection);
+
         if (tipDictionary === null) {
             tipDictionary = { 右: 1, 左: -1, " ": -1 };
         }
