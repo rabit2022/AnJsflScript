@@ -125,7 +125,7 @@ require.config({
         "LayerList": "Core/flash/Context/Layer/LayerList",
         // H:\project\沙雕动画\AnJsflScript\Core\flash\panel\StringPaser.jsfl
         "StringPaser": "Core/flash/panel/StringPaser",
-        // H:\project\沙雕动画\AnJsflScript\Core\flash\Context\Layer\ColorTransformDefinitions.jsfl
-        "ColorTransformDefinitions": "Core/flash/ColorTransformDefinitions",
+        //H:\project\沙雕动画\AnJsflScript\Core\flash\color\ColorTransformDefinitions.jsfl
+        "ColorTransformDefinitions": "Core/flash/color/ColorTransformDefinitions",
     }, packages: []
 });
