@@ -56,7 +56,7 @@ require([
     // endregion doc
 
     //本地缓存路径
-    const LOCAL_CACHE_PATH = window.AnJsflScript.$ProjectFileDir$ + "/cache/";
+    const LOCAL_CACHE_PATH = window.AnJsflScript.FOLDERS.Cache;
     if (!os.path.exists(LOCAL_CACHE_PATH)) {
         os.mkdir(LOCAL_CACHE_PATH);
     }

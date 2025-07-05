@@ -29,6 +29,12 @@
          */
         window.AnJsflScript.$ProjectFileDir$ = getcwd();
 
+        window.AnJsflScript.FOLDERS={
+            "Log":window.AnJsflScript.$ProjectFileDir$ + "/Log",// console.log 输出日志
+            "Cache":window.AnJsflScript.$ProjectFileDir$ + "/Cache",// 12.#磁力粘贴.jsfl,缓存文件夹
+            "AsciiArtLibrary":window.AnJsflScript.$ProjectFileDir$ + "/config/ascii_art_library",// 02.排兵布阵_ascii_art.jsfl 字体库文件夹
+        }
+
         // 导入Promise模块
         // require会被babel翻译为Promise,导致报错
         /* provided dependency */ var Promise = __webpack_require__(/*! es6-promise */ "../../Third/polyfill/es6-promise-4.6.8/es6-promise.auto.jsfl")["Promise"];

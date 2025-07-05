@@ -40,11 +40,12 @@ require([
     // endregion doc
 
     // 资源文件夹路径ascii_art_library
-    const ASCII_ART_LIBRARY_PATH = os.path.join(
-        window.AnJsflScript.$ProjectFileDir$,
-        "./config/ascii_art_library/"
-    );
-    log.info("ASCII_ART_LIBRARY_PATH:", ASCII_ART_LIBRARY_PATH);
+    // const ASCII_ART_LIBRARY_PATH = os.path.join(
+    //     window.AnJsflScript.$ProjectFileDir$,
+    //     "./config/ascii_art_library/"
+    // );
+    // log.info("ASCII_ART_LIBRARY_PATH:", ASCII_ART_LIBRARY_PATH);
+    const ASCII_ART_LIBRARY_PATH = window.AnJsflScript.FOLDERS.AsciiArtLibrary;
 
     function Main() {
         // 检查选择的元件

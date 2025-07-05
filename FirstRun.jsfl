@@ -109,6 +109,14 @@
          */
         window.AnJsflScript.$ProjectFileDir$ = getcwd();
 
+        window.AnJsflScript.FOLDERS = {
+            Log: window.AnJsflScript.$ProjectFileDir$ + "/config/Log", // console.log 输出日志
+            Cache: window.AnJsflScript.$ProjectFileDir$ + "/config/Cache", // 12.#磁力粘贴.jsfl,缓存文件夹
+            AsciiArtLibrary:
+                window.AnJsflScript.$ProjectFileDir$ + "/config/ascii_art_library", // 02.排兵布阵_ascii_art.jsfl 字体库文件夹
+            Save: window.AnJsflScript.$ProjectFileDir$ + "/config/Save" // 存档文件夹
+        };
+
         var config = {
             "require-js": "Third/modules/requirejs-2.3.7/require-js"
         };
