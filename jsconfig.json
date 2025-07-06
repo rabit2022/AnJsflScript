@@ -18,7 +18,6 @@
       "console": ["Third/custom/xjsfl/console"],
       "JSFLConstants": ["Third/custom/xjsfl/JSFLConstants"],
       "SObject": ["Third/custom/Object/SObject"],
-      "store-js": ["Third/utils/store-js-2.0.4/store-js"],
 
 
       "BitmapOperation": ["Core/flash/Bitmap/BitmapOperation"],

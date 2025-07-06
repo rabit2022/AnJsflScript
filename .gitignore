@@ -9,16 +9,17 @@ test/**
 node_modules/**
 
 # 日志文件
-Logs/**
+**/Log/**
 **.log
 
 # 与 Adobe 的 Creative Suite 扩展（CEP）相关，是程序运行过程中生成的临时文件
 EvalScript error.tmp/**
 
 # 缓存文件
-cache/**
+**/Cache/**
 .eslintcache
 ~$计划更新.xlsx
+**/Save/**
 
 # dist
 dist/**

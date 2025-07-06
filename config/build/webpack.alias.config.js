@@ -27,7 +27,7 @@ var alias = {
     "circular-json": path.resolve(dirname, "Third/json/circular-json-0.5.9/circular-json.amd"),
     "json3": path.resolve(dirname, "Third/json/json3-3.3.3/json3"),
     "loglevel": path.resolve(dirname, "Third/log/loglevel-1.9.2/loglevel"),
-    "mathjs": path.resolve(dirname, "Third/math/mathjs-14.5.2/mathjs"),
+    // "mathjs": path.resolve(dirname, "Third/math/mathjs-14.5.2/mathjs"),
     "numjs": path.resolve(dirname, "Third/math/numjs-0.16.1/numjs"),
     "path-browserify": path.resolve(dirname, "Third/modules/path-browserify-1.0.1/path-browserify"),
     "require-js": path.resolve(dirname, "Third/modules/requirejs-2.3.7/require-js"),
@@ -112,6 +112,9 @@ var alias = {
     "StringPaser": path.resolve(dirname, "Core/flash/panel/StringPaser"),
     // "ColorTransformDefinitions": "Core/flash/color/ColorTransformDefinitions",
     "ColorTransformDefinitions": path.resolve(dirname, "Core/flash/color/ColorTransformDefinitions"),
+    // H:\project\沙雕动画\AnJsflScript\Third\time\luxon-3.6.1\luxon.jsfl
+    "luxon": path.resolve(dirname, "Third/time/luxon-3.6.1/luxon"),
+
 
 };
 // console.log(alias);

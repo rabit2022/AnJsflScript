@@ -37,7 +37,7 @@ require.config({
         "circular-json": "Third/json/circular-json-0.5.9/circular-json.amd",
         "json3": "Third/json/json3-3.3.3/json3",
         "loglevel": "Third/log/loglevel-1.9.2/loglevel",
-        "mathjs": "Third/math/mathjs-14.5.2/mathjs",
+        // "mathjs": "Third/math/mathjs-14.5.2/mathjs",
         "numjs": "Third/math/numjs-0.16.1/numjs",
         "path-browserify": "Third/modules/path-browserify-1.0.1/path-browserify",
         "require-js": "Third/modules/requirejs-2.3.7/require-js",
@@ -66,7 +66,8 @@ require.config({
         "universal-cookie": "Third/cookie/universal-cookie-8.0.1/universal-cookie",
         // H:\project\沙雕动画\AnJsflScript\Third\custom\document-cookie\document-cookie.jsfl
         "document-cookie": "Third/custom/document-cookie/document-cookie",
-
+        // H:\project\沙雕动画\AnJsflScript\Third\time\luxon-3.6.1\luxon.jsfl
+        "luxon": "Third/time/luxon-3.6.1/luxon",
 
 // 自定义模块
         "BitmapOperation": "Core/flash/Bitmap/BitmapOperation",
