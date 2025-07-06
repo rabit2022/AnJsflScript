@@ -65,6 +65,6 @@ def print_art_with_comments(text):
 if __name__ == '__main__':
 
     # 调用函数，传入文本
-    text = "Circle"
+    text = "AlphaColorTransform"
     art = print_art_with_comments(text)
     copy_to_clipboard(art)

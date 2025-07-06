@@ -9,7 +9,7 @@
 
 // @formatter:off
 // prettier-ignore
-(function(){const m=fl.scriptURI.match(/AnJsflScript(?:-[a-zA-Z0-9]+)?/);if(!m)throw new Error("Can't find project path ["+fl.scriptURI+"]");const i=fl.scriptURI.lastIndexOf(m[0]);const p=fl.scriptURI.substring(0,i+m[0].length);typeof require=="undefined"&&fl.runScript(p+"/config/require/CheckEnvironment.jsfl")})();
+"undefined"==typeof require&&fl.runScript(function(){var r=fl.scriptURI.match(/(?:^|.*[\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\/]|$)/)[1],t=fl.scriptURI.match(r);if(t){var n=t[0],i=fl.scriptURI.lastIndexOf(n);return fl.scriptURI.substring(0,i+n.length)}throw new Error("Can't find project path ["+fl.scriptURI+"]")}()+"/config/require/CheckEnvironment.jsfl");
 // @formatter:on
 
 require(["checkUtil", "loglevel"],
@@ -33,15 +33,16 @@ require(["checkUtil", "loglevel"],
         var curFrame = frames[curFrameIndex]; //当前帧
 
         // // 获取第一帧
-        // var frs = CheckSelectedFrames(timeline);
-        // if (!frs) return;
-        // const { firstSlLayerIndex, firstSlFrameIndex } = frs;
+        // var selectedFrames = CheckSelectedFrames(timeline);
+        // if (!selectedFrames) return;
+        // const { firstSlLayerIndex, firstSlFrameIndex } = selectedFrames;
 
         // 检查选择的元件
         if (!CheckSelection(selection, "selectElement", "No limit")) return;
 
         // // 检查选择的图层
-        // if (!CheckSelectedLayers(timeline, "No limit")) return;
+        // var selectedLayers = CheckSelectedLayers(timeline, "No limit");
+        // if (!selectedLayers) return;
         // endregion doc
 
         function Main() {

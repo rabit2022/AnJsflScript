@@ -14,7 +14,7 @@ import re
 
 from my_base.folder_traverser import FolderTraverser
 
-folder = r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib"
+folder = r"H:\project\沙雕动画\AnJsflScript\lib"
 
 folder_travel = FolderTraverser(folder, [".jsfl"])
 files = folder_travel.toFiles()
@@ -36,20 +36,22 @@ def parser_content(content, fileobj):
 
 # 要插入的指定文字
 replace_text = r"""
+// @formatter:off
 // prettier-ignore
 (function(){const m=fl.scriptURI.match(/AnJsflScript(?:-[a-zA-Z0-9]+)?/);if(!m)throw new Error("Can't find project path ["+fl.scriptURI+"]");const i=fl.scriptURI.lastIndexOf(m[0]);const p=fl.scriptURI.substring(0,i+m[0].length);typeof require=="undefined"&&fl.runScript(p+"/config/require/CheckEnvironment.jsfl")})();
+// @formatter:on
 """
 to_text = r"""
 // @formatter:off
 // prettier-ignore
-(function(){const m=fl.scriptURI.match(/AnJsflScript(?:-[a-zA-Z0-9]+)?/);if(!m)throw new Error("Can't find project path ["+fl.scriptURI+"]");const i=fl.scriptURI.lastIndexOf(m[0]);const p=fl.scriptURI.substring(0,i+m[0].length);typeof require=="undefined"&&fl.runScript(p+"/config/require/CheckEnvironment.jsfl")})();
+"undefined"==typeof require&&fl.runScript(function(){var r=fl.scriptURI.match(/(?:^|.*[\\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\\/]|$)/)[1],t=fl.scriptURI.match(r);if(t){var n=t[0],i=fl.scriptURI.lastIndexOf(n);return fl.scriptURI.substring(0,i+n.length)}throw new Error("Can't find project path ["+fl.scriptURI+"]")}()+"/config/require/CheckEnvironment.jsfl");
 // @formatter:on
 """
 
 
 contents = files.read_files(parser_content)
 # print(content)
-for con in contents:
-    print(con)
+# for con in contents:
+#     print(con)
 
 files.write_new_content(contents)
