@@ -40,6 +40,6 @@ If there is a difference in behaviour between Node.js's `path` module and this m
 
 ## License
 
-[MIT](./LICENSE)
+[MIT](LICENSE)
 
 [path]: https://nodejs.org/docs/v10.3.0/api/path.html

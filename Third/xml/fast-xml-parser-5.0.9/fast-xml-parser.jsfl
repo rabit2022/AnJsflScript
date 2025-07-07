@@ -1,3 +1,4 @@
+(function(){
 "use strict";
 
 // trimStart()
@@ -2301,3 +2302,5 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     /******/
   }();
 });
+
+})(); 
