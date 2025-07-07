@@ -1,6 +1,6 @@
 # AnJsflScript - Adobe Animate 自动化脚本工具集
 
-[![AnJsflScript/v0.3.0](https://badgen.net/badge/AnJsflScript/v0.3.0/green?icon=github&labelColor=black)](https://github.com/rabit2022/AnJsflScript)
+[![AnJsflScript/v0.5.9](https://badgen.net/badge/AnJsflScript/v0.5.9/green?icon=github&labelColor=black)](https://github.com/rabit2022/AnJsflScript)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/rabit2022/AnJsflScript/pulls)
 [![Adobe Animate 2024](https://badgen.net/badge/Adobe%20Animate/2024/blue?icon=adobe&labelColor=black)](https://www.adobe.com/products/animate.html)
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
@@ -154,10 +154,10 @@ A：1. 检查是否运行了FirstRun且文档已打开；2. 系统要求是否�
 
 ## 📈 项目数据
 
-- **代码行数**: 11783
-- **字符数量**: 289466
-- **脚本数量**: 106
-- 依赖库：28个
+- **代码行数**: 13738
+- **字符数量**: 378660
+- **脚本数量**: 120
+- 依赖库：37个
 - 访问量：![统计](https://profile-counter.glitch.me/AnJsflScript/count.svg)
 
 ------
