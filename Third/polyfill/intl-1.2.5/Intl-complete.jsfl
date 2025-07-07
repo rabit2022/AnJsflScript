@@ -715,4 +715,5 @@ addLocaleData(b[5][712]);
 addLocaleData(b[5][713]);
 addLocaleData(b[5][714]);
 addLocaleData(b[5][715]);
-})(IntlPolyfill.__addLocaleData);
+// })(IntlPolyfill.__addLocaleData);
+})(Intl.__addLocaleData);

@@ -21,6 +21,7 @@
     "@babel/plugin-transform-modules-amd": "7.27.1",
     "@babel/preset-env": "7.27.2",
     "@types/chroma-js": "3.1.1",
+    "@types/date-fns": "2.6.3",
     "@types/error-stack-parser": "2.0.2",
     "@types/es6-promise": "3.3.2",
     "@types/eventemitter3": "2.0.4",
@@ -63,8 +64,8 @@
     "run-current-file": "powershell -File config/start/run-current-file.ps1",
     "build:FirstRun": "node config/build/Build.FirstRun.js",
     "build:Common": "node config/build/Build.Common.js",
-    "Build:Text": "node config/build/Build.Text.js",
-    "build": "npm run build:FirstRun && npm run build:Common && npm run Build:Text"
+    "build:Text": "node config/build/Build.Text.js",
+    "build": "npm run build:FirstRun && npm run build:Common && npm run bild:Text"
   },
   "repository": {
     "type": "git",

@@ -12,17 +12,25 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "FolderTraverser": ["Third/custom/FolderTraverser/FolderTraverser"],
-      "linqUtil": ["Third/custom/utils/linqUtil"],
-      "satUtil": ["Third/custom/utils/satUtil"],
-      "console": ["Third/custom/xjsfl/console"],
-      "JSFLConstants": ["Third/custom/xjsfl/JSFLConstants"],
-      "SObject": ["Third/custom/Object/SObject"],
+      "date-fns-config": ["Third/_bridge/date-fns/date-fns-config"],
+      "document-cookie": ["Third/_bridge/document-cookie/document-cookie"],
+      "Intl-config": ["Third/_bridge/Intl/Intl-config"],
+      "luxon-config": ["Third/_bridge/luxon/luxon-config"],
+      "Navigation": ["Third/_custom/FlashTool/Navigation"],
+      "FolderTraverser": ["Third/_custom/FolderTraverser/FolderTraverser"],
+      "SObject": ["Third/_custom/Object/SObject"],
+      "linqUtil": ["Third/_custom/utils/linqUtil"],
+      "satUtil": ["Third/_custom/utils/satUtil"],
+      "console": ["Third/_custom/xjsfl/console"],
+      "JSFLConstants": ["Third/_custom/xjsfl/JSFLConstants"],
+      "JSFLInterface": ["Third/_custom/xjsfl/JSFLInterface"],
+
 
 
       "BitmapOperation": ["Core/flash/Bitmap/BitmapOperation"],
       "checkUtil": ["Core/flash/checkUtil"],
       "ColorPanel": ["Core/flash/color/ColorPanel"],
+      "ColorTransformDefinitions": ["Core/flash/color/ColorTransformDefinitions"],
       "FillDefinitions": ["Core/flash/color/FillDefinitions"],
       "StrokeDefinitions": ["Core/flash/color/StrokeDefinitions"],
       "ElementAnim": ["Core/flash/Context/Element/ElementAnim"],
@@ -38,6 +46,7 @@
       "KeyFrameQuery": ["Core/flash/Context/KeyFrame/KeyFrameQuery"],
       "LayerChecker": ["Core/flash/Context/Layer/LayerChecker"],
       "LayerHierarchy": ["Core/flash/Context/Layer/LayerHierarchy"],
+      "LayerList": ["Core/flash/Context/Layer/LayerList"],
       "LayerOperation": ["Core/flash/Context/Layer/LayerOperation"],
       "LayerQuery": ["Core/flash/Context/Layer/LayerQuery"],
       "LayerQueryEnhance": ["Core/flash/Context/Layer/LayerQueryEnhance"],
@@ -54,6 +63,7 @@
       "DrawParallelogram": ["Core/flash/graphics/DrawParallelogram"],
       "DrawRectangle": ["Core/flash/graphics/DrawRectangle"],
       "promptUtil": ["Core/flash/panel/promptUtil"],
+      "StringPaser": ["Core/flash/panel/StringPaser"],
       "xmlPanelUtil": ["Core/flash/panel/xmlPanelUtil"],
       "MoreElement": ["Core/flash/Symbol/MoreElement"],
       "SymbolNameGenerator": ["Core/flash/Symbol/SymbolNameGenerator"],
@@ -69,12 +79,7 @@
       "StringP": ["Core/py/string/StringP"],
       "KeyFrameMode": ["Core/Utils/KeyFrameMode"],
       "Tips": ["Core/Utils/Tips"],
-
-
-      "COMPATIBILITY": ["Core/webpack/COMPATIBILITY"],
-      "LayerList": ["Core/flash/Context/Layer/LayerList"],
-      "StringPaser": ["Core/flash/panel/StringPaser"],
-      "ColorTransformDefinitions": ["Core/flash/color/ColorTransformDefinitions"]
+      "COMPATIBILITY": ["Core/webpack/COMPATIBILITY"]
     },
     "include": [
       "**/*.jsfl",
