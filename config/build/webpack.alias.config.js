@@ -13,10 +13,10 @@ var alias = {
     "json3": path.resolve(dirname, "Third/json/json3-3.3.3/json3"),
     "loglevel": path.resolve(dirname, "Third/log/loglevel-1.9.2/loglevel"),
     "numjs": path.resolve(dirname, "Third/math/numjs-0.16.1/numjs"),
-    "path-browserify": path.resolve(dirname, "Third/modules/path-browserify-1.0.1/path-browserify"),
     "require-js": path.resolve(dirname, "Third/modules/requirejs-2.3.7/require-js"),
     "text": path.resolve(dirname, "Third/modules/text-2.0.16/text"),
     "assert": path.resolve(dirname, "Third/nodejs/assert/assert"),
+    "path-browserify": path.resolve(dirname, "Third/nodejs/path-browserify-1.0.1/path-browserify"),
     "es5-sham": path.resolve(dirname, "Third/polyfill/es5-shim-4.6.7/es5-sham"),
     "es5-shim": path.resolve(dirname, "Third/polyfill/es5-shim-4.6.7/es5-shim"),
     "es6-collections": path.resolve(dirname, "Third/polyfill/es6-collections-0.5.6/es6-collections"),
@@ -29,6 +29,7 @@ var alias = {
     "es2017": path.resolve(dirname, "Third/polyfill/polyfill-0.1.43/es2017"),
     "symbol-es6": path.resolve(dirname, "Third/polyfill/symbol-es6-0.1.2/symbol-es6"),
     "typedarray": path.resolve(dirname, "Third/polyfill/typedarray-0.0.7/typedarray"),
+    "crypto-js": path.resolve(dirname, "Third/random/crypto-js-4.2.0/crypto-js"),
     "error-stack-parser": path.resolve(dirname, "Third/stack/error-stack-parser-3.0.0/error-stack-parser"),
     "stackframe": path.resolve(dirname, "Third/stack/stackframe-1.3.4/stackframe"),
     "date-fns": path.resolve(dirname, "Third/time/date-fns-4.1.0/date-fns"),
@@ -54,12 +55,8 @@ var alias = {
     "console": path.resolve(dirname, "Third/_custom/xjsfl/console"),
     "JSFLConstants": path.resolve(dirname, "Third/_custom/xjsfl/JSFLConstants"),
     "JSFLInterface": path.resolve(dirname, "Third/_custom/xjsfl/JSFLInterface"),
-    "Utils": path.resolve(dirname, "Third/_custom/xjsfl/ui/Utils"),
-    "xjsfl": path.resolve(dirname, "Third/_custom/xjsfl/ui/xjsfl"),
-    "XML": path.resolve(dirname, "Third/_custom/xjsfl/ui/XML"),
     "XUL": path.resolve(dirname, "Third/_custom/xjsfl/ui/XUL"),
-    "XULControl": path.resolve(dirname, "Third/_custom/xjsfl/ui/XULControl"),
-    "XULEvent": path.resolve(dirname, "Third/_custom/xjsfl/ui/XULEvent"),
+
 
     // 自定义模块
     "BitmapOperation": path.resolve(dirname, "Core/flash/Bitmap/BitmapOperation"),

@@ -27,10 +27,7 @@ require.config({
         "require-js":"Third/modules/requirejs-2.3.7/require-js",
         "text":"Third/modules/text-2.0.16/text",
         "assert":"Third/nodejs/assert/assert",
-        "crypto-browserify":"Third/nodejs/crypto-browserify-3.12.1/crypto-browserify",
         "path-browserify":"Third/nodejs/path-browserify-1.0.1/path-browserify",
-        "stream-browserify":"Third/nodejs/stream-browserify-3.0.0/stream-browserify",
-        "vm-browserify":"Third/nodejs/vm-browserify-1.1.2/vm-browserify",
         "es5-sham":"Third/polyfill/es5-shim-4.6.7/es5-sham",
         "es5-shim":"Third/polyfill/es5-shim-4.6.7/es5-shim",
         "es6-collections":"Third/polyfill/es6-collections-0.5.6/es6-collections",
@@ -43,6 +40,7 @@ require.config({
         "es2017":"Third/polyfill/polyfill-0.1.43/es2017",
         "symbol-es6":"Third/polyfill/symbol-es6-0.1.2/symbol-es6",
         "typedarray":"Third/polyfill/typedarray-0.0.7/typedarray",
+        "crypto-js":"Third/random/crypto-js-4.2.0/crypto-js",
         "error-stack-parser":"Third/stack/error-stack-parser-3.0.0/error-stack-parser",
         "stackframe":"Third/stack/stackframe-1.3.4/stackframe",
         "date-fns":"Third/time/date-fns-4.1.0/date-fns",
@@ -68,12 +66,7 @@ require.config({
         "console":"Third/_custom/xjsfl/console",
         "JSFLConstants":"Third/_custom/xjsfl/JSFLConstants",
         "JSFLInterface":"Third/_custom/xjsfl/JSFLInterface",
-        "Utils":"Third/_custom/xjsfl/ui/Utils",
-        "xjsfl":"Third/_custom/xjsfl/ui/xjsfl",
-        "XML":"Third/_custom/xjsfl/ui/XML",
         "XUL":"Third/_custom/xjsfl/ui/XUL",
-        "XULControl":"Third/_custom/xjsfl/ui/XULControl",
-        "XULEvent":"Third/_custom/xjsfl/ui/XULEvent",
         // endregion Third
 
         // region Core

@@ -1,4 +1,7 @@
-﻿// ------------------------------------------------------------------------------------------------------------------------
+﻿define(function(){
+
+
+// ------------------------------------------------------------------------------------------------------------------------
 //
 //           ██ ██████ ██████ ██
 //           ██ ██     ██     ██
@@ -10,6 +13,13 @@
 //
 // ------------------------------------------------------------------------------------------------------------------------
 // xJSFL 
+
+//
+// xjsfl.file.load
+// xjsfl.settings.newLine
+// xjsfl.uri
+// xjsfl.ui.show(this);
+
 
 	/**
 	 * xJSFL
@@ -488,7 +498,7 @@ xjsfl.output={
 	error:console.error
 }
 
-xjsfl.uri=window.AnJsflScript.$ProjectFileDir$+"/";
+xjsfl.uri = window.AnJsflScript.$ProjectFileDir$+"/";
 // ------------------------------------------------------------------------------------------------------------------------
 //
 //  ██████ ██ ██
@@ -645,143 +655,28 @@ xjsfl.uri=window.AnJsflScript.$ProjectFileDir$+"/";
 		 */
 		load:function (pathOrName, type)
 		{
-			/*
-				// path types
-					if absolute or relative path, attempt to load it
-					if type and name, find it, then attempt to load it
+			/**
+			 * 加载XML模板文件
+			 * @param {string} templateName - 模板文件名
+			 * @returns {string} XML字符串
+			 */
+			function loadTemplate(templateName) {
+				// const dirname = window.AnJsflScript.$ProjectFileDir$;
 
-				// signatures
-					load(path)
-					load(name, type)
-			*/
+				// requirejs + text! 加载模板文件
+				var template = '';
+				var templatePath ='text!./config/' + templateName;
+				requirejs([templatePath], function (tm) {
+					template = tm;
+				})
 
-			// --------------------------------------------------------------------------------
-			// Resolve URI and load content in
+				// return template;
+				var xml = new XML(template);
+				// console.log(xml);
+				return xml;
+			}
 
-				// variables
-					var uriResult	= null;
-					//trace(pathOrName)
-					
-				// a wildcard (path or URI) is passed in, so glob it
-					if(String(pathOrName).indexOf('*') !== -1)
-					{
-						var uri		= URI.toURI(pathOrName, 1);
-						uriResult	= Utils.glob(uri);
-						inspect(uriResult)
-					}
-
-				// a URI was passed in, test that it exists
-					else if(URI.isURI(pathOrName))
-					{
-						uriResult	= FLfile.exists(pathOrName) ? pathOrName : null;
-					}
-
-				// a single path was passed in, so convert it to a uri
-					else if(type == undefined || type === true || type === false)
-					{
-						var uri		= URI.toURI(pathOrName, 1);
-						uriResult	= FLfile.exists(uri) ? uri : null;
-					}
-
-				// name and type supplied, so find the file we need in the cascading file system
-					else
-					{
-						uriResult	= xjsfl.file.find(type, pathOrName);
-					}
-
-			// --------------------------------------------------------------------------------
-			// take action on uriResult
-
-				// variables
-					var content;
-
-				// if uriResult is null, no files were found
-					if(uriResult == null)
-					{
-						var path = URI.toPath(pathOrName);
-						if(type == null || type === true || type === false)
-						{
-							var message = 'Error in xjsfl.file.load(): The file "' +path+ '" could not be found';
-						}
-						else
-						{
-							var message = 'Error in xjsfl.file.load(): Could not resolve type "' +type+ '" and path "' +path+ '" to an existing file';
-						}
-						throw(new URIError(message));
-					}
-
-				// otherwise, do something with the uri / uris (plural) if more than 1 was found
-					else
-					{
-						var uris = Utils.isArray(uriResult) ? uriResult : [uriResult];
-						for each(var uri in uris)
-						{
-
-							// variables
-								uri				= String(uri);
-								var ext			= URI.getExtension(uri);
-								var shortPath	= URI.asPath(uri, true);
-
-							// exit early if file is in a recursive loop (this can happen with recursive includes)
-								if(xjsfl.file.stack.indexOf(uri) !== -1)
-								{
-									//trace('FILE LOADED:' + uri);
-									return null;
-								}
-
-							// flag
-								xjsfl.file.stack.push(uri);
-
-							// log
-								xjsfl.output.log('[' +xjsfl.file.stack.length+ '] loading file: "' + shortPath + '" ...', Log.FILE);
-
-							// do something depending on extension
-								switch(ext)
-								{
-									case 'jsfl':
-										// load JSFL script
-											xjsfl.file.lastLoadTime = new Date().getTime();
-											content		= fl.runScript(uri);
-
-										// test for load errors
-											xjsfl.debug.file(URI.toPath(uri));
-									break;
-
-									case 'xul':
-									case 'xml':
-										content			= FLfile.read(uri);
-										content			= content.replace(/<\?.+?>/, ''); // remove any doc type declaration
-										content			= new XML(content);
-									break;
-
-									default:
-										content			= FLfile.read(uri);
-								}
-
-						}
-					}
-
-			// log
-				xjsfl.output.log('[' +(xjsfl.file.stack.length - 1)+ '] loaded file:  "' +shortPath+ '" OK', Log.FILE);
-
-			// flag
-				xjsfl.file.stack.pop();
-
-			// if all files have loaded, and execution is halted, reset the flag
-				if(xjsfl.file.stack.length == 0)
-				{
-					//xjsfl.output.log('all files loaded', Log.FILE);
-					if(xjsfl.halted)
-					{
-						xjsfl.output.log('Setting xjsfl.halted to false', Log.FILE);
-						xjsfl.halted = false;
-						throw new Error('File load error');
-					}
-				}
-
-
-			// return
-				return content;
+			return loadTemplate(pathOrName);
 		},
 
 		/**
@@ -1596,6 +1491,7 @@ xjsfl.uri=window.AnJsflScript.$ProjectFileDir$+"/";
 
 	}
 
-
+	return xjsfl;
+});
 
 
