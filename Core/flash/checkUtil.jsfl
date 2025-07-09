@@ -266,10 +266,31 @@ define(["Tips", "SAT", "KeyFrameQuery"], function (Tips, SAT, kfq) {
         return selectedLayers;
     }
 
+    // var selectedItems = library.getSelectedItems();
+    /**
+     * 检查选中的库项目是否符合指定的条件
+     * @param {Library} library - 库对象。
+     * @param {string} [exTips] - 额外提示信息。
+     * @param {"No limit"|"Not Zero"|"Zero"|"Only one"|"Only two"|"More"|
+     * ">0"|"=0"|"=1"|"=2"|">1"} [condition="Not Zero"] - 检查条件
+     * @returns {Item[]}
+     */
+    function CheckSelectedItems(library, condition, exTips) {
+        if (condition === undefined) condition = "Not Zero";
+
+        var selectedItems = library.getSelectedItems();
+
+        if (!CheckSelection(selectedItems, "selectLibItem", condition, exTips))
+            return null;
+
+        return selectedItems;
+    }
+
     return {
         CheckSelection: CheckSelection,
         CheckDom: CheckDom,
         CheckSelectedFrames: CheckSelectedFrames,
-        CheckSelectedLayers: CheckSelectedLayers
+        CheckSelectedLayers: CheckSelectedLayers,
+        CheckSelectedItems: CheckSelectedItems
     };
 });

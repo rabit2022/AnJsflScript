@@ -148,7 +148,8 @@ A：1. 检查是否运行了FirstRun且文档已打开；2. 系统要求是否�
 [![xJSFL](https://img.shields.io/badge/xJSFL-GitHub-2196f3)](https://github.com/davestewart/xJSFL)
 [![FlashTool](https://img.shields.io/badge/FlashTool-GitHub-2196f3)](https://github.com/hufang360/FlashTool)
 
-
+[![jsfl-typescript](https://img.shields.io/badge/jsfltypescript-GitHub-2196f3)](https://github.com/soywiz-archive/jsfl-typescript)
+[![AdobeDocs](https://badgen.net/badge/AdobeDocs/Available/green?icon=github&labelColor=black)](https://github.com/AdobeDocs/developers-animatesdk-docs)
 
 ------
 

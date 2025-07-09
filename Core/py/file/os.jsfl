@@ -268,7 +268,7 @@ define(["loglevel", "path-browserify"], function (log, path) {
     /**
      * 删除文件
      */
-    OS.remove=OS.unlink=OS.rmdir;
+    OS.remove = OS.unlink = OS.rmdir;
 
     /**
      * 打开文件或目录。

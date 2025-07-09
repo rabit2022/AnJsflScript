@@ -111,6 +111,17 @@ Shape.prototype.setCustomFill = function(customFill) {
  * @param {number} frameIndex
  * @param {"normal"|"layer"|"multiply"|"screen"|"overlay"|"hardlight"|"lighten"|"darken"|"difference"|"add"|"subtract"|"invert"|"alpha"|"erase"} blendModeString
  */
-Layer.prototype.setBlendModeAtFrame = function (frameIndex, blendModeString) {
+Layer.prototype.setBlendModeAtFrame = function(frameIndex, blendModeString) {
 };
 
+
+/**
+ * @since Flash 8
+ * @param {string} fileURI
+ * @param {boolean} [bCurrentPNGSettings]
+ * @param {boolean} [bCurrentFrame]
+ * @return {boolean}
+ * @note 通过doc.exportPNG，猜测的可能api,事实证明是对的·
+ */
+Document.prototype.exportGIF = function(fileURI, bCurrentPNGSettings, bCurrentFrame) {
+};

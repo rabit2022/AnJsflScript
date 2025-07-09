@@ -11,6 +11,7 @@
 // @ts-ignore
 import { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } from "checkUtil";
 // @ts-ignore
+// luxon 的第三方库，polyfill 非常多，首次导入会很慢
 import { DateTime } from "luxon-config";
 // @ts-ignore
 import os = require("os");
@@ -61,7 +62,7 @@ if (!os.path.exists(SAVE_FOLDER)) {
 }
 const ORIGINAL_DOC_PATH: string = doc.pathURI;
 
-var getSavepath = function () {
+var getSavepath: () => string = function () {
     // var uri = doc.pathURI;
     // log.info("uri: " + uri);
     var docBaseName = getBaseName(ORIGINAL_DOC_PATH);
