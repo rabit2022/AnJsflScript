@@ -45,11 +45,10 @@ define(["JSFLInterface","os"], function(JSFLInterface,os) {
     // --------------------------------------------------------------------------------
     // 常量
     const trace = fl.trace;
-    // const LOG_FOLDER = window.AnJsflScript.$ProjectFileDir$ + "/Logs/";
     const LOG_FOLDER = window.AnJsflScript.FOLDERS.Log;
-    if (!os.path.exists(LOG_FOLDER)) {
-        os.mkdir(LOG_FOLDER);
-    }
+    // if (!os.path.exists(LOG_FOLDER)) {
+    //     os.mkdir(LOG_FOLDER);
+    // }
 
     const MAIN_LOG = LOG_FOLDER + "/main.log";
     const FILE_LOG = LOG_FOLDER + "/file.log";

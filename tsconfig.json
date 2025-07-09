@@ -1,0 +1,36 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "AMD",
+        "moduleResolution": "node",
+        "isolatedModules": false,
+        "jsx": "react",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "declaration": false,
+        "noImplicitAny": false,
+        "removeComments": true,
+        "noLib": false,
+        "preserveConstEnums": true,
+        "skipLibCheck": true, // 启用跳过类型定义文件的检查
+        "allowJs": true
+    },
+//    "filesGlob": [
+//        "**/*.ts",
+//        "**/*.tsx",
+//        "!node_modules/**"
+//    ],
+    "include": [
+        // 类型定义文件
+        "./types/jsfl-typescript/jsfl.d.ts",
+        "./test/**/*.ts",
+        "./Core/**/*.jsfl"
+    ],
+    "typeRoots": [
+        "./node_modules/@types",
+        "./types"
+    ],
+
+
+
+}
