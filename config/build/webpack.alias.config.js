@@ -56,6 +56,7 @@ var alias = {
     "JSFLConstants": path.resolve(dirname, "Third/_custom/xjsfl/JSFLConstants"),
     "JSFLInterface": path.resolve(dirname, "Third/_custom/xjsfl/JSFLInterface"),
     "XUL": path.resolve(dirname, "Third/_custom/xjsfl/ui/XUL"),
+    "_exports": path.resolve(dirname, "Third/_bridge/exports/exports"),
 
 
     // 自定义模块

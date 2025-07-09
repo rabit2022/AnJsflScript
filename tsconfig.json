@@ -4,7 +4,6 @@
         "module": "AMD",
         "moduleResolution": "node",
         "isolatedModules": false,
-        "jsx": "react",
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "declaration": false,
@@ -13,23 +12,97 @@
         "noLib": false,
         "preserveConstEnums": true,
         "skipLibCheck": true, // 启用跳过类型定义文件的检查
-        "allowJs": true
+        "allowJs": true,
+        "incremental": true,// 增量编译,只重新编译那些被修改的文件及其依赖项
+        "baseUrl": ".", // 设置 baseUrl 为项目根目录
+        "paths": {
+            "date-fns-config": ["Third/_bridge/date-fns/date-fns-config.jsfl"],
+            "document-cookie": ["Third/_bridge/document-cookie/document-cookie.jsfl"],
+            "Intl-config": ["Third/_bridge/Intl/Intl-config.jsfl"],
+            "luxon-config": ["Third/_bridge/luxon/luxon-config.jsfl"],
+            "Navigation": ["Third/_custom/FlashTool/Navigation.jsfl"],
+            "FolderTraverser": ["Third/_custom/FolderTraverser/FolderTraverser.jsfl"],
+            "SObject": ["Third/_custom/Object/SObject.jsfl"],
+            "linqUtil": ["Third/_custom/utils/linqUtil.jsfl"],
+            "satUtil": ["Third/_custom/utils/satUtil.jsfl"],
+            "console": ["Third/_custom/xjsfl/console.jsfl"],
+            "JSFLConstants": ["Third/_custom/xjsfl/JSFLConstants.jsfl"],
+            "JSFLInterface": ["Third/_custom/xjsfl/JSFLInterface.jsfl"],
+
+
+
+            "BitmapOperation": ["Core/flash/Bitmap/BitmapOperation.jsfl"],
+            "checkUtil": ["Core/flash/checkUtil.jsfl"],
+            "ColorPanel": ["Core/flash/color/ColorPanel.jsfl"],
+            "ColorTransformDefinitions": ["Core/flash/color/ColorTransformDefinitions.jsfl"],
+            "FillDefinitions": ["Core/flash/color/FillDefinitions.jsfl"],
+            "StrokeDefinitions": ["Core/flash/color/StrokeDefinitions.jsfl"],
+            "ElementAnim": ["Core/flash/Context/Element/ElementAnim.jsfl"],
+            "ElementChecker": ["Core/flash/Context/Element/ElementChecker.jsfl"],
+            "ElementOperation": ["Core/flash/Context/Element/ElementOperation.jsfl"],
+            "ElementQuery": ["Core/flash/Context/Element/ElementQuery.jsfl"],
+            "ElementTransform": ["Core/flash/Context/Element/ElementTransform.jsfl"],
+            "FrameChecker": ["Core/flash/Context/Frame/FrameChecker.jsfl"],
+            "FrameOperation": ["Core/flash/Context/Frame/FrameOperation.jsfl"],
+            "FrameQuery": ["Core/flash/Context/Frame/FrameQuery.jsfl"],
+            "KeyFrameChecker": ["Core/flash/Context/KeyFrame/KeyFrameChecker.jsfl"],
+            "KeyFrameOperation": ["Core/flash/Context/KeyFrame/KeyFrameOperation.jsfl"],
+            "KeyFrameQuery": ["Core/flash/Context/KeyFrame/KeyFrameQuery.jsfl"],
+            "LayerChecker": ["Core/flash/Context/Layer/LayerChecker.jsfl"],
+            "LayerHierarchy": ["Core/flash/Context/Layer/LayerHierarchy.jsfl"],
+            "LayerList": ["Core/flash/Context/Layer/LayerList.jsfl"],
+            "LayerOperation": ["Core/flash/Context/Layer/LayerOperation.jsfl"],
+            "LayerQuery": ["Core/flash/Context/Layer/LayerQuery.jsfl"],
+            "LayerQueryEnhance": ["Core/flash/Context/Layer/LayerQueryEnhance.jsfl"],
+            "LibraryOperation": ["Core/flash/Context/library/LibraryOperation.jsfl"],
+            "ElementSelect": ["Core/flash/Context/selection/ElementSelect.jsfl"],
+            "FramesSelect": ["Core/flash/Context/selection/FramesSelect.jsfl"],
+            "FilterChecker": ["Core/flash/filter/FilterChecker.jsfl"],
+            "FilterDefinitions": ["Core/flash/filter/FilterDefinitions.jsfl"],
+            "FilterOperation": ["Core/flash/filter/FilterOperation.jsfl"],
+            "FilterQuery": ["Core/flash/filter/FilterQuery.jsfl"],
+            "FolderChecker": ["Core/flash/Folder/FolderChecker.jsfl"],
+            "FolderQuery": ["Core/flash/Folder/FolderQuery.jsfl"],
+            "DrawCircle": ["Core/flash/graphics/DrawCircle.jsfl"],
+            "DrawParallelogram": ["Core/flash/graphics/DrawParallelogram.jsfl"],
+            "DrawRectangle": ["Core/flash/graphics/DrawRectangle.jsfl"],
+            "promptUtil": ["Core/flash/panel/promptUtil.jsfl"],
+            "StringPaser": ["Core/flash/panel/StringPaser.jsfl"],
+            "xmlPanelUtil": ["Core/flash/panel/xmlPanelUtil.jsfl"],
+            "MoreElement": ["Core/flash/Symbol/MoreElement.jsfl"],
+            "SymbolNameGenerator": ["Core/flash/Symbol/SymbolNameGenerator.jsfl"],
+            "EaseCurve": ["Core/flash/tween/EaseCurve.jsfl"],
+            "Tween": ["Core/flash/tween/Tween.jsfl"],
+            "FUNC": ["Core/myShim/FUNC.jsfl"],
+            "open": ["Core/py/file/open.jsfl"],
+            "os": ["Core/py/file/os.jsfl"],
+            "shutil": ["Core/py/file/shutil.jsfl"],
+            "sys": ["Core/py/file/sys.jsfl"],
+            "numpy": ["Core/py/numpy/numpy.jsfl"],
+            "random": ["Core/py/random/random.jsfl"],
+            "StringP": ["Core/py/string/StringP.jsfl"],
+            "KeyFrameMode": ["Core/Utils/KeyFrameMode.jsfl"],
+            "Tips": ["Core/Utils/Tips.jsfl"],
+            "COMPATIBILITY": ["Core/webpack/COMPATIBILITY.jsfl"]
+        }
     },
-//    "filesGlob": [
-//        "**/*.ts",
-//        "**/*.tsx",
-//        "!node_modules/**"
-//    ],
+
     "include": [
-        // 类型定义文件
+        // 全局的 类型定义文件
         "./types/jsfl-typescript/jsfl.d.ts",
+        "types/myShim/global.d.ts",
+
+        // 需要编译的文件夹
         "./test/**/*.ts",
-        "./Core/**/*.jsfl"
+        "./lib/**/*.ts",
+
+
     ],
     "typeRoots": [
         "./node_modules/@types",
         "./types"
-    ],
+    ]
+
 
 
 

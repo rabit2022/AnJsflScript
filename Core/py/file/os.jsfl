@@ -172,7 +172,7 @@ define(["loglevel", "path-browserify"], function (log, path) {
      * @return {string} - 去除后缀的文件基本名称。
      */
     OSPath.$basenameWithoutExt = function (_path) {
-        const [root] = this.splitext(path.basename(_path));
+        const [root] = OSPath.splitext(path.basename(_path));
         return root;
     };
 
@@ -251,6 +251,11 @@ define(["loglevel", "path-browserify"], function (log, path) {
         log.info("目录已创建:" + uri);
     };
 
+    /**
+     * 删除目录。
+     *
+     * @param {string} uri - 要删除的目录的路径。
+     */
     OS.rmdir = function (uri) {
         var success = FLfile.remove(uri);
         if (success) {
@@ -259,6 +264,11 @@ define(["loglevel", "path-browserify"], function (log, path) {
             log.error("Failed : " + uri);
         }
     };
+
+    /**
+     * 删除文件
+     */
+    OS.remove=OS.unlink=OS.rmdir;
 
     /**
      * 打开文件或目录。

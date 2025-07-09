@@ -31,7 +31,8 @@ function getEntry() {
         ) {
             continue;
         }
-        if (value.includes("")) {
+
+        if (value.includes("test")) {
             newEntries[key] = `${value}.webpack`;
         }
     }

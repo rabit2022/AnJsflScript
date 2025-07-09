@@ -67,6 +67,8 @@ require.config({
         "JSFLConstants":"Third/_custom/xjsfl/JSFLConstants",
         "JSFLInterface":"Third/_custom/xjsfl/JSFLInterface",
         "XUL":"Third/_custom/xjsfl/ui/XUL",
+        // H:\project\沙雕动画\AnJsflScript\Third\_bridge\exports\exports.jsfl
+        "_exports":"Third/_bridge/exports/exports",
         // endregion Third
 
         // region Core

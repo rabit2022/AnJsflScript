@@ -20,6 +20,7 @@ EvalScript error.tmp/**
 .eslintcache
 ~$计划更新.xlsx
 **/Save/**
+tsconfig.tsbuildinfo
 
 # dist
 dist/**

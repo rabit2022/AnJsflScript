@@ -1,12 +1,11 @@
 var $document = fl.getDocumentDOM();
 var $library = $document.library;
 var $timeline = $document.getTimeline();
-
 var Json = (function () {
     function Json() {
     }
     Json.stringify = function (object, recursionLevel) {
-        if (typeof recursionLevel === "undefined") { recursionLevel = 0; }
+        if (recursionLevel === void 0) { recursionLevel = 0; }
         if (recursionLevel > 4)
             return '...';
         switch (typeof object) {
@@ -17,9 +16,7 @@ var Json = (function () {
                 }
                 return '{' + parts.join(',') + '}';
             case "array":
-                return '[' + (object).map(function (item) {
-                    return Json.stringify(item, recursionLevel + 1);
-                }).join(',') + ']';
+                return '[' + object.map(function (item) { return Json.stringify(item, recursionLevel + 1); }).join(',') + ']';
             case "string":
                 return '"' + object + '"';
             default:
@@ -27,8 +24,7 @@ var Json = (function () {
         }
     };
     return Json;
-})();
-
+}());
 var TimelineContext = (function () {
     function TimelineContext(timeline) {
         this.timeline = timeline;
@@ -43,70 +39,57 @@ var TimelineContext = (function () {
         }
         return this;
     };
-
     TimelineContext.prototype.gotoFrame = function (index0) {
         this.timeline.currentFrame = index0;
         return this;
     };
-
     TimelineContext.prototype.select = function () {
         $document.selectAll();
         return this;
     };
-
     TimelineContext.prototype.code = function (callback) {
         callback();
         return this;
     };
-
     TimelineContext.prototype.edit = function (callback) {
         var element = $document.selection[0];
         $document.enterEditMode('inPlace');
-        try  {
+        try {
             callback(new TimelineContext(element.libraryItem.timeline));
-        } finally {
+        }
+        finally {
             $document.exitEditMode();
         }
         return this;
     };
     return TimelineContext;
-})();
-
+}());
 function trace(item) {
     fl.trace(Json.stringify(item));
 }
-
 function dump(element) {
     fl.trace(element);
     for (var k in element) {
         fl.trace(k + ':' + element[k]);
     }
 }
-
 function unlockAllLayersTemporarily(timeline, callback) {
-    var lockeds = timeline.layers.map(function (layer) {
-        return layer.locked;
-    });
-    timeline.layers.forEach(function (layer, index) {
-        return layer.locked = false;
-    });
-    try  {
+    var lockeds = timeline.layers.map(function (layer) { return layer.locked; });
+    timeline.layers.forEach(function (layer, index) { return layer.locked = false; });
+    try {
         callback();
-    } finally {
-        timeline.layers.forEach(function (layer, index) {
-            return layer.locked = lockeds[index];
-        });
+    }
+    finally {
+        timeline.layers.forEach(function (layer, index) { return layer.locked = lockeds[index]; });
     }
 }
-
 function _inspect(item) {
     if (typeof item == "array")
         return "Array(...)";
     return '' + item;
 }
-
 function inspect(item, level) {
-    if (typeof level === "undefined") { level = 0; }
+    if (level === void 0) { level = 0; }
     if (level > 2)
         return;
     var tabs = '';
@@ -120,14 +103,9 @@ function inspect(item, level) {
         }
     }
 }
-
 function findElementsInLibrary(regexp) {
-    return $library.items.filter(function (item) {
-        return regexp.test(item.name);
-    });
+    return $library.items.filter(function (item) { return regexp.test(item.name); });
 }
 function findElementInLibrary(name) {
-    return $library.items.filter(function (item) {
-        return name == item.name;
-    })[0];
+    return $library.items.filter(function (item) { return name == item.name; })[0];
 }
