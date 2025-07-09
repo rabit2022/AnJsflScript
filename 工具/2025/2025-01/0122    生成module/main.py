@@ -47,7 +47,7 @@ def get_folderpath_without_extension(folder_path: str) -> str:
 
     # 重新拼接路径
     # return os.path.join(folder_dir, file_name_without_extension)
-    return folder_dir+"/"+file_name_without_extension
+    return folder_dir + "/" + file_name_without_extension
 
 
 def generate_text(module_path: str, replace_path: str, target_name: str) -> str:
@@ -81,9 +81,12 @@ def process_folder(folder_path: str, extensions: list, replace_path: str, target
     :param start_keyword: 从包含该关键字的路径开始处理，默认为 "es5"
     :return: 生成的文本内容
     """
-    exclude_folders=[r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\shims\core-js-3.41.0"]
+    # exclude_folders = [
+    #     r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third\shims\core-js-3.41.0"
+    # ]
     # 获取文件路径列表
-    traverser = FolderTraverser(folder_path, extensions,exclude_folders)
+    # traverser = FolderTraverser(folder_path, extensions, exclude_folders)
+    traverser = FolderTraverser(folder_path, extensions)
     file_paths = traverser.FilePaths
 
     # 从包含特定关键字的路径开始处理
@@ -103,8 +106,10 @@ def process_folder(folder_path: str, extensions: list, replace_path: str, target
 
 
 if __name__ == "__main__":
+    AnJsflScript_path = r"H:\project\沙雕动画\AnJsflScript"
+
     # 输入参数
-    folder_path = r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Third"
+    folder_path = os.path.join(AnJsflScript_path, "Third")
     extensions = [".jsfl"]
     replace_path = folder_path
     target_name = "Third"
@@ -116,7 +121,7 @@ if __name__ == "__main__":
     copy_to_clipboard(output_text)
 
     # # 输入参数
-    # folder_path = r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\Core"
+    # folder_path = os.path.join(AnJsflScript_path, "Core")
     # extensions = [".jsfl"]
     # replace_path = folder_path
     # target_name = "Core"
@@ -138,4 +143,3 @@ if __name__ == "__main__":
     #
     # # 将结果复制到剪贴板
     # copy_to_clipboard(output_text)
-

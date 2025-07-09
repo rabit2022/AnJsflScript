@@ -66,8 +66,8 @@ def generate_text(module_path: str, replace_path: str, target_name: str) -> str:
     # print(relative_path)
     module_name = get_filename_without_extension(relative_path)
 
-    # "BitmapOperation": ["Core/flash/Bitmap/BitmapOperation"],
-    return f'"{module_name}": ["{relative_path}"],'
+    # "Tips": path.resolve(dirname, "Core/Utils/Tips"),
+    return f'"{module_name}": path.resolve(dirname, "{relative_path}"),'
 
 
 def process_folder(folder_path: str, extensions: list, replace_path: str, target_name: str,
@@ -138,6 +138,18 @@ if __name__ == "__main__":
     # extensions = [".ts"]
     # replace_path = folder_path
     # target_name = "types"
+    # start_keyword = ""
+    # # 处理文件夹并生成文本
+    # output_text = process_folder(folder_path, extensions, replace_path, target_name, start_keyword)
+    #
+    # # 将结果复制到剪贴板
+    # copy_to_clipboard(output_text)
+
+    # # 输入参数
+    # folder_path = r"H:\project\沙雕动画\AnJsflScript\Third\_custom\xjsfl\ui\src"
+    # extensions = [".jsfl"]
+    # replace_path = folder_path
+    # target_name = "Third"
     # start_keyword = ""
     # # 处理文件夹并生成文本
     # output_text = process_folder(folder_path, extensions, replace_path, target_name, start_keyword)

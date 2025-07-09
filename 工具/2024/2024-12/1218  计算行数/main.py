@@ -12,17 +12,19 @@
 from my_base.files import Files
 from my_base.folder_traverser import FolderTraverser
 
-folderPath = r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript"
+folderPath = r"H:\project\沙雕动画\AnJsflScript"
 extensions = [".jsfl"]
 exclude_folders = [
     "Third",
-    "test", "dp", "例子", "文档", "node_modules", r"lib\21.工具", r"lib\00.智能循环✔️", "types",
-# F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib\07.优化\11.一键描边
+    "test", "dp", "例子", "文档", "node_modules", r"lib\21.工具", r"00.智能循环✔", "types",
     r"07.优化\11.一键描边",
-# F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\lib\21.代码工具
-    r"lib\21.代码工具",
+    r"lib\21.代码工具", r"05.补间具体✔", "config", "dist",
+
+    r"02.头部\11.组装万能头",r"03.打斗\02.排兵布阵",r"07.优化✔\11.一键描边","Tools","FirstRun",
+
 ]
 plist = FolderTraverser(folderPath, include_extensions=extensions, exclude_folders=exclude_folders).FilePaths
+
 
 # print(len(plist))
 
@@ -73,9 +75,9 @@ for fc in fcs:
 
 print("- **字符数量**:", total)
 
-folderPath = r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript"
+folderPath = r"H:\project\沙雕动画\AnJsflScript"
 extensions = [".jsfl"]
-exclude_folders = exclude_folders + ["Core",]
+exclude_folders = exclude_folders + ["Core", ]
 plist = FolderTraverser(folderPath, include_extensions=extensions, exclude_folders=exclude_folders).FilePaths
 
 # print(plist)
