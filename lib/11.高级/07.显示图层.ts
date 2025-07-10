@@ -15,7 +15,7 @@ import { getKeyFrameRanges } from "KeyFrameQuery";
 // @ts-expect-error
 import { FrameRange } from "SAT";
 // @ts-expect-error
-import {IsEmptyFrame} from "FrameChecker";
+import { IsEmptyFrame } from "FrameChecker";
 
 import log = require("loglevel");
 
@@ -60,7 +60,7 @@ if (!CheckSelection(selection, "selectElement", "No limit")) {
 // }
 // endregion doc
 
-function findPreviousNotEmptyFrame(timeline: FlashTimeline,frameIndex:number) {
+function findPreviousNotEmptyFrame(timeline: FlashTimeline, frameIndex: number) {
     var layers = timeline.layers; //图层
     var curLayerIndex = timeline.currentLayer; //当前图层索引
     var curLayer = layers[curLayerIndex]; //当前图层
@@ -70,13 +70,13 @@ function findPreviousNotEmptyFrame(timeline: FlashTimeline,frameIndex:number) {
 
     // 查找 firstSlFrameIndex 在 keyFrameRanges 中的索引
     // @ts-ignore es6
-    var SlKeyFrameIndex =keyFrameRanges.findIndex(function (fr) {
+    var SlKeyFrameIndex = keyFrameRanges.findIndex(function (fr) {
         return fr.contain(frameIndex);
     });
     // log.info("SlKeyFrameIndex", SlKeyFrameIndex);
     if (SlKeyFrameIndex === 0) return;
 
-    var previousKeyFrameIndex:number = keyFrameRanges[SlKeyFrameIndex - 1].startFrame; //上一个关键帧
+    var previousKeyFrameIndex: number = keyFrameRanges[SlKeyFrameIndex - 1].startFrame; //上一个关键帧
     log.info("上一个关键帧", previousKeyFrameIndex);
 
     var _frames = curLayer.frames; //当前图层的帧列表
@@ -91,7 +91,7 @@ function findPreviousNotEmptyFrame(timeline: FlashTimeline,frameIndex:number) {
 }
 
 function Main() {
-    const previousNotEmptyFrame=findPreviousNotEmptyFrame(timeline,firstSlFrameIndex);
+    const previousNotEmptyFrame = findPreviousNotEmptyFrame(timeline, firstSlFrameIndex);
 
     timeline.copyFrames(previousNotEmptyFrame);
     timeline.pasteFrames(firstSlFrameIndex);

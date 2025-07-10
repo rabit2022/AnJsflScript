@@ -7,7 +7,6 @@
     "build": "node build.js"
   },
   "devDependencies": {
-    "typescript": "^5.2.2",
     "prettier": "^3.3.1",
     "@babel/cli": "^7.27.0",
     "@babel/core": "^7.26.10",
