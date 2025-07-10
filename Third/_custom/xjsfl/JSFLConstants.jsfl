@@ -439,6 +439,7 @@ define(function () {
 
 
     var doc = fl.getDocumentDOM(); //文档
+    const frameRate = doc.frameRate; //帧率
 
     const JSFLNumerics = {
         // --------------------------------------------------------------------------------
@@ -470,13 +471,13 @@ define(function () {
              * 不同时间维度的帧率
              */
             frameRate: {
-                FPS: doc.frameRate, // 每秒帧数（Frames Per Second）
-                FPM: doc.frameRate * 60, // 每分钟帧数（Frames Per Minute）
-                FPH: doc.frameRate * 60 * 60, // 每小时帧数（Frames Per Hour）
-                FPD: doc.frameRate * 60 * 60 * 24, // 每天帧数（Frames Per Day）
-                FPW: doc.frameRate * 60 * 60 * 24 * 7, // 每周帧数（Frames Per Week）
-                FPMonth: doc.frameRate * 60 * 60 * 24 * 30, // 每月帧数（Frames Per Month，假设每月30天）
-                FPY: doc.frameRate * 60 * 60 * 24 * 365 // 每年帧数（Frames Per Year）
+                FPS: frameRate, // 每秒帧数（Frames Per Second）
+                FPM: frameRate * 60, // 每分钟帧数（Frames Per Minute）
+                FPH: frameRate * 60 * 60, // 每小时帧数（Frames Per Hour）
+                FPD: frameRate * 60 * 60 * 24, // 每天帧数（Frames Per Day）
+                FPW: frameRate * 60 * 60 * 24 * 7, // 每周帧数（Frames Per Week）
+                FPMonth: frameRate * 60 * 60 * 24 * 30, // 每月帧数（Frames Per Month，假设每月30天）
+                FPY: frameRate * 60 * 60 * 24 * 365 // 每年帧数（Frames Per Year）
             },
             /**
              * 为了方便使用，定义了一些常用的帧列表

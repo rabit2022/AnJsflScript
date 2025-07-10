@@ -1458,6 +1458,31 @@ define(["SObject", "FUNC"], function (so, FUNC) {
          * @type {boolean}
          */
         this.enabled = true;
+
+        /**
+         * 斜角的角度
+         * @type {number}
+         * @range [0, 360]
+         */
+        this.angle = 45;
+        /**
+         * 斜角的锐度
+         * @type {number}
+         * @range [0, 255]
+         */
+        this.distance = 4;
+
+        /**
+         * 斜角的颜色数组
+         * @type {Array}
+         */
+        this.colorArray = [];
+
+        /**
+         * 斜角的位置数组
+         * @type {Array}
+         */
+        this.posArray = [];
     }
 
     INHERIT_MACRO(GradientGlowFilter, BaseFilter);
@@ -1530,6 +1555,12 @@ define(["SObject", "FUNC"], function (so, FUNC) {
         return this;
     };
 
+    GradientGlowFilterBuilder.prototype.setBlur = function (blur) {
+        this.gradientGlowFilter.blurX = blur;
+        this.gradientGlowFilter.blurY = blur;
+        return this;
+    };
+
     /**
      * 设置滤镜的百分比强度
      * @param {number} strength 滤镜的百分比强度
@@ -1572,12 +1603,39 @@ define(["SObject", "FUNC"], function (so, FUNC) {
     };
 
     /**
+     * 设置斜角的角度
+     * @param {number} angle 斜角的角度
+     * @returns {GradientGlowFilterBuilder}
+     */
+    GradientGlowFilterBuilder.prototype.setAngle = function (angle) {
+        this.gradientGlowFilter.angle = angle;
+        return this;
+    };
+
+    /**
+     * 设置斜角的锐度
+     * @param {number} distance 斜角的锐度
+     * @returns {GradientGlowFilterBuilder}
+     */
+    GradientGlowFilterBuilder.prototype.setDistance = function (distance) {
+        this.gradientGlowFilter.distance = distance;
+        return this;
+    };
+
+    GradientGlowFilterBuilder.prototype.addColorStop = function (pos, color) {
+        this.gradientGlowFilter.colorArray.push(color);
+        this.gradientGlowFilter.posArray.push(pos);
+        return this;
+    };
+
+    /**
      * 构建并返回最终的 GradientGlowFilter 对象
      * @returns {GradientGlowFilter} 构建好的 GradientGlowFilter 对象
      */
     GradientGlowFilterBuilder.prototype.build = function () {
         return this.gradientGlowFilter;
     };
+
     // endregion GradientGlowFilterBuilder
 
     FILTERS["BUILDERS"] = FILTER_BUILDERS;

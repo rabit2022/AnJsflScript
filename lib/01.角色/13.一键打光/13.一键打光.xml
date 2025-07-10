@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<dialog title="一键打光" buttons="accept, cancel">
+    <vbox>
+        <label value="阴影偏移量(1~100):"/>
+        <textbox id="shadow_offset" value="20" size="45"/>
+    </vbox>
+    <separator/>
+
+    <vbox>
+        <label value="选择人物朝向："/>
+        <radiogroup id="direction">
+            <hbox>
+                <radio label="左" value="left"/>
+                <radio label="右" value="right"/>
+            </hbox>
+        </radiogroup>
+    </vbox>
+    <separator/>
+
+    <vbox>
+        <label value="选择打光模式："/>
+        <radiogroup id="shadow_mode">
+            <hbox>
+                <radio label="新版打光" value="new"/>
+                <radio label="旧版打光" value="old"/>
+            </hbox>
+        </radiogroup>
+    </vbox>
+    <separator/>
+
+</dialog>
