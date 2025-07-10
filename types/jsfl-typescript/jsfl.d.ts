@@ -669,32 +669,289 @@ interface FlashElement extends FlashInstance, FlashBitmapInstance, FlashCompiled
     y: number;
 }
 
+// interface FlashFrame {
+//     getCustomEase();
+//     setCustomEase();
+//     actionScript;
+//     duration;
+//     elements: FlashElement[];
+//     hasCustomEase;
+//     labelType;
+//     motionTweenOrientToPath;
+//     motionTweenRotate;
+//     motionTweenRotateTimes;
+//     motionTweenScale;
+//     motionTweenSnap;
+//     motionTweenSync;
+//     name;
+//     shapeTweenBlend;
+//     soundEffect;
+//     soundLibraryItem:FlashSoundItem;
+//     soundLoop;
+//     soundLoopMode;
+//     soundName;
+//     soundSync;
+//     startFrame;
+//     tweenEasing;
+//     tweenType;
+//     useSingleEaseCurve;
+// }
+/**
+ * @since Flash MX 2004
+ * @class Frame
+ */
 interface FlashFrame {
-    getCustomEase();
-    setCustomEase();
-    actionScript;
-    duration;
-    elements: FlashElement[];
-    hasCustomEase;
-    labelType;
-    motionTweenOrientToPath;
-    motionTweenRotate;
-    motionTweenRotateTimes;
-    motionTweenScale;
-    motionTweenSnap;
-    motionTweenSync;
-    name;
-    shapeTweenBlend;
-    soundEffect;
-    soundLibraryItem:FlashSoundItem;
-    soundLoop;
-    soundLoopMode;
-    soundName;
-    soundSync;
-    startFrame;
-    tweenEasing;
-    tweenType;
-    useSingleEaseCurve;
+    /**
+     * @since Flash MX 2004
+     * @type {string}
+     */
+    actionScript?: string;
+
+    /**
+     * @since Flash MX 2004
+     * @type {number}
+     * @const
+     */
+    readonly duration: number;
+
+    /**
+     * @since Flash MX 2004
+     * @type {Array<Element>}
+     * @const
+     */
+    readonly elements?: Element[];
+
+    /**
+     * @since Flash 8
+     * @type {boolean}
+     */
+    hasCustomEase: boolean;
+
+    /**
+     * @since Flash MX 2004
+     * @type {"none"|"name"|"comment"|"anchor"}
+     */
+    labelType?: "none" | "name" | "comment" | "anchor";
+
+    /**
+     * @since Flash MX 2004
+     * @type {boolean}
+     */
+    motionTweenOrientToPath: boolean;
+
+    /**
+     * @since Flash MX 2004
+     * @type {"none"|"auto"|"clockwise"|"counter-clockwise"}
+     */
+    motionTweenRotate?: "none" | "auto" | "clockwise" | "counter-clockwise";
+
+    /**
+     * @since Flash MX 2004
+     * @type {number}
+     */
+    motionTweenRotateTimes: number;
+
+    /**
+     * @since Flash MX 2004
+     * @type {boolean}
+     */
+    motionTweenScale: boolean;
+
+    /**
+     * @since Flash MX 2004
+     * @type {boolean}
+     */
+    motionTweenSnap: boolean;
+
+    /**
+     * @since Flash MX 2004
+     * @type {boolean}
+     */
+    motionTweenSync: boolean;
+
+    /**
+     * @since Flash MX 2004
+     * @type {string}
+     */
+    name?: string;
+
+    /**
+     * @since Flash MX 2004
+     * @type {"distributive"|"angular"}
+     */
+    shapeTweenBlend?: "distributive" | "angular";
+
+    /**
+     * @since Flash MX 2004
+     * @type {"none"|"left channel"|"right channel"|"fade left to right"|"fade right to left"|"fade in"|"fade out"|"custom"}
+     */
+    soundEffect?: "none" | "left channel" | "right channel" | "fade left to right" | "fade right to left" | "fade in" | "fade out" | "custom";
+
+    /**
+     * @since Flash MX 2004
+     * @type {SoundItem}
+     */
+    soundLibraryItem?: SoundItem;
+
+    /**
+     * @since Flash MX 2004
+     * @type {number}
+     */
+    soundLoop: number;
+
+    /**
+     * @since Flash MX 2004
+     * @type {"repeat"|"loop"}
+     */
+    soundLoopMode?: "repeat" | "loop";
+
+    /**
+     * @since Flash MX 2004
+     * @type {string}
+     */
+    soundName?: string;
+
+    /**
+     * @since Flash MX 2004
+     * @type {"event"|"stop"|"start"|"stream"}
+     */
+    soundSync?: "event" | "stop" | "start" | "stream";
+
+    /**
+     * @since Flash MX 2004
+     * @type {number}
+     * @const
+     */
+    readonly startFrame: number;
+
+    /**
+     * @since Flash MX 2004
+     * @type {number}
+     */
+    tweenEasing: number;
+
+    /**
+     * @since Flash CS5
+     * @type {string}
+     */
+    tweenInstanceName?: string;
+
+    /**
+     * @since Flash MX 2004
+     * @type {"motion"|"shape"|"none"}
+     */
+    tweenType?: "motion" | "shape" | "none";
+
+    /**
+     * @since Flash 8
+     * @type {boolean}
+     */
+    useSingleEaseCurve: boolean;
+
+    /**
+     * @since Flash CS5
+     */
+    convertMotionObjectTo2D(): void;
+
+    /**
+     * @since Flash CS5
+     */
+    convertMotionObjectTo3D(): void;
+
+    /**
+     * @since Flash CC
+     * @return {boolean}
+     */
+    convertToFrameByFrameAnimation(): boolean;
+
+    /**
+     * @since Flash MX 2004
+     * @param {"all"|"position"|"rotation"|"scale"|"color"|"filters"} [property]
+     * @return {Array<{x: number, y: number}>}
+     */
+    getCustomEase(property?: "all" | "position" | "rotation" | "scale" | "color" | "filters"): { x: number; y: number }[];
+
+    /**
+     * @since Flash CS5
+     * @return {string}
+     */
+    getMotionObjectXML(): string;
+
+    /**
+     * @since Flash CC
+     * @return {Array<{mark: number, leftChannel: number, rightChannel: number}>}
+     */
+    getSoundEnvelope(): { mark: number; leftChannel: number; rightChannel: number }[];
+
+    /**
+     * @since Flash CC
+     * @return {{start: number, end: number}}
+     */
+    getSoundEnvelopeLimits(): { start: number; end: number };
+
+    /**
+     * @since Flash CS5
+     * @return {boolean}
+     */
+    hasMotionPath(): boolean;
+
+    /**
+     * @since Flash CS5
+     * @return {boolean}
+     */
+    is3DMotionObject(): boolean;
+
+    /**
+     * @since Flash CC
+     * @return {boolean}
+     */
+    // isEmpty(): boolean;
+    readonly isEmpty: boolean;
+
+    /**
+     * @since Flash CS5
+     * @return {boolean}
+     */
+    isMotionObject(): boolean;
+
+    /**
+     * @since Flash CS5
+     * @param {boolean} select
+     */
+    selectMotionPath(select: boolean): void;
+
+    /**
+     * @since Flash 8
+     * @param {"all"|"position"|"rotation"|"scale"|"color"|"filters"} property
+     * @param {Array<{x: number, y: number}>} easeCurve
+     */
+    setCustomEase(property: "all" | "position" | "rotation" | "scale" | "color" | "filters", easeCurve: { x: number; y: number }[]): void;
+
+    /**
+     * @since Flash CS5
+     * @param {number} duration
+     * @param {boolean} [stretchExistingKeyframes]
+     */
+    setMotionObjectDuration(duration: number, stretchExistingKeyframes?: boolean): void;
+
+    /**
+     * @since Flash CS5
+     * @param {string} xmlstr
+     * @param {boolean} [endAtCurrentLocation]
+     */
+    setMotionObjectXML(xmlstr: string, endAtCurrentLocation?: boolean): void;
+
+    /**
+     * @since Flash CC
+     * @param {Array<{mark: number, leftChannel: number, rightChannel: number}>} soundEnv
+     */
+    setSoundEnvelope(soundEnv: { mark: number; leftChannel: number; rightChannel: number }[]): void;
+
+    /**
+     * @since Flash CC
+     * @param {{start: number, end: number}} limits
+     */
+    setSoundEnvelopeLimits(limits: { start: number; end: number }): void;
 }
 
 interface FlashSymbolItem {

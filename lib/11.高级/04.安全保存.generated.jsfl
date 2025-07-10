@@ -1,3 +1,4 @@
+// 这个文件由脚本自动生成，任何手动修改都将会被覆盖.
 require(["require", "_exports", "checkUtil", "luxon-config", "os", "loglevel"], function (require, exports, checkUtil_1, luxon_config_1, os, log) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });

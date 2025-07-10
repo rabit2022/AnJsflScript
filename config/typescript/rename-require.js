@@ -21,16 +21,22 @@ function renameFilesRecursively(dir) {
             // 指定文件夹
             // if (!file.includes("test") &&!file.includes("lib") ) return;
 
+            // @note: .generated.jsfl 后缀 ： 标记为由脚本自动生成的文件，prettier不会格式化，任何手动修改都将会被覆盖.
             // 如果是 .ts 文件，重命名为 .jsfl 文件
-            const newFilePath = filePath.replace(/\.js$/, ".jsfl");
+            const newFilePath = filePath.replace(/\.js$/, ".generated.jsfl");
             fs.renameSync(filePath, newFilePath);
             console.log(`Renamed ${filePath} to ${newFilePath}`);
 
             // 读取文件内容，define开头的话 把开头的define更改为 require
             const content = fs.readFileSync(newFilePath, "utf8");
-            const newContent = content
+            const replaced = content
                 .replace(/^define/, "require")
                 .replace(`"exports"`, `"_exports"`);
+            // 开头添加
+            const newHeader = `// 这个文件由脚本自动生成，任何手动修改都将会被覆盖.`;
+
+            const newContent = `${newHeader}\n${replaced}`;
+
             fs.writeFileSync(newFilePath, newContent, "utf8");
             console.log(`Updated ${newFilePath}`);
         }

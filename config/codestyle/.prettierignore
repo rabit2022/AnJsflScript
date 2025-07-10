@@ -15,3 +15,6 @@ cache/
 # 打包的配置文件
 **/**config**
 **/**webpack**
+
+# ts 生成的文件 04.安全保存.generated.jsfl
+**/**.generated.jsfl

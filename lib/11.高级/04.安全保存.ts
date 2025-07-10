@@ -105,7 +105,7 @@ function deleteNoneFlaFile(timeDataList: Array<TimeData>) {
     let notMyFlaList: Array<string> = timeDataList
         .filter(
             (timeData) =>
-                // @ts-ignore
+                // @ts-ignore 使用非es5 api
                 !timeData.flaFile.startsWith("2025") || !timeData.flaFile.endsWith(".fla")
         )
         .map((timeData) => os.path.join(SAVE_FOLDER, timeData.flaFile));

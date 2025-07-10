@@ -305,6 +305,8 @@ declare namespace sat {
 
         contain(fr2: FrameRange): boolean;
 
+        contain(frameIndex: number) : boolean;
+
         toArray(): [number, number, number];
 
         getFirstFrame(): FrameRange;

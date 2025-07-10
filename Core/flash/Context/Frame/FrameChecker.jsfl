@@ -34,8 +34,14 @@ define(["FUNC"], function (FUNC) {
         return frameIndex >= max_frames;
     }
 
+
+    function IsEmptyFrame(frame) {
+        return frame.isEmpty;
+    }
+
     return {
         IsFrameBlank: IsFrameBlank,
-        IsNoneFrame: IsNoneFrame
+        IsNoneFrame: IsNoneFrame,
+        IsEmptyFrame: IsEmptyFrame
     };
 });

@@ -1670,15 +1670,21 @@
 
     /**
      * 判断 当前 FrameRange 是否包含   fr2 选中范围
-     * @param {FrameRange} fr2 选中范围数组
+     * @param {FrameRange|number} fr2 选中范围数组
      * @return {boolean} 是否包含
      */
     FrameRange.prototype.contain = function(fr2) {
-        // print("this=" + this.toString() + ", fr2=" + fr2.toString())
-        if (this.layerIndex !== fr2.layerIndex) {
-            return false;
+        // contain(frameIndex: number) : boolean;
+        if (typeof fr2 === "number") {
+            return this.startFrame <= fr2 && this.endFrame > fr2;
+        } else if (IsFrameRangeLike(fr2)) {
+            if (this.layerIndex !== fr2.layerIndex) {
+                return false;
+            }
+            return this.startFrame <= fr2.startFrame && this.endFrame >= fr2.endFrame;
+        } else {
+            throw new Error("Invalid argument type : "+fr2);
         }
-        return this.startFrame <= fr2.startFrame && this.endFrame >= fr2.endFrame;
     };
 
     /**

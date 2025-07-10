@@ -125,3 +125,12 @@ Layer.prototype.setBlendModeAtFrame = function(frameIndex, blendModeString) {
  */
 Document.prototype.exportGIF = function(fileURI, bCurrentPNGSettings, bCurrentFrame) {
 };
+
+
+/**
+ * @since Flash CC
+ * @return {boolean}
+ * @bug 不是函数
+ */
+// Frame.prototype.isEmpty = function () {};
+Frame.prototype.isEmpty = false;
