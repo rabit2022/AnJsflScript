@@ -67,7 +67,7 @@ def generate_text(module_path: str, replace_path: str, target_name: str) -> str:
     module_name = get_filename_without_extension(relative_path)
 
     # "BitmapOperation": ["Core/flash/Bitmap/BitmapOperation"],
-    return f'"{module_name}": ["{relative_path}"],'
+    return f'"{module_name}": ["{relative_path}.jsfl"],'
 
 
 def process_folder(folder_path: str, extensions: list, replace_path: str, target_name: str,
