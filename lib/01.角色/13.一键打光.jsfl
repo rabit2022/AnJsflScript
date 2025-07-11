@@ -112,6 +112,7 @@ require(["checkUtil", "loglevel", "COMPATIBILITY", "StringPaser", "store-js"], f
                 break;
             case "old":
                 // __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__("./13.一键打光/13.一键打光_old.jsfl");
+                alert("没有实现，请用新版");
                 break;
             default:
                 throw new Error("未知的阴影模式：" + shadow_mode);

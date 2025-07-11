@@ -95,13 +95,13 @@
         // 需要编译的文件夹
         "./test/**/*.ts",
         "./lib/**/*.ts",
-
-
+        "./Core/**/*.ts"
     ],
     "typeRoots": [
         "./node_modules/@types",
         "./types"
-    ]
+    ],
+    "exclude": ["Core/**/**.skip.ts"]   // 排除文件名中含 _skip 的所有文件
 
 
 

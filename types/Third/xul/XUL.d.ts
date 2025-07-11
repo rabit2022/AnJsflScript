@@ -257,11 +257,11 @@ declare module "XUL" {
     export = XUL;
 }
 
-// Global xjsfl objects
-declare namespace xjsfl {
-    var uri: string;
-    namespace ui {
-        function show(xul: XUL): Record<string, any>;
-        function handleEvent(xulid: string, type: string, id: string): void;
-    }
-}
+// // Global xjsfl objects
+// declare namespace xjsfl {
+//     var uri: string;
+//     namespace ui {
+//         function show(xul: XUL): Record<string, any>;
+//         function handleEvent(xulid: string, type: string, id: string): void;
+//     }
+// }

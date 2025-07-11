@@ -69,6 +69,8 @@ require.config({
         "XUL":"Third/_custom/xjsfl/ui/XUL",
         // H:\project\沙雕动画\AnJsflScript\Third\_bridge\exports\exports.jsfl
         "_exports":"Third/_bridge/exports/exports",
+        // H:\project\沙雕动画\AnJsflScript\Third\Class\overload-js-1.0.0\overload.jsfl
+        "overload-js":"Third/Class/overload-js-1.0.0/overload-js",
         // endregion Third
 
         // region Core

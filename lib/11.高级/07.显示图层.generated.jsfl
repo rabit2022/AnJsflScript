@@ -23,7 +23,7 @@ require(["require", "_exports", "checkUtil", "KeyFrameQuery", "FrameChecker", "l
     if (!(0, checkUtil_1.CheckSelection)(selection, "selectElement", "No limit")) {
         return;
     }
-    function findPreviousNonEmptyFrame(timeline, frameIndex) {
+    function findPreviousNotEmptyFrame(timeline, frameIndex) {
         var layers = timeline.layers;
         var curLayerIndex = timeline.currentLayer;
         var curLayer = layers[curLayerIndex];
@@ -38,13 +38,13 @@ require(["require", "_exports", "checkUtil", "KeyFrameQuery", "FrameChecker", "l
         var _frames = curLayer.frames;
         var previousKeyFrame = _frames[previousKeyFrameIndex];
         if ((0, FrameChecker_1.IsEmptyFrame)(previousKeyFrame)) {
-            return findPreviousNonEmptyFrame(timeline, previousKeyFrameIndex);
+            return findPreviousNotEmptyFrame(timeline, previousKeyFrameIndex);
         }
         return previousKeyFrameIndex;
     }
     function Main() {
-        var previousNonEmptyFrame = findPreviousNonEmptyFrame(timeline, firstSlFrameIndex);
-        timeline.copyFrames(previousNonEmptyFrame);
+        var previousNotEmptyFrame = findPreviousNotEmptyFrame(timeline, firstSlFrameIndex);
+        timeline.copyFrames(previousNotEmptyFrame);
         timeline.pasteFrames(firstSlFrameIndex);
     }
     Main();

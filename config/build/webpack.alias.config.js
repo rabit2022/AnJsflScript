@@ -57,6 +57,9 @@ var alias = {
     "JSFLInterface": path.resolve(dirname, "Third/_custom/xjsfl/JSFLInterface"),
     "XUL": path.resolve(dirname, "Third/_custom/xjsfl/ui/XUL"),
     "_exports": path.resolve(dirname, "Third/_bridge/exports/exports"),
+    // "overload": path.resolve(dirname, "Third/Class/overload-js-1.0.0/overload"),
+    // "overload-js":"Third/Class/overload-js-1.0.0/overload-js",
+    "overload-js": path.resolve(dirname, "Third/Class/overload-js-1.0.0/overload-js"),
 
 
     // 自定义模块
