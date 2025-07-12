@@ -51,7 +51,7 @@ define([
             // 普通图层
             else {
                 // 检查普通图层是否为空
-                if (IsLayerBlank(layer)) {
+                if (IsLayerBlank(timeline.layers,layer)) {
                     emptyLayers.push(i);
                 }
             }

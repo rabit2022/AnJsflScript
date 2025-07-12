@@ -30,7 +30,6 @@
             "JSFLInterface": ["Third/_custom/xjsfl/JSFLInterface.jsfl"],
 
 
-
             "BitmapOperation": ["Core/flash/Bitmap/BitmapOperation.jsfl"],
             "checkUtil": ["Core/flash/checkUtil.jsfl"],
             "ColorPanel": ["Core/flash/color/ColorPanel.jsfl"],
@@ -101,7 +100,7 @@
         "./node_modules/@types",
         "./types"
     ],
-    "exclude": ["Core/**/**.skip.ts"]   // 排除文件名中含 _skip 的所有文件
+    "exclude": ["Core/**/**skip*"]   // 排除文件名中含 _skip 的所有文件
 
 
 

@@ -22,7 +22,7 @@ type Parsed<S extends Schema> = {
     [K in keyof S]: any;
 };
 
-function DYNAMIC_PARAMSSkip<S extends Schema>(
+function DYNAMIC_PARAMS<S extends Schema>(
     args: any[],
     schema: S,
     defaults: Partial<Parsed<S>> = {}

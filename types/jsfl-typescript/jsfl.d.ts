@@ -176,6 +176,9 @@ interface FlashDocument {
     /** Exports the document in the Flash SWF format. */
     exportSWF(fileURI: string, bCurrentSettings?: boolean): void;
 
+    /** Exports the document as a video file. */
+    exportVideo(fileURI: string, convertInAdobeMediaEncoder?: boolean, transparent?: boolean, stopAtFrame?: boolean, stopAtFrameOrTime?: number): void;
+
     /** Identical to retrieving the value of the To Stage */
     getAlignToDocument(): boolean;
 
@@ -1339,7 +1342,7 @@ interface FlashTimeline {
     pasteFrames(startFrameIndex?: number, endFrameIndex?: number): void;
 
     /** Pastes copied layers to the Timeline above the specified layer index. */
-    pasteLayers(layerIndex: number): number;
+    pasteLayers(layerIndex?: number): number;
 
     /** Pastes the range of motion frames retrieved by */
     pasteMotion(): void;

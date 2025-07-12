@@ -7,9 +7,9 @@
  * @description:
  */
 
-define(["FUNC", "FrameChecker"], function (FUNC, fc) {
-    const { SAFE_GET_MACRO } = FUNC;
+define(["FrameChecker", "KeyFrameQuery"], function(fc, kfq) {
     const { IsFrameBlank } = fc;
+    const { getKeyFrameRanges } = kfq;
 
     /**
      * 判断图层是否存在
@@ -28,36 +28,52 @@ define(["FUNC", "FrameChecker"], function (FUNC, fc) {
 
     /**
      * 检查图层是否包含声音
+     * @param {Array.<Layer>} layers 图层数组
      * @param {Layer} layer 图层
-     * @param {number} [startFrame=0] 开始帧
-     * @param {number} [endFrame=layer.frames.length - 1] 结束帧
-     * @returns {boolean} 是否包含声音
+     * @returns {SoundInfo[]} 是否包含声音
      */
-    function hasSound(layer, startFrame, endFrame) {
-        if (startFrame === undefined) startFrame = 0;
-        if (endFrame === undefined) endFrame = layer.frames.length - 1;
+    function hasSound(layers, layer) {
+        var result = {
+            hasSound: false,
+            layerIndex: null,
+            frameIndex: null,
+            layer: null,
+            frame: null,
+            soundName: null
+        };
+        var results = [];
 
-        for (var i = startFrame; i <= endFrame; i++) {
-            var frame = layer.frames[i];
+        const keyFrameRanges = getKeyFrameRanges(layers, layer);
+        keyFrameRanges.forEach(function(kfr) {
+            var keyFrameIndex = kfr.startFrame;
+            var keyFrame = layer.frames[keyFrameIndex];
             // undefined 可能是因为 空白帧
-            if (frame === undefined) continue;
-            // if (frame.getSoundEnvelope()) {
-            if (frame.soundLibraryItem) {
-                return true; // 发现声音对象
+            if (keyFrame === undefined) return;
+            if (keyFrame.soundName) {
+                result = {
+                    hasSound: true,
+                    layerIndex: kfr.layerIndex,
+                    frameIndex: keyFrameIndex,
+                    layer: layer,
+                    frame: keyFrame,
+                    soundName: keyFrame.soundName
+                };
+                results.push(result);
             }
-        }
-        return false; // 没有声音对象
+        });
+        return results;
     }
 
     /**
      * 检查图层是否为空
+     * @param {Array.<Layer>} layers 图层数组
      * @param {Layer} layer 图层
      * @returns {boolean} 是否为空
      * @see https://github.com/hufang360/FlashTool
      */
-    function IsLayerBlank(layer) {
+    function IsLayerBlank(layers, layer) {
         // hasSound
-        if (hasSound(layer)) {
+        if (hasSound(layers, layer).length > 0) {
             return false;
         }
 
@@ -68,11 +84,15 @@ define(["FUNC", "FrameChecker"], function (FUNC, fc) {
                 return false;
             }
             // frameId = layer.frames[frameId - 1]?.startFrame || -1;
-            lastKF = SAFE_GET_MACRO(layer.frames[lastKF - 1], "startFrame", -1);
+            // lastKF = SAFE_GET_MACRO(layer.frames[lastKF - 1], "startFrame", -1);
+            var _a;
+            lastKF = ((_a = layer.frames[lastKF - 1]) === null || _a === void 0 ? void 0 : _a.startFrame) || -1;
+
         }
 
         return true;
     }
+
     return {
         IsLayerExists: IsLayerExists,
         hasSound: hasSound,
