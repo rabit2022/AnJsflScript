@@ -49,7 +49,7 @@ require(["require", "_exports", "checkUtil", "luxon-config", "os", "loglevel"], 
     function deleteNoneFlaFile(timeDataList) {
         var notMyFlaList = timeDataList
             .filter(function (timeData) {
-            return !timeData.flaFile.startsWith("2025") || !timeData.flaFile.endsWith(".fla");
+            return !timeData.flaFile.startsWith("20") || !timeData.flaFile.endsWith(".fla");
         })
             .map(function (timeData) { return os.path.join(SAVE_FOLDER, timeData.flaFile); });
         for (var _i = 0, notMyFlaList_1 = notMyFlaList; _i < notMyFlaList_1.length; _i++) {

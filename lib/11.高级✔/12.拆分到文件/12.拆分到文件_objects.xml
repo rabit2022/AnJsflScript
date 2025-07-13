@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<dialog title="拆分到文件_objects" buttons="accept, cancel">
+    <vbox>
+        <label value="请选择摆放模式：" />
+        <radiogroup id="layout_mode">
+            <radio label="适合画面(人物素材)" value="fit" />
+            <radio label="小于画面(道具素材)" value="small" />
+            <radio label="铺满画面(背景素材)" value="fill" />
+        </radiogroup>
+        <separator />
+    </vbox>
+</dialog>

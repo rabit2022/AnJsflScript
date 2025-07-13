@@ -47,7 +47,7 @@ define(["LayerHierarchy", "FolderQuery", "LayerChecker", "Tips"], function (
                     }
                 } else {
                     // 检查子图层是否为空
-                    if (!IsLayerBlank(timeline.layers,child)) {
+                    if (!IsLayerBlank(timeline.layers, child)) {
                         return false;
                     }
                 }

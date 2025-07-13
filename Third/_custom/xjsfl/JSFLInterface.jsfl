@@ -13,7 +13,19 @@
 
 
 define(["universal-cookie"],function(Cookie) {
-
+    /**
+     * 还原被 URL + Unicode 双重编码的字符串（ES5 写法）
+     * @param  {string} str 编码后的字符串
+     * @return {string}     解码后的原始字符串
+     */
+    function decodeUnicode(str) {
+        // 1. 先处理 %uXXXX → 字符
+        str = str.replace(/%u([0-9a-fA-F]{4})/g, function (_, hex) {
+            return String.fromCharCode(parseInt(hex, 16));
+        });
+        // 2. 再处理 %XX → 字符
+        return decodeURIComponent(str);
+    };
 
     /**
      * JSFLInterface
@@ -141,7 +153,8 @@ define(["universal-cookie"],function(Cookie) {
                     CIRCULAR_REFERENCE_ARRAY: "CIRCULAR_REFERENCE_ARRAY", // 循环引用数组
                     CIRCULAR_REFERENCE_OBJECT: "CIRCULAR_REFERENCE_OBJECT", // 循环引用对象
 
-                    COOKIE_STRING: "COOKIE_STRING" // cookie 字符串
+                    COOKIE_STRING: "COOKIE_STRING" ,// cookie 字符串
+                    UNICODE_STRING: "UNICODE_STRING" // Unicode 编码字符串
                 };
 
                 function isArrayWithBasicTypes(arr) {
@@ -266,6 +279,13 @@ define(["universal-cookie"],function(Cookie) {
                     return typeof str === "string" && cookiePattern.test(str);
                 }
 
+                function IsUnicodeString(str) {
+                    // 正则表达式匹配 Unicode 编码字符串
+                    const unicodePattern = /%u([0-9a-fA-F]{4})/g;
+
+                    return typeof str === "string" && unicodePattern.test(str);
+                }
+
                 function analyzeFormatMessageType(arg) {
                     if (arg === null) {
                         return FormatMessageType.NULL;
@@ -277,7 +297,11 @@ define(["universal-cookie"],function(Cookie) {
                         return FormatMessageType.NUMBER;
                     } else if (IsCookieString(arg)) {
                         return FormatMessageType.COOKIE_STRING;
+                    } else if (IsUnicodeString(arg)) {
+                        return FormatMessageType.UNICODE_STRING;
                     }
+
+
                     else if (typeof arg === "function") {
                         return FormatMessageType.FUNCTION;
                     } else if (Object.prototype.toString.call(arg) === "[object Arguments]") {
@@ -312,8 +336,11 @@ define(["universal-cookie"],function(Cookie) {
                         case FormatMessageType.COOKIE_STRING:
                             var cookie = new Cookie(arg);
                             var obj=cookie.cookies;
-                            return JSON.stringify(obj) + "\n";
+                            var objStr=JSON.stringify(obj) + "\n";
+                            return decodeUnicode(objStr);
                             // return formatArgument(obj);
+                        case FormatMessageType.UNICODE_STRING:
+                            return decodeUnicode(arg);
 
                         case FormatMessageType.IAGUEMENT:
                             arg = Array.prototype.map.call(arg, formatArgument);
@@ -374,6 +401,9 @@ define(["universal-cookie"],function(Cookie) {
                 return formatArgument(value);
 
             },
+
+
+            decodeUnicode: decodeUnicode,
 
             toString: function() {
                 return "[class JSFLInterface]";

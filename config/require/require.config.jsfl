@@ -71,6 +71,8 @@ require.config({
         "_exports":"Third/_bridge/exports/exports",
         // H:\project\沙雕动画\AnJsflScript\Third\Class\overload-js-1.0.0\overload.jsfl
         "overload-js":"Third/Class/overload-js-1.0.0/overload-js",
+        // H:\project\沙雕动画\AnJsflScript\Third\utils\progress-2.0.3\progress.jsfl
+        "progress":"Third/utils/progress-2.0.3/progress",
         // endregion Third
 
         // region Core

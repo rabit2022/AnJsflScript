@@ -73,6 +73,13 @@ define(["JSFLInterface","os"], function(JSFLInterface,os) {
         return typeof str === "string" && printfPattern.test(str);
     }
 
+    function IsUnicodeString(str) {
+        // 正则表达式匹配 Unicode 编码字符串
+        const unicodePattern = /%u([0-9a-fA-F]{4})/g;
+
+        return typeof str === "string" && unicodePattern.test(str);
+    }
+
     /**
      * 判断一个字符串是否符合 cookie 格式
      * @param {string} str 要判断的字符串
@@ -106,7 +113,10 @@ define(["JSFLInterface","os"], function(JSFLInterface,os) {
 
         if (IsCookieString(args[0])) {
             return useSerialized();
-        } else if (IsTemplateString(args[0])) {
+        } else if (IsUnicodeString(args[0])) {
+            return useSerialized();
+        }
+        else if (IsTemplateString(args[0])) {
             var formattedMessage = "";
             require(["sprintf-js"], function({ sprintf }) {
                 // 使用 sprintf 格式化模板字符串

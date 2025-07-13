@@ -16,7 +16,9 @@ define(["ElementQuery"], function (eq) {
      */
     function OnlySelectCurrent(element) {
         SelectNone();
-        element.selected = true;
+        // element.selected = true;
+        var doc = fl.getDocumentDOM(); //文档
+        doc.selection = [element];
     }
 
     /**

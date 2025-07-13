@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<dialog title="拆分到文件" buttons="accept, cancel">
+    <vbox>
+        <label value="请选择拆分模式：" />
+        <radiogroup id="split_mode">
+            <hbox>
+                <radio label="拆分舞台对象" value="objects" />
+                <radio label="拆分图层关键帧" value="keyframes" />
+            </hbox>
+        </radiogroup>
+        <separator />
+    </vbox>
+</dialog>

@@ -2040,7 +2040,8 @@
         },
         SYMBOL: {
             getCenter: getSymbolCenter,
-            getBounds: getSymbolBounds
+            getBounds: getSymbolBounds,
+            getSize: getSymbolSize
         },
         STAGE: {
             getCenter: getStageCenter,
@@ -2052,6 +2053,10 @@
             getCenter: getCameraCenter
         }
     };
+
+    function getSymbolSize(element) {
+        return new Size.from(element);
+    }
 
 
     SAT["GLOBALS"] = SAT_GLOBALS;

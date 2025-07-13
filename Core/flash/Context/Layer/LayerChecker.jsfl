@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(["FrameChecker", "KeyFrameQuery"], function(fc, kfq) {
+define(["FrameChecker", "KeyFrameQuery"], function (fc, kfq) {
     const { IsFrameBlank } = fc;
     const { getKeyFrameRanges } = kfq;
 
@@ -44,7 +44,7 @@ define(["FrameChecker", "KeyFrameQuery"], function(fc, kfq) {
         var results = [];
 
         const keyFrameRanges = getKeyFrameRanges(layers, layer);
-        keyFrameRanges.forEach(function(kfr) {
+        keyFrameRanges.forEach(function (kfr) {
             var keyFrameIndex = kfr.startFrame;
             var keyFrame = layer.frames[keyFrameIndex];
             // undefined 可能是因为 空白帧
@@ -86,8 +86,10 @@ define(["FrameChecker", "KeyFrameQuery"], function(fc, kfq) {
             // frameId = layer.frames[frameId - 1]?.startFrame || -1;
             // lastKF = SAFE_GET_MACRO(layer.frames[lastKF - 1], "startFrame", -1);
             var _a;
-            lastKF = ((_a = layer.frames[lastKF - 1]) === null || _a === void 0 ? void 0 : _a.startFrame) || -1;
-
+            lastKF =
+                ((_a = layer.frames[lastKF - 1]) === null || _a === void 0
+                    ? void 0
+                    : _a.startFrame) || -1;
         }
 
         return true;

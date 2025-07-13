@@ -32,6 +32,7 @@
     "@types/luxon": "3.6.2",
     "@types/numjs": "0.16.8",
     "@types/path-browserify": "1.0.3",
+    "@types/progress": "2.0.7",
     "@types/requirejs": "2.1.37",
     "@types/sprintf-js": "1.1.4",
     "@types/storejs": "2.0.3",

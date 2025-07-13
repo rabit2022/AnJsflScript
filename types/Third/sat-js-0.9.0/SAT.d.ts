@@ -405,6 +405,8 @@ declare namespace sat {
             static getCenter(element: ElementBoundsLike | Element): Vector;
 
             static getBounds(element: ElementBoundsLike | Element): Rectangle;
+
+            static getSize(element: ElementBoundsLike | Element): Size;
         }
 
         export class STAGE {

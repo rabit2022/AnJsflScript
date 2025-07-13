@@ -206,7 +206,7 @@ define(["Tips", "SAT", "KeyFrameQuery"], function (Tips, SAT, kfq) {
      * @param {"No limit"|"Not Zero"|"Zero"|"Only one"|"Only two"|"More"|
      * ">0"|"=0"|"=1"|"=2"|">1"} [condition="Not Zero"] - 检查条件
      * @param {{min: number, max: number,onlyFirst: boolean}} [range] - 帧范围
-     * @returns {FrameRangeList}
+     * @returns {FrameRange[]}
      */
     function CheckSelectedFrames(timeline, exTips, condition, range) {
         if (condition === undefined) condition = "Not Zero";
