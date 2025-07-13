@@ -281,7 +281,7 @@ define(["loglevel", "path-browserify"], function (log, path) {
      */
     OS.startfile = function (path, operation, args, cwd, show_cmd) {
         // 转换路径为平台路径
-        var uri = FLfile.uriToPlatformPath(path);
+        var uri = FLfile.uriToPlatformPath(path) || path;
 
         // 转换工作目录为平台路径（如果提供）
         var cwd_uri = cwd ? FLfile.uriToPlatformPath(cwd) : "";
