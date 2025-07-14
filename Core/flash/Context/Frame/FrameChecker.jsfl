@@ -19,7 +19,8 @@ define(["FUNC"], function (FUNC) {
     function IsFrameBlank(frame) {
         // 元件数量为0
         // 动作脚本为空
-        return frame.elements.length === 0 && IsEmpty(frame.actionScript);
+        // return frame.elements.length === 0 && IsEmpty(frame.actionScript);
+        return IsEmptyFrame(frame) && IsEmpty(frame.actionScript);
     }
 
     /**
@@ -34,6 +35,11 @@ define(["FUNC"], function (FUNC) {
         return frameIndex >= max_frames;
     }
 
+    /**
+     * 检查是否为空帧
+     * @param {Frame} frame 要检查的帧
+     * @return {Boolean} 帧是否为空帧
+     */
     function IsEmptyFrame(frame) {
         return frame.isEmpty;
     }
@@ -41,6 +47,6 @@ define(["FUNC"], function (FUNC) {
     return {
         IsFrameBlank: IsFrameBlank,
         IsNoneFrame: IsNoneFrame,
-        IsEmptyFrame: IsEmptyFrame
+        // IsEmptyFrame: IsEmptyFrame
     };
 });

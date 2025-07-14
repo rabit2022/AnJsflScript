@@ -7,16 +7,18 @@
  * @description:
  */
 
-define(["LayerQuery", "Tips", "loglevel", "LayerQueryEnhance"], function (
+define(["LayerQuery", "Tips", "loglevel", "LayerQueryEnhance","LayerChecker"], function (
     lq,
     Tips,
     log,
-    lqe
+    lqe,lc
 ) {
     const { convertToLayerIndex, getLayersIndexByName } = lq;
     const { getEmptyLayers } = lqe;
 
     const { checkVariableRedeclaration } = Tips;
+
+    const { IsLayerBlank } = lc;
 
     /**
      * 删除 图层
@@ -98,6 +100,7 @@ define(["LayerQuery", "Tips", "loglevel", "LayerQueryEnhance"], function (
 
     /**
      * 添加新图层，如果已存在独白黑幕图层，则选中
+     * 在最上面添加新图层,不过滤  空白图层
      * @param {Timeline} timeline 时间轴
      * @param {String} layerName 图层名称
      */
@@ -127,8 +130,8 @@ define(["LayerQuery", "Tips", "loglevel", "LayerQueryEnhance"], function (
     function setParentLayer(timeline, layer, parentLayer, layerType) {
         var layers = timeline.layers; //图层
 
-        layerIndex = convertToLayerIndex(layers, layer);
-        parentLayerIndex = convertToLayerIndex(layers, parentLayer);
+        var layerIndex = convertToLayerIndex(layers, layer);
+        var parentLayerIndex = convertToLayerIndex(layers, parentLayer);
 
         timeline.currentLayer = parentLayerIndex;
 
@@ -155,12 +158,38 @@ define(["LayerQuery", "Tips", "loglevel", "LayerQueryEnhance"], function (
         layers[layerIndex].name = newName;
     }
 
+    /**
+     * 添加新图层，声音图层，则选中
+     * 在最下面添加新图层，过滤掉空白图层
+     * @param {Timeline} symbolTimeline 符号时间轴
+     * @param {String} layerName 图层名称
+     */
+    function addNewLayerSafetyEx(symbolTimeline, layerName) {
+        var symbolLayerNames = symbolTimeline.layers.map(function (layer) { return layer.name; });
+        var targetLayerIndex = symbolLayerNames.lastIndexOf(layerName);
+        var isLayerBlank = (function () {
+            var symbolLayers = symbolTimeline.layers;
+            var targetLayer = symbolLayers[targetLayerIndex];
+            var isLayerBlank = IsLayerBlank(symbolLayers, targetLayer);
+            return isLayerBlank;
+        })();
+        if (targetLayerIndex === -1 || !isLayerBlank) {
+            symbolTimeline.currentLayer = symbolLayerNames.length - 1;
+            targetLayerIndex = symbolTimeline.addNewLayer(layerName, "normal", false);
+        }
+        else {
+            symbolTimeline.currentLayer = targetLayerIndex;
+        }
+        return targetLayerIndex;
+    }
+
     return {
         deleteLayers: deleteLayers,
         swapLayers: swapLayers,
         clearEmptyLayers: clearEmptyLayers,
         addNewLayerSafety: addNewLayerSafety,
         setParentLayer: setParentLayer,
-        renameLayer: renameLayer
+        renameLayer: renameLayer,
+        addNewLayerSafetyEx: addNewLayerSafetyEx
     };
 });

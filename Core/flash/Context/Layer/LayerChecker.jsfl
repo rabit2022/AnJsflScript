@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(["FrameChecker", "KeyFrameQuery"], function (fc, kfq) {
+define(["FrameChecker", "KeyFrameQuery"], function(fc, kfq) {
     const { IsFrameBlank } = fc;
     const { getKeyFrameRanges } = kfq;
 
@@ -33,31 +33,55 @@ define(["FrameChecker", "KeyFrameQuery"], function (fc, kfq) {
      * @returns {SoundInfo[]} 是否包含声音
      */
     function hasSound(layers, layer) {
+
         var result = {
-            hasSound: false,
-            layerIndex: null,
-            frameIndex: null,
-            layer: null,
-            frame: null,
-            soundName: null
+            LAYER: {
+                layer: null,
+                layerName: null,
+                layerIndex: null
+            },
+            FRAME: {
+                frame: null,
+                frameIndex: null,
+                start: null,
+                end: null
+            },
+            SOUND: {
+                soundName: null,
+                start: null,
+                // end: null
+            }
         };
         var results = [];
 
         const keyFrameRanges = getKeyFrameRanges(layers, layer);
-        keyFrameRanges.forEach(function (kfr) {
+        keyFrameRanges.forEach(function(kfr) {
             var keyFrameIndex = kfr.startFrame;
             var keyFrame = layer.frames[keyFrameIndex];
             // undefined 可能是因为 空白帧
             if (keyFrame === undefined) return;
             if (keyFrame.soundName) {
-                result = {
-                    hasSound: true,
-                    layerIndex: kfr.layerIndex,
-                    frameIndex: keyFrameIndex,
-                    layer: layer,
-                    frame: keyFrame,
-                    soundName: keyFrame.soundName
-                };
+
+                var limits=keyFrame.getSoundEnvelopeLimits();
+                result={
+                    LAYER: {
+                        layer: layer,
+                        layerName: layer.name,
+                        layerIndex: kfr.layerIndex
+                    },
+                    FRAME: {
+                        frame: keyFrame,
+                        frameIndex: keyFrameIndex,
+                        start: kfr.startFrame,
+                        end: kfr.endFrame
+                    },
+                    SOUND: {
+                        soundName: keyFrame.soundName,
+                        start: limits.start,
+                        // end: limits.end
+                    }
+                }
+
                 results.push(result);
             }
         });
@@ -86,18 +110,34 @@ define(["FrameChecker", "KeyFrameQuery"], function (fc, kfq) {
             // frameId = layer.frames[frameId - 1]?.startFrame || -1;
             // lastKF = SAFE_GET_MACRO(layer.frames[lastKF - 1], "startFrame", -1);
             var _a;
-            lastKF =
-                ((_a = layer.frames[lastKF - 1]) === null || _a === void 0
-                    ? void 0
-                    : _a.startFrame) || -1;
+            // prettier-ignore
+            lastKF = ((_a = layer.frames[lastKF - 1]) === null || _a === void 0 ? void 0 : _a.startFrame) || -1;
         }
 
         return true;
     }
 
+    /**
+     * 获取所有图层的音频信息
+     * @param {Timeline} timeline 时间线
+     * @returns {SoundInfo[]} 所有图层的音频信息
+     */
+    function hasSoundAll(timeline) {
+        var layers = timeline.layers;
+        var soundInfos = [];
+        for (var i = 0; i < layers.length; i++) {
+            var layer = layers[i];
+            var layerSoundInfos = hasSound(layers, layer);
+            // console.log(layer.name,layerSoundInfos);
+            soundInfos.push.apply(soundInfos, layerSoundInfos);
+        }
+        return soundInfos;
+    }
+
     return {
         IsLayerExists: IsLayerExists,
         hasSound: hasSound,
-        IsLayerBlank: IsLayerBlank
+        IsLayerBlank: IsLayerBlank,
+        hasSoundAll: hasSoundAll
     };
 });

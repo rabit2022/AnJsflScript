@@ -456,7 +456,7 @@ interface FlashDocument {
     autoLabel: boolean; // A Boolean value that is equivalent to the Auto
     backgroundColor: any; // A string, hexadecimal value, or integer that
     currentPublishProfile: string; // A string that specifies the name of the active
-    currentTimeline: FlashTimeline; // An integer that specifies the index of the active
+    currentTimeline: number; // An integer that specifies the index of the active
     description: string; // A string that is equivalent to the Description field in
     docClass; // Specifies the top-level ActionScript 3.0 class
     forceSimple: boolean; // A Boolean value that specifies whether the children
@@ -1264,7 +1264,7 @@ interface FlashTimeline {
     addMotionGuide(): number;
 
     /**  Adds a new layer to the document and makes it the current layer. */
-    addNewLayer(name?: string, layerType?: string, bAddAbove?: boolean);
+    addNewLayer(name?: string, layerType?: string, bAddAbove?: boolean):number;
 
     /** Deletes all the contents from a frame or range of frames on the current layer. */
     clearFrames(startFrameIndex?: number, endFrameIndex?: number): void;

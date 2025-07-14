@@ -47,8 +47,12 @@ define([
     /**
      *  复制元件
      *  @param {Element} element 元件
-     * @param {"ask"|"skip"|"auto"} mode 复制模式，ask：弹出输入框，skip：直接复制，auto：自动生成名称
+     * @param {"ask"|"skip"|"auto"} mode 复制模式
+     * ask：弹出输入框
+     * skip：直接复制,系统自动生成名称    元件1 复制1
+     * auto：自动生成名称，sng生成名称   newName_5555
      * @param {string} [newName=origionName] 新元件名称，仅在 mode 为 auto 时有效
+     * @return {Item} 新元件名称
      */
     function CopySymbol(element, mode, newName) {
         var doc = fl.getDocumentDOM();
@@ -96,6 +100,8 @@ define([
             // 6.更新元件名称
             element.libraryItem.name = input_file_name;
         }
+
+        return element.libraryItem;
     }
 
     /**

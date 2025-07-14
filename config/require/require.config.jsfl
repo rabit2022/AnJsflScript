@@ -129,6 +129,9 @@ require.config({
         "KeyFrameMode":"Core/Utils/KeyFrameMode",
         "Tips":"Core/Utils/Tips",
         "COMPATIBILITY":"Core/webpack/COMPATIBILITY",
+        // H:\project\沙雕动画\AnJsflScript\Core\flash\Context\selection\LayerSelect.jsfl
+        "LayerSelect":"Core/flash/Context/selection/LayerSelect",
+
         // endregion Core
     }, packages: []
 });

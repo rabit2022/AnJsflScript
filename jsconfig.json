@@ -79,7 +79,8 @@
       "StringP": ["Core/py/string/StringP"],
       "KeyFrameMode": ["Core/Utils/KeyFrameMode"],
       "Tips": ["Core/Utils/Tips"],
-      "COMPATIBILITY": ["Core/webpack/COMPATIBILITY"]
+      "COMPATIBILITY": ["Core/webpack/COMPATIBILITY"],
+      "LayerSelect": ["Core/flash/Context/selection/LayerSelect"]
     },
     "include": [
       "**/*.jsfl",

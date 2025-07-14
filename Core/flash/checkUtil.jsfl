@@ -286,11 +286,31 @@ define(["Tips", "SAT", "KeyFrameQuery"], function (Tips, SAT, kfq) {
         return selectedItems;
     }
 
+    function CheckSymbolTimeline() {
+        var doc = fl.getDocumentDOM(); //文档
+
+        var symbolTimeline = doc.getTimeline(); //时间轴
+
+        var currentTimeline = doc.currentTimeline;
+        var stageTimeline = doc.timelines[currentTimeline];
+
+        if (stageTimeline === symbolTimeline) {
+            alert("请进入元件后使用该功能！");
+            return null;
+        }
+        return {
+            symbolTimeline: symbolTimeline,
+            stageTimeline: stageTimeline
+        };
+    }
+
+
     return {
         CheckSelection: CheckSelection,
         CheckDom: CheckDom,
         CheckSelectedFrames: CheckSelectedFrames,
         CheckSelectedLayers: CheckSelectedLayers,
-        CheckSelectedItems: CheckSelectedItems
+        CheckSelectedItems: CheckSelectedItems,
+        CheckSymbolTimeline: CheckSymbolTimeline,
     };
 });

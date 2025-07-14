@@ -1,5 +1,5 @@
 // 这个文件由脚本自动生成，任何手动修改都将会被覆盖.
-require(["require", "_exports", "checkUtil", "LayerChecker", "KeyFrameQuery", "os", "loglevel"], function (require, exports, checkUtil_1, LayerChecker_1, KeyFrameQuery_1, os, log) {
+require(["require", "_exports", "checkUtil", "LayerChecker", "KeyFrameQuery", "os", "LayerSelect", "loglevel"], function (require, exports, checkUtil_1, LayerChecker_1, KeyFrameQuery_1, os, LayerSelect_1, log) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var getBaseName = os.path.$basenameWithoutExt;
@@ -19,16 +19,6 @@ require(["require", "_exports", "checkUtil", "LayerChecker", "KeyFrameQuery", "o
     if (!(0, checkUtil_1.CheckSelection)(selection, "selectElement", "No limit")) {
         return;
     }
-    function SelectAllLayers(layers) {
-        for (var _i = 0, layers_1 = layers; _i < layers_1.length; _i++) {
-            var soundLayerIndex = layers_1[_i];
-            if (soundLayerIndex === layers[0]) {
-                timeline.setSelectedLayers(soundLayerIndex, true);
-                continue;
-            }
-            timeline.setSelectedLayers(soundLayerIndex, false);
-        }
-    }
     function selectSoundLayers() {
         var soundInfos = [];
         for (var i = 0; i < layers.length; i++) {
@@ -37,9 +27,9 @@ require(["require", "_exports", "checkUtil", "LayerChecker", "KeyFrameQuery", "o
             soundInfos.push.apply(soundInfos, layerSoundInfos);
         }
         var hasSoundLayers = soundInfos.map(function (soundInfo) {
-            return soundInfo.layerIndex;
+            return soundInfo.LAYER.layerIndex;
         });
-        SelectAllLayers(hasSoundLayers);
+        (0, LayerSelect_1.SelectAllLayers)(timeline, hasSoundLayers);
     }
     function cleanNonSoundLayers(newDoc) {
         var timeline = newDoc.getTimeline();

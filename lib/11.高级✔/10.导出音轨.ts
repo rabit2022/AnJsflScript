@@ -16,6 +16,8 @@ import { hasSound } from "LayerChecker";
 import { getKeyFrameRanges } from "KeyFrameQuery";
 // @ts-expect-error
 import os = require("os");
+// @ts-expect-error
+import { SelectAllLayers } from "LayerSelect";
 
 import log = require("loglevel");
 
@@ -60,19 +62,6 @@ if (!CheckSelection(selection, "selectElement", "No limit")) {
 // }
 // endregion doc
 
-// @todo 新建模块
-function SelectAllLayers(layers: number[]) {
-    // 选中包含音频的图层
-    for (var soundLayerIndex of layers) {
-        // 第一个图层
-        if (soundLayerIndex === layers[0]) {
-            timeline.setSelectedLayers(soundLayerIndex, true);
-            continue;
-        }
-        timeline.setSelectedLayers(soundLayerIndex, false);
-    }
-}
-
 function selectSoundLayers() {
     // 遍历所有的图层，得到soundInfo
     var soundInfos: SoundInfo[] = [];
@@ -84,11 +73,11 @@ function selectSoundLayers() {
 
     // 获取 hasSound layers
     var hasSoundLayers = soundInfos.map(function (soundInfo) {
-        return soundInfo.layerIndex;
+        return soundInfo.LAYER.layerIndex;
     });
     // log.info(hasSoundLayers);
 
-    SelectAllLayers(hasSoundLayers);
+    SelectAllLayers(timeline,hasSoundLayers);
 }
 
 /**
@@ -141,14 +130,7 @@ function copytoNewDoc(exportPath: string) {
     newDoc.close(false);
 }
 
-interface SoundInfo {
-    hasSound: boolean;
-    layerIndex: number;
-    frameIndex: number;
-    layer: FlashLayer;
-    frame: FlashFrame;
-    soundName: string;
-}
+
 
 const docBaseName = getBaseName(doc.pathURI);
 // log.info(docBaseName);

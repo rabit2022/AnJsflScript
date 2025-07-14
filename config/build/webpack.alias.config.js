@@ -118,6 +118,8 @@ var alias = {
     "Tips": path.resolve(dirname, "Core/Utils/Tips"),
     "COMPATIBILITY": path.resolve(dirname, "Core/webpack/COMPATIBILITY"),
 
+    // "LayerSelect":"Core/flash/Context/selection/LayerSelect",
+    "LayerSelect": path.resolve(dirname, "Core/flash/Context/selection/LayerSelect"),
 
 };
 // console.log(alias);
