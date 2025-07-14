@@ -11,7 +11,7 @@
 // @ts-expect-error
 import { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers,CheckSymbolTimeline } from "checkUtil";
 // @ts-expect-error
-import { hasSoundAll, IsLayerBlank } from "LayerChecker";
+import { hasSoundAll, IsLayerBlank, SoundInfo } from "LayerChecker";
 // @ts-expect-error
 import { addNewLayerSafetyEx } from "LayerOperation";
 

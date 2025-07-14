@@ -1,20 +1,27 @@
 # .prettierignore
 
+# 第三方库
 Third/
 node_modules/
 
-#test/
+# test/
+
+# 类型定义文件
 types/
 
 # 打包的文件夹
 dist/
 output/
 
-cache/
 
 # 打包的配置文件
 **/**config**
 **/**webpack**
 
+# ts 函数文件
+**/**skip**
+
 # ts 生成的文件 04.安全保存.generated.jsfl
 **/**.generated.jsfl
+**/**.define.jsfl
+

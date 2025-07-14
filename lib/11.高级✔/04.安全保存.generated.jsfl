@@ -1,5 +1,12 @@
-// 这个文件由脚本自动生成，任何手动修改都将会被覆盖.
-require(["require", "_exports", "checkUtil", "luxon-config", "os", "loglevel"], function (require, exports, checkUtil_1, luxon_config_1, os, log) {
+// 这个文件由脚本 04.安全保存.ts 自动生成，任何手动修改都将会被覆盖.
+require(["require", "_exports", "checkUtil", "luxon-config", "os", "loglevel"], function (
+    require,
+    exports,
+    checkUtil_1,
+    luxon_config_1,
+    os,
+    log
+) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var getBaseName = os.path.$basenameWithoutExt;
@@ -35,8 +42,13 @@ require(["require", "_exports", "checkUtil", "luxon-config", "os", "loglevel"], 
     var TimeData = (function () {
         function TimeData(flaFile) {
             var flaBaseName = getBaseName(flaFile);
-            var _a = flaBaseName.split("_"), timestamp = _a[0], fileName = _a[1];
-            var dateTime = luxon_config_1.DateTime.fromFormat(timestamp, "yyyy年MM月dd日HH时mm分ss秒");
+            var _a = flaBaseName.split("_"),
+                timestamp = _a[0],
+                fileName = _a[1];
+            var dateTime = luxon_config_1.DateTime.fromFormat(
+                timestamp,
+                "yyyy年MM月dd日HH时mm分ss秒"
+            );
             this.fileName = fileName;
             this.timeStamp = dateTime.toISO();
             this.flaFile = flaFile;
@@ -45,14 +57,23 @@ require(["require", "_exports", "checkUtil", "luxon-config", "os", "loglevel"], 
             return "".concat(this.flaFile);
         };
         return TimeData;
-    }());
+    })();
     function deleteNoneFlaFile(timeDataList) {
         var notMyFlaList = timeDataList
             .filter(function (timeData) {
-            return !timeData.flaFile.startsWith("20") || !timeData.flaFile.endsWith(".fla");
-        })
-            .map(function (timeData) { return os.path.join(SAVE_FOLDER, timeData.flaFile); });
-        for (var _i = 0, notMyFlaList_1 = notMyFlaList; _i < notMyFlaList_1.length; _i++) {
+                return (
+                    !timeData.flaFile.startsWith("20") ||
+                    !timeData.flaFile.endsWith(".fla")
+                );
+            })
+            .map(function (timeData) {
+                return os.path.join(SAVE_FOLDER, timeData.flaFile);
+            });
+        for (
+            var _i = 0, notMyFlaList_1 = notMyFlaList;
+            _i < notMyFlaList_1.length;
+            _i++
+        ) {
             var flaFile = notMyFlaList_1[_i];
             os.remove(flaFile);
         }
@@ -61,8 +82,14 @@ require(["require", "_exports", "checkUtil", "luxon-config", "os", "loglevel"], 
         if (timeDataList.length > MAX_SAVE_COUNT) {
             var deleteFlaList = timeDataList
                 .slice(0, timeDataList.length - MAX_SAVE_COUNT)
-                .map(function (timeData) { return os.path.join(SAVE_FOLDER, timeData.flaFile); });
-            for (var _i = 0, deleteFlaList_1 = deleteFlaList; _i < deleteFlaList_1.length; _i++) {
+                .map(function (timeData) {
+                    return os.path.join(SAVE_FOLDER, timeData.flaFile);
+                });
+            for (
+                var _i = 0, deleteFlaList_1 = deleteFlaList;
+                _i < deleteFlaList_1.length;
+                _i++
+            ) {
                 var flaFile = deleteFlaList_1[_i];
                 os.remove(flaFile);
             }
@@ -79,7 +106,9 @@ require(["require", "_exports", "checkUtil", "luxon-config", "os", "loglevel"], 
             var flaFile = flaList_1[_i];
             timeDataList.push(new TimeData(flaFile));
         }
-        timeDataList.sort(function (a, b) { return a.timeStamp.localeCompare(b.timeStamp); });
+        timeDataList.sort(function (a, b) {
+            return a.timeStamp.localeCompare(b.timeStamp);
+        });
         deleteNoneFlaFile(timeDataList);
         deleteMoreThanMAX(timeDataList);
     }

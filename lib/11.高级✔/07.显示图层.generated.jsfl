@@ -1,5 +1,12 @@
-// 这个文件由脚本自动生成，任何手动修改都将会被覆盖.
-require(["require", "_exports", "checkUtil", "KeyFrameQuery", "FrameChecker", "loglevel"], function (require, exports, checkUtil_1, KeyFrameQuery_1, FrameChecker_1, log) {
+// 这个文件由脚本 07.显示图层.ts 自动生成，任何手动修改都将会被覆盖.
+require([
+    "require",
+    "_exports",
+    "checkUtil",
+    "KeyFrameQuery",
+    "FrameChecker",
+    "loglevel"
+], function (require, exports, checkUtil_1, KeyFrameQuery_1, FrameChecker_1, log) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var doc = fl.getDocumentDOM();
@@ -19,7 +26,10 @@ require(["require", "_exports", "checkUtil", "KeyFrameQuery", "FrameChecker", "l
     if (!selectedFrames) {
         return;
     }
-    var firstSlLayerIndex = selectedFrames.firstSlLayerIndex, firstSlFrameIndex = selectedFrames.firstSlFrameIndex, firstSlLayer = selectedFrames.firstSlLayer, firstSlFrame = selectedFrames.firstSlFrame;
+    var firstSlLayerIndex = selectedFrames.firstSlLayerIndex,
+        firstSlFrameIndex = selectedFrames.firstSlFrameIndex,
+        firstSlLayer = selectedFrames.firstSlLayer,
+        firstSlFrame = selectedFrames.firstSlFrame;
     if (!(0, checkUtil_1.CheckSelection)(selection, "selectElement", "No limit")) {
         return;
     }
@@ -31,8 +41,7 @@ require(["require", "_exports", "checkUtil", "KeyFrameQuery", "FrameChecker", "l
         var SlKeyFrameIndex = keyFrameRanges.findIndex(function (fr) {
             return fr.contain(frameIndex);
         });
-        if (SlKeyFrameIndex === 0)
-            return;
+        if (SlKeyFrameIndex === 0) return;
         var previousKeyFrameIndex = keyFrameRanges[SlKeyFrameIndex - 1].startFrame;
         log.info("上一个关键帧", previousKeyFrameIndex);
         var _frames = curLayer.frames;
@@ -43,7 +52,10 @@ require(["require", "_exports", "checkUtil", "KeyFrameQuery", "FrameChecker", "l
         return previousKeyFrameIndex;
     }
     function Main() {
-        var previousNotEmptyFrame = findPreviousNotEmptyFrame(timeline, firstSlFrameIndex);
+        var previousNotEmptyFrame = findPreviousNotEmptyFrame(
+            timeline,
+            firstSlFrameIndex
+        );
         timeline.copyFrames(previousNotEmptyFrame);
         timeline.pasteFrames(firstSlFrameIndex);
     }

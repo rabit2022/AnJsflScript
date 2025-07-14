@@ -11,7 +11,7 @@
 // @ts-expect-error
 import { CheckDom, CheckSelectedFrames, CheckSelectedLayers, CheckSelection } from "checkUtil";
 // @ts-expect-error
-import { hasSound } from "LayerChecker";
+import { hasSound, SoundInfo } from "LayerChecker";
 // @ts-expect-error
 import { getKeyFrameRanges } from "KeyFrameQuery";
 // @ts-expect-error

@@ -16,22 +16,6 @@ interface AnJsflScript {
 
 declare var AnJsflScript: AnJsflScript;
 
+// 导出全局变量
+declare var exports: any;
 
-interface SoundInfo {
-    LAYER: {
-        layer: FlashLayer;
-        layerName: string;
-        layerIndex: number;
-    };
-    FRAME: {
-        frame: FlashFrame;
-        frameIndex: number;
-        start: number;
-        end: number;
-    };
-    SOUND: {
-        soundName: string;
-        start: number;
-        // end: number; //1073741823
-    };
-}

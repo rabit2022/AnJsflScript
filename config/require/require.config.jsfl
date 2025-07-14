@@ -93,7 +93,7 @@ require.config({
         "KeyFrameChecker":"Core/flash/Context/KeyFrame/KeyFrameChecker",
         "KeyFrameOperation":"Core/flash/Context/KeyFrame/KeyFrameOperation",
         "KeyFrameQuery":"Core/flash/Context/KeyFrame/KeyFrameQuery",
-        "LayerChecker":"Core/flash/Context/Layer/LayerChecker",
+        "LayerChecker":"Core/flash/Context/Layer/LayerChecker.define",
         "LayerHierarchy":"Core/flash/Context/Layer/LayerHierarchy",
         "LayerList":"Core/flash/Context/Layer/LayerList",
         "LayerOperation":"Core/flash/Context/Layer/LayerOperation",
@@ -131,6 +131,7 @@ require.config({
         "COMPATIBILITY":"Core/webpack/COMPATIBILITY",
         // H:\project\沙雕动画\AnJsflScript\Core\flash\Context\selection\LayerSelect.jsfl
         "LayerSelect":"Core/flash/Context/selection/LayerSelect",
+        // H:\project\沙雕动画\AnJsflScript\Core\flash\Context\Layer\LayerChecker.define.jsfl
 
         // endregion Core
     }, packages: []
