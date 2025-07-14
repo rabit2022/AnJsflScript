@@ -304,13 +304,12 @@ define(["Tips", "SAT", "KeyFrameQuery"], function (Tips, SAT, kfq) {
         };
     }
 
-
     return {
         CheckSelection: CheckSelection,
         CheckDom: CheckDom,
         CheckSelectedFrames: CheckSelectedFrames,
         CheckSelectedLayers: CheckSelectedLayers,
         CheckSelectedItems: CheckSelectedItems,
-        CheckSymbolTimeline: CheckSymbolTimeline,
+        CheckSymbolTimeline: CheckSymbolTimeline
     };
 });

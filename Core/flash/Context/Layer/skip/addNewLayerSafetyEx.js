@@ -1,4 +1,3 @@
-// 这个文件由脚本自动生成，任何手动修改都将会被覆盖.
 function addNewLayerSafety(symbolTimeline, layerName) {
     var symbolLayerNames = symbolTimeline.layers.map(function (layer) { return layer.name; });
     var targetLayerIndex = symbolLayerNames.lastIndexOf(layerName);

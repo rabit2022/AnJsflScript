@@ -46,7 +46,7 @@ define(["FUNC"], function (FUNC) {
 
     return {
         IsFrameBlank: IsFrameBlank,
-        IsNoneFrame: IsNoneFrame,
+        IsNoneFrame: IsNoneFrame
         // IsEmptyFrame: IsEmptyFrame
     };
 });

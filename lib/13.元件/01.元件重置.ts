@@ -17,7 +17,6 @@ import { IsSymbol } from "ElementChecker";
 // @ts-expect-error
 import { SelectStartFms } from "FramesSelect";
 
-
 import log = require("loglevel");
 
 // region doc
@@ -41,10 +40,12 @@ var curFrame = _frames[curFrameIndex]; //当前帧
 
 // 获取第一帧
 var selectedFrames = CheckSelectedFrames(timeline);
-if (!selectedFrames) {// @ts-ignore
+if (!selectedFrames) {
+    // @ts-ignore
     return;
 }
-const {firstSlLayerIndex, firstSlFrameIndex, firstSlLayer, firstSlFrame} = selectedFrames;
+const { firstSlLayerIndex, firstSlFrameIndex, firstSlLayer, firstSlFrame } =
+    selectedFrames;
 
 // 检查选择的元件
 if (!CheckSelection(selection, "selectElement", "No limit")) {
@@ -70,16 +71,16 @@ function Main() {
 
     // 复制元件
     for (let symbol of symbols) {
-        let newItem:FlashItem = CopySymbol(symbol, "skip");
+        let newItem: FlashItem = CopySymbol(symbol, "skip");
 
-        let symbolTimeline =  newItem.timeline;
+        let symbolTimeline = newItem.timeline;
         let symbolLayers = symbolTimeline.layers;
         let symbolFrameCount = symbolTimeline.frameCount;
 
         // 删除所有图层的帧数，保持在1帧
         for (let symbolLayer of symbolLayers) {
             // @ts-ignore es6
-            let layerIndex:number = symbolLayers.findIndex(
+            let layerIndex: number = symbolLayers.findIndex(
                 (layer: FlashLayer) => layer === symbolLayer
             );
             // log.info("layerIndex", layerIndex);

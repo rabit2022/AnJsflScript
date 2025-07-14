@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(["FrameChecker", "KeyFrameQuery"], function(fc, kfq) {
+define(["FrameChecker", "KeyFrameQuery"], function (fc, kfq) {
     const { IsFrameBlank } = fc;
     const { getKeyFrameRanges } = kfq;
 
@@ -33,7 +33,6 @@ define(["FrameChecker", "KeyFrameQuery"], function(fc, kfq) {
      * @returns {SoundInfo[]} 是否包含声音
      */
     function hasSound(layers, layer) {
-
         var result = {
             LAYER: {
                 layer: null,
@@ -48,22 +47,21 @@ define(["FrameChecker", "KeyFrameQuery"], function(fc, kfq) {
             },
             SOUND: {
                 soundName: null,
-                start: null,
+                start: null
                 // end: null
             }
         };
         var results = [];
 
         const keyFrameRanges = getKeyFrameRanges(layers, layer);
-        keyFrameRanges.forEach(function(kfr) {
+        keyFrameRanges.forEach(function (kfr) {
             var keyFrameIndex = kfr.startFrame;
             var keyFrame = layer.frames[keyFrameIndex];
             // undefined 可能是因为 空白帧
             if (keyFrame === undefined) return;
             if (keyFrame.soundName) {
-
-                var limits=keyFrame.getSoundEnvelopeLimits();
-                result={
+                var limits = keyFrame.getSoundEnvelopeLimits();
+                result = {
                     LAYER: {
                         layer: layer,
                         layerName: layer.name,
@@ -77,10 +75,10 @@ define(["FrameChecker", "KeyFrameQuery"], function(fc, kfq) {
                     },
                     SOUND: {
                         soundName: keyFrame.soundName,
-                        start: limits.start,
+                        start: limits.start
                         // end: limits.end
                     }
-                }
+                };
 
                 results.push(result);
             }

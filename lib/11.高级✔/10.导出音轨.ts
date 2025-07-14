@@ -77,7 +77,7 @@ function selectSoundLayers() {
     });
     // log.info(hasSoundLayers);
 
-    SelectAllLayers(timeline,hasSoundLayers);
+    SelectAllLayers(timeline, hasSoundLayers);
 }
 
 /**
@@ -129,8 +129,6 @@ function copytoNewDoc(exportPath: string) {
     // 关闭新文档
     newDoc.close(false);
 }
-
-
 
 const docBaseName = getBaseName(doc.pathURI);
 // log.info(docBaseName);

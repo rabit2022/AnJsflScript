@@ -1,7 +1,3 @@
-/**
- * 获取所有图层的音频信息
- * @param {Timeline} timeline 时间线
- */
 function hasSoundAll(timeline) {
     var layers = timeline.layers;
     var soundInfos = [];

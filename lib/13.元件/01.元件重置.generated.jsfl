@@ -1,4 +1,4 @@
-// 这个文件由脚本自动生成，任何手动修改都将会被覆盖.
+// 这个文件由脚本 01.元件重置.ts 自动生成，任何手动修改都将会被覆盖.
 require(["require", "_exports", "checkUtil", "ElementOperation", "ElementChecker", "FramesSelect"], function (require, exports, checkUtil_1, ElementOperation_1, ElementChecker_1, FramesSelect_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });

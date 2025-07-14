@@ -1,8 +1,8 @@
 /**
- * @file: 00.导航到网址.jsfl
+ * @file: 00.kkkk.jsfl
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
- * @date: 2025/7/13 20:49
+ * @date: 2025/7/13 21:52
  * @project: AnJsflScript
  * @description:
  */
@@ -12,7 +12,11 @@
 "undefined"==typeof require&&fl.runScript(function(){var r=fl.scriptURI.match(/(?:^|.*[\/])(AnJsflScript(?:-[a-zA-Z0-9]+)?)(?=[\/]|$)/)[1],t=fl.scriptURI.match(r);if(t){var n=t[0],i=fl.scriptURI.lastIndexOf(n);return fl.scriptURI.substring(0,i+n.length)}throw new Error("Can't find project path ["+fl.scriptURI+"]")}()+"/config/require/CheckEnvironment.jsfl");
 // @formatter:on
 
-require(["checkUtil", "loglevel", "os"], function (checkUtil, log, os) {
+require(["checkUtil", "loglevel", "./test/test", "./test/test.generated"], function (
+    checkUtil,
+    log,
+    dd
+) {
     const { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } =
         checkUtil;
 
@@ -46,9 +50,7 @@ require(["checkUtil", "loglevel", "os"], function (checkUtil, log, os) {
     // endregion doc
 
     function Main() {
-        // @note: 把下面代码替换成你要打开的网址即可
-        var url = "https://www.kimi.com/"; // kimi ai
-        os.startfile(url, "open");
+        log.info(dd.vector);
     }
 
     Main();

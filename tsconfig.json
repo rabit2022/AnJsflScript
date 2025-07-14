@@ -101,7 +101,7 @@
         "./node_modules/@types",
         "./types"
     ],
-    "exclude": ["Core/**/**skip*"]   // 排除文件名中含 _skip 的所有文件
+//    "exclude": ["Core/**/**skip*"]   // 排除文件名中含 _skip 的所有文件
 
 
 

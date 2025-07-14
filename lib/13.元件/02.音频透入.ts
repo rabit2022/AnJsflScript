@@ -56,7 +56,6 @@ if (!CheckSelection(selection, "selectElement", "No limit")) {
 // }
 // endregion doc
 
-
 function Main() {
     var { symbolTimeline, stageTimeline } = CheckSymbolTimeline();
     if (!symbolTimeline || !stageTimeline) return;
@@ -84,7 +83,6 @@ function Main() {
         // if (targetLayerIndex === -1) return;
 
         let targetLayerIndex = addNewLayerSafetyEx(symbolTimeline, layer_name);
-
     }
 }
 

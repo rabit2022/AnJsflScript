@@ -7,11 +7,12 @@
  * @description:
  */
 
-define(["LayerQuery", "Tips", "loglevel", "LayerQueryEnhance","LayerChecker"], function (
+define(["LayerQuery", "Tips", "loglevel", "LayerQueryEnhance", "LayerChecker"], function (
     lq,
     Tips,
     log,
-    lqe,lc
+    lqe,
+    lc
 ) {
     const { convertToLayerIndex, getLayersIndexByName } = lq;
     const { getEmptyLayers } = lqe;
@@ -165,7 +166,9 @@ define(["LayerQuery", "Tips", "loglevel", "LayerQueryEnhance","LayerChecker"], f
      * @param {String} layerName 图层名称
      */
     function addNewLayerSafetyEx(symbolTimeline, layerName) {
-        var symbolLayerNames = symbolTimeline.layers.map(function (layer) { return layer.name; });
+        var symbolLayerNames = symbolTimeline.layers.map(function (layer) {
+            return layer.name;
+        });
         var targetLayerIndex = symbolLayerNames.lastIndexOf(layerName);
         var isLayerBlank = (function () {
             var symbolLayers = symbolTimeline.layers;
@@ -176,8 +179,7 @@ define(["LayerQuery", "Tips", "loglevel", "LayerQueryEnhance","LayerChecker"], f
         if (targetLayerIndex === -1 || !isLayerBlank) {
             symbolTimeline.currentLayer = symbolLayerNames.length - 1;
             targetLayerIndex = symbolTimeline.addNewLayer(layerName, "normal", false);
-        }
-        else {
+        } else {
             symbolTimeline.currentLayer = targetLayerIndex;
         }
         return targetLayerIndex;

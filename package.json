@@ -68,7 +68,9 @@
     "build:Common": "node config/build/Build.Common.js",
     "build:Text": "node config/build/Build.Text.js",
     "build": "npm run build:FirstRun && npm run build:Common && npm run bild:Text",
-    "tsc-require": "tsc && node ./config/typescript/rename-require.js"
+    "tsc:require": "tsc && node ./config/typescript/rename-require.js",
+    "tsc:define": "tsc && node ./config/typescript/rename-define.js",
+    "tsc": "npm run tsc:require && npm run tsc:define"
   },
   "repository": {
     "type": "git",

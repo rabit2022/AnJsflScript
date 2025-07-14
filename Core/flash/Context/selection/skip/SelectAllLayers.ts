@@ -1,4 +1,4 @@
-function SelectAllLayers(timeline: FlashTimeline,layers: number[]) {
+function SelectAllLayers(timeline: FlashTimeline, layers: number[]) {
     // 选中包含音频的图层
     for (var soundLayerIndex of layers) {
         // 第一个图层
