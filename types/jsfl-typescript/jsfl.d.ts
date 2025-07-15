@@ -1068,6 +1068,8 @@ interface FlashLayer {
     setFiltersAtFrame(frameIndex: number, filterArray: Filter[]): void;
 
     setBlendModeAtFrame(frameIndex: number, blendModeString:BlendMode ): void;
+
+    setRigParentAtFrame(layer: FlashLayer | number, frameIndex: number): void;
 }
 
 interface FlashLibrary {
