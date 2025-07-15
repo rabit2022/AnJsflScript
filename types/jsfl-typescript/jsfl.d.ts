@@ -104,6 +104,8 @@ interface FlashDocument {
     /** Converts the selected Stage item(s) to a new */
     convertToSymbol(type: string, name: string, registrationPoint: string): FlashSymbolInstance;
 
+    convertSelectionToBitmap(): boolean;
+
     /** Uses the top selected drawing object to crop all */
     crop(): void;
 
@@ -1049,6 +1051,8 @@ interface FlashItem extends FlashSymbolItem, FlashFolderItem, FlashFontItem, Fla
     name: string;
 }
 
+type BlendMode="normal" | "layer" | "multiply" | "screen" | "overlay" | "hardlight" | "lighten" | "darken" | "difference" | "add" | "subtract" | "invert" | "alpha" | "erase";
+
 interface FlashLayer {
     color: any;
     frameCount: number;
@@ -1060,6 +1064,10 @@ interface FlashLayer {
     outline: boolean;
     parentLayer: FlashLayer;
     visible:boolean;
+
+    setFiltersAtFrame(frameIndex: number, filterArray: Filter[]): void;
+
+    setBlendModeAtFrame(frameIndex: number, blendModeString:BlendMode ): void;
 }
 
 interface FlashLibrary {

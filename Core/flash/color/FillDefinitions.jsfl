@@ -78,7 +78,7 @@ define(["chroma-js", "SObject", "FUNC"], function (chroma, so, FUNC) {
     // SolidFill
     // region SolidFill
     /**
-     * 固体填充
+     * 纯色
      * @constructor
      * @class
      * @extends BaseFill
