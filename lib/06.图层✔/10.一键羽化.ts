@@ -7,6 +7,7 @@
  * @description:
  */
 
+// region import
 // prettier-ignore
 // @ts-expect-error
 import { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } from "checkUtil";
@@ -27,15 +28,15 @@ import fd = require("FillDefinitions");
 // @ts-expect-error
 import { SolidFill } from "FillDefinitions";
 // @ts-expect-error
-import { setCustomPanel,resetCustomPanel } from "ColorPanel";
+import { setCustomPanel, resetCustomPanel } from "ColorPanel";
 // @ts-expect-error
 import fld = require("FilterDefinitions");
-
 
 // ===================================================
 import log = require("loglevel");
 import _ = require("lodash");
 
+// endregion import
 
 const getSymbolBounds = sat.ENTITY.SYMBOL.getBounds;
 
@@ -63,10 +64,12 @@ var curFrame = _frames[curFrameIndex]; //当前帧
 
 // 获取第一帧
 var selectedFrames = CheckSelectedFrames(timeline);
-if (!selectedFrames) {// @ts-ignore
+if (!selectedFrames) {
+    // @ts-ignore
     return;
 }
-const {firstSlLayerIndex, firstSlFrameIndex, firstSlLayer, firstSlFrame} = selectedFrames;
+const { firstSlLayerIndex, firstSlFrameIndex, firstSlLayer, firstSlFrame } =
+    selectedFrames;
 
 // 检查选择的元件
 // prettier-ignore
@@ -82,7 +85,7 @@ if (!CheckSelection(selection, "selectElement", "Only two", "请同时选中两�
 // }
 // endregion doc
 
-
+// region getMaskBounds
 function _getMaskBounds(symbol_feather: FlashElement) {
     let feather_bounds: Rectangle = getSymbolBounds(symbol_feather);
     let final_bounds: Rectangle = feather_bounds.expand(50);
@@ -90,13 +93,13 @@ function _getMaskBounds(symbol_feather: FlashElement) {
 }
 
 const getMaskBounds = _.curry(_getMaskBounds);
+// endregion getMaskBounds
 
 /**
  * 获取遮罩层 矩形边界
  * @type {Rectangle}
  */
 let mask_bounds: Rectangle = getMaskBounds;
-
 
 const MASK_LAYER_INDEX = 0;
 const SYMBOLS_LAYER_INDEX = 1;
@@ -105,7 +108,7 @@ function Edit_mask() {
     doc.enterEditMode("inPlace");
     doc.group();
 
-    let fill: SolidFill = new SolidFillBuilder().setColor('#FFFFFF00').build();
+    let fill: SolidFill = new SolidFillBuilder().setColor("#FFFFFF00").build();
     // log.info(fill);
     setCustomPanel(undefined, fill);
 
@@ -113,11 +116,7 @@ function Edit_mask() {
 
     resetCustomPanel();
 
-
-    let filter = new BlurFilterBuilder()
-        .setBlur(40)
-        .setQuality("high")
-        .build();
+    let filter = new BlurFilterBuilder().setBlur(40).setQuality("high").build();
     log.info(filter);
 
     let timeline = doc.getTimeline(); //时间轴
@@ -153,7 +152,7 @@ function Edit_feather() {
     let maskLayer = maskIsZero(timeline);
 
     // timeline.setSelectedLayers(MASK_LAYER_INDEX, true);
-    timeline.setSelectedFrames([MASK_LAYER_INDEX,0,1])
+    timeline.setSelectedFrames([MASK_LAYER_INDEX, 0, 1]);
 
     let symbolName: string = generateNameUseLast("羽化遮罩_");
     doc.convertToSymbol("graphic", symbolName, "center");
@@ -205,7 +204,6 @@ function Main() {
     let symbol_feather = doc.selection[0];
     mask_bounds = mask_bounds(symbol_feather);
 
-
     Edit_feather();
 
     let timeline = doc.getTimeline(); //时间轴
@@ -213,9 +211,7 @@ function Main() {
 
     let maskLayer = layers[MASK_LAYER_INDEX];
     // log.info(`firstSlFrameIndex: ${firstSlFrameIndex}, maskLayer: ${maskLayer.name}`);
-    maskLayer.setBlendModeAtFrame(firstSlFrameIndex,"layer")
-
-
+    maskLayer.setBlendModeAtFrame(firstSlFrameIndex, "layer");
 }
 
 Main();

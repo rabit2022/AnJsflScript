@@ -38,14 +38,11 @@ require(["require", "_exports", "checkUtil", "ElementChecker", "SymbolNameGenera
     function Edit_mask() {
         doc.enterEditMode("inPlace");
         doc.group();
-        var fill = new SolidFillBuilder().setColor('#FFFFFF00').build();
+        var fill = new SolidFillBuilder().setColor("#FFFFFF00").build();
         (0, ColorPanel_1.setCustomPanel)(undefined, fill);
         doc.addNewRectangle(mask_bounds, 0);
         (0, ColorPanel_1.resetCustomPanel)();
-        var filter = new BlurFilterBuilder()
-            .setBlur(40)
-            .setQuality("high")
-            .build();
+        var filter = new BlurFilterBuilder().setBlur(40).setQuality("high").build();
         log.info(filter);
         var timeline = doc.getTimeline();
         var layers = timeline.layers;
@@ -61,7 +58,6 @@ require(["require", "_exports", "checkUtil", "ElementChecker", "SymbolNameGenera
                 (0, LayerOperation_1.swapLayers)(timeline, MASK_LAYER_INDEX, SYMBOLS_LAYER_INDEX);
             }
             var newMaskLayer = timeline.layers[MASK_LAYER_INDEX];
-            newMaskLayer.name = "遮罩层";
             return newMaskLayer;
         }
         doc.enterEditMode("inPlace");

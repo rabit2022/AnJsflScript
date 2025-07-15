@@ -11,18 +11,18 @@
 // @ts-expect-error
 import { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers, CheckSymbolTimeline } from "checkUtil";
 // @ts-expect-error
-import { hasSoundAll,  ISoundInfo } from "LayerChecker";
+import { hasSoundAll, ISoundInfo } from "LayerChecker";
 // @ts-expect-error
 import { addNewLayerSafetyEx } from "LayerOperation";
 // @ts-expect-error
 import { convertToKeyframesSafety } from "KeyFrameOperation";
 
-
 import log = require("loglevel");
 
 // region doc
 var doc = fl.getDocumentDOM(); //文档
-if (!CheckDom(doc)) {//@ts-ignore
+if (!CheckDom(doc)) {
+    //@ts-ignore
     return;
 }
 
@@ -57,7 +57,6 @@ if (!CheckSelection(selection, "selectElement", "No limit")) {
 //     return;
 // }
 // endregion doc
-
 
 // 02.音频透入.ts  雷同，symbolTimeline, stageTimeline 互换即可
 function Main() {

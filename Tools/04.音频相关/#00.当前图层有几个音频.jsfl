@@ -35,39 +35,39 @@ require(["checkUtil", "loglevel", "KeyFrameQuery", "LayerChecker"], function (
     var curFrameIndex = timeline.currentFrame; //当前帧索引
     var curFrame = curLayer.frames[curFrameIndex]; //当前帧
 
-    function getKeyFrameSoundName(layer, startFrame, endFrame) {
-        if (startFrame === undefined) startFrame = 0;
-        if (endFrame === undefined) endFrame = layer.frames.length - 1;
-
-        // for (var f = 0; f < layer.frames.length; f++) {
-        for (var f = startFrame; f <= endFrame; f++) {
-            var frame = layer.frames[f];
-            // undefined 可能是因为 空白帧
-            if (frame === undefined) continue;
-            // if (frame.getSoundEnvelope()) {
-            if (frame.soundLibraryItem) {
-                return frame.soundName; // 发现声音对象
-            }
-        }
-        return null; // 没有声音对象
-    }
-
-    function getKeyFrameSoundRange(layer, startFrame, endFrame) {
-        if (startFrame === undefined) startFrame = 0;
-        if (endFrame === undefined) endFrame = layer.frames.length - 1;
-
-        // for (var f = 0; f < layer.frames.length; f++) {
-        for (var f = startFrame; f <= endFrame; f++) {
-            var frame = layer.frames[f];
-            // undefined 可能是因为 空白帧
-            if (frame === undefined) continue;
-            // if (frame.getSoundEnvelope()) {
-            if (frame.soundLibraryItem) {
-                return frame.getSoundEnvelopeLimits(); // 发现声音对象
-            }
-        }
-        return null; // 没有声音对象
-    }
+    // function getKeyFrameSoundName(layer, startFrame, endFrame) {
+    //     if (startFrame === undefined) startFrame = 0;
+    //     if (endFrame === undefined) endFrame = layer.frames.length - 1;
+    //
+    //     // for (var f = 0; f < layer.frames.length; f++) {
+    //     for (var f = startFrame; f <= endFrame; f++) {
+    //         var frame = layer.frames[f];
+    //         // undefined 可能是因为 空白帧
+    //         if (frame === undefined) continue;
+    //         // if (frame.getSoundEnvelope()) {
+    //         if (frame.soundLibraryItem) {
+    //             return frame.soundName; // 发现声音对象
+    //         }
+    //     }
+    //     return null; // 没有声音对象
+    // }
+    //
+    // function getKeyFrameSoundRange(layer, startFrame, endFrame) {
+    //     if (startFrame === undefined) startFrame = 0;
+    //     if (endFrame === undefined) endFrame = layer.frames.length - 1;
+    //
+    //     // for (var f = 0; f < layer.frames.length; f++) {
+    //     for (var f = startFrame; f <= endFrame; f++) {
+    //         var frame = layer.frames[f];
+    //         // undefined 可能是因为 空白帧
+    //         if (frame === undefined) continue;
+    //         // if (frame.getSoundEnvelope()) {
+    //         if (frame.soundLibraryItem) {
+    //             return frame.getSoundEnvelopeLimits(); // 发现声音对象
+    //         }
+    //     }
+    //     return null; // 没有声音对象
+    // }
 
     function Main() {
         // 检查选择的元件
