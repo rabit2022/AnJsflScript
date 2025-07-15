@@ -17,7 +17,8 @@
 //
 // ------------------------------------------------------------------------------------------------------------------------
 // Filter
-define(["SObject", "FUNC"], function (so, FUNC) {
+define(["SObject", "FUNC","chroma-js"],
+    function (so, FUNC, chroma) {
     const { INHERIT_MACRO } = FUNC;
     const { SObject } = so;
 
@@ -1091,6 +1092,12 @@ define(["SObject", "FUNC"], function (so, FUNC) {
         return this;
     };
 
+    GlowFilterBuilder.prototype.setBlur=function(blur){
+        this.glowFilter.blurX=blur;
+        this.glowFilter.blurY=blur;
+        return this;
+    };
+
     /**
      * 设置模糊量（单位为像素）
      * @param {number} blur 模糊量（单位为像素）
@@ -1108,6 +1115,7 @@ define(["SObject", "FUNC"], function (so, FUNC) {
      * @returns {GlowFilterBuilder}
      */
     GlowFilterBuilder.prototype.setColor = function (color) {
+        color=chroma(color).hex();
         this.glowFilter.color = color;
         return this;
     };
