@@ -19,11 +19,16 @@ import { getName } from "ElementQuery";
 // @ts-expect-error
 import { getKeyFrameRanges } from "KeyFrameQuery";
 // @ts-expect-error
-import { FrameRange } from "SAT";
+import { FrameRange,Size,Vector } from "SAT";
+// @ts-expect-error
+import sat=require( "SAT");
+
 
 // ===============Third Party======================
 import log = require("loglevel");
 // endregion import
+
+const getStageSize=sat.ENTITY.STAGE.getSize;
 
 // region doc
 var doc = fl.getDocumentDOM(); //文档
@@ -83,9 +88,12 @@ function getAllSymbolNames() {
 
         return getName(keyFrameElement);
     });
-    // 去除重复的符号名
+    // 去除重复的符号名，保持顺序
     // @ts-ignore es6
     let uniqueSymbolNames = Array.from(new Set(keyFrameSymbolNames));
+
+
+    doc.enterEditMode();
 
     return uniqueSymbolNames;
 }
@@ -93,7 +101,22 @@ function getAllSymbolNames() {
 const ROW_SYMBOL_COUNT = 10; // 每列的符号数量
 
 function getPosition(count: number){
+    function parseRowColumn(count: number) {
+        let row = Math.floor(count / ROW_SYMBOL_COUNT);
+        let column = count % ROW_SYMBOL_COUNT;
+        return {row, column};
+    }
+    let stageSize:Size = getStageSize();
 
+    let rowSpace = stageSize.width / ROW_SYMBOL_COUNT;
+    // log.info(rowSpace);
+    let columnSpace = stageSize.height / ROW_SYMBOL_COUNT;
+    // log.info(columnSpace);
+
+    let {row, column} = parseRowColumn(count);
+    let topleft= new Vector(rowSpace * column, columnSpace * row);
+    let center = topleft.add(new Vector(rowSpace,columnSpace).clone().scale(0.5));
+    return center;
 }
 
 function Main() {
@@ -106,7 +129,12 @@ function Main() {
     let symbolNames = getAllSymbolNames();
     log.info(symbolNames);
 
-    for (let symbolName of symbolNames) {
+    for (let i = 0; i < symbolNames.length; i++) {
+        let symbolName = symbolNames[i];
+
+        let position = getPosition(i);
+        // log.info(position);
+        library.addItemToDocument(position, symbolName);
 
     }
 }
