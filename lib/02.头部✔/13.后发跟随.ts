@@ -175,7 +175,7 @@ function EditInner() {
     let shackActionLayer = layers[SHACK_ACTION_LAYER];
     let frameCount = shackActionLayer.frames.length;
 
-    motionLayer.name = "表情";
+    motionLayer.name = MOTION_NAME;
 
     // timeline.setSelectedLayers(MOTION_LAYER);
     // timeline.setSelectedFrames(FRAME_1, FRAME_1 + 1);
