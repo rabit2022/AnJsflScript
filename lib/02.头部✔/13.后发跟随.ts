@@ -21,10 +21,9 @@ import { getName } from "ElementQuery";
 // @ts-expect-error
 import { generateNameUntilUnique, generateNameUseLast } from "SymbolNameGenerator";
 // @ts-expect-error
-import JSFLConstants = require ("JSFLConstants");
+import JSFLConstants = require("JSFLConstants");
 // @ts-expect-error
 import { SelectStartFms } from "FramesSelect";
-
 
 // ===============Third Party======================
 import log = require("loglevel");
@@ -53,10 +52,12 @@ var curFrame = _frames[curFrameIndex]; //当前帧
 
 // 获取第一帧
 var selectedFrames = CheckSelectedFrames(timeline);
-if (!selectedFrames) {// @ts-ignore
+if (!selectedFrames) {
+    // @ts-ignore
     return;
 }
-const { firstSlLayerIndex, firstSlFrameIndex, firstSlLayer, firstSlFrame } = selectedFrames;
+const { firstSlLayerIndex, firstSlFrameIndex, firstSlLayer, firstSlFrame } =
+    selectedFrames;
 
 // prettier-ignore
 // 检查选择的元件
@@ -84,12 +85,11 @@ function IsKeyFrameHead(symbol: FlashElement) {
     var layers = timeline.layers; //图层
     // 摇头动作 图层
     // @ts-ignore
-    let headLayerIndex = layers.findIndex(function(layer) {
+    let headLayerIndex = layers.findIndex(function (layer) {
         return layer.name === "摇头动作";
     });
     let result = null;
     if (headLayerIndex === -1) {
-
     } else {
         timeline.setSelectedLayers(headLayerIndex);
         timeline.copyLayers();
@@ -116,7 +116,7 @@ function IsLabelHead(symbol: FlashElement) {
     var layers = timeline.layers; //图层
     // 摇头动作 图层
     // @ts-ignore
-    let headLayerIndex = layers.findIndex(function(layer) {
+    let headLayerIndex = layers.findIndex(function (layer) {
         return layer.name === "摇头动作";
     });
 
@@ -169,7 +169,6 @@ function EditInner() {
 
     timeline.pasteLayers();
 
-
     var layers = timeline.layers; //图层
     let motionLayer = layers[MOTION_LAYER];
 
@@ -180,14 +179,12 @@ function EditInner() {
 
     // timeline.setSelectedLayers(MOTION_LAYER);
     // timeline.setSelectedFrames(FRAME_1, FRAME_1 + 1);
-    timeline.setSelectedFrames([MOTION_LAYER,FRAME_1, FRAME_1 + 1]);
+    timeline.setSelectedFrames([MOTION_LAYER, FRAME_1, FRAME_1 + 1]);
 
     timeline.insertFrames(frameCount - 1);
     motionLayer.setRigParentAtFrame(shackActionLayer, FRAME_1);
 
-
     doc.exitEditMode();
-
 }
 
 function Main() {
@@ -214,7 +211,6 @@ function Main() {
 }
 
 Main();
-
 
 // let isHead =  IsLabelHead(selection[0]);
 // log.info("isHead:", isHead);

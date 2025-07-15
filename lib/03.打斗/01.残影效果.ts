@@ -107,7 +107,7 @@ function EditInner() {
 }
 
 function EditOuter(shadowCount: number) {
-    function getAlpha(shadowCount: number, i: number):number {
+    function getAlpha(shadowCount: number, i: number): number {
         // 20  4，10,8，5 16      80
         let MAX_ALPHA = 80;
         let alphaStep = Math.floor(MAX_ALPHA / shadowCount);
@@ -186,7 +186,7 @@ function EditOuter(shadowCount: number) {
 }
 
 function Main() {
-    var shadowCount:number = parseNumber(
+    var shadowCount: number = parseNumber(
         "输入残影数量（1~10）:",
         "3",
         "请输入合法的数字。(1~10)",
@@ -194,12 +194,12 @@ function Main() {
     );
     log.info("shadowCount", shadowCount);
 
-    var symbolName:string = generateNameUseLast("一键残影_内部_");
+    var symbolName: string = generateNameUseLast("一键残影_内部_");
     doc.convertToSymbol("graphic", symbolName, "center");
 
     EditInner();
 
-    var symbolName:string = generateNameUseLast("一键残影_外部_");
+    var symbolName: string = generateNameUseLast("一键残影_外部_");
     doc.convertToSymbol("graphic", symbolName, "center");
 
     EditOuter(shadowCount);

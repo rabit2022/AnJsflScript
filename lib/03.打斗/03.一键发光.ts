@@ -14,7 +14,7 @@
 import { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } from "checkUtil";
 // @ts-expect-error
 // import fd from "FilterDefinitions";
-import fd =require("FilterDefinitions");
+import fd = require("FilterDefinitions");
 
 // ===============Third Party======================
 import log = require("loglevel");
@@ -44,10 +44,12 @@ var curFrame = _frames[curFrameIndex]; //当前帧
 
 // 获取第一帧
 var selectedFrames = CheckSelectedFrames(timeline);
-if (!selectedFrames) {// @ts-ignore
+if (!selectedFrames) {
+    // @ts-ignore
     return;
 }
-const {firstSlLayerIndex, firstSlFrameIndex, firstSlLayer, firstSlFrame} = selectedFrames;
+const { firstSlLayerIndex, firstSlFrameIndex, firstSlLayer, firstSlFrame } =
+    selectedFrames;
 
 // 检查选择的元件
 if (!CheckSelection(selection, "selectElement", "No limit")) {

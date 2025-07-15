@@ -17,8 +17,7 @@
 //
 // ------------------------------------------------------------------------------------------------------------------------
 // Filter
-define(["SObject", "FUNC","chroma-js"],
-    function (so, FUNC, chroma) {
+define(["SObject", "FUNC", "chroma-js"], function (so, FUNC, chroma) {
     const { INHERIT_MACRO } = FUNC;
     const { SObject } = so;
 
@@ -1092,9 +1091,9 @@ define(["SObject", "FUNC","chroma-js"],
         return this;
     };
 
-    GlowFilterBuilder.prototype.setBlur=function(blur){
-        this.glowFilter.blurX=blur;
-        this.glowFilter.blurY=blur;
+    GlowFilterBuilder.prototype.setBlur = function (blur) {
+        this.glowFilter.blurX = blur;
+        this.glowFilter.blurY = blur;
         return this;
     };
 
@@ -1115,7 +1114,7 @@ define(["SObject", "FUNC","chroma-js"],
      * @returns {GlowFilterBuilder}
      */
     GlowFilterBuilder.prototype.setColor = function (color) {
-        color=chroma(color).hex();
+        color = chroma(color).hex();
         this.glowFilter.color = color;
         return this;
     };
