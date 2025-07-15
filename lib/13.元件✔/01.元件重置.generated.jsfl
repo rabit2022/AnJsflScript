@@ -1,19 +1,5 @@
 // 这个文件由脚本 01.元件重置.ts 自动生成，任何手动修改都将会被覆盖.
-require([
-    "require",
-    "_exports",
-    "checkUtil",
-    "ElementOperation",
-    "ElementChecker",
-    "FramesSelect"
-], function (
-    require,
-    exports,
-    checkUtil_1,
-    ElementOperation_1,
-    ElementChecker_1,
-    FramesSelect_1
-) {
+require(["require", "_exports", "checkUtil", "ElementOperation", "ElementChecker", "FramesSelect"], function (require, exports, checkUtil_1, ElementOperation_1, ElementChecker_1, FramesSelect_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var doc = fl.getDocumentDOM();
@@ -33,23 +19,13 @@ require([
     if (!selectedFrames) {
         return;
     }
-    var firstSlLayerIndex = selectedFrames.firstSlLayerIndex,
-        firstSlFrameIndex = selectedFrames.firstSlFrameIndex,
-        firstSlLayer = selectedFrames.firstSlLayer,
-        firstSlFrame = selectedFrames.firstSlFrame;
+    var firstSlLayerIndex = selectedFrames.firstSlLayerIndex, firstSlFrameIndex = selectedFrames.firstSlFrameIndex, firstSlLayer = selectedFrames.firstSlLayer, firstSlFrame = selectedFrames.firstSlFrame;
     if (!(0, checkUtil_1.CheckSelection)(selection, "selectElement", "No limit")) {
         return;
     }
     function Main() {
         var symbols = selection.filter(ElementChecker_1.IsSymbol);
-        if (
-            !(0, checkUtil_1.CheckSelection)(
-                symbols,
-                "selectElement",
-                "Not Zero",
-                "选中的对象中没有图形元件!"
-            )
-        ) {
+        if (!(0, checkUtil_1.CheckSelection)(symbols, "selectElement", "Not Zero", "选中的对象中没有图形元件!")) {
             return;
         }
         for (var _i = 0, symbols_1 = symbols; _i < symbols_1.length; _i++) {
@@ -59,17 +35,11 @@ require([
             var symbolLayers = symbolTimeline.layers;
             var symbolFrameCount = symbolTimeline.frameCount;
             var _loop_1 = function (symbolLayer) {
-                var layerIndex = symbolLayers.findIndex(function (layer) {
-                    return layer === symbolLayer;
-                });
+                var layerIndex = symbolLayers.findIndex(function (layer) { return layer === symbolLayer; });
                 symbolTimeline.setSelectedLayers(layerIndex, true);
                 symbolTimeline.removeFrames(1, symbolFrameCount);
             };
-            for (
-                var _a = 0, symbolLayers_1 = symbolLayers;
-                _a < symbolLayers_1.length;
-                _a++
-            ) {
+            for (var _a = 0, symbolLayers_1 = symbolLayers; _a < symbolLayers_1.length; _a++) {
                 var symbolLayer = symbolLayers_1[_a];
                 _loop_1(symbolLayer);
             }

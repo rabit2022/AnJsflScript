@@ -16,7 +16,8 @@ define(["require", "exports", "FrameChecker", "KeyFrameQuery"], function (requir
             this.LAYER = {
                 layer: layer,
                 layerName: layer.name,
-                layerIndex: frameRange.layerIndex
+                layerIndex: frameRange.layerIndex,
+                frameCount: layer.frameCount
             };
             this.FRAME = {
                 frame: frame,

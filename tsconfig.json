@@ -28,6 +28,7 @@
             "console": ["Third/_custom/xjsfl/console.jsfl"],
             "JSFLConstants": ["Third/_custom/xjsfl/JSFLConstants.jsfl"],
             "JSFLInterface": ["Third/_custom/xjsfl/JSFLInterface.jsfl"],
+            "LayerChecker": ["Core/flash/Context/Layer/LayerChecker.define"],
 
 
             "BitmapOperation": ["Core/flash/Bitmap/BitmapOperation.jsfl"],
@@ -47,7 +48,6 @@
             "KeyFrameChecker": ["Core/flash/Context/KeyFrame/KeyFrameChecker.jsfl"],
             "KeyFrameOperation": ["Core/flash/Context/KeyFrame/KeyFrameOperation.jsfl"],
             "KeyFrameQuery": ["Core/flash/Context/KeyFrame/KeyFrameQuery.jsfl"],
-            "LayerChecker": ["Core/flash/Context/Layer/LayerChecker.jsfl"],
             "LayerHierarchy": ["Core/flash/Context/Layer/LayerHierarchy.jsfl"],
             "LayerList": ["Core/flash/Context/Layer/LayerList.jsfl"],
             "LayerOperation": ["Core/flash/Context/Layer/LayerOperation.jsfl"],

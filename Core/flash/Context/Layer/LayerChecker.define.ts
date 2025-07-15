@@ -31,11 +31,12 @@ function IsLayerExists(layers: FlashLayer[], layerName: string) {
     return false;
 }
 
-interface SoundInfo {
+export interface ISoundInfo {
     LAYER: {
         layer: FlashLayer;
         layerName: string;
         layerIndex: number;
+        frameCount: number;
     };
     FRAME: {
         frame: FlashFrame;
@@ -50,23 +51,10 @@ interface SoundInfo {
     };
 }
 
-class SoundInfo implements SoundInfo {
-    LAYER: {
-        layer: FlashLayer;
-        layerName: string;
-        layerIndex: number;
-    };
-    FRAME: {
-        frame: FlashFrame;
-        frameIndex: number;
-        start: number;
-        end: number;
-    };
-    SOUND: {
-        soundName: string;
-        start: number;
-        // end: number; //1073741823
-    };
+class SoundInfo implements ISoundInfo {
+    LAYER: ISoundInfo["LAYER"];
+    FRAME: ISoundInfo["FRAME"];
+    SOUND: ISoundInfo["SOUND"];
 
     constructor(
         layer: FlashLayer,
@@ -79,7 +67,8 @@ class SoundInfo implements SoundInfo {
         this.LAYER = {
             layer: layer,
             layerName: layer.name,
-            layerIndex: frameRange.layerIndex
+            layerIndex: frameRange.layerIndex,
+            frameCount: layer.frameCount
         };
         this.FRAME = {
             frame: frame,

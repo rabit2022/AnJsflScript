@@ -81,7 +81,7 @@ var alias = {
     "KeyFrameChecker": path.resolve(dirname, "Core/flash/Context/KeyFrame/KeyFrameChecker"),
     "KeyFrameOperation": path.resolve(dirname, "Core/flash/Context/KeyFrame/KeyFrameOperation"),
     "KeyFrameQuery": path.resolve(dirname, "Core/flash/Context/KeyFrame/KeyFrameQuery"),
-    "LayerChecker": path.resolve(dirname, "Core/flash/Context/Layer/LayerChecker"),
+    "LayerChecker": path.resolve(dirname, "Core/flash/Context/Layer/LayerChecker.define"),
     "LayerHierarchy": path.resolve(dirname, "Core/flash/Context/Layer/LayerHierarchy"),
     "LayerList": path.resolve(dirname, "Core/flash/Context/Layer/LayerList"),
     "LayerOperation": path.resolve(dirname, "Core/flash/Context/Layer/LayerOperation"),

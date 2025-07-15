@@ -24,6 +24,7 @@
       "console": ["Third/_custom/xjsfl/console"],
       "JSFLConstants": ["Third/_custom/xjsfl/JSFLConstants"],
       "JSFLInterface": ["Third/_custom/xjsfl/JSFLInterface"],
+      "LayerChecker": ["Core/flash/Context/Layer/LayerChecker.define.ts"],
 
 
 
@@ -44,7 +45,6 @@
       "KeyFrameChecker": ["Core/flash/Context/KeyFrame/KeyFrameChecker"],
       "KeyFrameOperation": ["Core/flash/Context/KeyFrame/KeyFrameOperation"],
       "KeyFrameQuery": ["Core/flash/Context/KeyFrame/KeyFrameQuery"],
-      "LayerChecker": ["Core/flash/Context/Layer/LayerChecker"],
       "LayerHierarchy": ["Core/flash/Context/Layer/LayerHierarchy"],
       "LayerList": ["Core/flash/Context/Layer/LayerList"],
       "LayerOperation": ["Core/flash/Context/Layer/LayerOperation"],

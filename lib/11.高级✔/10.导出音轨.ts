@@ -11,7 +11,7 @@
 // @ts-expect-error
 import { CheckDom, CheckSelectedFrames, CheckSelectedLayers, CheckSelection } from "checkUtil";
 // @ts-expect-error
-import { hasSound, SoundInfo } from "LayerChecker";
+import { hasSound, ISoundInfo } from "LayerChecker";
 // @ts-expect-error
 import { getKeyFrameRanges } from "KeyFrameQuery";
 // @ts-expect-error
@@ -64,7 +64,7 @@ if (!CheckSelection(selection, "selectElement", "No limit")) {
 
 function selectSoundLayers() {
     // 遍历所有的图层，得到soundInfo
-    var soundInfos: SoundInfo[] = [];
+    var soundInfos: ISoundInfo[] = [];
     for (var i = 0; i < layers.length; i++) {
         var layer = layers[i];
         var layerSoundInfos = hasSound(layers, layer);

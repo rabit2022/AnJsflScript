@@ -9,11 +9,13 @@
 
 // prettier-ignore
 // @ts-expect-error
-import { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers,CheckSymbolTimeline } from "checkUtil";
+import { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers, CheckSymbolTimeline } from "checkUtil";
 // @ts-expect-error
-import { hasSoundAll, IsLayerBlank, SoundInfo } from "LayerChecker";
+import { hasSoundAll, IsLayerBlank, ISoundInfo } from "LayerChecker";
 // @ts-expect-error
 import { addNewLayerSafetyEx } from "LayerOperation";
+// @ts-expect-error
+import { convertToKeyframesSafety } from "KeyFrameOperation";
 
 import log = require("loglevel");
 
@@ -57,10 +59,10 @@ if (!CheckSelection(selection, "selectElement", "No limit")) {
 // endregion doc
 
 function Main() {
-    var { symbolTimeline, stageTimeline } = CheckSymbolTimeline();
+    let { symbolTimeline, stageTimeline } = CheckSymbolTimeline();
     if (!symbolTimeline || !stageTimeline) return;
 
-    const stageInfos: SoundInfo[] = hasSoundAll(stageTimeline);
+    const stageInfos: ISoundInfo[] = hasSoundAll(stageTimeline);
     if (stageInfos.length === 0) return;
 
     // log.info("soundInfos", soundInfos);
@@ -77,12 +79,46 @@ function Main() {
     // log.info("symbolLayerNames", symbolLayerNames);
 
     for (let soundInfo of stageInfos) {
-        const layer_name = soundInfo.LAYER.layerName;
+        const { layerName } = soundInfo.LAYER;
+        const {
+            frameIndex: soundFrameIndex,
+            start: keyframeStart,
+            end: keyframeEnd
+        } = soundInfo.FRAME;
+        const { soundName } = soundInfo.SOUND;
 
         // let targetLayerIndex = symbolLayerNames.lastIndexOf(layer_name);
         // if (targetLayerIndex === -1) return;
 
-        let targetLayerIndex = addNewLayerSafetyEx(symbolTimeline, layer_name);
+        let targetLayerIndex = addNewLayerSafetyEx(symbolTimeline, layerName);
+
+        // region doc
+        let timeline: FlashTimeline = symbolTimeline;
+
+        let layers = timeline.layers; //图层
+        let curLayerIndex = timeline.currentLayer; //当前图层索引
+        let curLayer = layers[curLayerIndex]; //当前图层
+
+        let frames = curLayer.frames; //当前图层的帧列表
+        let curFrameIndex = timeline.currentFrame; //当前帧索引
+        let curFrame = frames[curFrameIndex]; //当前帧
+
+        let layerFrameCount = curLayer.frameCount; //当前图层的帧数
+        // let soundFrame = frames[soundFrameIndex];
+        // endregion doc
+
+        // 关键帧
+        convertToKeyframesSafety(symbolTimeline, soundFrameIndex, targetLayerIndex);
+
+        // 设置声音
+        curFrame.soundName = soundName;
+        curFrame.soundSync = "stream";
+        curFrame.setSoundEnvelopeLimits({ start: keyframeStart } as any);
+
+        /* 在声音尾部插入空白关键帧，保证 声音播放时，不会因为缺少关键帧而停止 */
+        if (keyframeEnd > layerFrameCount - 1) {
+            convertToKeyframesSafety(symbolTimeline, keyframeEnd, targetLayerIndex);
+        }
     }
 }
 

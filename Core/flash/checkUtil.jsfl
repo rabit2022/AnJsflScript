@@ -286,6 +286,10 @@ define(["Tips", "SAT", "KeyFrameQuery"], function (Tips, SAT, kfq) {
         return selectedItems;
     }
 
+    /**
+     * 检查是否在元件中
+     * @returns {{symbolTimeline: Timeline, stageTimeline: Timeline}}
+     */
     function CheckSymbolTimeline() {
         var doc = fl.getDocumentDOM(); //文档
 
