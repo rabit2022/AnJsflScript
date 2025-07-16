@@ -1,5 +1,5 @@
 // 这个文件由脚本 10.导出音轨.ts 自动生成，任何手动修改都将会被覆盖.
-require(["require", "_exports", "checkUtil", "LayerChecker", "KeyFrameQuery", "os", "LayerSelect", "loglevel"], function (require, exports, checkUtil_1, LayerChecker_1, KeyFrameQuery_1, os, LayerSelect_1, log) {
+require(["require", "_exports", "checkUtil", "SoundChecker", "KeyFrameQuery", "os", "LayerSelect", "loglevel"], function (require, exports, checkUtil_1, SoundChecker_1, KeyFrameQuery_1, os, LayerSelect_1, log) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var getBaseName = os.path.$basenameWithoutExt;
@@ -23,7 +23,7 @@ require(["require", "_exports", "checkUtil", "LayerChecker", "KeyFrameQuery", "o
         var soundInfos = [];
         for (var i = 0; i < layers.length; i++) {
             var layer = layers[i];
-            var layerSoundInfos = (0, LayerChecker_1.hasSound)(layers, layer);
+            var layerSoundInfos = (0, SoundChecker_1.hasSound)(layers, layer);
             soundInfos.push.apply(soundInfos, layerSoundInfos);
         }
         var hasSoundLayers = soundInfos.map(function (soundInfo) {

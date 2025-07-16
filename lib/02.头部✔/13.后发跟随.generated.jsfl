@@ -87,7 +87,7 @@ require(["require", "_exports", "checkUtil", "ElementChecker", "ElementSelect", 
             fair = symbol1;
         }
         else {
-            alert("\u76EE\u524D\u4EC5\u652F\u6301 \u672C\u63D2\u4EF6\"\u7EC4\u88C5\u4E07\u80FD\u5934\u201C\u529F\u80FD\u751F\u6210\u7684\u4E07\u80FD\u5934\uFF01");
+            alert("\u76EE\u524D\u4EC5\u652F\u6301 \u672C\u63D2\u4EF6  \"11.\u7EC4\u88C5\u4E07\u80FD\u5934.jsfl\"  \u529F\u80FD\u751F\u6210\u7684\u4E07\u80FD\u5934\uFF01");
             return;
         }
         return { head: head, fair: fair };
@@ -103,7 +103,7 @@ require(["require", "_exports", "checkUtil", "ElementChecker", "ElementSelect", 
         var motionLayer = layers[MOTION_LAYER];
         var shackActionLayer = layers[SHACK_ACTION_LAYER];
         var frameCount = shackActionLayer.frames.length;
-        motionLayer.name = "表情";
+        motionLayer.name = MOTION_NAME;
         timeline.setSelectedFrames([MOTION_LAYER, FRAME_1, FRAME_1 + 1]);
         timeline.insertFrames(frameCount - 1);
         motionLayer.setRigParentAtFrame(shackActionLayer, FRAME_1);

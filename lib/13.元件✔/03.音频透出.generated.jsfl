@@ -1,5 +1,5 @@
 // 这个文件由脚本 03.音频透出.ts 自动生成，任何手动修改都将会被覆盖.
-require(["require", "_exports", "checkUtil", "LayerChecker", "LayerOperation", "KeyFrameOperation"], function (require, exports, checkUtil_1, LayerChecker_1, LayerOperation_1, KeyFrameOperation_1) {
+require(["require", "_exports", "checkUtil", "SoundChecker", "LayerOperation", "KeyFrameOperation"], function (require, exports, checkUtil_1, SoundChecker_1, LayerOperation_1, KeyFrameOperation_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var doc = fl.getDocumentDOM();
@@ -22,7 +22,7 @@ require(["require", "_exports", "checkUtil", "LayerChecker", "LayerOperation", "
         var _a = (0, checkUtil_1.CheckSymbolTimeline)(), symbolTimeline = _a.symbolTimeline, stageTimeline = _a.stageTimeline;
         if (!symbolTimeline || !stageTimeline)
             return;
-        var symbolInfos = (0, LayerChecker_1.hasSoundAll)(symbolTimeline);
+        var symbolInfos = (0, SoundChecker_1.hasSoundAll)(symbolTimeline);
         if (symbolInfos.length === 0)
             return;
         symbolTimeline.insertFrames(symbolTimeline.frameCount - stageTimeline.frameCount, true, stageTimeline.frameCount);

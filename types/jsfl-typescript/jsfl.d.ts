@@ -550,9 +550,6 @@ interface FlashFLfile {
     write(fileURI: string, textToWrite: string, strAppendMode?: string): boolean;
 }
 
-interface FlashSoundItem {
-}
-
 // if FlashElement.elementType == 'instance'
 interface FlashInstance {
     instanceType?: string;
@@ -794,9 +791,9 @@ interface FlashFrame {
 
     /**
      * @since Flash MX 2004
-     * @type {SoundItem}
+     * @type {FlashSoundItem}
      */
-    soundLibraryItem?: SoundItem;
+    soundLibraryItem?: FlashSoundItem;
 
     /**
      * @since Flash MX 2004
@@ -1007,6 +1004,8 @@ interface FlashSoundItem {
     quality: string;
     sampleRate: string;
     sourceFileExists: boolean;
+    sourceFilePath: string;
+    name: string;
 }
 
 interface FlashVideoItem {
