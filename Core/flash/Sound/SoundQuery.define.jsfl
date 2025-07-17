@@ -1,5 +1,5 @@
 // 这个文件由脚本 SoundQuery.define.ts 自动生成，任何手动修改都将会被覆盖.
-define(["require", "exports", "os", "luxon-config", "loglevel"], function (require, exports, os, luxon_config_1, log) {
+define(["require", "exports", "os", "loglevel", "luxon"], function (require, exports, os, log, luxon_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var getBasename = os.path.$basenameWithoutExt;
@@ -45,7 +45,7 @@ define(["require", "exports", "os", "luxon-config", "loglevel"], function (requi
     }
     function parseDuration(duration) {
         var _a = duration.split(':').map(Number), h = _a[0], m = _a[1], s = _a[2];
-        var dur = luxon_config_1.Duration.fromObject({ hours: h, minutes: m, seconds: s });
+        var dur = luxon_1.Duration.fromObject({ hours: h, minutes: m, seconds: s });
         var sec = dur.as('seconds');
         return sec;
     }

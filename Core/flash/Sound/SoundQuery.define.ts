@@ -12,12 +12,10 @@
 // @ts-expect-error
 import os = require("os");
 import { ISoundInfo } from "SoundChecker";
-// @ts-expect-error
-import { Duration } from "luxon-config";
 
 // ===============Third Party======================
 import log = require("loglevel");
-
+import { Duration } from "luxon";
 
 // endregion import
 
@@ -99,14 +97,13 @@ function getAudioDurations(soundInfo: ISoundInfo) {
     }
 }
 
-
 function parseDuration(duration: string) {
-// 1. 先拆成对象
-    const [h, m, s] = duration.split(':').map(Number);
-// 2. 构造成 Duration
+    // 1. 先拆成对象
+    const [h, m, s] = duration.split(":").map(Number);
+    // 2. 构造成 Duration
     const dur = Duration.fromObject({ hours: h, minutes: m, seconds: s });
-// 3. 取总秒数
-    const sec = dur.as('seconds'); // 14
+    // 3. 取总秒数
+    const sec = dur.as("seconds"); // 14
     return sec;
 }
 
