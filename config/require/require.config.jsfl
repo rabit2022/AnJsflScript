@@ -131,6 +131,9 @@ require.config({
         "KeyFrameMode":"Core/Utils/KeyFrameMode",
         "Tips":"Core/Utils/Tips",
         "COMPATIBILITY":"Core/webpack/COMPATIBILITY",
+        // H:\project\沙雕动画\AnJsflScript\Core\flash\Sound\SoundQuery.define.ts
+        "SoundQuery":"Core/flash/Sound/SoundQuery.define",
+
         // endregion Core
     }, packages: []
 });

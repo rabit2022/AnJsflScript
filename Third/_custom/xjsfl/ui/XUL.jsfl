@@ -3771,7 +3771,8 @@ xjsfl.uri = window.AnJsflScript.$ProjectFileDir$+"/";
 
 			// save XML to dialog.xml
 			// 	var uri			= xul.uri || xjsfl.uri + 'core/ui/dialog.xul';
-				var uri			= xul.uri || xjsfl.uri + 'config/ui/dialog.xul';
+			// 	var uri			= xul.uri || xjsfl.uri + 'config/ui/dialog.xul';
+				var uri			= window.AnJsflScript.FOLDERS.Cache + '/ui/dialog.xul';
 				if(FLfile.exists(uri))
 				{
 					FLfile.setAttributes(uri, 'W');

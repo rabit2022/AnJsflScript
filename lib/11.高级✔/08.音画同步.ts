@@ -18,6 +18,9 @@ import { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } fr
 import { hasSoundAll, ISoundInfo } from "SoundChecker";
 // @ts-expect-error
 import os = require("os");
+// @ts-expect-error
+import { getAudioDurations } from "SoundQuery";
+
 
 // ===============Third Party======================
 import log = require("loglevel");
@@ -71,6 +74,8 @@ function Main() {
         return;
     }
 
+    // 创建  soundItem.sourceFilePath ： platformPath
+
     // for of
     for (let soundInfo of soundInfos) {
         // log.info(soundInfo);
@@ -80,7 +85,7 @@ function Main() {
         // 设置数据流
         if (frame.soundSync !== "stream") {
             frame.soundSync = "stream";
-            let info = `【问题】  在本场景第 [${layerIndex + 1}] 个图层 : [${layerName}]  ，第 [${frameIndex + 1}] 帧处，音频同步不是“数据流” --- 已自动修复！`;
+            let info = `【问题】  在本场景第 [${layerIndex + 1}] 个图层 : [${layerName}]  ，第 [${frameIndex + 1}] 帧处，音频同步不是"数据流" --- 已自动修复！`;
             fl.trace(info);
             HAS_FIXED = true;
         }
@@ -90,11 +95,19 @@ function Main() {
         // "file:///C|/Users/admin/Downloads/嗯_.mp3"
         if (path) {
             let [_, ext] = os.path.splitext(path);
-            log.info(`ext:${ext}`);
-            if (ext === ".mp3") {
+            // log.info(`ext:${ext}`);
+            if (ext === ".mp3" || ext === ".wav") {
+
+                getAudioDurations(soundInfo);
+
             }
         }
     }
+
+
+
+    // 提醒 时长过长，按照格式 进行提示
+
 
     if (!HAS_FIXED) {
         let info = `【提示】  当前场景未发现音画不同步问题。若仍不同步，建议使用AN的 [文件-导出-导出影片] 来导出序列帧，结合使用插件的 [高阶面板-导出音轨] 导出音频`;

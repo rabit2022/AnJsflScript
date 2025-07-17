@@ -42,13 +42,22 @@ export interface ISoundInfo {
         itemName: string;
         path: string;
     };
+    THIRD: {
+        /**
+         * @description: 第三方 获取音频时长
+         * @note: {@link SoundQuery.getAudioDurationsNative}
+         */
+        SECONDS: number;
+    };
 }
+
 
 class SoundInfo implements ISoundInfo {
     LAYER: ISoundInfo["LAYER"];
     FRAME: ISoundInfo["FRAME"];
     SOUND: ISoundInfo["SOUND"];
     ITEM: ISoundInfo["ITEM"];
+    THIRD: ISoundInfo["THIRD"];
 
     constructor(
         layer: FlashLayer,
@@ -81,6 +90,9 @@ class SoundInfo implements ISoundInfo {
             item: soundItem,
             itemName: soundItem.name,
             path: soundItem.sourceFilePath
+        };
+        this.THIRD = {
+            SECONDS: undefined
         };
     }
 }

@@ -525,7 +525,6 @@
 		function prettyPrint(useSystemNewline)
 		{
 			return this.toXMLString().replace(/ {2}/g, '\t').replace(/\n/g, useSystemNewline ? xjsfl.settings.newLine : '\n');
-			// return this.toXMLString().replace(/ {2}/g, '\t').replace(/\n/g, '\n');
 		}
 		XML.prototype.function::prettyPrint = prettyPrint;
 

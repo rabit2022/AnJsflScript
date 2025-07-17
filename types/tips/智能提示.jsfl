@@ -49,6 +49,7 @@ Item = function() {
  * 运行命令行
  * 重要：可以调用 powershell,cmd,bash等命令行工具,python,java等脚本语言,以及执行其他可执行文件
  * @param {string} commandLine - 命令行参数
+ * @return {number} 是否成功运行,1表示成功,0表示失败
  */
 FlashFile.prototype.runCommandLine = function(commandLine) {
 };

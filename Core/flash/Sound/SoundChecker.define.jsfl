@@ -27,6 +27,9 @@ define(["require", "exports", "KeyFrameQuery"], function (require, exports, KeyF
                 itemName: soundItem.name,
                 path: soundItem.sourceFilePath
             };
+            this.THIRD = {
+                SECONDS: undefined
+            };
         }
         return SoundInfo;
     }());

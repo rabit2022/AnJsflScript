@@ -114,7 +114,8 @@
             Cache: window.AnJsflScript.$ProjectFileDir$ + "/config/Cache", // 12.#磁力粘贴.jsfl,缓存文件夹
             AsciiArtLibrary:
                 window.AnJsflScript.$ProjectFileDir$ + "/config/ascii_art_library", // 02.排兵布阵_ascii_art.jsfl 字体库文件夹
-            Save: window.AnJsflScript.$ProjectFileDir$ + "/config/Save" // 存档文件夹
+            Save: window.AnJsflScript.$ProjectFileDir$ + "/config/Save", // 存档文件夹
+            Scripts: window.AnJsflScript.$ProjectFileDir$ + "/Scripts", // 脚本文件夹
         };
 
         var config = {

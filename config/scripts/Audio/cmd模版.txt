@@ -1,0 +1,5 @@
+powershell -NoProfile -ExecutionPolicy Bypass -Command "& \"{{Get-AudioDurations}}\" -Path \"{{Audio-Path}}\" | Out-File -Encoding utf8 \"{{Output-Path}}\""
+
+
+& "{{Get-AudioDurations}}" -Path "{{Audio-Path}}"
+

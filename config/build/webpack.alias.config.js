@@ -119,6 +119,8 @@ var alias = {
     "KeyFrameMode": path.resolve(dirname, "Core/Utils/KeyFrameMode"),
     "Tips": path.resolve(dirname, "Core/Utils/Tips"),
     "COMPATIBILITY": path.resolve(dirname, "Core/webpack/COMPATIBILITY"),
+    // "SoundQuery":"Core/flash/Sound/SoundQuery.define",
+    "SoundQuery": path.resolve(dirname, "Core/flash/Sound/SoundQuery.define"),
 
 
 };

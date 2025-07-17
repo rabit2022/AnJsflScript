@@ -11,6 +11,7 @@ interface AnJsflScript {
         Cache: string;
         AsciiArtLibrary: string;
         Save: string;
+        Scripts: string;
     };
 }
 

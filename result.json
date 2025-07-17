@@ -1,0 +1,9 @@
+H:\project\沙雕动画\AnJsflScript\config\scripts\Audio\Get-AudioDurations.ps1 : 找不到接受
+实际参数“获取音频文件的时长/示例/h3f9fl.wav”的位置形式参数。
+所在位置 行:1 字符: 1
++ & H:/project/沙雕动画/AnJsflScript/config/scripts/Audio/Get-AudioDuration ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Get-AudioDurations.ps1]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : PositionalParameterNotFound,Get-AudioDurations.ps1
+ 

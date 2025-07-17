@@ -30,6 +30,7 @@
             "JSFLInterface": ["Third/_custom/xjsfl/JSFLInterface.jsfl"],
             "LayerChecker": ["Core/flash/Context/Layer/LayerChecker.define"],
             "SoundChecker": ["Core/flash/Sound/SoundChecker.define"],
+            "SoundQuery":["Core/flash/Sound/SoundQuery.define"],
 
 
 

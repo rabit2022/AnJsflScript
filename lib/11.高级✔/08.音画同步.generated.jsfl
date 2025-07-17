@@ -1,5 +1,5 @@
 // 这个文件由脚本 08.音画同步.ts 自动生成，任何手动修改都将会被覆盖.
-require(["require", "_exports", "checkUtil", "SoundChecker", "os", "loglevel"], function (require, exports, checkUtil_1, SoundChecker_1, os, log) {
+require(["require", "_exports", "checkUtil", "SoundChecker", "os", "SoundQuery", "loglevel"], function (require, exports, checkUtil_1, SoundChecker_1, os, SoundQuery_1, log) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var doc = fl.getDocumentDOM();
@@ -31,15 +31,15 @@ require(["require", "_exports", "checkUtil", "SoundChecker", "os", "loglevel"], 
             var _b = soundInfo.LAYER, layer = _b.layer, layerIndex = _b.layerIndex, layerName = _b.layerName;
             if (frame.soundSync !== "stream") {
                 frame.soundSync = "stream";
-                var info = "\u3010\u95EE\u9898\u3011  \u5728\u672C\u573A\u666F\u7B2C [".concat(layerIndex + 1, "] \u4E2A\u56FE\u5C42 : [").concat(layerName, "]  \uFF0C\u7B2C [").concat(frameIndex + 1, "] \u5E27\u5904\uFF0C\u97F3\u9891\u540C\u6B65\u4E0D\u662F\u201C\u6570\u636E\u6D41\u201D --- \u5DF2\u81EA\u52A8\u4FEE\u590D\uFF01");
+                var info = "\u3010\u95EE\u9898\u3011  \u5728\u672C\u573A\u666F\u7B2C [".concat(layerIndex + 1, "] \u4E2A\u56FE\u5C42 : [").concat(layerName, "]  \uFF0C\u7B2C [").concat(frameIndex + 1, "] \u5E27\u5904\uFF0C\u97F3\u9891\u540C\u6B65\u4E0D\u662F\"\u6570\u636E\u6D41\" --- \u5DF2\u81EA\u52A8\u4FEE\u590D\uFF01");
                 fl.trace(info);
                 HAS_FIXED = true;
             }
             var _c = soundInfo.ITEM, item = _c.item, itemName = _c.itemName, path = _c.path;
             if (path) {
                 var _d = os.path.splitext(path), _1 = _d[0], ext = _d[1];
-                log.info("ext:".concat(ext));
-                if (ext === ".mp3") {
+                if (ext === ".mp3" || ext === ".wav") {
+                    (0, SoundQuery_1.getAudioDurations)(soundInfo);
                 }
             }
         }
