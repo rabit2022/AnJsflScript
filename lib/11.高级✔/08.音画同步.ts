@@ -21,7 +21,6 @@ import os = require("os");
 // @ts-expect-error
 import { getAudioDurations } from "SoundQuery";
 
-
 // ===============Third Party======================
 import log = require("loglevel");
 // endregion import
@@ -97,17 +96,20 @@ function Main() {
             let [_, ext] = os.path.splitext(path);
             // log.info(`ext:${ext}`);
             if (ext === ".mp3" || ext === ".wav") {
-
                 getAudioDurations(soundInfo);
 
+                // 提醒 时长过长，按照格式 进行提示
+                // log.info(soundInfo.THIRD.SECONDS)
+                let secs = soundInfo.THIRD.SECONDS;
+                if (secs > 60) {
+                    fl.trace(
+                        `【问题】  在本场景第 [${layerIndex + 1}] 个图层 : [${layerName}]  ，第 [${frameIndex + 1}] 帧处，音频文件“${frame.soundName}”时长超过60秒！建议导入AN前用剪辑软件拆分，否则音画不同步。`
+                    );
+                    HAS_FIXED = true;
+                }
             }
         }
     }
-
-
-
-    // 提醒 时长过长，按照格式 进行提示
-
 
     if (!HAS_FIXED) {
         let info = `【提示】  当前场景未发现音画不同步问题。若仍不同步，建议使用AN的 [文件-导出-导出影片] 来导出序列帧，结合使用插件的 [高阶面板-导出音轨] 导出音频`;

@@ -17,7 +17,6 @@ import { getKeyFrameRanges } from "KeyFrameQuery";
 import os = require("os");
 import { ISoundInfo } from "SoundChecker";
 
-
 // ===============Third Party======================
 import log = require("loglevel");
 
@@ -37,7 +36,6 @@ function getAudioDurationsNative(item: FlashSoundItem) {
     var path = item.sourceFilePath;
     let [_, ext] = os.path.splitext(path);
 
-
     var size = FLfile.getSize(path);
 
     if (ext === "mp3") {
@@ -45,7 +43,8 @@ function getAudioDurationsNative(item: FlashSoundItem) {
         var kbps = item.bitRate ? parseInt(item.bitRate.slice(0, -5)) : null;
         if (!kbps) return null;
 
-        var secs = (size * 8) / (1000 * kbps);
+        /*量纲分析:b/bps=b/(b/s)=s*/
+        var secs = (size * 8) /*B->b*/ / (1000 * kbps); /*kbps->bps*/
         return secs;
     }
     return null;
@@ -55,13 +54,19 @@ const CacheDir = window.AnJsflScript.FOLDERS.Cache;
 const EXPORT_DIR = os.path.join(CacheDir, "Audio");
 
 const ScriptsDir = window.AnJsflScript.FOLDERS.Scripts;
-const SOUND_DURATION_PS1 = os.path.join(ScriptsDir, "Get-AudioDurations.ps1");
+const SOUND_DURATION_PS1_URI = os.path.join(
+    ScriptsDir,
+    "Audio",
+    "Get-AudioDurations.ps1"
+);
+const SOUND_DURATION_PS1 = FLfile.uriToPlatformPath(SOUND_DURATION_PS1_URI);
 
+/**
+ * 使用第三方工具获取 音频时长，并记录到 soundInfo 中
+ * @param soundInfo
+ */
 function getAudioDurations(soundInfo: ISoundInfo) {
-    let { frame, frameIndex } = soundInfo.FRAME;
-    let { layer, layerIndex, layerName } = soundInfo.LAYER;
     let { item, itemName, path } = soundInfo.ITEM;
-
 
     // 导出所有音频到Cache目录
     if (path) {
@@ -70,26 +75,26 @@ function getAudioDurations(soundInfo: ISoundInfo) {
         if (ext === ".mp3" || ext === ".wav") {
             let baseName: string = getBasename(path);
             let exportPathURI: string = os.path.join(EXPORT_DIR, `${baseName}${ext}`);
+            log.info(`exportPathURI:${exportPathURI}`);
+
             let success = item.exportToFile(exportPathURI);
             if (success) {
+                log.info(`export success:${success}`);
 
                 let exportPath = FLfile.uriToPlatformPath(exportPathURI);
-                let powershellCommand = `& "${SOUND_DURATION_PS1}" -Path "${exportPath}"`;
+                log.info(`exportPath:${exportPath}`);
+                // let powershellCommand = "& \""+SOUND_DURATION_PS1+"\" -Path \""+exportPath+"\"";
+                let powershellCommand = `& \'${SOUND_DURATION_PS1}\' -Path \'${exportPath}\'`;
 
                 // 调用ps1脚本，查看文件元信息，获取时长信息
                 let duration = os.system(powershellCommand);
-                log.info(`duration:${duration}`);
+                // log.info(`duration:${duration}`);
+
+                // 把 时长 记录到 soundInfo中
+                soundInfo.THIRD.SECONDS = duration;
             }
         }
     }
-
-
-
-
-    // 把 时长 记录到 soundInfo中
 }
 
-
-// exports.hasSound = hasSound;
-// exports.hasSoundAll = hasSoundAll;
 exports.getAudioDurations = getAudioDurations;

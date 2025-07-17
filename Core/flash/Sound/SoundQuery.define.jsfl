@@ -19,7 +19,8 @@ define(["require", "exports", "os", "loglevel"], function (require, exports, os,
     var CacheDir = window.AnJsflScript.FOLDERS.Cache;
     var EXPORT_DIR = os.path.join(CacheDir, "Audio");
     var ScriptsDir = window.AnJsflScript.FOLDERS.Scripts;
-    var SOUND_DURATION_PS1 = os.path.join(ScriptsDir, "Get-AudioDurations.ps1");
+    var SOUND_DURATION_PS1_URI = os.path.join(ScriptsDir, "Audio", "Get-AudioDurations.ps1");
+    var SOUND_DURATION_PS1 = FLfile.uriToPlatformPath(SOUND_DURATION_PS1_URI);
     function getAudioDurations(soundInfo) {
         var _a = soundInfo.FRAME, frame = _a.frame, frameIndex = _a.frameIndex;
         var _b = soundInfo.LAYER, layer = _b.layer, layerIndex = _b.layerIndex, layerName = _b.layerName;
@@ -28,13 +29,16 @@ define(["require", "exports", "os", "loglevel"], function (require, exports, os,
             var _d = os.path.splitext(path), _1 = _d[0], ext = _d[1];
             if (ext === ".mp3" || ext === ".wav") {
                 var baseName = getBasename(path);
-                var exportPathURI = os.path.join(EXPORT_DIR, "".concat(layerName, "_").concat(frameIndex, "_").concat(itemName).concat(ext));
+                var exportPathURI = os.path.join(EXPORT_DIR, "".concat(baseName).concat(ext));
+                log.info("exportPathURI:".concat(exportPathURI));
                 var success = item.exportToFile(exportPathURI);
                 if (success) {
+                    log.info("export success:".concat(success));
                     var exportPath = FLfile.uriToPlatformPath(exportPathURI);
-                    var powershellCommand = "& \"".concat(SOUND_DURATION_PS1, "\" -Path \"").concat(exportPathURI, "\"");
+                    log.info("exportPath:".concat(exportPath));
+                    var powershellCommand = "& '".concat(SOUND_DURATION_PS1, "' -Path '").concat(exportPath, "'");
                     var duration = os.system(powershellCommand);
-                    log.info("duration:".concat(duration));
+                    soundInfo.THIRD.SECONDS = duration;
                 }
             }
         }

@@ -7,8 +7,7 @@
  * @description:
  */
 
-define(["loglevel", "path-browserify","open"],
-    function (log, path,open) {
+define(["loglevel", "path-browserify", "open"], function (log, path, open) {
     function OSPath() {}
 
     /**
@@ -363,19 +362,23 @@ define(["loglevel", "path-browserify","open"],
      * @param {string} powershellCommand - 要运行的 PowerShell 命令。
      * @returns {string} - 命令的输出。
      */
-    OS.system=function(powershellCommand){
-        var Cache=window.AnJsflScript.FOLDERS.Cache;
-        var ResultCacheURI= OSPath.join(Cache,"PowerShell/Result.txt");
-        var ResultCache=FLfile.uriToPlatformPath(ResultCacheURI);
+    OS.system = function (powershellCommand) {
+        var Cache = window.AnJsflScript.FOLDERS.Cache;
+        var ResultCacheURI = OSPath.join(Cache, "PowerShell/Result.txt");
+        var ResultCache = FLfile.uriToPlatformPath(ResultCacheURI);
 
-
-        var command='powershell -NoProfile -ExecutionPolicy Bypass -Command "'+powershellCommand+' | Out-File -Encoding utf8 \"'+ResultCache+'\""'
-        // console.log(command);
+        var command =
+            'powershell -NoProfile -ExecutionPolicy Bypass -Command "' +
+            powershellCommand +
+            ' | Out-File -Encoding utf8 \"' +
+            ResultCache +
+            '\""';
+        fl.trace(command);
         FLfile.runCommandLine(command);
 
-        var Result="";
-        with (open(ResultCacheURI,"r","utf-8")){
-            Result=f.read();
+        var Result = "";
+        with (open(ResultCacheURI, "r", "utf-8")) {
+            Result = f.read();
         }
         return Result;
     };

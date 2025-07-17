@@ -51,7 +51,6 @@ export interface ISoundInfo {
     };
 }
 
-
 class SoundInfo implements ISoundInfo {
     LAYER: ISoundInfo["LAYER"];
     FRAME: ISoundInfo["FRAME"];
