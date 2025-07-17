@@ -1,5 +1,5 @@
 // 这个文件由脚本 SoundQuery.define.ts 自动生成，任何手动修改都将会被覆盖.
-define(["require", "exports", "os", "loglevel"], function (require, exports, os, log) {
+define(["require", "exports", "os", "luxon-config", "loglevel"], function (require, exports, os, luxon_config_1, log) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var getBasename = os.path.$basenameWithoutExt;
@@ -22,11 +22,9 @@ define(["require", "exports", "os", "loglevel"], function (require, exports, os,
     var SOUND_DURATION_PS1_URI = os.path.join(ScriptsDir, "Audio", "Get-AudioDurations.ps1");
     var SOUND_DURATION_PS1 = FLfile.uriToPlatformPath(SOUND_DURATION_PS1_URI);
     function getAudioDurations(soundInfo) {
-        var _a = soundInfo.FRAME, frame = _a.frame, frameIndex = _a.frameIndex;
-        var _b = soundInfo.LAYER, layer = _b.layer, layerIndex = _b.layerIndex, layerName = _b.layerName;
-        var _c = soundInfo.ITEM, item = _c.item, itemName = _c.itemName, path = _c.path;
+        var _a = soundInfo.ITEM, item = _a.item, itemName = _a.itemName, path = _a.path;
         if (path) {
-            var _d = os.path.splitext(path), _1 = _d[0], ext = _d[1];
+            var _b = os.path.splitext(path), _1 = _b[0], ext = _b[1];
             if (ext === ".mp3" || ext === ".wav") {
                 var baseName = getBasename(path);
                 var exportPathURI = os.path.join(EXPORT_DIR, "".concat(baseName).concat(ext));
@@ -38,10 +36,18 @@ define(["require", "exports", "os", "loglevel"], function (require, exports, os,
                     log.info("exportPath:".concat(exportPath));
                     var powershellCommand = "& '".concat(SOUND_DURATION_PS1, "' -Path '").concat(exportPath, "'");
                     var duration = os.system(powershellCommand);
-                    soundInfo.THIRD.SECONDS = duration;
+                    duration = duration.trim();
+                    var sec = parseDuration(duration);
+                    soundInfo.THIRD.SECONDS = sec;
                 }
             }
         }
+    }
+    function parseDuration(duration) {
+        var _a = duration.split(':').map(Number), h = _a[0], m = _a[1], s = _a[2];
+        var dur = luxon_config_1.Duration.fromObject({ hours: h, minutes: m, seconds: s });
+        var sec = dur.as('seconds');
+        return sec;
     }
     exports.getAudioDurations = getAudioDurations;
 });

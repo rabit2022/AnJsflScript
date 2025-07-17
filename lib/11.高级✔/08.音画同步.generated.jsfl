@@ -41,7 +41,7 @@ require(["require", "_exports", "checkUtil", "SoundChecker", "os", "SoundQuery",
                 if (ext === ".mp3" || ext === ".wav") {
                     (0, SoundQuery_1.getAudioDurations)(soundInfo);
                     var secs = soundInfo.THIRD.SECONDS;
-                    if (secs > 60) {
+                    if (secs < 60) {
                         fl.trace("\u3010\u95EE\u9898\u3011  \u5728\u672C\u573A\u666F\u7B2C [".concat(layerIndex + 1, "] \u4E2A\u56FE\u5C42 : [").concat(layerName, "]  \uFF0C\u7B2C [").concat(frameIndex + 1, "] \u5E27\u5904\uFF0C\u97F3\u9891\u6587\u4EF6\u201C").concat(frame.soundName, "\u201D\u65F6\u957F\u8D85\u8FC760\u79D2\uFF01\u5EFA\u8BAE\u5BFC\u5165AN\u524D\u7528\u526A\u8F91\u8F6F\u4EF6\u62C6\u5206\uFF0C\u5426\u5219\u97F3\u753B\u4E0D\u540C\u6B65\u3002"));
                         HAS_FIXED = true;
                     }

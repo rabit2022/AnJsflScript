@@ -10,15 +10,14 @@
 // region import
 // ===============Core Library======================
 // @ts-expect-error
-import { FrameRange } from "SAT";
-// @ts-expect-error
-import { getKeyFrameRanges } from "KeyFrameQuery";
-// @ts-expect-error
 import os = require("os");
 import { ISoundInfo } from "SoundChecker";
+// @ts-expect-error
+import { Duration } from "luxon-config";
 
 // ===============Third Party======================
 import log = require("loglevel");
+
 
 // endregion import
 
@@ -87,14 +86,28 @@ function getAudioDurations(soundInfo: ISoundInfo) {
                 let powershellCommand = `& \'${SOUND_DURATION_PS1}\' -Path \'${exportPath}\'`;
 
                 // 调用ps1脚本，查看文件元信息，获取时长信息
-                let duration = os.system(powershellCommand);
+                let duration: string = os.system(powershellCommand);
                 // log.info(`duration:${duration}`);
 
+                duration = duration.trim();
+
+                const sec = parseDuration(duration);
                 // 把 时长 记录到 soundInfo中
-                soundInfo.THIRD.SECONDS = duration;
+                soundInfo.THIRD.SECONDS = sec;
             }
         }
     }
+}
+
+
+function parseDuration(duration: string) {
+// 1. 先拆成对象
+    const [h, m, s] = duration.split(':').map(Number);
+// 2. 构造成 Duration
+    const dur = Duration.fromObject({ hours: h, minutes: m, seconds: s });
+// 3. 取总秒数
+    const sec = dur.as('seconds'); // 14
+    return sec;
 }
 
 exports.getAudioDurations = getAudioDurations;
