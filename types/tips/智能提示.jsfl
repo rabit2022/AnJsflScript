@@ -119,12 +119,12 @@ Layer.prototype.setBlendModeAtFrame = function(frameIndex, blendModeString) {
 /**
  * @since Flash 8
  * @param {string} fileURI
- * @param {boolean} [bCurrentPNGSettings]
+ * @param {boolean} [bCurrentGIFSettings]
  * @param {boolean} [bCurrentFrame]
  * @return {boolean}
  * @note 通过doc.exportPNG，猜测的可能api,事实证明是对的·
  */
-Document.prototype.exportGIF = function(fileURI, bCurrentPNGSettings, bCurrentFrame) {
+Document.prototype.exportGIF = function(fileURI, bCurrentGIFSettings, bCurrentFrame) {
 };
 
 

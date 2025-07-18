@@ -373,7 +373,7 @@ define(["loglevel", "path-browserify", "open"], function (log, path, open) {
             ' | Out-File -Encoding utf8 \"' +
             ResultCache +
             '\""';
-        fl.trace(command);
+        // fl.trace(command);
         FLfile.runCommandLine(command);
 
         var Result = "";

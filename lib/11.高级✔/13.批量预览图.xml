@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<dialog title="13.批量预览图" buttons="accept, cancel">
+    <vbox>
+        <label value="请选择输出格式：" />
+        <radiogroup id="format">
+            <hbox>
+                <radio label=".png" value=".png" />
+                <radio label=".gif" value=".gif" />
+                <radio label=".svg" value=".svg" />
+                <radio label=".swf" value=".swf" />
+            </hbox>
+        </radiogroup>
+        <separator />
+    </vbox>
+</dialog>

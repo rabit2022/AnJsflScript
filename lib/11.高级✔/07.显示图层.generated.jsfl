@@ -37,7 +37,7 @@ require(["require", "_exports", "checkUtil", "KeyFrameQuery", "FrameChecker", "l
         log.info("上一个关键帧", previousKeyFrameIndex);
         var _frames = curLayer.frames;
         var previousKeyFrame = _frames[previousKeyFrameIndex];
-        if ((0, FrameChecker_1.IsEmptyFrame)(previousKeyFrame)) {
+        if ((0, FrameChecker_1.IsFrameBlank)(previousKeyFrame)) {
             return findPreviousNotEmptyFrame(timeline, previousKeyFrameIndex);
         }
         return previousKeyFrameIndex;

@@ -178,6 +178,13 @@ interface FlashDocument {
     /** Exports the document in the Flash SWF format. */
     exportSWF(fileURI: string, bCurrentSettings?: boolean): void;
 
+    /** Exports the document as an SVG file. */
+    exportSVG(fileURI: string, bCurrentSettings?: boolean): void;
+
+    /** Exports the document as a GIF file. */
+    exportGIF(fileURI: string, bCurrentGIFSettings?: boolean, bCurrentFrame?: boolean): boolean;
+
+
     /** Exports the document as a video file. */
     exportVideo(fileURI: string, convertInAdobeMediaEncoder?: boolean, transparent?: boolean, stopAtFrame?: boolean, stopAtFrameOrTime?: number): void;
 
@@ -1541,7 +1548,7 @@ interface FlashTools {
 interface FlashFL {
     addEventListener(eventType, callbackFunction);
     browseForFileURL(browseType, title?, previewArea?);
-    browseForFolderURL(description: string);
+    browseForFolderURL(description: string):string;
     clearPublishCache(): void;
     clipCopyString(string: string): void;
     closeAll(bPromptToSave?: boolean): void;

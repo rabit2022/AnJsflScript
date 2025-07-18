@@ -87,8 +87,6 @@ function getAudioDurations(soundInfo: ISoundInfo) {
                 let duration: string = os.system(powershellCommand);
                 // log.info(`duration:${duration}`);
 
-                duration = duration.trim();
-
                 const sec = parseDuration(duration);
                 // 把 时长 记录到 soundInfo中
                 soundInfo.THIRD.SECONDS = sec;

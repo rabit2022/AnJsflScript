@@ -36,7 +36,6 @@ define(["require", "exports", "os", "loglevel", "luxon"], function (require, exp
                     log.info("exportPath:".concat(exportPath));
                     var powershellCommand = "& '".concat(SOUND_DURATION_PS1, "' -Path '").concat(exportPath, "'");
                     var duration = os.system(powershellCommand);
-                    duration = duration.trim();
                     var sec = parseDuration(duration);
                     soundInfo.THIRD.SECONDS = sec;
                 }
@@ -44,9 +43,9 @@ define(["require", "exports", "os", "loglevel", "luxon"], function (require, exp
         }
     }
     function parseDuration(duration) {
-        var _a = duration.split(':').map(Number), h = _a[0], m = _a[1], s = _a[2];
+        var _a = duration.split(":").map(Number), h = _a[0], m = _a[1], s = _a[2];
         var dur = luxon_1.Duration.fromObject({ hours: h, minutes: m, seconds: s });
-        var sec = dur.as('seconds');
+        var sec = dur.as("seconds");
         return sec;
     }
     exports.getAudioDurations = getAudioDurations;

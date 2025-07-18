@@ -15,7 +15,7 @@ import { getKeyFrameRanges } from "KeyFrameQuery";
 // @ts-expect-error
 import { FrameRange } from "SAT";
 // @ts-expect-error
-import { IsEmptyFrame } from "FrameChecker";
+import { IsFrameBlank } from "FrameChecker";
 
 import log = require("loglevel");
 
@@ -82,7 +82,7 @@ function findPreviousNotEmptyFrame(timeline: FlashTimeline, frameIndex: number) 
     var _frames = curLayer.frames; //当前图层的帧列表
     var previousKeyFrame = _frames[previousKeyFrameIndex]; //上一个关键帧
 
-    if (IsEmptyFrame(previousKeyFrame)) {
+    if (IsFrameBlank(previousKeyFrame)) {
         // 继续向前 查找
         return findPreviousNotEmptyFrame(timeline, previousKeyFrameIndex);
     }
