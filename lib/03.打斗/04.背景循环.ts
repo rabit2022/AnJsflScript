@@ -15,32 +15,29 @@ import { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } fr
 // @ts-expect-error
 import { __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__ } from "COMPATIBILITY";
 // @ts-expect-error
-import { Vector,Size } from "SAT";
+import { Vector, Size } from "SAT";
 // @ts-expect-error
 import sat = require("SAT");
 // @ts-expect-error
-import { generateNameUntilUnique,generateNameUseLast } from "SymbolNameGenerator";
+import { generateNameUntilUnique, generateNameUseLast } from "SymbolNameGenerator";
 // @ts-expect-error
 import MoreElement = require("MoreElement");
 // @ts-expect-error
-import { SelectAll} from "ElementSelect";
+import { SelectAll } from "ElementSelect";
 // @ts-expect-error
 import JSFLConstants = require("JSFLConstants");
 // @ts-expect-error
-import { convertToKeyframesSafety} from "KeyFrameOperation";
+import { convertToKeyframesSafety } from "KeyFrameOperation";
 // @ts-expect-error
-import { setClassicEaseCurve} from "EaseCurve";
-
+import { setClassicEaseCurve } from "EaseCurve";
 
 // ===============Third Party======================
 import log = require("loglevel");
 import _ = require("lodash");
 // endregion import
 
-const {FRAME_1,FRAME_90}=JSFLConstants.Numerics.frame.frameList;
-const getSymbolSize:Function = sat.ENTITY.SYMBOL.getSize;
-
-
+const { FRAME_1, FRAME_90 } = JSFLConstants.Numerics.frame.frameList;
+const getSymbolSize: Function = sat.ENTITY.SYMBOL.getSize;
 
 // region doc
 var doc = fl.getDocumentDOM(); //文档
@@ -117,18 +114,20 @@ function checkXMLPanel() {
     };
 }
 
-const KEY_FRAMES = [FRAME_1,FRAME_90];
-log.info(`KEY_FRAMES:${KEY_FRAMES}`)
+const KEY_FRAMES = [FRAME_1, FRAME_90];
+log.info(`KEY_FRAMES:${KEY_FRAMES}`);
 
-function EditDynamic(moveME: Vector[]){
-    function getMoveOffset(){
+function EditDynamic(moveME: Vector[]) {
+    function getMoveOffset() {
         let moveDirection = _.last(moveME);
-        let originSize:Size = getSymbolSize(innerElement);
-        let moveOffset:Vector = moveDirection.clone().scale(originSize.width, originSize.height);
+        let originSize: Size = getSymbolSize(innerElement);
+        let moveOffset: Vector = moveDirection
+            .clone()
+            .scale(originSize.width, originSize.height);
         return moveOffset;
     }
 
-    doc.enterEditMode('inPlace');
+    doc.enterEditMode("inPlace");
 
     SelectAll();
 
@@ -141,25 +140,25 @@ function EditDynamic(moveME: Vector[]){
     doc.selectAll();
 
     let symbolName = generateNameUntilUnique("背景循环_静_");
-    doc.convertToSymbol('graphic', symbolName, 'center');
+    doc.convertToSymbol("graphic", symbolName, "center");
 
     let timeline = doc.getTimeline(); //时间轴
 
     timeline.insertFrames(_.last(KEY_FRAMES));
-    
-    convertToKeyframesSafety(timeline,KEY_FRAMES);
 
-    timeline.setSelectedFrames(FRAME_90,FRAME_90+1);
+    convertToKeyframesSafety(timeline, KEY_FRAMES);
+
+    timeline.setSelectedFrames(FRAME_90, FRAME_90 + 1);
 
     let moveOffset = getMoveOffset();
     doc.moveSelectionBy(moveOffset);
 
     // 选中所有帧，设置 经典补间
-    timeline.setSelectedFrames(_.first(KEY_FRAMES),_.last(KEY_FRAMES));
+    timeline.setSelectedFrames(_.first(KEY_FRAMES), _.last(KEY_FRAMES));
     setClassicEaseCurve(timeline);
 
     doc.exitEditMode();
-    alert('动作已生成!');
+    alert("动作已生成!");
 }
 
 function Main() {
@@ -170,8 +169,8 @@ function Main() {
     // log.info("direction:", direction);
     // log.info("moveME:", moveME);
 
-    var symbolName = generateNameUntilUnique('背景循环_动_');
-    doc.convertToSymbol('graphic', symbolName, 'center');
+    var symbolName = generateNameUntilUnique("背景循环_动_");
+    doc.convertToSymbol("graphic", symbolName, "center");
 
     EditDynamic(moveME);
 }

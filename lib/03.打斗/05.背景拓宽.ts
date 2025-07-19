@@ -13,20 +13,20 @@
 // @ts-expect-error
 import { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } from "checkUtil";
 // @ts-expect-error
-import { Vector,Size } from "SAT";
+import { Vector, Size } from "SAT";
 // @ts-expect-error
 import MoreElement = require("MoreElement");
 // @ts-expect-error
-import { SelectStart} from "ElementSelect";
+import { SelectStart } from "ElementSelect";
 
 // ===============Third Party======================
 import log = require("loglevel");
 // endregion import
 
-
 // region doc
 var doc = fl.getDocumentDOM(); //文档
-if (!CheckDom(doc)) {//@ts-ignore
+if (!CheckDom(doc)) {
+    //@ts-ignore
     return;
 }
 
@@ -81,7 +81,7 @@ function getNeighborVectors() {
 }
 
 function Main() {
-    let selectedElement=selection[0];
+    let selectedElement = selection[0];
 
     let neighbors = getNeighborVectors();
     for (let neighbor of neighbors) {

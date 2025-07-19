@@ -17,16 +17,14 @@ import { generateNameUntilUnique, generateNameUseLast } from "SymbolNameGenerato
 // @ts-expect-error
 import { SelectAll } from "ElementSelect";
 
-
-
 // ===============Third Party======================
 import log = require("loglevel");
 // endregion import
 
-
 // region doc
 var doc = fl.getDocumentDOM(); //文档
-if (!CheckDom(doc)) {//@ts-ignore
+if (!CheckDom(doc)) {
+    //@ts-ignore
     return;
 }
 
@@ -62,9 +60,8 @@ if (!CheckSelection(selection, "selectElement", "No limit")) {
 // }
 // endregion doc
 
-function EditDynamic(){
+function EditDynamic() {
     doc.enterEditMode("inPlace");
-
 }
 
 function Main() {
