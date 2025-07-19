@@ -68,7 +68,7 @@ require(["require", "_exports", "checkUtil", "COMPATIBILITY", "SAT", "SAT", "Sym
         }
         doc.selectAll();
         var symbolName = (0, SymbolNameGenerator_1.generateNameUntilUnique)("背景循环_静_");
-        doc.convertToSymbol('graphic', symbolName, 'center left');
+        doc.convertToSymbol('graphic', symbolName, 'center');
         var timeline = doc.getTimeline();
         timeline.insertFrames(_.last(KEY_FRAMES));
         (0, KeyFrameOperation_1.convertToKeyframesSafety)(timeline, KEY_FRAMES);
@@ -86,7 +86,7 @@ require(["require", "_exports", "checkUtil", "COMPATIBILITY", "SAT", "SAT", "Sym
             return;
         var direction = config.direction, moveME = config.moveME;
         var symbolName = (0, SymbolNameGenerator_1.generateNameUntilUnique)('背景循环_动_');
-        doc.convertToSymbol('graphic', symbolName, 'center left');
+        doc.convertToSymbol('graphic', symbolName, 'center');
         EditDynamic(moveME);
     }
     Main();

@@ -1,8 +1,8 @@
 /**
- * @file: 05.背景拓宽.ts
+ * @file: 07.万剑归宗.ts
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
- * @date: 2025/7/19 21:18
+ * @date: 2025/7/19 22:01
  * @project: AnJsflScript
  * @description:
  */
@@ -13,11 +13,11 @@
 // @ts-expect-error
 import { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } from "checkUtil";
 // @ts-expect-error
-import { Vector,Size } from "SAT";
+import { generateNameUntilUnique, generateNameUseLast } from "SymbolNameGenerator";
 // @ts-expect-error
-import MoreElement = require("MoreElement");
-// @ts-expect-error
-import { SelectStart} from "ElementSelect";
+import { SelectAll } from "ElementSelect";
+
+
 
 // ===============Third Party======================
 import log = require("loglevel");
@@ -62,34 +62,21 @@ if (!CheckSelection(selection, "selectElement", "No limit")) {
 // }
 // endregion doc
 
-/**
- * [ (-1,-1), (0,-1), (1,-1),
- *   (-1, 0),         (1, 0),
- *   (-1, 1), (0, 1), (1, 1) ]
- */
-function getNeighborVectors() {
-    // @ts-ignore es6 Array.from
-    const points = Array.from({ length: 9 }, (_, i) => ({
-        x: (i % 3) - 1,
-        y: Math.floor(i / 3) - 1
-    }));
-    const neighbors = points.filter((p) => p.x !== 0 || p.y !== 0);
-    const neighborVectors: Vector[] = neighbors.map((p) => Vector.from(p));
+function EditDynamic(){
+    doc.enterEditMode("inPlace");
 
-    // log.info("neighborVectors", neighborVectors);
-    return neighborVectors;
 }
 
 function Main() {
-    let selectedElement=selection[0];
+    var symbolName = generateNameUntilUnique("万剑归宗_静_");
+    doc.convertToSymbol("graphic", symbolName, "center");
 
-    let neighbors = getNeighborVectors();
-    for (let neighbor of neighbors) {
-        let mo: MoreElement = new MoreElement(selectedElement, neighbor);
-        mo.gridSelection();
-    }
+    var symbolName = generateNameUseLast("万剑归宗_动_");
+    doc.convertToSymbol("graphic", symbolName, "center");
 
-    SelectStart(selection);
+    EditDynamic();
+
+    alert("动效已生成!");
 }
 
 Main();

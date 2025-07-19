@@ -141,7 +141,7 @@ function EditDynamic(moveME: Vector[]){
     doc.selectAll();
 
     let symbolName = generateNameUntilUnique("背景循环_静_");
-    doc.convertToSymbol('graphic', symbolName, 'center left');
+    doc.convertToSymbol('graphic', symbolName, 'center');
 
     let timeline = doc.getTimeline(); //时间轴
 
@@ -171,7 +171,7 @@ function Main() {
     // log.info("moveME:", moveME);
 
     var symbolName = generateNameUntilUnique('背景循环_动_');
-    doc.convertToSymbol('graphic', symbolName, 'center left');
+    doc.convertToSymbol('graphic', symbolName, 'center');
 
     EditDynamic(moveME);
 }
