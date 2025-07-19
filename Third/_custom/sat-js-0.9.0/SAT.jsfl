@@ -64,6 +64,7 @@
         }
     }
 
+    // region SObject
 
     // ------------------------------------------------------------------------------------------------------------------------
     //  ______     ______     ______       __     ______     ______     ______
@@ -154,6 +155,8 @@
         return "[class " + this.name + "]";
     };
 
+    // endregion SObject
+
 
     // ------------------------------------------------------------------------------------------------------------------------
     //  __   __   ______     ______     ______   ______     ______
@@ -177,9 +180,6 @@
     function Vector(x, y) {
         SObject.apply(this, arguments);
 
-        // if (x === undefined || y === undefined) {
-        //     throw new Error("Both x and y must be defined");
-        // }
         this["x"] = x || 0;
         this["y"] = y || 0;
     }
@@ -368,7 +368,7 @@
      * 四舍五入
      * @returns {Vector}
      */
-    Vector.prototype["round"] = Vector.prototype.round = function() {
+     Vector.prototype.round = function() {
         // return new Vector(Math.round(this.x), Math.round(this.y));
         this["x"] = Math.round(this["x"]);
         this["y"] = Math.round(this["y"]);
@@ -380,7 +380,7 @@
      * 要求x,y必须为非0的整数
      * @returns {Vector}
      */
-    Vector.prototype["noZero"] = Vector.prototype.noZero = function() {
+    Vector.prototype.noZero = function() {
         this["x"] = this["x"] ? this["x"] : 1;
         this["y"] = this["y"] ? this["y"] : 1;
         return this;
@@ -392,7 +392,7 @@
      * @param {Vector} other - 另一个向量
      * @returns {boolean}
      */
-    Vector.prototype["equals"] = Vector.prototype.equals = function(other) {
+    Vector.prototype.equals = function(other) {
         return this.x === other.x && this.y === other.y;
     };
 
@@ -404,7 +404,7 @@
      * @param {Number} degrees - 旋转的角度（0 - 360 度）
      * @returns {Vector} - 返回当前点对象，其坐标已更新为旋转后的新位置
      */
-    Vector.prototype["orbit"] = Vector.prototype.orbit = function(pt, arcWidth, arcHeight, degrees) {
+    Vector.prototype.orbit = function(pt, arcWidth, arcHeight, degrees) {
         // 将角度转换为弧度，因为 Math.cos 和 Math.sin 需要弧度作为输入
         var radians = degrees * (Math.PI / 180);
 
@@ -426,7 +426,7 @@
      * 取中心点
      * @returns {Vector}
      */
-    Vector.prototype["getCenter"] = Vector.prototype.getCenter = function() {
+    Vector.prototype.getCenter = function() {
         return new Vector(this.x / 2, this.y / 2);
     };
 
@@ -436,7 +436,7 @@
      * @param {"top right"|"top left"|"bottom right"|"bottom left"|"top center"|"right center"|"bottom center"|"left center"|"center"} whichCorner 方向
      * @returns {boolean}
      */
-    Vector.prototype["IsInDirectionOf"] = Vector.prototype.IsInDirectionOf = function(point, whichCorner) {
+    Vector.prototype.IsInDirectionOf = function(point, whichCorner) {
         var deltaX = this.x - point.x;
         var deltaY = this.y - point.y;
         // y轴向下，x轴向右
@@ -469,7 +469,7 @@
      * @param {Vector} other - 另一个向量
      * @returns {number} 角度值，单位为弧度
      */
-    Vector.prototype["angleTo"] = Vector.prototype.angleTo = function(other) {
+    Vector.prototype.angleTo = function(other) {
         var dot = this.dot(other);
         var len1 = this.len();
         var len2 = other.len();
@@ -482,7 +482,7 @@
      * @param {Vector} other - 另一个向量
      * @returns {number} 距离值，单位为像素
      */
-    Vector.prototype["distanceTo"] = Vector.prototype.distanceTo = function(other) {
+    Vector.prototype.distanceTo = function(other) {
         var x = this.x - other.x;
         var y = this.y - other.y;
         return Math.sqrt(x * x + y * y);
@@ -495,7 +495,7 @@
      * @param {number} f - 0-1之间的数值，表示插值比例
      * @returns {Vector} 两个向量的插值
      */
-    Vector.prototype["interpolate"] = Vector.prototype.interpolate = function(other, f) {
+    Vector.prototype.interpolate = function(other, f) {
         f = typeof f === "undefined" ? 1 : f;
         return new Vector((this.x + other.x) * f, (this.y + other.y) * f);
     };
@@ -507,7 +507,7 @@
      * 转换为Size对象
      * @returns {Size}
      */
-    Vector.prototype["toSize"] = Vector.prototype.toSize = function() {
+    Vector.prototype.toSize = function() {
         return new Size(this.x, this.y);
     };
 
@@ -515,7 +515,7 @@
      * 转换为Rectangle对象
      * @returns {Rectangle}
      */
-    Vector.prototype["toRectangle"] = Vector.prototype.toRectangle = function() {
+    Vector.prototype.toRectangle = function() {
         return new Rectangle(0, 0, this.x, this.y);
     };
 
@@ -523,15 +523,36 @@
      * 转换为Scale对象
      * @returns {Scale}
      */
-    Vector.prototype["toScale"] = Vector.prototype.toScale = function() {
+    Vector.prototype.toScale = function() {
         return new Scale(this.x, this.y);
     };
     /**
      * 转换为Skew对象
      * @returns {Skew}
      */
-    Vector.prototype["toSkew"] = Vector.prototype.toSkew = function() {
+    Vector.prototype.toSkew = function() {
         return new Skew(this.x, this.y);
+    };
+
+    /**
+     * 转换为符号向量
+     * @returns {Vector}
+     */
+    Vector.prototype.toSignVector = function() {
+        // Math.sign
+        var x = Math.sign(this.x);
+        var y = Math.sign(this.y);
+        return new Vector(x, y);
+    }
+
+    /**
+     * (-1)**n
+     * @returns {Vector}
+     */
+    Vector.prototype.signPow = function () {
+        this.x = (Math.abs(this.x) & 1) ? -1 : 1;
+        this.y = (Math.abs(this.y) & 1) ? -1 : 1;
+        return this;
     };
 
     // ----------------------------------------------------------------------------------------------------

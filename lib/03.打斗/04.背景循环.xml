@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<dialog title="04.背景循环" buttons="accept, cancel">
+    <vbox>
+        <label value="请选择循环方向：" />
+        <radiogroup id="direction">
+            <hbox>
+                <radio label="从左往右" value="left" />
+                <radio label="从右往左" value="right" />
+                <radio label="从上往下" value="top" />
+                <radio label="从下往上" value="bottom" />
+            </hbox>
+        </radiogroup>
+        <separator />
+    </vbox>
+</dialog>

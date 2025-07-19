@@ -105,6 +105,10 @@ declare namespace sat {
 
         toSkew(): Skew;
 
+        toSignVector(): Vector;
+
+        signPow(): Vector;
+
         static interpolate(pt1: Vector, pt2: Vector, f?: number): Vector;
 
         static polar(length: number, angle: number): Vector;
