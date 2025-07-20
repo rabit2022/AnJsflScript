@@ -55,10 +55,12 @@ require(["require", "_exports", "checkUtil", "COMPATIBILITY", "SAT", "SAT", "Sym
         function getMoveOffset() {
             var moveDirection = _.last(moveME);
             var originSize = getSymbolSize(innerElement);
-            var moveOffset = moveDirection.clone().scale(originSize.width, originSize.height);
+            var moveOffset = moveDirection
+                .clone()
+                .scale(originSize.width, originSize.height);
             return moveOffset;
         }
-        doc.enterEditMode('inPlace');
+        doc.enterEditMode("inPlace");
         (0, ElementSelect_1.SelectAll)();
         var innerElement = doc.selection[0];
         for (var _i = 0, moveME_1 = moveME; _i < moveME_1.length; _i++) {
@@ -68,7 +70,7 @@ require(["require", "_exports", "checkUtil", "COMPATIBILITY", "SAT", "SAT", "Sym
         }
         doc.selectAll();
         var symbolName = (0, SymbolNameGenerator_1.generateNameUntilUnique)("背景循环_静_");
-        doc.convertToSymbol('graphic', symbolName, 'center');
+        doc.convertToSymbol("graphic", symbolName, "center");
         var timeline = doc.getTimeline();
         timeline.insertFrames(_.last(KEY_FRAMES));
         (0, KeyFrameOperation_1.convertToKeyframesSafety)(timeline, KEY_FRAMES);
@@ -78,15 +80,15 @@ require(["require", "_exports", "checkUtil", "COMPATIBILITY", "SAT", "SAT", "Sym
         timeline.setSelectedFrames(_.first(KEY_FRAMES), _.last(KEY_FRAMES));
         (0, EaseCurve_1.setClassicEaseCurve)(timeline);
         doc.exitEditMode();
-        alert('动作已生成!');
+        alert("动作已生成!");
     }
     function Main() {
         var config = checkXMLPanel();
         if (!config)
             return;
         var direction = config.direction, moveME = config.moveME;
-        var symbolName = (0, SymbolNameGenerator_1.generateNameUntilUnique)('背景循环_动_');
-        doc.convertToSymbol('graphic', symbolName, 'center');
+        var symbolName = (0, SymbolNameGenerator_1.generateNameUntilUnique)("背景循环_动_");
+        doc.convertToSymbol("graphic", symbolName, "center");
         EditDynamic(moveME);
     }
     Main();

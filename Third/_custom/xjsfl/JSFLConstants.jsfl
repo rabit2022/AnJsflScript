@@ -517,6 +517,7 @@ define(function () {
                 FRAME_31: 31 - 1,
                 FRAME_40: 40 - 1,
                 FRAME_41: 40 - 1,
+                FRAME_45: 45 - 1,
                 FRAME_90: 90 - 1,
             }
         },

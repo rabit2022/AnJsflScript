@@ -113,7 +113,8 @@ define(["ElementQuery"], function (eq) {
             // log.info('选择的元件名称：' + name);
 
             if (selectionName === firstElementName) {
-                element.selected = true;
+                // element.selected = true;
+                OnlySelectCurrent(element);
             }
         }
     }
