@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<dialog title="03.随机水印" buttons="accept, cancel">
+    <vbox>
+        <label value="水印文字(生成后可修改):"/>
+        <textbox id="text" value="随机水印" size="45"/>
+    </vbox>
+    <separator/>
+    <vbox>
+        <label value="透明度(1~100):"/>
+        <textbox id="alpha" value="30" size="45"/>
+    </vbox>
+    <separator/>
+    <vbox>
+        <label value="随机大小(0.1~10)："/>
+        <textbox id="size" value="1" size="45"/>
+    </vbox>
+    <separator/>
+    <vbox>
+        <label value="随机速度(1~100)："/>
+        <textbox id="speed" value="10" size="45"/>
+    </vbox>
+    <separator/>
+    <vbox>
+        <label value="随机间隔(秒)："/>
+        <textbox id="interval" value="5" size="45"/>
+    </vbox>
+</dialog>

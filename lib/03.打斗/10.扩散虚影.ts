@@ -95,7 +95,7 @@ const SCALE_FACTORS = [1.8, 2.8];
 function MultiSymbol() {
     // 处理多个元件的情形
     let selectedElements = doc.selection;
-    if (selectedFrames.length > 1) {
+    if (selectedElements.length > 1) {
         var symbolName = generateNameUntilUnique("扩散虚影_");
         doc.convertToSymbol("graphic", symbolName, "center");
     }

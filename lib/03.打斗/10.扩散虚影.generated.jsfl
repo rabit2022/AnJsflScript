@@ -33,7 +33,7 @@ require(["require", "_exports", "checkUtil", "LayerOperation", "KeyFrameOperatio
     var SCALE_FACTORS = [1.8, 2.8];
     function MultiSymbol() {
         var selectedElements = doc.selection;
-        if (selectedFrames.length > 1) {
+        if (selectedElements.length > 1) {
             var symbolName = (0, SymbolNameGenerator_1.generateNameUntilUnique)("扩散虚影_");
             doc.convertToSymbol("graphic", symbolName, "center");
         }
