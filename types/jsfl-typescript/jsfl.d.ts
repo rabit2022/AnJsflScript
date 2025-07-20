@@ -1059,6 +1059,24 @@ interface FlashItem extends FlashSymbolItem, FlashFolderItem, FlashFontItem, Fla
 
 type BlendMode="normal" | "layer" | "multiply" | "screen" | "overlay" | "hardlight" | "lighten" | "darken" | "difference" | "add" | "subtract" | "invert" | "alpha" | "erase";
 
+interface ColorTransform {
+    mode: BlendMode;
+    tintPercent: number;
+    tintRed: number;
+    tintGreen: number;
+    tintBlue: number;
+    brightnessPercent: number;
+    alphaPercent: number;
+    colorAlphaAmount: number;
+    colorAlphaPercent: number;
+    colorRedAmount: number;
+    colorRedPercent: number;
+    colorGreenAmount: number;
+    colorGreenPercent: number;
+    colorBlueAmount: number;
+    colorBluePercent: number;
+}
+
 interface FlashLayer {
     color: any;
     frameCount: number;
@@ -1072,6 +1090,8 @@ interface FlashLayer {
     visible:boolean;
 
     setFiltersAtFrame(frameIndex: number, filterArray: Filter[]): void;
+
+    setColorTransformAtFrame(frameIndex: number, cxFormObject:ColorTransform): void;
 
     setBlendModeAtFrame(frameIndex: number, blendModeString:BlendMode ): void;
 
