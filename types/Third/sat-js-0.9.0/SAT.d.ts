@@ -309,7 +309,7 @@ declare namespace sat {
 
         contain(fr2: FrameRange): boolean;
 
-        contain(frameIndex: number) : boolean;
+        contain(frameIndex: number): boolean;
 
         toArray(): [number, number, number];
 
@@ -566,6 +566,19 @@ declare namespace sat {
         export function IsLineSegmentLike(obj: any): boolean;
 
         export function IsCircleLike(obj: any): boolean;
+    }
+
+    export namespace TYPES {
+        export type T_Element = Element;
+        export type T_Vector = Vector;
+        export type T_Rectangle = Rectangle;
+        export type T_Size = Size;
+        export type T_Transform = Transform;
+        export type T_FrameRange = FrameRange;
+        export type T_Scale = Scale;
+        export type T_Skew = Skew;
+        export type T_LineSegment = LineSegment;
+        export type T_Circle = Circle;
     }
 
 

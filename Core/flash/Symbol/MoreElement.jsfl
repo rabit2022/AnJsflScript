@@ -7,24 +7,21 @@
  * @description:
  */
 
-define(["SAT", "sprintf-js", "ElementSelect", "overload-js","overload-definitions"], function (
+define(["SAT", "sprintf-js", "ElementSelect", "overload-js"], function (
     sat,
     sp,
     es,
-    overload,od
+    overload
 ) {
     var wrapRectByTopLeft = sat.GLOBALS.wrapRectByTopLeft;
     const { Vector } = sat;
     const getSymbolSize = sat.ENTITY.SYMBOL.getSize;
-    // const { IsElementBoundsLike, IsVectorLike } = sat.CHECk;
 
     const sprintf = sp.sprintf;
 
     const { OnlySelectCurrent } = es;
 
-    // const o = overload.o;
-
-    const {T_Element,T_Vector}=od;
+    const {T_Element,T_Vector}=sat.TYPES;
 
     /**
      * 排兵布阵类

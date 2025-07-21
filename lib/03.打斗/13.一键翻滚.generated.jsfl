@@ -17,7 +17,7 @@ require(["require", "_exports", "checkUtil", "promptUtil", "FilterDefinitions", 
     var _frames = curLayer.frames;
     var curFrameIndex = timeline.currentFrame;
     var curFrame = _frames[curFrameIndex];
-    if (!(0, checkUtil_1.CheckSelection)(selection, "selectElement", "No limit", "需同时选择  人物正面+人物背面  两个对象！")) {
+    if (!(0, checkUtil_1.CheckSelection)(selection, "selectElement", "Only two", "需同时选择  人物正面+人物背面  两个对象！")) {
         return;
     }
     function getFilter() {
