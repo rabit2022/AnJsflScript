@@ -27,6 +27,7 @@
       "LayerChecker": ["Core/flash/Context/Layer/LayerChecker.define.ts"],
       "SoundChecker": ["Core/flash/Sound/SoundChecker.define.ts"],
       "SoundQuery":["Core/flash/Sound/SoundQuery.define.ts"],
+      "FUNC": ["Third/_custom/Object/FUNC.define.ts"],
 
 
       "BitmapOperation": ["Core/flash/Bitmap/BitmapOperation"],
@@ -71,7 +72,6 @@
       "SymbolNameGenerator": ["Core/flash/Symbol/SymbolNameGenerator"],
       "EaseCurve": ["Core/flash/Tween/EaseCurve"],
       "Tween": ["Core/flash/Tween/Tween"],
-      "FUNC": ["Core/myShim/FUNC"],
       "open": ["Core/py/file/open"],
       "os": ["Core/py/file/os"],
       "shutil": ["Core/py/file/shutil"],

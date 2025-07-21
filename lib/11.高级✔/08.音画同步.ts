@@ -15,11 +15,10 @@
 // @ts-expect-error
 import { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } from "checkUtil";
 // @ts-expect-error
-import { hasSoundAll, ISoundInfo } from "SoundChecker";
-// @ts-expect-error
 import os = require("os");
-// @ts-expect-error
+
 import { getAudioDurations } from "SoundQuery";
+import { hasSoundAll, ISoundInfo } from "SoundChecker";
 
 // ===============Third Party======================
 import log = require("loglevel");

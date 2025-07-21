@@ -73,6 +73,8 @@ require.config({
         "overload-js":"Third/Class/overload-js-1.0.0/overload-js",
         // H:\project\沙雕动画\AnJsflScript\Third\utils\progress-2.0.3\progress.jsfl
         "progress":"Third/utils/progress-2.0.3/progress",
+        // H:\project\沙雕动画\AnJsflScript\Third\_custom\Object\FUNC.define.jsfl
+        "FUNC":"Third/_custom/Object/FUNC.define",
         // endregion Third
 
         // region Core
@@ -120,7 +122,6 @@ require.config({
         "SymbolNameGenerator":"Core/flash/Symbol/SymbolNameGenerator",
         "EaseCurve":"Core/flash/Tween/EaseCurve",
         "Tween":"Core/flash/Tween/Tween",
-        "FUNC":"Core/myShim/FUNC",
         "open":"Core/py/file/open",
         "os":"Core/py/file/os",
         "shutil":"Core/py/file/shutil",

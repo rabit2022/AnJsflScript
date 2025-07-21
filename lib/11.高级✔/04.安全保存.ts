@@ -55,7 +55,7 @@ if (!CheckSelection(selection, "selectElement", "No limit")) {
 // if (!selectedLayers) return;
 // endregion doc
 
-const MAX_SAVE_COUNT: Int = 10;
+const MAX_SAVE_COUNT: number = 10;
 const SAVE_FOLDER: string = window.AnJsflScript.FOLDERS.Save;
 if (!os.path.exists(SAVE_FOLDER)) {
     os.mkdir(SAVE_FOLDER);

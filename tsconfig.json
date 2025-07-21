@@ -31,6 +31,7 @@
             "LayerChecker": ["Core/flash/Context/Layer/LayerChecker.define"],
             "SoundChecker": ["Core/flash/Sound/SoundChecker.define"],
             "SoundQuery":["Core/flash/Sound/SoundQuery.define"],
+            "FUNC": ["Third/_custom/Object/FUNC.define"],
 
 
 
@@ -76,7 +77,6 @@
             "SymbolNameGenerator": ["Core/flash/Symbol/SymbolNameGenerator.jsfl"],
             "EaseCurve": ["Core/flash/Tween/EaseCurve.jsfl"],
             "Tween": ["Core/flash/Tween/Tween.jsfl"],
-            "FUNC": ["Core/myShim/FUNC.jsfl"],
             "open": ["Core/py/file/open.jsfl"],
             "os": ["Core/py/file/os.jsfl"],
             "shutil": ["Core/py/file/shutil.jsfl"],

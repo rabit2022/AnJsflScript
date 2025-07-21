@@ -62,7 +62,7 @@ const SOUND_DURATION_PS1 = FLfile.uriToPlatformPath(SOUND_DURATION_PS1_URI);
  * 使用第三方工具获取 音频时长，并记录到 soundInfo 中
  * @param soundInfo
  */
-function getAudioDurations(soundInfo: ISoundInfo) {
+export function getAudioDurations(soundInfo: ISoundInfo) {
     let { item, itemName, path } = soundInfo.ITEM;
 
     // 导出所有音频到Cache目录
@@ -104,5 +104,3 @@ function parseDuration(duration: string) {
     const sec = dur.as("seconds"); // 14
     return sec;
 }
-
-exports.getAudioDurations = getAudioDurations;

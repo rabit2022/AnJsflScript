@@ -18,7 +18,6 @@ require(["require", "_exports", "checkUtil"], function (require, exports, checkU
     if (!(0, checkUtil_1.CheckSelection)(selection, "selectElement", "No limit")) {
         return;
     }
-    function Main() {
-    }
+    function Main() { }
     Main();
 });

@@ -11,13 +11,13 @@
 // @ts-expect-error
 import { CheckDom, CheckSelectedFrames, CheckSelectedLayers, CheckSelection } from "checkUtil";
 // @ts-expect-error
-import { hasSound, ISoundInfo } from "SoundChecker";
-// @ts-expect-error
 import { getKeyFrameRanges } from "KeyFrameQuery";
 // @ts-expect-error
 import os = require("os");
 // @ts-expect-error
 import { SelectAllLayers } from "LayerSelect";
+
+import { hasSound, ISoundInfo } from "SoundChecker";
 
 import log = require("loglevel");
 

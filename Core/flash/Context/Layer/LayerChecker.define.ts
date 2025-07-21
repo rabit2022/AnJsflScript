@@ -13,7 +13,7 @@ import { IsFrameBlank } from "FrameChecker";
 import { getKeyFrameRanges } from "KeyFrameQuery";
 // @ts-expect-error
 import { FrameRange } from "SAT";
-// @ts-expect-error
+
 import { hasSound } from "SoundChecker";
 
 import log = require("loglevel");
@@ -24,7 +24,7 @@ import log = require("loglevel");
  * @param {String} layerName 图层名称
  * @return {Boolean} 图层是否存在
  */
-function IsLayerExists(layers: FlashLayer[], layerName: string) {
+export function IsLayerExists(layers: FlashLayer[], layerName: string) {
     for (var i = 0; i < layers.length; i++) {
         if (layers[i].name === layerName) {
             return true;
@@ -40,7 +40,7 @@ function IsLayerExists(layers: FlashLayer[], layerName: string) {
  * @returns {boolean} 是否为空
  * @see https://github.com/hufang360/FlashTool
  */
-function IsLayerBlank(layers: FlashLayer[], layer: FlashLayer): boolean {
+export function IsLayerBlank(layers: FlashLayer[], layer: FlashLayer): boolean {
     // hasSound
     if (hasSound(layers, layer).length > 0) {
         return false;
@@ -60,8 +60,3 @@ function IsLayerBlank(layers: FlashLayer[], layer: FlashLayer): boolean {
 
     return true;
 }
-
-exports.IsLayerExists = IsLayerExists;
-exports.IsLayerBlank = IsLayerBlank;
-// exports.hasSoundAll = hasSoundAll;
-// exports.SoundInfo = SoundInfo;

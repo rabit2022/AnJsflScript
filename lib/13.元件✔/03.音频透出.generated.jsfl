@@ -1,5 +1,5 @@
 // 这个文件由脚本 03.音频透出.ts 自动生成，任何手动修改都将会被覆盖.
-require(["require", "_exports", "checkUtil", "SoundChecker", "LayerOperation", "KeyFrameOperation"], function (require, exports, checkUtil_1, SoundChecker_1, LayerOperation_1, KeyFrameOperation_1) {
+require(["require", "_exports", "checkUtil", "LayerOperation", "KeyFrameOperation", "SoundChecker"], function (require, exports, checkUtil_1, LayerOperation_1, KeyFrameOperation_1, SoundChecker_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var doc = fl.getDocumentDOM();

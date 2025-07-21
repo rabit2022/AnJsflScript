@@ -102,7 +102,7 @@ class SoundInfo implements ISoundInfo {
  * @param {Layer} layer 图层
  * @returns {ISoundInfo[]} 是否包含声音
  */
-function hasSound(layers: FlashLayer[], layer: FlashLayer): SoundInfo[] {
+export function hasSound(layers: FlashLayer[], layer: FlashLayer): SoundInfo[] {
     var results = [];
 
     const keyFrameRanges: FrameRange[] = getKeyFrameRanges(layers, layer);
@@ -124,7 +124,7 @@ function hasSound(layers: FlashLayer[], layer: FlashLayer): SoundInfo[] {
  * @param {Timeline} timeline 时间线
  * @returns {ISoundInfo[]} 所有图层的音频信息
  */
-function hasSoundAll(timeline: FlashTimeline): SoundInfo[] {
+export function hasSoundAll(timeline: FlashTimeline): SoundInfo[] {
     var layers = timeline.layers; //图层
 
     var soundInfos: SoundInfo[] = [];
@@ -135,6 +135,3 @@ function hasSoundAll(timeline: FlashTimeline): SoundInfo[] {
     }
     return soundInfos;
 }
-
-exports.hasSound = hasSound;
-exports.hasSoundAll = hasSoundAll;

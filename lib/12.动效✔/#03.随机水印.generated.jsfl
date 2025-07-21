@@ -25,7 +25,10 @@ require(["require", "_exports", "checkUtil", "COMPATIBILITY", "StringPaser", "lo
         var text = panel.text;
         if (!text)
             return null;
-        var alpha = (0, StringPaser_1.parseNumber)(panel.alpha, "请输入合法的透明度值。", { start: 1, end: 100 });
+        var alpha = (0, StringPaser_1.parseNumber)(panel.alpha, "请输入合法的透明度值。", {
+            start: 1,
+            end: 100
+        });
         if (alpha === null)
             return null;
         var size = (0, StringPaser_1.parseNumber)(panel.size, "请输入合法的字体大小。", { start: 0, end: 10 });

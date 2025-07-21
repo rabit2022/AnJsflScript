@@ -2,6 +2,8 @@
 define(["require", "exports", "KeyFrameQuery"], function (require, exports, KeyFrameQuery_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.hasSound = hasSound;
+    exports.hasSoundAll = hasSoundAll;
     var SoundInfo = (function () {
         function SoundInfo(layer, frameRange, frame, frameIndex) {
             var limits = frame.getSoundEnvelopeLimits();
@@ -59,6 +61,4 @@ define(["require", "exports", "KeyFrameQuery"], function (require, exports, KeyF
         }
         return soundInfos;
     }
-    exports.hasSound = hasSound;
-    exports.hasSoundAll = hasSoundAll;
 });

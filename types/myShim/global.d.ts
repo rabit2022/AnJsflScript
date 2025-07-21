@@ -1,8 +1,3 @@
-type Int = number;
-type Uint = number;
-type Float = number;
-type NumberLike = number | string;
-
 interface AnJsflScript {
     importFlashScripts: (scripts: string[]) => void;
     $ProjectFileDir$: string;
@@ -16,7 +11,3 @@ interface AnJsflScript {
 }
 
 declare var AnJsflScript: AnJsflScript;
-
-// 导出全局变量
-declare var exports: any;
-

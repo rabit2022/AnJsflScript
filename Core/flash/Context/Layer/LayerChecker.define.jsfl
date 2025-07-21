@@ -2,6 +2,8 @@
 define(["require", "exports", "FrameChecker", "KeyFrameQuery", "SoundChecker"], function (require, exports, FrameChecker_1, KeyFrameQuery_1, SoundChecker_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.IsLayerExists = IsLayerExists;
+    exports.IsLayerBlank = IsLayerBlank;
     function IsLayerExists(layers, layerName) {
         for (var i = 0; i < layers.length; i++) {
             if (layers[i].name === layerName) {
@@ -27,6 +29,4 @@ define(["require", "exports", "FrameChecker", "KeyFrameQuery", "SoundChecker"], 
         }
         return true;
     }
-    exports.IsLayerExists = IsLayerExists;
-    exports.IsLayerBlank = IsLayerBlank;
 });

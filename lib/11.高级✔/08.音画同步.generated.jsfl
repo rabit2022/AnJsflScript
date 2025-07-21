@@ -1,5 +1,5 @@
 // 这个文件由脚本 08.音画同步.ts 自动生成，任何手动修改都将会被覆盖.
-require(["require", "_exports", "checkUtil", "SoundChecker", "os", "SoundQuery", "loglevel"], function (require, exports, checkUtil_1, SoundChecker_1, os, SoundQuery_1, log) {
+require(["require", "_exports", "checkUtil", "os", "SoundQuery", "SoundChecker", "loglevel"], function (require, exports, checkUtil_1, os, SoundQuery_1, SoundChecker_1, log) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var doc = fl.getDocumentDOM();

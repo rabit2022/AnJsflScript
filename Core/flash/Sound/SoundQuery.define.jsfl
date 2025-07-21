@@ -2,6 +2,7 @@
 define(["require", "exports", "os", "loglevel", "luxon"], function (require, exports, os, log, luxon_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.getAudioDurations = getAudioDurations;
     var getBasename = os.path.$basenameWithoutExt;
     function getAudioDurationsNative(item) {
         var path = item.sourceFilePath;
@@ -48,5 +49,4 @@ define(["require", "exports", "os", "loglevel", "luxon"], function (require, exp
         var sec = dur.as("seconds");
         return sec;
     }
-    exports.getAudioDurations = getAudioDurations;
 });

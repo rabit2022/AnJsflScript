@@ -23,7 +23,7 @@ import JSFLConstants = require("JSFLConstants");
 // @ts-expect-error
 import { convertToKeyframesSafety } from "KeyFrameOperation";
 // @ts-expect-error
-import { SelectAll, OnlySelectCurrent, SelectSameName } from "ElementSelect";
+import { SelectAll,  SelectSameName } from "ElementSelect";
 
 // ===============Third Party======================
 import log = require("loglevel");
@@ -61,7 +61,7 @@ var curFrame = _frames[curFrameIndex]; //当前帧
 
 // prettier-ignore
 // 检查选择的元件
-if (!CheckSelection(selection, "selectElement", "No limit", "需同时选择  人物正面+人物背面  两个对象！")) {
+if (!CheckSelection(selection, "selectElement", "Only two", "需同时选择  人物正面+人物背面  两个对象！")) {
     //@ts-ignore
     return;
 }

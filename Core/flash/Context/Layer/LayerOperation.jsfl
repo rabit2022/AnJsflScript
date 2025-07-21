@@ -170,12 +170,17 @@ define(["LayerQuery", "Tips", "loglevel", "LayerQueryEnhance", "LayerChecker"], 
             return layer.name;
         });
         var targetLayerIndex = symbolLayerNames.lastIndexOf(layerName);
+
+        // 是否是空层
         var isLayerBlank = (function () {
             var symbolLayers = symbolTimeline.layers;
             var targetLayer = symbolLayers[targetLayerIndex];
+
             var isLayerBlank = IsLayerBlank(symbolLayers, targetLayer);
             return isLayerBlank;
         })();
+
+        // 不是空层，新增图层
         if (targetLayerIndex === -1 || !isLayerBlank) {
             symbolTimeline.currentLayer = symbolLayerNames.length - 1;
             targetLayerIndex = symbolTimeline.addNewLayer(layerName, "normal", false);
