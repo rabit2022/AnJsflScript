@@ -75,6 +75,9 @@ require.config({
         "progress":"Third/utils/progress-2.0.3/progress",
         // H:\project\沙雕动画\AnJsflScript\Third\_custom\Object\FUNC.define.jsfl
         "FUNC":"Third/_custom/Object/FUNC.define",
+        // H:\project\沙雕动画\AnJsflScript\Third\_custom\utils\overload-definitions.jsfl
+        "overload-definitions":"Third/_custom/utils/overload-definitions",
+
         // endregion Third
 
         // region Core

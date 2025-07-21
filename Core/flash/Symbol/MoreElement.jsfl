@@ -7,22 +7,24 @@
  * @description:
  */
 
-define(["SAT", "sprintf-js", "ElementSelect", "overload-js"], function (
+define(["SAT", "sprintf-js", "ElementSelect", "overload-js","overload-definitions"], function (
     sat,
     sp,
     es,
-    overload
+    overload,od
 ) {
     var wrapRectByTopLeft = sat.GLOBALS.wrapRectByTopLeft;
     const { Vector } = sat;
     const getSymbolSize = sat.ENTITY.SYMBOL.getSize;
-    const { IsElementBoundsLike, IsVectorLike } = sat.CHECk;
+    // const { IsElementBoundsLike, IsVectorLike } = sat.CHECk;
 
     const sprintf = sp.sprintf;
 
     const { OnlySelectCurrent } = es;
 
-    const o = overload.o;
+    // const o = overload.o;
+
+    const {T_Element,T_Vector}=od;
 
     /**
      * 排兵布阵类
@@ -58,30 +60,22 @@ define(["SAT", "sprintf-js", "ElementSelect", "overload-js"], function (
         );
     }
 
-    overload.defineType("Element", function (val) {
-        return IsElementBoundsLike(val);
-    });
-
-    overload.defineType("Vector", function (val) {
-        return IsVectorLike(val);
-    });
-
     /* 2. ES5 重载构造函数 */
     var MoreElement = overload()
         /* (Element, Number, Number) */
-        .args(o.Element, Number, Number)
+        .args(T_Element, Number, Number)
         .use(function (element, h, v) {
             // console.log(h, v);
             return new _MoreElement(element, h, v);
         })
         /* (Element, Vector) */
-        .args(o.Element, o.Vector)
+        .args(T_Element, T_Vector)
         .use(function (element, vec) {
-            console.log(vec.x, vec.y);
+            // console.log(vec.x, vec.y);
             return new _MoreElement(element, vec.x, vec.y);
         })
         /* (Element) —— 默认参数 */
-        .args(o.Element)
+        .args(T_Element)
         .use(function (element) {
             // console.log("just use default");
             return new _MoreElement(element, 1, 1);

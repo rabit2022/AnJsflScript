@@ -16,7 +16,8 @@
   ],
   "parserOptions": {
     "ecmaVersion": 6, // 支持的 ECMAScript 版本
-    "sourceType": "script"
+//    "sourceType": "script"
+    "sourceType": "module"
   },
   "rules": {
     "prettier/prettier": "error",  // 将 Prettier 规则设置为错误级别

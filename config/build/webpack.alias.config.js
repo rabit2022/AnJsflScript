@@ -64,6 +64,10 @@ var alias = {
     "progress": path.resolve(dirname, "Third/utils/progress-2.0.3/progress"),
     // "FUNC":"Third/_custom/Object/FUNC.define",
     "FUNC": path.resolve(dirname, "Third/_custom/Object/FUNC.define"),
+    // "overload-definitions":"Third/_custom/utils/overload-definitions",
+    "overload-definitions": path.resolve(dirname, "Third/_custom/utils/overload-definitions"),
+
+
 
     // 自定义模块
     "BitmapOperation": path.resolve(dirname, "Core/flash/Bitmap/BitmapOperation"),

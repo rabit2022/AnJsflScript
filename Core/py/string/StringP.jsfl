@@ -213,11 +213,11 @@ define(function () {
      * 类似于 toLowerCase()，但更彻底，可以处理一些特殊字符。
      * @returns {string} - 消除大小写后的字符串。
      * @example
-     * console.writeToLog("ß".casefold()); // 输出: "ss"
-     * console.writeToLog("HELLO WORLD".casefold()); // 输出: "hello world"
-     * console.writeToLog("hELLO wORLD".casefold()); // 输出: "hello world"
-     * console.writeToLog("".casefold()); // 输出: ""
-     * console.writeToLog("123abc".casefold()); // 输出: "123abc"
+     * console.log("ß".casefold()); // 输出: "ss"
+     * console.log("HELLO WORLD".casefold()); // 输出: "hello world"
+     * console.log("hELLO wORLD".casefold()); // 输出: "hello world"
+     * console.log("".casefold()); // 输出: ""
+     * console.log("123abc".casefold()); // 输出: "123abc"
      */
     StringP.prototype.casefold = function () {
         // 使用 toLowerCase() 作为基础实现
@@ -242,11 +242,11 @@ define(function () {
      * @param {string} [fillchar=' '] - 填充字符，默认为空格。
      * @returns {string} - 居中对齐后的字符串。
      * @example
-     * console.writeToLog("hello".center(10)); // 输出: "   hello  "
-     * console.writeToLog("world".center(10, '-')); // 输出: "---world---"
-     * console.writeToLog("abc".center(5)); // 输出: "  abc  "
-     * console.writeToLog("".center(5, '*')); // 输出: "*****"
-     * console.writeToLog("12345".center(5)); // 输出: "12345"
+     * console.log("hello".center(10)); // 输出: "   hello  "
+     * console.log("world".center(10, '-')); // 输出: "---world---"
+     * console.log("abc".center(5)); // 输出: "  abc  "
+     * console.log("".center(5, '*')); // 输出: "*****"
+     * console.log("12345".center(5)); // 输出: "12345"
      */
     StringP.prototype.center = function (width, fillchar) {
         if (typeof width !== "number" || width < 0) {
@@ -289,9 +289,9 @@ define(function () {
      * @returns {number} 子字符串的出现次数。
      * @example
      * const str = "hello world, hello JavaScript";
-     * console.writeToLog(str.count("hello")); // 输出: 2
-     * console.writeToLog(str.count("")); // 输出: 31
-     * console.writeToLog(str.count("hello", 0, 10)); // 输出: 1
+     * console.log(str.count("hello")); // 输出: 2
+     * console.log(str.count("")); // 输出: 31
+     * console.log(str.count("hello", 0, 10)); // 输出: 1
      */
     StringP.prototype.count = function (sub, start, end) {
         start = start || 0;
@@ -319,7 +319,7 @@ define(function () {
      * @example
      * const str = "你好，世界！";
      * const encoded = str.encode(); // 默认使用 UTF-8 编码
-     * console.writeToLog(encoded); // 输出: Uint8Array(18) [228, 189, 160, 227, 110, 185, 228, 184, 150, 228, 189, 160, 227, 111, 141, 228, 189, 145]
+     * console.log(encoded); // 输出: Uint8Array(18) [228, 189, 160, 227, 110, 185, 228, 184, 150, 228, 189, 160, 227, 111, 141, 228, 189, 145]
      */
     StringP.prototype.encode = function (encoding, errors) {
         encoding = encoding || "utf-8";
@@ -421,9 +421,9 @@ define(function () {
      * @returns {string} 格式化后的字符串。
      * @example
      * const result = format("The sum of 1 + 2 is {0}", 3);
-     * console.writeToLog(result); // "The sum of 1 + 2 is 3"
+     * console.log(result); // "The sum of 1 + 2 is 3"
      * const result2 = format("{name} was born in {country}", { name: "Guido" });
-     * console.writeToLog(result2); // "Guido was born in {country}"
+     * console.log(result2); // "Guido was born in {country}"
      */
     // function format(template) {
     StringP.prototype.format = function () {
@@ -458,7 +458,7 @@ define(function () {
      * @returns {string} 格式化后的字符串。
      * @example
      * var result = formatMap("{name} was born in {country}", { name: "Guido" });
-     * console.writeToLog(result); // "Guido was born in {country}"
+     * console.log(result); // "Guido was born in {country}"
      */
     StringP.prototype.formatMap = function (mapping) {
         var template = this.str;
@@ -529,7 +529,7 @@ define(function () {
      * @returns {string} 拼接后的字符串。
      * @example
      * const result = join(["hello", "world", "javascript"]);
-     * console.writeToLog(result); // "hello,world,javascript"
+     * console.log(result); // "hello,world,javascript"
      */
     StringP.prototype.join = function (iterable) {
         return iterable.join(this.str);
@@ -544,9 +544,9 @@ define(function () {
      * @returns {string} 填充后的字符串。
      * @example
      * const result = "hello".ljust(10);
-     * console.writeToLog(result); // "hello     "
+     * console.log(result); // "hello     "
      * const result = "hello".ljust(10, "*");
-     * console.writeToLog(result); // "hello*****"
+     * console.log(result); // "hello*****"
      */
     StringP.prototype.ljust = function (width, fillchar) {
         if (typeof width !== "number" || width < 0) {
@@ -585,7 +585,7 @@ define(function () {
      * @returns {string} 转换后的字符串。
      * @example
      * const result = "HELLO WORLD".lower();
-     * console.writeToLog(result); // "hello world"
+     * console.log(result); // "hello world"
      */
     StringP.prototype.lower = function () {
         return this.str.toLowerCase();
@@ -600,9 +600,9 @@ define(function () {
      * @returns {string} 移除前导字符后的字符串。
      * @example
      * const result = "   spacious   ".lstrip();
-     * console.writeToLog(result); // "spacious   "
+     * console.log(result); // "spacious   "
      * const result = "www.example.com".lstrip("cmowz.");
-     * console.writeToLog(result); // "example.com"
+     * console.log(result); // "example.com"
      */
     StringP.prototype.lstrip = function (chars) {
         if (chars === undefined) {
@@ -623,7 +623,7 @@ define(function () {
      * @returns {Object} 转换对照表。
      * @example
      * const result = maketrans("abc", "xyz");
-     * console.writeToLog(result); // {97: 120, 98: 121, 99: 122}
+     * console.log(result); // {97: 120, 98: 121, 99: 122}
      */
     StringP.maketrans = function (x, y, z) {
         if (typeof x === "object") {
@@ -653,7 +653,7 @@ define(function () {
      * @returns {string[]} 3 元组。
      * @example
      * const result = "hello,world,javascript".partition(",");
-     * console.writeToLog(result); // ["hello", ",", "world,javascript"]
+     * console.log(result); // ["hello", ",", "world,javascript"]
      */
     StringP.prototype.partition = function (sep) {
         var index = this.str.indexOf(sep);
@@ -671,9 +671,9 @@ define(function () {
      * @returns {string} 移除前缀后的字符串。
      * @example
      * const result = "TestHook".removeprefix("Test");
-     * console.writeToLog(result); // "Hook"
+     * console.log(result); // "Hook"
      * const result = "BaseTestCase".removeprefix("Test");
-     * console.writeToLog(result); // "BaseTestCase"
+     * console.log(result); // "BaseTestCase"
      */
     StringP.prototype.removeprefix = function (prefix, sep) {
         if (sep === undefined) {
@@ -690,9 +690,9 @@ define(function () {
      * @returns {string} 移除后缀后的字符串。
      * @example
      * const result = "MiscTests".removesuffix("Tests");
-     * console.writeToLog(result); // "Misc"
+     * console.log(result); // "Misc"
      * const result = "TmpDirMixin".removesuffix("Tests");
-     * console.writeToLog(result); // "TmpDirMixin"
+     * console.log(result); // "TmpDirMixin"
      */
     StringP.prototype.removesuffix = function (suffix, sep) {
         if (sep === undefined) {
@@ -710,7 +710,7 @@ define(function () {
      * @returns {string} 替换后的字符串。
      * @example
      * const result = "hello,world,javascript".replace(",", "-");
-     * console.writeToLog(result); // "hello-world-javascript"
+     * console.log(result); // "hello-world-javascript"
      */
     StringP.prototype.replace = function (old, new_, count) {
         if (typeof old === "string") {
@@ -728,7 +728,7 @@ define(function () {
      * @returns {number} 子字符串的索引。
      * @example
      * const result = "hello,world,javascript".rfind(",");
-     * console.writeToLog(result); // 10
+     * console.log(result); // 10
      */
     StringP.prototype.rfind = function (sub, start, end) {
         return this.str.lastIndexOf(sub, start, end);
@@ -742,7 +742,7 @@ define(function () {
      * @returns {number} 子字符串的索引。
      * @example
      * const result = "hello,world,javascript".rindex(",");
-     * console.writeToLog(result); // 10
+     * console.log(result); // 10
      */
     StringP.prototype.rindex = function (sub, start, end) {
         var index = this.str.lastIndexOf(sub, start, end);
@@ -760,9 +760,9 @@ define(function () {
      * @returns {string} 填充后的字符串。
      * @example
      * const result = "hello".rjust(10);
-     * console.writeToLog(result); // "     hello"
+     * console.log(result); // "     hello"
      * const result = "hello".rjust(10, "*");
-     * console.writeToLog(result); // "*****hello"
+     * console.log(result); // "*****hello"
      */
     StringP.prototype.rjust = function (width, fillchar) {
         if (typeof width !== "number" || width < 0) {
@@ -802,7 +802,7 @@ define(function () {
      * @returns {string[]} 3 元组。
      * @example
      * const result = "hello,world,javascript".rpartition(",");
-     * console.writeToLog(result); // ["hello,world", ",", "javascript"]
+     * console.log(result); // ["hello,world", ",", "javascript"]
      */
     StringP.prototype.rpartition = function (sep) {
         var index = this.str.lastIndexOf(sep);
@@ -824,7 +824,7 @@ define(function () {
      * @returns {string[]} 单词列表。
      * @example
      * const result = "hello,world,javascript".rsplit(",");
-     * console.writeToLog(result); // ["hello", "world", "javascript"]
+     * console.log(result); // ["hello", "world", "javascript"]
      */
     StringP.prototype.rsplit = function (sep, maxsplit) {
         if (sep === undefined) {
@@ -842,9 +842,9 @@ define(function () {
      * @returns {string} 移除末尾字符后的字符串。
      * @example
      * const result = "   spacious   ".rstrip();
-     * console.writeToLog(result); // "   spacious"
+     * console.log(result); // "   spacious"
      * const result = "www.example.com".rstrip("cmowz.");
-     * console.writeToLog(result); // "www.example"
+     * console.log(result); // "www.example"
      */
     StringP.prototype.rstrip = function (chars) {
         if (chars === undefined) {
@@ -863,7 +863,7 @@ define(function () {
      * @returns {string[]} 单词列表。
      * @example
      * const result = "hello,world,javascript".split(",");
-     * console.writeToLog(result); // ["hello", "world", "javascript"]
+     * console.log(result); // ["hello", "world", "javascript"]
      */
     StringP.prototype.split = function (sep, maxsplit) {
         if (sep === undefined) {
@@ -881,9 +881,9 @@ define(function () {
      * @returns {string} 移除前导和末尾字符后的字符串。
      * @example
      * const result = "   spacious   ".strip();
-     * console.writeToLog(result); // "spacious"
+     * console.log(result); // "spacious"
      * const result = "www.example.com".strip("cmowz.");
-     * console.writeToLog(result); // "example"
+     * console.log(result); // "example"
      */
     StringP.prototype.strip = function (chars) {
         if (chars === undefined) {
@@ -901,7 +901,7 @@ define(function () {
      * @returns {string} 标题版本的字符串。
      * @example
      * const result = "hello world".title();
-     * console.writeToLog(result); // "Hello World"
+     * console.log(result); // "Hello World"
      */
     StringP.prototype.title = function () {
         return this.str.replace(/\w\S*/g, function (txt) {
@@ -914,7 +914,7 @@ define(function () {
      * @returns {string} 大小写互换后的字符串。
      * @example
      * const result = "HeLLo WorLD".swapcase();
-     * console.writeToLog(result); // "hEllO wOrld"
+     * console.log(result); // "hEllO wOrld"
      */
     StringP.prototype.swapcase = function () {
         return this.str.replace(/[a-z]/gi, function (c) {
@@ -929,7 +929,7 @@ define(function () {
      * @returns {string} 映射后的字符串。
      * @example
      * const result = "hello,world,javascript".translate({',': null});
-     * console.writeToLog(result); // "helloworldjavascript"
+     * console.log(result); // "helloworldjavascript"
      */
     StringP.prototype.translate = function (table) {
         var result = "";
@@ -957,7 +957,7 @@ define(function () {
      * @returns {string} 大写字符串。
      * @example
      * const result = "hello,world,javascript".upper();
-     * console.writeToLog(result); // "HELLO,WORLD,JAVASCRIPT"
+     * console.log(result); // "HELLO,WORLD,JAVASCRIPT"
      */
     StringP.prototype.upper = function () {
         return this.str.toUpperCase();
@@ -970,9 +970,9 @@ define(function () {
      * @returns {string} 填充后的字符串。
      * @example
      * const result = "42".zfill(5);
-     * console.writeToLog(result); // "00042"
+     * console.log(result); // "00042"
      * const result = "-42".zfill(5);
-     * console.writeToLog(result); // "-0042"
+     * console.log(result); // "-0042"
      */
     StringP.prototype.zfill = function (width) {
         if (typeof width !== "number" || width < 0) {

@@ -28,6 +28,9 @@
             "console": ["Third/_custom/xjsfl/console.jsfl"],
             "JSFLConstants": ["Third/_custom/xjsfl/JSFLConstants.jsfl"],
             "JSFLInterface": ["Third/_custom/xjsfl/JSFLInterface.jsfl"],
+            "overload-definitions": ["Third/_custom/utils/overload-definitions.jsfl"],
+
+
             "LayerChecker": ["Core/flash/Context/Layer/LayerChecker.define"],
             "SoundChecker": ["Core/flash/Sound/SoundChecker.define"],
             "SoundQuery":["Core/flash/Sound/SoundQuery.define"],
