@@ -4,6 +4,7 @@
     <radiogroup id="layoutRadioGroup" orient="horizontal">
         <hbox> <!-- 使用hbox来水平排列所有元素 -->
             <spacer flex="1"/> <!-- 添加一个spacer来填充剩余空间 -->
+            <radio label="透视排布" value="perspective" />
             <radio label="整齐排布" value="neat"/>
             <radio label="交错排布" value="staggered"/>
             <radio label="随机排布" value="random"/>

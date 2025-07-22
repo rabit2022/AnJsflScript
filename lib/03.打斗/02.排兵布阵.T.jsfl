@@ -79,8 +79,12 @@ require(["checkUtil", "xmlPanelUtil", "os", "loglevel", "COMPATIBILITY"], functi
                 );
                 break;
             case "ascii_art":
-                // __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__("./02.排兵布阵/02.排兵布阵_ascii_art.TD.jsfl");
+                __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__("./02.排兵布阵/02.排兵布阵_ascii_art.TD.jsfl");
                 break;
+                // perspective
+                case "perspective":
+                    __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__("./02.排兵布阵/02.排兵布阵_perspective.TD.jsfl");
+                    break;
             default:
                 throw new Error("未知排布方式");
         }
