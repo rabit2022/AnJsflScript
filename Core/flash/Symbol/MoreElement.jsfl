@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(["SAT", "sprintf-js", "ElementSelect", "overload-js"], function(
+define(["SAT", "sprintf-js", "ElementSelect", "overload-js"], function (
     sat,
     sp,
     es,
@@ -61,19 +61,19 @@ define(["SAT", "sprintf-js", "ElementSelect", "overload-js"], function(
     var MoreElement = overload()
         /* (Element, Number, Number) */
         .args(T_Element, Number, Number)
-        .use(function(element, h, v) {
+        .use(function (element, h, v) {
             // console.log(h, v);
             return new _MoreElement(element, h, v);
         })
         /* (Element, Vector) */
         .args(T_Element, T_Vector)
-        .use(function(element, vec) {
+        .use(function (element, vec) {
             // console.log(vec.x, vec.y);
             return new _MoreElement(element, vec.x, vec.y);
         })
         /* (Element) —— 默认参数 */
         .args(T_Element)
-        .use(function(element) {
+        .use(function (element) {
             // console.log("just use default");
             return new _MoreElement(element, 1, 1);
         })
@@ -89,8 +89,8 @@ define(["SAT", "sprintf-js", "ElementSelect", "overload-js"], function(
     MoreElement.MODES = {
         NEAT: "neat", // 整齐排列
         STAGGERED: "staggered", // 交错排列
-        RANDOM: "random",      // 随机排列
-        GRID: "grid",          // 网格排列
+        RANDOM: "random", // 随机排列
+        GRID: "grid", // 网格排列
         PERSPECTIVE: "perspective" // 透视排列
 
         // 后续可能实现
@@ -110,7 +110,7 @@ define(["SAT", "sprintf-js", "ElementSelect", "overload-js"], function(
      * @returns {Vector} 计算后的偏移量
      * @private
      */
-    MoreElement.prototype._getOffset = function(x, y, mode) {
+    MoreElement.prototype._getOffset = function (x, y, mode) {
         var offset = this.Offset.clone().scale(x, y);
 
         // 根据模式调整偏移量
@@ -127,13 +127,13 @@ define(["SAT", "sprintf-js", "ElementSelect", "overload-js"], function(
             default:
                 // 对于未知模式，抛出错误
                 throw new Error(
-                    "Unknown mode: \"" +
-                    mode +
-                    "\". Valid modes are: \"" +
-                    MoreElement.MODES.NEAT +
-                    "\" or \"" +
-                    MoreElement.MODES.STAGGERED +
-                    "\""
+                    'Unknown mode: "' +
+                        mode +
+                        '". Valid modes are: "' +
+                        MoreElement.MODES.NEAT +
+                        '" or "' +
+                        MoreElement.MODES.STAGGERED +
+                        '"'
                 );
         }
 
@@ -148,7 +148,7 @@ define(["SAT", "sprintf-js", "ElementSelect", "overload-js"], function(
      * @returns {Rect} 计算后的矩形位置
      * @private
      */
-    MoreElement.prototype._getRect = function(x, y, mode) {
+    MoreElement.prototype._getRect = function (x, y, mode) {
         var rect = this.Rect.clone();
         var offset = this._getOffset(x, y, mode);
         return rect.addOffset(offset);
@@ -160,7 +160,7 @@ define(["SAT", "sprintf-js", "ElementSelect", "overload-js"], function(
      * @param {number} y - 纵向坐标
      * @returns {Vector} 最终的偏移位置
      */
-    MoreElement.prototype.NeatOffset = function(x, y) {
+    MoreElement.prototype.NeatOffset = function (x, y) {
         // 获取整齐排列的偏移量
         var baseOffset = this._getOffset(x, y, MoreElement.MODES.NEAT);
 
@@ -176,7 +176,7 @@ define(["SAT", "sprintf-js", "ElementSelect", "overload-js"], function(
      * @param {number} y - 纵向坐标
      * @returns {Rect} 最终的矩形位置
      */
-    MoreElement.prototype.NeatRect = function(x, y) {
+    MoreElement.prototype.NeatRect = function (x, y) {
         // 获取整齐排列的矩形
         var neatRect = this._getRect(x, y, MoreElement.MODES.NEAT);
 
@@ -189,7 +189,7 @@ define(["SAT", "sprintf-js", "ElementSelect", "overload-js"], function(
      * @param {number} y - 纵向坐标
      * @returns {Vector} 最终的偏移位置
      */
-    MoreElement.prototype.StaggeredOffset = function(x, y) {
+    MoreElement.prototype.StaggeredOffset = function (x, y) {
         // 获取交错排列的偏移量
         var staggeredOffset = this._getOffset(x, y, MoreElement.MODES.STAGGERED);
 
@@ -205,7 +205,7 @@ define(["SAT", "sprintf-js", "ElementSelect", "overload-js"], function(
      * @param {number} y - 纵向坐标
      * @returns {Rect} 最终的矩形位置
      */
-    MoreElement.prototype.StaggeredRect = function(x, y) {
+    MoreElement.prototype.StaggeredRect = function (x, y) {
         // 获取交错排列的矩形
         var staggeredRect = this._getRect(x, y, MoreElement.MODES.STAGGERED);
 
@@ -213,7 +213,7 @@ define(["SAT", "sprintf-js", "ElementSelect", "overload-js"], function(
     };
 
     // region  perspective
-    MoreElement.prototype.PerspectiveOffset = function(x, y, horizontalCount) {
+    MoreElement.prototype.PerspectiveOffset = function (x, y, horizontalCount) {
         var neatOffset = this.NeatOffset(x, y);
 
         var horizontalSpacing = this.moveDirection.x;
@@ -225,10 +225,9 @@ define(["SAT", "sprintf-js", "ElementSelect", "overload-js"], function(
         var offset = new Vector(offsetX, 0);
 
         return neatOffset.add(offset);
-
     };
 
-    MoreElement.prototype.PerspectiveScale = function(x, y, horizontalCount) {
+    MoreElement.prototype.PerspectiveScale = function (x, y, horizontalCount) {
         function getScaleFactor(horizontalCount, verticalj) {
             // scale = 1 + Factor * horizontalCount * verticalj
             // horizontalCount ,verticalj
@@ -244,10 +243,10 @@ define(["SAT", "sprintf-js", "ElementSelect", "overload-js"], function(
         // 80
         var Factor = 0.013;
         // 相关参数，正比例
-        var relatedParam = horizontalCount * horizontalSpacing * itemWidth;//1551.36
+        var relatedParam = horizontalCount * horizontalSpacing * itemWidth; //1551.36
         // i:           0,1,2,3,4,5,6,7
         // offsetX:     -4,-3,-2,-1,0,1,2,3
-        var dymaticParam = (i - horizontalCount / 2) * j;// -4
+        var dymaticParam = (i - horizontalCount / 2) * j; // -4
         // 向左移动
         var offsetX = Factor * relatedParam * dymaticParam;
         return offsetX;
@@ -258,7 +257,7 @@ define(["SAT", "sprintf-js", "ElementSelect", "overload-js"], function(
      * 网格式的排列，接口有所不同，输入 direction
      * @param {Vector} direction - 网格方向
      */
-    MoreElement.prototype.gridSelection = function() {
+    MoreElement.prototype.gridSelection = function () {
         var doc = fl.getDocumentDOM();
 
         OnlySelectCurrent(this.element);
@@ -276,7 +275,7 @@ define(["SAT", "sprintf-js", "ElementSelect", "overload-js"], function(
         doc.scaleSelection(scale.scaleX, scale.scaleY);
     };
 
-    MoreElement.prototype.toString = function() {
+    MoreElement.prototype.toString = function () {
         return sprintf(
             "MoreElement(element=%s, positioin=%s, Offset=%s, Rect=%s)",
             this.element,
@@ -286,7 +285,7 @@ define(["SAT", "sprintf-js", "ElementSelect", "overload-js"], function(
         );
     };
 
-    MoreElement.toString = function() {
+    MoreElement.toString = function () {
         return "[object MoreElement]";
     };
 

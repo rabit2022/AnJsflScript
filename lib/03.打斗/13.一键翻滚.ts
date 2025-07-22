@@ -23,7 +23,7 @@ import JSFLConstants = require("JSFLConstants");
 // @ts-expect-error
 import { convertToKeyframesSafety } from "KeyFrameOperation";
 // @ts-expect-error
-import { SelectAll,  SelectSameName } from "ElementSelect";
+import { SelectAll, SelectSameName } from "ElementSelect";
 
 // ===============Third Party======================
 import log = require("loglevel");

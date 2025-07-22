@@ -42,9 +42,8 @@ require(["checkUtil", "xmlPanelUtil", "MoreElement", "COMPATIBILITY"], function 
 
     function checkXMLPanel() {
         // var panel = getXMLPanel();
-        var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__(
-            "./02.排兵布阵_common.xml"
-        );
+        var panel =
+            __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__("./02.排兵布阵_common.xml");
         if (panel === null) return null;
 
         var horizontalCount = parseNumber(
