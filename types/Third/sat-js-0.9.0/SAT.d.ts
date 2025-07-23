@@ -2,9 +2,6 @@
 // Copyright 2012 - 2021 - Jim Riecken <jimr@jimr.ca>
 // Released under the MIT License.
 
-// declare const SAT:sat;
-// export = SAT;
-
 declare namespace sat {
     type Corner =
         | "top right"
@@ -595,7 +592,6 @@ declare namespace sat {
     export { Circle as C };
 }
 
-// export = SAT;
 declare module "SAT" {
     export = sat;
 }

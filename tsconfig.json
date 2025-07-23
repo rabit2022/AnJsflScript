@@ -34,6 +34,7 @@
             "SoundChecker": ["Core/flash/Sound/SoundChecker.define"],
             "SoundQuery":["Core/flash/Sound/SoundQuery.define"],
             "FUNC": ["Third/_custom/Object/FUNC.define"],
+            "FFramework": ["Core/Framework/FFramework.define"],
 
 
             "BitmapOperation": ["Core/flash/Bitmap/BitmapOperation.jsfl"],
@@ -78,7 +79,6 @@
             "SymbolNameGenerator": ["Core/flash/Symbol/SymbolNameGenerator.jsfl"],
             "EaseCurve": ["Core/flash/Tween/EaseCurve.jsfl"],
             "Tween": ["Core/flash/Tween/Tween.jsfl"],
-            "FFramework": ["Core/Framework/FFramework.define.jsfl"],
             "KeyFrameMode": ["Core/Framework/KeyFrameMode.jsfl"],
             "Tips": ["Core/Framework/Tips.jsfl"],
             "open": ["Core/py/file/open.jsfl"],

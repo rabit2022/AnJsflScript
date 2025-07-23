@@ -30,6 +30,7 @@
       "SoundChecker": ["Core/flash/Sound/SoundChecker.define.ts"],
       "SoundQuery":["Core/flash/Sound/SoundQuery.define.ts"],
       "FUNC": ["Third/_custom/Object/FUNC.define.ts"],
+      "FFramework": ["Core/Framework/FFramework.define.ts"],
 
 
       "BitmapOperation": ["Core/flash/Bitmap/BitmapOperation"],
@@ -74,7 +75,6 @@
       "SymbolNameGenerator": ["Core/flash/Symbol/SymbolNameGenerator"],
       "EaseCurve": ["Core/flash/Tween/EaseCurve"],
       "Tween": ["Core/flash/Tween/Tween"],
-      "FFramework": ["Core/Framework/FFramework.define"],
       "KeyFrameMode": ["Core/Framework/KeyFrameMode"],
       "Tips": ["Core/Framework/Tips"],
       "open": ["Core/py/file/open"],
