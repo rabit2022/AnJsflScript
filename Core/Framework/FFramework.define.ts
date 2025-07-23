@@ -52,6 +52,7 @@ export class FFramework {
         }
     }
 
+    // region gotoLayer
     public gotoLayer(layerIndex: number): Observable<FFramework> | FFramework;
     public gotoLayer(expectedName: string): Observable<FFramework> | FFramework;
     public gotoLayer(arg: number | string): Observable<FFramework> | FFramework;
@@ -79,6 +80,7 @@ export class FFramework {
 
         return this.$();
     }
+    // endregion gotoLayer
 
     public gotoFrame(index0: number) {
         this.timeline.currentFrame = index0;

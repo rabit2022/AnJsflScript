@@ -10,7 +10,7 @@
     } else if (typeof exports === 'object') {
         module['exports'] = factory();
     } else {
-        root['SAT'] = factory();
+        root['linq'] = factory();
     }
 })(this, function () {
     var Functions = {
