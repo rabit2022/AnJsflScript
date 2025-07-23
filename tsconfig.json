@@ -36,9 +36,8 @@
             "FUNC": ["Third/_custom/Object/FUNC.define"],
 
 
-
             "BitmapOperation": ["Core/flash/Bitmap/BitmapOperation.jsfl"],
-            "checkUtil": ["Core/flash/checkUtil.jsfl"],
+            "checkUtil": ["Core/flash/Check/checkUtil.jsfl"],
             "ColorPanel": ["Core/flash/Color/ColorPanel.jsfl"],
             "ColorTransformDefinitions": ["Core/flash/Color/ColorTransformDefinitions.jsfl"],
             "FillDefinitions": ["Core/flash/Color/FillDefinitions.jsfl"],
@@ -79,6 +78,9 @@
             "SymbolNameGenerator": ["Core/flash/Symbol/SymbolNameGenerator.jsfl"],
             "EaseCurve": ["Core/flash/Tween/EaseCurve.jsfl"],
             "Tween": ["Core/flash/Tween/Tween.jsfl"],
+            "FFramework": ["Core/Framework/FFramework.define.jsfl"],
+            "KeyFrameMode": ["Core/Framework/KeyFrameMode.jsfl"],
+            "Tips": ["Core/Framework/Tips.jsfl"],
             "open": ["Core/py/file/open.jsfl"],
             "os": ["Core/py/file/os.jsfl"],
             "shutil": ["Core/py/file/shutil.jsfl"],
@@ -86,9 +88,9 @@
             "numpy": ["Core/py/numpy/numpy.jsfl"],
             "random": ["Core/py/random/random.jsfl"],
             "StringP": ["Core/py/string/StringP.jsfl"],
-            "KeyFrameMode": ["Core/Utils/KeyFrameMode.jsfl"],
-            "Tips": ["Core/Utils/Tips.jsfl"],
-            "COMPATIBILITY": ["Core/webpack/COMPATIBILITY.jsfl"]
+            "COMPATIBILITY": ["Core/webpack/COMPATIBILITY.jsfl"],
+
+
         }
     },
 

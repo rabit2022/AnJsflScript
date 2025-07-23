@@ -89,7 +89,7 @@ function getAllSymbolNames() {
     });
     // 去除重复的符号名，保持顺序
     // @ts-ignore es6
-    let uniqueSymbolNames = Array.from(new Set(keyFrameSymbolNames));
+    let uniqueSymbolNames: string[] = Array.from(new Set(keyFrameSymbolNames));
 
     doc.enterEditMode();
 

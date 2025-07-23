@@ -151,7 +151,7 @@ function EditOuter(shadowCount: number) {
         let FRAMES_COUNT = 20 + shadowCount;
         timeline.insertFrames(FRAMES_COUNT - 1, true, shadowCount);
 
-        // bug: 不清楚为什么，最后的图层的帧数会多一个
+        // bugfixed: 不清楚为什么，最后的图层的帧数会多一个
         (() => {
             // 解决方案：把最后的图层的帧数减1
             let layers = timeline.layers; //图层

@@ -7,18 +7,21 @@
  * @description:
  */
 
-define(["Tips", "LayerQuery", "FrameQuery", "Context", "FrameChecker"], function (
+define(["Tips", "LayerQuery", "FrameQuery", "Context", "FrameChecker","checkUtil"], function (
     tips,
     lq,
     fq,
     Context,
-    fc
+    fc,
+    checkUtil
 ) {
     // const { getKeyFrames } = kfq;
     const { checkVariableRedeclaration } = tips;
     const { convertToLayerIndex, convertToLayer } = lq;
     const { convertToFrameIndex, convertToFrame } = fq;
     const { IsNoneFrame } = fc;
+
+    const {CheckSelectedFrames}=checkUtil;
 
     /**
      * 安全的转换为关键帧
@@ -92,10 +95,6 @@ define(["Tips", "LayerQuery", "FrameQuery", "Context", "FrameChecker"], function
     function KFrameOnlyOne(timeline, layer) {
         checkVariableRedeclaration(timeline, "timeline");
 
-        var CheckSelectedFrames;
-        require(["checkUtil"], function (checkUtil) {
-            CheckSelectedFrames = checkUtil.CheckSelectedFrames;
-        });
         var layers = timeline.layers; //图层
 
         // 获取第一帧

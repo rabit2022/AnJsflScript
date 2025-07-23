@@ -69,7 +69,7 @@ var alias = {
 
     // 自定义模块
     "BitmapOperation": path.resolve(dirname, "Core/flash/Bitmap/BitmapOperation"),
-    "checkUtil": path.resolve(dirname, "Core/flash/checkUtil"),
+    "checkUtil": path.resolve(dirname, "Core/flash/Check/checkUtil"),
     "ColorPanel": path.resolve(dirname, "Core/flash/Color/ColorPanel"),
     "ColorTransformDefinitions": path.resolve(dirname, "Core/flash/Color/ColorTransformDefinitions"),
     "FillDefinitions": path.resolve(dirname, "Core/flash/Color/FillDefinitions"),
@@ -108,11 +108,14 @@ var alias = {
     "StringPaser": path.resolve(dirname, "Core/flash/Panel/StringPaser"),
     "xmlPanelUtil": path.resolve(dirname, "Core/flash/Panel/xmlPanelUtil"),
     "SoundChecker": path.resolve(dirname, "Core/flash/Sound/SoundChecker.define"),
+    "SoundQuery": path.resolve(dirname, "Core/flash/Sound/SoundQuery.define"),
     "MoreElement": path.resolve(dirname, "Core/flash/Symbol/MoreElement"),
     "SymbolNameGenerator": path.resolve(dirname, "Core/flash/Symbol/SymbolNameGenerator"),
     "EaseCurve": path.resolve(dirname, "Core/flash/Tween/EaseCurve"),
     "Tween": path.resolve(dirname, "Core/flash/Tween/Tween"),
-    "FUNC": path.resolve(dirname, "Core/myShim/FUNC"),
+    "FFramework": path.resolve(dirname, "Core/Framework/FFramework.define"),
+    "KeyFrameMode": path.resolve(dirname, "Core/Framework/KeyFrameMode"),
+    "Tips": path.resolve(dirname, "Core/Framework/Tips"),
     "open": path.resolve(dirname, "Core/py/file/open"),
     "os": path.resolve(dirname, "Core/py/file/os"),
     "shutil": path.resolve(dirname, "Core/py/file/shutil"),
@@ -120,11 +123,8 @@ var alias = {
     "numpy": path.resolve(dirname, "Core/py/numpy/numpy"),
     "random": path.resolve(dirname, "Core/py/random/random"),
     "StringP": path.resolve(dirname, "Core/py/string/StringP"),
-    "KeyFrameMode": path.resolve(dirname, "Core/Utils/KeyFrameMode"),
-    "Tips": path.resolve(dirname, "Core/Utils/Tips"),
     "COMPATIBILITY": path.resolve(dirname, "Core/webpack/COMPATIBILITY"),
-    // "SoundQuery":"Core/flash/Sound/SoundQuery.define",
-    "SoundQuery": path.resolve(dirname, "Core/flash/Sound/SoundQuery.define"),
+
 
 
 };

@@ -32,9 +32,8 @@
       "FUNC": ["Third/_custom/Object/FUNC.define.ts"],
 
 
-
       "BitmapOperation": ["Core/flash/Bitmap/BitmapOperation"],
-      "checkUtil": ["Core/flash/checkUtil"],
+      "checkUtil": ["Core/flash/Check/checkUtil"],
       "ColorPanel": ["Core/flash/Color/ColorPanel"],
       "ColorTransformDefinitions": ["Core/flash/Color/ColorTransformDefinitions"],
       "FillDefinitions": ["Core/flash/Color/FillDefinitions"],
@@ -75,6 +74,9 @@
       "SymbolNameGenerator": ["Core/flash/Symbol/SymbolNameGenerator"],
       "EaseCurve": ["Core/flash/Tween/EaseCurve"],
       "Tween": ["Core/flash/Tween/Tween"],
+      "FFramework": ["Core/Framework/FFramework.define"],
+      "KeyFrameMode": ["Core/Framework/KeyFrameMode"],
+      "Tips": ["Core/Framework/Tips"],
       "open": ["Core/py/file/open"],
       "os": ["Core/py/file/os"],
       "shutil": ["Core/py/file/shutil"],
@@ -82,9 +84,9 @@
       "numpy": ["Core/py/numpy/numpy"],
       "random": ["Core/py/random/random"],
       "StringP": ["Core/py/string/StringP"],
-      "KeyFrameMode": ["Core/Utils/KeyFrameMode"],
-      "Tips": ["Core/Utils/Tips"],
-      "COMPATIBILITY": ["Core/webpack/COMPATIBILITY"]
+      "COMPATIBILITY": ["Core/webpack/COMPATIBILITY"],
+
+
     },
     "include": [
       "**/*.jsfl",

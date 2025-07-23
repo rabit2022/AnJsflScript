@@ -175,7 +175,7 @@ define(["Tips", "SAT", "KeyFrameQuery"], function (Tips, SAT, kfq) {
         // 检查条件并返回结果
         if (!checkCondition(conditionIndex, selection.length)) {
             var defaultMessage = messages[modeIndex][conditionIndex];
-            var message = exTips ? defaultMessage + "(" + exTips + ")" : defaultMessage;
+            var message = exTips ? exTips : defaultMessage;
 
             alert(message);
             return false;

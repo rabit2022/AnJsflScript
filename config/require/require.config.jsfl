@@ -80,7 +80,7 @@ require.config({
 
         // region Core
         "BitmapOperation":"Core/flash/Bitmap/BitmapOperation",
-        "checkUtil":"Core/flash/checkUtil",
+        "checkUtil":"Core/flash/Check/checkUtil",
         "ColorPanel":"Core/flash/Color/ColorPanel",
         "ColorTransformDefinitions":"Core/flash/Color/ColorTransformDefinitions",
         "FillDefinitions":"Core/flash/Color/FillDefinitions",
@@ -119,10 +119,14 @@ require.config({
         "StringPaser":"Core/flash/Panel/StringPaser",
         "xmlPanelUtil":"Core/flash/Panel/xmlPanelUtil",
         "SoundChecker":"Core/flash/Sound/SoundChecker.define",
+        "SoundQuery":"Core/flash/Sound/SoundQuery.define",
         "MoreElement":"Core/flash/Symbol/MoreElement",
         "SymbolNameGenerator":"Core/flash/Symbol/SymbolNameGenerator",
         "EaseCurve":"Core/flash/Tween/EaseCurve",
         "Tween":"Core/flash/Tween/Tween",
+        "FFramework":"Core/Framework/FFramework.define",
+        "KeyFrameMode":"Core/Framework/KeyFrameMode",
+        "Tips":"Core/Framework/Tips",
         "open":"Core/py/file/open",
         "os":"Core/py/file/os",
         "shutil":"Core/py/file/shutil",
@@ -130,11 +134,8 @@ require.config({
         "numpy":"Core/py/numpy/numpy",
         "random":"Core/py/random/random",
         "StringP":"Core/py/string/StringP",
-        "KeyFrameMode":"Core/Utils/KeyFrameMode",
-        "Tips":"Core/Utils/Tips",
         "COMPATIBILITY":"Core/webpack/COMPATIBILITY",
-        // H:\project\沙雕动画\AnJsflScript\Core\flash\Sound\SoundQuery.define.ts
-        "SoundQuery":"Core/flash/Sound/SoundQuery.define",
+
 
         // endregion Core
     }, packages: []

@@ -31,10 +31,9 @@ require(["require", "_exports", "checkUtil", "LayerOperation", "KeyFrameOperatio
     KEY_FRAMES = (0, linqUtil_1.$addOffset)(KEY_FRAMES, firstSlFrameIndex);
     BLANK_FRAMES = (0, linqUtil_1.$addOffset)(BLANK_FRAMES, firstSlFrameIndex);
     var SCALE_FACTORS = [1.8, 2.8];
-    function MultiSymbol() {
-        var selectedElements = doc.selection;
+    function MultiSymbol(selectedElements, symbolNamePrefix) {
         if (selectedElements.length > 1) {
-            var symbolName = (0, SymbolNameGenerator_1.generateNameUntilUnique)("扩散虚影_");
+            var symbolName = (0, SymbolNameGenerator_1.generateNameUntilUnique)(symbolNamePrefix);
             doc.convertToSymbol("graphic", symbolName, "center");
         }
         (0, ElementAnim_1.playSingleFrame)();
@@ -78,7 +77,7 @@ require(["require", "_exports", "checkUtil", "LayerOperation", "KeyFrameOperatio
             _.first(KEY_FRAMES) + 1
         ]);
         doc.clipPaste(true);
-        MultiSymbol();
+        MultiSymbol(doc.selection, "扩散虚影_");
         (0, KeyFrameOperation_1.convertToKeyframesSafety)(timeline, KEY_FRAMES[1], shadowLayerIndex);
         scaleFrame(shadowLayerIndex);
         setFilters(shadowLayerIndex);

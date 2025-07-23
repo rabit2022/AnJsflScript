@@ -92,11 +92,20 @@ BLANK_FRAMES = $addOffset(BLANK_FRAMES, firstSlFrameIndex);
 
 const SCALE_FACTORS = [1.8, 2.8];
 
-function MultiSymbol() {
+// todo: 处理多个元件的情形，模块化
+/**
+ * 处理多个元件的情形
+ * 选中多个元件时才会转为元件。
+ * 如果只选择一个元件，就直接单帧播放。
+ * @param {Element[]} selectedElements  选中的元件
+ * @param {string} symbolNamePrefix  命名前缀
+ * @constructor
+ */
+function MultiSymbol(selectedElements: FlashElement[], symbolNamePrefix: string) {
     // 处理多个元件的情形
-    let selectedElements = doc.selection;
+    // let selectedElements = doc.selection;
     if (selectedElements.length > 1) {
-        var symbolName = generateNameUntilUnique("扩散虚影_");
+        let symbolName: string = generateNameUntilUnique(symbolNamePrefix);
         doc.convertToSymbol("graphic", symbolName, "center");
     }
     playSingleFrame();
@@ -141,6 +150,7 @@ function setFilters(shadowLayerIndex: number) {
     ShadowLayer.setFiltersAtFrame(KEY_FRAMES[1], FILTERS);
     ShadowLayer.setColorTransformAtFrame(KEY_FRAMES[1], ALPHA_TRANSFORM_2);
 }
+
 function Main() {
     doc.clipCopy();
 
@@ -159,7 +169,7 @@ function Main() {
     doc.clipPaste(true);
 
     // 处理多个元件的情形
-    MultiSymbol();
+    MultiSymbol(doc.selection, "扩散虚影_");
 
     // k1
     convertToKeyframesSafety(timeline, KEY_FRAMES[1], shadowLayerIndex);
