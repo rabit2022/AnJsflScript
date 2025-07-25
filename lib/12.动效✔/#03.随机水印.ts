@@ -98,10 +98,11 @@ function Main() {
     let config = checkXMLPanel();
     if (!config) return;
 
-    let { text, alpha, size, speed, interval } = config;
-    log.info(
-        `text: ${text}, alpha: ${alpha}, size: ${size}, speed: ${speed}, interval: ${interval}`
-    );
+    let { text:WATERMARK_TEXT, alpha:WATERMARK_ALPHA, size, speed, interval } = config;
+
+
+
+
 }
 
 Main();

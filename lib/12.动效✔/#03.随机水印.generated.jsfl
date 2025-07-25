@@ -1,5 +1,5 @@
 // 这个文件由脚本 #03.随机水印.ts 自动生成，任何手动修改都将会被覆盖.
-require(["require", "_exports", "checkUtil", "COMPATIBILITY", "StringPaser", "loglevel"], function (require, exports, checkUtil_1, COMPATIBILITY_1, StringPaser_1, log) {
+require(["require", "_exports", "checkUtil", "COMPATIBILITY", "StringPaser"], function (require, exports, checkUtil_1, COMPATIBILITY_1, StringPaser_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var doc = fl.getDocumentDOM();
@@ -52,8 +52,7 @@ require(["require", "_exports", "checkUtil", "COMPATIBILITY", "StringPaser", "lo
         var config = checkXMLPanel();
         if (!config)
             return;
-        var text = config.text, alpha = config.alpha, size = config.size, speed = config.speed, interval = config.interval;
-        log.info("text: ".concat(text, ", alpha: ").concat(alpha, ", size: ").concat(size, ", speed: ").concat(speed, ", interval: ").concat(interval));
+        var WATERMARK_TEXT = config.text, WATERMARK_ALPHA = config.alpha, size = config.size, speed = config.speed, interval = config.interval;
     }
     Main();
 });

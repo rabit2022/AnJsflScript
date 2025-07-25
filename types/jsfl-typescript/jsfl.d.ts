@@ -350,7 +350,7 @@ interface FlashDocument {
     setCustomStroke(stroke: FlashStroke): void;
 
     /** Sets the specified Element property on selected */
-    setElementProperty(property: string, value: number): void;
+    setElementProperty(property: string, value: any): void;
 
     /** Sets the specified TextAttrs property of the */
     setElementTextAttr(attrName: string, attrValue: FlashTextAttrs, startIndex?: number, endIndex?: number): boolean;
