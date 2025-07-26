@@ -7,21 +7,21 @@
  * @description:
  */
 
-define(["Tips", "LayerQuery", "FrameQuery", "Context", "FrameChecker","checkUtil"], function (
-    tips,
-    lq,
-    fq,
-    Context,
-    fc,
-    checkUtil
-) {
+define([
+    "Tips",
+    "LayerQuery",
+    "FrameQuery",
+    "Context",
+    "FrameChecker",
+    "checkUtil"
+], function (tips, lq, fq, Context, fc, checkUtil) {
     // const { getKeyFrames } = kfq;
     const { checkVariableRedeclaration } = tips;
     const { convertToLayerIndex, convertToLayer } = lq;
     const { convertToFrameIndex, convertToFrame } = fq;
     const { IsNoneFrame } = fc;
 
-    const {CheckSelectedFrames}=checkUtil;
+    const { CheckSelectedFrames } = checkUtil;
 
     /**
      * 安全的转换为关键帧

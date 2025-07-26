@@ -23,7 +23,7 @@ import { convertToKeyframesSafety } from "KeyFrameOperation";
 // @ts-expect-error
 import { setEaseCurveEx } from "EaseCurve";
 // @ts-expect-error
-import { playLoop,playLoopReverse } from "ElementAnim";
+import { playLoop, playLoopReverse } from "ElementAnim";
 
 // ===============Third Party======================
 import log = require("loglevel");

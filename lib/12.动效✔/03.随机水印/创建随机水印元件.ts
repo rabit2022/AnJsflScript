@@ -115,7 +115,6 @@ function Main() {
     // 创建水印图层
     WATERMARK_LAYER_INDEX = addNewLayerSafety(timeline, WATERMARK_LAYER_NAME);
 
-
     timeline.setSelectedFrames([WATERMARK_LAYER_INDEX, 0, 1]);
 
     if (library.itemExists(RANDOM_WATERMARK)) {
