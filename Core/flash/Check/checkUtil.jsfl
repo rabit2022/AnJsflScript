@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(["Tips", "SAT", "KeyFrameQuery"], function (Tips, SAT, kfq) {
+define(["Tips", "SAT", "KeyFrameQuery"], function(Tips, SAT, kfq) {
     const { checkVariableRedeclaration } = Tips;
     const { FrameRange, FrameRangeList } = SAT;
     const { getSelectedFrs } = kfq;
@@ -221,7 +221,7 @@ define(["Tips", "SAT", "KeyFrameQuery"], function (Tips, SAT, kfq) {
             if (onlyFirst) {
                 totalDuration = frs[0].duration;
             } else {
-                totalDuration = frs.reduce(function (acc, fr) {
+                totalDuration = frs.reduce(function(acc, fr) {
                     return acc + fr.duration;
                 }, 0);
             }
@@ -308,12 +308,124 @@ define(["Tips", "SAT", "KeyFrameQuery"], function (Tips, SAT, kfq) {
         };
     }
 
+    // region CheckSelectionAny
+    // function CheckSelectionMultiple(selection, modes,Tips) {}
+    /* ---------- 1. 规则解析 ---------- */
+    function _parseRule(ruleStr) {
+        var m = ruleStr.trim().match(/^(>=|<=|>|<|==|!=)\s*(-?\d+)$/);
+        if (!m) throw new Error("规则格式错误：" + ruleStr);
+        return { op: m[1], val: Number(m[2]) };
+    }
+
+    /* ---------- 2. 单条规则校验 ---------- */
+    function _checkOne(len, rule) {
+        switch (rule.op) {
+            case ">":
+                return len > rule.val;
+            case ">=":
+                return len >= rule.val;
+            case "<":
+                return len < rule.val;
+            case "<=":
+                return len <= rule.val;
+            case "==":
+                return len === rule.val;
+            case "!=":
+                return len !== rule.val;
+            default:
+                return false;
+        }
+    }
+
+    /* ---------- 3. 全部满足版本 ---------- */
+    function CheckSelectionAll(selection, modes, tips) {
+        tips = tips || [];
+
+        if (Object.prototype.toString.call(selection) !== '[object Array]') {
+            alert('selection 必须是数组');
+            return null;
+        }
+
+        // 补齐 tips
+        for (var i = 0; i < modes.length; i++) {
+            if (tips[i] === undefined) {
+                tips[i] = '规则 #' + (i + 1) + ' : ' + modes[i] + ' 未满足';
+            }
+        }
+
+        var len = selection.length;
+
+        for (var j = 0; j < modes.length; j++) {
+            var parsed;
+            try {
+                parsed = _parseRule(modes[j]);
+            } catch (e) {
+                alert(e.message);
+                return null;
+            }
+
+            if (!_checkOne(len, parsed)) {
+                alert(tips[j]);
+                return null;
+            }
+        }
+
+        return selection;
+    }
+
+    /* ---------- 4. 任一满足版本 ---------- */
+    /**
+     * 检查是否满足任一规则
+     * @param {Array} selection - 选择的元件或帧数组。
+     * @param {string[]} modes - 规则列表。
+     * @param {string} [tip] - 额外提示信息。
+     * @returns {Array|null}
+     */
+    function CheckSelectionAny(selection, modes, tip) {
+        if (!Array.isArray(selection)) {
+            alert("selection 必须是数组");
+            return null;
+        }
+
+
+        // 把 modes 统一成数组
+        var rules = typeof modes === "string" ? [modes] : modes;
+
+        var len = selection.length;
+        var allFail = true;
+
+        for (var i = 0; i < rules.length; i++) {
+            var parsed;
+            try {
+                parsed = _parseRule(rules[i]);
+            } catch (e) {
+                alert(e.message);
+                return null;
+            }
+            // console.log(_checkOne(len, parsed));
+            if (_checkOne(len, parsed)) {
+                allFail = false;
+                break; // 只要有一条满足就跳出循环
+            }
+        }
+
+        if (allFail) {
+            alert(tip || "数量不符合要求");
+            return null;
+        }
+
+        return selection;
+    }
+    // endregion CheckSelectionAny
+
     return {
         CheckSelection: CheckSelection,
         CheckDom: CheckDom,
         CheckSelectedFrames: CheckSelectedFrames,
         CheckSelectedLayers: CheckSelectedLayers,
         CheckSelectedItems: CheckSelectedItems,
-        CheckSymbolTimeline: CheckSymbolTimeline
+        CheckSymbolTimeline: CheckSymbolTimeline,
+        CheckSelectionAll: CheckSelectionAll,
+        CheckSelectionAny: CheckSelectionAny,
     };
 });

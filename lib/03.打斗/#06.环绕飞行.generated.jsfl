@@ -50,7 +50,7 @@ require(["require", "_exports", "checkUtil", "SymbolNameGenerator", "ElementSele
         }
     }
     function Main() {
-        var symbolName = (0, SymbolNameGenerator_1.generateNameUseLast)("环绕飞行_动_");
+        var symbolName = (0, SymbolNameGenerator_1.generateNameUntilUnique)("环绕飞行_动_");
         doc.convertToSymbol("graphic", symbolName, "center");
         EditDynamic();
     }

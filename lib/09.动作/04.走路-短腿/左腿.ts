@@ -1,8 +1,8 @@
 /**
- * @file: 06.环绕飞行.ts
+ * @file: 左腿.ts
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
- * @date: 2025/7/25 18:58
+ * @date: 2025/7/26 18:07
  * @project: AnJsflScript
  * @description:
  */
@@ -21,10 +21,10 @@ import { SelectAll, OnlySelectCurrent } from "ElementSelect";
 import log = require("loglevel");
 // endregion import
 
+
 // region doc
 var doc = fl.getDocumentDOM(); //文档
-if (!CheckDom(doc)) {
-    //@ts-ignore
+if (!CheckDom(doc)) {//@ts-ignore
     return;
 }
 
@@ -47,9 +47,8 @@ var curFrame = _frames[curFrameIndex]; //当前帧
 // }
 // const {firstSlLayerIndex, firstSlFrameIndex, firstSlLayer, firstSlFrame} = selectedFrames;
 
-// prettier-ignore
 // 检查选择的元件
-if (!CheckSelection(selection, "selectElement", "Only two", "必须同时选择两个元件！（默认左边环绕，右边飞行）")) {
+if (!CheckSelection(selection, "selectElement", "Only one","请选中 左腿 元件")) {
     //@ts-ignore
     return;
 }
@@ -61,63 +60,33 @@ if (!CheckSelection(selection, "selectElement", "Only two", "必须同时选择�
 // }
 // endregion doc
 
-function checkAroundAndFly(selectedElements: FlashElement[]) {
-    selectedElements.sort(function (a, b) {
-        return a.left - b.left;
-    });
-
-    // 默认左边环绕，右边飞行
-    var AroundElement = selectedElements[0];
-    var FlyElement = selectedElements[1];
-
-    return { AroundElement, FlyElement };
-}
-
 function EditDynamic() {
     doc.enterEditMode("inPlace");
 
-    // 转为元件
+    // 设置形变点
     {
-        SelectAll();
+        // Vector(x=0, y=-156.3)  240.45，408.8
+        // Vector(x=0, y=-108.2)  480.9，408.8    width*2   +48.1（0.2） 权重：0.2
+        // Vector(x=0, y=-360.7)  240.45，817.6   height*2  -204.4（-0.5） 权重：-0.5
+        // y=0.5*height-0.2*width
+        // 360.65，613.2     Vector(x=0, y=-234.45)    猜想一致
 
-        let selection = doc.selection; // 选择的元件
-        let { AroundElement, FlyElement } = checkAroundAndFly(selection);
 
-        OnlySelectCurrent(AroundElement);
-        let symbolName = generateNameUseLast("环绕飞行_内_");
-        doc.convertToSymbol("graphic", symbolName, "center");
-
-        OnlySelectCurrent(FlyElement);
-        symbolName = generateNameUseLast("环绕飞行_环绕轴_");
-        doc.convertToSymbol("graphic", symbolName, "center");
     }
 
-    // 环绕飞行_内_
-    {
-        SelectAll();
-
-        let selection = doc.selection; // 选择的元件
-        let { AroundElement, FlyElement } = checkAroundAndFly(selection);
-
-        let radius = Math.abs(FlyElement.x - AroundElement.x);
-
-        // 环绕 ，  环绕飞行_内_
-        OnlySelectCurrent(AroundElement);
-
-        // 生成环绕飞行_内部.ts
-        // todo:命令行执行，传参
-    }
-
-    // todo:分散到图层
-    {
-    }
 }
 
+// 选中左腿
 function Main() {
-    let symbolName = generateNameUntilUnique("环绕飞行_动_");
+
+    let symbolName = generateNameUntilUnique("一键走路_左腿静_");
+    doc.convertToSymbol("graphic", symbolName, "center");
+
+    symbolName = generateNameUseLast("一键走路_左腿动_");
     doc.convertToSymbol("graphic", symbolName, "center");
 
     EditDynamic();
+
 }
 
 Main();
