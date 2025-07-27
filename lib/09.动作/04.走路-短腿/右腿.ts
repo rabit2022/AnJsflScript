@@ -1,10 +1,10 @@
 /**
- * @file: 左腿.ts
+ * @file: 右腿.ts
  * @author: 穹的兔兔
  * @email: 3101829204@qq.com
  * @date: 2025/7/26 18:07
  * @project: AnJsflScript
- * @description:
+ * @description: 与左腿只有 rotationAngle 相反
  */
 
 // region import
@@ -60,7 +60,7 @@ var curFrame = _frames[curFrameIndex]; //当前帧
 // const {firstSlLayerIndex, firstSlFrameIndex, firstSlLayer, firstSlFrame} = selectedFrames;
 
 // 检查选择的元件
-if (!CheckSelection(selection, "selectElement", "Only one", "请选中 左腿 元件")) {
+if (!CheckSelection(selection, "selectElement", "Only one", "请选中 右腿 元件")) {
     //@ts-ignore
     return;
 }
@@ -106,13 +106,13 @@ function EditDynamic(rotationAngle: number) {
         // 第5帧
         {
             timeline.setSelectedFrames(KEY_FRAMES[1], KEY_FRAMES[1] + 1);
-            doc.rotateSelection(-rotationAngle);
+            doc.rotateSelection(rotationAngle);
         }
 
         // 第15帧
         {
             timeline.setSelectedFrames(KEY_FRAMES[2], KEY_FRAMES[2] + 1);
-            doc.rotateSelection(rotationAngle);
+            doc.rotateSelection(-rotationAngle);
         }
 
         // 补间
@@ -122,7 +122,7 @@ function EditDynamic(rotationAngle: number) {
     doc.exitEditMode();
 }
 
-// 选中左腿
+// 选中右腿
 function Main() {
     let ROTATION_ANGLE = 30;
     let WALK_SPEED = 4;
@@ -142,10 +142,10 @@ function Main() {
         KEY_FRAMES = [FRAME_1, n - 1, 3 * n - 1, 4 * n - 1];
     }
 
-    let symbolName = generateNameUseLast("一键走路_左腿静_");
+    let symbolName = generateNameUseLast("一键走路_右腿静_");
     doc.convertToSymbol("graphic", symbolName, "center");
 
-    symbolName = generateNameUseLast("一键走路_左腿动_");
+    symbolName = generateNameUseLast("一键走路_右腿动_");
     doc.convertToSymbol("graphic", symbolName, "center");
 
     EditDynamic(ROTATION_ANGLE);

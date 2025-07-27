@@ -19,7 +19,6 @@ require(["require", "_exports", "checkUtil"], function (require, exports, checkU
     if (!(0, checkUtil_1.CheckSelectionAny)(selection, ["==2", "==4", "==5"], info)) {
         return;
     }
-    function Main() {
-    }
+    function Main() { }
     Main();
 });
