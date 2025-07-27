@@ -68,8 +68,6 @@ if (!CheckSelectionAny(selection, ["==2", "==4", "==5"], info)) {
 // }
 // endregion doc
 
-function Main() {
-
-}
+function Main() {}
 
 Main();

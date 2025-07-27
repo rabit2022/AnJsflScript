@@ -85,8 +85,7 @@ function checkAroundAndFly(selectedElements: FlashElement[]) {
 
 function EditDynamic() {
     doc.enterEditMode("inPlace");
-        let timeline = doc.getTimeline(); //时间轴
-
+    let timeline = doc.getTimeline(); //时间轴
 
     // 转为元件
     {
@@ -163,15 +162,14 @@ function EditDynamic() {
 
         for (let i = 0; i < layers.length; i++) {
             let layer = layers[i];
-            let layerName = layer.name;
+            let layerName = LAYER_NAMES[i];
 
-            layer.name = LAYER_NAMES[i];
+            layer.name = layerName;
         }
     }
 
     // K 帧
     {
-
         // 为所有帧插入30帧
         const INSERT_FRAMES = FRAME_30;
         timeline.insertFrames(INSERT_FRAMES, true);
@@ -209,9 +207,9 @@ function Main() {
     doc.convertToSymbol("graphic", symbolName, "center");
 
     EditDynamic();
-    // playLoop();
-    //
-    // alert("动作已生成！（请进入元件手动微调速度）");
+    playLoop();
+
+    alert("动作已生成！（请进入元件手动微调速度）");
 }
 
 Main();

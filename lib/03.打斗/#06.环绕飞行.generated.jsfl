@@ -1,5 +1,5 @@
 // 这个文件由脚本 #06.环绕飞行.ts 自动生成，任何手动修改都将会被覆盖.
-require(["require", "_exports", "checkUtil", "SymbolNameGenerator", "ElementSelect", "LayerOperation", "JSFLConstants", "KeyFrameOperation"], function (require, exports, checkUtil_1, SymbolNameGenerator_1, ElementSelect_1, LayerOperation_1, JSFLConstants, KeyFrameOperation_1) {
+require(["require", "_exports", "checkUtil", "SymbolNameGenerator", "ElementSelect", "LayerOperation", "JSFLConstants", "KeyFrameOperation", "ElementAnim"], function (require, exports, checkUtil_1, SymbolNameGenerator_1, ElementSelect_1, LayerOperation_1, JSFLConstants, KeyFrameOperation_1, ElementAnim_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var _a = JSFLConstants.Numerics.frame.frameList, FRAME_1 = _a.FRAME_1, FRAME_15 = _a.FRAME_15, FRAME_30 = _a.FRAME_30;
@@ -62,8 +62,8 @@ require(["require", "_exports", "checkUtil", "SymbolNameGenerator", "ElementSele
             var LAYER_NAMES = ["飞行物_后", "环绕轴", "飞行物_前"];
             for (var i = 0; i < layers_1.length; i++) {
                 var layer = layers_1[i];
-                var layerName = layer.name;
-                layer.name = LAYER_NAMES[i];
+                var layerName = LAYER_NAMES[i];
+                layer.name = layerName;
             }
         }
         {
@@ -90,6 +90,8 @@ require(["require", "_exports", "checkUtil", "SymbolNameGenerator", "ElementSele
         var symbolName = (0, SymbolNameGenerator_1.generateNameUntilUnique)("环绕飞行_动_");
         doc.convertToSymbol("graphic", symbolName, "center");
         EditDynamic();
+        (0, ElementAnim_1.playLoop)();
+        alert("动作已生成！（请进入元件手动微调速度）");
     }
     Main();
 });

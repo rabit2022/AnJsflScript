@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(["Tips", "SAT", "KeyFrameQuery"], function(Tips, SAT, kfq) {
+define(["Tips", "SAT", "KeyFrameQuery"], function (Tips, SAT, kfq) {
     const { checkVariableRedeclaration } = Tips;
     const { FrameRange, FrameRangeList } = SAT;
     const { getSelectedFrs } = kfq;
@@ -221,7 +221,7 @@ define(["Tips", "SAT", "KeyFrameQuery"], function(Tips, SAT, kfq) {
             if (onlyFirst) {
                 totalDuration = frs[0].duration;
             } else {
-                totalDuration = frs.reduce(function(acc, fr) {
+                totalDuration = frs.reduce(function (acc, fr) {
                     return acc + fr.duration;
                 }, 0);
             }
@@ -341,15 +341,15 @@ define(["Tips", "SAT", "KeyFrameQuery"], function(Tips, SAT, kfq) {
     function CheckSelectionAll(selection, modes, tips) {
         tips = tips || [];
 
-        if (Object.prototype.toString.call(selection) !== '[object Array]') {
-            alert('selection 必须是数组');
+        if (Object.prototype.toString.call(selection) !== "[object Array]") {
+            alert("selection 必须是数组");
             return null;
         }
 
         // 补齐 tips
         for (var i = 0; i < modes.length; i++) {
             if (tips[i] === undefined) {
-                tips[i] = '规则 #' + (i + 1) + ' : ' + modes[i] + ' 未满足';
+                tips[i] = "规则 #" + (i + 1) + " : " + modes[i] + " 未满足";
             }
         }
 
@@ -386,7 +386,6 @@ define(["Tips", "SAT", "KeyFrameQuery"], function(Tips, SAT, kfq) {
             alert("selection 必须是数组");
             return null;
         }
-
 
         // 把 modes 统一成数组
         var rules = typeof modes === "string" ? [modes] : modes;
@@ -426,6 +425,6 @@ define(["Tips", "SAT", "KeyFrameQuery"], function(Tips, SAT, kfq) {
         CheckSelectedItems: CheckSelectedItems,
         CheckSymbolTimeline: CheckSymbolTimeline,
         CheckSelectionAll: CheckSelectionAll,
-        CheckSelectionAny: CheckSelectionAny,
+        CheckSelectionAny: CheckSelectionAny
     };
 });

@@ -1,5 +1,5 @@
 // 这个文件由脚本 生成环绕飞行_内部.ts 自动生成，任何手动修改都将会被覆盖.
-require(["require", "_exports", "checkUtil", "SymbolNameGenerator", "SAT", "JSFLConstants", "KeyFrameOperation", "EaseCurve", "ElementAnim", "loglevel"], function (require, exports, checkUtil_1, SymbolNameGenerator_1, SAT_1, JSFLConstants, KeyFrameOperation_1, EaseCurve_1, ElementAnim_1, log) {
+require(["require", "_exports", "checkUtil", "SymbolNameGenerator", "SAT", "JSFLConstants", "KeyFrameOperation", "EaseCurve", "ElementAnim"], function (require, exports, checkUtil_1, SymbolNameGenerator_1, SAT_1, JSFLConstants, KeyFrameOperation_1, EaseCurve_1, ElementAnim_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var _a = JSFLConstants.Numerics.frame.frameList, FRAME_1 = _a.FRAME_1, FRAME_15 = _a.FRAME_15, FRAME_30 = _a.FRAME_30;
@@ -32,7 +32,6 @@ require(["require", "_exports", "checkUtil", "SymbolNameGenerator", "SAT", "JSFL
         var offset = new SAT_1.Vector(0, 2);
         var top = leftCenter.clone().sub(offset);
         var bottom = leftCenter.clone().add(offset);
-        log.info("环绕矩形", top, bottom);
         var offsets = [top, rightCenter, bottom];
         return offsets;
     }
