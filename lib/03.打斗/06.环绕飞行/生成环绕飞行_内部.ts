@@ -99,7 +99,7 @@ function getOffsets(radius: number) {
     let offset = new Vector(0, 2);
     let top = leftCenter.clone().sub(offset);
     let bottom = leftCenter.clone().add(offset);
-    log.info("环绕矩形", top, bottom);
+    // log.info("环绕矩形", top, bottom);
 
     let offsets = [top, rightCenter, bottom]; // 顺时针方向
     // let offsets = [bottom, rightCenter, top];// 逆时针方向

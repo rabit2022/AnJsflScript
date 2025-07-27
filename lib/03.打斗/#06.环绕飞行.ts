@@ -16,10 +16,20 @@ import { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } fr
 import { generateNameUntilUnique, generateNameUseLast } from "SymbolNameGenerator";
 // @ts-expect-error
 import { SelectAll, OnlySelectCurrent } from "ElementSelect";
+// @ts-expect-error
+import { swapLayers } from "LayerOperation";
+// @ts-expect-error
+import JSFLConstants = require("JSFLConstants");
+// @ts-expect-error
+import { convertToKeyframesSafety } from "KeyFrameOperation";
+// @ts-expect-error
+import { playLoop } from "ElementAnim";
 
 // ===============Third Party======================
 import log = require("loglevel");
 // endregion import
+
+const { FRAME_1, FRAME_15, FRAME_30 } = JSFLConstants.Numerics.frame.frameList;
 
 // region doc
 var doc = fl.getDocumentDOM(); //文档
@@ -75,6 +85,8 @@ function checkAroundAndFly(selectedElements: FlashElement[]) {
 
 function EditDynamic() {
     doc.enterEditMode("inPlace");
+        let timeline = doc.getTimeline(); //时间轴
+
 
     // 转为元件
     {
@@ -94,6 +106,7 @@ function EditDynamic() {
 
     // 环绕飞行_内_
     {
+        // 重新获取元件，因为上一步 已经转为 新的元件
         SelectAll();
 
         let selection = doc.selection; // 选择的元件
@@ -108,9 +121,87 @@ function EditDynamic() {
         // todo:命令行执行，传参
     }
 
-    // todo:分散到图层
+    // 分散到图层
     {
+        SelectAll();
+
+        let selection = doc.selection; // 选择的元件
+        let { AroundElement, FlyElement } = checkAroundAndFly(selection);
+
+        // current:
+        // 0：AroundElement,FlyElement    selected
+
+        // 分散到图层
+        OnlySelectCurrent(FlyElement);
+        doc.distributeToLayers();
+
+        // current:
+        // 0：AroundElement
+        // 1：FlyElement    selected
+
+        // 复制图层
+        timeline.duplicateLayers();
+
+        // current:
+        // 0：AroundElement
+        // 1-复制：FlyElement   selected
+        // 1：FlyElement
+
+        // 交换图层
+        swapLayers(timeline, 0, 1);
+
+        // current:
+        // 1-复制：FlyElement   selected
+        // 0：AroundElement
+        // 1：FlyElement
     }
+
+    // 重新命名
+    {
+        let layers = timeline.layers; //图层
+        let LAYER_NAMES = ["飞行物_后", "环绕轴", "飞行物_前"];
+
+        for (let i = 0; i < layers.length; i++) {
+            let layer = layers[i];
+            let layerName = layer.name;
+
+            layer.name = LAYER_NAMES[i];
+        }
+    }
+
+    // K 帧
+    {
+
+        // 为所有帧插入30帧
+        const INSERT_FRAMES = FRAME_30;
+        timeline.insertFrames(INSERT_FRAMES, true);
+
+        // 飞行物_后
+        {
+            timeline.setSelectedLayers(0);
+
+            const KEY_FRAMES = [FRAME_1, FRAME_15];
+            convertToKeyframesSafety(timeline, KEY_FRAMES);
+
+            // 15帧
+            timeline.setSelectedFrames(KEY_FRAMES[1], KEY_FRAMES[1] + 1);
+            doc.deleteSelection();
+        }
+
+        // 飞行物_前
+        {
+            timeline.setSelectedLayers(2);
+
+            const KEY_FRAMES = [FRAME_1, FRAME_15];
+            convertToKeyframesSafety(timeline, KEY_FRAMES);
+
+            // 15帧
+            timeline.setSelectedFrames(KEY_FRAMES[0], KEY_FRAMES[0] + 1);
+            doc.deleteSelection();
+        }
+    }
+
+    doc.exitEditMode();
 }
 
 function Main() {
@@ -118,6 +209,9 @@ function Main() {
     doc.convertToSymbol("graphic", symbolName, "center");
 
     EditDynamic();
+    // playLoop();
+    //
+    // alert("动作已生成！（请进入元件手动微调速度）");
 }
 
 Main();
