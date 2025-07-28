@@ -24,6 +24,10 @@ import { convertToKeyframesSafety } from "KeyFrameOperation";
 import JSFLConstants = require("JSFLConstants");
 // @ts-expect-error
 import { setEaseCurveEx } from "EaseCurve";
+// @ts-expect-error
+import store = require("store-js");
+// @ts-expect-error
+import store = require("store-js");
 
 // ===============Third Party======================
 import log = require("loglevel");
@@ -122,10 +126,16 @@ function EditDynamic(rotationAngle: number) {
     doc.exitEditMode();
 }
 
+var ns_store = store.namespace("04-走路-短腿");
+
 // 选中左腿
 function Main() {
-    let ROTATION_ANGLE = 30;
-    let WALK_SPEED = 4;
+    // let ROTATION_ANGLE = 30;
+    // let WALK_SPEED = 4;
+    let ROTATION_ANGLE = ns_store.get("ROTATION_ANGLE") || 30;
+    let WALK_SPEED = ns_store.get("WALK_SPEED") || 4;
+    // log.info("ROTATION_ANGLE", ROTATION_ANGLE);
+    // log.info("WALK_SPEED", WALK_SPEED);
 
     // KEY_FRAMES
     {

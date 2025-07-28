@@ -1,5 +1,5 @@
 // 这个文件由脚本 左腿.ts 自动生成，任何手动修改都将会被覆盖.
-require(["require", "_exports", "checkUtil", "SymbolNameGenerator", "ElementSelect", "SAT", "KeyFrameOperation", "JSFLConstants", "EaseCurve", "lodash"], function (require, exports, checkUtil_1, SymbolNameGenerator_1, ElementSelect_1, SAT_1, KeyFrameOperation_1, JSFLConstants, EaseCurve_1, _) {
+require(["require", "_exports", "checkUtil", "SymbolNameGenerator", "ElementSelect", "SAT", "KeyFrameOperation", "JSFLConstants", "EaseCurve", "store-js", "lodash"], function (require, exports, checkUtil_1, SymbolNameGenerator_1, ElementSelect_1, SAT_1, KeyFrameOperation_1, JSFLConstants, EaseCurve_1, store, _) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var _a = JSFLConstants.Numerics.frame.frameList, FRAME_1 = _a.FRAME_1, FRAME_5 = _a.FRAME_5, FRAME_15 = _a.FRAME_15, FRAME_20 = _a.FRAME_20;
@@ -46,14 +46,15 @@ require(["require", "_exports", "checkUtil", "SymbolNameGenerator", "ElementSele
         }
         doc.exitEditMode();
     }
+    var ns_store = store.namespace("04-走路-短腿");
     function Main() {
-        var ROTATION_ANGLE = 30;
-        var WALK_SPEED = 4;
+        var ROTATION_ANGLE = ns_store.get("ROTATION_ANGLE") || 30;
+        var WALK_SPEED = ns_store.get("WALK_SPEED") || 4;
         {
             var n = parseInt(String(20 / WALK_SPEED));
             KEY_FRAMES = [FRAME_1, n - 1, 3 * n - 1, 4 * n - 1];
         }
-        var symbolName = (0, SymbolNameGenerator_1.generateNameUntilUnique)("一键走路_左腿静_");
+        var symbolName = (0, SymbolNameGenerator_1.generateNameUseLast)("一键走路_左腿静_");
         doc.convertToSymbol("graphic", symbolName, "center");
         symbolName = (0, SymbolNameGenerator_1.generateNameUseLast)("一键走路_左腿动_");
         doc.convertToSymbol("graphic", symbolName, "center");

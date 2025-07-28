@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<dialog title="04.走路-短腿" buttons="accept, cancel">
+    <rows>
+        <row>
+            <label control="angle" value="输入摆动幅度(°):"/>
+        </row>
+        <row>
+            <textbox id="angle" value="30" />
+        </row>
+        <separator/>
+
+
+        <row>
+            <label control="speed" value="输入走路速度(1~10):"/>
+        </row>
+        <row>
+            <textbox id="speed" value="4" />
+        </row>
+        <separator/>
+    </rows>
+
+</dialog>

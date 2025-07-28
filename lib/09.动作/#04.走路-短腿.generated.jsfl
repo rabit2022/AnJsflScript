@@ -1,5 +1,5 @@
 // 这个文件由脚本 #04.走路-短腿.ts 自动生成，任何手动修改都将会被覆盖.
-require(["require", "_exports", "checkUtil"], function (require, exports, checkUtil_1) {
+require(["require", "_exports", "checkUtil", "store-js", "COMPATIBILITY", "StringPaser", "ElementSelect"], function (require, exports, checkUtil_1, store, COMPATIBILITY_1, StringPaser_1, ElementSelect_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var doc = fl.getDocumentDOM();
@@ -19,6 +19,36 @@ require(["require", "_exports", "checkUtil"], function (require, exports, checkU
     if (!(0, checkUtil_1.CheckSelectionAny)(selection, ["==2", "==4", "==5"], info)) {
         return;
     }
-    function Main() { }
+    function checkXMLPanel() {
+        var panel = (0, COMPATIBILITY_1.__WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__)("./04.走路-短腿/04.走路-短腿.xml");
+        if (panel === null)
+            return null;
+        var angle = (0, StringPaser_1.parseNumber)(panel.angle, "角度只能输入数字，请重新输入。");
+        if (angle === null)
+            return null;
+        var speed = (0, StringPaser_1.parseNumber)(panel.speed, "速度只能输入数字，请重新输入。");
+        if (speed === null)
+            return null;
+        return { angle: angle, speed: speed };
+    }
+    var ns_store = store.namespace("04-走路-短腿");
+    function Main() {
+        var config = checkXMLPanel();
+        if (config === null)
+            return;
+        var ROTATION_ANGLE = config.angle, WALK_SPEED = config.speed;
+        ns_store.set("ROTATION_ANGLE", ROTATION_ANGLE);
+        ns_store.set("WALK_SPEED", WALK_SPEED);
+        switch (selection.length) {
+            case 2:
+                selection.sort(function (a, b) { return a.left - b.left; });
+                var leftLeg = selection[0], rightLeg = selection[1];
+                (0, ElementSelect_1.OnlySelectCurrent)(leftLeg);
+                (0, COMPATIBILITY_1.__WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__)("./04.走路-短腿/左腿.generated.jsfl");
+                (0, ElementSelect_1.OnlySelectCurrent)(rightLeg);
+                (0, COMPATIBILITY_1.__WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__)("./04.走路-短腿/右腿.generated.jsfl");
+                break;
+        }
+    }
     Main();
 });

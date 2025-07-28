@@ -12,6 +12,15 @@
 // prettier-ignore
 // @ts-expect-error
 import { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers, CheckSelectionAny } from "checkUtil";
+// @ts-expect-error
+import store = require("store-js");
+// prettier-ignore
+// @ts-expect-error
+import { __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__, __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__ } from "COMPATIBILITY";
+// @ts-expect-error
+import { parseNumber } from "StringPaser";
+// @ts-expect-error
+import { OnlySelectCurrent } from "ElementSelect";
 
 // ===============Third Party======================
 import log = require("loglevel");
@@ -68,6 +77,52 @@ if (!CheckSelectionAny(selection, ["==2", "==4", "==5"], info)) {
 // }
 // endregion doc
 
-function Main() {}
+function checkXMLPanel() {
+    // var panel = getXMLPanel();
+    var panel = __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__(
+        "./04.走路-短腿/04.走路-短腿.xml"
+    );
+    if (panel === null) return null;
+
+    var angle = parseNumber(panel.angle, "角度只能输入数字，请重新输入。");
+    if (angle === null) return null;
+
+    let speed = parseNumber(panel.speed, "速度只能输入数字，请重新输入。");
+    if (speed === null) return null;
+
+    return { angle, speed };
+}
+
+var ns_store = store.namespace("04-走路-短腿");
+
+function Main() {
+    let config = checkXMLPanel();
+    if (config === null) return;
+
+    let { angle: ROTATION_ANGLE, speed: WALK_SPEED } = config;
+
+    ns_store.set("ROTATION_ANGLE", ROTATION_ANGLE);
+    ns_store.set("WALK_SPEED", WALK_SPEED);
+
+    switch (selection.length) {
+        case 2:
+            // note: 左边的部件是 右腿，右边的部件是 左腿
+            selection.sort((a, b) => b.left - a.left);
+
+            // 左腿+右腿
+            let [leftLeg, rightLeg] = selection;
+
+            OnlySelectCurrent(leftLeg);
+            __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__(
+                "./04.走路-短腿/左腿.generated.jsfl"
+            );
+
+            OnlySelectCurrent(rightLeg);
+            __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__(
+                "./04.走路-短腿/右腿.generated.jsfl"
+            );
+            break;
+    }
+}
 
 Main();
