@@ -123,6 +123,9 @@ define(["lodash"], function (_) {
          * @deprecated 请使用{@link setEaseCurveEx}
          */
         setEaseCurve: setEaseCurve,
+        /**
+         * @deprecated 请使用{@link setEaseCurveEx}
+         */
         setClassicEaseCurve: setClassicEaseCurve,
         setEaseCurveEx: setEaseCurveEx
     };

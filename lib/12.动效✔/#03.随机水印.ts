@@ -99,6 +99,9 @@ function Main() {
     if (!config) return;
 
     let { text: WATERMARK_TEXT, alpha: WATERMARK_ALPHA, size, speed, interval } = config;
+
+
+
 }
 
 Main();

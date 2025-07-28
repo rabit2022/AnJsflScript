@@ -9,18 +9,20 @@
 
 // region import
 // ===============Core Library======================
+
 // prettier-ignore
 // @ts-expect-error
 import { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers, CheckSelectionAny } from "checkUtil";
 // @ts-expect-error
-import store = require("store-js");
 // prettier-ignore
-// @ts-expect-error
 import { __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__, __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__ } from "COMPATIBILITY";
+
 // @ts-expect-error
 import { parseNumber } from "StringPaser";
 // @ts-expect-error
 import { OnlySelectCurrent } from "ElementSelect";
+// @ts-expect-error
+import store = require("store-js");
 
 // ===============Third Party======================
 import log = require("loglevel");
@@ -122,6 +124,12 @@ function Main() {
                 "./04.走路-短腿/右腿.generated.jsfl"
             );
             break;
+        case 4:
+            break;
+        case 5:
+            break;
+        default:
+            throw new Error(info);
     }
 }
 

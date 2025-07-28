@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(function () {
+define(["assert"], function(assert) {
     const author = "作者：@穹的兔兔\n QQ：3101829204";
     const alertMessageConfig = {
         XUL:
@@ -55,10 +55,10 @@ define(function () {
      * @param {string} name 变量名
      */
     function checkVariableRedeclaration(variable, name) {
-        var assert;
-        require(["assert"], function (module) {
-            assert = module;
-        });
+        // var assert;
+        // require(["assert"], function (module) {
+        //     assert = module;
+        // });
         if (typeof variable === "undefined") {
             var msg = "参数 " + name + "在函数内被重新声明，可能覆盖了外部变量。";
             console.info(msg);

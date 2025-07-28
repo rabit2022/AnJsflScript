@@ -40,8 +40,8 @@ import _ = require("lodash");
 const { FRAME_1, FRAME_16 } = JSFLConstants.Numerics.frame.frameList;
 const { BlurFilterBuilder } = fd.BUILDERS;
 
-log.info("FRAME_1", FRAME_1);
-log.info("FRAME_16", FRAME_16);
+// log.info("FRAME_1", FRAME_1);
+// log.info("FRAME_16", FRAME_16);
 
 // region doc
 var doc = fl.getDocumentDOM(); //文档

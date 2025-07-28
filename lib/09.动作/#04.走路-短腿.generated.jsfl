@@ -1,5 +1,5 @@
 // 这个文件由脚本 #04.走路-短腿.ts 自动生成，任何手动修改都将会被覆盖.
-require(["require", "_exports", "checkUtil", "store-js", "COMPATIBILITY", "StringPaser", "ElementSelect"], function (require, exports, checkUtil_1, store, COMPATIBILITY_1, StringPaser_1, ElementSelect_1) {
+require(["require", "_exports", "checkUtil", "COMPATIBILITY", "StringPaser", "ElementSelect", "store-js"], function (require, exports, checkUtil_1, COMPATIBILITY_1, StringPaser_1, ElementSelect_1, store) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var doc = fl.getDocumentDOM();
@@ -41,13 +41,19 @@ require(["require", "_exports", "checkUtil", "store-js", "COMPATIBILITY", "Strin
         ns_store.set("WALK_SPEED", WALK_SPEED);
         switch (selection.length) {
             case 2:
-                selection.sort(function (a, b) { return a.left - b.left; });
+                selection.sort(function (a, b) { return b.left - a.left; });
                 var leftLeg = selection[0], rightLeg = selection[1];
                 (0, ElementSelect_1.OnlySelectCurrent)(leftLeg);
                 (0, COMPATIBILITY_1.__WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__)("./04.走路-短腿/左腿.generated.jsfl");
                 (0, ElementSelect_1.OnlySelectCurrent)(rightLeg);
                 (0, COMPATIBILITY_1.__WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__)("./04.走路-短腿/右腿.generated.jsfl");
                 break;
+            case 4:
+                break;
+            case 5:
+                break;
+            default:
+                throw new Error(info);
         }
     }
     Main();
