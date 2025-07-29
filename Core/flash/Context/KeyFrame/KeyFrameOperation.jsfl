@@ -13,8 +13,9 @@ define([
     "FrameQuery",
     "Context",
     "FrameChecker",
-    "checkUtil"
-], function (tips, lq, fq, Context, fc, checkUtil) {
+    "checkUtil","KeyFrameQuery"
+], function (tips, lq, fq, Context, fc, checkUtil,
+             kfq) {
     // const { getKeyFrames } = kfq;
     const { checkVariableRedeclaration } = tips;
     const { convertToLayerIndex, convertToLayer } = lq;
@@ -22,6 +23,8 @@ define([
     const { IsNoneFrame } = fc;
 
     const { CheckSelectedFrames } = checkUtil;
+
+    const {getKeyFrames}=kfq;
 
     /**
      * 安全的转换为关键帧
@@ -34,13 +37,29 @@ define([
      */
     function convertToKeyframesSafety(timeline, frameIndexs, selectedLayer) {
         // 重复定义
-        checkVariableRedeclaration(timeline, "timeline");
+        // checkVariableRedeclaration(timeline, "timeline");
 
         // region context
         var context = new Context();
         context.update();
         context.setTimeline(timeline);
         const { frames, layers, curLayer, keyframeIndexes } = context;
+
+        // var doc = fl.getDocumentDOM(); //文档
+        //
+        // var selection = doc.selection; //选择
+        // var library = doc.library; //库文件
+        // var timeline = doc.getTimeline(); //时间轴
+        //
+        // var layers = timeline.layers; //图层
+        // var curLayerIndex = timeline.currentLayer; //当前图层索引
+        // var curLayer = layers[curLayerIndex]; //当前图层
+        //
+        // var frames = curLayer.frames; //当前图层的帧列表
+        // var curFrameIndex = timeline.currentFrame; //当前帧索引
+        // var curFrame = frames[curFrameIndex]; //当前帧
+        //
+        // var keyframeIndexes = getKeyFrames(curLayer); //当前图层的关键帧索引列表
         // endregion context
 
         // region frameIndexs处理

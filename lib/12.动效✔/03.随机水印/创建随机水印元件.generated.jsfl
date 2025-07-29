@@ -44,8 +44,14 @@ require(["require", "_exports", "checkUtil", "ElementAnim", "SAT", "COMPATIBILIT
     var WATERMARK_LAYER_NAME = "随机水印";
     var ns_store = store.namespace("04-走路-短腿");
     function Main() {
-        var cookieStr = ns_store.get("WATERMARK_TEXT");
-        var WATERMARK_TEXT = (0, JSFLInterface_1.decodeUnicode)(cookieStr) || "随机水印";
+        var WATERMARK_TEXT = (function () {
+            var cookieStr = ns_store.get("WATERMARK_TEXT");
+            if (cookieStr) {
+                var str = (0, JSFLInterface_1.decodeUnicode)(cookieStr);
+                return str;
+            }
+            return "随机水印";
+        })();
         var WATERMARK_ALPHA = ns_store.get("WATERMARK_ALPHA") || 30;
         WATERMARK_LAYER_INDEX = (0, LayerOperation_1.addNewLayerSafety)(timeline, WATERMARK_LAYER_NAME);
         ns_store.set("WATERMARK_LAYER_INDEX", WATERMARK_LAYER_INDEX);

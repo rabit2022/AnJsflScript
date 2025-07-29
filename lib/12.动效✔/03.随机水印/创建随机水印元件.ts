@@ -89,20 +89,32 @@ const KEY_FRAMES = [FRAME_1, FRAME_2, FRAME_3, FRAME_4, FRAME_5];
 
 function EditWatermark() {
     let filters = getFilters();
-    // log.info(fills);
+    // console.log(filters);
+
+    // return;
 
     doc.enterEditMode("inPlace");
     let timeline = doc.getTimeline(); //时间轴
     let layers = timeline.layers; //图层
 
     let watermarkLayer = layers[WATERMARK_LAYER_INDEX];
+    // console.log(watermarkLayer.name);
+
+    // console.log(KEY_FRAMES,KEY_FRAMES.length);
 
     // 关键帧
     timeline.insertFrames(KEY_FRAMES.length - 1);
+
+    // bug:闪退的原因不清楚，这里 即使直接用数字索引也会 闪退
+    // 属于匪夷所思的bug，有时候 使用，不会闪退，有时候会闪退
+
+    // timeline.convertToKeyframes(KEY_FRAMES[0], KEY_FRAMES[KEY_FRAMES.length - 1]+1)
     convertToKeyframesSafety(timeline, KEY_FRAMES);
+    // timeline.convertToKeyframes(0,6);
 
     KEY_FRAMES.forEach((frameIndex, index) => {
         let filter = [filters[index]];
+        // log.info(filter);
         watermarkLayer.setFiltersAtFrame(frameIndex, filter);
     });
 
@@ -119,10 +131,25 @@ function Main() {
     // const WATERMARK_ALPHA = 30;
     // ns_store.set("WATERMARK_TEXT", WATERMARK_TEXT);
     // ns_store.set("WATERMARK_ALPHA", WATERMARK_ALPHA);
-    let cookieStr = ns_store.get("WATERMARK_TEXT");
+    // let cookieStr = ns_store.get("WATERMARK_TEXT");
+    //
 
-    const WATERMARK_TEXT = decodeUnicode(cookieStr) || "随机水印";
+
+    // const WATERMARK_TEXT = decodeUnicode(cookieStr) || "随机水印";
+    const WATERMARK_TEXT = (() => {
+        let cookieStr:string = ns_store.get("WATERMARK_TEXT");
+        if (cookieStr) {
+            let str = decodeUnicode(cookieStr);
+            return str;
+        }
+
+        // 没有设置则使用默认值
+        return "随机水印";
+    })();
+
     const WATERMARK_ALPHA = ns_store.get("WATERMARK_ALPHA") || 30;
+    // log.info("水印文本：" + WATERMARK_TEXT);
+    // log.info("水印透明度：" + WATERMARK_ALPHA);
 
     // 创建水印图层
     WATERMARK_LAYER_INDEX = addNewLayerSafety(timeline, WATERMARK_LAYER_NAME);
@@ -136,7 +163,8 @@ function Main() {
         const ORIGINAL_POSITION = new Vector();
         library.addItemToDocument(ORIGINAL_POSITION, RANDOM_WATERMARK);
         playSingleFrame();
-    } else {
+    }
+    else {
         let rect = new Rectangle(0, 0, 100, 100);
         doc.addNewText(rect, WATERMARK_TEXT);
 

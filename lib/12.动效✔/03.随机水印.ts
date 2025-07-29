@@ -4,7 +4,7 @@
  * @email: 3101829204@qq.com
  * @date: 2025/7/20 17:20
  * @project: AnJsflScript
- * @description:
+ * @description:  可能闪退，创建随机水印元件.ts 文件 暂时有bug，待修复
  */
 
 // region import
@@ -49,8 +49,9 @@ import { IEnumerable } from "linq";
 const { FPS } = JSFLConstants.Numerics.frame.frameRate;
 const { FRAME_1 } = JSFLConstants.Numerics.frame.frameList;
 
-const getStageBounds = sat.ENTITY.STAGE.getBounds;
-const getStageSize = sat.ENTITY.STAGE.getSize;
+// const getStageBounds = sat.ENTITY.STAGE.getBounds;
+// const getStageSize = sat.ENTITY.STAGE.getSize;
+const { getBounds: getStageBounds, getSize: getStageSize } = sat.ENTITY.STAGE;
 
 // region doc
 var doc = fl.getDocumentDOM(); //文档
@@ -128,20 +129,21 @@ function checkXMLPanel() {
 var ns_store = store.namespace("04-走路-短腿");
 
 function generateSegments(totalFrameCount: number, intervalFrames: number): number[][] {
-    return (
-        Enumerable
-            // @ts-ignore
-            .range(0, Math.ceil(totalFrameCount / intervalFrames))
-            .select((i) => {
-                const start = i * intervalFrames;
-                const end = Math.min(start + intervalFrames - 1, totalFrameCount - 1);
-                return [start, end];
-            })
-            .toArray()
-    );
+    return Enumerable
+        // @ts-ignore
+        .range(0, Math.ceil(totalFrameCount / intervalFrames))
+        .select((i) => {
+            const start = i * intervalFrames;
+            const end = Math.min(start + intervalFrames - 1, totalFrameCount - 1);
+            return [start, end];
+        })
+        .toArray();
 }
 
 function Main() {
+    let allowToContinue = confirm("暂时可能闪退，请存档后在确认，是否继续？");
+    if (!allowToContinue) return;
+
     let config = checkXMLPanel();
     if (!config) return;
 
@@ -163,7 +165,7 @@ function Main() {
         // 获取参数
         // ns_store.set("WATERMARK_LAYER_INDEX", WATERMARK_LAYER_INDEX);
         WATERMARK_LAYER_INDEX = ns_store.get("WATERMARK_LAYER_INDEX");
-        // log.info("当前水印图层索引：" + WATERMARK_LAYER_INDEX);
+        log.info("当前水印图层索引：" + WATERMARK_LAYER_INDEX);
 
         timeline.setSelectedFrames([WATERMARK_LAYER_INDEX, FRAME_1, FRAME_1 + 1]); // 选中水印图层
 
@@ -187,10 +189,12 @@ function Main() {
             convertToKeyframesSafety(timeline, start);
         });
     }
+    log.info(segments);
 
     // 设置水印 的位置信息
     {
         for (let [start, end] of segments) {
+            log.info(start, end);
             // 选中关键帧
             timeline.setSelectedFrames([WATERMARK_LAYER_INDEX, start, start + 1]);
 
@@ -199,7 +203,9 @@ function Main() {
                 let selection = doc.selection;
                 let selectedElement = selection[0];
 
-                selectedElement.firstFrame = random.randomint(0, SYMBOL_FRAME_COUNT - 1);
+                log.info(selectedElement.libraryItem.name, random.randint(0, SYMBOL_FRAME_COUNT - 1));
+
+                selectedElement.firstFrame = random.randint(0, SYMBOL_FRAME_COUNT - 1);
             }
 
             // 元件 放到 随机位置
@@ -218,7 +224,7 @@ function Main() {
 
             // 缩放元件
             {
-                var scale = size * random.uniform(1, 2);
+                let scale = size * random.uniform(1, 2);
                 doc.scaleSelection(scale, scale);
             }
 
@@ -237,13 +243,12 @@ function Main() {
                     let direction: Vector = new Vector(
                         random.uniform(-1, 1),
                         random.uniform(-1, 1)
-                    );
+                    ).normalize();
 
                     // 速度
                     let speedFactor: number = speed / 100;
 
                     let deltaOffset: Vector = direction
-                        .normalize()
                         .scale(speedFactor)
                         .scale(stageSize.width, stageSize.height);
 

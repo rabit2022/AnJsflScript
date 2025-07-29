@@ -1,11 +1,10 @@
-// 这个文件由脚本 #03.随机水印.ts 自动生成，任何手动修改都将会被覆盖.
-require(["require", "_exports", "checkUtil", "COMPATIBILITY", "StringPaser", "store-js", "COMPATIBILITY", "JSFLConstants", "ElementQuery", "KeyFrameOperation", "random", "SAT", "SAT", "satUtil", "EaseCurve", "linq"], function (require, exports, checkUtil_1, COMPATIBILITY_1, StringPaser_1, store, COMPATIBILITY_2, JSFLConstants, ElementQuery_1, KeyFrameOperation_1, random, sat, SAT_1, satUtil_1, EaseCurve_1, Enumerable) {
+// 这个文件由脚本 03.随机水印.ts 自动生成，任何手动修改都将会被覆盖.
+require(["require", "_exports", "checkUtil", "COMPATIBILITY", "StringPaser", "store-js", "COMPATIBILITY", "JSFLConstants", "ElementQuery", "KeyFrameOperation", "random", "SAT", "SAT", "satUtil", "EaseCurve", "loglevel", "linq"], function (require, exports, checkUtil_1, COMPATIBILITY_1, StringPaser_1, store, COMPATIBILITY_2, JSFLConstants, ElementQuery_1, KeyFrameOperation_1, random, sat, SAT_1, satUtil_1, EaseCurve_1, log, Enumerable) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var FPS = JSFLConstants.Numerics.frame.frameRate.FPS;
     var FRAME_1 = JSFLConstants.Numerics.frame.frameList.FRAME_1;
-    var getStageBounds = sat.ENTITY.STAGE.getBounds;
-    var getStageSize = sat.ENTITY.STAGE.getSize;
+    var _a = sat.ENTITY.STAGE, getStageBounds = _a.getBounds, getStageSize = _a.getSize;
     var doc = fl.getDocumentDOM();
     if (!(0, checkUtil_1.CheckDom)(doc)) {
         return;
@@ -54,16 +53,19 @@ require(["require", "_exports", "checkUtil", "COMPATIBILITY", "StringPaser", "st
     }
     var ns_store = store.namespace("04-走路-短腿");
     function generateSegments(totalFrameCount, intervalFrames) {
-        return (Enumerable
+        return Enumerable
             .range(0, Math.ceil(totalFrameCount / intervalFrames))
             .select(function (i) {
             var start = i * intervalFrames;
             var end = Math.min(start + intervalFrames - 1, totalFrameCount - 1);
             return [start, end];
         })
-            .toArray());
+            .toArray();
     }
     function Main() {
+        var allowToContinue = confirm("暂时可能闪退，请存档后在确认，是否继续？");
+        if (!allowToContinue)
+            return;
         var config = checkXMLPanel();
         if (!config)
             return;
@@ -75,6 +77,7 @@ require(["require", "_exports", "checkUtil", "COMPATIBILITY", "StringPaser", "st
             ns_store.set("WATERMARK_ALPHA", WATERMARK_ALPHA);
             (0, COMPATIBILITY_2.__WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__)("./03.随机水印/创建随机水印元件.generated.jsfl");
             WATERMARK_LAYER_INDEX = ns_store.get("WATERMARK_LAYER_INDEX");
+            log.info("当前水印图层索引：" + WATERMARK_LAYER_INDEX);
             timeline.setSelectedFrames([WATERMARK_LAYER_INDEX, FRAME_1, FRAME_1 + 1]);
             var selection_1 = doc.selection;
             SYMBOL_FRAME_COUNT = (0, ElementQuery_1.getFrameCount)(selection_1[0]);
@@ -91,14 +94,17 @@ require(["require", "_exports", "checkUtil", "COMPATIBILITY", "StringPaser", "st
                 (0, KeyFrameOperation_1.convertToKeyframesSafety)(timeline, start);
             });
         }
+        log.info(segments);
         {
             for (var _i = 0, segments_1 = segments; _i < segments_1.length; _i++) {
                 var _a = segments_1[_i], start = _a[0], end = _a[1];
+                log.info(start, end);
                 timeline.setSelectedFrames([WATERMARK_LAYER_INDEX, start, start + 1]);
                 {
                     var selection_2 = doc.selection;
                     var selectedElement = selection_2[0];
-                    selectedElement.firstFrame = random.randomint(0, SYMBOL_FRAME_COUNT - 1);
+                    log.info(selectedElement.libraryItem.name, random.randint(0, SYMBOL_FRAME_COUNT - 1));
+                    selectedElement.firstFrame = random.randint(0, SYMBOL_FRAME_COUNT - 1);
                 }
                 {
                     var MARGIN = 100;
@@ -118,10 +124,9 @@ require(["require", "_exports", "checkUtil", "COMPATIBILITY", "StringPaser", "st
                     timeline.setSelectedFrames([WATERMARK_LAYER_INDEX, end, end + 1]);
                     {
                         var stageSize = getStageSize();
-                        var direction = new SAT_1.Vector(random.uniform(-1, 1), random.uniform(-1, 1));
+                        var direction = new SAT_1.Vector(random.uniform(-1, 1), random.uniform(-1, 1)).normalize();
                         var speedFactor = speed / 100;
                         var deltaOffset = direction
-                            .normalize()
                             .scale(speedFactor)
                             .scale(stageSize.width, stageSize.height);
                         doc.moveSelectionBy(deltaOffset);
