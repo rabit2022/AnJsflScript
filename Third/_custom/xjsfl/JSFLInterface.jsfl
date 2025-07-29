@@ -19,12 +19,16 @@ define(["universal-cookie"],function(Cookie) {
      * @return {string}     解码后的原始字符串
      */
     function decodeUnicode(str) {
+        var result="";
         // 1. 先处理 %uXXXX → 字符
-        str = str.replace(/%u([0-9a-fA-F]{4})/g, function (_, hex) {
+        result = str.replace(/%u([0-9a-fA-F]{4})/g, function (_, hex) {
             return String.fromCharCode(parseInt(hex, 16));
         });
         // 2. 再处理 %XX → 字符
-        return decodeURIComponent(str);
+        result= decodeURIComponent(result);
+        // 3. 把开头与结尾的 " 去掉
+        result=result.replace(/^"|"$/g, "");
+        return result;
     };
 
     /**

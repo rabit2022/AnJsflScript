@@ -25,6 +25,10 @@ import { addNewLayerSafety } from "LayerOperation";
 
 // @ts-expect-error
 import JSFLConstants = require("JSFLConstants");
+// @ts-expect-error
+import store = require("store-js");
+// @ts-expect-error
+import {decodeUnicode } from "JSFLInterface";
 
 // ===============Third Party======================
 import log = require("loglevel");
@@ -108,14 +112,25 @@ function EditWatermark() {
 let WATERMARK_LAYER_INDEX = 0;
 const WATERMARK_LAYER_NAME = "随机水印";
 
+var ns_store = store.namespace("04-走路-短腿");
+
 function Main() {
-    const WATERMARK_TEXT = "随机水印";
-    const WATERMARK_ALPHA = 30;
+    // const WATERMARK_TEXT = "随机水印";
+    // const WATERMARK_ALPHA = 30;
+    // ns_store.set("WATERMARK_TEXT", WATERMARK_TEXT);
+    // ns_store.set("WATERMARK_ALPHA", WATERMARK_ALPHA);
+    let cookieStr=ns_store.get("WATERMARK_TEXT");
+
+    const WATERMARK_TEXT = decodeUnicode(cookieStr) || "随机水印";
+    const WATERMARK_ALPHA = ns_store.get("WATERMARK_ALPHA") || 30;
 
     // 创建水印图层
     WATERMARK_LAYER_INDEX = addNewLayerSafety(timeline, WATERMARK_LAYER_NAME);
 
+    ns_store.set("WATERMARK_LAYER_INDEX", WATERMARK_LAYER_INDEX);
+
     timeline.setSelectedFrames([WATERMARK_LAYER_INDEX, 0, 1]);
+
 
     if (library.itemExists(RANDOM_WATERMARK)) {
         // 已存在则直接添加

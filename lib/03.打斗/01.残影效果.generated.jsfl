@@ -4,8 +4,6 @@ require(["require", "_exports", "checkUtil", "promptUtil", "SymbolNameGenerator"
     Object.defineProperty(exports, "__esModule", { value: true });
     var _a = JSFLConstants.Numerics.frame.frameList, FRAME_1 = _a.FRAME_1, FRAME_16 = _a.FRAME_16;
     var BlurFilterBuilder = fd.BUILDERS.BlurFilterBuilder;
-    log.info("FRAME_1", FRAME_1);
-    log.info("FRAME_16", FRAME_16);
     var doc = fl.getDocumentDOM();
     if (!(0, checkUtil_1.CheckDom)(doc)) {
         return;

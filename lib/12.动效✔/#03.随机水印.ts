@@ -16,10 +16,26 @@ import { CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers } fr
 import { __WEBPACK_COMPATIBILITY_XML_PANEL_RELATIVE_PATH__ } from "COMPATIBILITY";
 // @ts-expect-error
 import { parseNumber } from "StringPaser";
+// @ts-expect-error
+import store = require("store-js");
+// @ts-expect-error
+import { __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__ } from "COMPATIBILITY";
+// @ts-expect-error
+import JSFLConstants = require("JSFLConstants");
+// @ts-expect-error
+import { getFrameCount } from "ElementQuery";
+// @ts-expect-error
+import { $range } from "linqUtil";
 
 // ===============Third Party======================
 import log = require("loglevel");
+import Enumerable = require("linq");
+// @ts-expect-error
+import { IEnumerable } from 'linq';
 // endregion import
+
+const { FPS } = JSFLConstants.Numerics.frame.frameRate;
+const { FRAME_1 } = JSFLConstants.Numerics.frame.frameList;
 
 // region doc
 var doc = fl.getDocumentDOM(); //文档
@@ -94,14 +110,68 @@ function checkXMLPanel() {
     };
 }
 
+var ns_store = store.namespace("04-走路-短腿");
+
+function generateSegments(totalFrameCount: number, intervalFrames: number):IEnumerable<[number, number]> {
+    return Enumerable
+        // @ts-ignore
+        .range(0, Math.ceil(totalFrameCount / intervalFrames))
+        .select(i => {
+            const start = i * intervalFrames;
+            const end = Math.min(start + intervalFrames - 1, totalFrameCount - 1);
+            return [start, end];
+        });
+    // .toArray();
+}
+
+
 function Main() {
     let config = checkXMLPanel();
     if (!config) return;
 
     let { text: WATERMARK_TEXT, alpha: WATERMARK_ALPHA, size, speed, interval } = config;
 
+    let WATERMARK_LAYER_INDEX = 0;
+    // 创建随机水印元件
+    {
+        // 传参
+        ns_store.set("WATERMARK_TEXT", WATERMARK_TEXT);
+        ns_store.set("WATERMARK_ALPHA", WATERMARK_ALPHA);
+
+        // 创建随机水印元件.ts
+        __WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__(
+            "./03.随机水印/创建随机水印元件.generated.jsfl"
+        );
+
+        // 获取参数
+        // ns_store.set("WATERMARK_LAYER_INDEX", WATERMARK_LAYER_INDEX);
+        WATERMARK_LAYER_INDEX = ns_store.get("WATERMARK_LAYER_INDEX");
+        // log.info("当前水印图层索引：" + WATERMARK_LAYER_INDEX);
+
+        timeline.setSelectedLayers(WATERMARK_LAYER_INDEX); // 选中水印图层
+    }
+
+    // 添加关键帧
+    {
+        // 获取间隔的帧数
+        let intervalFrames = interval * FPS;
+
+        var layers = timeline.layers; //图层
+        let watermarkLayer = layers[WATERMARK_LAYER_INDEX]; // 水印图层
+        let totalFrameCount = watermarkLayer.frameCount; // 总帧数
+
+        let segments = generateSegments(totalFrameCount, intervalFrames);
+        segments.forEach(([start, end]) => {
+            // log.info(`添加关键帧：${start} - ${end}`);
+
+        });
 
 
+    }
 }
 
 Main();
+// let segments = generateSegments(1000,150);
+// segments.forEach(([start, end]) => {
+//     log.info(`添加关键帧：${start} - ${end}`);
+// });

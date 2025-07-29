@@ -1,5 +1,5 @@
 // 这个文件由脚本 创建随机水印元件.ts 自动生成，任何手动修改都将会被覆盖.
-require(["require", "_exports", "checkUtil", "ElementAnim", "SAT", "COMPATIBILITY", "KeyFrameOperation", "LayerOperation", "JSFLConstants"], function (require, exports, checkUtil_1, ElementAnim_1, SAT_1, COMPATIBILITY_1, KeyFrameOperation_1, LayerOperation_1, JSFLConstants) {
+require(["require", "_exports", "checkUtil", "ElementAnim", "SAT", "COMPATIBILITY", "KeyFrameOperation", "LayerOperation", "JSFLConstants", "store-js", "JSFLInterface"], function (require, exports, checkUtil_1, ElementAnim_1, SAT_1, COMPATIBILITY_1, KeyFrameOperation_1, LayerOperation_1, JSFLConstants, store, JSFLInterface_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var _a = JSFLConstants.Numerics.frame.frameList, FRAME_1 = _a.FRAME_1, FRAME_2 = _a.FRAME_2, FRAME_3 = _a.FRAME_3, FRAME_4 = _a.FRAME_4, FRAME_5 = _a.FRAME_5;
@@ -42,10 +42,13 @@ require(["require", "_exports", "checkUtil", "ElementAnim", "SAT", "COMPATIBILIT
     }
     var WATERMARK_LAYER_INDEX = 0;
     var WATERMARK_LAYER_NAME = "随机水印";
+    var ns_store = store.namespace("04-走路-短腿");
     function Main() {
-        var WATERMARK_TEXT = "随机水印";
-        var WATERMARK_ALPHA = 30;
+        var cookieStr = ns_store.get("WATERMARK_TEXT");
+        var WATERMARK_TEXT = (0, JSFLInterface_1.decodeUnicode)(cookieStr) || "随机水印";
+        var WATERMARK_ALPHA = ns_store.get("WATERMARK_ALPHA") || 30;
         WATERMARK_LAYER_INDEX = (0, LayerOperation_1.addNewLayerSafety)(timeline, WATERMARK_LAYER_NAME);
+        ns_store.set("WATERMARK_LAYER_INDEX", WATERMARK_LAYER_INDEX);
         timeline.setSelectedFrames([WATERMARK_LAYER_INDEX, 0, 1]);
         if (library.itemExists(RANDOM_WATERMARK)) {
             var ORIGINAL_POSITION = new SAT_1.Vector();
