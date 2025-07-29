@@ -26,16 +26,31 @@ import JSFLConstants = require("JSFLConstants");
 import { getFrameCount } from "ElementQuery";
 // @ts-expect-error
 import { $range } from "linqUtil";
+// @ts-expect-error
+import { convertToKeyframesSafety } from "KeyFrameOperation";
+// @ts-expect-error
+import random = require("random");
+// @ts-expect-error
+import sat = require("SAT");
+// @ts-expect-error
+import { Vector, Rectangle, Size } from "SAT";
+// @ts-expect-error
+import { generateRandomPointInRect } from "satUtil";
+// @ts-expect-error
+import { setEaseCurveEx } from "EaseCurve";
 
 // ===============Third Party======================
 import log = require("loglevel");
 import Enumerable = require("linq");
 // @ts-expect-error
-import { IEnumerable } from 'linq';
+import { IEnumerable } from "linq";
 // endregion import
 
 const { FPS } = JSFLConstants.Numerics.frame.frameRate;
 const { FRAME_1 } = JSFLConstants.Numerics.frame.frameList;
+
+const getStageBounds = sat.ENTITY.STAGE.getBounds;
+const getStageSize = sat.ENTITY.STAGE.getSize;
 
 // region doc
 var doc = fl.getDocumentDOM(); //文档
@@ -112,18 +127,19 @@ function checkXMLPanel() {
 
 var ns_store = store.namespace("04-走路-短腿");
 
-function generateSegments(totalFrameCount: number, intervalFrames: number):IEnumerable<[number, number]> {
-    return Enumerable
-        // @ts-ignore
-        .range(0, Math.ceil(totalFrameCount / intervalFrames))
-        .select(i => {
-            const start = i * intervalFrames;
-            const end = Math.min(start + intervalFrames - 1, totalFrameCount - 1);
-            return [start, end];
-        });
-    // .toArray();
+function generateSegments(totalFrameCount: number, intervalFrames: number): number[][] {
+    return (
+        Enumerable
+            // @ts-ignore
+            .range(0, Math.ceil(totalFrameCount / intervalFrames))
+            .select((i) => {
+                const start = i * intervalFrames;
+                const end = Math.min(start + intervalFrames - 1, totalFrameCount - 1);
+                return [start, end];
+            })
+            .toArray()
+    );
 }
-
 
 function Main() {
     let config = checkXMLPanel();
@@ -132,6 +148,7 @@ function Main() {
     let { text: WATERMARK_TEXT, alpha: WATERMARK_ALPHA, size, speed, interval } = config;
 
     let WATERMARK_LAYER_INDEX = 0;
+    let SYMBOL_FRAME_COUNT = 0;
     // 创建随机水印元件
     {
         // 传参
@@ -148,10 +165,14 @@ function Main() {
         WATERMARK_LAYER_INDEX = ns_store.get("WATERMARK_LAYER_INDEX");
         // log.info("当前水印图层索引：" + WATERMARK_LAYER_INDEX);
 
-        timeline.setSelectedLayers(WATERMARK_LAYER_INDEX); // 选中水印图层
+        timeline.setSelectedFrames([WATERMARK_LAYER_INDEX, FRAME_1, FRAME_1 + 1]); // 选中水印图层
+
+        let selection = doc.selection;
+        SYMBOL_FRAME_COUNT = getFrameCount(selection[0]); // 符号的帧数
     }
 
     // 添加关键帧
+    let segments: number[][] = [];
     {
         // 获取间隔的帧数
         let intervalFrames = interval * FPS;
@@ -160,13 +181,94 @@ function Main() {
         let watermarkLayer = layers[WATERMARK_LAYER_INDEX]; // 水印图层
         let totalFrameCount = watermarkLayer.frameCount; // 总帧数
 
-        let segments = generateSegments(totalFrameCount, intervalFrames);
+        segments = generateSegments(totalFrameCount, intervalFrames);
         segments.forEach(([start, end]) => {
             // log.info(`添加关键帧：${start} - ${end}`);
-
+            convertToKeyframesSafety(timeline, start);
         });
+    }
 
+    // 设置水印 的位置信息
+    {
+        for (let [start, end] of segments) {
+            // 选中关键帧
+            timeline.setSelectedFrames([WATERMARK_LAYER_INDEX, start, start + 1]);
 
+            // 设置元件的关键帧
+            {
+                let selection = doc.selection;
+                let selectedElement = selection[0];
+
+                selectedElement.firstFrame = random.randomint(0, SYMBOL_FRAME_COUNT - 1);
+            }
+
+            // 元件 放到 随机位置
+            {
+                // 四周留出一点空隙
+                let MARGIN = 100;
+
+                let stageBounds: Rectangle = getStageBounds();
+                let shrinkedBounds = stageBounds.shrink(MARGIN);
+                let randomPoint = generateRandomPointInRect(shrinkedBounds);
+
+                let selectedElement = doc.selection[0];
+                selectedElement.x = randomPoint.x;
+                selectedElement.y = randomPoint.y;
+            }
+
+            // 缩放元件
+            {
+                var scale = size * random.uniform(1, 2);
+                doc.scaleSelection(scale, scale);
+            }
+
+            // 最后一帧的处理
+            {
+                // 转为关键帧
+                convertToKeyframesSafety(timeline, end);
+
+                // 选中最后一帧
+                timeline.setSelectedFrames([WATERMARK_LAYER_INDEX, end, end + 1]);
+
+                {
+                    let stageSize: Size = getStageSize();
+
+                    // 随机方向
+                    let direction: Vector = new Vector(
+                        random.uniform(-1, 1),
+                        random.uniform(-1, 1)
+                    );
+
+                    // 速度
+                    let speedFactor: number = speed / 100;
+
+                    let deltaOffset: Vector = direction
+                        .normalize()
+                        .scale(speedFactor)
+                        .scale(stageSize.width, stageSize.height);
+
+                    doc.moveSelectionBy(deltaOffset);
+                }
+            }
+
+            // 补间
+            {
+                let KEY_FRAMES = [start, end];
+                setEaseCurveEx(timeline, KEY_FRAMES, "Classic Ease");
+            }
+        }
+    }
+
+    //  收尾
+    {
+        // 选中 第一帧
+        timeline.setSelectedFrames([WATERMARK_LAYER_INDEX, FRAME_1, FRAME_1 + 1]);
+
+        // 锁定水印图层
+        let layers = timeline.layers; //图层
+        let watermarkLayer = layers[WATERMARK_LAYER_INDEX]; // 水印图层
+
+        watermarkLayer.locked = true;
     }
 }
 

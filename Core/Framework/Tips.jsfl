@@ -7,7 +7,7 @@
  * @description:
  */
 
-define(["assert"], function(assert) {
+define(["assert"], function (assert) {
     const author = "作者：@穹的兔兔\n QQ：3101829204";
     const alertMessageConfig = {
         XUL:

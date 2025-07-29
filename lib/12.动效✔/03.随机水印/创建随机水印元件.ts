@@ -28,7 +28,7 @@ import JSFLConstants = require("JSFLConstants");
 // @ts-expect-error
 import store = require("store-js");
 // @ts-expect-error
-import {decodeUnicode } from "JSFLInterface";
+import { decodeUnicode } from "JSFLInterface";
 
 // ===============Third Party======================
 import log = require("loglevel");
@@ -119,7 +119,7 @@ function Main() {
     // const WATERMARK_ALPHA = 30;
     // ns_store.set("WATERMARK_TEXT", WATERMARK_TEXT);
     // ns_store.set("WATERMARK_ALPHA", WATERMARK_ALPHA);
-    let cookieStr=ns_store.get("WATERMARK_TEXT");
+    let cookieStr = ns_store.get("WATERMARK_TEXT");
 
     const WATERMARK_TEXT = decodeUnicode(cookieStr) || "随机水印";
     const WATERMARK_ALPHA = ns_store.get("WATERMARK_ALPHA") || 30;
@@ -130,7 +130,6 @@ function Main() {
     ns_store.set("WATERMARK_LAYER_INDEX", WATERMARK_LAYER_INDEX);
 
     timeline.setSelectedFrames([WATERMARK_LAYER_INDEX, 0, 1]);
-
 
     if (library.itemExists(RANDOM_WATERMARK)) {
         // 已存在则直接添加
