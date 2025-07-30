@@ -4,7 +4,7 @@
  * @email: 3101829204@qq.com
  * @date: 2024/12/23 12:31
  * @project: AnJsflScript
- * @description:
+ * @description:  可能闪退
  */
 
 // @formatter:off
@@ -120,6 +120,9 @@ require([
     function Main() {
         // 检查选择的元件
         if (!checkSelection(selection, "selectElement", "Only one")) return;
+
+        var allowToContinue = confirm("暂时可能闪退，请存档后在确认，是否继续？");
+        if (!allowToContinue) return;
 
         // 碎片
         if (!splinterSymbol(doc.selection[0], "一键爆炸_")) return;
