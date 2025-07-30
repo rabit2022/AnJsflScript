@@ -129,7 +129,7 @@ function deleteMoreThanMAX(timeDataList: Array<TimeData>) {
 }
 
 function Main() {
-    let allowToContinue = confirm("暂时可能闪退，请存档后在确认，是否继续？");
+    let allowToContinue = confirm("暂时可能闪退，或者导入很慢，请存档后在确认，是否继续？");
     if (!allowToContinue) return;
 
 

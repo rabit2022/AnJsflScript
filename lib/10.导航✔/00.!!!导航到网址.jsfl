@@ -46,6 +46,9 @@ require(["checkUtil", "loglevel", "os"], function (checkUtil, log, os) {
     // endregion doc
 
     function Main() {
+        var allowToContinue = confirm("此功能需要相应的网站支持，请查看代码,继续进入的是示例网站");
+        if (!allowToContinue)   return;
+
         // @note: 把下面代码替换成你要打开的网址即可
         var url = "https://www.kimi.com/"; // kimi ai
         os.startfile(url, "open");

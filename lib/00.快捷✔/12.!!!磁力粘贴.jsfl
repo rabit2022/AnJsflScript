@@ -132,7 +132,9 @@ require([
     }
 
     function Main() {
-        // alert("此功能需要相应的网站支持，暂时只有函数的实现,请查看代码");
+        var allowToContinue = confirm("此功能需要相应的网站支持，暂时只有函数的实现,请查看代码");
+        if (!allowToContinue)   return;
+
 
         // 1，从剪切板获取 加密的磁力链接
         var magnetLink = getStringFromClipboard();

@@ -4,7 +4,7 @@
  * @email: 3101829204@qq.com
  * @date: 2024/12/23 12:31
  * @project: AnJsflScript
- * @description:  可能闪退
+ * @description:  可能 失败
  */
 
 // @formatter:off
@@ -121,7 +121,7 @@ require([
         // 检查选择的元件
         if (!checkSelection(selection, "selectElement", "Only one")) return;
 
-        var allowToContinue = confirm("暂时可能闪退，请存档后在确认，是否继续？");
+        var allowToContinue = confirm("暂时可能 失败，请存档后在确认，是否继续？");
         if (!allowToContinue) return;
 
         // 碎片

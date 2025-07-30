@@ -1,4 +1,4 @@
-// 这个文件由脚本 10.一键羽化.ts 自动生成，任何手动修改都将会被覆盖.
+// 这个文件由脚本 13.一键羽化.ts 自动生成，任何手动修改都将会被覆盖.
 require(["require", "_exports", "checkUtil", "ElementChecker", "SymbolNameGenerator", "ElementSelect", "LayerOperation", "SAT", "FillDefinitions", "ColorPanel", "FilterDefinitions", "loglevel", "lodash"], function (require, exports, checkUtil_1, ElementChecker_1, SymbolNameGenerator_1, ElementSelect_1, LayerOperation_1, sat, fd, ColorPanel_1, fld, log, _) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });

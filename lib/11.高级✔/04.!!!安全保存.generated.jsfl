@@ -69,7 +69,7 @@ require(["require", "_exports", "checkUtil", "luxon-config", "os", "loglevel"], 
         }
     }
     function Main() {
-        var allowToContinue = confirm("暂时可能闪退，请存档后在确认，是否继续？");
+        var allowToContinue = confirm("暂时可能闪退，或者导入很慢，请存档后在确认，是否继续？");
         if (!allowToContinue)
             return;
         var savepath = getSavepath();
