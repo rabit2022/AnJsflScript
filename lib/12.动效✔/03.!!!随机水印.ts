@@ -5,6 +5,7 @@
  * @date: 2025/7/20 17:20
  * @project: AnJsflScript
  * @description:  ！！！可能闪退，创建随机水印元件.ts 文件 暂时有bug，待修复
+ * 本来想做 旋转式的随机水印，但是  闪退问题  还没修复， 就不再 继续了，等待后来人。
  */
 
 // region import

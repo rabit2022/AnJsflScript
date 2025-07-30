@@ -1,4 +1,4 @@
-// 这个文件由脚本 04.安全保存.ts 自动生成，任何手动修改都将会被覆盖.
+// 这个文件由脚本 04.!!!安全保存.ts 自动生成，任何手动修改都将会被覆盖.
 require(["require", "_exports", "checkUtil", "luxon-config", "os", "loglevel"], function (require, exports, checkUtil_1, luxon_config_1, os, log) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -69,6 +69,9 @@ require(["require", "_exports", "checkUtil", "luxon-config", "os", "loglevel"], 
         }
     }
     function Main() {
+        var allowToContinue = confirm("暂时可能闪退，请存档后在确认，是否继续？");
+        if (!allowToContinue)
+            return;
         var savepath = getSavepath();
         log.info("savename: " + savepath);
         fl.saveDocument(doc, savepath);

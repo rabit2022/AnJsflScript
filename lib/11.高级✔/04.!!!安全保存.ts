@@ -4,7 +4,7 @@
  * @email: 3101829204@qq.com
  * @date: 2025/7/6 21:49
  * @project: AnJsflScript
- * @description:
+ * @description:首次导入会很慢
  */
 
 // prettier-ignore
@@ -129,6 +129,10 @@ function deleteMoreThanMAX(timeDataList: Array<TimeData>) {
 }
 
 function Main() {
+    let allowToContinue = confirm("暂时可能闪退，请存档后在确认，是否继续？");
+    if (!allowToContinue) return;
+
+
     const savepath = getSavepath();
     log.info("savename: " + savepath);
 
