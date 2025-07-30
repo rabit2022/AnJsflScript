@@ -13,9 +13,9 @@ define([
     "FrameQuery",
     "Context",
     "FrameChecker",
-    "checkUtil","KeyFrameQuery"
-], function (tips, lq, fq, Context, fc, checkUtil,
-             kfq) {
+    "checkUtil",
+    "KeyFrameQuery"
+], function (tips, lq, fq, Context, fc, checkUtil, kfq) {
     // const { getKeyFrames } = kfq;
     const { checkVariableRedeclaration } = tips;
     const { convertToLayerIndex, convertToLayer } = lq;
@@ -24,7 +24,7 @@ define([
 
     const { CheckSelectedFrames } = checkUtil;
 
-    const {getKeyFrames}=kfq;
+    const { getKeyFrames } = kfq;
 
     /**
      * 安全的转换为关键帧

@@ -1,4 +1,4 @@
-// 这个文件由脚本 03.随机水印.ts 自动生成，任何手动修改都将会被覆盖.
+// 这个文件由脚本 03.!!!随机水印.ts 自动生成，任何手动修改都将会被覆盖.
 require(["require", "_exports", "checkUtil", "COMPATIBILITY", "StringPaser", "store-js", "COMPATIBILITY", "JSFLConstants", "ElementQuery", "KeyFrameOperation", "random", "SAT", "SAT", "satUtil", "EaseCurve", "loglevel", "linq"], function (require, exports, checkUtil_1, COMPATIBILITY_1, StringPaser_1, store, COMPATIBILITY_2, JSFLConstants, ElementQuery_1, KeyFrameOperation_1, random, sat, SAT_1, satUtil_1, EaseCurve_1, log, Enumerable) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -53,14 +53,14 @@ require(["require", "_exports", "checkUtil", "COMPATIBILITY", "StringPaser", "st
     }
     var ns_store = store.namespace("04-走路-短腿");
     function generateSegments(totalFrameCount, intervalFrames) {
-        return Enumerable
+        return (Enumerable
             .range(0, Math.ceil(totalFrameCount / intervalFrames))
             .select(function (i) {
             var start = i * intervalFrames;
             var end = Math.min(start + intervalFrames - 1, totalFrameCount - 1);
             return [start, end];
         })
-            .toArray();
+            .toArray());
     }
     function Main() {
         var allowToContinue = confirm("暂时可能闪退，请存档后在确认，是否继续？");
@@ -76,8 +76,7 @@ require(["require", "_exports", "checkUtil", "COMPATIBILITY", "StringPaser", "st
             ns_store.set("WATERMARK_TEXT", WATERMARK_TEXT);
             ns_store.set("WATERMARK_ALPHA", WATERMARK_ALPHA);
             (0, COMPATIBILITY_2.__WEBPACK_COMPATIBILITY_RUN_SCRIPT_RELATIVE_PATH__)("./03.随机水印/创建随机水印元件.generated.jsfl");
-            WATERMARK_LAYER_INDEX = ns_store.get("WATERMARK_LAYER_INDEX");
-            log.info("当前水印图层索引：" + WATERMARK_LAYER_INDEX);
+            WATERMARK_LAYER_INDEX = curLayerIndex;
             timeline.setSelectedFrames([WATERMARK_LAYER_INDEX, FRAME_1, FRAME_1 + 1]);
             var selection_1 = doc.selection;
             SYMBOL_FRAME_COUNT = (0, ElementQuery_1.getFrameCount)(selection_1[0]);

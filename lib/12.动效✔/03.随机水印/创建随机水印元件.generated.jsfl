@@ -54,7 +54,6 @@ require(["require", "_exports", "checkUtil", "ElementAnim", "SAT", "COMPATIBILIT
         })();
         var WATERMARK_ALPHA = ns_store.get("WATERMARK_ALPHA") || 30;
         WATERMARK_LAYER_INDEX = (0, LayerOperation_1.addNewLayerSafety)(timeline, WATERMARK_LAYER_NAME);
-        ns_store.set("WATERMARK_LAYER_INDEX", WATERMARK_LAYER_INDEX);
         timeline.setSelectedFrames([WATERMARK_LAYER_INDEX, 0, 1]);
         if (library.itemExists(RANDOM_WATERMARK)) {
             var ORIGINAL_POSITION = new SAT_1.Vector();
@@ -74,6 +73,7 @@ require(["require", "_exports", "checkUtil", "ElementAnim", "SAT", "COMPATIBILIT
             EditWatermark();
         }
         doc.setInstanceAlpha(WATERMARK_ALPHA);
+        timeline.setSelectedFrames([WATERMARK_LAYER_INDEX, 0, 1]);
     }
     Main();
 });

@@ -4,7 +4,7 @@
  * @email: 3101829204@qq.com
  * @date: 2025/7/20 17:16
  * @project: AnJsflScript
- * @description:
+ * @description:  可能闪退,谨慎使用,希望有 大佬 能提供解决方案
  */
 
 // region import
@@ -86,9 +86,11 @@ function getFilters() {
 }
 
 const KEY_FRAMES = [FRAME_1, FRAME_2, FRAME_3, FRAME_4, FRAME_5];
+// const KEY_FRAMES = [0, 1, 2, 3, 4];
 
 function EditWatermark() {
     let filters = getFilters();
+
     // console.log(filters);
 
     // return;
@@ -110,7 +112,7 @@ function EditWatermark() {
 
     // timeline.convertToKeyframes(KEY_FRAMES[0], KEY_FRAMES[KEY_FRAMES.length - 1]+1)
     convertToKeyframesSafety(timeline, KEY_FRAMES);
-    // timeline.convertToKeyframes(0,6);
+    // timeline.convertToKeyframes(0,5);
 
     KEY_FRAMES.forEach((frameIndex, index) => {
         let filter = [filters[index]];
@@ -134,10 +136,9 @@ function Main() {
     // let cookieStr = ns_store.get("WATERMARK_TEXT");
     //
 
-
     // const WATERMARK_TEXT = decodeUnicode(cookieStr) || "随机水印";
     const WATERMARK_TEXT = (() => {
-        let cookieStr:string = ns_store.get("WATERMARK_TEXT");
+        let cookieStr: string = ns_store.get("WATERMARK_TEXT");
         if (cookieStr) {
             let str = decodeUnicode(cookieStr);
             return str;
@@ -154,7 +155,7 @@ function Main() {
     // 创建水印图层
     WATERMARK_LAYER_INDEX = addNewLayerSafety(timeline, WATERMARK_LAYER_NAME);
 
-    ns_store.set("WATERMARK_LAYER_INDEX", WATERMARK_LAYER_INDEX);
+    // ns_store.set("WATERMARK_LAYER_INDEX", WATERMARK_LAYER_INDEX);
 
     timeline.setSelectedFrames([WATERMARK_LAYER_INDEX, 0, 1]);
 
@@ -163,8 +164,7 @@ function Main() {
         const ORIGINAL_POSITION = new Vector();
         library.addItemToDocument(ORIGINAL_POSITION, RANDOM_WATERMARK);
         playSingleFrame();
-    }
-    else {
+    } else {
         let rect = new Rectangle(0, 0, 100, 100);
         doc.addNewText(rect, WATERMARK_TEXT);
 
@@ -184,6 +184,8 @@ function Main() {
 
     // 设置透明度
     doc.setInstanceAlpha(WATERMARK_ALPHA);
+
+    timeline.setSelectedFrames([WATERMARK_LAYER_INDEX, 0, 1]);
 }
 
 Main();

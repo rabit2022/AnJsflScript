@@ -4,7 +4,7 @@
  * @email: 3101829204@qq.com
  * @date: 2025/7/20 17:20
  * @project: AnJsflScript
- * @description:  可能闪退，创建随机水印元件.ts 文件 暂时有bug，待修复
+ * @description:  ！！！可能闪退，创建随机水印元件.ts 文件 暂时有bug，待修复
  */
 
 // region import
@@ -129,15 +129,17 @@ function checkXMLPanel() {
 var ns_store = store.namespace("04-走路-短腿");
 
 function generateSegments(totalFrameCount: number, intervalFrames: number): number[][] {
-    return Enumerable
-        // @ts-ignore
-        .range(0, Math.ceil(totalFrameCount / intervalFrames))
-        .select((i) => {
-            const start = i * intervalFrames;
-            const end = Math.min(start + intervalFrames - 1, totalFrameCount - 1);
-            return [start, end];
-        })
-        .toArray();
+    return (
+        Enumerable
+            // @ts-ignore
+            .range(0, Math.ceil(totalFrameCount / intervalFrames))
+            .select((i) => {
+                const start = i * intervalFrames;
+                const end = Math.min(start + intervalFrames - 1, totalFrameCount - 1);
+                return [start, end];
+            })
+            .toArray()
+    );
 }
 
 function Main() {
@@ -164,8 +166,9 @@ function Main() {
 
         // 获取参数
         // ns_store.set("WATERMARK_LAYER_INDEX", WATERMARK_LAYER_INDEX);
-        WATERMARK_LAYER_INDEX = ns_store.get("WATERMARK_LAYER_INDEX");
-        log.info("当前水印图层索引：" + WATERMARK_LAYER_INDEX);
+        // WATERMARK_LAYER_INDEX = ns_store.get("WATERMARK_LAYER_INDEX");
+        // log.info("当前水印图层索引：" + WATERMARK_LAYER_INDEX);
+        WATERMARK_LAYER_INDEX=curLayerIndex;
 
         timeline.setSelectedFrames([WATERMARK_LAYER_INDEX, FRAME_1, FRAME_1 + 1]); // 选中水印图层
 
@@ -203,7 +206,10 @@ function Main() {
                 let selection = doc.selection;
                 let selectedElement = selection[0];
 
-                log.info(selectedElement.libraryItem.name, random.randint(0, SYMBOL_FRAME_COUNT - 1));
+                log.info(
+                    selectedElement.libraryItem.name,
+                    random.randint(0, SYMBOL_FRAME_COUNT - 1)
+                );
 
                 selectedElement.firstFrame = random.randint(0, SYMBOL_FRAME_COUNT - 1);
             }
