@@ -7,12 +7,16 @@
  * @description: ${END}
  */
 
+// region import
+// ===============Core Library======================
 // prettier-ignore
 // @ts-expect-error
 import {CheckDom, CheckSelection, CheckSelectedFrames, CheckSelectedLayers} from "checkUtil";
 
 
+// ===============Third Party======================
 import log = require("loglevel");
+// endregion import
 
 
 // region doc

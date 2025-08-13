@@ -109,29 +109,29 @@ def process_folder(folder_path: str, extensions: list, replace_path: str, target
 if __name__ == "__main__":
     AnJsflScript_path = r"H:\project\沙雕动画\AnJsflScript"
 
-    # 输入参数
-    folder_path = os.path.join(AnJsflScript_path, "Third")
-    extensions = [".jsfl"]
-    replace_path = folder_path
-    target_name = "Third"
-    start_keyword = ""
-    # 处理文件夹并生成文本
-    output_text = process_folder(folder_path, extensions, replace_path, target_name, start_keyword)
-
-    # 将结果复制到剪贴板
-    copy_to_clipboard(output_text)
-
     # # 输入参数
-    # folder_path = os.path.join(AnJsflScript_path, "Core")
+    # folder_path = os.path.join(AnJsflScript_path, "Third")
     # extensions = [".jsfl"]
     # replace_path = folder_path
-    # target_name = "Core"
+    # target_name = "Third"
     # start_keyword = ""
     # # 处理文件夹并生成文本
     # output_text = process_folder(folder_path, extensions, replace_path, target_name, start_keyword)
     #
     # # 将结果复制到剪贴板
     # copy_to_clipboard(output_text)
+
+    # 输入参数
+    folder_path = os.path.join(AnJsflScript_path, "Core")
+    extensions = [".jsfl"]
+    replace_path = folder_path
+    target_name = "Core"
+    start_keyword = ""
+    # 处理文件夹并生成文本
+    output_text = process_folder(folder_path, extensions, replace_path, target_name, start_keyword)
+
+    # 将结果复制到剪贴板
+    copy_to_clipboard(output_text)
 
     # # 输入参数
     # folder_path = r"F:\04_ps\沙雕动画\_素材库\WindowSWF-master\WindowSWF-master\AnJsflScript\types"
